@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
+		<title>Ver Emergencia</title>
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css" />
+	  	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<link rel="stylesheet" href="/resources/demos/style.css" />
+		<script>
+			$(function() {
+				$( "#tabs" ).tabs();
+			});
+		</script>
+	</head>
+	<body>
+		<div id="container">
+			<div id="header">
+	        	<img alt="logo" src="./images/logo.png"/>
+	        </div>         
+        	<div id="menu">
+				<div class="menuitemHome" ><a href="mainMenu.html">Home</a></div>	
+				<div class="menuitemSalir"><a href="index.html">Salir</a></div>	
+        	</div>        
+			<div id="leftmenu">
+				<div id="leftmenu_top"></div>
+				<div id="leftmenu_main">
+					<ul>
+					    <li><a href="estimations.html">Presupuestos</a></li>
+					    <li><a class="active" href="emergencies.html">Emergencia</a></li>
+						<li><a href="admission.html">Admisión</a></li>
+					    <li><a href="hospitalization.html">Hospitalización</a></li>
+						<li><a href="supplies.html">Suministros</a></li>
+						<li><a  href="bank.html">Cajas y Bancos</a></li>
+						<li><a href="accounts.html">Cuentas</a></li>
+						<li><a href="laboratory.html">Laboratorio</a></li>   
+					</ul>
+				</div>
+	            <div id="leftmenu_bottom"></div>
+	        </div>
+        	<div id="content" style="position:absolute;">	
+	        	<h2>Ver Emergencia:</h2>
+				<br>
+				<div id="tabs">
+					<ul>
+					    <li><a href="#tabs-1">Paciente</a></li>
+					    <li><a href="#tabs-2">Protocolos</a></li>
+					    <li><a href="#tabs-3">Servicios</a></li>
+					    <li><a href="#tabs-4">Suministros</a></li>
+			  		</ul>
+  					<div id="tabs-1">
+  						<br>
+					    <p>
+					    Cédula: V-12345678<br><br>
+					    Nombre: Ana Rojas<br><br>
+					    Fecha de Ingreso: 20/06/2013 07:35 AM<br><br>
+					    Ubicación: Planta Baja<br><br>
+					    Cama: Camilla 1<br><br>
+					    </p>
+  					</div>
+  					<div id="tabs-2">
+  						<br>
+					    <p>
+					    * Emergencia<br><br>
+					    </p>
+  					</div>
+  					<div id="tabs-3">
+  						<br>
+					    <table id="sweetTable">
+							<tbody>
+								<tr>
+									<th>Servicio</th>
+									<th>Precio</th>
+								</tr>				
+								<tr>
+									<td>Consulta de Emergencia</td>
+									<td>Bs 993,60</td>
+								</tr>				
+								<tr>
+									<td>Honorario Equipo de Emergencia</td>
+									<td>Bs 329,60</td>
+								</tr>				
+								<tr>
+									<td>Servicios Médicos</td>
+									<td>Bs 2572,45</td>
+								</tr>				
+								<tr id="totalTr">
+									<td>*** MONTO TOTAL ***</td>
+									<td>Bs 3898,65</td>
+								</tr>
+							</tbody>
+						</table>
+						<br>
+					</div>
+					<div id="tabs-4">
+						<br>
+					    <table id="sweetTable">
+							<tbody>
+								<tr>
+									<th>Suministro</th>
+									<th>Cantidad</th>
+								</tr>				
+								<tr>
+									<td>Guantes de Examen N/Esteril M</td>
+									<td>1</td>
+								</tr>				
+								<tr>
+									<td>Alcohol</td>
+									<td>1</td>
+								</tr>				
+								<tr>
+									<td>Algodón</td>
+									<td>3</td>
+								</tr>				
+								<tr>
+									<td>Sábanas de Camilla</td>
+									<td>1</td>
+								</tr>
+							</tbody>
+						</table>
+						<br>
+					</div>
+				</div>
+				<div id="botonera">
+				<form action="printEmergency.html">
+				<div id="botonP">
+							<input type="submit"  class="button"  name="sbmtButton" value="Imprimir" style="margin-left:30%; margin-top: 5px;"/>
+				</div>	
+				</form>
+				<form>
+					<div id="botonV" style="position:relative; margin-left: 250px; top: -22px;">
+							<input type="button" class="button" value="Regresar" style="margin-left:40%;" onClick="javascript:history.back();" style="margin-left:40%;" />		
+					</div>	
+				</form>
+			</div>	
+			</div>
+		</div>
+	</body>
+</html>

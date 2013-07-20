@@ -1,0 +1,303 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
+		<title>Editar Presupuesto</title>
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css" />
+	  	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<script type="text/javascript" language="javascript" src="./js/jquery.leanModal.min.js"></script>
+		<link rel="stylesheet" href="/resources/demos/style.css" />
+		<script>
+			$(function() {
+				$( "#tabs" ).tabs();
+			});
+		</script>
+		<script type="text/javascript">
+		var idUser;
+				
+		$(function() {
+			$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x, .buttonPopUpClose " });	
+			
+		});
+		
+		function loadVars(var1, var2) {
+			idUser = var1;
+			$('.cliente').text(var2);
+			
+		};
+		
+		function setV(f){
+			f.elements['userId'].value = idUser;
+			return true;
+		}
+		
+		
+		</script>
+	</head>
+	<body>
+		<div id="container">
+			<div id="header">
+	        	<img alt="logo" src="./images/logo.png"/>
+	        </div>         
+        	<div id="menu">
+				<div class="menuitemHome" ><a href="mainMenu.html">Home</a></div>	
+		    	<ul>
+	            	<li class="menuitem"><a href="#">Crear Presupuesto</a></li>
+	            </ul>
+				<div class="menuitemSalir"><a href="index.html">Salir</a></div>	
+        	</div>        
+			<div id="leftmenu">
+				<div id="leftmenu_top"></div>
+				<div id="leftmenu_main">
+					<ul>
+					    <li><a class="active" href="estimations.html">Presupuestos</a></li>
+					    <li><a href="emergencies.html">Emergencia</a></li>
+						<li><a href="admission.html">Admisión</a></li>
+					    <li><a href="hospitalization.html">Hospitalización</a></li>
+						<li><a href="supplies.html">Suministros</a></li>
+						<li><a href="bank.html">Cajas y Bancos</a></li>
+						<li><a href="accounts.html">Cuentas</a></li>
+						<li><a href="laboratory.html">Laboratorio</a></li> 
+					</ul>
+				</div>
+	            <div id="leftmenu_bottom"></div>
+	        </div>
+        	<div id="content" style="position:absolute;">	
+	        	<h2>Editar Presupuesto:</h2>
+				<br>
+				<div id="tabs">
+					<ul>
+					    <li><a href="#tabs-1">Paciente</a></li>
+					    <li><a href="#tabs-2">Protocolos</a></li>
+					    <li><a href="#tabs-3">Servicios</a></li>
+			  		</ul>
+  					<div id="tabs-1">
+  						<br>
+					    <p>
+					    Cédula: V-12345678<br><br>
+					    Nombre: Ana Rojas<br><br>
+					    Departamento: 
+					    	<select id="departmentId" name="departmentId">
+								<option value="337" >ALERGOLOGÍA</option>
+							 	<option value="660" >ANALISTAS DE SEGUROS</option>
+								<option value="338" >ANESTESIOLOGÍA</option>
+								<option value="340" >BIOANÁLISIS</option>
+								<option value="240" >CARDIOLOGÍA</option>
+								<option value="342" >CARDIOVASCULAR PERIFÉRICO</option>
+								<option value="343" >CIRUGÍA BARIÁTRICA</option>
+								<option value="344" >CIRUGÍA COLUMNA</option>
+								<option value="345" >CIRUGÍA DE TÓRAX</option>
+								<option value="887" >CIRUGIA EN ORTOPEDIA INFANTIL</option>
+								<option value="235" >CIRUGIA GENERAL</option>
+								<option value="346" >CIRUGÍA GINECOLÓGICA</option>
+								<option value="544" >CIRUGÍA LAPAROSCOPICA</option>
+								<option value="348" >CIRUGÍA MÁXILO-FACIAL </option>
+								<option value="349" >CIRUGÍA ONCOLÓGICA </option>
+								<option value="350" >CIRUGÍA PEDIÁTRICA</option>
+								<option value="351" >CIRUGÍA PLÁSTICA, ESTÉTICA Y RECONSTRUCTIVA</option>
+								<option value="935" >COLOPROCTOLOGÍA</option>
+								<option value="658" >COORDINADOR DE APS / SUP. DE SECRETARIAS</option>
+								<option value="236" >DERMATOLOGÍA</option>
+								<option value="352" >ENDOCRINOLOGÍA</option>
+								<option value="231" >FISIATRÍA</option>
+								<option value="353" >FISIOTERAPEUTAS</option>
+								<option value="238" >GASTROENTEROLOGÍA</option>
+								<option value="418" >GASTROENTEROLOGÍA INFANTIL</option>
+								<option value="355" >GINECO OBSTETRICIA</option>
+								<option value="356" >GINECOLOGÍA CLÍNICA</option>
+								<option value="239" >HEMATOLOGÍA</option>
+								<option value="357" >INFERTILIDAD</option>
+								<option value="419" >LABORATORIO</option>
+								<option value="359" >MASTOLOGÍA</option>
+								<option value="245" >MEDICINA INTERNA</option>
+								<option value="362" >MÉDICOS RESIDENTES</option>
+								<option value="656" >NEFROLOGIA DE ADULTOS</option>
+								<option value="364" >NEONATOLOGÍA</option>
+								<option value="365" >NEUMONOLOGÍA</option>
+								<option value="366" >NEUMONOLOGÍA PEDÍATRICA</option>
+								<option value="367" >NEUROCIRUGÍA</option>
+								<option value="233" >NEUROLOGÍA</option>
+								<option value="229" >NUTRICIÓN</option>
+								<option value="232" >OFTALMOLOGÍA</option>
+								<option value="370" >ONCOLOGÍA MÉDICA</option>
+								<option value="244" >OTORRINOLARINGOLOGÍA</option>
+								<option value="371" >PATOLOGÍA</option>
+								<option value="372" >PEDIATRÍA</option>
+								<option value="373" >PROCTOLOGÍA</option>
+								<option value="374" >PSQUIATRÍA</option>
+								<option value="375" >RADIOLOGÍA, IMAGENOLOGÍA</option>
+								<option value="376" >REUMATOLOGÍA</option>
+								<option value="659" >SECRETARIAS</option>
+								<option value="378" >TÉCNICOS RADIÓLOGOS</option>
+								<option value="379" >TOMOGRAFÍA Y RESONANCIA</option>
+								<option value="657" >TRAUMATOLOGIA ESPECIALISTA EN COLUMNA</option>
+								<option value="380" >TRAUMATOLOGÍA Y ORTOPEDIA</option>
+								<option value="242" >UROLOGÍA</option>
+								<option value="381" >UROLOGÍA PEDIÁTRICA</option>
+					    	</select><br><br>
+					    Médico Tratante: <input type="text" name="doctorName" id="doctorName" value="Ricardo García"><br><br>
+					    Responsable del Pago: <input type="text" name="insuranceName" id="insuranceName" value="La Previsora" readonly>
+					    <a id="go" rel="leanModal" href="#payment-resp" style="color: #f7941e; font-weight: bold;">
+							<input type="button"id="paymentResp" value="Cambiar" >
+						</a> 
+					    
+					    
+					    <br><br>
+					    </p>
+  					</div>
+  					<div id="tabs-2">
+  						<div style="text-align:right;">
+	  						<a id="go" style="color: #006c92; font-weight: bold;">
+								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Protocolo
+							</a>						
+  						</div>
+  						<br>
+  						<br>
+  						<table id="sweetTable">
+							<tbody>
+								<tr>
+									<th>Protocolo</th>
+									<th>Acción</th>
+								</tr>				
+								<tr>
+									<td>Histerectomía</td>
+									<td>
+										<a id="go" rel="leanModal" href="#deleteProtocol" style="color: #f7941e; font-weight: bold;" 
+											onclick="return loadVars(1001,'Histerectomía');" >
+											<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
+										</a> 
+									</td>
+								</tr>				
+								<tr>
+									<td>Colecistectomía</td>
+									<td>
+										<a id="go" rel="leanModal" href="#deleteProtocol" style="color: #f7941e; font-weight: bold;" 
+											onclick="return loadVars(1001,'Colecistectomía');" >
+											<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
+										</a>
+									</td>
+								</tr>				
+								<tr>
+									<td>Apendicectomía</td>
+									<td>
+										<a id="go" rel="leanModal" href="#deleteProtocol" style="color: #f7941e; font-weight: bold;" 
+											onclick="return loadVars(1001,'Apendicectomía');" >
+											<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
+										</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<br>
+  					</div>
+  					<div id="tabs-3">
+  						<div style="text-align:right;">
+	  						<a id="go" style="color: #006c92; font-weight: bold;">
+								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Servicio
+							</a>						
+  						</div>
+  						<br>
+  						<br>
+					    <table id="sweetTable">
+							<tbody>
+								<tr>
+									<th>Servicio</th>
+									<th>Precio</th>
+									<th>Acción</th>
+								</tr>				
+								<tr>
+									<td>Hospitalización</td>
+									<td>Bs 3472,00</td>
+									<td>
+										<a id="go" rel="leanModal" href="#deleteService" style="color: #f7941e; font-weight: bold;" 
+											onclick="return loadVars(1001,'Hospitalización');" >
+											<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
+										</a>
+									</td>
+								</tr>				
+								<tr>
+									<td>Anestesia Peridural</td>
+									<td>Bs 2727,50</td>
+									<td>
+										<a id="go" rel="leanModal" href="#deleteService" style="color: #f7941e; font-weight: bold;" 
+											onclick="return loadVars(1001,'Anestesia Peridural');" >
+											<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
+										</a>
+									</td>
+								</tr>				
+								<tr>
+									<td>Servicios Médicos</td>
+									<td>Bs 1021,90</td>
+									<td>
+										<a id="go" rel="leanModal" href="#deleteService" style="color: #f7941e; font-weight: bold;" 
+											onclick="return loadVars(1001,'Servicios Médicos');" >
+											<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
+										</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<br>
+					</div>
+				</div>
+				<div id="botonera">
+				<form action="estimations.html">
+				<div id="botonP">
+							<input type="submit"  class="button"  name="sbmtButton" value="Modificar" style="margin-left:30%; margin-top: 5px;"/>
+				</div>	
+				</form>
+				<form>
+					<div id="botonV" style="position:relative; margin-left: 250px; top: -22px;">
+							<input type="button" class="button" value="Regresar" style="margin-left:40%;" onClick="javascript:history.back();" style="margin-left:40%;" />		
+					</div>	
+				</form>
+			</div>
+			</div>
+		</div>
+		<div id="deleteProtocol">
+			<div id="signup-ct">
+				<h3 id="see_id" class="sprited" > Eliminar Protocolo</h3>
+				<br><br>
+				<span>¿Está seguro que desea eliminar el protocolo '<span class="cliente"></span>'? </span> <br><br>
+				<div id="signup-header">
+					<a class="close_x" id="close_x"  href="#"></a>
+				</div>
+				<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+				<div class="btn-fld">
+					<input type="submit" class="buttonPopUpClose"   name="sbmtButton" value="Aceptar"  />
+				</div>
+			</div>
+		</div>
+		<div id="deleteService">
+			<div id="signup-ct">
+				<h3 id="see_id" class="sprited" > Eliminar Servicio</h3>
+				<br><br>
+				<span>¿Está seguro que desea eliminar el servicio '<span class="cliente"></span>'? </span> <br><br>
+				<div id="signup-header">
+					<a class="close_x" id="close_x"  href="#"></a>
+				</div>
+				<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+				<div class="btn-fld">
+					<input type="submit" class="buttonPopUpClose"  name="sbmtButton" value="Aceptar"  />
+				</div>
+			</div>
+		</div>
+		
+		<div id="payment-resp">
+			<div id="a">
+				<h3 id="see_id" class="sprited" > Escoger responsable de pago</h3>
+				<br><br>
+				<span>¿Está seguro que desea eliminar el servicio '<span class="cliente"></span>'? </span> <br><br>
+				<div id="signup-header">
+					<a class="close_x" id="close_x"  href="#"></a>
+				</div>
+				<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+				<div class="btn-fld">
+					<input type="submit" class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

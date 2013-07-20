@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
+		<title>Ver Admisión</title>
+		<link rel="stylesheet" href="/resources/demos/style.css" />
+	</head>
+	<body>
+		<div id="container">
+			<div id="header">
+	        	<img alt="logo" src="./images/logo.png"/>
+	        </div>         
+        	<div id="menu">
+				<div class="menuitemHome" ><a href="mainMenu.html">Home</a></div>	
+		    	<ul>
+	            	<li class="menuitem"><a href="#">Admitir Paciente</a></li>
+	            </ul>
+				<div class="menuitemSalir"><a href="index.html">Salir</a></div>	
+        	</div>        
+			<div id="leftmenu">
+				<div id="leftmenu_top"></div>
+				<div id="leftmenu_main">
+					<ul>
+					    <li><a href="estimations.html">Presupuestos</a></li>
+					    <li><a href="emergencies.html">Emergencia</a></li>
+						<li><a class="active" href="admission.html">Admisión</a></li>
+					    <li><a href="hospitalization.html">Hospitalización</a></li>
+						<li><a href="supplies.html">Suministros</a></li>
+						<li><a  href="bank.html">Cajas y Bancos</a></li>
+						<li><a href="accounts.html">Cuentas</a></li>
+						<li><a href="laboratory.html">Laboratorio</a></li>  
+					</ul>
+				</div>
+	            <div id="leftmenu_bottom"></div>
+	        </div>
+        	<div id="content" style="position:absolute;">	
+	        	<h2>Ver Admisión:</h2>
+				<br>
+				<p>
+			    Cédula: V-12345678<br><br>
+			    Nombre: Ana Rojas<br><br>
+			    Responsable del Pago: Multinacional de Seguros, C.A.<br><br>
+			    Motivo de Admisión: Dolor abdominal<br><br>
+			    Ubicación: Emergencias<br><br>
+			    N° Presupuesto: 1001
+			    <a href="showEstimation.html" style="color: transparent" >
+					<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
+				</a>
+			    <br><br>
+			    </p>
+				<div id="botonera">
+				<form action="printAdmission.html">
+				<div id="botonP">
+							<input type="submit"  class="button"  name="sbmtButton" value="Imprimir" style="margin-left:30%; margin-top: 5px;"/>
+				</div>	
+				</form>
+				<form>
+					<div id="botonV" style="position:relative; margin-left: 250px; top: -22px;">
+							<input type="button" class="button" value="Regresar" style="margin-left:40%;" onClick="javascript:history.back();" style="margin-left:40%;" />		
+					</div>	
+				</form>
+			</div>
+			</div>
+		</div>
+	</body>
+</html>
