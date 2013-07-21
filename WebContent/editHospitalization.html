@@ -16,9 +16,26 @@
 		</script>
 		<script type="text/javascript">
 		var idUser;
-				
-		$(function() {
+		var prevPage = "";
+		var prevButton = "";
+		
+		$(document).on('click','#result #go',function(){
 			$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x, .buttonPopUpClose" });		
+			
+		});
+		
+		$(document).on('click','#result #editEvolution',function(){
+			$('#result').load('./editEvolutionDetail.html');	
+			$("#backButton").show();
+			prevPage = "editEvolution.html";
+			prevButton = "evolution";
+		});
+		
+		$(document).on('click','#vitalSigns #editVital',function(){
+			$('#vitalSigns').load('./editVitalSignsDetail.html');	
+			$("#backButton").show();
+			prevPage = "editVitalSigns.html";
+			prevButton = "vital";
 		});
 		
 		function loadVars(var1, var2) {
@@ -31,6 +48,23 @@
 			f.elements['userId'].value = idUser;
 			return true;
 		}
+		
+		$(document).ready(function() {
+			prevPage += ' #contentAux';
+	
+			$('#result').load('./editEvolution.html #contentAux');
+			$('#vitalSigns').load('./editVitalSigns.html #contentAux');
+			
+			
+			$("#backButton").click(function() {
+				if (prevButton != "evolution")
+					$('#vitalSigns').load(prevPage);
+				else
+					$('#result').load(prevPage);
+				$(this).hide();
+			});
+			
+		});
 		</script>
 	</head>
 	<body>
@@ -67,26 +101,44 @@
 					    <li><a href="#tabs-2">Protocolos</a></li>
 					    <li><a href="#tabs-3">Servicios</a></li>
 					    <li><a href="#tabs-4">Suministros</a></li>
-					    <li><a href="#tabs-5">Evaluación</a></li>
+					    <li><a href="#tabs-5">Evolución</a></li>
 					    <li><a href="#tabs-6">Signos Vitales</a></li>
 			  		</ul>
   					<div id="tabs-1">
   						<br>
-					    <p>
-					    Cédula: V-12345678<br>
-					    Nombre: Ana Rojas<br>
-					    Fecha de Ingreso: 20/06/2013 07:35 AM<br>
-					    Ubicación:
-					    <select id="bedLocationId" name="bedLocationId">
-							<option value="337" >UCI</option>
-						</select>
-						<br>
-					    Cama:
-						<select id="bedId" name="bedId">
-							<option value="337" >Cama 1</option>
-						</select>
-						<br><br>
-					    Departamento: 
+					    <table style="margin: 0px;">
+							<tr>
+								<td>Cédula:</td>
+								<td>V-12345678</td>
+							</tr>
+							<tr>
+								<td>Nombre:</td>
+								<td>Ana Rojas</td>
+							</tr>
+							<tr>
+								<td>Fecha de Ingreso: </td>
+								<td>20/06/2013 07:35 AM</td>
+							</tr>
+							<tr>
+								<td> Ubicación: </td>
+								<td>
+									<select id="bedLocationId" name="bedLocationId">
+									<option value="337" >UCI</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td>  Cama: </td>
+								<td>
+									<select id="bedId" name="bedId">
+										<option value="337" >Cama 1</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td>   Departamento:  </td>
+								<td>
+									
 				    	<select id="departmentId" name="departmentId">
 							<option value="337" >ALERGOLOGÍA</option>
 						 	<option value="660" >ANALISTAS DE SEGUROS</option>
@@ -145,11 +197,24 @@
 							<option value="242" >UROLOGÍA</option>
 							<option value="381" >UROLOGÍA PEDIÁTRICA</option>
 				    	</select>
-				    	<br>				    	
-					    Médico Tratante: <input type="text" name="doctorName" id="doctorName" value="Ricardo García"><br>
-					    Responsable del Pago: <input type="text" name="insuranceName" id="insuranceName" value="La Previsora"><br><br>
-					    </p>
-  					</div>
+								</td>
+							</tr>
+							<tr>
+								<td>   Médico Tratante: </td>
+								<td>
+									 <input type="text" name="doctorName" id="doctorName" value="Ricardo García"><br>
+					   			</td>
+							</tr>
+							<tr>
+								<td>    Responsable del Pago: </td>
+								<td>
+							  	 <input type="text" name="insuranceName" id="insuranceName" value="La Previsora"><br><br>
+					 			</td>
+							</tr>
+							
+						</table>
+					     <br>
+					</div>
   					<div id="tabs-2">
   						<div style="text-align:right;">
 	  						<a id="go" href="#" style="color: #006c92; font-weight: bold;">
@@ -319,176 +384,27 @@
 								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Registro
 							</a>						
   						</div>
-  						<br>
-  						<br>
-					    <table id="sweetTable">
-							<tbody>
-								<tr>
-									<th>Fecha</th>
-									<th>Médico</th>
-									<th>Acción</th>
-								</tr>				
-								<tr>
-									<td>27/06/2013 07:35 PM</td>
-									<td>Ricardo García</td>
-									<td>
-										<a href="showEvaluation.html" style="color: transparent" >
-											<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
-										</a>										
-										<a href="showEvaluation.html" style="color: transparent" >
-											<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Ver Detalle" />
-										</a>										
-										<a id="go" rel="leanModal" href="#deleteEvaluation" style="color: #f7941e; font-weight: bold;" 
-											onclick="return loadVars(1001,'Ricardo García');" >
-											<img alt="logo" src="./images/delete.png"  height="16" width="16" title="Eliminar" />
-										</a>
-									</td>
-								</tr>				
-								<tr>
-									<td>23/06/2013 09:40 AM</td>
-									<td>Javier Fernandez</td>
-									<td>										
-										<a href="#" style="color: transparent" >
-											<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
-										</a>										
-										<a href="showEvaluation.html" style="color: transparent" >
-											<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Ver Detalle" />
-										</a>										
-										<a id="go" rel="leanModal" href="#deleteEvaluation" style="color: #f7941e; font-weight: bold;" 
-											onclick="return loadVars(1001,'Javier Fernandez');" >
-											<img alt="logo" src="./images/delete.png"  height="16" width="16" title="Eliminar" />
-										</a>
-									</td>
-								</tr>				
-								<tr>
-									<td>20/06/2013 07:35 AM</td>
-									<td>Ricardo García</td>
-									<td>										
-										<a href="#" style="color: transparent" >
-											<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
-										</a>										
-										<a href="showEvaluation.html" style="color: transparent" >
-											<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Ver Detalle" />
-										</a>										
-										<a id="go" rel="leanModal" href="#deleteEvaluation" style="color: #f7941e; font-weight: bold;" 
-											onclick="return loadVars(1001,'Ricardo García');" >
-											<img alt="logo" src="./images/delete.png"  height="16" width="16" title="Eliminar" />
-										</a>
-									</td>
-								</tr>				
-								<tr>
-									<td>19/06/2013 10:06 AM</td>
-									<td>Ricardo García</td>
-									<td>										
-										<a href="#" style="color: transparent" >
-											<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
-										</a>										
-										<a href="showEvaluation.html" style="color: transparent" >
-											<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Ver Detalle" />
-										</a>										
-										<a id="go" rel="leanModal" href="#deleteEvaluation" style="color: #f7941e; font-weight: bold;" 
-											onclick="return loadVars(1001,'Ricardo García');" >
-											<img alt="logo" src="./images/delete.png"  height="16" width="16" title="Eliminar" />
-										</a>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						<br>
-					</div>
+  						<div id="result"></div>
+  					</div>	
 					<div id="tabs-6">
 						<div style="text-align:right;">
 	  						<a id="go" href="#" style="color: #006c92; font-weight: bold;">
 								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Registro
 							</a>						
   						</div>
-  						<br>
-  						<br>
-					    <table id="sweetTable">
-							<tbody>
-								<tr>
-									<th>Fecha de Toma</th>
-									<th>Hora de Toma</th>
-									<th>Acción</th>
-								</tr>				
-								<tr>
-									<td>27/06/2013</td>
-									<td>07:35 PM</td>
-									<td>
-										<a href="showVitalSign.html" style="color: transparent" >
-											<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
-										</a>										
-										<a href="showEvaluation.html" style="color: transparent" >
-											<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Ver Detalle" />
-										</a>										
-										<a id="go" rel="leanModal" href="#deleteVitalSign" style="color: #f7941e; font-weight: bold;" 
-											onclick="return loadVars(1001,'27/06/2013 07:35 PM');" >
-											<img alt="logo" src="./images/delete.png"  height="16" width="16" title="Eliminar" />
-										</a>
-									</td>
-								</tr>				
-								<tr>
-									<td>23/06/2013</td>
-									<td>09:40 AM</td>
-									<td>										
-										<a href="#" style="color: transparent" >
-											<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
-										</a>										
-										<a href="showEvaluation.html" style="color: transparent" >
-											<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Ver Detalle" />
-										</a>										
-										<a id="go" rel="leanModal" href="#deleteVitalSign" style="color: #f7941e; font-weight: bold;" 
-											onclick="return loadVars(1001,'23/06/2013 09:40 AM');" >
-											<img alt="logo" src="./images/delete.png"  height="16" width="16" title="Eliminar" />
-										</a>
-									</td>
-								</tr>				
-								<tr>
-									<td>20/06/2013</td>
-									<td>07:35 AM</td>
-									<td>										
-										<a href="#" style="color: transparent" >
-											<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
-										</a>										
-										<a href="showEvaluation.html" style="color: transparent" >
-											<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Ver Detalle" />
-										</a>										
-										<a id="go" rel="leanModal" href="#deleteVitalSign" style="color: #f7941e; font-weight: bold;" 
-											onclick="return loadVars(1001,'20/06/2013 07:35 AM');" >
-											<img alt="logo" src="./images/delete.png"  height="16" width="16" title="Eliminar" />
-										</a>
-									</td>
-								</tr>				
-								<tr>
-									<td>19/06/2013</td>
-									<td>10:06 AM</td>
-									<td>										
-										<a href="#" style="color: transparent" >
-											<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
-										</a>										
-										<a href="showEvaluation.html" style="color: transparent" >
-											<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Ver Detalle" />
-										</a>										
-										<a id="go" rel="leanModal" href="#deleteVitalSign" style="color: #f7941e; font-weight: bold;" 
-											onclick="return loadVars(1001,'19/06/2013 10:06 AM');" >
-											<img alt="logo" src="./images/delete.png"  height="16" width="16" title="Eliminar" />
-										</a>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						<br>
+  						<div id="vitalSigns"></div>
+  						
 					</div>
 				</div>
 				<div id="botonera">
 				<form action="hospitalization.html">
 				<div id="botonP">
-							<input type="submit"  class="button"  name="sbmtButton" value="Modificar" style="margin-left:30%; margin-top: 5px;"/>
+							<input type="submit"  class="button"  name="sbmtButton" value="Modificar" style="margin-left:35%; margin-top: 5px;"/>
 				</div>	
 				</form>
 				<form>
 					<div id="botonV" style="position:relative; margin-left: 250px; top: -22px;">
-							<input type="button" class="button" value="Regresar" style="margin-left:40%;" onClick="javascript:history.back();" style="margin-left:40%;" />		
+							<input type="button" id="backButton" class="button" value="Regresar" style="margin-left:40%; display:none;" />		
 					</div>	
 				</form>
 			</div>
