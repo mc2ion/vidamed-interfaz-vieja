@@ -9,9 +9,55 @@
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		<link rel="stylesheet" href="/resources/demos/style.css" />
 		<script>
+			var prevPage = "";
+			var prevButton = "";
+			
 			$(function() {
 				$( "#tabs" ).tabs();
+			
 			});
+			
+			$(function evolution() {
+				$( "#tabs" ).tabs();
+			
+			});
+			
+			
+			$(document).on('click','#vitalSigns #detailVitalSigns',function(){
+				$('#vitalSigns').load('./showVitalSignsDetail.html');
+				$("#backButton2").show();
+				prevPage = "showVitalSigns.html";
+				prevButton = "signs";
+			});
+			
+			$(document).on('click','#result #detailHosp',function(){
+				$('#result').load('./showEvolutionDetail.html');
+				$("#backButton2").show();
+				prevPage = "showEvolution.html";
+				prevButton = "evolution";
+			});
+			
+			
+			
+			
+			$(document).ready(function() {
+				prevPage += ' #contentAux';
+		
+				$('#result').load('./showEvolution.html #contentAux');
+				$('#vitalSigns').load('./showVitalSigns.html #contentAux');
+				
+				
+				$("#backButton2").click(function() {
+					if (prevButton != "evolution")
+						$('#vitalSigns').load(prevPage);
+					else
+						$('#result').load(prevPage);
+					$(this).hide();
+				});
+				
+			});
+			
+			
 		</script>
 	</head>
 	<body>
@@ -48,7 +94,7 @@
 					    <li><a href="#tabs-2">Protocolos</a></li>
 					    <li><a href="#tabs-3">Servicios</a></li>
 					    <li><a href="#tabs-4">Suministros</a></li>
-					    <li><a href="#tabs-5">Evaluación</a></li>
+					    <li><a href="#tabs-5">Evolución</a></li>
 					    <li><a href="#tabs-6">Signos Vitales</a></li>
 			  		</ul>
   					<div id="tabs-1">
@@ -139,115 +185,23 @@
 						<br>
 					</div>
 					<div id="tabs-5">
-						<br>
-					    <table id="sweetTable">
-							<tbody>
-								<tr>
-									<th>Fecha</th>
-									<th>Médico</th>
-									<th>Ver Detalle</th>
-								</tr>				
-								<tr>
-									<td>27/06/2013 07:35 PM</td>
-									<td>Ricardo García</td>
-									<td style="text-align:center;">
-										<a href="showEvaluation.html" style="color: transparent" >
-											<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
-										</a>
-									</td>
-								</tr>				
-								<tr>
-									<td>23/06/2013 09:40 AM</td>
-									<td>Javier Fernandez</td>
-									<td style="text-align:center;">										
-										<a href="#" style="color: transparent" >
-											<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
-										</a>
-									</td>
-								</tr>				
-								<tr>
-									<td>20/06/2013 07:35 AM</td>
-									<td>Ricardo García</td>
-									<td style="text-align:center;">										
-										<a href="#" style="color: transparent" >
-											<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
-										</a>
-									</td>
-								</tr>				
-								<tr>
-									<td>19/06/2013 10:06 AM</td>
-									<td>Ricardo García</td>
-									<td style="text-align:center;">										
-										<a href="#" style="color: transparent" >
-											<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
-										</a>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						<br>
+						<div id="result">
+						</div>
 					</div>
 					<div id="tabs-6">
-						<br>
-					    <table id="sweetTable">
-							<tbody>
-								<tr>
-									<th>Fecha de Toma</th>
-									<th>Hora de Toma</th>
-									<th>Ver Detalle</th>
-								</tr>				
-								<tr>
-									<td>27/06/2013</td>
-									<td>07:35 PM</td>
-									<td style="text-align:center;">
-										<a href="showVitalSign.html" style="color: transparent" >
-											<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
-										</a>
-									</td>
-								</tr>				
-								<tr>
-									<td>23/06/2013</td>
-									<td>09:40 AM</td>
-									<td style="text-align:center;">										
-										<a href="#" style="color: transparent" >
-											<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
-										</a>
-									</td>
-								</tr>				
-								<tr>
-									<td>20/06/2013</td>
-									<td>07:35 AM</td>
-									<td style="text-align:center;">										
-										<a href="#" style="color: transparent" >
-											<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
-										</a>
-									</td>
-								</tr>				
-								<tr>
-									<td>19/06/2013</td>
-									<td>10:06 AM</td>
-									<td style="text-align:center;">										
-										<a href="#" style="color: transparent" >
-											<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
-										</a>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						<br>
+						<div id="vitalSigns"></div>
 					</div>
 				</div>
 				<div id="botonera">
 				<form action="printHospitalization.html">
-				<div id="botonP">
-							<input type="submit"  class="button"  name="sbmtButton" value="Imprimir" style="margin-left:30%; margin-top: 5px;"/>
-				</div>	
-				</form>
-				<form>
+					<div id="botonP">
+							<input type="submit"  class="button"  name="sbmtButton" value="Imprimir" style="margin-left:40%; margin-top: 5px;"/>
+					</div>
 					<div id="botonV" style="position:relative; margin-left: 250px; top: -22px;">
-							<input type="button" class="button" value="Regresar" style="margin-left:40%;" onClick="javascript:history.back();" style="margin-left:40%;" />		
-					</div>	
+						<input type="button" id="backButton2" class="button" value="Regresar" style="margin-left:30%; display:none;"   />		
+					</div>		
 				</form>
+				
 			</div>	
 			</div>
 		</div>
