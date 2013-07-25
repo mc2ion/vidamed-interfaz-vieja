@@ -18,7 +18,6 @@
 				null,
 				null,
 				null,
-				null,
 				{ "bSearchable": false, "asSorting": false, "sWidth": "18%" }
 			],
 			"oLanguage": {
@@ -60,6 +59,10 @@
         </div>         
         <div id="menu">
 			<div class="menuitemHome" ><a href="mainMenu.html">Home</a></div>	
+			<ul>
+            	<li class="menuitem"><a href="supplyAreas.html">Ver Áreas Suministros</a></li>
+            	<li class="menuitem"><a href="createSupply.html">Crear Suministro</a></li>
+            </ul>
 	    	<div class="menuitemSalir"><a href="index.html">Salir</a></div>	
         </div>        
 		<div id="leftmenu">
@@ -70,7 +73,7 @@
 				    <li><a href="emergencies.html">Emergencia</a></li>
 					<li><a href="admission.html">Admisión</a></li>
 				    <li><a href="hospitalization.html">Hospitalización</a></li>
-					<li><a class="active" href="supplies.html">Suministros</a></li>
+					<li><a class="active" href="supplyAreas.html">Suministros</a></li>
 					<li><a  href="bank.html">Cajas y Bancos</a></li>
 					<li><a href="accounts.html">Cuentas</a></li>
 					<li><a href="laboratory.html">Laboratorio</a></li>    
@@ -79,8 +82,88 @@
             <div id="leftmenu_bottom"></div>
         </div>  
 		<div id="content">  
-			 AQUI VAN LOS SUMINISTROS
+			<h2>Suministros:</h2>
+			<div id="dt_example">
+					<div id="container">
+						<div id="demo">
+							<table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>Nombre</th>
+										<th>Cantidad</th>
+										<th>Acciones</th>
+									</tr>
+								</thead>
+								<tbody>			
+									<tr class="gradeA">
+										<td>1001</td>
+										<td>Albumina Humana 20% 50 ml</td>
+										<td>12</td>
+										<td>
+											<a href="editSupply.html" style="color: transparent" >
+												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
+											</a>
+											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
+												onclick="return loadVars(1001,'Albumina Humana 20% 50 ml');" >
+												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
+											</a> 
+											<br>
+										</td>
+									</tr>
+									<tr class="gradeA">
+										<td>1002</td>
+										<td>Benutrex B12 Ampolla</td>
+										<td>7</td>
+										<td>
+											<a href="#" style="color: transparent" >
+												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
+											</a>
+											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
+												onclick="return loadVars(1002,'Benutrex B12 Ampolla');" >
+												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
+											</a> 
+											<br>
+										</td>
+									</tr>
+									<tr class="gradeA">
+										<td>1003</td>
+										<td>Daktarin Crema</td>
+										<td>25</td>
+										<td>
+											<a href="#" style="color: transparent" >
+												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
+											</a>
+											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
+												onclick="return loadVars(1003,'Daktarin Crema');" >
+												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
+											</a> 
+											<br>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="spacer"></div>
        	</div>
+		</div>
+		<div id="deleteUser">
+			<div id="signup-ct">
+				<h3 id="see_id" class="sprited" > Eliminar Suministro</h3>
+				<br><br>
+				<span>¿Está seguro que desea eliminar el suministro '<span class="cliente"></span>'? </span> <br><br>
+				<div id="signup-header">
+					<a class="close_x" id="close_x"  href="#"></a>
+				</div>
+				<form action="supplies.html" method="post"  onsubmit="return setV(this)">
+					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+					<div class="btn-fld">
+						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
+					</div>
+		 		</form>
+			</div>
 		</div>
 	</body>
 </html>

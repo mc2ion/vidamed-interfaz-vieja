@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
+		<title>Crear Presupuesto</title>
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css" />
+	  	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<script type="text/javascript" language="javascript" src="./js/jquery.leanModal.min.js"></script>
+		<link rel="stylesheet" href="/resources/demos/style.css" />
+	</head>
+	<body>
+		<div id="container">
+			<div id="header">
+	        	<img alt="logo" src="./images/logo.png"/>
+	        </div>         
+        	<div id="menu">
+				<div class="menuitemHome" ><a href="mainMenu.html">Home</a></div>	
+		    	<ul>
+	            	<li class="menuitem"><a href="supplyAreas.html">Ver Áreas Suministros</a></li>
+	            	<li class="menuitem"><a href="createSupplyArea.html">Crear Área Suministros</a></li>
+	            </ul>
+				<div class="menuitemSalir"><a href="index.html">Salir</a></div>	
+        	</div>        
+			<div id="leftmenu">
+				<div id="leftmenu_top"></div>
+				<div id="leftmenu_main">
+					<ul>
+					    <li><a href="estimations.html">Presupuestos</a></li>
+					    <li><a href="emergencies.html">Emergencia</a></li>
+						<li><a href="admission.html">Admisión</a></li>
+					    <li><a href="hospitalization.html">Hospitalización</a></li>
+						<li><a class="active" href="supplyAreas.html">Suministros</a></li>
+						<li><a href="bank.html">Cajas y Bancos</a></li>
+						<li><a href="accounts.html">Cuentas</a></li>
+						<li><a href="laboratory.html">Laboratorio</a></li> 
+					</ul>
+				</div>
+	            <div id="leftmenu_bottom"></div>
+	        </div>
+        	<div id="content" style="position:absolute;">	
+	        	<h2>Crear Área Suministros:</h2>
+				<br>
+				<fieldset>
+					<label for="name">Nombre:</label>
+					<input type="text" name="txtName" id="txtName" maxlength="50" size="5" value="Fármacos"/> <br><br>
+					<label for="name">Descripción:</label>
+					<textarea name="txtDescription" id="txtDescription" rows="3" cols="50">Sustancias químicas purificadas</textarea> <br><br>
+				</fieldset>
+				<div id="botonera">
+				<form action="supplyAreas.html">
+					<div id="botonP">
+						<input type="submit"  class="button"  name="sbmtButton" value="Modificar" style="margin-left:30%; margin-top: 5px;"/>
+					</div>	
+				</form>
+				<form>
+					<div id="botonV" style="position:relative; margin-left: 250px; top: -22px;">
+						<input type="button" class="button" value="Regresar" style="margin-left:40%;" onClick="javascript:history.back();" style="margin-left:40%;" />		
+					</div>	
+				</form>
+			</div>
+			</div>
+		</div>
+	</body>
+</html>
