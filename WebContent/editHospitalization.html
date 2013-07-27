@@ -64,6 +64,19 @@
 				$(this).hide();
 			});
 			
+			function getUrlVars() {
+			    var vars = {};
+			    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+			        vars[key] = value;
+			    });
+			    return vars;
+			}
+
+			var first = getUrlVars()["insurance"];
+			first = first.replace(/\+/g, ' ');
+			if (first != null)
+				$("#insuranceName").val(first);
+			
 		});
 		</script>
 	</head>
@@ -105,115 +118,88 @@
 					    <li><a href="#tabs-6">Signos Vitales</a></li>
 			  		</ul>
   					<div id="tabs-1">
-  						<br>
-					    <table style="margin: 0px;">
-							<tr>
-								<td>Cédula:</td>
-								<td>V-12345678</td>
-							</tr>
-							<tr>
-								<td>Nombre:</td>
-								<td>Ana Rojas</td>
-							</tr>
-							<tr>
-								<td>Fecha de Ingreso: </td>
-								<td>20/06/2013 07:35 AM</td>
-							</tr>
-							<tr>
-								<td> Ubicación: </td>
-								<td>
+  							<div id="hosp">
+  							<p><b>Cédula:</b> V-12345678 <br></p>
+							<p><b>Nombre:</b>  Ana Rojas <br></p>
+							<p><b>Fecha de Ingreso:  </b> 20/06/2013 07:35 AM  <br></p>
+							</div>
+							<fieldset>
+								<label> Ubicación:  </label>
 									<select id="bedLocationId" name="bedLocationId">
-									<option value="337" >UCI</option>
-									</select>
-								</td>
-							</tr>
-							<tr>
-								<td>  Cama: </td>
-								<td>
-									<select id="bedId" name="bedId">
+										<option value="337" >UCI</option>
+									</select><br><br>
+								 
+								<label>Cama:</label>
+								 	<select id="bedId" name="bedId">
 										<option value="337" >Cama 1</option>
-									</select>
-								</td>
-							</tr>
-							<tr>
-								<td>   Departamento:  </td>
-								<td>
-									
-				    	<select id="departmentId" name="departmentId">
-							<option value="337" >ALERGOLOGÍA</option>
-						 	<option value="660" >ANALISTAS DE SEGUROS</option>
-							<option value="338" >ANESTESIOLOGÍA</option>
-							<option value="340" >BIOANÁLISIS</option>
-							<option value="240" >CARDIOLOGÍA</option>
-							<option value="342" >CARDIOVASCULAR PERIFÉRICO</option>
-							<option value="343" >CIRUGÍA BARIÁTRICA</option>
-							<option value="344" >CIRUGÍA COLUMNA</option>
-							<option value="345" >CIRUGÍA DE TÓRAX</option>
-							<option value="887" >CIRUGIA EN ORTOPEDIA INFANTIL</option>
-							<option value="235" >CIRUGIA GENERAL</option>
-							<option value="346" >CIRUGÍA GINECOLÓGICA</option>
-							<option value="544" >CIRUGÍA LAPAROSCOPICA</option>
-							<option value="348" >CIRUGÍA MÁXILO-FACIAL </option>
-							<option value="349" >CIRUGÍA ONCOLÓGICA </option>
-							<option value="350" >CIRUGÍA PEDIÁTRICA</option>
-							<option value="351" >CIRUGÍA PLÁSTICA, ESTÉTICA Y RECONSTRUCTIVA</option>
-							<option value="935" >COLOPROCTOLOGÍA</option>
-							<option value="658" >COORDINADOR DE APS / SUP. DE SECRETARIAS</option>
-							<option value="236" >DERMATOLOGÍA</option>
-							<option value="352" >ENDOCRINOLOGÍA</option>
-							<option value="231" >FISIATRÍA</option>
-							<option value="353" >FISIOTERAPEUTAS</option>
-							<option value="238" >GASTROENTEROLOGÍA</option>
-							<option value="418" >GASTROENTEROLOGÍA INFANTIL</option>
-							<option value="355" >GINECO OBSTETRICIA</option>
-							<option value="356" >GINECOLOGÍA CLÍNICA</option>
-							<option value="239" >HEMATOLOGÍA</option>
-							<option value="357" >INFERTILIDAD</option>
-							<option value="419" >LABORATORIO</option>
-							<option value="359" >MASTOLOGÍA</option>
-							<option value="245" >MEDICINA INTERNA</option>
-							<option value="362" >MÉDICOS RESIDENTES</option>
-							<option value="656" >NEFROLOGIA DE ADULTOS</option>
-							<option value="364" >NEONATOLOGÍA</option>
-							<option value="365" >NEUMONOLOGÍA</option>
-							<option value="366" >NEUMONOLOGÍA PEDÍATRICA</option>
-							<option value="367" >NEUROCIRUGÍA</option>
-							<option value="233" >NEUROLOGÍA</option>
-							<option value="229" >NUTRICIÓN</option>
-							<option value="232" >OFTALMOLOGÍA</option>
-							<option value="370" >ONCOLOGÍA MÉDICA</option>
-							<option value="244" >OTORRINOLARINGOLOGÍA</option>
-							<option value="371" >PATOLOGÍA</option>
-							<option value="372" >PEDIATRÍA</option>
-							<option value="373" >PROCTOLOGÍA</option>
-							<option value="374" >PSQUIATRÍA</option>
-							<option value="375" >RADIOLOGÍA, IMAGENOLOGÍA</option>
-							<option value="376" >REUMATOLOGÍA</option>
-							<option value="659" >SECRETARIAS</option>
-							<option value="378" >TÉCNICOS RADIÓLOGOS</option>
-							<option value="379" >TOMOGRAFÍA Y RESONANCIA</option>
-							<option value="657" >TRAUMATOLOGIA ESPECIALISTA EN COLUMNA</option>
-							<option value="380" >TRAUMATOLOGÍA Y ORTOPEDIA</option>
-							<option value="242" >UROLOGÍA</option>
-							<option value="381" >UROLOGÍA PEDIÁTRICA</option>
-				    	</select>
-								</td>
-							</tr>
-							<tr>
-								<td>   Médico Tratante: </td>
-								<td>
-									 <input type="text" name="doctorName" id="doctorName" value="Ricardo García"><br>
-					   			</td>
-							</tr>
-							<tr>
-								<td>    Responsable del Pago: </td>
-								<td>
-							  	 <input type="text" name="insuranceName" id="insuranceName" value="La Previsora"><br><br>
-					 			</td>
-							</tr>
-							
-						</table>
-					     <br>
+									</select><br><br>
+								 <label>Departamento: </label>
+												
+							    	<select id="departmentId" name="departmentId">
+										<option value="337" >ALERGOLOGÍA</option>
+									 	<option value="660" >ANALISTAS DE SEGUROS</option>
+										<option value="338" >ANESTESIOLOGÍA</option>
+										<option value="340" >BIOANÁLISIS</option>
+										<option value="240" >CARDIOLOGÍA</option>
+										<option value="342" >CARDIOVASCULAR PERIFÉRICO</option>
+										<option value="343" >CIRUGÍA BARIÁTRICA</option>
+										<option value="344" >CIRUGÍA COLUMNA</option>
+										<option value="345" >CIRUGÍA DE TÓRAX</option>
+										<option value="887" >CIRUGIA EN ORTOPEDIA INFANTIL</option>
+										<option value="235" >CIRUGIA GENERAL</option>
+										<option value="346" >CIRUGÍA GINECOLÓGICA</option>
+										<option value="544" >CIRUGÍA LAPAROSCOPICA</option>
+										<option value="348" >CIRUGÍA MÁXILO-FACIAL </option>
+										<option value="349" >CIRUGÍA ONCOLÓGICA </option>
+										<option value="350" >CIRUGÍA PEDIÁTRICA</option>
+										<option value="351" >CIRUGÍA PLÁSTICA, ESTÉTICA Y RECONSTRUCTIVA</option>
+										<option value="935" >COLOPROCTOLOGÍA</option>
+										<option value="658" >COORDINADOR DE APS / SUP. DE SECRETARIAS</option>
+										<option value="236" >DERMATOLOGÍA</option>
+										<option value="352" >ENDOCRINOLOGÍA</option>
+										<option value="231" >FISIATRÍA</option>
+										<option value="353" >FISIOTERAPEUTAS</option>
+										<option value="238" >GASTROENTEROLOGÍA</option>
+										<option value="418" >GASTROENTEROLOGÍA INFANTIL</option>
+										<option value="355" >GINECO OBSTETRICIA</option>
+										<option value="356" >GINECOLOGÍA CLÍNICA</option>
+										<option value="239" >HEMATOLOGÍA</option>
+										<option value="357" >INFERTILIDAD</option>
+										<option value="419" >LABORATORIO</option>
+										<option value="359" >MASTOLOGÍA</option>
+										<option value="245" >MEDICINA INTERNA</option>
+										<option value="362" >MÉDICOS RESIDENTES</option>
+										<option value="656" >NEFROLOGIA DE ADULTOS</option>
+										<option value="364" >NEONATOLOGÍA</option>
+										<option value="365" >NEUMONOLOGÍA</option>
+										<option value="366" >NEUMONOLOGÍA PEDÍATRICA</option>
+										<option value="367" >NEUROCIRUGÍA</option>
+										<option value="233" >NEUROLOGÍA</option>
+										<option value="229" >NUTRICIÓN</option>
+										<option value="232" >OFTALMOLOGÍA</option>
+										<option value="370" >ONCOLOGÍA MÉDICA</option>
+										<option value="244" >OTORRINOLARINGOLOGÍA</option>
+										<option value="371" >PATOLOGÍA</option>
+										<option value="372" >PEDIATRÍA</option>
+										<option value="373" >PROCTOLOGÍA</option>
+										<option value="374" >PSQUIATRÍA</option>
+										<option value="375" >RADIOLOGÍA, IMAGENOLOGÍA</option>
+										<option value="376" >REUMATOLOGÍA</option>
+										<option value="659" >SECRETARIAS</option>
+										<option value="378" >TÉCNICOS RADIÓLOGOS</option>
+										<option value="379" >TOMOGRAFÍA Y RESONANCIA</option>
+										<option value="657" >TRAUMATOLOGIA ESPECIALISTA EN COLUMNA</option>
+										<option value="380" >TRAUMATOLOGÍA Y ORTOPEDIA</option>
+										<option value="242" >UROLOGÍA</option>
+										<option value="381" >UROLOGÍA PEDIÁTRICA</option>
+							    	</select><br><br>
+								    <label>Médico Tratante:  </label>
+									 <input type="text" name="doctorName" id="doctorName" value="Ricardo García"><br><br>
+					   			    <label> Responsable del Pago:</label>  <input type="text" name="insuranceName" id="insuranceName" value="La Previsora" readonly>
+								    <a href="searchInsurance.html?function=editHospitalization" style="color: #f7941e; font-weight: bold;">
+										<input type="button"id="paymentResp" value="Cambiar" >
+									</a> 
+						  </fieldset>
 					</div>
   					<div id="tabs-2">
   						<div style="text-align:right;">
@@ -397,17 +383,17 @@
 					</div>
 				</div>
 				<div id="botonera">
-				<form action="hospitalization.html">
-				<div id="botonP">
-							<input type="submit"  class="button"  name="sbmtButton" value="Modificar" style="margin-left:35%; margin-top: 5px;"/>
-				</div>	
-				</form>
-				<form>
-					<div id="botonV" style="position:relative; margin-left: 250px; top: -22px;">
-							<input type="button" id="backButton" class="button" value="Regresar" style="margin-left:40%; display:none;" />		
-					</div>	
-				</form>
-			</div>
+					<form action="hospitalization.html">
+						<div id="botonP">
+									<input type="submit"  class="button"  name="sbmtButton" value="Modificar" style="margin-left:35%; margin-top: 5px;"/>
+						</div>	
+					</form>
+					<form>
+						<div id="botonV" style="position:relative; margin-left: 250px; top: -22px;">
+								<input type="button" id="backButton" class="button" value="Regresar" style="margin-left:40%; display:none;" />		
+						</div>	
+					</form>
+				</div>
 			</div>
 		</div>
 		<div id="deleteProtocol">

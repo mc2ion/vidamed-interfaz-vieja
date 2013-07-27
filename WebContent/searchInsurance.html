@@ -54,6 +54,11 @@
 						$("#form").attr('action', 'editEstimation.html');
 					else (first == "createEstimation")
 						$("#form").attr('action', 'createEstimation.html');
+				}
+				else if (first.indexOf("Hospitalization") > 0){
+					$("#hospitalization").attr('class', 'active');
+					if (first == "editHospitalization")
+						$("#form").attr('action', 'editHospitalization.html');
 					
 				}
 			}

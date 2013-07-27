@@ -1511,8 +1511,6 @@ div.box {
 	
 }
 
-th, td { padding: 0px; }
-
 
 table { 
 	border-collapse:collapse; 
@@ -1521,6 +1519,10 @@ table {
 }   
 
 
-th, td { vertical-align: top; }
+#hosp p {
+		margin-top: 10px;	
+}
 
-table { margin: 0 auto; }
+#hosp{
+	margin-bottom: 10px;
+}
