@@ -47,10 +47,12 @@
 			var first = getUrlVars()["function"];
 			first = first.replace(/\+/g, ' ');
 			if (first != null){
-				if (first.indexOf("Emergency") > 0){
-					$("#emergencies").attr('class', 'active');
-					if (first == "editEmergency")
-						$("#form").attr('action', 'editEmergency.html');
+				if (first.indexOf("Estimation") > 0){
+					$("#estimation").attr('class', 'active');
+					if (first == "editEstimation")
+						$("#form").attr('action', 'editEstimation.html');
+					else if(first == "createEstimation")
+						$("#form").attr('action', 'createEstimation.html');
 				}
 				else if (first.indexOf("Hospitalization") > 0){
 					$("#hospitalization").attr('class', 'active');
@@ -125,19 +127,71 @@
 		<div id="content">  
 			<form action="" method="get" id="form" style="display: inline;">
 				
-			<h2>Escoger ubicación de cama:</h2><br>
-			<h4> Por favor seleccione la ubicación de la cama y haga clic en Siguiente: </h4><br>
-			<p><b>Ubicación:  </b> 
-				<select id="bedLocationId" name="bedLocationId">
-								<option value="UCI" >UCI</option>
-								<option value="Planta Baja" >Planta Baja</option>
-								<option value="Piso 1" >Piso 1</option>
-								<option value="Piso 2" >Piso 2</option>
+			<h2>Escoger medico tratante:</h2><br>
+			<p> Por favor seleccione el departamento del médico tratante y haga click en "Siguiente": </p><br>
+			<p><b>Departamento:  </b> 
+				<select id="department" name="department" style="width: 230px;">
+								<option value="337" >ALERGOLOGÍA</option>
+							 	<option value="660" >ANALISTAS DE SEGUROS</option>
+								<option value="338" >ANESTESIOLOGÍA</option>
+								<option value="340" >BIOANÁLISIS</option>
+								<option value="240" >CARDIOLOGÍA</option>
+								<option value="342" >CARDIOVASCULAR PERIFÉRICO</option>
+								<option value="343" >CIRUGÍA BARIÁTRICA</option>
+								<option value="344" >CIRUGÍA COLUMNA</option>
+								<option value="345" >CIRUGÍA DE TÓRAX</option>
+								<option value="887" >CIRUGIA EN ORTOPEDIA INFANTIL</option>
+								<option value="235" >CIRUGIA GENERAL</option>
+								<option value="346" >CIRUGÍA GINECOLÓGICA</option>
+								<option value="544" >CIRUGÍA LAPAROSCOPICA</option>
+								<option value="348" >CIRUGÍA MÁXILO-FACIAL </option>
+								<option value="349" >CIRUGÍA ONCOLÓGICA </option>
+								<option value="350" >CIRUGÍA PEDIÁTRICA</option>
+								<option value="351" >CIRUGÍA PLÁSTICA, ESTÉTICA Y RECONSTRUCTIVA</option>
+								<option value="935" >COLOPROCTOLOGÍA</option>
+								<option value="658" >COORDINADOR DE APS / SUP. DE SECRETARIAS</option>
+								<option value="236" >DERMATOLOGÍA</option>
+								<option value="352" >ENDOCRINOLOGÍA</option>
+								<option value="231" >FISIATRÍA</option>
+								<option value="353" >FISIOTERAPEUTAS</option>
+								<option value="238" >GASTROENTEROLOGÍA</option>
+								<option value="418" >GASTROENTEROLOGÍA INFANTIL</option>
+								<option value="355" >GINECO OBSTETRICIA</option>
+								<option value="356" >GINECOLOGÍA CLÍNICA</option>
+								<option value="239" >HEMATOLOGÍA</option>
+								<option value="357" >INFERTILIDAD</option>
+								<option value="419" >LABORATORIO</option>
+								<option value="359" >MASTOLOGÍA</option>
+								<option value="245" >MEDICINA INTERNA</option>
+								<option value="362" >MÉDICOS RESIDENTES</option>
+								<option value="656" >NEFROLOGIA DE ADULTOS</option>
+								<option value="364" >NEONATOLOGÍA</option>
+								<option value="365" >NEUMONOLOGÍA</option>
+								<option value="366" >NEUMONOLOGÍA PEDÍATRICA</option>
+								<option value="367" >NEUROCIRUGÍA</option>
+								<option value="233" >NEUROLOGÍA</option>
+								<option value="229" >NUTRICIÓN</option>
+								<option value="232" >OFTALMOLOGÍA</option>
+								<option value="370" >ONCOLOGÍA MÉDICA</option>
+								<option value="244" >OTORRINOLARINGOLOGÍA</option>
+								<option value="371" >PATOLOGÍA</option>
+								<option value="372" >PEDIATRÍA</option>
+								<option value="373" >PROCTOLOGÍA</option>
+								<option value="374" >PSQUIATRÍA</option>
+								<option value="375" >RADIOLOGÍA, IMAGENOLOGÍA</option>
+								<option value="376" >REUMATOLOGÍA</option>
+								<option value="659" >SECRETARIAS</option>
+								<option value="378" >TÉCNICOS RADIÓLOGOS</option>
+								<option value="379" >TOMOGRAFÍA Y RESONANCIA</option>
+								<option value="657" >TRAUMATOLOGIA ESPECIALISTA EN COLUMNA</option>
+								<option value="380" >TRAUMATOLOGÍA Y ORTOPEDIA</option>
+								<option value="242" >UROLOGÍA</option>
+								<option value="381" >UROLOGÍA PEDIÁTRICA</option>
 				</select>
 				<input id="next" type="button" value="Siguiente">
 			</p><br><br>
 			<div id="beds" style="visibility: hidden;">
-				<h4>Escoga la cama que desea haciendo click en la columna izquierda de la tabla:</h4>
+				<p>Escoga el médico tratante haciendo clic en la columna izquierda de la tabla:</p>
 					<div id="dt_example">
 						<div id="container">
 							<div id="demo">
@@ -147,31 +201,31 @@
 											<th></th>
 											<th>ID</th>
 											<th>Nombre</th>
-											<th>Precio</th>
+											<th>Consultorio</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr class="gradeA">
-											<td><input type="radio" name="bed" value="Camilla 1"><br>
+											<td><input type="radio" name="doctor" value="Adrian Beltran"><br>
 											</td>
 											<td>1</td>
-											<td>Camilla 1</td>
-											<td>Bs. 0.0</td>
+											<td>Adrian Beltran</td>
+											<td>132</td>
 
 										</tr>
 										<tr class="gradeA">
-											<td><input type="radio" name="bed" value="Camilla 2"><br>
+											<td><input type="radio" name="doctor" value="Alvaro Gomez"><br>
 											</td>
 											<td>2</td>
-											<td>Camilla 2</td>
-											<td>Bs. 0.0</td>
+											<td>Alvaro Gómez</td>
+											<td>-</td>
 
 										</tr>
 										<tr class="gradeA">
-											<td><input type="radio" name="bed" value="Camilla 3"><br></td>
+											<td><input type="radio" name="doctor" value="Antonio Dapuzzo"><br></td>
 											<td>3</td>
-											<td>Camilla 3</td>
-											<td>Bs. 0.0</td>
+											<td>Antonio Dapuzzo</td>
+											<td>325</td>
 
 										</tr>
 									</tbody>

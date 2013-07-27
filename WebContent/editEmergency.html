@@ -31,6 +31,32 @@
 			f.elements['userId'].value = idUser;
 			return true;
 		}
+		
+		$(document).ready(function() {
+			
+			function getUrlVars() {
+			    var vars = {};
+			    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+			        vars[key] = value;
+			    });
+			    return vars;
+			}
+			
+			
+			var first = getUrlVars()["insurance"];
+			var bed = getUrlVars()["bed"];
+			var ubication = getUrlVars()["bedLocationId"];
+			
+			if (bed != null){
+				bed = bed.replace(/\+/g, ' ');
+				$("#bedId").val(bed);
+			}
+			
+			if (ubication != null){
+				ubication = ubication.replace(/\+/g, ' ');
+				$("#ubication").val(ubication);
+			}
+		});
 		</script>
 	</head>
 	<body>
@@ -74,20 +100,19 @@
   					<div id="tabs-1">
   						<br>
 					    <p>
-					    Cédula: V-12345678<br><br>
-					    Nombre: Ana Rojas<br><br>
-					    Fecha de Ingreso: 20/06/2013 07:35 AM<br><br>
-					    Ubicación: 
-					    	<select id="bedLocationId" name="bedLocationId">
-								<option value="337" >Planta Baja</option>
-							</select>
-							<br><br>
-					    Cama: 
-					    	<select id="bedId" name="bedId">
-								<option value="337" >Camilla 1</option>
-							</select>
-					    	<br><br>
+					    <b>Cédula:</b> V-12345678<br><br>
+					    <b> Nombre:</b> Ana Rojas<br><br>
+					    <b>Fecha de Ingreso:</b> 20/06/2013 07:35 AM<br><br>
 					    </p>
+					    <fieldset>
+					   <label> Ubicación:  </label>
+						<input type="text" name="ubication" id="ubication" value="UCI" readonly><br><br>
+						 
+						<label> Cama:</label>  <input type="text" name="bedId" id="bedId" value="Cama 1" readonly>
+						    <a href="searchBed.html?function=editEmergency" style="color: #f7941e; font-weight: bold;">
+								<input type="button"id="bedUbication" value="Cambiar" >
+							</a>
+					    </fieldset>
   					</div>
   					<div id="tabs-2">
   						<div style="text-align:right;">

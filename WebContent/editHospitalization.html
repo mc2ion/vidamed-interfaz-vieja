@@ -76,6 +76,8 @@
 			var first = getUrlVars()["insurance"];
 			var bed = getUrlVars()["bed"];
 			var ubication = getUrlVars()["bedLocationId"];
+			var doctor = getUrlVars()["doctor"];
+			var departmentId = getUrlVars()["department"];
 			
 			if (first != null){
 				first = first.replace(/\+/g, ' ');
@@ -90,6 +92,15 @@
 			if (ubication != null){
 				ubication = ubication.replace(/\+/g, ' ');
 				$("#ubication").val(ubication);
+			}
+			
+			if (doctor != null){
+				doctor = doctor.replace(/\+/g, ' ');
+				$("#doctorName").val(doctor);
+			}
+
+			if (departamentId != null){
+				$("#departament").val("Alergogía");
 			}
 			
 		});
@@ -142,6 +153,13 @@
 							<p><b>Fecha de Ingreso:  </b> 20/06/2013 07:35 AM  <br></p>
 							</div>
 							<fieldset>
+								<label> Departamento: </label>
+							   <input type="text" name="departament" id="departament" readonly>
+							    <br><br>
+							   <label>Médico Tratante: </label> <input type="text" name="doctorName" id="doctorName" readonly>
+							    <a href="searchDoctor.html?function=editHospitalization" style="color: #f7941e; font-weight: bold;">
+									<input type="button"id="doctorId" value="Cambiar" >
+								</a> <br><br>
 								<label> Ubicación:  </label>
 								<input type="text" name="ubication" id="ubication" value="UCI" readonly><br><br>
 								 
@@ -149,69 +167,8 @@
 								    <a href="searchBed.html?function=editHospitalization" style="color: #f7941e; font-weight: bold;">
 										<input type="button"id="bedUbication" value="Cambiar" >
 									</a> <br><br>
-								 <label>Departamento: </label>
-												
-							    	<select id="departmentId" name="departmentId">
-										<option value="337" >ALERGOLOGÍA</option>
-									 	<option value="660" >ANALISTAS DE SEGUROS</option>
-										<option value="338" >ANESTESIOLOGÍA</option>
-										<option value="340" >BIOANÁLISIS</option>
-										<option value="240" >CARDIOLOGÍA</option>
-										<option value="342" >CARDIOVASCULAR PERIFÉRICO</option>
-										<option value="343" >CIRUGÍA BARIÁTRICA</option>
-										<option value="344" >CIRUGÍA COLUMNA</option>
-										<option value="345" >CIRUGÍA DE TÓRAX</option>
-										<option value="887" >CIRUGIA EN ORTOPEDIA INFANTIL</option>
-										<option value="235" >CIRUGIA GENERAL</option>
-										<option value="346" >CIRUGÍA GINECOLÓGICA</option>
-										<option value="544" >CIRUGÍA LAPAROSCOPICA</option>
-										<option value="348" >CIRUGÍA MÁXILO-FACIAL </option>
-										<option value="349" >CIRUGÍA ONCOLÓGICA </option>
-										<option value="350" >CIRUGÍA PEDIÁTRICA</option>
-										<option value="351" >CIRUGÍA PLÁSTICA, ESTÉTICA Y RECONSTRUCTIVA</option>
-										<option value="935" >COLOPROCTOLOGÍA</option>
-										<option value="658" >COORDINADOR DE APS / SUP. DE SECRETARIAS</option>
-										<option value="236" >DERMATOLOGÍA</option>
-										<option value="352" >ENDOCRINOLOGÍA</option>
-										<option value="231" >FISIATRÍA</option>
-										<option value="353" >FISIOTERAPEUTAS</option>
-										<option value="238" >GASTROENTEROLOGÍA</option>
-										<option value="418" >GASTROENTEROLOGÍA INFANTIL</option>
-										<option value="355" >GINECO OBSTETRICIA</option>
-										<option value="356" >GINECOLOGÍA CLÍNICA</option>
-										<option value="239" >HEMATOLOGÍA</option>
-										<option value="357" >INFERTILIDAD</option>
-										<option value="419" >LABORATORIO</option>
-										<option value="359" >MASTOLOGÍA</option>
-										<option value="245" >MEDICINA INTERNA</option>
-										<option value="362" >MÉDICOS RESIDENTES</option>
-										<option value="656" >NEFROLOGIA DE ADULTOS</option>
-										<option value="364" >NEONATOLOGÍA</option>
-										<option value="365" >NEUMONOLOGÍA</option>
-										<option value="366" >NEUMONOLOGÍA PEDÍATRICA</option>
-										<option value="367" >NEUROCIRUGÍA</option>
-										<option value="233" >NEUROLOGÍA</option>
-										<option value="229" >NUTRICIÓN</option>
-										<option value="232" >OFTALMOLOGÍA</option>
-										<option value="370" >ONCOLOGÍA MÉDICA</option>
-										<option value="244" >OTORRINOLARINGOLOGÍA</option>
-										<option value="371" >PATOLOGÍA</option>
-										<option value="372" >PEDIATRÍA</option>
-										<option value="373" >PROCTOLOGÍA</option>
-										<option value="374" >PSQUIATRÍA</option>
-										<option value="375" >RADIOLOGÍA, IMAGENOLOGÍA</option>
-										<option value="376" >REUMATOLOGÍA</option>
-										<option value="659" >SECRETARIAS</option>
-										<option value="378" >TÉCNICOS RADIÓLOGOS</option>
-										<option value="379" >TOMOGRAFÍA Y RESONANCIA</option>
-										<option value="657" >TRAUMATOLOGIA ESPECIALISTA EN COLUMNA</option>
-										<option value="380" >TRAUMATOLOGÍA Y ORTOPEDIA</option>
-										<option value="242" >UROLOGÍA</option>
-										<option value="381" >UROLOGÍA PEDIÁTRICA</option>
-							    	</select><br><br>
-								    <label>Médico Tratante:  </label>
-									 <input type="text" name="doctorName" id="doctorName" value="Ricardo García"><br><br>
-					   			    <label> Responsable del Pago:</label>  <input type="text" name="insuranceName" id="insuranceName" value="La Previsora" readonly>
+								
+								 <label> Responsable del Pago:</label>  <input type="text" name="insuranceName" id="insuranceName" value="La Previsora" readonly>
 								    <a href="searchInsurance.html?function=editHospitalization" style="color: #f7941e; font-weight: bold;">
 										<input type="button"id="paymentResp" value="Cambiar" >
 									</a> 

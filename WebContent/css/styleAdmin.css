@@ -1526,3 +1526,10 @@ table {
 #hosp{
 	margin-bottom: 10px;
 }
+
+#doctorId{
+	height: 50px;
+	position: absolute;
+	top: 160px;
+	
+}

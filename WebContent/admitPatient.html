@@ -49,14 +49,27 @@
 			}
 
 			var first = getUrlVars()["insurance"];
+			var bed = getUrlVars()["bed"];
+			var ubication = getUrlVars()["bedLocationId"];
 			var estimationId = getUrlVars()["id"];
+		
 			if (estimationId != null)
 				$("#estimationId").val("154600");
 			
-			first = first.replace(/\+/g, ' ');
-			if (first != null)
+			if (first != null){
+				first = first.replace(/\+/g, ' ');
 				$("#insuranceName").val(first);
+			}
 			
+			if (bed != null){
+				bed = bed.replace(/\+/g, ' ');
+				$("#bedId").val(bed);
+			}
+			
+			if (ubication != null){
+				ubication = ubication.replace(/\+/g, ' ');
+				$("#ubication").val(ubication);
+			}
 			
 		});
 		</script>
@@ -109,12 +122,14 @@
 					
 							   <label> Motivo de la admisión:</label> <input type="text" name="reasonAdmission" id="reasonAdmission" value="" ><br><br>
 							    
-							    <label>Ubicación:</label>
-							     <select id="ubication" name="ubication">
-									<option value="E" >Emergencias</option>
-									<option value="H" >Hospitalizacion</option>
-								</select><br><br>
-							   
+							    <label> Ubicación:  </label>
+								<input type="text" name="ubication" id="ubication" value="UCI" readonly><br><br>
+								 
+								<label> Cama:</label>  <input type="text" name="bedId" id="bedId" value="Cama 1" readonly>
+							    <a href="searchBed.html?function=admitPatient" style="color: #f7941e; font-weight: bold;">
+									<input type="button"id="bedUbication" value="Cambiar" >
+								</a> <br><br>
+						   
 							   <label> Número de presupuesto:</label> 
 							   	<input type="text" name="estimationId" id="estimationId" value="">
 							    <a href="searchEstimations.html" style="color: #f7941e; font-weight: bold;" >
