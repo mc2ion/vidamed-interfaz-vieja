@@ -468,11 +468,7 @@ color:#7198E1;
 	text-align: center;
 }
 
-#contentLogin fieldset{
-  padding: 1em;
-  font:12px Arial, Helvetica, sans-serif;
-  border: 0;
-}
+
 
 .address{
   font:12px Arial, Helvetica, sans-serif;
@@ -569,58 +565,12 @@ font-weight: bold;
   margin-right:0.5em;
   padding-top:0.2em;
   text-align:left;
-  font-weight:bold;
+ 
 }
 
-#content fieldset{
-  padding: 1em;
-  font:12px Arial, Helvetica, sans-serif;
-  border: 0;
-}
-
-  
-/* Cambie esto */
-#content form label{
-  float:left;
-  width:25%;
-  height: 30px;
-  margin-right:0.5em;
-  padding-top:0.2em;
-  text-align:left;
-  font-weight:bold;
-}
-
-#contentAux fieldset, .edit fieldset{
-  padding: 1em;
-  font:12px Arial, Helvetica, sans-serif;
-  border: 0;
-}
-
-#contentProduct fieldset{
-  font:12px Arial, Helvetica, sans-serif;
-  border: 0;
-  margin-top: -15px;
-}
-
-
-
-#contentProduct label{
-
-	font-weight:bold;
-	padding-right: 119px;
-
-}
-
-  
-/* Cambie esto */
-#contentAux fieldset label{
-  float:left;
-  width:25%;
-  height: 30px;
-  margin-right:0.5em;
-  padding-top:0.2em;
-  text-align:left;
-  font-weight:bold;
+fieldset{
+	border: 0;
+	margin-left: -10px;
 }
 
 /* Cambie esto */
@@ -629,12 +579,12 @@ fieldset label{
   width:25%;
   height: 30px;
   margin-right:0.5em;
-  padding-top:0.2em;
   text-align:left;
   font-weight:bold;
+ 
 }
 
-fieldset input{
+fieldset input[type="text"]{
   width:35%;
  
 }
@@ -647,21 +597,7 @@ fieldset input{
 }
 
 
-#signupAddress fieldset{
-  padding: 1em;
-  font:12px Arial, Helvetica, sans-serif;
-  border: 0;
-}
 
-#signupAddress  fieldset label{
-  float:left;
-  width:40%;
-  height: 10px;
-  margin-top:3px;
-  margin-right:0.5em;
-  text-align:left;
-  font-weight:bold;
-}
 
 .buttonPopUpSA
 {
@@ -673,9 +609,6 @@ fieldset input{
 }
 
 
-#signupAddress fieldset  input{
-  margin-top:3px;
-}
 
 #editIcon{
 	position: absolute;
@@ -1577,3 +1510,17 @@ div.box {
 	margin-left: 164px;
 	
 }
+
+th, td { padding: 0px; }
+
+
+table { 
+	border-collapse:collapse; 
+	border-spacing: 0;
+	border: 0;
+}   
+
+
+th, td { vertical-align: top; }
+
+table { margin: 0 auto; }

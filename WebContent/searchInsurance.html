@@ -1,0 +1,172 @@
+<!DOCTYPE html >
+<html>
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
+	<title>Escoger Presupuesto</title>
+	<script type="text/javascript" src="./js/jquery.js"></script>
+	<script type="text/javascript" src="./js/jquery.dataTables.js"></script>
+	<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
+	<script type="text/javascript" charset="utf-8">
+	$(document).ready(function() {
+		$('#example').dataTable( {
+			"iDisplayLength": 7,
+			"bLengthChange": false,
+			"sScrollY": "250px",
+			"bPaginate": false,
+			"aoColumns": [
+				{ "bSearchable": false, "asSorting": false },
+				null,
+				null,
+				null,
+				null
+			],
+			"oLanguage": {
+	            "sLengthMenu": "Mostrar _MENU_ registros",
+	            "sZeroRecords": "No hay ningún registro que coincida con su búsqueda",
+	            "sInfo": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+	            "sInfoEmpty": "Mostrando 0 a 0 de 0 registros",
+	            "sInfoFiltered": "(filtrando de _MAX_ registros totales)",
+	            "sEmptyTable": "No hay datos disponibles en la tabla",
+	            "sLoadingRecords": "Por favor, espere - cargando...",
+	            "sSearch": "Buscar:"
+        	}
+		} );
+	} );
+	</script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			
+			function getUrlVars() {
+			    var vars = {};
+			    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+			        vars[key] = value;
+			    });
+			    return vars;
+			}
+
+			var first = getUrlVars()["function"];
+			first = first.replace(/\+/g, ' ');
+			if (first != null){
+				if (first.indexOf("Estimation") > 0){
+					$("#estimation").attr('class', 'active');
+					if (first == "editEstimation")
+						$("#form").attr('action', 'editEstimation.html');
+					else (first == "createEstimation")
+						$("#form").attr('action', 'createEstimation.html');
+					
+				}
+			}
+				
+		});
+		
+	</script>
+	<script type="text/javascript">
+	var idUser;
+			
+	$(function() {
+		$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x" });		
+	});
+	
+	function loadVars(var1, var2) {
+		idUser = var1;
+		$('.cliente').text(var2);
+		
+	};
+	
+	function setV(f){
+		f.elements['userId'].value = idUser;
+		return true;
+	}
+	</script>
+</head>
+<body>
+	<div id="container">
+		<div id="header">
+        	<img alt="logo" src="./images/logo.png"/>
+        </div>         
+        <div id="menu">
+			<div class="menuitemHome" ><a href="mainMenu.html">Home</a></div>	
+	    	<div class="menuitemSalir"><a href="index.html">Salir</a></div>	
+        </div>        
+		<div id="leftmenu">
+			<div id="leftmenu_top"></div>
+			<div id="leftmenu_main">
+				<ul>
+				    <li><a id="estimation"  href="estimations.html">Presupuestos</a></li>
+				    <li><a id="emergencies" href="emergencies.html">Emergencia</a></li>
+					<li><a id="admission" href="admission.html">Admisión</a></li>
+				    <li><a id="hospitalization" href="hospitalization.html">Hospitalización</a></li>
+					<li><a id="supplyAreas" href="supplyAreas.html">Suministros</a></li>
+					<li><a id="bank" href="bank.html">Cajas y Bancos</a></li>
+					<li><a id="accounts" href="accounts.html">Cuentas</a></li>
+					<li><a id="laboratory" href="laboratory.html">Laboratorio</a></li> 
+				</ul>
+			</div>
+            <div id="leftmenu_bottom"></div>
+        </div>  
+		<div id="content">  
+			<h2>Escoger responsable del pago:</h2><br>
+			<p> Por favor seleccione el responsable de pago en la columna izquierda de la tabla </p>
+			<form action="" method="get" id="form" style="display: inline;">
+	
+			<div id="dt_example">
+					<div id="container">
+					
+						<div id="demo">
+							<table class="display" id="example">
+								<thead>
+									<tr>
+										<th></th>
+										<th>ID</th>
+										<th>Nombre</th>
+										<th>Dirección</th>
+										<th>Teléfono</th>
+										
+									</tr>
+								</thead>
+								<tbody>			
+									<tr class="gradeA">
+										<td>
+											<input type="radio" name="insurance" value="Pago en Efectivo"><br>
+										</td>
+										<td>1</td>
+										<td>Pago en Efectivo</td>
+										<td>N/A</td>
+										<td>N/A</td>
+									</tr>
+									<tr class="gradeA">
+										<td>
+											<input type="radio" name="insurance" value="La Previsora"><br>
+										</td>
+										<td>2</td>
+										<td>La Previsora</td>
+										<td>Plaza Venezuela. Dirección: Av. Francisco Solano con Av. Las Acacias, Torre La Previsora, PB, Plaza Venezuela, Caracas</td>
+										<td>0212-7935632</td>
+									</tr>
+									<tr class="gradeA">
+										<td>
+											<input type="radio" name="insurance" value="Multinacional de Seguros C.A"><br>
+										</td>
+										<td>3</td>
+										<td>Multinacional de Seguros, C.A</td>
+										<td>Avenida Blandín con Mohedano, Torre Multinacional de Seguros, La Castellana, Caracas</td>
+										<td>0212-6203200</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div><br>
+					<div id="botonV" style="display: inline;">
+							<input type="button" class="button" value="Regresar" style="margin-left:30%;" onClick="javascript:history.back();" style="margin-left:40%;" />		
+					</div>	
+					<input type="submit"  class="button"  name="sbmtButton" value="Seleccionar" style="margin-left:20%; "/>
+					
+				</div>
+				</form>
+				<div class="spacer"></div>
+        	</div>
+       	</div>
+		
+	</body>
+</html>
