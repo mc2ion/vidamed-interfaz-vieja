@@ -3,7 +3,7 @@
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-	<title>Escoger Presupuesto</title>
+	<title>Escoger Cama</title>
 	<script type="text/javascript" src="./js/jquery.js"></script>
 	<script type="text/javascript" src="./js/jquery.dataTables.js"></script>
 	<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
@@ -12,11 +12,10 @@
 		$('#example').dataTable( {
 			"iDisplayLength": 7,
 			"bLengthChange": false,
-			"sScrollY": "250px",
+			"sScrollY": "150px",
 			"bPaginate": false,
 			"aoColumns": [
-				{ "bSearchable": false, "asSorting": false },
-				null,
+				{ "bSearchable": false, "asSorting": false, "sWidth": "10%"},
 				null,
 				null,
 				null
@@ -77,7 +76,11 @@
 	var idUser;
 			
 	$(function() {
-		$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x" });		
+		$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x" });
+		
+		$("#next").click(function() {
+			$("#beds").css("visibility","visible"); 
+		});
 	});
 	
 	function loadVars(var1, var2) {
@@ -90,6 +93,8 @@
 		f.elements['userId'].value = idUser;
 		return true;
 	}
+	
+	
 	</script>
 </head>
 <body>
@@ -118,65 +123,75 @@
             <div id="leftmenu_bottom"></div>
         </div>  
 		<div id="content">  
-			<h2>Escoger responsable del pago:</h2><br>
-			<p> Por favor seleccione el responsable de pago en la columna izquierda de la tabla </p>
 			<form action="" method="get" id="form" style="display: inline;">
-	
-			<div id="dt_example">
-					<div id="container">
-					
-						<div id="demo">
-							<table class="display" id="example">
-								<thead>
-									<tr>
-										<th></th>
-										<th>ID</th>
-										<th>Nombre</th>
-										<th>Dirección</th>
-										<th>Teléfono</th>
-										
-									</tr>
-								</thead>
-								<tbody>			
-									<tr class="gradeA">
-										<td>
-											<input type="radio" name="insurance" value="Pago en Efectivo"><br>
-										</td>
-										<td>1</td>
-										<td>Pago en Efectivo</td>
-										<td>N/A</td>
-										<td>N/A</td>
-									</tr>
-									<tr class="gradeA">
-										<td>
-											<input type="radio" name="insurance" value="La Previsora"><br>
-										</td>
-										<td>2</td>
-										<td>La Previsora</td>
-										<td>Plaza Venezuela. Dirección: Av. Francisco Solano con Av. Las Acacias, Torre La Previsora, PB, Plaza Venezuela, Caracas</td>
-										<td>0212-7935632</td>
-									</tr>
-									<tr class="gradeA">
-										<td>
-											<input type="radio" name="insurance" value="Multinacional de Seguros C.A"><br>
-										</td>
-										<td>3</td>
-										<td>Multinacional de Seguros, C.A</td>
-										<td>Avenida Blandín con Mohedano, Torre Multinacional de Seguros, La Castellana, Caracas</td>
-										<td>0212-6203200</td>
-									</tr>
-								</tbody>
-							</table>
+				
+			<h2>Escoger ubicación de cama:</h2><br>
+			<h4> Por favor seleccione la ubicación de la cama y haga clic en Siguiente: </h4><br>
+			<p><b>Ubicación:  </b> 
+				<select id="bedLocationId" name="bedLocationId">
+								<option value="UCI" >UCI</option>
+								<option value="Planta Baja" >Planta Baja</option>
+								<option value="Piso 1" >Piso 1</option>
+								<option value="Piso 2" >Piso 2</option>
+				</select>
+				<input id="next" type="button" value="Siguiente">
+			</p><br><br>
+			<div id="beds" style="visibility: hidden;">
+				<h4>Escoga la cama que desea haciendo click en la columna izquierda de la tabla:</h4>
+					<div id="dt_example">
+						<div id="container">
+							<div id="demo">
+								<table class="display" id="example">
+									<thead>
+										<tr>
+											<th></th>
+											<th>ID</th>
+											<th>Nombre</th>
+											<th>Precio</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr class="gradeA">
+											<td><input type="radio" name="bed" value="Camilla 1"><br>
+											</td>
+											<td>1</td>
+											<td>Camilla 1</td>
+											<td>Bs. 0.0</td>
+
+										</tr>
+										<tr class="gradeA">
+											<td><input type="radio" name="bed" value="Camilla 2"><br>
+											</td>
+											<td>2</td>
+											<td>Camilla 2</td>
+											<td>Bs. 0.0</td>
+
+										</tr>
+										<tr class="gradeA">
+											<td><input type="radio" name="bed" value="Camilla 3"><br></td>
+											<td>3</td>
+											<td>Camilla 3</td>
+											<td>Bs. 0.0</td>
+
+										</tr>
+									</tbody>
+								</table>
+							</div>
 						</div>
-					</div><br>
-					<div id="botonV" style="display: inline;">
-							<input type="button" class="button" value="Regresar" style="margin-left:30%;" onClick="javascript:history.back();" style="margin-left:40%;" />		
-					</div>	
-					<input type="submit"  class="button"  name="sbmtButton" value="Seleccionar" style="margin-left:20%; "/>
-					
-				</div>
-				</form>
-				<div class="spacer"></div>
+						<br>
+						<div id="botonV" style="display: inline;">
+							<input type="button" class="button" value="Regresar"
+								style="margin-left: 30%;" onClick="javascript:history.back();"
+								style="margin-left:40%;" />
+						</div>
+						<input type="submit" class="button" name="sbmtButton"
+							value="Seleccionar" style="margin-left: 20%;" />
+
+					</div>
+				
+			</div>
+			</form>
+			<div class="spacer"></div>
         	</div>
        	</div>
 		

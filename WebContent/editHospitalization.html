@@ -71,11 +71,26 @@
 			    });
 			    return vars;
 			}
-
+			
+			
 			var first = getUrlVars()["insurance"];
-			first = first.replace(/\+/g, ' ');
-			if (first != null)
+			var bed = getUrlVars()["bed"];
+			var ubication = getUrlVars()["bedLocationId"];
+			
+			if (first != null){
+				first = first.replace(/\+/g, ' ');
 				$("#insuranceName").val(first);
+			}
+			
+			if (bed != null){
+				bed = bed.replace(/\+/g, ' ');
+				$("#bedId").val(bed);
+			}
+			
+			if (ubication != null){
+				ubication = ubication.replace(/\+/g, ' ');
+				$("#ubication").val(ubication);
+			}
 			
 		});
 		</script>
@@ -125,14 +140,12 @@
 							</div>
 							<fieldset>
 								<label> Ubicación:  </label>
-									<select id="bedLocationId" name="bedLocationId">
-										<option value="337" >UCI</option>
-									</select><br><br>
+								<input type="text" name="ubication" id="ubication" value="UCI" readonly><br><br>
 								 
-								<label>Cama:</label>
-								 	<select id="bedId" name="bedId">
-										<option value="337" >Cama 1</option>
-									</select><br><br>
+								<label> Cama:</label>  <input type="text" name="bedId" id="bedId" value="Cama 1" readonly>
+								    <a href="searchBed.html?function=editHospitalization" style="color: #f7941e; font-weight: bold;">
+										<input type="button"id="bedUbication" value="Cambiar" >
+									</a> <br><br>
 								 <label>Departamento: </label>
 												
 							    	<select id="departmentId" name="departmentId">
