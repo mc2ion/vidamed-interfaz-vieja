@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-		<title>Crear Suministro</title>
+		<title>Editar Servicio</title>
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css" />
 	  	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
@@ -18,8 +18,8 @@
         	<div id="menu">
 				<div class="menuitemHome" ><a href="mainMenu.html">Home</a></div>	
 		    	<ul>
-	            	<li class="menuitem"><a href="supplyAreas.html">Ver Áreas Suministros</a></li>
-	            	<li class="menuitem"><a href="supplies.html">Ver Suministros</a></li>
+	            	<li class="menuitem"><a href="services.html">Ver Servicios</a></li>
+            		<li class="menuitem"><a href="createService.html">Crear Servicio</a></li>
 	            </ul>
 				<div class="menuitemSalir"><a href="index.html">Salir</a></div>	
         	</div>        
@@ -32,8 +32,8 @@
 						<li><a href="admission.html">Admisión</a></li>
 					    <li><a href="hospitalization.html">Hospitalización</a></li>
 						<li><a href="protocols.html">Protocolos</a></li>
-						<li><a href="services.html">Servicios</a></li>
-						<li><a class="active" href="supplyAreas.html">Suministros</a></li>
+						<li><a class="active" href="services.html">Servicios</a></li>
+						<li><a href="supplyAreas.html">Suministros</a></li>
 						<li><a href="departments.html">Departamentos</a></li>
 						<li><a href="doctors.html">Doctores</a></li>
 						<li><a href="bank.html">Cajas y Bancos</a></li>
@@ -43,20 +43,20 @@
 	            <div id="leftmenu_bottom"></div>
 	        </div>
         	<div id="content" style="position:absolute;">	
-	        	<h2>Crear Suministro:</h2>
+	        	<h2>Editar Servicio:</h2>
 				<br>
 				<fieldset>
 					<label for="name">Nombre:</label>
-					<input type="text" name="txtName" id="txtName" maxlength="50" size="5"/> <br><br>
+					<input type="text" name="txtName" id="txtName" maxlength="50" size="5" value="Hospitalización"/> <br><br>
 					<label for="name">Descripción:</label>
-					<textarea name="txtDescription" id="txtDescription" rows="3" cols="50"></textarea> <br><br>
-					<label for="name">Cantidad:</label>
-					<input type="number" min="1" name="txtAmount" id="txtAmount" maxlength="3" size="3" /> <br><br>
+					<textarea name="txtDescription" id="txtDescription" rows="3" cols="50">Modalidad de tratamiento médico para pacientes que requieran un ambiente especial durante un tiempo limitado. </textarea> <br><br>
+					<label for="name">Precio:</label>
+					<input type="number" min="1" name="txtPrice" id="txtPrice" maxlength="3" size="3" value="6363.20" /> <br><br>
 				</fieldset>
 				<div id="botonera">
-				<form action="supplies.html">
+				<form action="services.html">
 					<div id="botonP">
-						<input type="submit"  class="button"  name="sbmtButton" value="Agregar" style="margin-left:30%; margin-top: 5px;"/>
+						<input type="submit"  class="button"  name="sbmtButton" value="Modificar" style="margin-left:30%; margin-top: 5px;"/>
 					</div>	
 				</form>
 				<form>

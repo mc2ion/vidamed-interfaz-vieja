@@ -1,0 +1,128 @@
+<!DOCTYPE html >
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
+		<title>Crear Protocolo</title>
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css" />
+	  	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
+		<link rel="stylesheet" href="/resources/demos/style.css" />		
+	</head>
+	<body>
+		<div id="container">
+			<div id="header">
+	        	<img alt="logo" src="./images/logo.png"/>
+	        </div>         
+        	<div id="menu">
+				<div class="menuitemHome" ><a href="mainMenu.html">Home</a></div>	
+		    	<ul>
+	            	<li class="menuitem"><a href="protocols.html">Ver Protocolos</a></li>
+	            </ul>
+				<div class="menuitemSalir"><a href="index.html">Salir</a></div>	
+        	</div>        
+			<div id="leftmenu">
+				<div id="leftmenu_top"></div>
+				<div id="leftmenu_main">
+					<ul>
+					    <li><a href="estimations.html">Presupuestos</a></li>
+					    <li><a href="emergencies.html">Emergencia</a></li>
+						<li><a href="admission.html">Admisión</a></li>
+					    <li><a href="hospitalization.html">Hospitalización</a></li>
+						<li><a class="active" href="protocols.html">Protocolos</a></li>
+						<li><a href="services.html">Servicios</a></li>
+						<li><a href="supplyAreas.html">Suministros</a></li>
+						<li><a href="departments.html">Departamentos</a></li>
+						<li><a href="doctors.html">Doctores</a></li>
+						<li><a href="bank.html">Cajas y Bancos</a></li>
+						<li><a href="accounts.html">Cuentas</a></li>
+					</ul>
+				</div>
+	            <div id="leftmenu_bottom"></div>
+	        </div>
+        	<div id="content" style="position:absolute;">	
+	        	<h2>Crear Protocolo:</h2>
+				<br>
+				<fieldset>
+					<label>Departamento: </label> 
+					    	<select id="departmentId" name="departmentId">
+					    		<option value="-" >Seleccione</option>
+								<option value="337" >ALERGOLOGÍA</option>
+							 	<option value="660" >ANALISTAS DE SEGUROS</option>
+								<option value="338" >ANESTESIOLOGÍA</option>
+								<option value="340" >BIOANÁLISIS</option>
+								<option value="240" >CARDIOLOGÍA</option>
+								<option value="342" >CARDIOVASCULAR PERIFÉRICO</option>
+								<option value="343" >CIRUGÍA BARIÁTRICA</option>
+								<option value="344" >CIRUGÍA COLUMNA</option>
+								<option value="345" >CIRUGÍA DE TÓRAX</option>
+								<option value="887" >CIRUGIA EN ORTOPEDIA INFANTIL</option>
+								<option value="235" >CIRUGIA GENERAL</option>
+								<option value="346" >CIRUGÍA GINECOLÓGICA</option>
+								<option value="544" >CIRUGÍA LAPAROSCOPICA</option>
+								<option value="348" >CIRUGÍA MÁXILO-FACIAL </option>
+								<option value="349" >CIRUGÍA ONCOLÓGICA </option>
+								<option value="350" >CIRUGÍA PEDIÁTRICA</option>
+								<option value="351" >CIRUGÍA PLÁSTICA, ESTÉTICA Y RECONSTRUCTIVA</option>
+								<option value="935" >COLOPROCTOLOGÍA</option>
+								<option value="658" >COORDINADOR DE APS / SUP. DE SECRETARIAS</option>
+								<option value="236" >DERMATOLOGÍA</option>
+								<option value="352" >ENDOCRINOLOGÍA</option>
+								<option value="231" >FISIATRÍA</option>
+								<option value="353" >FISIOTERAPEUTAS</option>
+								<option value="238" >GASTROENTEROLOGÍA</option>
+								<option value="418" >GASTROENTEROLOGÍA INFANTIL</option>
+								<option value="355" >GINECO OBSTETRICIA</option>
+								<option value="356" >GINECOLOGÍA CLÍNICA</option>
+								<option value="239" >HEMATOLOGÍA</option>
+								<option value="357" >INFERTILIDAD</option>
+								<option value="419" >LABORATORIO</option>
+								<option value="359" >MASTOLOGÍA</option>
+								<option value="245" >MEDICINA INTERNA</option>
+								<option value="362" >MÉDICOS RESIDENTES</option>
+								<option value="656" >NEFROLOGIA DE ADULTOS</option>
+								<option value="364" >NEONATOLOGÍA</option>
+								<option value="365" >NEUMONOLOGÍA</option>
+								<option value="366" >NEUMONOLOGÍA PEDÍATRICA</option>
+								<option value="367" >NEUROCIRUGÍA</option>
+								<option value="233" >NEUROLOGÍA</option>
+								<option value="229" >NUTRICIÓN</option>
+								<option value="232" >OFTALMOLOGÍA</option>
+								<option value="370" >ONCOLOGÍA MÉDICA</option>
+								<option value="244" >OTORRINOLARINGOLOGÍA</option>
+								<option value="371" >PATOLOGÍA</option>
+								<option value="372" >PEDIATRÍA</option>
+								<option value="373" >PROCTOLOGÍA</option>
+								<option value="374" >PSQUIATRÍA</option>
+								<option value="375" >RADIOLOGÍA, IMAGENOLOGÍA</option>
+								<option value="376" >REUMATOLOGÍA</option>
+								<option value="659" >SECRETARIAS</option>
+								<option value="378" >TÉCNICOS RADIÓLOGOS</option>
+								<option value="379" >TOMOGRAFÍA Y RESONANCIA</option>
+								<option value="657" >TRAUMATOLOGIA ESPECIALISTA EN COLUMNA</option>
+								<option value="380" >TRAUMATOLOGÍA Y ORTOPEDIA</option>
+								<option value="242" >UROLOGÍA</option>
+								<option value="381" >UROLOGÍA PEDIÁTRICA</option>
+					    	</select><br><br>
+					<label for="name">Nombre:</label>
+					<input type="text" name="txtName" id="txtName" maxlength="50" size="5"/> <br><br>
+					<label for="name">Descripción:</label>
+					<textarea name="txtDescription" id="txtDescription" rows="3" cols="50"></textarea> <br><br>
+				</fieldset>
+				<div id="botonera">
+				<form action="protocols.html">
+					<div id="botonP">
+						<input type="submit"  class="button"  name="sbmtButton" value="Agregar" style="margin-left:30%; margin-top: 5px;"/>
+					</div>	
+				</form>
+				<form>
+					<div id="botonV" style="position:relative; margin-left: 250px; top: -22px;">
+						<input type="button" class="button" value="Regresar" style="margin-left:40%;" onClick="javascript:history.back();" style="margin-left:40%;" />		
+					</div>	
+				</form>
+			</div>
+			</div>
+		</div>
+	</body>
+</html>
