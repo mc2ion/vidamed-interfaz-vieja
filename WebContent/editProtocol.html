@@ -19,7 +19,7 @@
 				<div class="menuitemHome" ><a href="mainMenu.html">Home</a></div>	
 		    	<ul>
 	            	<li class="menuitem"><a href="protocols.html">Ver Protocolos</a></li>
-            		<li class="menuitem"><a href="createProtocol.html">Crear Protocolo</a></li>
+            		<li class="menuitem"><a href="createProtocol.html" style="margin-left: 10px;">Crear Protocolo</a></li>
 	            </ul>
 				<div class="menuitemSalir"><a href="index.html">Salir</a></div>	
         	</div>        
@@ -112,17 +112,15 @@
 					<textarea name="txtDescription" id="txtDescription" rows="3" cols="50">Cirugía plástica reparadora del frenillo breve.</textarea> <br><br>
 				</fieldset>
 				<div id="botonera">
-				<form action="protocols.html">
-					<div id="botonP">
-						<input type="submit"  class="button"  name="sbmtButton" value="Modificar" style="margin-left:30%; margin-top: 5px;"/>
-					</div>	
-				</form>
-				<form>
-					<div id="botonV" style="position:relative; margin-left: 250px; top: -22px;">
-						<input type="button" class="button" value="Regresar" style="margin-left:40%;" onClick="javascript:history.back();" style="margin-left:40%;" />		
-					</div>	
-				</form>
-			</div>
+					<form action="protocols.html">
+						<div id="botonP" style="display: inline; margin-right: 30px;">
+									<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
+						</div>	
+						<div id="botonV" style="display: inline;">
+								<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
+						</div>	
+					</form>
+				</div>
 			</div>
 		</div>
 	</body>

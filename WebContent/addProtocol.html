@@ -1,0 +1,88 @@
+<!DOCTYPE html >
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
+		<title>Ver Hospitalización</title>
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css" />
+	  	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<link rel="stylesheet" href="/resources/demos/style.css" />
+		
+		<script type="text/javascript" src="./js/jquery.js"></script>
+		<script type="text/javascript" src="./js/jquery.dataTables.js"></script>
+		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
+		<script type="text/javascript" charset="utf-8">
+		$(document).ready(function() {
+			$('#example').dataTable( {
+				"iDisplayLength": 5,
+				"bLengthChange": false,
+				"sScrollY": "170px",
+				"bPaginate": false,
+				"aoColumns": [
+					{ "bSearchable": false, "asSorting": false, "sWidth": "8%" },
+					null,
+					null,
+					null
+				],
+				"oLanguage": {
+		            "sLengthMenu": "",
+		            "sZeroRecords": "No hay ningún registro que coincida con su búsqueda",
+		            "sInfo": "",
+		            "sInfoEmpty": "Mostrando 0 a 0 de 0 registros",
+		            "sInfoFiltered": "",
+		            "sEmptyTable": "No hay datos disponibles en la tabla",
+		            "sLoadingRecords": "Por favor, espere - cargando...",
+		            "sSearch": "Buscar:"
+	        	}
+			} );
+		} );
+		</script>
+	</head>
+	
+	<body>
+		<div id="contentAux">
+				Seleccione el protocolo que desea agregar en la columna izquierda de la tabla,
+				y haga clic en "Agregar": <br><br>
+				<table class="display" id="example" >
+				<thead>
+					<tr>
+						<th></th>
+						<th>ID</th>
+						<th>Departamento</th>
+						<th>Nombre</th>
+					</tr>
+				</thead>
+				<tbody>			
+					<tr class="gradeA">
+						<td><input type="radio" name="protocol" value="Frenuloplastia"><br>
+						<td>1001</td>
+						<td>Cirugía General</td>
+						<td>Frenuloplastia</td>
+					</tr>
+					<tr class="gradeA">
+						<td><input type="radio" name="protocol" value="Tratamiento Medico"><br>
+						<td>1002</td>
+						<td>Otros Procedimientos</td>
+						<td>Tratamixcddfffnto Médico</td>
+					</tr>
+					<tr class="gradeA">
+						<td><input type="radio" name="protocol" value="Emergencia"><br>
+						<td>1003</td>
+						<td>Emergencia</td>
+						<td>Emergencia</td>
+					</tr>
+				</tbody>
+			</table>
+			<div id="botonera">
+				<form action="editHospitalization.html">
+					<div id="botonP">
+								<input type="submit" class="inner-button" name="sbmtButton" value="Agregar" style="margin-left:50%; margin-bottom: 10px;"/>
+					</div>	
+				</form>
+			</div>
+	</div>
+</body>
+</html>
+
+

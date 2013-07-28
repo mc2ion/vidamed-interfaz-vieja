@@ -654,6 +654,15 @@ fieldset input[type="text"]{
 
 }
 
+.inner-button
+{
+	background-color: gray;
+	color:white;
+	font-family: Verdana, Arial;
+	cursor: pointer;
+
+}
+
 
 .buttonPopUp
 {
@@ -1506,6 +1515,19 @@ div.box {
 	
 }
 
+fieldset .leftCol label{
+	width: 41%;
+}
+
+fieldset .leftCol input[type="text"]{
+	width: 47%;
+}
+
+
+fieldset .rightCol input[type="text"]{
+	width: 20%;
+}
+
 #otherPhone{
 	margin-left: 164px;
 	
@@ -1532,4 +1554,48 @@ table {
 	position: absolute;
 	top: 160px;
 	
+}
+
+#bedUbication{
+	height: 50px;
+	position: absolute;
+	margin-top: -34px;
+}
+
+.ui-tabs .ui-tabs-panel {
+	display: block;
+	border-width: 0;
+	padding: 1em;
+	padding-bottom: 0 !important;
+	background: none;
+}
+
+#botonera{
+  width: 200px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+}
+
+#contentLogin fieldset{
+  padding: 1em;
+  font:12px Arial, Helvetica, sans-serif;
+  border: 0;
+}
+
+
+#contentLogin fieldset label{
+  float:left;
+  width:35%;
+  height: 30px;
+  margin-right:0.5em;
+  padding-top:0.2em;
+  text-align:left;
+  font-weight:bold;
+}
+
+#contentLogin fieldset input[type="text"],#contentLogin fieldset input[type="password"] {
+  width:40%;
+ 
 }

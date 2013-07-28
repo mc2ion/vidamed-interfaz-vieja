@@ -31,11 +31,42 @@
 			prevButton = "evolution";
 		});
 		
+		$(document).on('click','#vitalSigns #addVitalSigns',function(){
+			$('#vitalSigns').load('./addVitalSignsDetail.html #contentAux');	
+			$("#backButton").show();
+			prevPage = "editVitalSigns.html";
+			prevButton = "vital";
+		});
+		
+		
+		$(document).on('click','#vitalSigns #addVitalSigns',function(){
+			$('#vitalSigns').load('./addVitalSignsDetail.html #contentAux');	
+			$("#backButton").show();
+			prevPage = "editVitalSigns.html";
+			prevButton = "vital";
+		});
+		
+		$(document).on('click','#result #addEvolution',function(){
+			$('#result').load('./addEvolutionDetail.html');	
+			$("#backButton").show();
+			prevPage = "editEvolution.html";
+			prevButton = "evolution";
+		});
+		
+		
+		
 		$(document).on('click','#vitalSigns #editVital',function(){
 			$('#vitalSigns').load('./editVitalSignsDetail.html');	
 			$("#backButton").show();
 			prevPage = "editVitalSigns.html";
 			prevButton = "vital";
+		});
+		
+		$(document).on('click','#protocol #addProtocol',function(){
+			$('#protocol').load('./addProtocol.html');	
+			$("#backButton").show();
+			prevPage = "editProtocolTab.html";
+			prevButton = "protocol";
 		});
 		
 		function loadVars(var1, var2) {
@@ -54,13 +85,16 @@
 	
 			$('#result').load('./editEvolution.html #contentAux');
 			$('#vitalSigns').load('./editVitalSigns.html #contentAux');
+			$('#protocol').load('./editProtocolTab.html #contentAux');
 			
 			
 			$("#backButton").click(function() {
-				if (prevButton != "evolution")
+				if (prevButton == "vitalSigns")
 					$('#vitalSigns').load(prevPage);
-				else
+				else if (prevButton == "evolution")
 					$('#result').load(prevPage);
+				else if (prevButton == "protocol")
+					$('#protocol').load(prevPage);
 				$(this).hide();
 			});
 			
@@ -78,6 +112,7 @@
 			var ubication = getUrlVars()["bedLocationId"];
 			var doctor = getUrlVars()["doctor"];
 			var departmentId = getUrlVars()["department"];
+			
 			
 			if (first != null){
 				first = first.replace(/\+/g, ' ');
@@ -98,9 +133,10 @@
 				doctor = doctor.replace(/\+/g, ' ');
 				$("#doctorName").val(doctor);
 			}
-
-			if (departamentId != null){
-				$("#departament").val("Alergogía");
+			
+			
+			if (departmentId != null){
+				$("#departament").val("Alergología");
 			}
 			
 		});
@@ -136,7 +172,7 @@
 	        </div>
         	<div id="content" style="position:absolute;">	
 	        	<h2>Editar Hospitalización:</h2>
-				<br>
+				
 				<div id="tabs">
 					<ul>
 					    <li><a href="#tabs-1">Paciente</a></li>
@@ -148,15 +184,15 @@
 			  		</ul>
   					<div id="tabs-1">
   							<div id="hosp">
-  							<p><b>Cédula:</b> V-12345678 <br></p>
-							<p><b>Nombre:</b>  Ana Rojas <br></p>
-							<p><b>Fecha de Ingreso:  </b> 20/06/2013 07:35 AM  <br></p>
+  							<p><b>Cédula:</b> <span style="margin-left:115px;">V-12345678</span>  </p>
+  							<p><b>Nombre:</b> <span style="margin-left:107px;"> Ana Rojas</span> </p>
+							<p><b>Fecha de Ingreso:  </b> <span style="margin-left:48px;">20/06/2013 07:35 AM  <br></span> </p>
 							</div>
 							<fieldset>
 								<label> Departamento: </label>
-							   <input type="text" name="departament" id="departament" readonly>
+							   <input type="text" name="departament" id="departament" value="Cirugía" readonly>
 							    <br><br>
-							   <label>Médico Tratante: </label> <input type="text" name="doctorName" id="doctorName" readonly>
+							   <label>Médico Tratante: </label> <input type="text" name="doctorName" id="doctorName" value="Ricardo García" readonly>
 							    <a href="searchDoctor.html?function=editHospitalization" style="color: #f7941e; font-weight: bold;">
 									<input type="button"id="doctorId" value="Cambiar" >
 								</a> <br><br>
@@ -173,52 +209,32 @@
 										<input type="button"id="paymentResp" value="Cambiar" >
 									</a> 
 						  </fieldset>
+						  <div id="botonera">
+							<form action="#">
+								<div id="botonP" style="display: inline; margin-right: 30px;">
+											<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
+								</div>	
+								<div id="botonV" style="display: inline;">
+										<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
+								</div>	
+							</form>
+						</div>
+						
 					</div>
   					<div id="tabs-2">
-  						<div style="text-align:right;">
-	  						<a id="go" href="#" style="color: #006c92; font-weight: bold;">
-								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Protocolo
-							</a>						
-  						</div>
-  						<br>
-  						<br>
-  						<table id="sweetTable">
-							<tbody>
-								<tr>
-									<th>Protocolo</th>
-									<th>Acción</th>
-								</tr>				
-								<tr>
-									<td>Histerectomía</td>
-									<td>
-										<a id="go" rel="leanModal" href="#deleteProtocol" style="color: #f7941e; font-weight: bold;" 
-											onclick="return loadVars(1001,'Histerectomía');" >
-											<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-										</a> 
-									</td>
-								</tr>				
-								<tr>
-									<td>Colecistectomía</td>
-									<td>
-										<a id="go" rel="leanModal" href="#deleteProtocol" style="color: #f7941e; font-weight: bold;" 
-											onclick="return loadVars(1001,'Colecistectomía');" >
-											<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-										</a>
-									</td>
-								</tr>				
-								<tr>
-									<td>Apendicectomía</td>
-									<td>
-										<a id="go" rel="leanModal" href="#deleteProtocol" style="color: #f7941e; font-weight: bold;" 
-											onclick="return loadVars(1001,'Apendicectomía');" >
-											<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-										</a>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+  						<div id="protocol"></div>
+  						<div id="botonera">
+							<form action="#">
+								<div id="botonP" style="display: inline; margin-right: 30px;">
+											<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
+								</div>	
+								<div id="botonV" style="display: inline;">
+										<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
+								</div>	
+							</form>
+						</div>
 						<br>
-  					</div>
+					</div>
   					<div id="tabs-3">
   						<div style="text-align:right;">
 	  						<a id="go" href="#" style="color: #006c92; font-weight: bold;">
@@ -266,6 +282,16 @@
 								</tr>
 							</tbody>
 						</table>
+						<div id="botonera">
+							<form action="#">
+								<div id="botonP" style="display: inline; margin-right: 30px;">
+											<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
+								</div>	
+								<div id="botonV" style="display: inline;">
+										<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
+								</div>	
+							</form>
+						</div>
 						<br>
 					</div>
 					<div id="tabs-4">
@@ -335,37 +361,48 @@
 								</tr>
 							</tbody>
 						</table>
+						<div id="botonera">
+							<form action="#">
+								<div id="botonP" style="display: inline; margin-right: 30px;">
+											<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
+								</div>	
+								<div id="botonV" style="display: inline;">
+										<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
+								</div>	
+							</form>
+						</div>
 						<br>
 					</div>
 					<div id="tabs-5">
-						<div style="text-align:right;">
-	  						<a id="go" href="#" style="color: #006c92; font-weight: bold;">
-								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Registro
-							</a>						
-  						</div>
-  						<div id="result"></div>
+						<div id="result">
+							<div id="previous"></div>
+						</div>
+						<div id="botonera">
+							<form action="#">
+								<div id="botonP" style="display: inline; margin-right: 30px;">
+											<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
+								</div>	
+								<div id="botonV" style="display: inline;">
+										<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
+								</div>	
+							</form>
+						</div>
+						<br>
   					</div>	
 					<div id="tabs-6">
-						<div style="text-align:right;">
-	  						<a id="go" href="#" style="color: #006c92; font-weight: bold;">
-								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Registro
-							</a>						
-  						</div>
-  						<div id="vitalSigns"></div>
-  						
-					</div>
-				</div>
-				<div id="botonera">
-					<form action="hospitalization.html">
-						<div id="botonP">
-									<input type="submit"  class="button"  name="sbmtButton" value="Modificar" style="margin-left:35%; margin-top: 5px;"/>
-						</div>	
-					</form>
-					<form>
-						<div id="botonV" style="position:relative; margin-left: 250px; top: -22px;">
-								<input type="button" id="backButton" class="button" value="Regresar" style="margin-left:40%; display:none;" />		
-						</div>	
-					</form>
+						<div id="vitalSigns"></div>
+						<div id="botonera">
+							<form action="#">
+								<div id="botonP" style="display: inline; margin-right: 30px;">
+											<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
+								</div>	
+								<div id="botonV" style="display: inline;">
+										<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
+								</div>	
+							</form>
+						</div>
+						<br>
+  					</div>
 				</div>
 			</div>
 		</div>
