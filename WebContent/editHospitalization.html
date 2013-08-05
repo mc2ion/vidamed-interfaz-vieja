@@ -12,6 +12,7 @@
 		<script>
 			$(function() {
 				$( "#tabs" ).tabs();
+				$("#tabs").tabs("select", window.location.hash);
 			});
 		</script>
 		<script type="text/javascript">
@@ -62,13 +63,6 @@
 			prevButton = "vital";
 		});
 		
-		$(document).on('click','#protocol #addProtocol',function(){
-			$('#protocol').load('./addProtocol.html');	
-			$("#backButton").show();
-			prevPage = "editProtocolTab.html";
-			prevButton = "protocol";
-		});
-		
 		function loadVars(var1, var2) {
 			idUser = var1;
 			$('.cliente').text(var2);
@@ -85,7 +79,6 @@
 	
 			$('#result').load('./editEvolution.html #contentAux');
 			$('#vitalSigns').load('./editVitalSigns.html #contentAux');
-			$('#protocol').load('./editProtocolTab.html #contentAux');
 			
 			
 			$("#backButton").click(function() {
@@ -149,6 +142,9 @@
 	        </div>         
         	<div id="menu">
 				<div class="menuitemHome" ><a href="mainMenu.html">Home</a></div>	
+				<ul>
+	            	<li class="menuitem"><a href="hospitalization.html">Ver Hospitalizaciones</a></li>
+	            </ul>
 				<div class="menuitemSalir"><a href="index.html">Salir</a></div>	
         	</div>        
 			<div id="leftmenu">
@@ -222,7 +218,48 @@
 						
 					</div>
   					<div id="tabs-2">
-  						<div id="protocol"></div>
+  						<div style="text-align:right;">
+							<a  href="searchProtocols.html?function=editHospitalization" style="color: #006c92; font-weight: bold;">
+								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Protocolo
+							</a>						
+						</div>
+							<br>
+							<br>
+							<table id="sweetTable">
+							<tbody>
+								<tr>
+									<th>Protocolo</th>
+									<th>Acción</th>
+								</tr>				
+								<tr>
+									<td>Histerectomía</td>
+									<td>
+										<a id="go" rel="leanModal" href="#deleteProtocol" style="color: #f7941e; font-weight: bold;" 
+											onclick="return loadVars(1001,'Histerectomía');" >
+											<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
+										</a> 
+									</td>
+								</tr>				
+								<tr>
+									<td>Colecistectomía</td>
+									<td>
+										<a id="go" rel="leanModal" href="#deleteProtocol" style="color: #f7941e; font-weight: bold;" 
+											onclick="return loadVars(1001,'Colecistectomía');" >
+											<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
+										</a>
+									</td>
+								</tr>				
+								<tr>
+									<td>Apendicectomía</td>
+									<td>
+										<a id="go" rel="leanModal" href="#deleteProtocol" style="color: #f7941e; font-weight: bold;" 
+											onclick="return loadVars(1001,'Apendicectomía');" >
+											<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
+										</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
   						<div id="botonera">
 							<form action="#">
 								<div id="botonP" style="display: inline; margin-right: 30px;">
@@ -237,7 +274,7 @@
 					</div>
   					<div id="tabs-3">
   						<div style="text-align:right;">
-	  						<a id="go" href="#" style="color: #006c92; font-weight: bold;">
+	  						<a href="searchServices.html?function=editHospitalization" style="color: #006c92; font-weight: bold;">
 								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Servicio
 							</a>						
   						</div>
