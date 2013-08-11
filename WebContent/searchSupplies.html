@@ -9,13 +9,13 @@
 	<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
 	<script type="text/javascript" charset="utf-8">
 	$(document).ready(function() {
-		var oTable= $('#example').dataTable( {
+		var oTable = $('#example').dataTable( {
 			"iDisplayLength": 7,
 			"bLengthChange": false,
 			"sScrollY": "230px",
 			"bPaginate": false,
 			"aoColumns": [
-				{ "bSearchable": false, "asSorting": false, "sWidth": "10%" },
+				{ "bSearchable": false, "asSorting": false, "sWidth": "15%" },
 				null,
 				null,
 				null
@@ -70,14 +70,14 @@
 				if (first.indexOf("Estimation") > 0){
 					$("#estimation").attr('class', 'active');
 					if (first == "editEstimation")
-						$("#form").attr('action', 'editEstimation.html#tabs-2');
+						$("#form").attr('action', 'editEstimation.html#tabs-4');
 					else if(first == "createEstimation")
-						$("#form").attr('action', 'createEstimation.html#tabs-2');
+						$("#form").attr('action', 'createEstimation.html#tabs-4');
 				}
 				else if (first.indexOf("Hospitalization") > 0){
 					$("#hospitalization").attr('class', 'active');
 					if (first == "editHospitalization")
-						$("#form").attr('action', 'editHospitalization.html#tabs-2');
+						$("#form").attr('action', 'editHospitalization.html#tabs-4');
 					
 				}
 				else if (first.indexOf("Patient") > 0){
@@ -89,10 +89,34 @@
 				else if (first.indexOf("Emergency") > 0){
 					$("#emergencies").attr('class', 'active');
 					if (first == "editEmergency")
-						$("#form").attr('action', 'editEmergency.html#tabs-2');
+						$("#form").attr('action', 'editEmergency.html#tabs-4');
 					
 				}
 			}
+			
+			$('#supplies1').click(function () {
+				if ($('#supplies1').is(':checked')) {
+				    $("#select1").css("visibility","visible"); 
+				} else {
+				    $("#select1").css("visibility","hidden"); 
+				} 
+			});
+			
+			$('#supplies2').click(function () {
+				if ($(this).is(':checked')) {
+				    $("#select2").css("visibility","visible"); 
+				} else {
+				    $("#select2").css("visibility","hidden"); 
+				} 
+			});
+			
+			$('#supplies3').click(function () {
+				if ($(this).is(':checked')) {
+				    $("#select3").css("visibility","visible"); 
+				} else {
+				    $("#select3").css("visibility","hidden"); 
+				} 
+			});
 				
 		});
 		
@@ -111,7 +135,7 @@
 			<div id="leftmenu_top"></div>
 			<div id="leftmenu_main">
 				<ul>
-				    <li><a id="estimation"  href="estimations.html">Presupuestos</a></li>
+				      <li><a id="estimation"  href="estimations.html">Presupuestos</a></li>
 				    <li><a id="emergencies" href="emergencies.html">Emergencia</a></li>
 					<li><a id="admission" href="admission.html">Admisión</a></li>
 				    <li><a id="hospitalization" href="hospitalization.html">Hospitalización</a></li>
@@ -127,8 +151,8 @@
             <div id="leftmenu_bottom"></div>
         </div>  
 		<div id="content">  
-			<h2>Agregar Protocolo:</h2><br>
-			<p>Escoga el protocolo que desea agregar haciendo clic en la columna izquierda de la tabla y luego haga clic en "Agregar".</p>
+			<h2>Agregar Suministro:</h2><br>
+			<p>Escoga el(los) suministro(s) que desea agregar haciendo clic en la columna izquierda de la tabla, seleccione la cantidad deseada y luego haga clic en "Agregar".</p>
 			<div id="dt_example">
 					<div id="container">
 						<div id="demo">
@@ -137,34 +161,71 @@
 									<tr>
 										<th>Escoger</th>
 										<th>ID</th>
-										<th>Departamento</th>
 										<th>Nombre</th>
+										<th>Área</th>
 									</tr>
 								</thead>
 								<tbody>			
 									<tr class="gradeA">
 										<td>
-											<input type="radio" name="protocol" value="Frenuloplastia"><br>
+											<input type="checkbox" name="supplies" id="supplies1" value="12345" >
+											<select name="select" id="select1" style="visibility:hidden;">
+											 	<option value="value1">1</option> 
+											   	<option value="value1">2</option>
+											    <option value="value1">3</option>
+											    <option value="value1">4</option>
+												<option value="value1">5</option>
+												<option value="value1">6</option>
+												<option value="value1">7</option>
+												<option value="value1">8</option>
+												<option value="value1">9</option>
+												<option value="value1">10</option>
+											</select>
 										</td>
+										
 										<td>1001</td>
-										<td>Cirugía General</td>
-										<td>Frenuloplastia</td>
+										<td>Albumina Humana 20% 50 ml</td>
+										<td>Albumina Humana 20% 50 ml</td>
 									</tr>
 									<tr class="gradeA">
 										<td>
-											<input type="radio" name="protocol" value="Tratamiento Medico"><br>
+											<input type="checkbox" name="supplies" id="supplies2" value="12345">
+											<select name="select" id="select2" style="visibility:hidden;">
+											 	<option value="value1">1</option> 
+											   	<option value="value1">2</option>
+											    <option value="value1">3</option>
+											    <option value="value1">4</option>
+												<option value="value1">5</option>
+												<option value="value1">6</option>
+												<option value="value1">7</option>
+												<option value="value1">8</option>
+												<option value="value1">9</option>
+												<option value="value1">10</option>
+											</select>
 										</td>
 										<td>1002</td>
-										<td>Otros Procedimientos</td>
-										<td>Tratamiento Médico</td>
+										<td>Benutrex B12 Ampolla</td>
+										<td>Albumina Humana 20% 50 ml</td>
 									</tr>
 									<tr class="gradeA">
 										<td>
-											<input type="radio" name="protocol" value="Emergencia"><br>
+											<input type="checkbox" name="supplies" id="supplies3" value="12345">	
+											<select name="select" id="select3" style="visibility:hidden;">
+											 	<option value="value1">1</option> 
+											   	<option value="value1">2</option>
+											    <option value="value1">3</option>
+											    <option value="value1">4</option>
+												<option value="value1">5</option>
+												<option value="value1">6</option>
+												<option value="value1">7</option>
+												<option value="value1">8</option>
+												<option value="value1">9</option>
+												<option value="value1">10</option>
+											</select>
 										</td>
 										<td>1003</td>
-										<td>Emergencia</td>
-										<td>Emergencia</td>
+										<td>Daktarin Crema</td>
+										<td>Albumina Humana 20% 50 ml</td>
 									</tr>
 								</tbody>
 							</table>

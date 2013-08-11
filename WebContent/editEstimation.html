@@ -9,62 +9,29 @@
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
 		<link rel="stylesheet" href="/resources/demos/style.css" />
-		<script>
-			$(function() {
-				$( "#tabs" ).tabs();
-			});
-		</script>
 		<script type="text/javascript">
 		var idUser;
-				
+
 		$(function() {
-			$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x, .buttonPopUpClose " });	
-			
-		
+			$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x, .buttonPopUpClose" });		
 		});
-		
+
 		function loadVars(var1, var2) {
 			idUser = var1;
 			$('.cliente').text(var2);
-			
+
 		};
-		
+
 		function setV(f){
 			f.elements['userId'].value = idUser;
 			return true;
 		}
-		
-		$(document).ready(function() {
-			
-			function getUrlVars() {
-			    var vars = {};
-			    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-			        vars[key] = value;
-			    });
-			    return vars;
-			}
-
-			var first = getUrlVars()["insurance"];
-			var doctor = getUrlVars()["doctor"];
-			var department = getUrlVars()["department"];
-			
-			
-			if (first != null){
-				first = first.replace(/\+/g, ' ');
-				$("#insuranceName").val(first);
-			}
-			
-			if (doctor != null){
-				doctor = doctor.replace(/\+/g, ' ');
-				$("#doctorName").val(doctor);
-			}
-			
-			if (departament != null){
-				$("#departament").val("Alergología");
-			}
-			
-			
-		});
+		</script>
+		<script>
+			$(function() {
+				$("#tabs").tabs();
+				$("#tabs").tabs("select", window.location.hash);
+			});
 		</script>
 	</head>
 	<body>
@@ -99,8 +66,8 @@
 	            <div id="leftmenu_bottom"></div>
 	        </div>
         	<div id="content" style="position:absolute;">	
-	        	<h2>Editar Presupuesto:</h2>
-				<br>
+	        	<h2>Editar Presupuesto:</h2><br>
+	        	<br>
 				<div id="tabs">
 					<ul>
 					    <li><a href="#tabs-1">Paciente</a></li>
@@ -124,8 +91,7 @@
 							<input type="button"id="paymentResp" value="Cambiar" >
 						</a> 
 					    </fieldset>
-					    
-						<div id="botonera">
+					    <div id="botonera" >
 							<form action="#">
 								<div id="botonP" style="display: inline; margin-right: 30px;">
 											<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
@@ -135,11 +101,11 @@
 								</div>	
 							</form>
 						</div>
-						<br>
+					    <br>
 					</div>
   					<div id="tabs-2">
   						<div style="text-align:right;">
-	  						<a id="go" style="color: #006c92; font-weight: bold;">
+	  						<a href="searchProtocols.html?function=editEstimation" style="color: #006c92; font-weight: bold;">
 								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Protocolo
 							</a>						
   						</div>
@@ -180,21 +146,11 @@
 								</tr>
 							</tbody>
 						</table>
-						<div id="botonera">
-							<form action="#">
-								<div id="botonP" style="display: inline; margin-right: 30px;">
-											<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
-								</div>	
-								<div id="botonV" style="display: inline;">
-										<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
-								</div>	
-							</form>
-						</div>
 						<br>
   					</div>
   					<div id="tabs-3">
   						<div style="text-align:right;">
-	  						<a id="go" style="color: #006c92; font-weight: bold;">
+	  						<a href="searchServices.html?function=editEstimation" style="color: #006c92; font-weight: bold;">
 								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Servicio
 							</a>						
   						</div>
@@ -239,16 +195,6 @@
 								</tr>
 							</tbody>
 						</table>
-						<div id="botonera">
-							<form action="#">
-								<div id="botonP" style="display: inline; margin-right: 30px;">
-											<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
-								</div>	
-								<div id="botonV" style="display: inline;">
-										<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
-								</div>	
-							</form>
-						</div>
 						<br>
 					</div>
 				</div>

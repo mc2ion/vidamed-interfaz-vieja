@@ -12,14 +12,9 @@
 			var prevPage = "";
 			var prevButton = "";
 			
-			$(function() {
-				$( "#tabs" ).tabs();
-			
-			});
-			
 			$(function evolution() {
-				$( "#tabs" ).tabs();
-			
+				$("#tabs").tabs();
+				$("#tabs").tabs("select", window.location.hash);
 			});
 			
 			
@@ -102,16 +97,15 @@
 			  		</ul>
   					<div id="tabs-1">
   						<br>
-					    <p>
-					    Cédula: V-12345678<br>
-					    Nombre: Ana Rojas<br>
-					    Fecha de Ingreso: 20/06/2013 07:35 AM<br>
-					    Ubicación: UCI<br>
-					    Cama: Cama 1<br><br>
-					    Médico Tratante: Ricardo García<br>
-					    Departamento: Cirugía<br>
-					    Responsable del Pago: La Previsora<br><br>
-					    </p>
+					   	<div class="leftColum"><b> Cédula: </b></div>V-12345678<br>
+					    <div class="leftColum"><b>Nombre:</b></div> Ana Rojas<br>
+					    <div class="leftColum"><b>Fecha de Ingreso:</b></div> 20/06/2013 07:35 AM<br>
+					   <div class="leftColum"> <b>Ubicación:</b></div> UCI<br>
+					   <div class="leftColum"> <b>Cama:</b></div> Cama 1<br><br>
+					   <div class="leftColum"> <b>Médico Tratante:</b></div> Ricardo García<br>
+					   <div class="leftColum"><b>Departamento:</b></div> Cirugía<br>
+					   <div class="leftColum"><b> Responsable del Pago:</b></div> La Previsora<br><br>
+					   
   					</div>
   					<div id="tabs-2">
   						<br>
@@ -188,24 +182,113 @@
 						<br>
 					</div>
 					<div id="tabs-5">
-						<div id="result">
-						</div>
+					<br>
+						<table id="sweetTable">
+								<tbody>
+									<tr>
+										<th>Fecha</th>
+										<th>Médico</th>
+										<th>Ver Detalle</th>
+									</tr>				
+									<tr>
+										<td>27/06/2013 07:35 PM</td>
+										<td>Ricardo García</td>
+										<td style="text-align:center;">
+									<a href="showEvolutionDetail.html?function=showHospitalization" style="color: transparent" >
+										<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
+									</a>
+								</td>
+							</tr>				
+							<tr>
+								<td>23/06/2013 09:40 AM</td>
+								<td>Javier Fernandez</td>
+								<td style="text-align:center;">										
+									<a href="#" style="color: transparent" >
+										<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
+									</a>
+								</td>
+							</tr>				
+							<tr>
+								<td>20/06/2013 07:35 AM</td>
+								<td>Ricardo García</td>
+								<td style="text-align:center;">										
+									<a href="#" style="color: transparent" >
+										<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
+									</a>
+								</td>
+							</tr>				
+							<tr>
+								<td>19/06/2013 10:06 AM</td>
+								<td>Ricardo García</td>
+								<td style="text-align:center;">										
+									<a href="#" style="color: transparent" >
+										<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
+									</a>
+								</td>
+							</tr>
+						</tbody>
+						</table>
+						<br>
 					</div>
 					<div id="tabs-6">
-						<div id="vitalSigns"></div>
+						<br>
+		    <table id="sweetTable">
+				<tbody>
+					<tr>
+						<th>Fecha de Toma</th>
+						<th>Hora de Toma</th>
+						<th>Ver Detalle</th>
+					</tr>				
+					<tr>
+						<td>27/06/2013</td>
+						<td>07:35 PM</td>
+						<td style="text-align:center;">
+							<a href="showVitalSignsDetail.html?function=showHospitalization" style="color: transparent"  >
+								<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
+							</a>
+						</td>
+					</tr>				
+					<tr>
+						<td>23/06/2013</td>
+						<td>09:40 AM</td>
+						<td style="text-align:center;">										
+							<a href="#" style="color: transparent" >
+								<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
+							</a>
+						</td>
+					</tr>				
+					<tr>
+						<td>20/06/2013</td>
+						<td>07:35 AM</td>
+						<td style="text-align:center;">										
+							<a href="#" style="color: transparent" >
+								<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
+							</a>
+						</td>
+					</tr>				
+					<tr>
+						<td>19/06/2013</td>
+						<td>10:06 AM</td>
+						<td style="text-align:center;">										
+							<a href="#" style="color: transparent" >
+								<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
+							</a>
+						</td>
+					</tr>
+				</tbody>
+			</table><br>
 					</div>
 				</div>
 				<div id="botonera">
-				<form action="printHospitalization.html">
-					<div id="botonP">
-							<input type="submit"  class="button"  name="sbmtButton" value="Imprimir" style="margin-left:40%; margin-top: 5px;"/>
-					</div>
-					<div id="botonV" style="position:relative; margin-left: 250px; top: -22px;">
-						<input type="button" id="backButton2" class="button" value="Regresar" style="margin-left:30%; display:none;"   />		
-					</div>		
-				</form>
-				
-			</div>	
+					<form action="printHospitalization.html">
+						<div id="botonP" style="display: inline; margin-right: 30px;">
+									<input type="submit"  class="button"  name="sbmtButton" value="Imprimir" />
+						</div>	
+						<div id="botonV" style="display: inline;">
+								<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
+						</div>		
+					</form>
+				</div>	
 			</div>
 		</div>
 	</body>

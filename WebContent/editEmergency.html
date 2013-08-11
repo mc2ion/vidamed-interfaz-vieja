@@ -9,11 +9,6 @@
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		<script type="text/javascript"  src="./js/jquery.leanModal.min.js"></script>
 		<link rel="stylesheet" href="/resources/demos/style.css" />
-		<script>
-			$(function() {
-				$( "#tabs" ).tabs();
-			});
-		</script>
 		<script type="text/javascript">
 		var idUser;
 				
@@ -58,6 +53,12 @@
 			}
 		});
 		</script>
+		<script>
+			$(function() {
+				$( "#tabs" ).tabs();
+				$("#tabs").tabs("select", window.location.hash);
+			});
+		</script>
 	</head>
 	<body>
 		<div id="container">
@@ -99,11 +100,9 @@
 			  		</ul>
   					<div id="tabs-1">
   						<br>
-					    <p>
-					    <b>Cédula:</b> V-12345678<br><br>
-					    <b> Nombre:</b> Ana Rojas<br><br>
-					    <b>Fecha de Ingreso:</b> 20/06/2013 07:35 AM<br><br>
-					    </p>
+					    <div class="leftColum"><b>Cédula:</b></div> V-12345678<br><br>
+					    <div class="leftColum"><b> Nombre:</b></div> Ana Rojas<br><br>
+					    <div class="leftColum"><b>Fecha de Ingreso:</b></div> 20/06/2013 07:35 AM<br><br>
 					    <fieldset>
 					   <label> Ubicación:  </label>
 						<input type="text" name="ubication" id="ubication" value="UCI" readonly><br><br>
@@ -123,14 +122,14 @@
 								</div>	
 							</form>
 						</div>
-						<br>
+					   <br>
   					</div>
   					<div id="tabs-2">
   						<div style="text-align:right;">
-	  						<a id="go" style="color: #006c92; font-weight: bold;" href="#">
+							<a  href="searchProtocols.html?function=editEmergency" style="color: #006c92; font-weight: bold;">
 								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Protocolo
 							</a>						
-  						</div>
+						</div>
   						<br>
   						<br>
   						<table id="sweetTable">
@@ -150,21 +149,11 @@
 								</tr>
 							</tbody>
 						</table>
-						<div id="botonera">
-							<form action="#">
-								<div id="botonP" style="display: inline; margin-right: 30px;">
-											<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
-								</div>	
-								<div id="botonV" style="display: inline;">
-										<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
-								</div>	
-							</form>
-						</div>
 						<br>
   					</div>
   					<div id="tabs-3">
   						<div style="text-align:right;">
-	  						<a id="go" style="color: #006c92; font-weight: bold;" href="#">
+	  						<a href="searchServices.html?function=editEmergency" style="color: #006c92; font-weight: bold;">
 								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Servicio
 							</a>						
   						</div>
@@ -209,24 +198,14 @@
 								</tr>
 							</tbody>
 						</table>
-						<div id="botonera">
-							<form action="#">
-								<div id="botonP" style="display: inline; margin-right: 30px;">
-											<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
-								</div>	
-								<div id="botonV" style="display: inline;">
-										<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
-								</div>	
-							</form>
-						</div>
 						<br>
 					</div>
 					<div id="tabs-4">
 						<div style="text-align:right;">
-	  						<a id="go" style="color: #006c92; font-weight: bold;" href="#">
+							<a  href="searchSupplies.html?function=editEmergency" style="color: #006c92; font-weight: bold;">
 								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Suministro
 							</a>						
-  						</div>
+						</div>
   						<br>
   						<br>
 					    <table id="sweetTable">
@@ -278,16 +257,6 @@
 								</tr>
 							</tbody>
 						</table>
-						<div id="botonera">
-							<form action="#">
-								<div id="botonP" style="display: inline; margin-right: 30px;">
-											<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
-								</div>	
-								<div id="botonV" style="display: inline;">
-										<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
-								</div>	
-							</form>
-						</div>
 						<br>
 					</div>
 				</div>

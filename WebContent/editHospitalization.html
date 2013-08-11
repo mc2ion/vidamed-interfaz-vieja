@@ -1,4 +1,4 @@
-<!DOCTYPE html >
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -7,7 +7,7 @@
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css" />
 	  	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
+		<script type="text/javascript" language="javascript" src="./js/jquery.leanModal.min.js"></script>
 		<link rel="stylesheet" href="/resources/demos/style.css" />
 		<script>
 			$(function() {
@@ -16,130 +16,21 @@
 		</script>
 		<script type="text/javascript">
 		var idUser;
-		var prevPage = "";
-		var prevButton = "";
-		
-		$(document).on('click','#result #go',function(){
-			$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x, .buttonPopUpClose" });		
-			
+
+		$(function() {
+			$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x" });		
 		});
-		
-		$(document).on('click','#result #editEvolution',function(){
-			$('#result').load('./editEvolutionDetail.html');	
-			$("#backButton").show();
-			prevPage = "editEvolution.html";
-			prevButton = "evolution";
-		});
-		
-		$(document).on('click','#vitalSigns #addVitalSigns',function(){
-			$('#vitalSigns').load('./addVitalSignsDetail.html #contentAux');	
-			$("#backButton").show();
-			prevPage = "editVitalSigns.html";
-			prevButton = "vital";
-		});
-		
-		
-		$(document).on('click','#vitalSigns #addVitalSigns',function(){
-			$('#vitalSigns').load('./addVitalSignsDetail.html #contentAux');	
-			$("#backButton").show();
-			prevPage = "editVitalSigns.html";
-			prevButton = "vital";
-		});
-		
-		$(document).on('click','#result #addEvolution',function(){
-			$('#result').load('./addEvolutionDetail.html');	
-			$("#backButton").show();
-			prevPage = "editEvolution.html";
-			prevButton = "evolution";
-		});
-		
-		
-		
-		$(document).on('click','#vitalSigns #editVital',function(){
-			$('#vitalSigns').load('./editVitalSignsDetail.html');	
-			$("#backButton").show();
-			prevPage = "editVitalSigns.html";
-			prevButton = "vital";
-		});
-		
-		$(document).on('click','#protocol #addProtocol',function(){
-			$('#protocol').load('./addProtocol.html');	
-			$("#backButton").show();
-			prevPage = "editProtocolTab.html";
-			prevButton = "protocol";
-		});
-		
+
 		function loadVars(var1, var2) {
 			idUser = var1;
 			$('.cliente').text(var2);
-			
+
 		};
-		
+
 		function setV(f){
 			f.elements['userId'].value = idUser;
 			return true;
 		}
-		
-		$(document).ready(function() {
-			prevPage += ' #contentAux';
-	
-			$('#result').load('./editEvolution.html #contentAux');
-			$('#vitalSigns').load('./editVitalSigns.html #contentAux');
-			$('#protocol').load('./editProtocolTab.html #contentAux');
-			
-			
-			$("#backButton").click(function() {
-				if (prevButton == "vitalSigns")
-					$('#vitalSigns').load(prevPage);
-				else if (prevButton == "evolution")
-					$('#result').load(prevPage);
-				else if (prevButton == "protocol")
-					$('#protocol').load(prevPage);
-				$(this).hide();
-			});
-			
-			function getUrlVars() {
-			    var vars = {};
-			    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-			        vars[key] = value;
-			    });
-			    return vars;
-			}
-			
-			
-			var first = getUrlVars()["insurance"];
-			var bed = getUrlVars()["bed"];
-			var ubication = getUrlVars()["bedLocationId"];
-			var doctor = getUrlVars()["doctor"];
-			var departmentId = getUrlVars()["department"];
-			
-			
-			if (first != null){
-				first = first.replace(/\+/g, ' ');
-				$("#insuranceName").val(first);
-			}
-			
-			if (bed != null){
-				bed = bed.replace(/\+/g, ' ');
-				$("#bedId").val(bed);
-			}
-			
-			if (ubication != null){
-				ubication = ubication.replace(/\+/g, ' ');
-				$("#ubication").val(ubication);
-			}
-			
-			if (doctor != null){
-				doctor = doctor.replace(/\+/g, ' ');
-				$("#doctorName").val(doctor);
-			}
-			
-			
-			if (departmentId != null){
-				$("#departament").val("Alergología");
-			}
-			
-		});
 		</script>
 	</head>
 	<body>
@@ -155,7 +46,7 @@
 				<div id="leftmenu_top"></div>
 				<div id="leftmenu_main">
 					<ul>
-					    <li><a href="estimations.html">Presupuestos</a></li>
+						<li><a href="estimations.html">Presupuestos</a></li>
 					    <li><a href="emergencies.html">Emergencia</a></li>
 						<li><a href="admission.html">Admisión</a></li>
 					    <li><a class="active" href="hospitalization.html">Hospitalización</a></li>
@@ -165,14 +56,14 @@
 						<li><a href="departments.html">Departamentos</a></li>
 						<li><a href="doctors.html">Doctores</a></li>
 						<li><a href="bank.html">Cajas y Bancos</a></li>
-						<li><a href="accounts.html">Cuentas</a></li> 
+						<li><a href="accounts.html">Cuentas</a></li>   
 					</ul>
 				</div>
 	            <div id="leftmenu_bottom"></div>
 	        </div>
         	<div id="content" style="position:absolute;">	
 	        	<h2>Editar Hospitalización:</h2>
-				
+				<br>
 				<div id="tabs">
 					<ul>
 					    <li><a href="#tabs-1">Paciente</a></li>
@@ -183,7 +74,7 @@
 					    <li><a href="#tabs-6">Signos Vitales</a></li>
 			  		</ul>
   					<div id="tabs-1">
-  							<div id="hosp">
+  						<div id="hosp">
   							<p><b>Cédula:</b> <span style="margin-left:115px;">V-12345678</span>  </p>
   							<p><b>Nombre:</b> <span style="margin-left:107px;"> Ana Rojas</span> </p>
 							<p><b>Fecha de Ingreso:  </b> <span style="margin-left:48px;">20/06/2013 07:35 AM  <br></span> </p>
@@ -209,7 +100,7 @@
 										<input type="button"id="paymentResp" value="Cambiar" >
 									</a> 
 						  </fieldset>
-						  <div id="botonera">
+						  <div id="botonera" style="margin-top: -3px;">
 							<form action="#">
 								<div id="botonP" style="display: inline; margin-right: 30px;">
 											<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
@@ -219,29 +110,57 @@
 								</div>	
 							</form>
 						</div>
-						
 					</div>
   					<div id="tabs-2">
-  						<div id="protocol"></div>
-  						<div id="botonera">
-							<form action="#">
-								<div id="botonP" style="display: inline; margin-right: 30px;">
-											<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
-								</div>	
-								<div id="botonV" style="display: inline;">
-										<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
-								</div>	
-							</form>
+  						<div style="text-align:right;">
+							<a  href="searchProtocols.html?function=editHospitalization" style="color: #006c92; font-weight: bold;">
+								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Protocolo
+							</a>						
 						</div>
-						<br>
-					</div>
+							<br>
+							<table id="sweetTable">
+							<tbody>
+								<tr>
+									<th>Protocolo</th>
+									<th>Acción</th>
+								</tr>				
+								<tr>
+									<td>Histerectomía</td>
+									<td>
+										<a id="go" rel="leanModal" href="#deleteProtocol" style="color: #f7941e; font-weight: bold;" 
+											onclick="return loadVars(1001,'Histerectomía');" >
+											<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
+										</a> 
+									</td>
+								</tr>				
+								<tr>
+									<td>Colecistectomía</td>
+									<td>
+										<a id="go" rel="leanModal" href="#deleteProtocol" style="color: #f7941e; font-weight: bold;" 
+											onclick="return loadVars(1001,'Colecistectomía');" >
+											<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
+										</a>
+									</td>
+								</tr>				
+								<tr>
+									<td>Apendicectomía</td>
+									<td>
+										<a id="go" rel="leanModal" href="#deleteProtocol" style="color: #f7941e; font-weight: bold;" 
+											onclick="return loadVars(1001,'Apendicectomía');" >
+											<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
+										</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+  						<br>
+  					</div>
   					<div id="tabs-3">
   						<div style="text-align:right;">
-	  						<a id="go" href="#" style="color: #006c92; font-weight: bold;">
+	  						<a href="searchServices.html?function=editHospitalization" style="color: #006c92; font-weight: bold;">
 								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Servicio
 							</a>						
   						</div>
-  						<br>
   						<br>
 					    <table id="sweetTable">
 							<tbody>
@@ -282,27 +201,16 @@
 								</tr>
 							</tbody>
 						</table>
-						<div id="botonera">
-							<form action="#">
-								<div id="botonP" style="display: inline; margin-right: 30px;">
-											<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
-								</div>	
-								<div id="botonV" style="display: inline;">
-										<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
-								</div>	
-							</form>
-						</div>
 						<br>
 					</div>
 					<div id="tabs-4">
-						<div style="text-align:right;">
-	  						<a id="go" href="#" style="color: #006c92; font-weight: bold;">
+					<div style="text-align:right;">
+							<a  href="searchSupplies.html?function=editHospitalization" style="color: #006c92; font-weight: bold;">
 								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Suministro
 							</a>						
-  						</div>
+						</div>
   						<br>
-  						<br>
-					    <table id="sweetTable">
+  						<table id="sweetTable">
 							<tbody>
 								<tr>
 									<th>Suministro</th>
@@ -361,48 +269,148 @@
 								</tr>
 							</tbody>
 						</table>
-						<div id="botonera">
-							<form action="#">
-								<div id="botonP" style="display: inline; margin-right: 30px;">
-											<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
-								</div>	
-								<div id="botonV" style="display: inline;">
-										<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
-								</div>	
-							</form>
-						</div>
 						<br>
 					</div>
 					<div id="tabs-5">
-						<div id="result">
-							<div id="previous"></div>
-						</div>
-						<div id="botonera">
-							<form action="#">
-								<div id="botonP" style="display: inline; margin-right: 30px;">
-											<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
-								</div>	
-								<div id="botonV" style="display: inline;">
-										<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
-								</div>	
-							</form>
+						<div style="text-align:right;">
+							<a href="addEvolutionDetail.html?function=editHospitalization" style="color: #006c92; font-weight: bold;">
+								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Registro
+							</a>						
 						</div>
 						<br>
-  					</div>	
+					    <table id="sweetTable">
+							<tbody>
+								<tr>
+									<th>Fecha</th>
+									<th>Médico</th>
+									<th>Acción</th>
+								</tr>				
+								<tr>
+									<td>27/06/2013 07:35 PM</td>
+									<td>Ricardo García</td>
+									<td>
+										<a href="editEvolutionDetail.html?function=editHospitalization" style="color: transparent" >
+											<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Ver Detalle" />
+										</a>										
+										<a id="go" rel="leanModal" href="#deleteEvaluation" style="color: #f7941e; font-weight: bold;" 
+											onclick="return loadVars(1001,'Ricardo García');" >
+											<img alt="logo" src="./images/delete.png"  height="16" width="16" title="Eliminar" />
+										</a>
+									</td>
+								</tr>				
+								<tr>
+									<td>23/06/2013 09:40 AM</td>
+									<td>Javier Fernandez</td>
+									<td>										
+										<a href="#" style="color: transparent" >
+											<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Ver Detalle" />
+										</a>										
+										<a id="go" rel="leanModal" href="#deleteEvaluation" style="color: #f7941e; font-weight: bold;" 
+											onclick="return loadVars(1001,'Javier Fernandez');" >
+											<img alt="logo" src="./images/delete.png"  height="16" width="16" title="Eliminar" />
+										</a>
+									</td>
+								</tr>				
+								<tr>
+									<td>20/06/2013 07:35 AM</td>
+									<td>Ricardo García</td>
+									<td>										
+										<a href="#" style="color: transparent" >
+											<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Ver Detalle" />
+										</a>										
+										<a id="go" rel="leanModal" href="#deleteEvaluation" style="color: #f7941e; font-weight: bold;" 
+											onclick="return loadVars(1001,'Ricardo García');" >
+											<img alt="logo" src="./images/delete.png"  height="16" width="16" title="Eliminar" />
+										</a>
+									</td>
+								</tr>				
+								<tr>
+									<td>19/06/2013 10:06 AM</td>
+									<td>Ricardo García</td>
+									<td>										
+										<a href="#" style="color: transparent" >
+											<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Ver Detalle" />
+										</a>										
+										<a id="go" rel="leanModal" href="#deleteEvaluation" style="color: #f7941e; font-weight: bold;" 
+											onclick="return loadVars(1001,'Ricardo García');" >
+											<img alt="logo" src="./images/delete.png"  height="16" width="16" title="Eliminar" />
+										</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<br>
+					</div>
 					<div id="tabs-6">
-						<div id="vitalSigns"></div>
-						<div id="botonera">
-							<form action="#">
-								<div id="botonP" style="display: inline; margin-right: 30px;">
-											<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
-								</div>	
-								<div id="botonV" style="display: inline;">
-										<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
-								</div>	
-							</form>
+						<div style="text-align:right;">
+							<a  href="addVitalSignsDetail.html?function=editHospitalization"  style="color: #006c92; font-weight: bold;" >
+								<img alt="logo" src="./images/add.png"  height="12" width="12" />Agregar Registro
+							</a>						
 						</div>
 						<br>
-  					</div>
+		      			 <table id="sweetTable">
+							<tbody>
+								<tr>
+									<th>Fecha de Toma</th>
+									<th>Hora de Toma</th>
+									<th>Acción</th>
+								</tr>				
+								<tr>
+									<td>27/06/2013</td>
+									<td>07:35 PM</td>
+									<td>
+										<a href="editVitalSignsDetail.html?function=editHospitalization" style="color: transparent" id="editVital" >
+											<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Ver Detalle" />
+										</a>										
+										<a id="go" rel="leanModal" href="#deleteVitalSign" style="color: #f7941e; font-weight: bold;" 
+											onclick="return loadVars(1001,'27/06/2013 07:35 PM');" >
+											<img alt="logo" src="./images/delete.png"  height="16" width="16" title="Eliminar" />
+										</a>
+									</td>
+								</tr>				
+								<tr>
+									<td>23/06/2013</td>
+									<td>09:40 AM</td>
+									<td>										
+										<a href="#" style="color: transparent" >
+											<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Ver Detalle" />
+										</a>										
+										<a id="go" rel="leanModal" href="#deleteVitalSign" style="color: #f7941e; font-weight: bold;" 
+											onclick="return loadVars(1001,'23/06/2013 09:40 AM');" >
+											<img alt="logo" src="./images/delete.png"  height="16" width="16" title="Eliminar" />
+										</a>
+									</td>
+								</tr>				
+								<tr>
+									<td>20/06/2013</td>
+									<td>07:35 AM</td>
+									<td>										
+										<a href="#" style="color: transparent" >
+											<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Ver Detalle" />
+										</a>										
+										<a id="go" rel="leanModal" href="#deleteVitalSign" style="color: #f7941e; font-weight: bold;" 
+											onclick="return loadVars(1001,'20/06/2013 07:35 AM');" >
+											<img alt="logo" src="./images/delete.png"  height="16" width="16" title="Eliminar" />
+										</a>
+									</td>
+								</tr>				
+								<tr>
+									<td>19/06/2013</td>
+									<td>10:06 AM</td>
+									<td>										
+										<a href="showEvaluation.html" style="color: transparent" >
+											<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Ver Detalle" />
+										</a>										
+										<a id="go" rel="leanModal" href="#deleteVitalSign" style="color: #f7941e; font-weight: bold;" 
+											onclick="return loadVars(1001,'19/06/2013 10:06 AM');" >
+											<img alt="logo" src="./images/delete.png"  height="16" width="16" title="Eliminar" />
+										</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<br>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -414,10 +422,12 @@
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
-				<div class="btn-fld">
-					<input type="submit" class="buttonPopUpClose"  name="sbmtButton" value="Aceptar"  />
-				</div>
+				<form action="editHospitalization.html#tabs-2" method="post"  onsubmit="return setV(this)">
+					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+					<div class="btn-fld">
+						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
+					</div>
+		 		</form>
 			</div>
 		</div>
 		<div id="deleteService">
@@ -428,10 +438,12 @@
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
-				<div class="btn-fld">
-					<input type="submit" class="buttonPopUpClose"  name="sbmtButton" value="Aceptar"  />
-				</div>
+					<form action="editHospitalization.html#tabs-3" method="post"  onsubmit="return setV(this)">
+					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+					<div class="btn-fld">
+						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
+					</div>
+		 		</form>
 			</div>
 		</div>
 		<div id="deleteSupply">
@@ -442,24 +454,28 @@
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
-				<div class="btn-fld">
-					<input type="submit" class="buttonPopUpClose"  name="sbmtButton" value="Aceptar"  />
-				</div>
+				<form action="editHospitalization.html#tabs-4" method="post"  onsubmit="return setV(this)">
+					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+					<div class="btn-fld">
+						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
+					</div>
+		 		</form>
 			</div>
 		</div>
 		<div id="deleteEvaluation">
 			<div id="signup-ct">
-				<h3 id="see_id" class="sprited" > Eliminar Evaluación</h3>
+				<h3 id="see_id" class="sprited" > Eliminar Evolución</h3>
 				<br><br>
-				<span>¿Está seguro que desea eliminar la evaluación del Dr. <span class="cliente"></span>? </span> <br><br>
+				<span>¿Está seguro que desea eliminar la evolución suministrada por el Dr. <span class="cliente"></span>? </span> <br><br>
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
-				<div class="btn-fld">
-					<input type="submit" class="buttonPopUpClose"  name="sbmtButton" value="Aceptar"  />
-				</div>
+				<form action="editHospitalization.html#tabs-5" method="post"  onsubmit="return setV(this)">
+					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+					<div class="btn-fld">
+						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
+					</div>
+		 		</form>
 			</div>
 		</div>
 		<div id="deleteVitalSign">
@@ -470,10 +486,12 @@
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
-				<div class="btn-fld">
-					<input type="submit" class="buttonPopUpClose"  name="sbmtButton" value="Aceptar"  />
-				</div>
+				<form action="editHospitalization.html#tabs-6" method="post"  onsubmit="return setV(this)">
+					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+					<div class="btn-fld">
+						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
+					</div>
+		 		</form>
 			</div>
 		</div>
 	</body>

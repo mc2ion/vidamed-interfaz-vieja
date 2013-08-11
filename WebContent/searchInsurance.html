@@ -9,13 +9,13 @@
 	<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
 	<script type="text/javascript" charset="utf-8">
 	$(document).ready(function() {
-		$('#example').dataTable( {
+		var oTable = $('#example').dataTable( {
 			"iDisplayLength": 7,
 			"bLengthChange": false,
 			"sScrollY": "250px",
 			"bPaginate": false,
 			"aoColumns": [
-				{ "bSearchable": false, "asSorting": false },
+				{ "bSearchable": false, "asSorting": false, "sWidth": "10%"  },
 				null,
 				null,
 				null,
@@ -32,6 +32,8 @@
 	            "sSearch": "Buscar:"
         	}
 		} );
+		
+		oTable.fnSort( [ [1,'asc'] ] );
 	} );
 	</script>
 	<script type="text/javascript">
@@ -49,10 +51,13 @@
 			first = first.replace(/\+/g, ' ');
 			if (first != null){
 				if (first.indexOf("Estimation") > 0){
+					alert(first);
 					$("#estimation").attr('class', 'active');
-					if (first == "editEstimation")
+					if (first == "editEstimation"){
 						$("#form").attr('action', 'editEstimation.html');
-					else (first == "createEstimation")
+						alert("a" + $("#form").attr('action') );
+					}
+					else if (first == "createEstimation")
 						$("#form").attr('action', 'createEstimation.html');
 				}
 				else if (first.indexOf("Hospitalization") > 0){
@@ -121,7 +126,7 @@
         </div>  
 		<div id="content">  
 			<h2>Escoger responsable del pago:</h2><br>
-			<p> Por favor seleccione el responsable de pago en la columna izquierda de la tabla </p>
+			<p> Por favor seleccione el responsable de pago en la columna izquierda de la tabla y luego haga clic en "Seleccionar" </p>
 			<form action="" method="get" id="form" style="display: inline;">
 	
 			<div id="dt_example">
@@ -131,7 +136,7 @@
 							<table class="display" id="example">
 								<thead>
 									<tr>
-										<th></th>
+										<th>Escoger</th>
 										<th>ID</th>
 										<th>Nombre</th>
 										<th>Dirección</th>
