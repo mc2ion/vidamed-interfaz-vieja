@@ -1597,5 +1597,16 @@ table {
 
 #contentLogin fieldset input[type="text"],#contentLogin fieldset input[type="password"] {
   width:40%;
- 
+}
+
+.leftColum{
+	display: inline-block;
+	width: 25%;
+	float: left;
+}
+
+.leftColumA{
+	display: inline-block;
+	width: 35%;
+	float: left;
 }

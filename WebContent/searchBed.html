@@ -9,7 +9,7 @@
 	<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
 	<script type="text/javascript" charset="utf-8">
 	$(document).ready(function() {
-		$('#example').dataTable( {
+		var oTable = $('#example').dataTable( {
 			"iDisplayLength": 7,
 			"bLengthChange": false,
 			"sScrollY": "150px",
@@ -31,6 +31,8 @@
 	            "sSearch": "Buscar:"
         	}
 		} );
+		
+		oTable.fnSort( [ [1,'asc'] ] );
 	} );
 	</script>
 	<script type="text/javascript">
@@ -126,7 +128,7 @@
 			<form action="" method="get" id="form" style="display: inline;">
 				
 			<h2>Escoger ubicación de cama:</h2><br>
-			<h4> Por favor seleccione la ubicación de la cama y haga clic en Siguiente: </h4><br>
+			<p>Por favor seleccione la ubicación de la cama y haga clic en Siguiente:</p><br>
 			<p><b>Ubicación:  </b> 
 				<select id="bedLocationId" name="bedLocationId">
 								<option value="UCI" >UCI</option>
@@ -137,14 +139,14 @@
 				<input id="next" type="button" value="Siguiente">
 			</p><br><br>
 			<div id="beds" style="visibility: hidden;">
-				<h4>Escoga la cama que desea haciendo click en la columna izquierda de la tabla:</h4>
+				Escoga la cama que desea haciendo clic en la columna izquierda de la tabla y luego haga clic en "Seleccionar":
 					<div id="dt_example">
 						<div id="container">
 							<div id="demo">
 								<table class="display" id="example">
 									<thead>
 										<tr>
-											<th></th>
+											<th>Escoger</th>
 											<th>ID</th>
 											<th>Nombre</th>
 											<th>Precio</th>

@@ -9,7 +9,7 @@
 	<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
 	<script type="text/javascript" charset="utf-8">
 	$(document).ready(function() {
-		$('#example').dataTable( {
+		var oTable = $('#example').dataTable( {
 			"iDisplayLength": 7,
 			"bLengthChange": false,
 			"sScrollY": "250px",
@@ -34,6 +34,7 @@
 	            "sSearch": "Buscar:"
         	}
 		} );
+		oTable.fnSort( [ [1,'asc'] ] );
 	} );
 	</script>
 	<script type="text/javascript">

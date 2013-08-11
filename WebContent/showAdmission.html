@@ -14,7 +14,7 @@
         	<div id="menu">
 				<div class="menuitemHome" ><a href="mainMenu.html">Home</a></div>	
 		    	<ul>
-	            	<li class="menuitem"><a href="#">Admitir Paciente</a></li>
+	            	<li class="menuitem"><a href="admitPatientForm.html">Admitir Paciente</a></li>
 	            </ul>
 				<div class="menuitemSalir"><a href="index.html">Salir</a></div>	
         	</div>        
@@ -40,18 +40,18 @@
         	<div id="content" style="position:absolute;">	
 	        	<h2>Ver Admisión:</h2>
 				<br>
-				<p>
-			    Cédula: V-12345678<br><br>
-			    Nombre: Ana Rojas<br><br>
-			    Responsable del Pago: Multinacional de Seguros, C.A.<br><br>
-			    Motivo de Admisión: Dolor abdominal<br><br>
-			    Ubicación: Emergencias<br><br>
-			    N° Presupuesto: 1001
-			    <a href="showEstimation.html" style="color: transparent" >
-					<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
-				</a>
-			    <br><br>
-			    </p>
+				<div style="text-align:left;">
+				    <div class="leftColum"><b> Cédula: </b></div> V-12345678<br><br>
+				   	<div class="leftColum"> <b> Nombre: </b></div> Ana Rojas<br><br>
+				   	<div class="leftColum"> <b> Responsable del Pago: </b></div> Multinacional de Seguros, C.A.<br><br>
+				    <div class="leftColum"><b> Motivo de Admisión: </b></div> Dolor abdominal<br><br>
+				    <div class="leftColum"><b>Ubicación: </b></div> Emergencias<br><br>
+				    <div class="leftColum"><b>N° Presupuesto:  </b></div>1001
+				    <a href="showEstimation.html?function=showAdmission" style="color: transparent" >
+						<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
+					</a>
+				    <br><br>
+			    </div>
 				<div id="botonera">
 					<form action="printAdmission.html">
 						<div id="botonP" style="display: inline; margin-right: 30px;">

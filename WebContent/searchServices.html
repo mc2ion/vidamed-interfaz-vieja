@@ -9,13 +9,13 @@
 	<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
 	<script type="text/javascript" charset="utf-8">
 	$(document).ready(function() {
-		$('#example').dataTable( {
+		var oTable = $('#example').dataTable( {
 			"iDisplayLength": 7,
 			"bLengthChange": false,
 			"sScrollY": "230px",
 			"bPaginate": false,
 			"aoColumns": [
-				null,
+				{ "bSearchable": false, "asSorting": false, "sWidth": "10%"  },
 				null,
 				null,
 				null
@@ -31,6 +31,8 @@
 	            "sSearch": "Buscar:"
         	}
 		} );
+		
+		oTable.fnSort( [ [1,'asc'] ] );
 	} );
 	</script>
 	<script type="text/javascript">
@@ -126,14 +128,14 @@
         </div>  
 		<div id="content">  
 			<h2>Agregar Servicio:</h2><br>
-			<p>Escoga el servicio que desea agregar haciendo clic en la columna izquierda de la tabla.</p>
+			<p>Escoga el servicio que desea agregar haciendo clic en la columna izquierda de la tabla y luego haga clic en "Agregar".</p>
 			<div id="dt_example">
 					<div id="container">
 						<div id="demo">
 							<table class="display" id="example">
 								<thead>
 									<tr>
-										<th></th>
+										<th>Escoger</th>
 										<th>ID</th>
 										<th>Nombre</th>
 										<th>Precio</th>

@@ -9,7 +9,7 @@
 	<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
 	<script type="text/javascript" charset="utf-8">
 	$(document).ready(function() {
-		$('#example').dataTable( {
+		var oTable = $('#example').dataTable( {
 			"iDisplayLength": 7,
 			"bLengthChange": false,
 			"sScrollY": "150px",
@@ -31,6 +31,7 @@
 	            "sSearch": "Buscar:"
         	}
 		} );
+		oTable.fnSort( [ [1,'asc'] ] );
 	} );
 	</script>
 	<script type="text/javascript">
@@ -128,7 +129,7 @@
 			<form action="" method="get" id="form" style="display: inline;">
 				
 			<h2>Escoger medico tratante:</h2><br>
-			<p> Por favor seleccione el departamento del médico tratante y haga click en "Siguiente": </p><br>
+			<p> Por favor seleccione el departamento del médico tratante y haga clic en "Siguiente": </p><br>
 			<p><b>Departamento:  </b> 
 				<select id="department" name="department" style="width: 230px;">
 								<option value="337" >ALERGOLOGÍA</option>
@@ -191,14 +192,14 @@
 				<input id="next" type="button" value="Siguiente">
 			</p><br><br>
 			<div id="beds" style="visibility: hidden;">
-				<p>Escoga el médico tratante haciendo clic en la columna izquierda de la tabla:</p>
+				<p>Escoga el médico tratante haciendo clic en la columna izquierda de la tabla y luego haga clic en "Seleccionar":</p>
 					<div id="dt_example">
 						<div id="container">
 							<div id="demo">
 								<table class="display" id="example">
 									<thead>
 										<tr>
-											<th></th>
+											<th>Escoger</th>
 											<th>ID</th>
 											<th>Nombre</th>
 											<th>Consultorio</th>
