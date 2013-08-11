@@ -1528,8 +1528,8 @@ fieldset .rightCol input[type="text"]{
 	width: 20%;
 }
 
-#otherPhone{
-	margin-left: 164px;
+#otherPhone, #otherPhone2, #otherPhone3{
+	margin-left: 167px;
 	
 }
 
@@ -1598,4 +1598,25 @@ table {
 #contentLogin fieldset input[type="text"],#contentLogin fieldset input[type="password"] {
   width:40%;
  
+}
+
+#contentProduct fieldset{
+  font:12px Arial, Helvetica, sans-serif;
+  border: 0;
+  margin-top: -15px;
+}
+
+#contentProduct label{
+
+	font-weight:bold;
+	padding-right: 119px;
+
+}
+
+input.search-input{
+  box-sizing: border-box;
+  -moz-box-sizing:border-box;
+  width: 100%;
+  margin-bottom: 5px;
+  height: auto;
 }
