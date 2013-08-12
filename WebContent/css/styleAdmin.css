@@ -676,6 +676,15 @@ fieldset input[type="text"]{
 
 }
 
+.buttonPopUpAux
+{
+	background-color: #1EB1DD;
+	color:#FAFAFA;
+	font-family: Verdana, Arial;
+	cursor: pointer;
+
+}
+
 .buttonPopUpDelete, .buttonPopUpClose
 {
 	position: absolute;
@@ -1319,7 +1328,7 @@ div.box {
 	}
 
 	#deleteUser, #deleteProduct, #deleteRequest, #refreshUser, #dischargeUser, #hospitalizeUser, #deleteService, #deleteProtocol, #deleteSupply,
-	#deleteEvaluation, #deleteVitalSign,#openCashW, #closeCashW {
+	#deleteEvaluation, #deleteVitalSign, #deleteCash {
 		position: absolute;
 		text-align: center;
 		width: 295px;
@@ -1332,6 +1341,21 @@ div.box {
 		font: 14px Arial, Helvetica, sans-serif;
 		display: none;
 	}
+	
+	#closeCashW, #openCashW {
+		position: absolute;
+		text-align: center;
+		width: 325px;
+		height: 220px;
+		line-height: 1.5em;
+		background: url('../images/dialogo4.png') left top no-repeat;
+		padding: 60px 15px 10px 15px;
+		top: 180px;
+		left: 600px;
+		font: 14px Arial, Helvetica, sans-serif;
+		display: none;
+	}
+	
 	
 	#payment-resp {
 		position: absolute;
@@ -1431,6 +1455,19 @@ div.box {
 		color: transparent;
        
     }
+    
+    #close_x_aux { 
+		background: url('../images/close_icon2.png') left top no-repeat;
+        width: 24px; 
+        height: 23px;
+        overflow: hidden; 
+        display: block;
+        position: absolute; 
+        top: 9px;
+        right: 20px;
+		color: transparent;
+       
+    }
 
 	.btn-fld{
 		text-align:center;
@@ -1494,9 +1531,10 @@ div.box {
 #closeCash{
 	float: right;
 	margin-right: 30px;
-	background: gray;
+	background: rgb(180, 180, 180);
 	padding: 10px;
 	border-radius: 10px;
+	margin-top: -40px;
 }
 
 
@@ -1632,4 +1670,11 @@ input.search-input{
 	display: inline-block;
 	width: 35%;
 	float: left;
+}
+
+.text{
+	margin-top: 15px;
+	margin-left: 7px;
+	line-height: 25px;
+	
 }

@@ -12,7 +12,10 @@
 	        	<img alt="logo" src="./images/logo.png"/>
 	        </div>         
         	<div id="menu">
-				<div class="menuitemHome" ><a href="mainMenu.html">Home</a></div>	
+				<div class="menuitemHome" ><a href="mainMenu.html">Home</a></div>
+				<ul>
+            		<li class="menuitem"><a href="createCashBox.html">Crear Caja</a></li>
+            	</ul>	
 		    	<div class="menuitemSalir"><a href="index.html">Salir</a></div>	
         	</div>        
 			<div id="leftmenu">
@@ -54,18 +57,16 @@
 			   
 			    <br><br>
 			    </p>
-				<div id="botonera">
-				<form action="printAdmission.html">
-				<div id="botonP">
-							<input type="submit"  class="button"  name="sbmtButton" value="Imprimir" style="margin-left:30%; margin-top: 5px;"/>
-				</div>	
-				</form>
-				<form>
-					<div id="botonV" style="position:relative; margin-left: 250px; top: -22px;">
-							<input type="button" class="button" value="Regresar" style="margin-left:40%;" onClick="javascript:history.back();" style="margin-left:40%;" />		
-					</div>	
-				</form>
-			</div>
+				<div id="botonera" >
+					<form action="printCashBank.html">
+						<div id="botonP" style="display: inline; margin-right: 30px;">
+							<input type="submit"  class="button"  name="sbmtButton" value="Imprimir" />
+						</div>	
+						<div id="botonV" style="display: inline;">
+								<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
+						</div>	
+					</form>
+				</div>
 			</div>
 		</div>
 	</body>

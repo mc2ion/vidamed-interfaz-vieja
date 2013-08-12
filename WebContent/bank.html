@@ -43,7 +43,7 @@
 	
 	function loadVars(var1, var2) {
 		idUser = var1;
-		$('.cliente').text(var2);
+		$('.caja').text(var2);
 		
 	};
 	
@@ -61,7 +61,7 @@
         <div id="menu">
 			<div class="menuitemHome" ><a href="mainMenu.html">Home</a></div>	
 			<ul>
-            	<li class="menuitem"><a href="pendingAccounts.html">Cuentas Pendientes</a></li>
+            	<li class="menuitem"><a href="createCashBox.html">Crear Caja</a></li>
             </ul>
 	    	<div class="menuitemSalir"><a href="index.html">Salir</a></div>	
         </div>        
@@ -106,14 +106,15 @@
 										<td>Abierta</td>
 										<td>Bs. 100</td>
 										<td>
-											<a id="go" rel="leanModal" href="#closeCashW" style="color: #f7941e; font-weight: bold;" >
+											<a id="go" rel="leanModal" href="#closeCashW" style="color: #f7941e; font-weight: bold;"
+											onclick="return loadVars(1001,'Administración');" >
 												<img alt="logo" src="./images/close.png"  height="16" width="16" title="Ver Detalle" />
 											</a>
-											<a href="showCash.html" style="color: transparent" >
+											<a href="showCashBank.html" style="color: transparent" >
 												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 											</a>
-											<a id="go" rel="leanModal" href="#deteleCash" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1001,'Ana Rojas');" >
+											<a id="go" rel="leanModal" href="#deleteCash" style="color: #f7941e; font-weight: bold;" 
+												onclick="return loadVars(1001,'Administración');" >
 												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
 											</a> 
 											<br>
@@ -125,14 +126,15 @@
 										<td>Cerrada</td>
 										<td>-</td>
 										<td>
-											<a id="go" rel="leanModal" href="#openCashW" style="color: #f7941e; font-weight: bold;" >
+											<a id="go" rel="leanModal" href="#openCashW" style="color: #f7941e; font-weight: bold;"
+											onclick="return loadVars(1001,'Recepción');"  >
 												<img alt="logo" src="./images/open.png"  height="16" width="16" title="Ver Detalle" />
 											</a>
 											<a href="#" style="color: transparent" >
 												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 											</a>
-											<a id="go" rel="leanModal" href="#deteleCash" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1001,'Ana Rojas');" >
+											<a id="go" rel="leanModal" href="#deleteCash" style="color: #f7941e; font-weight: bold;" 
+												onclick="return loadVars(1001,'Recepción');" >
 												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
 											</a> 
 											<br>
@@ -150,46 +152,74 @@
 		<div id="openCashW">
 			<div id="signup-ct">
 				<h3 id="see_id" class="sprited" > Abrir Caja</h3>
-				<br><br>
-				<b>Caja:</b><span class="cliente"> Administracion</span> <br>
-				<b>Status:</b><span class="cliente">Cerrada</span><br>
-				<b>Cajero:</b><input type="text"/><br>
-				<b>Clave:</b> <input type="text"/><br>
-				
-				<b>Monto:</b><input type="text"/><br>
-				
-				
-				<span>¿Está seguro que desea abrir la caja  <span class="cliente"></span>? </span> <br><br>
-				<div id="signup-header">
-					<a class="close_x" id="close_x"  href="#"></a>
+				<div class="text">
+					<div class="leftColum"><b>Caja:</b></div><span class="caja"></span> <br>
+					<div class="leftColum"><b>Status:</b></div>Cerrada<br>
+					<div class="leftColum"><b>Cajero:</b></div>
+					<select>
+						<option>Ani Lugo</option>
+						<option>Pedro García</option>
+						<option>Juan Pérez</option>
+						<option>Ana María Luna</option>
+					</select>
+					<br>
+					<div class="leftColum"><b>Clave:</b></div><input type="text"/><br>
+					<div class="leftColum"><b>Monto:</b></div><input type="text"/><br><br>
+					<span>¿Está seguro que desea abrir la caja</span>  <span class="caja"></span>?  
 				</div>
+				<div id="signup-header">
+					<a class="close_x" id="close_x_aux"  href="#"></a>
+				</div>
+				
 				<form action="admission.html" method="post"  onsubmit="return setV(this)">
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
 					<div class="btn-fld">
-						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
+						<input type="submit"  class="buttonPopUpAux"  name="sbmtButton" value="Aceptar"  />
 					</div>
 		 		</form>
 			</div>
 		</div>
-		
+				
 		
 		<div id="closeCashW">
 			<div id="signup-ct">
 				<h3 id="see_id" class="sprited" > Cerrar Caja</h3>
+				<div class="text">
+					<div class="leftColum"><b>Caja:</b></div><span class="caja"></span> <br>
+					<div class="leftColum"><b>Status:</b></div>Abierta<br>
+					<div class="leftColum"><b>Cajero:</b></div>
+					<select>
+						<option>Ani Lugo</option>
+						<option>Pedro García</option>
+						<option>Juan Pérez</option>
+						<option>Ana María Luna</option>
+						
+					</select>
+					<br>
+					<div class="leftColum"><b>Clave:</b></div><input type="text"/><br>
+					<div class="leftColum"><b>Monto:</b></div><input type="text"/><br><br>
+					<span>¿Está seguro que desea cerrar la caja</span>  <span class="caja"></span>?  
+				</div>
+				<div id="signup-header">
+					<a class="close_x" id="close_x_aux"  href="#"></a>
+				</div>
+				<form action="admission.html" method="post"  onsubmit="return setV(this)">
+					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+					<div class="btn-fld">
+						<input type="submit"  class="buttonPopUpAux"  name="sbmtButton" value="Aceptar"  />
+					</div>
+		 		</form>
+			</div>
+		</div>
+		<div id="deleteCash">
+			<div id="signup-ct">
+				<h3 id="see_id" class="sprited" > Eliminar Caja</h3>
 				<br><br>
-				<b>Caja:</b><span class="cliente"> Administracion</span> <br>
-				<b>Status:</b><span class="cliente">Abierta</span><br>
-				<b>Cajero:</b><input type="text"/><br>
-				<b>Clave:</b> <input type="text"/><br>
-				
-				<b>Monto:</b><input type="text"/><br>
-				
-				
-				<span>¿Está seguro que desea cerrar la caja  <span class="cliente"></span>? </span> <br><br>
+				<span>¿Está seguro que desea eliminar la caja</span>  <span class="caja"></span>?  <br><br>
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="admission.html" method="post"  onsubmit="return setV(this)">
+				<form action="bank.html" method="post"  onsubmit="return setV(this)">
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
@@ -197,5 +227,6 @@
 		 		</form>
 			</div>
 		</div>
+		
 	</body>
 </html>
