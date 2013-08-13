@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
+		<title>Pre-Admitir Paciente:</title>
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css" />
+	  	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<script type="text/javascript" language="javascript" src="./js/jquery.leanModal.min.js"></script>
+		<link rel="stylesheet" href="/resources/demos/style.css" />
+		<script>
+			$(function() {
+				$( "#tabs" ).tabs();
+			});
+		</script>
+		<script type="text/javascript">
+		var idUser;
+				
+		$(function() {
+			$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x, .buttonPopUpClose " });	
+			
+			$("#subAdmit").click(function() {
+				$("#admitP").hide();
+				$("#message").show();
+			});
+		});
+		
+		function loadVars(var1, var2) {
+			idUser = var1;
+			$('.cliente').text(var2);
+			
+		};
+		
+		function setV(f){
+			f.elements['userId'].value = idUser;
+			return true;
+		}
+		</script>
+		<script type="text/javascript">
+		$(document).ready(function() {
+			
+			function getUrlVars() {
+			    var vars = {};
+			    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+			        vars[key] = value;
+			    });
+			    return vars;
+			}
+
+			var first = getUrlVars()["insurance"];
+			var bed = getUrlVars()["bed"];
+			var ubication = getUrlVars()["bedLocationId"];
+			var estimationId = getUrlVars()["id"];
+		
+			if (estimationId != null)
+				$("#estimationId").val("154600");
+			
+			if (first != null){
+				first = first.replace(/\+/g, ' ');
+				$("#insuranceName").val(first);
+			}
+			
+			if (bed != null){
+				bed = bed.replace(/\+/g, ' ');
+				$("#bedId").val(bed);
+			}
+			
+			if (ubication != null){
+				ubication = ubication.replace(/\+/g, ' ');
+				$("#ubication").val(ubication);
+			}
+			
+		});
+		</script>
+		
+	</head>
+	<body>
+		<div id="container">
+			<div id="header">
+	        	<img alt="logo" src="./images/logo.png"/>
+	        </div>         
+        	<div id="menu">
+				<div class="menuitemHome" ><a href="mainMenu.html">Home</a></div>	
+		    	<div class="menuitemSalir"><a href="index.html">Salir</a></div>	
+        	</div>        
+			<div id="leftmenu">
+				<div id="leftmenu_top"></div>
+				<div id="leftmenu_main">
+					<ul>
+					    <li><a href="estimations.html">Presupuestos</a></li>
+					    <li><a href="emergencies.html">Emergencia</a></li>
+						<li><a class="active"  href="admission.html">Admisión</a></li>
+					    <li><a href="hospitalization.html">Hospitalización</a></li>
+						<li><a href="protocols.html">Protocolos</a></li>
+						<li><a href="services.html">Servicios</a></li>
+						<li><a href="supplyAreas.html">Suministros</a></li>
+						<li><a href="departments.html">Departamentos</a></li>
+						<li><a href="doctors.html">Doctores</a></li>
+						<li><a href="bank.html">Cajas y Bancos</a></li>
+						<li><a href="accounts.html">Cuentas</a></li>
+					</ul>
+				</div>
+	            <div id="leftmenu_bottom"></div>
+	        </div>
+        	<div id="content" style="position:absolute;">
+        		<div id="admitP">
+	        	<h2>Pre-Admitir Paciente:</h2>
+				<br>
+						 <form action="#">
+						 	<fieldset>
+							   <label>Cédula del Paciente:</label>
+							   <select>
+							   	<option value="V">V</option>
+							   	<option value="E">E</option>
+							   </select>
+							   <input type="text" name="patientCed" id="patientCed" style="width:202px" >
+							   <br><br>
+							   <label>Nombre del Paciente:</label>
+							   <input type="text" name="patientName" id="patientName" value="" >
+							   <a href="#" style="color: #f7941e; font-weight: bold;">
+									<input type="button"id="findPatient" value="Buscar Paciente" >
+								</a>
+							   <br><br/>
+							   <label> Seguro:</label>  <input type="text" name="insuranceName" id="insuranceName" value="" readonly>
+							    <a href="searchInsurance.html?function=admitPatient" style="color: #f7941e; font-weight: bold;">
+									<input type="button"id="paymentResp" value="Buscar" >
+								</a> 
+								<br><br>
+					
+							   <label> Médico Tratante:</label> <input type="text" name="reasonAdmission" id="reasonAdmission" value="" >
+							    <a href="searchDoctor.html?function=preAdmitPatient" style="color: #f7941e; font-weight: bold;">
+									<input type="button"id="doctor" value="Buscar" >
+								</a> <br><br>
+							    <label> Área:  </label>
+								<input type="text" name="area" id="area"><br><br>
+								 
+								<label> Condición de Pago:</label>  
+								<select>
+								   	<option value="C">Contado</option>
+								   	<option value="TDC">Tarjeta de Cr&eacute;dito</option>
+								   	<option value="TDC">Cheque</option>
+								</select><br><br>
+						   
+							   <label> Número de presupuesto:</label> 
+							   	<input type="text" name="estimationId" id="estimationId" value="">
+							    <a href="searchEstimations.html" style="color: #f7941e; font-weight: bold;" >
+									<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Buscar" />
+								</a><br><br>
+							</fieldset>
+							<div id="botonP">
+										<input type="button"  class="button" id="subAdmit"  name="sbmtButton" value="Aceptar" style="margin-left:30%; margin-top: 5px;"/>
+							</div>	
+							
+							<div id="botonV" style="position:relative; margin-left: 250px; top: -22px;">
+									<input type="button" class="button" value="Regresar" style="margin-left:40%;" onClick="javascript:history.back();" style="margin-left:40%;" />		
+							</div>	
+				</form>
+			</div>
+			<div id="message" style="display:none; font-size: 24px; text-align: center; margin-top: 40px;">
+				El paciente ha sido admitido sastifactoriamente. 
+			</div>
+			</div>
+			
+		</div>
+		
+		
+	</body>
+</html>

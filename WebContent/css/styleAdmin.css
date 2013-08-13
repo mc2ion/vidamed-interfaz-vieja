@@ -1600,6 +1600,13 @@ table {
 	margin-top: -34px;
 }
 
+#findPatient{
+	height: 50px;
+	position: absolute;
+	top: 87px;
+}
+
+
 .ui-tabs .ui-tabs-panel {
 	display: block;
 	border-width: 0;
@@ -1677,4 +1684,17 @@ input.search-input{
 	margin-left: 7px;
 	line-height: 25px;
 	
+}
+
+#printCashBox{
+	margin-top: -41px;
+	float: right;
+	background: lightGrey;
+	padding: 10px;
+	border-radius: 10px;
+}
+
+#printCashBoxText{
+	color: #006c92;
+	font-weight: bold;
 }

@@ -24,8 +24,8 @@
 			"oLanguage": {
 	            "sLengthMenu": "Mostrar _MENU_ registros",
 	            "sZeroRecords": "No hay ningún registro que coincida con su búsqueda",
-	            "sInfo": "Mostrando _START_ a _END_ de _TOTAL_ registros",
-	            "sInfoEmpty": "Mostrando 0 a 0 de 0 registros",
+	            "sInfo": " ",
+	            "sInfoEmpty": " ",
 	            "sInfoFiltered": "(filtrando de _MAX_ registros totales)",
 	            "sEmptyTable": "No hay datos disponibles en la tabla",
 	            "sLoadingRecords": "Por favor, espere - cargando...",
@@ -86,6 +86,7 @@
         </div>  
 		<div id="content">  
 			<h2>Cajas:</h2>
+			<div id="printCashBox"><a href="searchCashBoxForm.html" id="printCashBoxText" >Imprimir cierre de cajas</a></div>
 			<div id="dt_example">
 					<div id="container">
 						<div id="demo">
@@ -110,7 +111,7 @@
 											onclick="return loadVars(1001,'Administración');" >
 												<img alt="logo" src="./images/close.png"  height="16" width="16" title="Ver Detalle" />
 											</a>
-											<a href="showCashBank.html" style="color: transparent" >
+											<a href="showCashBox.html" style="color: transparent" >
 												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 											</a>
 											<a id="go" rel="leanModal" href="#deleteCash" style="color: #f7941e; font-weight: bold;" 
