@@ -23,7 +23,7 @@
 					buttonImage: "images/calendar.png",
 					buttonImageOnly: true,
 					buttonText: "Seleccione una fecha",
-					dateFormat:'dd/mm/yyyy',
+					dateFormat:'dd/mm/yy',
 					changeMonth: true,
 				    changeYear: true
 				});
@@ -86,14 +86,16 @@
 							<input type="text" name="txtDateIni" id="txtDateIni" maxlength="50" size="10" />
 						</fieldset>						
 						<div id="botonera">
-							<form action="accounts.html">
+							<form action="accounts.html" style="display: inline; ">
 								<div id="botonP" style="display: inline; margin-right: 30px;">
-											<input type="submit"  class="button"  name="sbmtButton" value="Agregar" />
-								</div>	
-								<div id="botonV" style="display: inline;">
-										<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
-								</div>	
-							</form>
+											<input type="submit"  class="button"  name="sbmtButton" value="Editar" />
+								</div>
+							</form>	
+							<form action="accounts.html#tabs-1" style="display: inline; ">
+								<div id="botonV" style="display: inline; margin-right: 30px;" >
+										<input type="submit" class="button" value="Regresar" />		
+								</div>
+							</form>	
 						</div><br>
 			  		</div>
 			  		<div id="tabs-2">
@@ -134,14 +136,16 @@
 							<textarea name="txtDescription" id="txtDescription" rows="2" cols="50"></textarea>
 						</fieldset>		
 						<div id="botonera">
-							<form action="accounts.html">
+							<form action="accounts.html" style="display: inline; ">
 								<div id="botonP" style="display: inline; margin-right: 30px;">
-											<input type="submit"  class="button"  name="sbmtButton" value="Agregar" />
-								</div>	
-								<div id="botonV" style="display: inline;">
-										<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
-								</div>	
-							</form>
+											<input type="submit"  class="button"  name="sbmtButton" value="Editar" />
+								</div>
+							</form>	
+							<form action="accounts.html#tabs-1" style="display: inline; ">
+								<div id="botonV" style="display: inline; margin-right: 30px;" >
+										<input type="submit" class="button" value="Regresar" />		
+								</div>
+							</form>	
 						</div><br>
 			  		</div>
 			  	</div><br>

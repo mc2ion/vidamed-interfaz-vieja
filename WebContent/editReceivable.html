@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-		<title>Crear Cuenta por Pagar</title>
+		<title>Editar Cuenta por Cobrar</title>
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css" />
 	  	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
@@ -23,20 +23,6 @@
 					buttonImage: "images/calendar.png",
 					buttonImageOnly: true,
 					buttonText: "Seleccione una fecha",
-					dateFormat:'dd/mm/yyyy',
-					changeMonth: true,
-				    changeYear: true
-				});
-			} );
-			
-			$(function(){
-				$.datepicker.setDefaults($.datepicker.regional['es']);
-				$('#txtDateIni2').datepicker({
-					showOn: "button",
-					buttonImage: "images/calendar.png",
-					buttonImageOnly: true,
-					buttonText: "Seleccione una fecha",
-					dateFormat:'dd/mm/yyyy',
 					changeMonth: true,
 				    changeYear: true
 				});
@@ -54,7 +40,7 @@
 		    	<ul>
 	            	<li class="menuitem"><a href="accounts.html">Ver Cuentas</a></li>
 	            </ul>
-				<div class="menuitemSalir"><a href="index.html">Salir</a></div>	
+	           <div class="menuitemSalir"><a href="index.html">Salir</a></div>	
         	</div>        
 			<div id="leftmenu">
 				<div id="leftmenu_top"></div>
@@ -76,66 +62,27 @@
 	            <div id="leftmenu_bottom"></div>
 	        </div>
         	<div id="content" style="position:absolute;">	
-	        	<h2>Crear Cuenta por Pagar:</h2>
+	        	<h2>Editar Cuenta por Cobrar:</h2>
 	        	<br>
 				<div id="tabs">
 					<ul>
 					    <li><a href="#tabs-1">Información Cuenta</a></li>
-					    <li><a href="#tabs-2">Información Pago</a></li>
-					    <li><a href="#tabs-3">Información Adicional</a></li>
+					    <li><a href="#tabs-2">Información Adicional</a></li>
 			  		</ul>
 			  		<div id="tabs-1">
 						<fieldset>
-							<label for="name">Documento a Pagar:</label>
-							<select name="txtGen" id="txtGen">	
-								<option value="-" selected="selected">Seleccionar</option>
-								<option value="F">Anticipo</option>
-								<option value="F">Factura</option>
-								<option value="F">Giros</option>
-								<option value="F">Honorarios</option>
-								<option value="F">Liquidación</option>
-								<option value="F">Nota de Crédito</option>
-								<option value="F">Otros</option>
-								<option value="F">Reintegros</option>
-							</select> <br><br>
 							<label for="name">Factura:</label>
-							<input type="text" name="txtName" id="txtName" maxlength="50" size="5"/> <br><br>
+							<input type="text" name="txtName" id="txtName" maxlength="50" size="5" value="F-1001"/> <br><br>
 							<label for="name">Número Control:</label>
-							<input type="text" name="txtName" id="txtName" maxlength="50" size="5"/> <br><br>
-							<label for="name">Proveedor:</label>
-							<input type="text" name="txtName" id="txtName" maxlength="50" size="5"/> <input type="submit"  class="button"  name="sbmtButton" value="Nuevo..." /><br><br>
-							<label for="name">Fecha Facturación:</label>
-							<input type="text" name="txtDateIni" id="txtDateIni" maxlength="50" size="10" /> <br><br>
-							<label for="name">Fecha Vencimiento:</label>
-							<input type="text" name="txtDateIni2" id="txtDateIni2" maxlength="50" size="10" />
-						</fieldset>						
-						<div id="botonera">
-							<form action="accounts.html" style="display: inline; ">
-								<div id="botonP" style="display: inline; margin-right: 30px;">
-											<input type="submit"  class="button"  name="sbmtButton" value="Editar" />
-								</div>
-							</form>	
-							<form action="accounts.html#tabs-2" style="display: inline; ">
-								<div id="botonV" style="display: inline; margin-right: 30px;" >
-										<input type="submit" class="button" value="Regresar" />		
-								</div>
-							</form>	
-						</div><br>
-			  		</div>			  		
-			  		<div id="tabs-2">
-						<fieldset>
-							<label for="name">Base Imponible:</label>
-							<input type="text" name="txtName" id="txtName" maxlength="50" size="5"/> <br><br>
+							<input type="text" name="txtName" id="txtName" maxlength="50" size="5" value="1726289"/> <br><br>
+							<label for="name">Responsable Pago:</label>
+							<input type="text" name="txtName" id="txtName" maxlength="50" size="5" value="Multinacional de Seguros, C.A"/> <input type="submit"  class="button"  name="sbmtButton" value="Nuevo..." /><br><br>
+							<label for="name">Monto a Cobrar:</label>
+							<input type="text" name="txtName" id="txtName" maxlength="50" size="5" value="Bs. 13392,85 "/> <br><br>
 							<label for="name">IVA:</label>
-							<input type="text" name="txtName" id="txtName" maxlength="50" size="5"/> <br><br>
-							<label for="name">Monto Exento IVA:</label>
-							<input type="text" name="txtName" id="txtName" maxlength="50" size="5"/> <br><br>
-							<label for="name">Total Factura:</label>
-							<input type="text" name="txtName" id="txtName" maxlength="50" size="5"/> <br><br>
-							<label for="name">Retención IVA:</label>
-							<input type="text" name="txtName" id="txtName" maxlength="50" size="5"/> <br><br>
-							<label for="name">Monto a Pagar:</label>
-							<input type="text" name="txtName" id="txtName" maxlength="50" size="5"/>
+							<input type="text" name="txtName" id="txtName" maxlength="50" size="5" value="Bs. 1607,15"/> <br><br>
+							<label for="name">Fecha Vencimiento:</label>
+							<input type="text" name="txtDateIni" id="txtDateIni" maxlength="50" size="10" value="20/08/2013" />
 						</fieldset>						
 						<div id="botonera">
 							<form action="accounts.html" style="display: inline; ">
@@ -143,29 +90,29 @@
 											<input type="submit"  class="button"  name="sbmtButton" value="Editar" />
 								</div>
 							</form>	
-							<form action="accounts.html#tabs-2" style="display: inline; ">
+							<form action="accounts.html#tabs-1" style="display: inline; ">
 								<div id="botonV" style="display: inline; margin-right: 30px;" >
 										<input type="submit" class="button" value="Regresar" />		
 								</div>
 							</form>	
 						</div><br>
 			  		</div>
-			  		<div id="tabs-3">
+			  		<div id="tabs-2">
 						<fieldset>
 							<label for="name">Empresa:</label>
 							<select name="txtGen" id="txtGen">	
-								<option value="-" selected="selected">Seleccionar</option>
-								<option value="F">Centro Médico Quirúrgico Vidamed</option>
+								<option value="-" >Seleccionar</option>
+								<option value="F" selected="selected" >Centro Médico Quirúrgico Vidamed</option>
 								<option value="F">Centro Materno del Este</option>
 								<option value="F">Servicios Médicos Redmed, C.A.</option>
 							</select> <br><br>
 							<label for="name">Unidad de Negocio:</label>
 							<select name="txtGen" id="txtGen">	
-								<option value="-" selected="selected">Seleccionar</option>
+								<option value="-" >Seleccionar</option>
 								<option value="F">Hospitalización Vidamed</option>
 								<option value="F">Laboratorio Clínico</option>
 								<option value="F">Rayos X Vidamed</option>
-								<option value="F">Emergencia Vidamed</option>
+								<option value="F" selected="selected" >Emergencia Vidamed</option>
 								<option value="F">Ecosonografía Vidamed</option>
 								<option value="F">Consulta Externa Vidamed</option>
 								<option value="F">Compras e Inventario</option>
@@ -173,18 +120,17 @@
 							</select> <br><br>
 							<label for="name">Clasificación:</label>
 							<input type="text" name="txtName" id="txtName" maxlength="50" size="5"/> <br><br>
-							<label for="name">Tipo Proveedor:</label>
+							<label for="name">Tipo Responsable:</label>
 							<select name="txtGen" id="txtGen">	
-								<option value="-" selected="selected">Seleccionar</option>
-								<option value="F">Proveedores</option>
-								<option value="F">Honorarios</option>
-								<option value="F">Pacientes</option>
-								<option value="F">Seguros</option>
-								<option value="F">Personal</option>
+								<option value="-" >Seleccionar</option>
+								<option value="F" selected="selected" >Empresa</option>
+								<option value="F">Cliente</option>
+								<option value="F">Empleados</option>
+								<option value="F">Proveedor</option>
 								<option value="F">Cliente Venta</option>
 							</select> <br><br>
-							<label for="name">Beneficiario Pago:</label>
-							<input type="text" name="txtName" id="txtName" maxlength="50" size="5"/> <br><br>
+							<label for="name">Beneficiario Factura:</label>
+							<input type="text" name="txtName" id="txtName" maxlength="50" size="5" value="Centro Quirúrgico Vidamed C.A"/> <br><br>
 							<label for="name">Notas de la Cuenta:</label>
 							<textarea name="txtDescription" id="txtDescription" rows="2" cols="50"></textarea>
 						</fieldset>		
@@ -194,7 +140,7 @@
 											<input type="submit"  class="button"  name="sbmtButton" value="Editar" />
 								</div>
 							</form>	
-							<form action="accounts.html#tabs-2" style="display: inline; ">
+							<form action="accounts.html#tabs-1" style="display: inline; ">
 								<div id="botonV" style="display: inline; margin-right: 30px;" >
 										<input type="submit" class="button" value="Regresar" />		
 								</div>
