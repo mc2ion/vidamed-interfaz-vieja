@@ -67,12 +67,13 @@
 		var idUser;
 
 		$(function() {
-			$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x, .buttonPopUpClose" });		
+			$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x, .buttonPopUpDelete" });		
 		});
 
-		function loadVars(var1, var2) {
+		function loadVars(var1, var2, var3) {
 			idUser = var1;
-			$('.cliente').text(var2);
+			$('.type').text(var2);
+			$('.name').text(var3);
 
 		};
 
@@ -156,7 +157,7 @@
 													<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 												</a>
 												<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-													onclick="return loadVars(1001,'Ana Rojas');" >
+													onclick="return loadVars(1001,'Cobrar', 'Vidamed');" >
 													<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
 												</a> 
 												<br>
@@ -175,7 +176,7 @@
 													<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 												</a>
 												<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-													onclick="return loadVars(1001,'Ana Rojas');" >
+													onclick="return loadVars(1001,'Cobrar', 'La Previsora');" >
 													<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
 												</a> 
 												<br>
@@ -194,7 +195,7 @@
 													<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 												</a>
 												<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-													onclick="return loadVars(1001,'Ana Rojas');" >
+													onclick="return loadVars(1001,'Cobrar', 'Multinacional de Seguros');" >
 													<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
 												</a> 
 												<br>
@@ -235,7 +236,7 @@
 													<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 												</a>
 												<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-													onclick="return loadVars(1001,'Ana Rojas');" >
+													onclick="return loadVars(1001,'Pagar', 'Hospital Online');">
 													<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
 												</a> 
 												<br>
@@ -254,7 +255,7 @@
 													<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 												</a>
 												<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-													onclick="return loadVars(1001,'Ana Rojas');" >
+													onclick="return loadVars(1001,'Pagar', 'Multinacional de Seguros');" >
 													<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
 												</a> 
 												<br>
@@ -273,7 +274,7 @@
 													<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 												</a>
 												<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-													onclick="return loadVars(1001,'Ana Rojas');" >
+													onclick="return loadVars(1001,'Pagar', 'Vidamed');" >
 													<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
 												</a> 
 												<br>
@@ -284,6 +285,22 @@
 							</div>
 					</div>
   				</div>
+			</div>
+		</div>
+		<div id="deleteUser">
+			<div id="signup-ct">
+				<h3 id="see_id" class="sprited" > Eliminar Cuenta Por <span class="type"></span>  </h3>
+				<br><br>
+				<span>¿Está seguro que desea eliminar la cuenta por <span class="type"></span>  de <span class="name"></span>? </span> <br><br>
+				<div id="signup-header">
+					<a class="close_x" id="close_x"  href="#"></a>
+				</div>
+				<form >
+					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+					<div class="btn-fld">
+						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
+					</div>
+		 		</form>
 			</div>
 		</div>
 	</body>
