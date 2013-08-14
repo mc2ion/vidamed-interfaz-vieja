@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-		<title>Crear Caja</title>
+		<title>Crear Cuenta Bancaria</title>
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css" />
 	  	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
@@ -18,7 +18,7 @@
         	<div id="menu">
 				<div class="menuitemHome" ><a href="mainMenu.html">Home</a></div>	
 		    	<ul>
-	            	<li class="menuitem"><a href="bank.html">Ver Cajas</a></li>
+	            	<li class="menuitem"><a href="bankAccounts.html">Ver Cuentas</a></li>
 	            </ul>
 				<div class="menuitemSalir"><a href="index.html">Salir</a></div>	
         	</div>        
@@ -36,23 +36,51 @@
 						<li><a href="departments.html">Departamentos</a></li>
 						<li><a href="doctors.html">Doctores</a></li>
 						<li><a href="bank.html">Cajas</a></li>
-						<li><a href="bankAccounts.html">Bancos</a></li>
+						<li><a class="active" href="bankAccounts.html">Bancos</a></li>
 						<li><a href="accounts.html">Cuentas</a></li>
 					</ul>
 				</div>
 	            <div id="leftmenu_bottom"></div>
 	        </div>
         	<div id="content" style="position:absolute;">	
-	        	<h2>Crear Caja:</h2>
+	        	<h2>Crear Cuenta Bancaria:</h2>
 				<br>
 				<fieldset>
-					<label for="name">Nombre:</label>
+					<label for="name">Tipo de Cuenta:</label>
+					<select name="txtCedId" id="txtCedId">	
+						<option value="-" selected="selected">Seleccionar</option>
+						<option value="V-">Cuenta de Ahorro</option>
+						<option value="E-">Recibo de Pago</option>
+						<option value="V-">Cuenta Corriente</option>
+						<option value="E-">Chequera</option>
+						<option value="V-">Cuenta Saldo Fijo</option>
+						<option value="E-">Pagaré</option>
+						<option value="E-">Cuenta Efectivo</option>
+					</select> <br><br>
+					<label for="name">Número de Cuenta:</label>
 					<input type="text" name="txtName" id="txtName" maxlength="50" size="5"/> <br><br>
-					<label for="name">Descripción:</label>
-					<textarea name="txtDescription" id="txtDescription" rows="3" cols="50"></textarea> <br><br>
+					<label for="name">Banco:</label>
+					<select name="txtCedId" id="txtCedId">	
+						<option value="-" selected="selected">Seleccionar</option>
+						<option value="V-">Clínica Vidamed</option>
+						<option value="E-">ABN-AMRO Bank</option>
+						<option value="V-">Banesco</option>
+						<option value="E-">Banfoandes</option>
+						<option value="V-">Bolívar</option>
+						<option value="E-">Banco Canarias de Venezuela</option>
+						<option value="E-">Banco Caracas</option>
+					</select> <br><br>
+					<label for="name">Saldo Disponible:</label>
+					<input type="text" name="txtName" id="txtName" maxlength="50" size="5"/> <br><br>
+					<label for="name">Saldo Actual:</label>
+					<input type="text" name="txtName" id="txtName" maxlength="50" size="5"/> <br><br>
+					<label for="name">Saldo Bloqueado:</label>
+					<input type="text" name="txtName" id="txtName" maxlength="50" size="5"/> <br><br>
+					<label for="name">Saldo Diferido:</label>
+					<input type="text" name="txtName" id="txtName" maxlength="50" size="5"/> <br><br>
 				</fieldset>
 				<div id="botonera">
-					<form action="bank.html">
+					<form action="bankAccounts.html">
 						<div id="botonP" style="display: inline; margin-right: 30px;">
 									<input type="submit"  class="button"  name="sbmtButton" value="Agregar" />
 						</div>	
