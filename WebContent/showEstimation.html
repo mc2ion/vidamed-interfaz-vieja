@@ -48,6 +48,10 @@
 				first = first.replace(/\+/g, ' ');
 				if (first.indexOf("Admission") > 0){
 					$("#admission").attr('class', 'active');
+					$("#menuInside").hide();
+					$("#botonera").hide();
+					$("#botonera2").show();
+					
 				}
 				else if (first.indexOf("stimations") > 0){
 					$("#estimation").attr('class', 'active');
@@ -64,8 +68,9 @@
 	        </div>         
         	<div id="menu">
 				<div class="menuitemHome" ><a href="mainMenu.html">Home</a></div>	
-		    	<ul>
-	            	<li class="menuitem"><a href="createEstimation.html">Crear Presupuesto</a></li>
+		    	<ul id="menuInside">
+	            	<li class="menuitem"><a href="estimations.html">Ver Presupuestos</a></li>
+	            	<li class="menuitem"><a href="createEstimation.html" style="margin-left:10px;">Crear Presupuesto</a></li>
 	            </ul>
 				<div class="menuitemSalir"><a href="index.html">Salir</a></div>	
         	</div>        
@@ -145,7 +150,7 @@
 						<br>
 					</div>
 				</div>
-				<div id="botonera" style="width: 300px;">
+				<div id="botonera" >
 					<form action="printEstimation.html">
 						<div id="botonP" style="display: inline; margin-right: 30px;">
 									<input type="submit"  class="button"  name="sbmtButton" value="Imprimir" />
@@ -156,10 +161,10 @@
 								<input type="button" class="button" value="Actualizar"  />			
 								</a>
 						</div>	
-						<div id="botonR" style="display: inline;">
-								<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
-						</div>	
 					</form>
+				</div><br>
+				<div id="botonera2"  style="display:none; width: 120px;">
+					<input type="button"  class="button"  name="sbmtButton" value="Regresar" onclick="history.go(-1);" />
 				</div><br>
 				
 				
@@ -173,7 +178,7 @@
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="estimations.html" method="post"  onsubmit="return setV(this)">
+				<form action="showEstimation.html" method="post"  onsubmit="return setV(this)">
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />

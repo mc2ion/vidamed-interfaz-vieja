@@ -3,7 +3,7 @@
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-	<title>Escoger Presupuesto</title>
+	<title>Escoger Responsable de Pago</title>
 	<script type="text/javascript" src="./js/jquery.js"></script>
 	<script type="text/javascript" src="./js/jquery.dataTables.js"></script>
 	<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
@@ -51,11 +51,9 @@
 			first = first.replace(/\+/g, ' ');
 			if (first != null){
 				if (first.indexOf("Estimation") > 0){
-					alert(first);
 					$("#estimation").attr('class', 'active');
 					if (first == "editEstimation"){
 						$("#form").attr('action', 'editEstimation.html');
-						alert("a" + $("#form").attr('action') );
 					}
 					else if (first == "createEstimation")
 						$("#form").attr('action', 'createEstimation.html');
@@ -177,11 +175,15 @@
 							</table>
 						</div>
 					</div><br>
-					<div id="botonV" style="display: inline;">
-							<input type="button" class="button" value="Regresar" style="margin-left:30%;" onClick="javascript:history.back();" style="margin-left:40%;" />		
-					</div>	
-					<input type="submit"  class="button"  name="sbmtButton" value="Seleccionar" style="margin-left:20%; "/>
 					
+					<div id="botonera" style="margin-top: -10px;">
+						<div id="botonP" style="display: inline; margin-right: 30px;">
+									<input type="submit"  class="button"  name="sbmtButton" value="Seleccionar" />
+						</div>	
+						<div id="botonV" style="display: inline;">
+								<input type="submit" class="button" value="Regresar" />		
+						</div>	
+					</div>
 				</div>
 				</form>
 				<div class="spacer"></div>

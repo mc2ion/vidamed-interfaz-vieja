@@ -79,6 +79,7 @@
 		
 		$("#next").click(function() {
 			$("#beds").css("visibility","visible"); 
+			$("#botonReg").hide();
 		});
 	});
 	
@@ -138,7 +139,12 @@
 								<option value="Piso 2" >Piso 2</option>
 				</select>
 				<input id="next" type="button" value="Siguiente">
-			</p><br><br>
+			</p>
+				<div id="botonReg" style="position: absolute; margin-top: 40px; margin-left: 320px;">
+					<br><input type="button" class="button" value="Regresar"
+						onClick="javascript:history.back();" />
+				</div>
+			<br><br>
 			<div id="beds" style="visibility: hidden;">
 				Escoga la cama que desea haciendo clic en la columna izquierda de la tabla y luego haga clic en "Seleccionar":
 					<div id="dt_example">
@@ -182,14 +188,14 @@
 							</div>
 						</div>
 						<br>
-						<div id="botonV" style="display: inline;">
-							<input type="button" class="button" value="Regresar"
-								style="margin-left: 30%;" onClick="javascript:history.back();"
-								style="margin-left:40%;" />
+						<div id="botonera">
+								<div id="botonP" style="display: inline; margin-right: 30px;">
+											<input type="submit"  class="button"  name="sbmtButton" value="Seleccionar" />
+								</div>	
+								<div id="botonV" style="display: inline;">
+										<input type="submit" class="button" value="Regresar" />		
+								</div>	
 						</div>
-						<input type="submit" class="button" name="sbmtButton"
-							value="Seleccionar" style="margin-left: 20%;" />
-
 					</div>
 				
 			</div>

@@ -3,7 +3,7 @@
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-	<title>Escoger Cama</title>
+	<title>Escoger Doctor</title>
 	<script type="text/javascript" src="./js/jquery.js"></script>
 	<script type="text/javascript" src="./js/jquery.dataTables.js"></script>
 	<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
@@ -80,6 +80,7 @@
 		
 		$("#next").click(function() {
 			$("#beds").css("visibility","visible"); 
+			$("#botonReg").hide();
 		});
 	});
 	
@@ -191,7 +192,12 @@
 								<option value="381" >UROLOGÍA PEDIÁTRICA</option>
 				</select>
 				<input id="next" type="button" value="Siguiente">
-			</p><br><br>
+			</p>
+				<div id="botonReg" style="position: absolute; margin-top: 40px; margin-left: 320px;">
+					<br><input type="button" class="button" value="Regresar"
+						onClick="javascript:history.back();" />
+				</div>
+			<br><br>
 			<div id="beds" style="visibility: hidden;">
 				<p>Escoga el médico tratante haciendo clic en la columna izquierda de la tabla y luego haga clic en "Seleccionar":</p>
 					<div id="dt_example">
@@ -235,15 +241,15 @@
 							</div>
 						</div>
 						<br>
-						<div id="botonV" style="display: inline;">
-							<input type="button" class="button" value="Regresar"
-								style="margin-left: 30%;" onClick="javascript:history.back();"
-								style="margin-left:40%;" />
+						<div id="botonera">
+								<div id="botonP" style="display: inline; margin-right: 30px;">
+											<input type="submit"  class="button"  name="sbmtButton" value="Seleccionar" />
+								</div>	
+								<div id="botonV" style="display: inline;">
+										<input type="submit" class="button" value="Regresar" />		
+								</div>	
 						</div>
-						<input type="submit" class="button" name="sbmtButton"
-							value="Seleccionar" style="margin-left: 20%;" />
-
-					</div>
+				</div>
 				
 			</div>
 			</form>

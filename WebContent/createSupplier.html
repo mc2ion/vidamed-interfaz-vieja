@@ -42,6 +42,36 @@
 				});
 			} );
 		</script>
+		<script type="text/javascript">
+		$(document).ready(function() {
+			
+			function getUrlVars() {
+			    var vars = {};
+			    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+			        vars[key] = value;
+			    });
+			    return vars;
+			}
+
+			var first = getUrlVars()["function"];
+			first = first.replace(/\+/g, ' ');
+			if (first != null){
+				if (first.indexOf("Payable") > 0){
+					if (first == "createAccountPayable"){
+						$("#form").attr('action', 'createAccountPayable.html#tabs-1');
+						$("#form2").attr('action', 'createAccountPayable.html#tabs-1');
+					}
+					else if(first == "editAccountPayable"){
+						$("#form").attr('action', 'editAccountPayable.html#tabs-1');
+						$("#form2").attr('action', 'editAccountPayable.html#tabs-1');
+					}
+					
+				}
+			}
+				
+		});
+		
+	</script>
 		<link rel="stylesheet" href="/resources/demos/style.css" />		
 	</head>
 	<body>
@@ -111,12 +141,10 @@
 							<input type="text" name="txtFax" id="txtFax" maxlength="50" size="5" style="margin-left: 22px; width: 150px;" >
 						</fieldset>						
 						<div id="botonera">
-							<form action="editAccountPayable.html" style="display: inline; ">
+							<form id="form" action="" style="display: inline; ">
 								<div id="botonP" style="display: inline; margin-right: 30px;">
 											<input type="submit"  class="button"  name="sbmtButton" value="Agregar" />
 								</div>
-							</form>	
-							<form action="editAccountPayable.html" style="display: inline; ">
 								<div id="botonV" style="display: inline; margin-right: 30px;" >
 										<input type="submit" class="button" value="Regresar" />		
 								</div>
@@ -160,13 +188,11 @@
 								<option>Honorario Profesionales</option>
 							</select>
 						</fieldset>						
-						<div id="botonera">
-							<form action="editAccountPayable.html" style="display: inline; ">
+						<div id="botonera2">
+							<form id="form2" action="" style="display: inline; ">
 								<div id="botonP" style="display: inline; margin-right: 30px;">
 											<input type="submit"  class="button"  name="sbmtButton" value="Agregar" />
 								</div>
-							</form>	
-							<form action="editAccountPayable.html" style="display: inline; ">
 								<div id="botonV" style="display: inline; margin-right: 30px;" >
 										<input type="submit" class="button" value="Regresar" />		
 								</div>
