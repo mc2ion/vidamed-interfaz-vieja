@@ -1,0 +1,138 @@
+<!DOCTYPE html >
+<html>
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
+	<title>Agregar Signos Vitales</title>
+	<script type="text/javascript" src="./js/jquery.js"></script>
+	<script type="text/javascript" src="./js/jquery.dataTables.js"></script>
+	<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			
+			function getUrlVars() {
+			    var vars = {};
+			    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+			        vars[key] = value;
+			    });
+			    return vars;
+			}
+
+			var first = getUrlVars()["function"];
+			first = first.replace(/\+/g, ' ');
+			if (first != null){
+				if (first.indexOf("Estimation") > 0){
+					$("#estimation").attr('class', 'active');
+					if (first == "editEstimation")
+						$("#form").attr('action', 'editEstimation.html#tabs-6');
+					else (first == "createEstimation")
+						$("#form").attr('action', 'createEstimation.html#tabs-6');
+				}
+				else if (first.indexOf("Hospitalization") > 0){
+					$("#hospitalization").attr('class', 'active');
+					if (first == "editHospitalization")
+						$("#form").attr('action', 'editHospitalization.html#tabs-6');
+					
+				}
+				else if (first.indexOf("Patient") > 0){
+					$("#admission").attr('class', 'active');
+					if (first == "admitPatient")
+						$("#form").attr('action', 'admitPatient.html#tabs-6');
+					
+				}
+			}
+				
+		});
+		
+	</script>
+	<script type="text/javascript">
+	var idUser;
+			
+	$(function() {
+		$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x" });		
+	});
+	
+	function loadVars(var1, var2) {
+		idUser = var1;
+		$('.cliente').text(var2);
+		
+	};
+	
+	function setV(f){
+		f.elements['userId'].value = idUser;
+		return true;
+	}
+	</script>
+</head>
+<body>
+	<div id="container">
+		<div id="header">
+        	<img alt="logo" src="./images/logo.png"/>
+        </div>         
+        <div id="menu">
+			<div class="menuitemHome" ><a href="mainMenu.html">Home</a></div>	
+	    	<div class="menuitemSalir"><a href="index.html">Salir</a></div>	
+        </div>        
+		<div id="leftmenu">
+			<div id="leftmenu_top"></div>
+			<div id="leftmenu_main">
+				<ul>
+				    <li><a id="estimation"  href="estimations.html">Presupuestos</a></li>
+				    <li><a id="emergencies" href="emergencies.html">Emergencia</a></li>
+					<li><a id="admission" href="admission.html">Admisión</a></li>
+				    <li><a id="hospitalization" href="hospitalization.html">Hospitalización</a></li>
+					<li><a href="protocols.html">Protocolos</a></li>
+					<li><a href="services.html">Servicios</a></li>
+					<li><a id="supplyAreas" href="supplyAreas.html">Suministros</a></li>
+					<li><a href="departments.html">Unidades</a></li>
+					<li><a href="doctors.html">Especialistas</a></li>
+					<li><a href="bank.html">Cajas</a></li>
+					<li><a href="bankAccounts.html">Bancos</a></li>
+					<li><a id="accounts" href="accounts.html">Cuentas</a></li>
+				</ul>
+			</div>
+            <div id="leftmenu_bottom"></div>
+        </div>  
+		<div id="content">
+			<h2>Agregar Signos Vitales:</h2><br>
+			<br>
+			<fieldset>
+			<div class="leftCol">
+		    <label>Estado de Ánimo:</label>
+		  	 <input type="text" > <br /><br />
+		  	  <label>Sístole:</label>
+		  	 <input type="text" > <br /><br />
+		  	  <label>Diástole:</label>
+		  	 <input type="text" > <br /><br />
+		  	  <label>Frecuencia Cardíaca:</label>
+		  	 <input type="text" > <br /><br />
+		  	</div>
+		  	<div class="rightCol">
+			  	 <label>Temperatura:</label>
+			  	<input type="text" > <br /><br />
+	   			 <label>Peso:</label>
+			  	<input type="text" > <br /><br />
+	   			 <label>Frecuencia Respiratoria:</label>
+			  	<input type="text" > <br /><br />
+			  	<label>Volumen de Líquido Suministrado:</label>
+			  	<input type="text" > <br />
+  			 </div>
+  		</fieldset>
+			
+	
+		<div id="botonera">
+			<form id="form" action="">
+				<div id="botonP" style="display: inline; margin-right: 30px;">
+							<input type="submit"  class="button"  name="sbmtButton" value="Agregar" />
+				</div>	
+				<div id="botonV" style="display: inline;">
+						<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
+				</div>	
+			</form> 
+		</div>  
+	</div>
+	
+	</div>
+	</body>
+</html>
+
