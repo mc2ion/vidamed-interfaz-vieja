@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-		<title>Crear Doctor</title>
+		<title>Crear Especialista</title>
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css" />
 		<link href="./css/multi-select.css" media="screen" rel="stylesheet" type="text/css">
 	  	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
@@ -115,7 +115,7 @@
         	<div id="menu">
 				<div class="menuitemHome" ><a href="mainMenu.html">Home</a></div>	
 		    	<ul>
-	            	<li class="menuitem"><a href="doctors.html">Ver Doctores</a></li>
+	            	<li class="menuitem"><a href="doctors.html">Ver Especialistas</a></li>
 	            </ul>
 				<div class="menuitemSalir"><a href="index.html">Salir</a></div>	
         	</div>        
@@ -130,8 +130,8 @@
 						<li><a href="protocols.html">Protocolos</a></li>
 						<li><a href="services.html">Servicios</a></li>
 						<li><a href="supplyAreas.html">Suministros</a></li>
-						<li><a href="departments.html">Departamentos</a></li>
-						<li><a class="active" href="doctors.html">Doctores</a></li>
+						<li><a href="departments.html">Unidades</a></li>
+						<li><a class="active" href="doctors.html">Especialistas</a></li>
 						<li><a href="bank.html">Cajas</a></li>
 						<li><a href="bankAccounts.html">Bancos</a></li>
 						<li><a href="accounts.html">Cuentas</a></li>
@@ -140,13 +140,13 @@
 	            <div id="leftmenu_bottom"></div>
 	        </div>
         	<div id="content" style="position:absolute;">	
-	        	<h2>Crear Doctor:</h2>
+	        	<h2>Crear Especialista:</h2>
 				<br>
 				<div id="tabs">
 					<ul>
 					    <li><a href="#tabs-1">Datos Personales</a></li>
 					    <li><a href="#tabs-2">Datos Contacto</a></li>
-					    <li><a href="#tabs-3">Departamento</a></li>
+					    <li><a href="#tabs-3">Unidad</a></li>
 			  		</ul>
 			  		<div id="tabs-1">
 						<fieldset>
@@ -241,7 +241,7 @@
 			  		</div>			  		
 			  		<div id="tabs-3">
 			  			<fieldset>
-							<label for="name">Departamento:</label>
+							<label for="name">Unidad:</label>
 							<div style="float:left;">
 							<select multiple="multiple" id="my-select" name="my-select[]">
 								<option value="337" >ALERGOLOGÍA</option>
