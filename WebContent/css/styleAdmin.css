@@ -730,6 +730,43 @@ fieldset input[type="text"]{
 
 }
 
+.buttonPopUpDelete2
+{
+	position: absolute;
+	top: 140px;
+	left: 75px;
+	background-color: #1EB1DD;
+	color:#FAFAFA;
+	font-family: Verdana, Arial;
+	cursor: pointer;
+
+}
+
+.buttonPopUpDelete3
+{
+	position: absolute;
+	top: 140px;
+	left: 170px;
+	background-color: #1EB1DD;
+	color:#FAFAFA;
+	font-family: Verdana, Arial;
+	cursor: pointer;
+
+}
+
+
+.buttonPopUpDelete4
+{
+	position: absolute;
+	top: 160px;
+	left: 170px;
+	background-color: #1EB1DD;
+	color:#FAFAFA;
+	font-family: Verdana, Arial;
+	cursor: pointer;
+
+}
+
 .buttonPopUpDeleteAux
 {
 	background-color: #1EB1DD;
@@ -1350,7 +1387,7 @@ div.box {
 }
 
 #deleteUser, #deleteProduct, #deleteRequest, #refreshUser, #dischargeUser, #hospitalizeUser, #deleteService, #deleteProtocol, #deleteSupply,
-#deleteEvaluation, #deleteVitalSign, #deleteCash {
+#deleteEvaluation, #deleteVitalSign, #deleteCash, #printUser {
 	position: absolute;
 	text-align: center;
 	width: 295px;
