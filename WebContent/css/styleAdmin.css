@@ -7,8 +7,21 @@ html {
 	border-collapse: collapse;
 }
 
+#sweetTable1 {
+	width: 100%;
+	border-collapse: collapse;
+}
+
 #sweetTable th {
 	text-align: left;
+	padding-top: 5px;
+	padding-bottom: 4px;
+	background-color: #006c92;
+	color: #fff;
+}
+
+#sweetTable1 th {
+	text-align: right;
 	padding-top: 5px;
 	padding-bottom: 4px;
 	background-color: #006c92;
@@ -21,6 +34,11 @@ html {
 }
 
 #sweetTable td, #sweetTable th {
+	border: 1px solid #006c92;
+	padding: 3px 7px 2px 7px;
+}
+
+#sweetTable1 td, #sweetTable1 th {
 	border: 1px solid #006c92;
 	padding: 3px 7px 2px 7px;
 }
@@ -287,7 +305,7 @@ color:#67A0F5;
 #content, #contentP
 {
 	width: 808px;
-	height: 410px;
+	height: 445px;
 	padding-left:30px;
 	padding-top: 20px;
 	padding-right:30px;
@@ -1675,7 +1693,7 @@ table {
 	background: none;
 }
 
-#botonera, #botonera2{
+#botonera, #botonera2, .botonera{
   width: 200px;
   display: block;
   margin-left: auto;

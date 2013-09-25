@@ -1,0 +1,220 @@
+<!DOCTYPE html >
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
+		<title>Fármacos en Habitación</title>
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css" />
+		<link href="./css/multi-select.css" media="screen" rel="stylesheet" type="text/css">
+	  	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>		
+		<!--JS Datapicker-->
+		<script type="text/javascript" src="./js/jquery.ui.datepicker-es.js"></script>
+		<!--JS Buscador de Multiselect-->
+		<script type="text/javascript" src="./js/jquery.quicksearch.js"></script>
+		<script>
+			$(function() {
+				$( "#tabs" ).tabs();
+			});
+			
+			$(function() {
+				$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x" });
+				$("#addPhone").click(function() {
+					
+					if($('#otherPhone').is(':hidden')) {
+						$("#otherPhone").show();
+					} else {
+						if($('#otherPhone2').is(':hidden')) {
+							$("#otherPhone2").show();
+						} else {
+							$("#otherPhone3").show();
+						}
+					}
+					
+					if($('#otherPhone').is(':visible') && $('#otherPhone2').is(':visible') && $('#otherPhone3').is(':visible')){
+						$(this).hide();						
+					}
+					  
+				});
+				
+				$("#deletePhone").click(function() {
+					  $("#otherPhone").hide();
+					  $("#addPhone").show();
+				});
+				
+				$("#deletePhone2").click(function() {
+					  $("#otherPhone2").hide();
+					  $("#addPhone").show();
+				});
+				
+				$("#deletePhone3").click(function() {
+					  $("#otherPhone3").hide();
+					  $("#addPhone").show();
+				});
+			});
+			
+			$(function() {
+				$('#my-select').multiSelect({
+					  selectableHeader: "<input type='text' class='search-input' autocomplete='off' placeholder='Buscar' style='width:100%'>",
+					  selectionHeader: "<input type='text' class='search-input' autocomplete='off' placeholder='Buscar' style='width:100%'>",
+					  afterInit: function(ms){
+					    var that = this,
+					        $selectableSearch = that.$selectableUl.prev(),
+					        $selectionSearch = that.$selectionUl.prev(),
+					        selectableSearchString = '#'+that.$container.attr('id')+' .ms-elem-selectable:not(.ms-selected)',
+					        selectionSearchString = '#'+that.$container.attr('id')+' .ms-elem-selection.ms-selected';
+
+					    that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
+					    .on('keydown', function(e){
+					      if (e.which === 40){
+					        that.$selectableUl.focus();
+					        return false;
+					      }
+					    });
+
+					    that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
+					    .on('keydown', function(e){
+					      if (e.which == 40){
+					        that.$selectionUl.focus();
+					        return false;
+					      }
+					    });
+					  },
+					  afterSelect: function(){
+					    this.qs1.cache();
+					    this.qs2.cache();
+					  },
+					  afterDeselect: function(){
+					    this.qs1.cache();
+					    this.qs2.cache();
+					  }
+					});
+			});
+		</script>
+		<script type="text/javascript">
+			$(function(){
+				$.datepicker.setDefaults($.datepicker.regional['es']);
+				$('#txtDateIni').datepicker({
+					showOn: "button",
+					buttonImage: "images/calendar.png",
+					buttonImageOnly: true,
+					buttonText: "Seleccione una fecha",
+					dateFormat:'dd/mm/yyyy',
+					changeMonth: true,
+				    changeYear: true
+				});
+			} );
+		</script>
+	</head>
+	<body>
+		<div id="container">
+			<div id="header">
+	        	<img alt="logo" src="./images/logo.png"/>
+	        </div>         
+        	<div id="menu">
+				<div class="menuitemHome" ><a href="mainMenu.html">Home</a></div>	
+		    	<div class="menuitemSalir"><a href="index.html">Salir</a></div>	
+        	</div>        
+			<div id="leftmenu">
+				<div id="leftmenu_top"></div>
+				<div id="leftmenu_main">
+					<ul>
+					    <li><a href="estimations.html">Presupuestos</a></li>
+					    <li><a href="emergencies.html">Emergencia</a></li>
+						<li><a href="admission.html">Admisión</a></li>
+					    <li><a href="hospitalization.html">Hospitalización</a></li>
+						<li><a class="active" href="protocols.html">Protocolos</a></li>
+						<li><a href="services.html">Servicios</a></li>
+						<li><a href="supplyAreas.html">Suministros</a></li>
+						<li><a href="departments.html">Unidades</a></li>
+						<li><a href="doctors.html">Especialistas</a></li>
+						<li><a href="bank.html">Cajas</a></li>
+						<li><a href="bankAccounts.html">Bancos</a></li>
+						<li><a href="accounts.html">Cuentas</a></li>
+					</ul>
+				</div>
+	            <div id="leftmenu_bottom"></div>
+	        </div>
+        	<div id="content" style="position:absolute;">	
+	        	<h2>Fármacos en Habitación</h2>
+				<br>
+				<fieldset>
+						Agregue o elimine fármacos:
+						<div  style="margin: 20px auto;">
+						<select multiple="multiple" id="my-select" name="my-select[]">
+							<option value="337" >ALERGOLOGÍA</option>
+						 	<option value="660" >ANALISTAS DE SEGUROS</option>
+							<option value="338" >ANESTESIOLOGÍA</option>
+							<option value="340" >BIOANÁLISIS</option>
+							<option value="240" >CARDIOLOGÍA</option>
+							<option value="342" >CARDIOVASCULAR PERIFÉRICO</option>
+							<option value="343" >CIRUGÍA BARIÁTRICA</option>
+							<option value="344" >CIRUGÍA COLUMNA</option>
+							<option value="345" >CIRUGÍA DE TÓRAX</option>
+							<option value="887" >CIRUGIA EN ORTOPEDIA INFANTIL</option>
+							<option value="235" >CIRUGIA GENERAL</option>
+							<option value="346" >CIRUGÍA GINECOLÓGICA</option>
+							<option value="544" >CIRUGÍA LAPAROSCOPICA</option>
+							<option value="348" >CIRUGÍA MÁXILO-FACIAL </option>
+							<option value="349" >CIRUGÍA ONCOLÓGICA </option>
+							<option value="350" >CIRUGÍA PEDIÁTRICA</option>
+							<option value="351" >CIRUGÍA PLÁSTICA, ESTÉTICA Y RECONSTRUCTIVA</option>
+							<option value="935" >COLOPROCTOLOGÍA</option>
+							<option value="658" >COORDINADOR DE APS / SUP. DE SECRETARIAS</option>
+							<option value="236" >DERMATOLOGÍA</option>
+							<option value="352" >ENDOCRINOLOGÍA</option>
+							<option value="231" >FISIATRÍA</option>
+							<option value="353" >FISIOTERAPEUTAS</option>
+							<option value="238" >GASTROENTEROLOGÍA</option>
+							<option value="418" >GASTROENTEROLOGÍA INFANTIL</option>
+							<option value="355" >GINECO OBSTETRICIA</option>
+							<option value="356" >GINECOLOGÍA CLÍNICA</option>
+							<option value="239" >HEMATOLOGÍA</option>
+							<option value="357" >INFERTILIDAD</option>
+							<option value="419" >LABORATORIO</option>
+							<option value="359" >MASTOLOGÍA</option>
+							<option value="245" >MEDICINA INTERNA</option>
+							<option value="362" >MÉDICOS RESIDENTES</option>
+							<option value="656" >NEFROLOGIA DE ADULTOS</option>
+							<option value="364" >NEONATOLOGÍA</option>
+							<option value="365" >NEUMONOLOGÍA</option>
+							<option value="366" >NEUMONOLOGÍA PEDÍATRICA</option>
+							<option value="367" >NEUROCIRUGÍA</option>
+							<option value="233" >NEUROLOGÍA</option>
+							<option value="229" >NUTRICIÓN</option>
+							<option value="232" >OFTALMOLOGÍA</option>
+							<option value="370" >ONCOLOGÍA MÉDICA</option>
+							<option value="244" >OTORRINOLARINGOLOGÍA</option>
+							<option value="371" >PATOLOGÍA</option>
+							<option value="372" >PEDIATRÍA</option>
+							<option value="373" >PROCTOLOGÍA</option>
+							<option value="374" >PSQUIATRÍA</option>
+							<option value="375" >RADIOLOGÍA, IMAGENOLOGÍA</option>
+							<option value="376" >REUMATOLOGÍA</option>
+							<option value="659" >SECRETARIAS</option>
+							<option value="378" >TÉCNICOS RADIÓLOGOS</option>
+							<option value="379" >TOMOGRAFÍA Y RESONANCIA</option>
+							<option value="657" >TRAUMATOLOGIA ESPECIALISTA EN COLUMNA</option>
+							<option value="380" >TRAUMATOLOGÍA Y ORTOPEDIA</option>
+							<option value="242" >UROLOGÍA</option>
+							<option value="381" >UROLOGÍA PEDIÁTRICA</option>
+					    </select>	
+						<!--JS Multiselect http://loudev.com/-->
+					    <script src="./js/jquery.multi-select.js" type="text/javascript"></script>		
+					    </div>		
+					</fieldset>		
+					<div id="botonera">
+						<form action="doctors.html">
+							<div id="botonP" style="display: inline; margin-right: 30px;">
+										<input type="submit"  class="button"  name="sbmtButton" value="Agregar" />
+							</div>	
+							<div id="botonV" style="display: inline;">
+									<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
+							</div>	
+						</form>
+					</div><br>
+			</div>
+		</div>
+	</body>
+</html>

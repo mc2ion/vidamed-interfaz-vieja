@@ -8,7 +8,17 @@
 	  	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
-		<link rel="stylesheet" href="/resources/demos/style.css" />		
+		<link rel="stylesheet" href="/resources/demos/style.css" />	
+		<script>
+			$(function() {
+				$("#tabs").tabs();
+				$("#tabs").tabs("select", window.location.hash);
+			});
+			
+			function next(id){
+				$(id).click();
+			}
+		</script>	
 	</head>
 	<body>
 		<div id="container">
@@ -45,82 +55,227 @@
         	<div id="content" style="position:absolute;">	
 	        	<h2>Crear Protocolo:</h2>
 				<br>
-				<fieldset>
-					<label>Unidad: </label> 
-					    	<select id="departmentId" name="departmentId">
-					    		<option value="-" >Seleccione</option>
-								<option value="337" >ALERGOLOGÍA</option>
-							 	<option value="660" >ANALISTAS DE SEGUROS</option>
-								<option value="338" >ANESTESIOLOGÍA</option>
-								<option value="340" >BIOANÁLISIS</option>
-								<option value="240" >CARDIOLOGÍA</option>
-								<option value="342" >CARDIOVASCULAR PERIFÉRICO</option>
-								<option value="343" >CIRUGÍA BARIÁTRICA</option>
-								<option value="344" >CIRUGÍA COLUMNA</option>
-								<option value="345" >CIRUGÍA DE TÓRAX</option>
-								<option value="887" >CIRUGIA EN ORTOPEDIA INFANTIL</option>
-								<option value="235" >CIRUGIA GENERAL</option>
-								<option value="346" >CIRUGÍA GINECOLÓGICA</option>
-								<option value="544" >CIRUGÍA LAPAROSCOPICA</option>
-								<option value="348" >CIRUGÍA MÁXILO-FACIAL </option>
-								<option value="349" >CIRUGÍA ONCOLÓGICA </option>
-								<option value="350" >CIRUGÍA PEDIÁTRICA</option>
-								<option value="351" >CIRUGÍA PLÁSTICA, ESTÉTICA Y RECONSTRUCTIVA</option>
-								<option value="935" >COLOPROCTOLOGÍA</option>
-								<option value="658" >COORDINADOR DE APS / SUP. DE SECRETARIAS</option>
-								<option value="236" >DERMATOLOGÍA</option>
-								<option value="352" >ENDOCRINOLOGÍA</option>
-								<option value="231" >FISIATRÍA</option>
-								<option value="353" >FISIOTERAPEUTAS</option>
-								<option value="238" >GASTROENTEROLOGÍA</option>
-								<option value="418" >GASTROENTEROLOGÍA INFANTIL</option>
-								<option value="355" >GINECO OBSTETRICIA</option>
-								<option value="356" >GINECOLOGÍA CLÍNICA</option>
-								<option value="239" >HEMATOLOGÍA</option>
-								<option value="357" >INFERTILIDAD</option>
-								<option value="419" >LABORATORIO</option>
-								<option value="359" >MASTOLOGÍA</option>
-								<option value="245" >MEDICINA INTERNA</option>
-								<option value="362" >MÉDICOS RESIDENTES</option>
-								<option value="656" >NEFROLOGIA DE ADULTOS</option>
-								<option value="364" >NEONATOLOGÍA</option>
-								<option value="365" >NEUMONOLOGÍA</option>
-								<option value="366" >NEUMONOLOGÍA PEDÍATRICA</option>
-								<option value="367" >NEUROCIRUGÍA</option>
-								<option value="233" >NEUROLOGÍA</option>
-								<option value="229" >NUTRICIÓN</option>
-								<option value="232" >OFTALMOLOGÍA</option>
-								<option value="370" >ONCOLOGÍA MÉDICA</option>
-								<option value="244" >OTORRINOLARINGOLOGÍA</option>
-								<option value="371" >PATOLOGÍA</option>
-								<option value="372" >PEDIATRÍA</option>
-								<option value="373" >PROCTOLOGÍA</option>
-								<option value="374" >PSQUIATRÍA</option>
-								<option value="375" >RADIOLOGÍA, IMAGENOLOGÍA</option>
-								<option value="376" >REUMATOLOGÍA</option>
-								<option value="659" >SECRETARIAS</option>
-								<option value="378" >TÉCNICOS RADIÓLOGOS</option>
-								<option value="379" >TOMOGRAFÍA Y RESONANCIA</option>
-								<option value="657" >TRAUMATOLOGIA ESPECIALISTA EN COLUMNA</option>
-								<option value="380" >TRAUMATOLOGÍA Y ORTOPEDIA</option>
-								<option value="242" >UROLOGÍA</option>
-								<option value="381" >UROLOGÍA PEDIÁTRICA</option>
-					    	</select><br><br>
-					<label for="name">Nombre:</label>
-					<input type="text" name="txtName" id="txtName" maxlength="50" size="5"/> <br><br>
-					<label for="name">Descripción:</label>
-					<textarea name="txtDescription" id="txtDescription" rows="3" cols="50"></textarea> <br><br>
-				</fieldset>
-				<div id="botonera">
-					<form action="protocols.html">
-						<div id="botonP" style="display: inline; margin-right: 30px;">
-									<input type="submit"  class="button"  name="sbmtButton" value="Agregar" />
-						</div>	
-						<div id="botonV" style="display: inline;">
-								<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
-						</div>	
-					</form>
-				</div><br>
+				<div id="tabs">
+					<ul>
+						<li><a id="tabs1" href="#tabs-1">Información Básica</a></li>
+					    <li><a id="tabs2" href="#tabs-2">Hospitalización</a></li>
+					    <li><a id="tabs3" href="#tabs-3">Gastos en Quirófano</a></li>
+					    <li><a id="tabs4" href="#tabs-4">Servicios Médicos</a></li>
+					    <li><a id="tabs5" href="#tabs-5">Honorarios Médicos</a></li>
+					    
+			  		</ul>
+  					<div id="tabs-1">
+  						<fieldset>
+							<label for="name">Nombre:</label>
+							<input type="text" name="txtName" id="txtName" maxlength="50" size="5"/> <br><br>
+							<label for="name">Descripción:</label>
+							<textarea name="txtDescription" id="txtDescription" rows="3" cols="50"></textarea> <br><br>
+							<label for="name">Parecido A:</label>
+							<input type="button" name="txtSimilar" id="txtSimilar" value="Escoger"/> <br><br>
+							<label for="name">Tipo de Protocolo:</label>
+							<select>
+								<option value="A">Ambulatorio</option>
+								<option value="H">No Ambulatorio</option>
+							</select>
+						</fieldset>
+						<div class="botonera">
+							<div id="botonV" style="display: inline;">
+								<input type="button" value="Siguiente" onClick="next('#tabs2')">
+							</div>	
+						</div>
+					</div>
+  					<div id="tabs-2">
+  							<table id="sweetTable">
+							<tbody>
+								<tr>
+									<td ></td>
+									<td>
+										Precio. BsF
+									</td>
+								</tr>	
+								<tr>
+									<td>Hospitalización:
+									<input style="margin-left: 10px;" type="text" size="4" placeholder="XX"> Dias</td>
+									<td>2270,00</td>
+								</tr>				
+								<tr>
+									<td>Médico Residente</td>
+									<td>400,00</td>
+								</tr>				
+								<tr>
+									<td>Teléfono</td>
+									<td>112,50</td>
+								</tr>
+								<tr>
+									<td>Televisión</td>
+									<td>112,50</td>
+								</tr>
+								<tr>
+									<td>Acompañante</td>
+									<td>360,00</td>
+								</tr>
+								<tr>
+									<td>Kit Paciente</td>
+									<td>943,70</td>
+								</tr>
+								<tr>
+									<td>Servicio de Asistencia Permanente</td>
+									<td>309,38</td>
+								</tr>
+								<tr>
+									<td>Servicio de Alimentación</td>
+									<td>520,00</td>
+								</tr>
+								<tr>
+									<td>Servicios Farmacéuticos Quirúrgicos
+									<form action="addPharmaceuticals.html" method="post" style="display:inline; float: right;">
+										<input type="submit" value="Editar">
+									</form>
+									</td> 
+									<td>70,40</td>
+									
+								</tr>
+								<tr>
+									<td>Fármacos en Habitación
+									<form action="addDrugs.html" method="post" style="display:inline; float: right;">
+										<input type="submit" value="Editar">
+									</form>
+									</td>
+									<td>1230,00</td>
+								</tr>
+								<tr>
+									<td>Material Médico Quirúrgico en Habitación
+									<form action="addMaterials.html" method="post" style="display:inline; float: right;">
+										<input type="submit" value="Editar">
+									</form>
+									</td>
+									<td>1380,00</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="botonera">
+							<div id="botonV" style="display: inline;">
+								<input type="button" value="Siguiente" onClick="next('#tabs3')">
+							</div>	
+						</div>
+					</div>
+  					<div id="tabs-3">
+						<table id="sweetTable1">
+							<tbody>
+								<tr>
+									<td></td>
+									<td>
+										Precio. BsF
+									</td>
+								</tr>	
+								<tr>
+									<td>Quirófano</td>
+									<td>4875,00</td>
+								</tr>				
+								<tr>
+									<td>Sala de Recuperación</td>
+									<td>438,76</td>
+								</tr>				
+								<tr>
+									<td>Monitoreo</td>
+									<td>1950,00</td>
+								</tr>
+								<tr>
+									<td>Gases, Anestésicos y Medicamentos
+									<form action="addDrugs.html?hab=0" method="post" style="display:inline; float: right;">
+										<input type="submit" value="Editar">
+									</form></td>
+									<td>5653,47</td>
+								</tr>
+								<tr>
+									<td>Material Médico Quirurgico
+									<form action="addMaterials.html?hab=0" method="post" style="display:inline; float: right;">
+										<input type="submit" value="Editar">
+									</form></td>
+									<td>6710,31</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="botonera">
+							<div id="botonV" style="display: inline;">
+								<input type="button" value="Siguiente" onClick="next('#tabs4')">
+							</div>	
+						</div>
+					</div>
+					<div id="tabs-4">
+  						<table id="sweetTable">
+							<tbody>
+								<tr>
+									<td></td>
+									<td>
+										Precio. BsF
+									</td>
+								</tr>	
+								<tr>
+									<td>Banco de Sangre (Tipiaje)</td>
+									<td>591,25</td>
+								</tr>				
+								<tr>
+									<td>Electrocardiograma</td>
+									<td>402,50</td>
+								</tr>				
+								<tr>
+									<td>Evaluación cardiovascular. Pre-Operatoria</td>
+									<td>812,50</td>
+								</tr>
+								<tr>
+									<td>Laboratorio Clínico</td>
+									<td>552,00</td>
+								</tr>
+								<tr>
+									<td>Rayos X</td>
+									<td>601,90</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="botonera">
+							<div id="botonV" style="display: inline;">
+								<input type="button" value="Siguiente" onClick="next('#tabs5')">
+							</div>	
+						</div>
+					</div>
+					<div id="tabs-5">
+  						<table id="sweetTable1">
+							<tbody>
+								<tr>
+									<td></td>
+									<td>
+										Precio. BsF
+									</td>
+								</tr>	
+								<tr>
+									<td>Cirujano Principal</td>
+									<td><input type="text" value="4875,00"></td>
+								</tr>				
+								<tr>
+									<td>Cirujano Ayudante</td>
+									<td>438,76</td>
+								</tr>				
+								<tr>
+									<td>Anestesiologo</td>
+									<td>1950,00</td>
+								</tr>
+								<tr>
+									<td>Instrumentista</td>
+									<td>5653,47</td>
+								</tr>
+								<tr>
+									<td>Enfermera Circulante</td>
+									<td>6710,31</td>
+								</tr>
+								<tr>
+									<td>Consulta Pre-anestesica</td>
+									<td>6710,31</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
 			</div>
 		</div>
 	</body>
