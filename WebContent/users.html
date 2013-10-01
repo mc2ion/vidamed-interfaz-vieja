@@ -1,9 +1,9 @@
-<!DOCTYPE >
+<!DOCTYPE html >
 <html>
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-	<title>Bancos</title>
+	<title>Usuarios</title>
 	<script type="text/javascript" src="./js/jquery.js"></script>
 	<script type="text/javascript" src="./js/jquery.dataTables.js"></script>
 	<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
@@ -15,6 +15,7 @@
 			"sScrollY": "250px",
 			"bPaginate": false,
 			"aoColumns": [
+				null,
 				null,
 				null,
 				null,
@@ -60,10 +61,10 @@
         </div>         
         <div id="menu">
 			<div class="menuitemHome" ><a href="mainMenu.html">Home</a></div>	
-			<ul>
-            	<li class="menuitem"><a href="createBankAccount.html">Crear Cuenta</a></li>
+	    	<ul>
+            	<li class="menuitem"><a href="createUser.html">Crear Usuario</a></li>
             </ul>
-	    	<div class="menuitemSalir"><a href="index.html">Salir</a></div>	
+			<div class="menuitemSalir"><a href="index.html">Salir</a></div>	
         </div>        
 		<div id="leftmenu">
 			<div id="leftmenu_top"></div>
@@ -73,7 +74,7 @@
 				    <li><a href="emergencies.html">Emergencia</a></li>
 					<li><a href="admission.html">Admisión</a></li>
 				    <li><a href="hospitalization.html">Hospitalización</a></li>
-				    <li><a href="users.html">Usuarios</a></li>
+				    <li><a class="active" href="users.html">Usuarios</a></li>
 					<li><a href="protocols.html">Protocolos</a></li>
 					<li><a href="services.html">Servicios</a></li>
 					<li><a href="supplyAreas.html">Suministros</a></li>
@@ -81,14 +82,14 @@
 					<li><a href="doctors.html">Especialistas</a></li>
 					<li><a href="paymentResponsibles.html">Responsables de Pago</a></li>
 					<li><a href="bank.html">Cajas</a></li>
-					<li><a class="active" href="bankAccounts.html">Bancos</a></li>
-					<li><a href="accounts.html">Cuentas</a></li> 
+					<li><a href="bankAccounts.html">Bancos</a></li>
+					<li><a href="accounts.html">Cuentas</a></li>
 				</ul>
 			</div>
             <div id="leftmenu_bottom"></div>
         </div>  
 		<div id="content">  
-			<h2>Bancos:</h2>
+			<h2>Usuarios:</h2>
 			<div id="dt_example">
 					<div id="container">
 						<div id="demo">
@@ -96,27 +97,26 @@
 								<thead>
 									<tr>
 										<th>ID</th>
-										<th>Tipo de Cuenta</th>
-										<th>Número de Cuenta</th>
-										<th>Banco</th>
+										<th>Cédula</th>
+										<th>Nombre</th>
+										<th>Apellido</th>
+										<th>Unidad</th>
 										<th>Acciones</th>
 									</tr>
 								</thead>
 								<tbody>			
 									<tr class="gradeA">
 										<td>1001</td>
-										<td>Cuenta de Ahorro</td>
-										<td>Caja Chica</td>
-										<td>Clínica Vidamed</td>
+										<td>V-18143984</td>
+										<td>Rafael</td>
+										<td>Chávez</td>
+										<td>Sistemas</td>
 										<td>
-											<a href="accountMovements.html" style="color: transparent" >
-												<img alt="logo" src="./images/movements.png"  height="18" width="18" title="Ver Movimientos" />
-											</a>
-											<a href="showBankAccount.html" style="color: transparent" >
-												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
+											<a href="editUser.html" style="color: transparent" >
+												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
 											</a>
 											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1001,'Caja Chica');" >
+												onclick="return loadVars(1001,'1001');" >
 												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
 											</a> 
 											<br>
@@ -124,18 +124,16 @@
 									</tr>
 									<tr class="gradeA">
 										<td>1002</td>
-										<td>Cuenta Corriente</td>
-										<td>10-004-000795-1</td>
-										<td>Banco Federal</td>
+										<td>V-5423944</td>
+										<td>Marina</td>
+										<td>Carvajal</td>
+										<td>Admisión</td>
 										<td>
 											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/movements.png"  height="18" width="18" title="Ver Movimientos" />
-											</a>
-											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
+												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
 											</a>
 											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1002,'10-004-000795-1');" >
+												onclick="return loadVars(1002,'1002');" >
 												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
 											</a> 
 											<br>
@@ -143,18 +141,16 @@
 									</tr>
 									<tr class="gradeA">
 										<td>1003</td>
-										<td>Cuenta de Ahorro</td>
-										<td>022-1075466</td>
-										<td>Banco Exterior</td>
+										<td>V-18987654</td>
+										<td>Cristina</td>
+										<td>Cruz</td>
+										<td>Facturación</td>
 										<td>
 											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/movements.png"  height="18" width="18" title="Ver Movimientos" />
-											</a>
-											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
+												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
 											</a>
 											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1003,'022-1075466');" >
+												onclick="return loadVars(1003,'1003');" >
 												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
 											</a> 
 											<br>
@@ -166,17 +162,17 @@
 					</div>
 				</div>
 				<div class="spacer"></div>
+        	</div>
        	</div>
-		</div>
 		<div id="deleteUser">
 			<div id="signup-ct">
-				<h3 id="see_id" class="sprited" > Eliminar Cuenta Bancaria</h3>
+				<h3 id="see_id" class="sprited" > Eliminar Usuario</h3>
 				<br><br>
-				<span>¿Está seguro que desea eliminar la cuenta '<span class="cliente"></span>' y su información asociada? </span> <br><br>
+				<span>¿Está seguro que desea eliminar el usuario n° <span class="cliente"></span>? </span> <br><br>
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="bankAccounts.html" method="post"  onsubmit="return setV(this)">
+				<form action="users.html" method="post"  onsubmit="return setV(this)">
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
