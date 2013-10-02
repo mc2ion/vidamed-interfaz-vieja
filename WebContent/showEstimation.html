@@ -4,7 +4,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
 		<title>Ver Presupuesto</title>
-		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css" />
+		<link rel="stylesheet" href="./css/jquery-ui.css" />
 	  	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
@@ -103,8 +103,7 @@
 					<ul>
 					    <li><a href="#tabs-1">Paciente</a></li>
 					    <li><a href="#tabs-2">Protocolos</a></li>
-					    <li><a href="#tabs-3">Servicios</a></li>
-			  		</ul>
+					</ul>
   					<div id="tabs-1">
   						<br>
 					    <p>
@@ -117,41 +116,33 @@
   					</div>
   					<div id="tabs-2">
   						<br>
-					    <p>
-					    * Histerectomía<br><br>
-					    * Colecistectomía<br><br>
-					    * Apendicectomía<br><br>
-					    </p>
-  					</div>
-  					<div id="tabs-3">
-  						<br>
-					    <table id="sweetTable">
-							<tbody>
-								<tr>
-									<th>Servicio</th>
-									<th>Precio</th>
-								</tr>				
-								<tr>
-									<td>Hospitalización</td>
-									<td>Bs 3472,00</td>
-								</tr>				
-								<tr>
-									<td>Anestesia Peridural</td>
-									<td>Bs 2727,50</td>
-								</tr>				
-								<tr>
-									<td>Servicios Médicos</td>
-									<td>Bs 1021,90</td>
-								</tr>				
-								<tr id="totalTr">
-									<td>*** MONTO TOTAL ***</td>
-									<td>Bs 7221,40</td>
-								</tr>
-							</tbody>
-						</table>
-						<br>
+					   	<table id="sweetTable" style="margin-bottom: 10px;">
+					   		<tr style="background: rgb(136, 162, 190);">
+					   			<td>Nombre</td>
+					   			<td>Precio</td>
+					   			<td>Acción</td>
+					   		</tr>
+							<tr>
+					   			<td>Colocación de prótesis peneana</td>
+					   			<td>Bs. 14321,00</td>
+					   			<td>
+									<a href="showProtocolDetail.html" style="color: transparent" >
+												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
+									</a>
+								</td>
+					   		</tr>
+					   		<tr>
+					   			<td>Apendicectomía</td>
+					   			<td>Bs. 7680,00</td>
+					   			<td>
+									<a href="showProtocolDetail.html" style="color: transparent" >
+												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
+									</a>
+								</td>
+					   		</tr>
+					   	</table>
 					</div>
-				</div>
+  				</div>
 				<div id="botonera" >
 					<form action="printEstimation.html">
 						<div id="botonP" style="display: inline; margin-right: 30px;">

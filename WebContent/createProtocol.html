@@ -5,8 +5,23 @@
 		<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
 		<title>Crear Protocolo</title>
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css" />
-	  	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	   <script>
+		  $( document ).ready(function() {
+				$("#selButton").click(function() {
+					if ($("#type").val() == 'P'){
+					 	 $("#tabs").show();
+						 $("#tabs2").show();
+						 $("#tabs3").show();
+					}else{
+					 	 $("#tabs").show();
+						 $("#tabs2").hide();
+						 $("#tabs3").hide();
+					}
+				});
+		  });
+		  </script>
+	  	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
 		<link rel="stylesheet" href="/resources/demos/style.css" />	
 		<script>
@@ -19,6 +34,7 @@
 				$(id).click();
 			}
 		</script>	
+		
 	</head>
 	<body>
 		<div id="container">
@@ -57,7 +73,16 @@
         	<div id="content" style="position:absolute;">	
 	        	<h2>Crear Protocolo:</h2>
 				<br>
-				<div id="tabs">
+				<div style="text-align: left;">
+					<h3 style="display: inline;">Por favor escoja qué desea crear: </h3>	
+					<select id="type" style="margin-left: 20px;">
+						<option value="P">Protocolo</option>
+						<option value="T">Tratamiento Médico</option>
+					</select>
+					<input type="button" id="selButton" value="Seleccionar">
+				</div>
+				<br>
+				<div id="tabs" style="display: none;" >
 					<ul>
 						<li><a id="tabs1" href="#tabs-1">Información Básica</a></li>
 					    <li><a id="tabs2" href="#tabs-2">Hospitalización</a></li>
@@ -66,8 +91,11 @@
 					    <li><a id="tabs5" href="#tabs-5">Honorarios Médicos</a></li>
 					    
 			  		</ul>
+			  		
+					
   					<div id="tabs-1">
   						<fieldset>
+  							
 							<label for="name">Nombre:</label>
 							<input type="text" name="txtName" id="txtName" maxlength="50" size="5"/> <br><br>
 							<label for="name">Descripción:</label>

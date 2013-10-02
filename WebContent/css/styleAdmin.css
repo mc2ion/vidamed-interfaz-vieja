@@ -2,17 +2,17 @@ html {
     height: 100%;
 }
 
-#sweetTable {
+#sweetTable, .sweetTable {
 	width: 100%;
 	border-collapse: collapse;
 }
 
-#sweetTable1 {
+#sweetTable1, .sweetTable1  {
 	width: 100%;
 	border-collapse: collapse;
 }
 
-#sweetTable th {
+#sweetTable th, .sweetTable th {
 	text-align: left;
 	padding-top: 5px;
 	padding-bottom: 4px;
@@ -20,7 +20,7 @@ html {
 	color: #fff;
 }
 
-#sweetTable1 th {
+#sweetTable1 th, .sweetTable1 th {
 	text-align: right;
 	padding-top: 5px;
 	padding-bottom: 4px;
@@ -33,12 +33,12 @@ html {
 	font-weight: bold;
 }
 
-#sweetTable td, #sweetTable th {
+#sweetTable td, #sweetTable th, .sweetTable td, .sweetTable th {
 	border: 1px solid #006c92;
 	padding: 3px 7px 2px 7px;
 }
 
-#sweetTable1 td, #sweetTable1 th {
+#sweetTable1 td, #sweetTable1 th, .sweetTable1 td, .sweetTable1 th {
 	border: 1px solid #006c92;
 	padding: 3px 7px 2px 7px;
 }
@@ -1800,3 +1800,12 @@ input.search-input{
 	-webkit-box-shadow: 2px 2px 2px #888;
 	box-shadow: 2px 2px 2px #888;
 }
+
+#accordion{
+	margin-top: -10px;
+}
+
+.table-simple{
+	width: 100%;	
+}
+
