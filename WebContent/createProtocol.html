@@ -10,13 +10,9 @@
 		  $( document ).ready(function() {
 				$("#selButton").click(function() {
 					if ($("#type").val() == 'P'){
-					 	 $("#tabs").show();
-						 $("#tabs2").show();
-						 $("#tabs3").show();
+					 	 alert("protocol");
 					}else{
-					 	 $("#tabs").show();
-						 $("#tabs2").hide();
-						 $("#tabs3").hide();
+						alert("medico");
 					}
 				});
 		  });
@@ -24,17 +20,12 @@
 	  	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
 		<link rel="stylesheet" href="/resources/demos/style.css" />	
-		<script>
-			$(function() {
-				$("#tabs").tabs();
-				$("#tabs").tabs("select", window.location.hash);
-			});
-			
-			function next(id){
-				$(id).click();
-			}
-		</script>	
-		
+		<script type="text/javascript" src="./js/formToWizard.js"></script>
+		<script type="text/javascript">
+		        $(document).ready(function(){
+		            $("#SignupForm").formToWizard({ submitButton: 'SaveAccount' })
+		        });
+		    </script>
 	</head>
 	<body>
 		<div id="container">
@@ -48,264 +39,197 @@
 	            </ul>
 				<div class="menuitemSalir"><a href="index.html">Salir</a></div>	
         	</div>        
-			<div id="leftmenu">
-				<div id="leftmenu_top"></div>
-				<div id="leftmenu_main">
-					<ul>
-					    <li><a href="estimations.html">Presupuestos</a></li>
-					    <li><a href="emergencies.html">Emergencia</a></li>
-						<li><a href="admission.html">Admisión</a></li>
-					    <li><a href="hospitalization.html">Hospitalización</a></li>
-					    <li><a href="users.html">Usuarios</a></li>
-						<li><a class="active" href="protocols.html">Protocolos</a></li>
-						<li><a href="services.html">Servicios</a></li>
-						<li><a href="supplyAreas.html">Suministros</a></li>
-						<li><a href="departments.html">Unidades</a></li>
-						<li><a href="doctors.html">Especialistas</a></li>
-						<li><a href="paymentResponsibles.html">Responsables de Pago</a></li>
-						<li><a href="bank.html">Cajas</a></li>
-						<li><a href="bankAccounts.html">Bancos</a></li>
-						<li><a href="accounts.html">Cuentas</a></li>
-					</ul>
-				</div>
-	            <div id="leftmenu_bottom"></div>
-	        </div>
+			<div id='cssmenu'>
+				<ul>
+				   <li class='first'><a href='estimations.html'><span>Presupuesto</span></a></li>
+				   <li><a href='emergencies.html'><span>Emergencia</span></a></li>
+				   <li><a href='admission.html'><span>Admisión</span></a></li>
+				   <li><a href='hospitalization.html'><span>Hospitalización</span></a></li>
+				   <li><a href='users.html'><span>Usuarios</span></a></li>
+				   <li class='has-sub active'>
+					<a href='#'><span>Protocolos</span></a>
+				      <ul>
+				         <li class='first'><a href='protocols.html'><span>Protocolos</span></a></li>
+				         <li class='last'><a href='protocols.html'><span>Tratamiento Médico</span></a></li>
+				      </ul>
+				   </li>
+				   <li><a href='services.html'><span>Servicios</span></a></li>
+				   <li><a href='supplyAreas.html'><span>Suministros</span></a></li>
+				   <li><a href='departments.html'><span>Unidades</span></a></li>
+				   <li><a href='doctors.html'><span>Especialistas</span></a></li>
+				   <li><a href='paymentResponsibles.html'><span>Responsables de Pago</span></a></li>
+				   <li><a href='bank.html'><span>Cajas</span></a></li>
+				   <li><a href='bankAccounts.html'><span>Bancos</span></a></li>
+				   <li class='last'><a href='accounts.html'><span>Cuentas</span></a></li>
+				</ul>
+			</div>
         	<div id="content" style="position:absolute;">	
-	        	<h2>Crear Protocolo:</h2>
-				<br>
-				<div style="text-align: left;">
-					<h3 style="display: inline;">Por favor escoja qué desea crear: </h3>	
-					<select id="type" style="margin-left: 20px;">
-						<option value="P">Protocolo</option>
+	        	<div class="right-style">
+					<h3 style="display: inline;">Crear: </h3>	
+					<select id="type">
+						<option value="P" selected>Protocolo</option>
 						<option value="T">Tratamiento Médico</option>
 					</select>
 					<input type="button" id="selButton" value="Seleccionar">
 				</div>
 				<br>
-				<div id="tabs" style="display: none;" >
-					<ul>
-						<li><a id="tabs1" href="#tabs-1">Información Básica</a></li>
-					    <li><a id="tabs2" href="#tabs-2">Hospitalización</a></li>
-					    <li><a id="tabs3" href="#tabs-3">Gastos en Quirófano</a></li>
-					    <li><a id="tabs4" href="#tabs-4">Servicios Médicos</a></li>
-					    <li><a id="tabs5" href="#tabs-5">Honorarios Médicos</a></li>
-					    
-			  		</ul>
-			  		
-					
-  					<div id="tabs-1">
-  						<fieldset>
-  							
-							<label for="name">Nombre:</label>
-							<input type="text" name="txtName" id="txtName" maxlength="50" size="5"/> <br><br>
-							<label for="name">Descripción:</label>
-							<textarea name="txtDescription" id="txtDescription" rows="3" cols="50"></textarea> <br><br>
-							<label for="name">Parecido A:</label>
-							<input type="button" name="txtSimilar" id="txtSimilar" value="Escoger"/> <br><br>
-							<label for="name">Tipo de Protocolo:</label>
-							<select>
-								<option value="A">Ambulatorio</option>
-								<option value="H">No Ambulatorio</option>
-							</select>
-						</fieldset>
-						<div class="botonera">
-							<div id="botonV" style="display: inline;">
-								<input type="button" value="Siguiente" onClick="next('#tabs2')">
-							</div>	
-						</div>
-					</div>
-  					<div id="tabs-2">
-  							<table id="sweetTable">
-							<tbody>
-								<tr>
-									<td ></td>
-									<td>
-										Precio. BsF
-									</td>
-								</tr>	
-								<tr>
-									<td>Hospitalización:
-									<input style="margin-left: 10px;" type="text" size="4" placeholder="XX"> Dias</td>
-									<td>2270,00</td>
-								</tr>				
-								<tr>
-									<td>Médico Residente</td>
-									<td>400,00</td>
-								</tr>				
-								<tr>
-									<td>Teléfono</td>
-									<td>112,50</td>
-								</tr>
-								<tr>
-									<td>Televisión</td>
-									<td>112,50</td>
-								</tr>
-								<tr>
-									<td>Acompañante</td>
-									<td>360,00</td>
-								</tr>
-								<tr>
-									<td>Kit Paciente</td>
-									<td>943,70</td>
-								</tr>
-								<tr>
-									<td>Servicio de Asistencia Permanente</td>
-									<td>309,38</td>
-								</tr>
-								<tr>
-									<td>Servicio de Alimentación</td>
-									<td>520,00</td>
-								</tr>
-								<tr>
-									<td>Servicios Farmacéuticos Quirúrgicos
-									<form action="addPharmaceuticals.html" method="post" style="display:inline; float: right;">
-										<input type="submit" value="Editar">
-									</form>
-									</td> 
-									<td>70,40</td>
-									
-								</tr>
-								<tr>
-									<td>Fármacos en Habitación
-									<form action="addDrugs.html" method="post" style="display:inline; float: right;">
-										<input type="submit" value="Editar">
-									</form>
-									</td>
-									<td>1230,00</td>
-								</tr>
-								<tr>
-									<td>Material Médico Quirúrgico en Habitación
-									<form action="addMaterials.html" method="post" style="display:inline; float: right;">
-										<input type="submit" value="Editar">
-									</form>
-									</td>
-									<td>1380,00</td>
-								</tr>
-							</tbody>
-						</table>
-						<div class="botonera">
-							<div id="botonV" style="display: inline;">
-								<input type="button" value="Siguiente" onClick="next('#tabs3')">
-							</div>	
-						</div>
-					</div>
-  					<div id="tabs-3">
-						<table id="sweetTable1">
-							<tbody>
-								<tr>
-									<td></td>
-									<td>
-										Precio. BsF
-									</td>
-								</tr>	
-								<tr>
-									<td>Quirófano</td>
-									<td>4875,00</td>
-								</tr>				
-								<tr>
-									<td>Sala de Recuperación</td>
-									<td>438,76</td>
-								</tr>				
-								<tr>
-									<td>Monitoreo</td>
-									<td>1950,00</td>
-								</tr>
-								<tr>
-									<td>Gases, Anestésicos y Medicamentos
-									<form action="addDrugs.html?hab=0" method="post" style="display:inline; float: right;">
-										<input type="submit" value="Editar">
-									</form></td>
-									<td>5653,47</td>
-								</tr>
-								<tr>
-									<td>Material Médico Quirurgico
-									<form action="addMaterials.html?hab=0" method="post" style="display:inline; float: right;">
-										<input type="submit" value="Editar">
-									</form></td>
-									<td>6710,31</td>
-								</tr>
-							</tbody>
-						</table>
-						<div class="botonera">
-							<div id="botonV" style="display: inline;">
-								<input type="button" value="Siguiente" onClick="next('#tabs4')">
-							</div>	
-						</div>
-					</div>
-					<div id="tabs-4">
-  						<table id="sweetTable">
-							<tbody>
-								<tr>
-									<td></td>
-									<td>
-										Precio. BsF
-									</td>
-								</tr>	
-								<tr>
-									<td>Banco de Sangre (Tipiaje)</td>
-									<td>591,25</td>
-								</tr>				
-								<tr>
-									<td>Electrocardiograma</td>
-									<td>402,50</td>
-								</tr>				
-								<tr>
-									<td>Evaluación cardiovascular. Pre-Operatoria</td>
-									<td>812,50</td>
-								</tr>
-								<tr>
-									<td>Laboratorio Clínico</td>
-									<td>552,00</td>
-								</tr>
-								<tr>
-									<td>Rayos X</td>
-									<td>601,90</td>
-								</tr>
-							</tbody>
-						</table>
-						<div class="botonera">
-							<div id="botonV" style="display: inline;">
-								<input type="button" value="Siguiente" onClick="next('#tabs5')">
-							</div>	
-						</div>
-					</div>
-					<div id="tabs-5">
-  						<table id="sweetTable1">
-							<tbody>
-								<tr>
-									<td></td>
-									<td>
-										Precio. BsF
-									</td>
-								</tr>	
-								<tr>
-									<td>Cirujano Principal</td>
-									<td><input type="text" value="4875,00"></td>
-								</tr>				
-								<tr>
-									<td>Cirujano Ayudante</td>
-									<td>438,76</td>
-								</tr>				
-								<tr>
-									<td>Anestesiologo</td>
-									<td>1950,00</td>
-								</tr>
-								<tr>
-									<td>Instrumentista</td>
-									<td>5653,47</td>
-								</tr>
-								<tr>
-									<td>Enfermera Circulante</td>
-									<td>6710,31</td>
-								</tr>
-								<tr>
-									<td>Consulta Pre-anestesica</td>
-									<td>6710,31</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
+				
+			<form id="SignupForm" action="">
+        	<fieldset id="field1">
+	            <legend>Información Básica</legend>
+	           <label for="name">Nombre:</label>
+				<input type="text" name="txtName" id="txtName" maxlength="50" size="5"/> <br><br>
+				<label for="name">Descripción:</label>
+				<textarea name="txtDescription" id="txtDescription" rows="3" cols="50"></textarea> <br><br>
+				<label for="name">Parecido A:</label>
+				<input type="button" name="txtSimilar" id="txtSimilar" value="Escoger"/> <br><br>
+				<label for="name">Tipo de Protocolo:</label>
+				<select id="typeOfProtocol">
+					<option value="A">Ambulatorio</option>
+					<option value="H">No Ambulatorio</option>
+				</select>
+        </fieldset>
+        <fieldset id="field2">
+            <legend>Hospitalización</legend>
+            	 <table class="table-simple">
+				    	<tr id="tr1">
+				    		<td>Habitación: <input type="text" value="1" name="days" class="days" size="4"> días</td>
+				    		<td>Bs. 2270</td>
+				    	</tr>
+				    	<tr id="tr2">
+				    		<td>Médico Residente</td>
+				    		<td>Bs. 2270</td>
+				    	</tr>
+				    	<tr id="tr3">
+				    		<td id="">Teléfono</td>
+				    		<td>Bs. 2270</td>
+				    	</tr>
+				    	<tr id="tr4">
+				    		<td>Televisión</td>
+				    		<td>Bs. 2270</td>
+				    	</tr>
+				    	<tr id="tr5">
+				    		<td>Acompañante</td>
+				    		<td>Bs. 2270</td>
+				    	</tr>
+				    	<tr id="tr6">
+				    		<td>Kit Paciente</td>
+				    		<td>Bs. 2270</td>
+				    	</tr>
+				    	<tr>
+				    		<td>Servicio de Asistencia Permanente</td>
+				    		<td>Bs. 2270</td>
+				    	</tr>
+				    	<tr>
+				    		<td>Servicio de Alimentación</td>
+				    		<td>Bs. 2270</td>
+				    	</tr>
+				    	<tr>
+				    		<td>Servicios Farmacéuticos Quirúrgicos</td>
+				    		<td>Bs. 2270</td>
+				    	</tr>
+				    	<tr>
+				    		<td>Fármacos en Habitación</td>
+				    		<td>Bs. 2270</td>
+				    	</tr>
+				    	<tr>
+				    		<td>Material Médico Quirúrgico en Habitación</td>
+				    		<td>Bs. 2270</td>
+				    	</tr>
+				    	
+				    </table>
+				
+        </fieldset>
+        <fieldset id="field3">
+            <legend>Gastos en Quirófano</legend>
+        	  <table class="table-simple">
+				    	<tr>
+				    		<td>Quirófano</td>
+				    		<td>Bs. 2270</td>
+				    	</tr>
+				    	<tr>
+				    		<td>Sala de Recuperación</td>
+				    		<td>Bs. 2270</td>
+				    	</tr>
+				    	<tr>
+				    		<td>Monitoreo</td>
+				    		<td>Bs. 2270</td>
+				    	</tr>
+				    	<tr>
+				    		<td>Gases, anestésicos y medicamentos</td>
+				    		<td>Bs. 2270</td>
+				    	</tr>
+				    	<tr>
+				    		<td>Material Médico Quirúrgico</td>
+				    		<td>Bs. 2270</td>
+				    	</tr>
+			    </table>
+       	</fieldset>
+		<fieldset id="field4">
+            <legend>Servicios Médicos</legend>
+        	  <table class="table-simple">
+				    	<tr>
+				    		<td>Quirófano</td>
+				    		<td>Bs. 2270</td>
+				    	</tr>
+				    	<tr>
+				    		<td>Sala de Recuperación</td>
+				    		<td>Bs. 2270</td>
+				    	</tr>
+				    	<tr>
+				    		<td>Monitoreo</td>
+				    		<td>Bs. 2270</td>
+				    	</tr>
+				    	<tr>
+				    		<td>Gases, anestésicos y medicamentos</td>
+				    		<td>Bs. 2270</td>
+				    	</tr>
+				    	<tr>
+				    		<td>Material Médico Quirúrgico</td>
+				    		<td>Bs. 2270</td>
+				    	</tr>
+			    </table>
+        </fieldset>
+		<fieldset>
+            <legend>Honorarios Médicos</legend>
+        		<table class="table-simple">
+				    	<tr>
+				    		<td>Cirujano Principal</td>
+				    		<td>Bs. 2270</td>
+				    	</tr>
+				    	<tr>
+				    		<td>Cirujano Ayudante I</td>
+				    		<td>Bs. 2270</td>
+				    	</tr>
+				    	<tr>
+				    		<td>Cirujano Ayudante II</td>
+				    		<td>Bs. 2270</td>
+				    	</tr>
+				    	<tr>
+				    		<td>Anestesiólogo</td>
+				    		<td>Bs. 2270</td>
+				    	</tr>
+				    	<tr>
+				    		<td>Instrumentista</td>
+				    		<td>Bs. 2270</td>
+				    	</tr>
+				    	<tr>
+				    		<td>Enfermera Circulante</td>
+				    		<td>Bs. 2270</td>
+				    	</tr>
+				    	<tr>
+				    		<td>Consulta Pre-anestésica</td>
+				    		<td>Bs. 2270</td>
+				    	</tr>
+				    </table>
+        </fieldset>
+        <p>
+            <input id="SaveAccount" type="button" class="next" value="Crear" />
+        </p>
+        </form>
+				
+				
+				
 			</div>
 		</div>
 	</body>
