@@ -14,7 +14,9 @@
 		        $(document).ready(function(){
 		            $("#SignupForm").formToWizard({ submitButton: 'SaveAccount' })
 		        });
-		    </script>
+		   </script>
+		<script type="text/javascript" src="./js/functions.js"></script>
+		
 	</head>
 	<body>
 		<div id="container">
@@ -49,11 +51,11 @@
 				   <li><a href='paymentResponsibles.html'><span>Responsables de Pago</span></a></li>
 				   <li><a href='bank.html'><span>Cajas</span></a></li>
 				   <li><a href='bankAccounts.html'><span>Bancos</span></a></li>
-				   <li class='last'><a href='accounts.html'><span>Cuentas</span></a></li>
+				   <li class='last'><a href='accounts.html'><span>Cuentas Pendientes</span></a></li>
 				</ul>
 			</div>
         	<div id="content" style="position:absolute;">	
-		       	<form id="SignupForm" action="">
+		       	<form id="SignupForm" action="protocols.html">
 		        	<fieldset id="field1">
 			            <legend>Información Básica</legend>
 			           <label for="name">Nombre:</label>
@@ -115,21 +117,29 @@
 							    	<tr>
 							    		<td>Servicios Farmacéuticos Quirúrgicos</td>
 							    		<td>Bs. 2270</td>
-							    		<td></td>
+							    		<td>
+							    			<a href="addPharmaceuticals.html">
+							    				<input type="button" class="buttonGray lessPadding" value="Editar">
+							    			</a> 
+							    		</td>
 							    	</tr>
 							    	<tr>
 							    		<td>Fármacos en Habitación</td>
 							    		<td>Bs. 2270</td>
 							    		<td>
 							    			<a href="addDrugs.html">
-							    				<input type="button" class="buttonGray" value="Editar">
+							    				<input type="button" class="buttonGray lessPadding" value="Editar">
 							    			</a> 
 							    		</td>
 							    	</tr>
 							    	<tr>
 							    		<td>Material Médico Quirúrgico en Habitación</td>
 							    		<td>Bs. 2270</td>
-							    		<td></td>
+							    		<td>
+							    			<a href="addMaterials.html">
+							    				<input type="button" class="buttonGray lessPadding" value="Editar">
+							    			</a> 
+							    		</td>
 							    	</tr>
 							    	
 							    </table>
@@ -141,22 +151,35 @@
 							    	<tr>
 							    		<td>Quirófano</td>
 							    		<td>Bs. 2270</td>
+							    		<td></td>
 							    	</tr>
 							    	<tr>
 							    		<td>Sala de Recuperación</td>
 							    		<td>Bs. 2270</td>
+							    		<td></td>
 							    	</tr>
 							    	<tr>
 							    		<td>Monitoreo</td>
 							    		<td>Bs. 2270</td>
+							    		<td></td>
 							    	</tr>
 							    	<tr>
 							    		<td>Gases, anestésicos y medicamentos</td>
 							    		<td>Bs. 2270</td>
+							    		<td>
+							    			<a href="#">
+							    				<input type="button" class="buttonGray lessPadding" value="Editar">
+							    			</a> 
+							    		</td>
 							    	</tr>
 							    	<tr>
 							    		<td>Material Médico Quirúrgico</td>
 							    		<td>Bs. 2270</td>
+							    		<td>
+							    			<a href="#">
+							    				<input type="button" class="buttonGray lessPadding" value="Editar">
+							    			</a> 
+							    		</td>
 							    	</tr>
 						    </table>
 			       	</fieldset>
@@ -164,62 +187,59 @@
 			            <legend>Servicios Médicos</legend>
 			        	  <table class="table-simple">
 							    	<tr>
-							    		<td>Quirófano</td>
+							    		<td>Bancos de Sangre (Tipiaje)</td>
 							    		<td>Bs. 2270</td>
 							    	</tr>
 							    	<tr>
-							    		<td>Sala de Recuperación</td>
+							    		<td>Electrocardiograma (EKG)</td>
 							    		<td>Bs. 2270</td>
 							    	</tr>
 							    	<tr>
-							    		<td>Monitoreo</td>
+							    		<td>Evaluación Cardiovascular pre-operatoria</td>
 							    		<td>Bs. 2270</td>
 							    	</tr>
 							    	<tr>
-							    		<td>Gases, anestésicos y medicamentos</td>
+							    		<td>Laboratorio Clínico</td>
 							    		<td>Bs. 2270</td>
 							    	</tr>
 							    	<tr>
-							    		<td>Material Médico Quirúrgico</td>
+							    		<td>Rayos X</td>
 							    		<td>Bs. 2270</td>
 							    	</tr>
 						    </table>
 			        </fieldset>
 					<fieldset>
 			            <legend>Honorarios Médicos</legend>
-			        		<table class="table-simple">
-							    	<tr>
-							    		<td>Cirujano Principal</td>
-							    		<td>Bs. 2270</td>
-							    	</tr>
-							    	<tr>
-							    		<td>Cirujano Ayudante I</td>
-							    		<td>Bs. 2270</td>
-							    	</tr>
-							    	<tr>
-							    		<td>Cirujano Ayudante II</td>
-							    		<td>Bs. 2270</td>
-							    	</tr>
-							    	<tr>
-							    		<td>Anestesiólogo</td>
-							    		<td>Bs. 2270</td>
-							    	</tr>
-							    	<tr>
-							    		<td>Instrumentista</td>
-							    		<td>Bs. 2270</td>
-							    	</tr>
-							    	<tr>
-							    		<td>Enfermera Circulante</td>
-							    		<td>Bs. 2270</td>
-							    	</tr>
+		        		<table class="table-simple">
 							    	<tr>
 							    		<td>Consulta Pre-anestésica</td>
+							    		<td></td>
 							    		<td>Bs. 2270</td>
+							    	</tr>
+						</table><br>
+						<div class="divisor"></div>
+						<h3>Personal Médico</h3>
+						<p class="button-par-doctors"> 
+			        		<input type ="button" value="Agregar Personal" class="buttonGray lessPadding"  onclick="addRowForDoctor('tableDoctors')"> 
+			        		<input type="button" value="Eliminar Personal" class="buttonGray lessPadding" onclick="deleteRowForDoctor('tableDoctors')">
+			        	</p> 
+	        			<table id="tableDoctors" class="sweetTable">
+							    	<tr>
+							    		<th style="width: 30%;">Personal</th>
+							    		<th style="width: 30%;">Cédula</th>
+							    		<th style="width: 20%;">Honorario</th>
+							    		<th style="width: 20%;">Seleccione para eliminar</th>
+							    	</tr>
+							    	<tr>
+							    		<td>Cirujano Principal</td>
+							    		<td>V-7103598</td>
+							    		<td>Bs. <input type="text" value="2270"></td>
+							    		<td><input type="checkbox"></td>
 							    	</tr>
 							    </table>
 			        </fieldset>
 			        <p>
-			            <input id="SaveAccount" type="button" class="next" value="Crear" />
+			            <input id="SaveAccount" type="submit" class="button next" value="Crear Protocolo" />
 			        </p>
 			        </form>
 				</div>
