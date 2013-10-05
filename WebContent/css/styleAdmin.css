@@ -1936,14 +1936,14 @@ input.search-input{
   border-radius: 10px;
 }
 #cssmenu > ul > li {
-	background: rgb(247,148,30); /* Old browsers */
-	background: -moz-linear-gradient(top,  rgba(247,148,30,1) 1%, rgba(244,115,2,1) 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,rgba(247,148,30,1)), color-stop(100%,rgba(244,115,2,1))); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  rgba(247,148,30,1) 1%,rgba(244,115,2,1) 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  rgba(247,148,30,1) 1%,rgba(244,115,2,1) 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  rgba(247,148,30,1) 1%,rgba(244,115,2,1) 100%); /* IE10+ */
-	background: linear-gradient(to bottom,  rgba(247,148,30,1) 1%,rgba(244,115,2,1) 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7941e', endColorstr='#f47302',GradientType=0 ); /* IE6-9 */
+	background: rgb(246,168,40); /* Old browsers */
+	background: -moz-linear-gradient(top,  rgba(246,168,40,1) 0%, rgba(229,139,55,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(246,168,40,1)), color-stop(100%,rgba(229,139,55,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(246,168,40,1) 0%,rgba(229,139,55,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(246,168,40,1) 0%,rgba(229,139,55,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(246,168,40,1) 0%,rgba(229,139,55,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(246,168,40,1) 0%,rgba(229,139,55,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6a828', endColorstr='#e58b37',GradientType=0 ); /* IE6-9 */
 	padding-top: 2px;
 	padding-bottom: 2px;
 	text-align: center;
@@ -1959,15 +1959,15 @@ input.search-input{
   color: #424242;
 }
 #cssmenu > ul > li:hover {
-  	background: rgb(247,148,30); /* Old browsers */
-	background: -moz-linear-gradient(top,  rgba(247,148,30,1) 1%, rgba(244,115,2,1) 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,rgba(247,148,30,1)), color-stop(100%,rgba(244,115,2,1))); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  rgba(247,148,30,1) 1%,rgba(244,115,2,1) 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  rgba(247,148,30,1) 1%,rgba(244,115,2,1) 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  rgba(247,148,30,1) 1%,rgba(244,115,2,1) 100%); /* IE10+ */
-	background: linear-gradient(to bottom,  rgba(247,148,30,1) 1%,rgba(244,115,2,1) 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7941e', endColorstr='#f47302',GradientType=0 ); /* IE6-9 */
-  
+  background: rgb(246,168,40); /* Old browsers */
+	background: -moz-linear-gradient(top,  rgba(246,168,40,1) 0%, rgba(229,139,55,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(246,168,40,1)), color-stop(100%,rgba(229,139,55,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(246,168,40,1) 0%,rgba(229,139,55,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(246,168,40,1) 0%,rgba(229,139,55,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(246,168,40,1) 0%,rgba(229,139,55,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(246,168,40,1) 0%,rgba(229,139,55,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6a828', endColorstr='#e58b37',GradientType=0 ); /* IE6-9 */
+	  
 }
 /* Sub Menu */
 #cssmenu ul ul a:link,
@@ -1986,7 +1986,7 @@ input.search-input{
 }
 #cssmenu ul ul li {
   padding: 0 20px;
-  background: #E5730A;
+  background: #F6A828;
 }
 #cssmenu ul ul li:last-child {
   border-bottom: 3px solid #d7d8da;
@@ -1998,6 +1998,8 @@ input.search-input{
 #cssmenu ul ul li:last-child > a {
   border-bottom: none;
 }
+
+/** flechita del submenu **/
 #cssmenu ul ul li:first-child:after {
   content: '';
   display: block;
@@ -2007,7 +2009,7 @@ input.search-input{
   left: -20px;
   top: 13px;
   border-left: 10px solid transparent;
-  border-right: 10px solid #E5730A;
+  border-right: 10px solid #F6A828;
   border-bottom: 10px solid transparent;
   border-top: 10px solid transparent;
 }
