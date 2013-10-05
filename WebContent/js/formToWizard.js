@@ -59,11 +59,16 @@
             $("#" + stepName + "Next").bind("click", function(e) {
             	typeProtocol = $("#typeOfProtocol").val()
             	alert(typeProtocol);
-            	if (typeProtocol != 'A'){
+            	if (typeProtocol == 'A'){
             		$("#tr2").hide();
             		$("#tr3").hide();
             		$("#tr4").hide();
             		$("#tr5").hide();
+            	}else{
+            		$("#tr2").show();
+            		$("#tr3").show();
+            		$("#tr4").show();
+            		$("#tr5").show();
             	}
                 $("#" + stepName).hide();
                 $("#step" + (i + 1)).show();
