@@ -58,7 +58,6 @@
 
             $("#" + stepName + "Next").bind("click", function(e) {
             	typeProtocol = $("#typeOfProtocol").val()
-            	alert(typeProtocol);
             	if (typeProtocol == 'A'){
             		$("#tr2").hide();
             		$("#tr3").hide();
