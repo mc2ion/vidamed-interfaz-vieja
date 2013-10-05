@@ -56,7 +56,7 @@
 					<a href='#'><span>Protocolos</span></a>
 				      <ul>
 				         <li class='first'><a href='protocols.html'><span>Protocolos</span></a></li>
-				         <li class='last'><a href='protocols.html'><span>Tratamiento Médico</span></a></li>
+				         <li class='last'><a href='medicalTreatment.html'><span>Tratamiento Médico</span></a></li>
 				      </ul>
 				   </li>
 				   <li><a href='services.html'><span>Servicios</span></a></li>
@@ -76,9 +76,7 @@
 					<ul>
 					    <li><a href="#tabs-1">Paciente</a></li>
 					    <li><a href="#tabs-2">Protocolos</a></li>
-					    <li><a href="#tabs-3">Servicios</a></li>
-					    <li><a href="#tabs-4">Suministros</a></li>
-			  		</ul>
+					</ul>
   					<div id="tabs-1">
   						<div id="hosp">
   							<p><b>Cédula:</b> <span style="margin-left:115px;">V-12345678</span>  </p>
@@ -119,165 +117,41 @@
 					</div>
   					<div id="tabs-2">
   						<div style="text-align:right;">
-							<a  href="searchProtocols.html?function=editHospitalization" style="color: #006c92; font-weight: bold;">
+	  						<a href="searchProtocols.html?function=editHospitalization" style="color: #006c92; font-weight: bold;">
 								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Protocolo
-							</a>						
-						</div>
-							<br>
-							<table id="sweetTable">
-							<tbody>
-								<tr>
-									<th>Protocolo</th>
-									<th>Acción</th>
-								</tr>				
-								<tr>
-									<td>Histerectomía</td>
-									<td>
-										<a id="go" rel="leanModal" href="#deleteProtocol" style="color: #f7941e; font-weight: bold;" 
-											onclick="return loadVars(1001,'Histerectomía');" >
-											<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-										</a> 
-									</td>
-								</tr>				
-								<tr>
-									<td>Colecistectomía</td>
-									<td>
-										<a id="go" rel="leanModal" href="#deleteProtocol" style="color: #f7941e; font-weight: bold;" 
-											onclick="return loadVars(1001,'Colecistectomía');" >
-											<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-										</a>
-									</td>
-								</tr>				
-								<tr>
-									<td>Apendicectomía</td>
-									<td>
-										<a id="go" rel="leanModal" href="#deleteProtocol" style="color: #f7941e; font-weight: bold;" 
-											onclick="return loadVars(1001,'Apendicectomía');" >
-											<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-										</a>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-  						<br>
-  					</div>
-  					<div id="tabs-3">
-  						<div style="text-align:right;">
-	  						<a href="searchServices.html?function=editHospitalization" style="color: #006c92; font-weight: bold;">
-								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Servicio
 							</a>						
   						</div>
   						<br>
-					    <table id="sweetTable">
-							<tbody>
-								<tr>
-									<th>Servicio</th>
+  						<br>
+					   	<table id="sweetTable" style="margin-bottom: 10px;">
+				   			<tr>
+									<th>Nombre</th>
 									<th>Precio</th>
 									<th>Acción</th>
-								</tr>				
-								<tr>
-									<td>Hospitalización</td>
-									<td>Bs 3472,00</td>
-									<td>
-										<a id="go" rel="leanModal" href="#deleteService" style="color: #f7941e; font-weight: bold;" 
-											onclick="return loadVars(1001,'Hospitalización');" >
+								</tr>	
+					   		<tr>
+					   			<td>Colocación de prótesis peneana</td>
+					   			<td>Bs. 14321,00</td>
+					   			<td>
+										<a id="go" rel="leanModal" href="#deleteProtocol" style="color: #f7941e; font-weight: bold;" 
+											onclick="return loadVars(1001,'Colocación de prótesis peneana');" >
 											<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-										</a>
-									</td>
-								</tr>				
-								<tr>
-									<td>Anestesia Peridural</td>
-									<td>Bs 2727,50</td>
-									<td>
-										<a id="go" rel="leanModal" href="#deleteService" style="color: #f7941e; font-weight: bold;" 
-											onclick="return loadVars(1001,'Anestesia Peridural');" >
+										</a> 
+								</td>
+					   		</tr>
+					   		<tr>
+					   			<td>Apendicectomía</td>
+					   			<td>Bs. 7680,00</td>
+					   			<td>
+									<a id="go" rel="leanModal" href="#deleteProtocol" style="color: #f7941e; font-weight: bold;" 
+											onclick="return loadVars(1001,'Apendicectomía');" >
 											<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-										</a>
-									</td>
-								</tr>				
-								<tr>
-									<td>Servicios Médicos</td>
-									<td>Bs 1021,90</td>
-									<td>
-										<a id="go" rel="leanModal" href="#deleteService" style="color: #f7941e; font-weight: bold;" 
-											onclick="return loadVars(1001,'Servicios Médicos');" >
-											<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-										</a>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						<br>
+									</a>
+								</td>
+					   		</tr>
+					   	</table>
 					</div>
-					<div id="tabs-4">
-					<div style="text-align:right;">
-							<a  href="searchSupplies.html?function=editHospitalization" style="color: #006c92; font-weight: bold;">
-								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Suministro
-							</a>						
-						</div>
-  						<br>
-  						<table id="sweetTable">
-							<tbody>
-								<tr>
-									<th>Suministro</th>
-									<th>Cantidad</th>
-									<th>Pendiente</th>
-									<th>Recibido</th>
-									<th>Acción</th>
-								</tr>				
-								<tr>
-									<td>Guantes de Examen N/Esteril M</td>
-									<td>1</td>
-									<td>1</td>
-									<td>0</td>
-									<td>
-										<a id="go" rel="leanModal" href="#deleteSupply" style="color: #f7941e; font-weight: bold;" 
-											onclick="return loadVars(1001,'Guantes de Examen N/Esteril M');" >
-											<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-										</a>
-									</td>
-								</tr>				
-								<tr>
-									<td>Alcohol</td>
-									<td>1</td>
-									<td>1</td>
-									<td>0</td>
-									<td>
-										<a id="go" rel="leanModal" href="#deleteSupply" style="color: #f7941e; font-weight: bold;" 
-											onclick="return loadVars(1001,'Alcohol');" >
-											<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-										</a>
-									</td>
-								</tr>				
-								<tr>
-									<td>Algodón</td>
-									<td>3</td>
-									<td>3</td>
-									<td>0</td>
-									<td>
-										<a id="go" rel="leanModal" href="#deleteSupply" style="color: #f7941e; font-weight: bold;" 
-											onclick="return loadVars(1001,'Algodón');" >
-											<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-										</a>
-									</td>
-								</tr>				
-								<tr>
-									<td>Sábanas de Camilla</td>
-									<td>1</td>
-									<td>0</td>
-									<td>1</td>
-									<td>
-										<a id="go" rel="leanModal" href="#deleteSupply" style="color: #f7941e; font-weight: bold;" 
-											onclick="return loadVars(1001,'Sábanas de Camilla');" >
-											<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-										</a>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						<br>
-					</div>							
-				</div>
+  				</div>
 			</div>
 		</div>
 		<div id="deleteProtocol">
