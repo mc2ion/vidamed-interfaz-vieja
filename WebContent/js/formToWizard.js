@@ -42,7 +42,7 @@
 
         function createPrevButton(i) {
             var stepName = "step" + i;
-			$("#" + stepName + "commands").append("<input id='" + stepName + "Prev'  type='button' value='< Anterior' class='prev'>");
+			$("#" + stepName + "commands").append("<input id='" + stepName + "Prev'  type='button' value='Anterior' class='button centerP'>");
           
             $("#" + stepName + "Prev").bind("click", function(e) {
                 $("#" + stepName).hide();
@@ -54,7 +54,7 @@
 
         function createNextButton(i) {
             var stepName = "step" + i;
-            $("#" + stepName + "commands").append("<input id='" + stepName + "Next' type='button' value='Siguiente >' class='next'>");
+            $("#" + stepName + "commands").append("<input id='" + stepName + "Next' type='button' value='Siguiente' class='button centerN'>");
 
             $("#" + stepName + "Next").bind("click", function(e) {
             	typeProtocol = $("#typeOfProtocol").val()
