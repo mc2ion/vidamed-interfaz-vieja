@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-		<title>Crear Caja</title>
+		<title>Editar Caja</title>
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css" />
 	  	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
@@ -56,6 +56,7 @@
 				<div class="menuitemHome" ><a href="mainMenu.html">Home</a></div>	
 		    	<ul>
 	            	<li class="menuitem"><a href="bank.html">Ver Cajas</a></li>
+            	<li class="menuitem"><a href="createCashBox.html">Crear Caja</a></li>
 	            </ul>
 				<div class="menuitemSalir"><a href="index.html">Salir</a></div>	
         	</div>        
@@ -84,26 +85,26 @@
 				</ul>
 			</div>
         	<div id="content" style="position:absolute;">	
-	        	<h2>Crear Caja:</h2>
+	        	<h2>Editar Caja:</h2>
 				<br>
 				<fieldset>
 					<label for="name">Nombre:</label>
-					<input type="text" name="txtName" id="txtName" maxlength="50" size="5"/> <br><br>
+					<input type="text" name="txtName" id="txtName" maxlength="50" size="5" value="Caja Principal"/> <br><br>
 					<label for="name">Descripción:</label>
-					<textarea name="txtDescription" id="txtDescription" rows="3" cols="50"></textarea> <br><br>
+					<textarea name="txtDescription" id="txtDescription" rows="3" cols="50">Caja Principal de la Clínica. Ubicada en admisión. Se encarga de recibir y dar los pagos relacionados con emergencia y hospitalización.</textarea> <br><br>
 					<label for="name">Punto de Venta:</label>
 					<div >
-				  	 	<input type="text" value="" style="width: 135px;">
+				  	 	<input type="text" style="width: 135px;" value="Banesco">
 				  	 	<img alt="logo" src="./images/add.png"  id="addSellPoint" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Agregar otro punto" />
 						<br /><br />
 					</div>
-					<div id="otherSellPoint" style="display:none;">
-						<input type="text" value="" style="width: 135px;">
+					<div id="otherSellPoint" style="display:block;">
+						<input type="text" value="Banco Mercantil" style="width: 135px;">
 						<img alt="logo" src="./images/close.png"  id="deleteSellPoint" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Agregar otro punto" />
 				 		<br /><br />
 				 	</div>
-					<div id="otherSellPoint2" style="display:none;">
-						<input type="text" value="" style="width: 135px;">
+					<div id="otherSellPoint2" style="display:block;">
+						<input type="text" value="Banco Activo" style="width: 135px;">
 						<img alt="logo" src="./images/close.png"  id="deleteSellPoint2" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Agregar otro punto" />
 				  	 	<br /><br />
 				  	 </div>
@@ -115,7 +116,7 @@
 				<div id="botonera">
 					<form action="bank.html">
 						<div id="botonP" style="display: inline; margin-right: 30px;">
-									<input type="submit"  class="button"  name="sbmtButton" value="Agregar" />
+									<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
 						</div>	
 						<div id="botonV" style="display: inline;">
 								<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		

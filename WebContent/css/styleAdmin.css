@@ -1763,6 +1763,10 @@ fieldset .rightCol input[type="text"]{
 	
 }
 
+#otherSellPoint, #otherSellPoint2, #otherSellPoint3{
+	margin-left: 206px;
+	
+}
 
 table { 
 	border-collapse:collapse; 

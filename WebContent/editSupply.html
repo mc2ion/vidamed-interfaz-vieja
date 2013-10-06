@@ -53,17 +53,54 @@
 				<br>
 				<fieldset>
 					<label for="name">Nombre:</label>
-					<input type="text" name="txtName" id="txtName" maxlength="50" size="5" value="Albumina Humana 20% 50 ml"/> <br><br>
+					<input type="text" name="txtName" id="txtName" maxlength="50" size="5" value="Albúmina Humana 20% 50 ml"/> <br><br>
 					<label for="name">Tipo:</label>
-					<select>
+					<select onchange="displayMedicineFields(this);">
 						<option value="0">Seleccionar</option>
 						<option value="1" selected>Fármaco</option>
 						<option value="2">Suministro</option>						
 					</select> <br><br>
 					<label for="name">Descripción:</label>
 					<textarea name="txtDescription" id="txtDescription" rows="3" cols="50">Solución acuosa estéril de albúmina obtenida por fraccionamiento del plasma sanguíneo humano con etanol.</textarea> <br><br>
+					<div id="medicine" style="display:block;">
+						<label for="name">Componente Activo:</label>
+						<input type="text" name="txtName" id="txtName" maxlength="50" size="5" value="Albúmina Humana"/> <br><br>
+						<label for="name">Fabricante:</label>
+						<input type="text" name="txtName" id="txtName" maxlength="50" size="5" value="Quimbiotec, C.A."/> <br><br>
+						<label for="name">Presentación:</label>
+						<select>
+							<option value="0">Seleccionar</option>
+							<option value="2" selected>Ampolla</option>	
+							<option value="2">Cápsula</option>	
+							<option value="2">Colirio</option>
+							<option value="2">Crema</option>
+							<option value="2">Elixir</option>	
+							<option value="2">Emplasto</option>
+							<option value="2">Enema</option>
+							<option value="2">Frasco</option>	
+							<option value="2">Granulado</option>
+							<option value="2">Inhalación</option>
+							<option value="2">Inyección</option>
+							<option value="2">Jarabe</option>
+							<option value="2">Linimento</option>
+							<option value="2">Loción</option>
+							<option value="2">Mucilago</option>	
+							<option value="2">Óvulo</option>		
+							<option value="1">Pastilla</option>
+							<option value="2">Polvo</option>
+							<option value="2">Preparado de Liberación Prolongada</option>
+							<option value="2">Solución</option>	
+							<option value="2">Supositorio</option>	
+							<option value="2">Suspensión</option>
+							<option value="2">Tintura</option>	
+							<option value="2">Trocisco</option>	
+							<option value="2">Ungüento</option>											
+						</select> <br><br>
+					</div>
 					<label for="name">Cantidad:</label>
 					<input type="number" min="1" name="txtAmount" id="txtAmount" maxlength="3" size="3" value="12" /> <br><br>
+					<label for="name">Precio Unitario:</label>
+					<input type="number" min="1" name="txtAmount" id="txtAmount" maxlength="3" size="3" value="350" /> <br><br>
 				</fieldset>
 				<div id="botonera">
 					<form action="supplies.html">
