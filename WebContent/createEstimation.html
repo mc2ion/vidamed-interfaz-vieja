@@ -69,14 +69,20 @@
 		<div id="container">
 			<div id="header">
 	        	<img alt="logo" src="./images/logo.png"/>
-	        </div>         
-        	<div id="menu">
+	        </div>  
+	         <nav>
+			      <ul>
+			      	 <li><a href="#">Bienvenido, Prueba</a></li>
+			        <li><a href="pendingRequest.html">Solicitudes<span class="badge red">2</span></a></li>
+			      </ul>
+		    </nav>
+		    <div id="menu">
 				<div class="menuitemHome" ><a href="mainMenu.html">Home</a></div>	
 		    	<ul>
 	            	<li class="menuitem"><a href="estimations.html">Ver Presupuestos</a></li>
 	            </ul>
 				<div class="menuitemSalir"><a href="index.html">Salir</a></div>	
-        	</div>        
+        	</div>           
 					<div id='cssmenu'>
 				<ul>
 				   <li class='first active'><a href='estimations.html'><span>Presupuesto</span></a></li>
@@ -104,6 +110,10 @@
         	<div id="content" style="position:absolute;">	
 	        	<h2>Crear Presupuesto:</h2>
 				<br>
+				<a id="go" rel="leanModal" href="#discount" style="color: #f7941e; font-weight: bold;" onclick="return loadVars(1003,'1003');" >
+					<input type="button" class="buttonGray lessPadding" value="Solicitar Descuento" style="position: absolute;top: 20px;right: 30px;"/>			
+				</a>
+				
 				<div id="tabs">
 					<ul>
 					    <li><a href="#tabs-1">Paciente</a></li>
@@ -209,6 +219,30 @@
 				<div class="btn-fld">
 					<input type="submit" class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
 				</div>
+			</div>
+		</div>
+		<div id="discount">
+			<div id="signup-ct">
+				<h3 id="see_id" class="sprited" > Solicitar Descuento</h3><br><br>
+				Por favor, indique la siguiente información.
+				<div class="text">
+					<div class="leftColum"><b>Descuento:</b></div>
+						<select>
+							<option value="P">%</option>
+							<option value="Monto">Bs.</option>
+						</select>
+						<input type="text" size='10'/>
+					<br>
+					<div class="leftColum"><b>Justicación:</b></div><textarea style="width: 138px;"></textarea><br>
+				</div>
+				<div id="signup-header">
+					<a class="close_x" id="close_x_aux"  href="#"></a>
+				</div>
+				<form action="createEstimation.html" method="post"  onsubmit="return setV(this)">
+					<div class="btn-fld">
+						<input type="submit"  class="buttonPopUpAux"  name="sbmtButton" value="Solicitar"  />
+					</div>
+		 		</form>
 			</div>
 		</div>
 	</body>
