@@ -50,7 +50,12 @@
 			var first = getUrlVars()["function"];
 			first = first.replace(/\+/g, ' ');
 			if (first != null){
-				if (first.indexOf("Admission") > 0){
+				if (first.indexOf("CreditNote") > 0){
+					$("#admission").attr('class', 'active');
+					if (first == "editCreditNoteEstimation")
+						$("#form").attr('action', 'editCreditNoteEstimation.html');
+				}
+				else if (first.indexOf("Admission") > 0){
 					$("#admission").attr('class', 'active');
 					if (first == "editAdmissionEstimation")
 						$("#form").attr('action', 'editAdmissionEstimation.html');

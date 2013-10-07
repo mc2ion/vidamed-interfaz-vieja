@@ -11,8 +11,6 @@
 		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>		
 		<!--JS Datapicker-->
 		<script type="text/javascript" src="./js/jquery.ui.datepicker-es.js"></script>
-		<!--JS Buscador de Multiselect-->
-		<script type="text/javascript" src="./js/jquery.quicksearch.js"></script>
 		<script>
 			$(function() {
 				$( "#tabs" ).tabs();
@@ -53,44 +51,6 @@
 					  $("#addPhone").show();
 				});
 			});
-			
-			$(function() {
-				$('#my-select').multiSelect({
-					  selectableHeader: "<input type='text' class='search-input' autocomplete='off' placeholder='Buscar' style='width:100%'>",
-					  selectionHeader: "<input type='text' class='search-input' autocomplete='off' placeholder='Buscar' style='width:100%'>",
-					  afterInit: function(ms){
-					    var that = this,
-					        $selectableSearch = that.$selectableUl.prev(),
-					        $selectionSearch = that.$selectionUl.prev(),
-					        selectableSearchString = '#'+that.$container.attr('id')+' .ms-elem-selectable:not(.ms-selected)',
-					        selectionSearchString = '#'+that.$container.attr('id')+' .ms-elem-selection.ms-selected';
-
-					    that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
-					    .on('keydown', function(e){
-					      if (e.which === 40){
-					        that.$selectableUl.focus();
-					        return false;
-					      }
-					    });
-
-					    that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
-					    .on('keydown', function(e){
-					      if (e.which == 40){
-					        that.$selectionUl.focus();
-					        return false;
-					      }
-					    });
-					  },
-					  afterSelect: function(){
-					    this.qs1.cache();
-					    this.qs2.cache();
-					  },
-					  afterDeselect: function(){
-					    this.qs1.cache();
-					    this.qs2.cache();
-					  }
-					});
-			});
 		</script>
 		<script type="text/javascript">
 			$(function(){
@@ -106,6 +66,13 @@
 				});
 			} );
 		</script>
+		<script>
+		  $(function() {
+		    $( "#accordion" ).accordion({
+		    	heightStyle: "content"
+		    });
+		  });
+		  </script>	
 	</head>
 	<body>
 		<div id="container">
@@ -281,8 +248,110 @@
 						</div><br>
 			  		</div>			  		
 			  		<div id="tabs-4">
-			  			<fieldset>
-			  			</fieldset>
+			  			<div id="accordion">
+				  <h3>Presupuesto</h3>
+				  <div>
+				    <table class="table-simple">
+				    	<tr>
+				    		<td><input type="checkbox">Ver Listado</td>
+				    		<td><input type="checkbox">Crear</td>
+				    		<td><input type="checkbox">Ver Detalle</td>
+				    		<td><input type="checkbox">Imprimir</td>
+				    	</tr>
+				    	<tr>
+				    		<td><input type="checkbox">Editar</td>
+				    		<td><input type="checkbox">Actualizar</td>
+				    		<td><input type="checkbox">Eliminar</td>
+				    		<td><input type="checkbox">Todos</td>
+				    	</tr>
+				    </table>
+				  </div>
+				  <h3>Emergencia</h3>
+				  <div>
+				    <table class="table-simple">
+				    	<tr>
+				    		<td><input type="checkbox">Ver Listado</td>
+				    		<td><input type="checkbox">Ver Detalle</td>
+				    		<td><input type="checkbox">Editar</td>
+				    		<td><input type="checkbox">Dar de Altar</td>
+				    	</tr>
+				    	<tr>
+				    		<td><input type="checkbox">Hospitalizar</td>
+				    		<td><input type="checkbox">Eliminar</td>
+				    		<td><input type="checkbox">Corte de Cuenta</td>
+				    		<td><input type="checkbox">Todos</td>
+				    	</tr>
+				    </table>
+				  </div>
+				  <h3>Admisión</h3>
+				  <div>
+				    <table class="table-simple">
+				    	<tr>
+				    		<td><input type="checkbox">Ver Listado</td>
+				    		<td><input type="checkbox">Crear</td>
+				    		<td><input type="checkbox">Ver Detalle</td>
+				    		<td><input type="checkbox">Imprimir</td>
+				    	</tr>
+				    	<tr>
+				    		<td><input type="checkbox">Editar</td>
+				    		<td><input type="checkbox">Actualizar</td>
+				    		<td><input type="checkbox">Elimintar</td>
+				    		<td><input type="checkbox">Todos</td>
+				    	</tr>
+				    </table>
+				  </div>
+				  <h3>Hospitalización</h3>
+				  <div>
+				    <table class="table-simple">
+				    	<tr>
+				    		<td><input type="checkbox">Ver Listado</td>
+				    		<td><input type="checkbox">Crear</td>
+				    		<td><input type="checkbox">Ver Detalle</td>
+				    		<td><input type="checkbox">Imprimir</td>
+				    	</tr>
+				    	<tr>
+				    		<td><input type="checkbox">Editar</td>
+				    		<td><input type="checkbox">Actualizar</td>
+				    		<td><input type="checkbox">Elimintar</td>
+				    		<td><input type="checkbox">Todos</td>
+				    	</tr>
+				    </table>
+				  </div>
+				  <h3>Usuarios</h3>
+				  <div>
+				    <table class="table-simple">
+				    	<tr>
+				    		<td><input type="checkbox">Ver Listado</td>
+				    		<td><input type="checkbox">Crear</td>
+				    		<td><input type="checkbox">Ver Detalle</td>
+				    		<td><input type="checkbox">Imprimir</td>
+				    	</tr>
+				    	<tr>
+				    		<td><input type="checkbox">Editar</td>
+				    		<td><input type="checkbox">Actualizar</td>
+				    		<td><input type="checkbox">Elimintar</td>
+				    		<td><input type="checkbox">Todos</td>
+				    	</tr>
+				    </table>
+				  </div>
+				  <h3>Protocolos</h3>
+				  <div>
+				    <table class="table-simple">
+				    	<tr>
+				    		<td><input type="checkbox">Ver Listado</td>
+				    		<td><input type="checkbox">Crear</td>
+				    		<td><input type="checkbox">Ver Detalle</td>
+				    		<td><input type="checkbox">Imprimir</td>
+				    	</tr>
+				    	<tr>
+				    		<td><input type="checkbox">Editar</td>
+				    		<td><input type="checkbox">Actualizar</td>
+				    		<td><input type="checkbox">Elimintar</td>
+				    		<td><input type="checkbox">Todos</td>
+				    	</tr>
+				    </table>
+				  </div>
+				</div>
 			  			<div id="botonera">
 							<form action="users.html">
 								<div id="botonP" style="display: inline; margin-right: 30px;">

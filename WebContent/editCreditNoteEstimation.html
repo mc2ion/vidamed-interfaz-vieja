@@ -3,7 +3,7 @@
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-	<title>Altas Admisión Pendientes</title>
+	<title>Ver Detalle Prefactura</title>
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css" />
   	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
@@ -40,22 +40,19 @@
 	<div id="container">
 		<div id="header">
         	<img alt="logo" src="./images/logo.png"/>
-        </div>    
-          <nav>
-         	<ul>
-         		<li><a href="#">Bienvenido, Prueba</a></li>
-                <li><a href="pendingAdmissionDischarges.html">Altas Admisión<span class="badge green">3</span></a></li>
-		 		<li><a href="pendingRequest.html">Descuentos<span class="badge yellow">2</span></a>
-         		<li><a href="pendingCreditNotesReview.html">Prefacturas por Revisar<span class="badge red">3</span></a></li>
-		      	<li><a href="pendingPharmacyDischarges.html">Altas Farmacia<span class="badge red">3</span></a>
-         		</li><li><a href="billing.html">Pagos Pendientes<span class="badge blue">6</span></a></li>
-         	 </ul>
-         </nav>
-         <div id="menu">
+        </div>  
+         <nav>
+		      <ul>
+		      	 <li><a href="#">Bienvenido, Prueba</a></li>
+		        <li><a href="pendingAdmissionDischarges.html">Altas Pendientes<span class="badge red">3</span></a></li>
+		        <li><a href="pendingCreditNotesReview.html">Prefacturas por Revisar<span class="badge red">3</span></a></li>
+		      </ul>
+	    </nav>         
+        <div id="menu">
 			<div class="menuitemHome" ><a href="mainMenu.html">Home</a></div>	
 	    	<ul>
             	<li class="menuitem"><a href="admission.html">Ver Admisiones</a></li>
-            	<li class="menuitem"><a href="pendingAdmissionDischarges.html">Ver Altas Pendientes</a></li>
+            	<li class="menuitem"><a href="admission.html">Ver Prefacturas</a></li>
             </ul>
             <div class="menuitemSalir"><a href="index.html">Salir</a></div>	
         </div>        
@@ -80,11 +77,11 @@
 				   <li><a href='paymentResponsibles.html'><span>Responsables de Pago</span></a></li>
 				   <li><a href='bank.html'><span>Cajas</span></a></li>
 				   <li><a href='bankAccounts.html'><span>Bancos</span></a></li>
-				   <li><a href='accounts.html'><span>Cuentas Pendientes</span></a></li><li class='last'><a href='billing.html'><span>Facturación</span></a></li>
+				   <li class='last'><a href='accounts.html'><span>Cuentas Pendientes</span></a></li>
 				</ul>
 			</div>
-		<div id="content" style="position:absolute;">	  
-			<h2>Ver Detalle Alta Pendiente:</h2>
+		<div id="content" style="position:absolute;"> 
+			<h2>Ver Detalle Prefactura:</h2>
 			<br>
 				<div id="tabs">
 					<ul>
@@ -100,11 +97,11 @@
 					    <input type="text" name="departament" id="departament" value="Nutrición" readonly>
 					    <br><br>
 					   <label>Médico Tratante: </label> <input type="text" name="doctorName" id="doctorName" value="Ricardo García" readonly>
-					    <a href="searchDoctor.html?function=editAdmissionEstimation" style="color: #f7941e; font-weight: bold;">
+					    <a href="searchDoctor.html?function=editCreditNoteEstimation" style="color: #f7941e; font-weight: bold;">
 							<input type="button"id="doctorId" value="Cambiar" >
 						</a> <br><br>
 					   <label> Responsable del Pago:</label>  <input type="text" name="insuranceName" id="insuranceName" value="La Previsora" readonly>
-					    <a href="searchInsurance.html?function=editAdmissionEstimation" style="color: #f7941e; font-weight: bold;">
+					    <a href="searchInsurance.html?function=editCreditNoteEstimation" style="color: #f7941e; font-weight: bold;">
 							<input type="button"id="paymentResp" value="Cambiar" >
 						</a> 
 					    </fieldset>
@@ -122,7 +119,7 @@
 					</div>
   					<div id="tabs-2">
   						<div style="text-align:right;">
-	  						<a href="searchProtocols.html?function=editAdmissionEstimation" style="color: #006c92; font-weight: bold;">
+	  						<a href="searchProtocols.html?function=editCreditNoteEstimation" style="color: #006c92; font-weight: bold;">
 								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Protocolo
 							</a>						
   						</div>
@@ -138,7 +135,7 @@
 					   			<td>Frenuloplastia</td>
 					   			<td>Bs. 14321,00</td>
 					   			<td>
-					   				<a href="editAdmissionProtocol.html" style="color: transparent" >
+					   				<a href="editCreditNoteProtocol.html" style="color: transparent" >
 										<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar Protocolo" />
 									</a>
 										<a id="go" rel="leanModal" href="#deleteProtocol" style="color: #f7941e; font-weight: bold;" 
