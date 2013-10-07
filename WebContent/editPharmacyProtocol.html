@@ -1,43 +1,67 @@
-<!DOCTYPE html >
+<!DOCTYPE >
 <html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-		<title>Crear Protocolo</title>
-		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css" />
-		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-	    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
-		<link rel="stylesheet" href="/resources/demos/style.css" />	
-		<script type="text/javascript" src="./js/formToWizard.js"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
+	<title>Farmacia</title>
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css" />
+  	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
+	<link rel="stylesheet" href="/resources/demos/style.css" />
+	<script type="text/javascript" src="./js/formToWizard.js"></script>
 		<script type="text/javascript">
 		        $(document).ready(function(){
 		            $("#SignupForm").formToWizard({ submitButton: 'SaveAccount' })
 		        });
 		   </script>
 		<script type="text/javascript" src="./js/functions.js"></script>
+	<script type="text/javascript">
+	var idUser;
+			
+	$(function() {
+		$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x" });		
+	});
+	
+	function loadVars(var1, var2) {
+		idUser = var1;
+		$('.cliente').text(var2);
 		
-	</head>
-	<body>
-		<div id="container">
-			<div id="header">
-	        	<img alt="logo" src="./images/logo.png"/>
-	        </div>         
-        	<div id="menu">
-				<div class="menuitemHome" ><a href="mainMenu.html">Home</a></div>	
-		    	<ul>
-	            	<li class="menuitem"><a href="protocols.html">Ver Protocolos</a></li>
-	            </ul>
-				<div class="menuitemSalir"><a href="index.html">Salir</a></div>	
-        	</div>        
-			<div id='cssmenu'>
+	};
+	
+	function setV(f){
+		f.elements['userId'].value = idUser;
+		return true;
+	}
+	</script>
+</head>
+<body>
+	<div id="container">
+		<div id="header">
+        	<img alt="logo" src="./images/logo.png"/>
+        </div>  
+         <nav>
+		      <ul>
+		      	 <li><a href="#">Bienvenido, Prueba</a></li>
+		        <li><a href="pendingPharmacyDischarges.html">Altas Pendientes<span class="badge red">3</span></a></li>
+		      </ul>
+	    </nav>          
+        <div id="menu">
+			<div class="menuitemHome" ><a href="mainMenu.html">Home</a></div>	
+			<ul>
+            	<li class="menuitem"><a href="supplyAreas.html">Ver Áreas Insumos</a></li>
+            	<li class="menuitem"><a href="pendingPharmacyDischarges.html">Ver Altas Pendientes</a></li>
+            </ul>
+	    	<div class="menuitemSalir"><a href="index.html">Salir</a></div>	
+        </div>        
+		<div id='cssmenu'>
 				<ul>
 				   <li class='first'><a href='estimations.html'><span>Presupuesto</span></a></li>
 				   <li><a href='emergencies.html'><span>Emergencia</span></a></li>
 				   <li><a href='admission.html'><span>Admisión</span></a></li>
 				   <li><a href='hospitalization.html'><span>Hospitalización</span></a></li>
 				   <li><a href='users.html'><span>Usuarios</span></a></li>
-				   <li class='has-sub active'>
+				   <li class='has-sub'>
 					<a href='#'><span>Protocolos</span></a>
 				      <ul>
 				         <li class='first'><a href='protocols.html'><span>Protocolos</span></a></li>
@@ -45,7 +69,7 @@
 				      </ul>
 				   </li>
 				   <li><a href='services.html'><span>Servicios</span></a></li>
-				   <li><a href='supplyAreas.html'><span>Farmacia</span></a></li>
+				   <li class='active'><a href='supplyAreas.html'><span>Farmacia</span></a></li>
 				   <li><a href='departments.html'><span>Unidades</span></a></li>
 				   <li><a href='doctors.html'><span>Especialistas</span></a></li>
 				   <li><a href='paymentResponsibles.html'><span>Responsables de Pago</span></a></li>
@@ -54,20 +78,18 @@
 				   <li class='last'><a href='accounts.html'><span>Cuentas Pendientes</span></a></li>
 				</ul>
 			</div>
-        	<div id="content" style="position:absolute;">	
-		       	<form id="SignupForm" action="protocols.html">
+		<div id="content" style="position:absolute;">	
+		       	<form id="SignupForm" action="editPharmacyEstimation.html#tabs-2">
 		        	<fieldset id="field1">
 			            <legend>Información Básica</legend>
 			           <label for="name">Nombre:</label>
-						<input type="text" name="txtName" id="txtName" maxlength="50" size="5"/> <br><br>
+						<div>Frenuloplastia</div><br><br>
 						<label for="name">Descripción:</label>
-						<textarea name="txtDescription" id="txtDescription" rows="3" cols="50"></textarea> <br><br>
-						<label for="name">Parecido A:</label>
-						<input type="button" name="txtSimilar" id="txtSimilar" value="Escoger"/> <br><br>
+						<div>Cirugía se realiza de forma ambulatoria con anestesia local y tiene una duración de 15 minutos.</div> <br><br>
 						<label for="name">Tipo de Protocolo:</label>
 						<select id="typeOfProtocol">
 							<option value="A">Ambulatorio</option>
-							<option value="H">No Ambulatorio</option>
+							<option value="H" selected>No Ambulatorio</option>
 						</select>
 			        </fieldset>
 			        <fieldset id="field2">
@@ -233,16 +255,28 @@
 							    	<tr>
 							    		<td>Cirujano Principal</td>
 							    		<td>V-7103598</td>
-							    		<td>Bs. <input type="text" value="2270"></td>
+							    		<td>Bs. <input type="text" value="15000"></td>
+							    		<td><input type="checkbox"></td>
+							    	</tr>
+							    	<tr>
+							    		<td>Cirujano Ayudante I</td>
+							    		<td>V-123410</td>
+							    		<td>Bs. <input type="text" value="6000"></td>
+							    		<td><input type="checkbox"></td>
+							    	</tr>
+							    	<tr>
+							    		<td>Cirujano Ayudante II</td>
+							    		<td>V-7103598</td>
+							    		<td>Bs. <input type="text" value="4500"></td>
 							    		<td><input type="checkbox"></td>
 							    	</tr>
 							    </table>
 			        </fieldset>
 			        <p>
-			            <input id="SaveAccount" type="submit" class="button next" value="Crear Protocolo" />
+			            <input id="SaveAccount" type="submit" class="button next" value="Editar Protocolo" />
 			        </p>
 			        </form>
 				</div>
-			</div>
+		</div>
 	</body>
 </html>

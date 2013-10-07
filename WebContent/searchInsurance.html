@@ -50,7 +50,17 @@
 			var first = getUrlVars()["function"];
 			first = first.replace(/\+/g, ' ');
 			if (first != null){
-				if (first.indexOf("Estimation") > 0){
+				if (first.indexOf("Admission") > 0){
+					$("#admission").attr('class', 'active');
+					if (first == "editAdmissionEstimation")
+						$("#form").attr('action', 'editAdmissionEstimation.html');
+				}
+				else if (first.indexOf("Pharmacy") > 0){
+					$("#supplyAreas").attr('class', 'active');
+					if (first == "editPharmacyEstimation")
+						$("#form").attr('action', 'editPharmacyEstimation.html');
+				}
+				else if (first.indexOf("Estimation") > 0){
 					$("#estimation").attr('class', 'active');
 					if (first == "editEstimation"){
 						$("#form").attr('action', 'editEstimation.html');
@@ -118,7 +128,7 @@
 				      </ul>
 				   </li>
 				   <li><a href='services.html'><span>Servicios</span></a></li>
-				   <li id="supplyAreas"><a href='supplyAreas.html'><span>Suministros</span></a></li>
+				   <li id="supplyAreas"><a href='supplyAreas.html'><span>Farmacia</span></a></li>
 				   <li><a href='departments.html'><span>Unidades</span></a></li>
 				   <li><a href='doctors.html'><span>Especialistas</span></a></li>
 				   <li><a href='paymentResponsibles.html'><span>Responsables de Pago</span></a></li>
