@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-		<title>Cuentas por Cobrar y Pagar</title>
+		<title>Facturación</title>
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css" />
 	  	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
@@ -36,7 +36,7 @@
         	}
 		} );
 			
-			$('#example2').dataTable( {
+			$('#example4').dataTable( {
 				"iDisplayLength": 5,
 				"bLengthChange": false,
 				"sScrollY": "200px",
@@ -59,7 +59,6 @@
 		            "sSearch": "Buscar:"
 	        	}
 			} );
-			
 	} );
 		
 	</script>
@@ -74,8 +73,6 @@
 			idUser = var1;
 			$('.type').text(var2);
 			$('.name').text(var3);
-			$('.actionAccount').text(var4);
-
 		};
 
 		function setV(f){
@@ -89,6 +86,20 @@
 				$("#tabs").tabs("select", window.location.hash);
 			});
 		</script>
+		<script type="text/javascript">
+			$(function(){
+				$.datepicker.setDefaults($.datepicker.regional['es']);
+				$('#txtDateIni').datepicker({
+					showOn: "button",
+					buttonImage: "images/calendar.png",
+					buttonImageOnly: true,
+					buttonText: "Seleccione una fecha",
+					dateFormat:'dd/mm/yyyy',
+					changeMonth: true,
+				    changeYear: true
+				});
+			} );
+		</script>
 		
 	</head>
 	<body>
@@ -96,8 +107,8 @@
 			<div id="header">
 	        	<img alt="logo" src="./images/logo.png"/>
 	        </div>         
-        <nav><ul><li><a href="#">Bienvenido, Prueba</a></li><li><a href="pendingAdmissionDischarges.html">Altas Admisión<span class="badge green">3</span></a></li><li><a href="pendingRequest.html">Descuentos<span class="badge yellow">2</span></a></li><li><a href="pendingPharmacyDischarges.html">Altas Farmacia<span class="badge red">3</span></a></li><li><a href="billing.html">Pagos Pendientes<span class="badge blue">6</span></a></li></ul></nav>
-        	<div id="menu">		
+        	<nav><ul><li><a href="#">Bienvenido, Prueba</a></li><li><a href="pendingAdmissionDischarges.html">Altas Admisión<span class="badge green">3</span></a></li><li><a href="pendingRequest.html">Descuentos<span class="badge yellow">2</span></a></li><li><a href="pendingPharmacyDischarges.html">Altas Farmacia<span class="badge red">3</span></a></li><li><a href="billing.html">Pagos Pendientes<span class="badge blue">6</span></a></li></ul></nav>
+        	<div id="menu">	
         		<div class="menuitemHome" ><a href="mainMenu.html">Home</a></div>	
 		    	<div class="menuitemSalir"><a href="index.html">Salir</a></div>	
         	</div>        
@@ -122,98 +133,71 @@
 				   <li><a href='paymentResponsibles.html'><span>Responsables de Pago</span></a></li>
 				   <li><a href='bank.html'><span>Cajas</span></a></li>
 				   <li><a href='bankAccounts.html'><span>Bancos</span></a></li>
-				   <li class='active'><a href='accounts.html'><span>Cuentas Pendientes</span></a></li><li class='last'><a href='billing.html'><span>Facturación</span></a></li>
+				   <li><a href='accounts.html'><span>Cuentas Pendientes</span></a></li>
+				   <li class='last active'><a href='billing.html'><span>Facturación</span></a></li>
 				</ul>
 			</div>
         	<div id="content" style="position:absolute;">	
-	        	<h2>Cuentas:</h2><br>
+	        	<h2>Facturación:</h2><br>
 	        	<div id="tabs">
 					<ul>
-					    <li><a href="#tabs-1">Por Cobrar</a></li>
-					    <li><a href="#tabs-2">Por Pagar</a></li>
+					    <li><a href="#tabs-1">Honorarios Médicos</a></li>
+					    <li><a href="#tabs-2">Relación de Pago</a></li>
+					    <li><a href="#tabs-3">Generar Nómina</a></li>
+					    <li><a href="#tabs-4">Pronto Pago</a></li>
 					</ul>
   					<div id="tabs-1">
-  						<div style="text-align:right; margin-top: 5px; margin-bottom:20px;">
-	  						<a href="createReceivable.html" style="color: #006c92; font-weight: bold;">
-								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Cuenta por Cobrar
-							</a>						
-  						</div>
- 								<div id="demo">
+							<div id="demo">
 								<table class="display" id="example">
 									<thead>
 										<tr>
-											<th>ID</th>
-											<th>Empresa</th>
+											<th>Pago del Seguro</th>
+											<th>Doctor</th>
 											<th>Monto</th>
-											<th>Fecha Vencimiento</th>
+											<th>Factura</th>
 											<th>Acciones</th>
 										</tr>
 									</thead>
 									<tbody>			
 										<tr class="gradeA">
-											<td>1001</td>
-											<td>Vidamed</td>
+											<td>Pendiente</td>
+											<td>Pablo Rojas </td>
 											<td>Bs. 15000</td>
-											<td>20/08/2013</td>
+											<td>F-2015</td>
 											<td>
-												<a href="editReceivable.html" style="color: transparent" >
-												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
-												</a>
 												<a href="showReceivable.html" style="color: transparent" >
 													<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 												</a>
-												<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-													onclick="return loadVars(1001,'Cobrar', 'Vidamed');" >
-													<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-												</a> 
-												<a id="go" rel="leanModal" href="#closeAccount" style="color: #f7941e; font-weight: bold;" 
-													onclick="return loadVars(1001,'Cobrar', 'Vidamed', 'cobrada');" >
-													<img alt="logo" src="./images/check.png" height="16" width="16" title="Cobrada"/>
-												</a> 
 												<br>
 											</td>
 										</tr>
 										<tr class="gradeA">
-											<td>1002</td>
-											<td>La Previsora</td>
+											<td><span style="color: rgb(241, 224, 180);font-weight: bold;font-style: italic;"> Cobrado</span></td>
+											<td>Juan Pérez</td>
 											<td>Bs. 5000</td>
-											<td>25/11/2013</td>
+											<td>F-24410</td>
 											<td>
-												<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
-												</a>
 												<a href="#" style="color: transparent" >
 													<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 												</a>
-												<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-													onclick="return loadVars(1001,'Cobrar', 'La Previsora');" >
-													<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-												</a> 
 												<a id="go" rel="leanModal" href="#closeAccount" style="color: #f7941e; font-weight: bold;" 
-													onclick="return loadVars(1001,'Cobrar', 'La Previsora', 'cobrada');" >
+													onclick="return loadVars(1001,'Cobrar', 'Juan Pérez');" >
 													<img alt="logo" src="./images/check.png" height="16" width="16" title="Cobrada"/>
 												</a> 
 												<br>
 											</td>
 										</tr>
 										<tr class="gradeA">
-											<td>1003</td>
-											<td>Multinacional de Seguros</td>
+											<td><span style="color: rgb(241, 224, 180);font-weight: bold;font-style: italic;"> Cobrado</span></td>
+											<td>Luisa Mendez</td>
 											<td>Bs. 34500</td>
-											<td>17/10/2013</td>
+											<td>F-1324A</td>
 											<td>
-												<a href="#" style="color: transparent" >
-													<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
-												</a>
 												<a href="#" style="color: transparent" >
 													<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 												</a>
-												<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-													onclick="return loadVars(1001,'Cobrar', 'Multinacional de Seguros');" >
-													<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-												</a> 
 												<a id="go" rel="leanModal" href="#closeAccount" style="color: #f7941e; font-weight: bold;" 
-													onclick="return loadVars(1001,'Cobrar', 'Multinacional de Seguros', 'cobrada');" >
+													onclick="return loadVars(1001,'Cobrar', 'Luisa Mendez');" >
 													<img alt="logo" src="./images/check.png" height="16" width="16" title="Cobrada"/>
 												</a> 
 												<br>
@@ -224,96 +208,199 @@
 							</div>
 						</div>
 					<div id="tabs-2">
-  						<div style="text-align:right; margin-top: 5px; margin-bottom:20px;">
-	  						<a href="createAccountPayable.html" style="color: #006c92; font-weight: bold;">
-								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Cuenta por Pagar
-							</a>						
-  						</div>
-  								<div id="demo">
-								<table class="display" id="example2">
+  						<form id="searchPayments">
+  							<fieldset>
+  							<label for="date">Intervalo de Fechas:</label>
+							Inicio: <input  type="text" name="txtDateIni" id="txtDateIni" maxlength="50" size="10" /> &nbsp;&nbsp;
+							Fin: <input  type="text" name="txtDateEnd" id="txtDateEnd" maxlength="50" size="10" /> <br>
+							<label>Titular:</label><input type="text" size="20">
+  							<b>Importe:</b><input type="text" size="20"><br>
+  							</fieldset>
+  							<input type="submit" class="buttonGreen absoluteB" value="Buscar">
+  						</form>
+  							<div id="demo" style="display: block; height: 300px; overflow-y: scroll;">
+								<table id="sweetTable" >
 									<thead>
 										<tr>
-											<th>ID</th>
-											<th>Empresa</th>
+											<th>Fecha de Pago</th>
+											<th>Titular</th>
+											<th>Importe</th>
+										</tr>
+									</thead>
+									<tbody>			
+										<tr>
+											<td>20/09/2013</td>
+											<td>Hospital Online</td>
+											<td>Bs. 15000</td>
+										</tr>
+										<tr>
+											<td>20/09/2013</td>
+											<td>Multinacional de Seguros</td>
+											<td>Bs. 5000</td>
+										</tr>
+										<tr>
+											<td>20/09/2013</td>
+											<td>Vidamed</td>
+											<td>Bs. 34500</td>
+										</tr>
+										<tr>
+											<td>20/09/2013</td>
+											<td>Hospital Online</td>
+											<td>Bs. 15000</td>
+										</tr>
+										<tr>
+											<td>20/09/2013</td>
+											<td>Multinacional de Seguros</td>
+											<td>Bs. 5000</td>
+										</tr>
+										<tr>
+											<td>20/09/2013</td>
+											<td>Vidamed</td>
+											<td>Bs. 34500</td>
+										</tr>
+										<tr>
+											<td>20/09/2013</td>
+											<td>Hospital Online</td>
+											<td>Bs. 15000</td>
+										</tr>
+										<tr>
+											<td>20/09/2013</td>
+											<td>Multinacional de Seguros</td>
+											<td>Bs. 5000</td>
+										</tr>
+										<tr>
+											<td>20/09/2013</td>
+											<td>Vidamed</td>
+											<td>Bs. 34500</td>
+										</tr>
+										<tr>
+											<td>20/09/2013</td>
+											<td>Hospital Online</td>
+											<td>Bs. 15000</td>
+										</tr>
+										<tr>
+											<td>20/09/2013</td>
+											<td>Multinacional de Seguros</td>
+											<td>Bs. 5000</td>
+										</tr>
+										<tr>
+											<td>20/09/2013</td>
+											<td>Vidamed</td>
+											<td>Bs. 34500</td>
+										</tr>
+										<tr>
+											<td>20/09/2013</td>
+											<td>Hospital Online</td>
+											<td>Bs. 15000</td>
+										</tr>
+										<tr>
+											<td>20/09/2013</td>
+											<td>Multinacional de Seguros</td>
+											<td>Bs. 5000</td>
+										</tr>
+										<tr>
+											<td>20/09/2013</td>
+											<td>Vidamed</td>
+											<td>Bs. 34500</td>
+										</tr>
+										<tr>
+											<td>20/09/2013</td>
+											<td>Hospital Online</td>
+											<td>Bs. 15000</td>
+										</tr>
+										<tr>
+											<td>20/09/2013</td>
+											<td>Multinacional de Seguros</td>
+											<td>Bs. 5000</td>
+										</tr>
+										<tr>
+											<td>20/09/2013</td>
+											<td>Vidamed</td>
+											<td>Bs. 34500</td>
+										</tr>
+										<tr>
+											<td>20/09/2013</td>
+											<td>Hospital Online</td>
+											<td>Bs. 15000</td>
+										</tr>
+										<tr>
+											<td>20/09/2013</td>
+											<td>Multinacional de Seguros</td>
+											<td>Bs. 5000</td>
+										</tr>
+										<tr>
+											<td>20/09/2013</td>
+											<td>Vidamed</td>
+											<td>Bs. 34500</td>
+										</tr>
+										
+									</tbody>
+								</table>
+							</div>
+					</div>
+					<div id="tabs-4">
+							<div id="demo">
+								<table class="display" id="example4">
+									<thead>
+										<tr>
+											<th>Doctor</th>
 											<th>Monto</th>
-											<th>Fecha Vencimiento</th>
+											<th>Factura</th>
+											<th>Estatus</th>
 											<th>Acciones</th>
 										</tr>
 									</thead>
 									<tbody>			
 										<tr class="gradeA">
-											<td>1001</td>
-											<td>Hospital Online</td>
+											<td>Pablo Rojas </td>
 											<td>Bs. 15000</td>
-											<td>20/09/2013</td>
+											<td>F-2015</td>
+											<td>Pendiente</td>
 											<td>
-												<a href="editAccountPayable.html" style="color: transparent" >
-												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
-												</a>
-												<a href="showAccountPayable.html" style="color: transparent" >
+												<a href="showReceivable.html" style="color: transparent" >
 													<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 												</a>
-												<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-													onclick="return loadVars(1001,'Pagar', 'Hospital Online');">
-													<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-												</a> 
 												<a id="go" rel="leanModal" href="#closeAccount" style="color: #f7941e; font-weight: bold;" 
-													onclick="return loadVars(1001,'Pagar', 'Vidamed', 'pagada');" >
-													<img alt="logo" src="./images/check.png" height="16" width="16" title="Pagada"/>
+													onclick="return loadVars(1001,'Cobrar', 'Juan Pérez');" >
+													<img alt="logo" src="./images/check.png" height="16" width="16" title="Cobrada"/>
 												</a> 
 												<br>
 											</td>
 										</tr>
 										<tr class="gradeA">
-											<td>1002</td>
-											<td>Multinacional de Seguros</td>
+											<td>Juan Pérez</td>
 											<td>Bs. 5000</td>
-											<td>25/11/2013</td>
+											<td>F-24410</td>
+											<td>Pendiente</td>
 											<td>
-												<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
-												</a>
 												<a href="#" style="color: transparent" >
 													<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 												</a>
-												<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-													onclick="return loadVars(1001,'Pagar', 'Multinacional de Seguros');" >
-													<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-												</a> 
 												<a id="go" rel="leanModal" href="#closeAccount" style="color: #f7941e; font-weight: bold;" 
-													onclick="return loadVars(1001,'Pagar', 'Multinacional de Seguros', 'pagada');" >
-													<img alt="logo" src="./images/check.png" height="16" width="16" title="Pagada"/>
+													onclick="return loadVars(1001,'Cobrar', 'Juan Pérez');" >
+													<img alt="logo" src="./images/check.png" height="16" width="16" title="Cobrada"/>
 												</a> 
 												<br>
 											</td>
 										</tr>
 										<tr class="gradeA">
-											<td>1003</td>
-											<td>Vidamed</td>
+											<td>Luisa Mendez</td>
 											<td>Bs. 34500</td>
-											<td>17/10/2013</td>
+											<td>F-1324A</td>
+											<td><span style="color: rgb(241, 224, 180);font-weight: bold;font-style: italic;"> Cobrado</span></td>
 											<td>
-												<a href="#" style="color: transparent" >
-													<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
-												</a>
 												<a href="#" style="color: transparent" >
 													<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 												</a>
-												<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-													onclick="return loadVars(1001,'Pagar', 'Vidamed');" >
-													<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-												</a> 
-												<a id="go" rel="leanModal" href="#closeAccount" style="color: #f7941e; font-weight: bold;" 
-													onclick="return loadVars(1001,'Pagar', 'Vidamed', 'pagada');" >
-													<img alt="logo" src="./images/check.png" height="16" width="16" title="Pagada"/>
-												</a> 
 												<br>
 											</td>
 										</tr>
 									</tbody>
 								</table>
 							</div>
-					</div>
+						</div>
+					
+					
   				</div>
 			</div>
 		</div>
@@ -335,9 +422,9 @@
 		</div>
 		<div id="closeAccount">
 			<div id="signup-ct">
-				<h3 id="see_id" class="sprited" > Pagar cuenta <span class="type"></span>  </h3>
+				<h3 id="see_id" class="sprited" > Pago Realizado</h3>
 				<br><br>
-				<span>¿Está seguro que la cuenta de <span class="name"></span> fue <span class="actionAccount"></span>? </span> <br><br>
+				<span>¿Está seguro que el pago al doctor <span class="name"></span> fue realizado? </span> <br><br>
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
