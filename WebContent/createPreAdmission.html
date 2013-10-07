@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -7,7 +7,7 @@
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css" />
 	  	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-		<script type="text/javascript" language="javascript" src="./js/jquery.leanModal.min.js"></script>
+		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
 		<link rel="stylesheet" href="/resources/demos/style.css" />
 		<script>
 			$(function() {
@@ -80,7 +80,17 @@
 			<div id="header">
 	        	<img alt="logo" src="./images/logo.png"/>
 	        </div>         
-        	 <nav><ul><li><a href="#">Bienvenido, Prueba</a></li><li><a href="pendingRequest.html">Solicitudes<span class="badge red">2</span></a></li><li><a href="pendingPharmacyDischarges.html">Altas Pendientes<span class="badge red">3</span></a></li><li><a href="billing.html">Pagos Pendientes<span class="badge red">6</span></a></li>	 </ul></nav><div id="menu">
+        	   	<nav>
+         	<ul>
+         		<li><a href="#">Bienvenido, Prueba</a></li>
+                <li><a href="pendingAdmissionDischarges.html">Altas Admisión<span class="badge green">3</span></a></li>
+		 		<li><a href="pendingCreditNotesReview.html">Prefacturas por Revisar<span class="badge red">3</span></a></li>
+		     	<li><a href="pendingRequest.html">Descuentos<span class="badge yellow">2</span></a></li>
+		     	<li><a href="pendingPharmacyDischarges.html">Altas Farmacia<span class="badge blue">3</span></a></li>
+		     	<li><a href="billing.html">Pagos Pendientes<span class="badge green">6</span></a></li>
+         	 </ul>
+         </nav>        
+		<div id="menu">
 				<div class="menuitemHome" ><a href="mainMenu.html">Home</a></div>	
 		    	<ul>
             		<li class="menuitem"><a href="preAdmission.html">Ver Pre-Admisiones</a></li>
