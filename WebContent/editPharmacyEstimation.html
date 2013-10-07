@@ -1,56 +1,61 @@
-<!DOCTYPE html >
+<!DOCTYPE >
 <html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-		<title>Editar Presupuesto</title>
-		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css" />
-	  	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
-		<link rel="stylesheet" href="/resources/demos/style.css" />
-		<script type="text/javascript">
-		var idUser;
-
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
+	<title>Altas Farmacia Pendientes</title>
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css" />
+  	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
+	<link rel="stylesheet" href="/resources/demos/style.css" />
+	<script type="text/javascript">
+	var idUser;
+			
+	$(function() {
+		$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x" });		
+	});
+	
+	function loadVars(var1, var2) {
+		idUser = var1;
+		$('.cliente').text(var2);
+		
+	};
+	
+	function setV(f){
+		f.elements['userId'].value = idUser;
+		return true;
+	}
+	</script>
+	<script>
 		$(function() {
-			$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x, .buttonPopUpClose" });		
+			$("#tabs").tabs();
+			$("#tabs").tabs("select", window.location.hash);
 		});
-
-		function loadVars(var1, var2) {
-			idUser = var1;
-			$('.cliente').text(var2);
-
-		};
-
-		function setV(f){
-			f.elements['userId'].value = idUser;
-			return true;
-		}
-		</script>
-		<script>
-			$(function() {
-				$("#tabs").tabs();
-				$("#tabs").tabs("select", window.location.hash);
-			});
-		</script>
-	</head>
-	<body>
-		<div id="container">
-			<div id="header">
-	        	<img alt="logo" src="./images/logo.png"/>
-	        </div>         
-        	<div id="menu">
-				<div class="menuitemHome" ><a href="mainMenu.html">Home</a></div>	
-		    	<ul>
-	            	<li class="menuitem"><a href="estimations.html">Ver Presupuestos</a></li>
-	            	<li class="menuitem"><a href="createEstimation.html">Crear Presupuesto</a></li>
-	     
-	            </ul>
-				<div class="menuitemSalir"><a href="index.html">Salir</a></div>	
-        	</div>        
-			<div id='cssmenu'>
+	</script>
+</head>
+<body>
+	<div id="container">
+		<div id="header">
+        	<img alt="logo" src="./images/logo.png"/>
+        </div>  
+         <nav>
+		      <ul>
+		      	 <li><a href="#">Bienvenido, Prueba</a></li>
+		        <li><a href="pendingPharmacyDischarges.html">Altas Pendientes<span class="badge red">3</span></a></li>
+		      </ul>
+	    </nav>          
+        <div id="menu">
+			<div class="menuitemHome" ><a href="mainMenu.html">Home</a></div>	
+			<ul>
+            	<li class="menuitem"><a href="supplyAreas.html">Ver Áreas Insumos</a></li>
+            	<li class="menuitem"><a href="pendingPharmacyDischarges.html">Ver Altas Pendientes</a></li>
+            </ul>
+	    	<div class="menuitemSalir"><a href="index.html">Salir</a></div>	
+        </div>        
+		<div id='cssmenu'>
 				<ul>
-				   <li class='first active'><a href='estimations.html'><span>Presupuesto</span></a></li>
+				   <li class='first'><a href='estimations.html'><span>Presupuesto</span></a></li>
 				   <li><a href='emergencies.html'><span>Emergencia</span></a></li>
 				   <li><a href='admission.html'><span>Admisión</span></a></li>
 				   <li><a href='hospitalization.html'><span>Hospitalización</span></a></li>
@@ -63,7 +68,7 @@
 				      </ul>
 				   </li>
 				   <li><a href='services.html'><span>Servicios</span></a></li>
-				   <li><a href='supplyAreas.html'><span>Farmacia</span></a></li>
+				   <li class='active'><a href='supplyAreas.html'><span>Farmacia</span></a></li>
 				   <li><a href='departments.html'><span>Unidades</span></a></li>
 				   <li><a href='doctors.html'><span>Especialistas</span></a></li>
 				   <li><a href='paymentResponsibles.html'><span>Responsables de Pago</span></a></li>
@@ -72,8 +77,8 @@
 				   <li class='last'><a href='accounts.html'><span>Cuentas Pendientes</span></a></li>
 				</ul>
 			</div>
-        	<div id="content" style="position:absolute;">	
-	        	<h2>Editar Presupuesto:</h2><br>
+		<div id="content" style="position:absolute;">	
+	        	<h2>Ver Detalle Alta Pendiente:</h2><br>
 	        	<br>
 				<div id="tabs">
 					<ul>
@@ -89,11 +94,11 @@
 					    <input type="text" name="departament" id="departament" value="Nutrición" readonly>
 					    <br><br>
 					   <label>Médico Tratante: </label> <input type="text" name="doctorName" id="doctorName" value="Ricardo García" readonly>
-					    <a href="searchDoctor.html?function=editEstimation" style="color: #f7941e; font-weight: bold;">
+					    <a href="searchDoctor.html?function=editPharmacyEstimation" style="color: #f7941e; font-weight: bold;">
 							<input type="button"id="doctorId" value="Cambiar" >
 						</a> <br><br>
 					   <label> Responsable del Pago:</label>  <input type="text" name="insuranceName" id="insuranceName" value="La Previsora" readonly>
-					    <a href="searchInsurance.html?function=editEstimation" style="color: #f7941e; font-weight: bold;">
+					    <a href="searchInsurance.html?function=editPharmacyEstimation" style="color: #f7941e; font-weight: bold;">
 							<input type="button"id="paymentResp" value="Cambiar" >
 						</a> 
 					    </fieldset>
@@ -111,7 +116,7 @@
 					</div>
   					<div id="tabs-2">
   						<div style="text-align:right;">
-	  						<a href="searchProtocols.html?function=editEstimation" style="color: #006c92; font-weight: bold;">
+	  						<a href="searchProtocols.html?function=editPharmacyEstimation" style="color: #006c92; font-weight: bold;">
 								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Protocolo
 							</a>						
   						</div>
@@ -127,11 +132,11 @@
 					   			<td>Frenuloplastia</td>
 					   			<td>Bs. 14321,00</td>
 					   			<td>
-					   				<a href="editMedicalFees.html" style="color: transparent" >
+					   				<a href="editPharmacyProtocol.html" style="color: transparent" >
 										<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar Protocolo" />
 									</a>
 										<a id="go" rel="leanModal" href="#deleteProtocol" style="color: #f7941e; font-weight: bold;" 
-											onclick="return loadVars(1001,'Frenuloplastia');" >
+											onclick="return loadVars(1001,'Colocación de prótesis peneana');" >
 											<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
 										</a> 
 								</td>

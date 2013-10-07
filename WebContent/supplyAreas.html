@@ -3,7 +3,7 @@
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-	<title>Suministros</title>
+	<title>Farmacia</title>
 	<script type="text/javascript" src="./js/jquery.js"></script>
 	<script type="text/javascript" src="./js/jquery.dataTables.js"></script>
 	<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
@@ -55,11 +55,17 @@
 	<div id="container">
 		<div id="header">
         	<img alt="logo" src="./images/logo.png"/>
-        </div>         
+        </div>  
+         <nav>
+		      <ul>
+		      	 <li><a href="#">Bienvenido, Prueba</a></li>
+		        <li><a href="pendingPharmacyDischarges.html">Altas Pendientes<span class="badge red">3</span></a></li>
+		      </ul>
+	    </nav>          
         <div id="menu">
 			<div class="menuitemHome" ><a href="mainMenu.html">Home</a></div>	
 			<ul>
-            	<li class="menuitem"><a href="createSupplyArea.html">Crear Área Suministros</a></li>
+            	<li class="menuitem"><a href="createSupplyArea.html">Crear Área Insumos</a></li>
             </ul>
 	    	<div class="menuitemSalir"><a href="index.html">Salir</a></div>	
         </div>        
@@ -78,7 +84,7 @@
 				      </ul>
 				   </li>
 				   <li><a href='services.html'><span>Servicios</span></a></li>
-				   <li class='active'><a href='supplyAreas.html'><span>Suministros</span></a></li>
+				   <li class='active'><a href='supplyAreas.html'><span>Farmacia</span></a></li>
 				   <li><a href='departments.html'><span>Unidades</span></a></li>
 				   <li><a href='doctors.html'><span>Especialistas</span></a></li>
 				   <li><a href='paymentResponsibles.html'><span>Responsables de Pago</span></a></li>
@@ -88,7 +94,7 @@
 				</ul>
 			</div>
 		<div id="content">  
-			<h2>Áreas de Suministros:</h2>
+			<h2>Áreas de Insumos:</h2>
 			<div id="dt_example">
 					<div id="container">
 						<div id="demo">
@@ -106,7 +112,7 @@
 										<td>Fármacos</td>
 										<td>
 											<a href="supplies.html" style="color: transparent" >
-												<img alt="logo" src="./images/meds.png"  height="18" width="18" title="Ver Suministros" />
+												<img alt="logo" src="./images/meds.png"  height="18" width="18" title="Ver Farmacia" />
 											</a>
 											<a href="editSupplyArea.html" style="color: transparent" >
 												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
@@ -123,7 +129,7 @@
 										<td>Material Médico Quirúrgico</td>
 										<td>
 											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/meds.png"  height="18" width="18" title="Ver Suministros" />
+												<img alt="logo" src="./images/meds.png"  height="18" width="18" title="Ver Farmacia" />
 											</a>
 											<a href="#" style="color: transparent" >
 												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
@@ -145,9 +151,9 @@
 		</div>
 		<div id="deleteUser">
 			<div id="signup-ct">
-				<h3 id="see_id" class="sprited" > Eliminar Área Suministros</h3>
+				<h3 id="see_id" class="sprited" > Eliminar Área Insumos</h3>
 				<br><br>
-				<span>¿Está seguro que desea eliminar el área de suministros '<span class="cliente"></span>' y los suministros asociados? </span> <br><br>
+				<span>¿Está seguro que desea eliminar el área de insumos '<span class="cliente"></span>' y los insumos asociados? </span> <br><br>
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
