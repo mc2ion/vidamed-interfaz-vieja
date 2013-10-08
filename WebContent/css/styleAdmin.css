@@ -632,10 +632,13 @@ fieldset label{
  
 }
 
-/* Cambie esto */
+#searchPayments{
+	font-size: 11px;
+}
+
 #searchPayments fieldset label{
   float:left;
-  width:25%;
+  width:13%;
   height: auto !important;
   margin-right:0.5em;
   text-align:left;
@@ -646,6 +649,11 @@ fieldset label{
 #searchPayments input[type="text"]{
   margin-bottom: 10px;
  width: auto !important;
+}
+
+#searchPayments b{
+  	margin-left: 5px;
+	display: inline-block;
 }
 
 fieldset input[type="text"]{
@@ -2386,9 +2394,6 @@ input.search-input{
 	background:-moz-linear-gradient( center top, #5cb811 5%, #77d42a 100% );
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#5cb811', endColorstr='#77d42a');
 	background-color:#5cb811;
-}.buttonGreen:active {
-	position:relative;
-	top:1px;
 }
 
 .centerP{
@@ -2633,7 +2638,6 @@ nav .badge.blue {
 
 .absoluteB{
 	position: absolute;
-	right: 135px;
-	top: 70px;
-		
+	right: 123px;
+	top: 78px;
 }

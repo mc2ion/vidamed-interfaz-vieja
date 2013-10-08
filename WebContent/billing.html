@@ -5,8 +5,42 @@
 		<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
 		<title>Facturación</title>
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css" />
-	  	<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+	  	<script src="./js/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<!--JS Datapicker-->
+		<script type="text/javascript" src="./js/jquery.ui.datepicker-es.js"></script>
+		<script type="text/javascript">
+		$(function() {
+		    $( "#txtDateIni" ).datepicker({
+		      changeMonth: true,
+		      numberOfMonths: 1,
+		      onClose: function( selectedDate ) {
+		        $( "#txtDateEnd" ).datepicker( "option", "minDate", selectedDate );
+		      },
+			    showOn: "button",
+				buttonImage: "images/calendar.png",
+				buttonImageOnly: true,
+				buttonText: "Seleccione una fecha",
+				dateFormat:'dd/mm/yyyy',
+				changeMonth: true,
+			    changeYear: true
+		    });
+		    $( "#txtDateEnd" ).datepicker({
+		      changeMonth: true,
+		      numberOfMonths: 1,
+		      onClose: function( selectedDate ) {
+		        $( "#txtDateIni" ).datepicker( "option", "maxDate", selectedDate );
+		      },
+		      showOn: "button",
+				buttonImage: "images/calendar.png",
+				buttonImageOnly: true,
+				buttonText: "Seleccione una fecha",
+				dateFormat:'dd/mm/yyyy',
+				changeMonth: true,
+			    changeYear: true
+		    });
+		  });
+		</script>
 		<script type="text/javascript" src="./js/jquery.dataTables.js"></script>
 		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
 		<link rel="stylesheet" href="/resources/demos/style.css" />
@@ -86,21 +120,6 @@
 				$("#tabs").tabs("select", window.location.hash);
 			});
 		</script>
-		<script type="text/javascript">
-			$(function(){
-				$.datepicker.setDefaults($.datepicker.regional['es']);
-				$('#txtDateIni').datepicker({
-					showOn: "button",
-					buttonImage: "images/calendar.png",
-					buttonImageOnly: true,
-					buttonText: "Seleccione una fecha",
-					dateFormat:'dd/mm/yyyy',
-					changeMonth: true,
-				    changeYear: true
-				});
-			} );
-		</script>
-		
 	</head>
 	<body>
 		<div id="container">
@@ -174,10 +193,9 @@
 											<td>Bs. 15000</td>
 											<td>F-2015</td>
 											<td>
-												<a href="showReceivable.html" style="color: transparent" >
+												<a href="showMedicalFeed.html" style="color: transparent" >
 													<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 												</a>
-												<br>
 											</td>
 										</tr>
 										<tr class="gradeA">
@@ -186,14 +204,13 @@
 											<td>Bs. 5000</td>
 											<td>F-24410</td>
 											<td>
-												<a href="#" style="color: transparent" >
+												<a href="showMedicalFeed.html" style="color: transparent" >
 													<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 												</a>
 												<a id="go" rel="leanModal" href="#closeAccount" style="color: #f7941e; font-weight: bold;" 
 													onclick="return loadVars(1001,'Cobrar', 'Juan Pérez');" >
-													<img alt="logo" src="./images/check.png" height="16" width="16" title="Cobrada"/>
+													<img alt="logo" src="./images/check.png" height="16" width="16" title="Pago Realizado"/>
 												</a> 
-												<br>
 											</td>
 										</tr>
 										<tr class="gradeA">
@@ -202,145 +219,83 @@
 											<td>Bs. 34500</td>
 											<td>F-1324A</td>
 											<td>
-												<a href="#" style="color: transparent" >
+												<a href="showMedicalFeed.html" style="color: transparent" >
 													<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 												</a>
 												<a id="go" rel="leanModal" href="#closeAccount" style="color: #f7941e; font-weight: bold;" 
 													onclick="return loadVars(1001,'Cobrar', 'Luisa Mendez');" >
-													<img alt="logo" src="./images/check.png" height="16" width="16" title="Cobrada"/>
+													<img alt="logo" src="./images/check.png" height="16" width="16" title="Pago Realizado"/>
 												</a> 
-												<br>
 											</td>
 										</tr>
 									</tbody>
 								</table>
 							</div>
-						</div>
+					</div>
 					<div id="tabs-2">
-  						<form id="searchPayments">
+						<form id="searchPayments">
+							Si lo desea, puede filtrar la búsqueda por cualquiera de los siguientes parámetros:
   							<fieldset>
-  							<label for="date">Intervalo de Fechas:</label>
-							Inicio: <input  type="text" name="txtDateIni" id="txtDateIni" maxlength="50" size="10" /> &nbsp;&nbsp;
-							Fin: <input  type="text" name="txtDateEnd" id="txtDateEnd" maxlength="50" size="10" /> <br>
-							<label>Titular:</label><input type="text" size="20">
-  							<b>Importe:</b><input type="text" size="20"><br>
+  							<b>Desde:</b> <input  type="text" name="txtDateIni" id="txtDateIni" maxlength="50" size="10" /> &nbsp;&nbsp;
+							<b>Hasta:</b> <input  type="text" name="txtDateEnd" id="txtDateEnd" maxlength="50" size="10" />
+							<b>Especialista:</b><input type="text" size="20">
+  							<b>Importe:</b> Bs.<input type="text" size="10"><br>
   							</fieldset>
-  							<input type="submit" class="buttonGreen absoluteB" value="Buscar">
+  							<input type="submit" class="buttonGreen absoluteB lessPadding" value="Buscar">
   						</form>
   							<div id="demo" style="display: block; height: 300px; overflow-y: scroll;">
 								<table id="sweetTable" >
 									<thead>
 										<tr>
 											<th>Fecha de Pago</th>
-											<th>Titular</th>
+											<th>Especialista</th>
 											<th>Importe</th>
 										</tr>
 									</thead>
 									<tbody>			
 										<tr>
 											<td>20/09/2013</td>
-											<td>Hospital Online</td>
+											<td>Ana Rojas</td>
 											<td>Bs. 15000</td>
 										</tr>
 										<tr>
 											<td>20/09/2013</td>
-											<td>Multinacional de Seguros</td>
+											<td>Pedro Ramirez</td>
 											<td>Bs. 5000</td>
 										</tr>
 										<tr>
 											<td>20/09/2013</td>
-											<td>Vidamed</td>
+											<td>Luis Gomez</td>
 											<td>Bs. 34500</td>
 										</tr>
 										<tr>
 											<td>20/09/2013</td>
-											<td>Hospital Online</td>
+											<td>Juan Medina</td>
 											<td>Bs. 15000</td>
 										</tr>
 										<tr>
 											<td>20/09/2013</td>
-											<td>Multinacional de Seguros</td>
-											<td>Bs. 5000</td>
-										</tr>
-										<tr>
-											<td>20/09/2013</td>
-											<td>Vidamed</td>
-											<td>Bs. 34500</td>
-										</tr>
-										<tr>
-											<td>20/09/2013</td>
-											<td>Hospital Online</td>
+											<td>Ana Rojas</td>
 											<td>Bs. 15000</td>
 										</tr>
 										<tr>
 											<td>20/09/2013</td>
-											<td>Multinacional de Seguros</td>
+											<td>Pedro Ramirez</td>
 											<td>Bs. 5000</td>
 										</tr>
 										<tr>
 											<td>20/09/2013</td>
-											<td>Vidamed</td>
+											<td>Luis Gomez</td>
 											<td>Bs. 34500</td>
 										</tr>
 										<tr>
 											<td>20/09/2013</td>
-											<td>Hospital Online</td>
+											<td>Juan Medina</td>
 											<td>Bs. 15000</td>
 										</tr>
-										<tr>
-											<td>20/09/2013</td>
-											<td>Multinacional de Seguros</td>
-											<td>Bs. 5000</td>
-										</tr>
-										<tr>
-											<td>20/09/2013</td>
-											<td>Vidamed</td>
-											<td>Bs. 34500</td>
-										</tr>
-										<tr>
-											<td>20/09/2013</td>
-											<td>Hospital Online</td>
-											<td>Bs. 15000</td>
-										</tr>
-										<tr>
-											<td>20/09/2013</td>
-											<td>Multinacional de Seguros</td>
-											<td>Bs. 5000</td>
-										</tr>
-										<tr>
-											<td>20/09/2013</td>
-											<td>Vidamed</td>
-											<td>Bs. 34500</td>
-										</tr>
-										<tr>
-											<td>20/09/2013</td>
-											<td>Hospital Online</td>
-											<td>Bs. 15000</td>
-										</tr>
-										<tr>
-											<td>20/09/2013</td>
-											<td>Multinacional de Seguros</td>
-											<td>Bs. 5000</td>
-										</tr>
-										<tr>
-											<td>20/09/2013</td>
-											<td>Vidamed</td>
-											<td>Bs. 34500</td>
-										</tr>
-										<tr>
-											<td>20/09/2013</td>
-											<td>Hospital Online</td>
-											<td>Bs. 15000</td>
-										</tr>
-										<tr>
-											<td>20/09/2013</td>
-											<td>Multinacional de Seguros</td>
-											<td>Bs. 5000</td>
-										</tr>
-										<tr>
-											<td>20/09/2013</td>
-											<td>Vidamed</td>
-											<td>Bs. 34500</td>
+										<tr style="background: gray;">
+											<td colspan="2">Total</td>
+											<td>Bs. 165.240,20</td>
 										</tr>
 										
 									</tbody>
@@ -366,7 +321,7 @@
 											<td>F-2015</td>
 											<td>Pendiente</td>
 											<td>
-												<a href="showReceivable.html" style="color: transparent" >
+												<a href="showPromptPayment.html" style="color: transparent" >
 													<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 												</a>
 												<a id="go" rel="leanModal" href="#closeAccount" style="color: #f7941e; font-weight: bold;" 
@@ -382,7 +337,7 @@
 											<td>F-24410</td>
 											<td>Pendiente</td>
 											<td>
-												<a href="#" style="color: transparent" >
+												<a href="showPromptPayment.html" style="color: transparent" >
 													<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 												</a>
 												<a id="go" rel="leanModal" href="#closeAccount" style="color: #f7941e; font-weight: bold;" 
@@ -398,7 +353,7 @@
 											<td>F-1324A</td>
 											<td><span style="color: rgb(241, 224, 180);font-weight: bold;font-style: italic;"> Cobrado</span></td>
 											<td>
-												<a href="#" style="color: transparent" >
+												<a href="showPromptPayment.html" style="color: transparent" >
 													<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 												</a>
 												<br>
