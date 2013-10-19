@@ -15,7 +15,7 @@
         <div id="menu"> </div>            
        			 <div id="wrapper">
 	                        <div id="login" class="animate form">
-	                            <form  action="./mainMenu.html" > 
+	                            <form  action="/vidamed/UserLoginServlet" method="post" > 
 	                                <h1> </h1> 
 	                                <p> 
 	                                    <label for="username" class="uname" data-icon="u" > Nombre de usuario </label>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
+	<title>Escoger Especialista</title>
+	<script type="text/javascript" src="./js/jquery.js"></script>
+	<script type="text/javascript" src="./js/jquery.dataTables.js"></script>
+	<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
+	<script type="text/javascript" charset="utf-8">
+	$(document).ready(function() {
+		var oTable = $('#example').dataTable( {
+			"iDisplayLength": 7,
+			"bLengthChange": false,
+			"sScrollY": "150px",
+			"bPaginate": false,
+			"aoColumns": [
+				{ "bSearchable": false, "asSorting": false, "sWidth": "10%"},
+				null,
+				null,
+				null
+			],
+			"oLanguage": {
+	            "sLengthMenu": "Mostrar _MENU_ registros",
+	            "sZeroRecords": "No hay ningún registro que coincida con su búsqueda",
+	            "sInfo": "Mostrando _START_ a _END_ de _TOTAL_ registros",
+	            "sInfoEmpty": "Mostrando 0 a 0 de 0 registros",
+	            "sInfoFiltered": "(filtrando de _MAX_ registros totales)",
+	            "sEmptyTable": "No hay datos disponibles en la tabla",
+	            "sLoadingRecords": "Por favor, espere - cargando...",
+	            "sSearch": "Buscar:"
+        	}
+		} );
+		oTable.fnSort( [ [1,'asc'] ] );
+	} );
+	</script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			
+			function getUrlVars() {
+			    var vars = {};
+			    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+			        vars[key] = value;
+			    });
+			    return vars;
+			}
+
+			var first = getUrlVars()["function"];
+			first = first.replace(/\+/g, ' ');
+			if (first != null){
+				if (first.indexOf("CreditNote") > 0){
+					$("#admission").attr('class', 'active');
+					if (first == "editCreditNoteEstimation")
+						$("#form").attr('action', 'editCreditNoteEstimation.jsp');
+				}
+				else if (first.indexOf("Admission") > 0){
+					$("#admission").attr('class', 'active');
+					if (first == "editAdmissionEstimation")
+						$("#form").attr('action', 'editAdmissionEstimation.jsp');
+				}
+				else if (first.indexOf("Pharmacy") > 0){
+					$("#supplyAreas").attr('class', 'active');
+					if (first == "editPharmacyEstimation")
+						$("#form").attr('action', 'editPharmacyEstimation.jsp');
+				}
+				else if (first.indexOf("Estimation") > 0){
+					$("#estimation").attr('class', 'active');
+					if (first == "editEstimation")
+						$("#form").attr('action', 'editEstimation.jsp');
+					else if(first == "createEstimation")
+						$("#form").attr('action', 'createEstimation.jsp');
+				}
+				else if (first.indexOf("Hospitalization") > 0){
+					$("#hospitalization").attr('class', 'active');
+					if (first == "editHospitalization")
+						$("#form").attr('action', 'edithospitalization.jsp');
+					
+				}
+				else if (first.indexOf("Patient") > 0){
+					$("#admission").attr('class', 'active');
+					if (first == "admitPatient")
+						$("#form").attr('action', 'admitPatient.jsp');
+					
+				}
+			}
+				
+		});
+		
+	</script>
+	<script type="text/javascript">
+	var idUser;
+			
+	$(function() {
+		$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x" });
+		
+		$("#next").click(function() {
+			$("#beds").css("visibility","visible"); 
+			$("#botonReg").hide();
+		});
+	});
+	
+	function loadVars(var1, var2) {
+		idUser = var1;
+		$('.cliente').text(var2);
+		
+	};
+	
+	function setV(f){
+		f.elements['userId'].value = idUser;
+		return true;
+	}
+	
+	
+	</script>
+</head>
+<body>
+	<div id="container">
+		<div id="header">
+        	<img alt="logo" src="./images/logo.png"/>
+        </div>         
+      	<nav>
+         	<ul>
+         		<li><a href="#">Bienvenido, Prueba</a></li>
+                <li><a href="pendingAdmissionDischarges.jsp">Altas Admisión<span class="badge yellow">3</span></a></li>
+		 		<li><a href="pendingCreditNotes.jsp">Prefacturas por Generar<span class="badge blue">3</span></a></li><li><a href="pendingCreditNotesReview.jsp">Prefacturas por Revisar<span class="badge green">3</span></a></li><li><a href="pendingInvoices.jsp">Facturas por Generar<span class="badge red">3</span></a></li>
+		     	<li><a href="pendingRequest.jsp">Descuentos<span class="badge yellow">2</span></a></li>
+		     	<li><a href="pendingPharmacyDischarges.jsp">Altas Farmacia<span class="badge blue">3</span></a></li>
+		     	<li><a href="billing.jsp">Pagos Pendientes<span class="badge green">6</span></a></li>
+         	 </ul>
+         </nav>        
+		<div id="menu">
+			
+			<div class="menuitemHome" ><a href="mainMenu.jsp">Home</a></div>	
+	    	<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
+        </div>        
+		 <jsp:include page="./menu.jsp" />
+		<div id="content">  
+			<form action="" method="get" id="form" style="display: inline;">
+				
+			<h2>Escoger medico tratante:</h2><br>
+			<p> Por favor seleccione la unidad del médico tratante y haga clic en "Siguiente": </p><br>
+			<p><b>Unidad:  </b> 
+				<select id="department" name="department" style="width: 230px;">
+								<option value="337" >ALERGOLOGÍA</option>
+							 	<option value="660" >ANALISTAS DE SEGUROS</option>
+								<option value="338" >ANESTESIOLOGÍA</option>
+								<option value="340" >BIOANÁLISIS</option>
+								<option value="240" >CARDIOLOGÍA</option>
+								<option value="342" >CARDIOVASCULAR PERIFÉRICO</option>
+								<option value="343" >CIRUGÍA BARIÁTRICA</option>
+								<option value="344" >CIRUGÍA COLUMNA</option>
+								<option value="345" >CIRUGÍA DE TÓRAX</option>
+								<option value="887" >CIRUGIA EN ORTOPEDIA INFANTIL</option>
+								<option value="235" >CIRUGIA GENERAL</option>
+								<option value="346" >CIRUGÍA GINECOLÓGICA</option>
+								<option value="544" >CIRUGÍA LAPAROSCOPICA</option>
+								<option value="348" >CIRUGÍA MÁXILO-FACIAL </option>
+								<option value="349" >CIRUGÍA ONCOLÓGICA </option>
+								<option value="350" >CIRUGÍA PEDIÁTRICA</option>
+								<option value="351" >CIRUGÍA PLÁSTICA, ESTÉTICA Y RECONSTRUCTIVA</option>
+								<option value="935" >COLOPROCTOLOGÍA</option>
+								<option value="658" >COORDINADOR DE APS / SUP. DE SECRETARIAS</option>
+								<option value="236" >DERMATOLOGÍA</option>
+								<option value="352" >ENDOCRINOLOGÍA</option>
+								<option value="231" >FISIATRÍA</option>
+								<option value="353" >FISIOTERAPEUTAS</option>
+								<option value="238" >GASTROENTEROLOGÍA</option>
+								<option value="418" >GASTROENTEROLOGÍA INFANTIL</option>
+								<option value="355" >GINECO OBSTETRICIA</option>
+								<option value="356" >GINECOLOGÍA CLÍNICA</option>
+								<option value="239" >HEMATOLOGÍA</option>
+								<option value="357" >INFERTILIDAD</option>
+								<option value="419" >LABORATORIO</option>
+								<option value="359" >MASTOLOGÍA</option>
+								<option value="245" >MEDICINA INTERNA</option>
+								<option value="362" >MÉDICOS RESIDENTES</option>
+								<option value="656" >NEFROLOGIA DE ADULTOS</option>
+								<option value="364" >NEONATOLOGÍA</option>
+								<option value="365" >NEUMONOLOGÍA</option>
+								<option value="366" >NEUMONOLOGÍA PEDÍATRICA</option>
+								<option value="367" >NEUROCIRUGÍA</option>
+								<option value="233" >NEUROLOGÍA</option>
+								<option value="229" >NUTRICIÓN</option>
+								<option value="232" >OFTALMOLOGÍA</option>
+								<option value="370" >ONCOLOGÍA MÉDICA</option>
+								<option value="244" >OTORRINOLARINGOLOGÍA</option>
+								<option value="371" >PATOLOGÍA</option>
+								<option value="372" >PEDIATRÍA</option>
+								<option value="373" >PROCTOLOGÍA</option>
+								<option value="374" >PSQUIATRÍA</option>
+								<option value="375" >RADIOLOGÍA, IMAGENOLOGÍA</option>
+								<option value="376" >REUMATOLOGÍA</option>
+								<option value="659" >SECRETARIAS</option>
+								<option value="378" >TÉCNICOS RADIÓLOGOS</option>
+								<option value="379" >TOMOGRAFÍA Y RESONANCIA</option>
+								<option value="657" >TRAUMATOLOGIA ESPECIALISTA EN COLUMNA</option>
+								<option value="380" >TRAUMATOLOGÍA Y ORTOPEDIA</option>
+								<option value="242" >UROLOGÍA</option>
+								<option value="381" >UROLOGÍA PEDIÁTRICA</option>
+				</select>
+				<input id="next" type="button" value="Siguiente">
+			</p>
+				<div id="botonReg" style="position: absolute; margin-top: 40px; margin-left: 320px;">
+					<br><input type="button" class="button" value="Regresar"
+						onClick="javascript:history.back();" />
+				</div>
+			<br><br>
+			<div id="beds" style="visibility: hidden;">
+				<p>Escoga el médico tratante haciendo clic en la columna izquierda de la tabla y luego haga clic en "Seleccionar":</p>
+					<div id="dt_example">
+						<div id="container">
+							<div id="demo">
+								<table class="display" id="example">
+									<thead>
+										<tr>
+											<th>Escoger</th>
+											<th>ID</th>
+											<th>Nombre</th>
+											<th>Consultorio</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr class="gradeA">
+											<td><input type="radio" name="doctor" value="Adrian Beltran"><br>
+											</td>
+											<td>1</td>
+											<td>Adrian Beltran</td>
+											<td>132</td>
+
+										</tr>
+										<tr class="gradeA">
+											<td><input type="radio" name="doctor" value="Alvaro Gomez"><br>
+											</td>
+											<td>2</td>
+											<td>Alvaro Gómez</td>
+											<td>-</td>
+
+										</tr>
+										<tr class="gradeA">
+											<td><input type="radio" name="doctor" value="Antonio Dapuzzo"><br></td>
+											<td>3</td>
+											<td>Antonio Dapuzzo</td>
+											<td>325</td>
+
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<br>
+						<div id="botonera">
+								<div id="botonP" style="display: inline; margin-right: 30px;">
+											<input type="submit"  class="button"  name="sbmtButton" value="Seleccionar" />
+								</div>	
+								<div id="botonV" style="display: inline;">
+										<input type="submit" class="button" value="Regresar" />		
+								</div>	
+						</div>
+				</div>
+				
+			</div>
+			</form>
+			<div class="spacer"></div>
+        	</div>
+       	</div>
+		
+	</body>
+</html>
