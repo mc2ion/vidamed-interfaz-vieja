@@ -46,9 +46,9 @@
          	 </ul>
          </nav>        
 		<div id="menu">
-				<div class="menuitemHome" ><a href="mainMenu.jsp">Home</a></div>	
+				<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 		    	<ul>
-	            	<li class="menuitem"><a href="accounts.jsp">Ver Cuentas</a></li>
+	            	<li class="menuitem"><a href="ListAccountsServlet">Ver Cuentas</a></li>
 	            </ul>
 	           <div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
         	</div>        
@@ -78,12 +78,12 @@
 							<input type="text" name="txtDateIni" id="txtDateIni" maxlength="50" size="10" value="20/08/2013" />
 						</fieldset>						
 						<div id="botonera">
-							<form action="accounts.jsp" style="display: inline; ">
+							<form action="ListAccountsServlet" style="display: inline; ">
 								<div id="botonP" style="display: inline; margin-right: 30px;">
 											<input type="submit"  class="button"  name="sbmtButton" value="Editar" />
 								</div>
 							</form>	
-							<form action="accounts.jsp#tabs-1" style="display: inline; ">
+							<form action="ListAccountsServlet#tabs-1" style="display: inline; ">
 								<div id="botonV" style="display: inline; margin-right: 30px;" >
 										<input type="submit" class="button" value="Regresar" />		
 								</div>
@@ -128,12 +128,12 @@
 							<textarea name="txtNotes" id="txtNotes" rows="2" cols="50"></textarea>
 						</fieldset>		
 						<div id="botonera">
-							<form action="accounts.jsp" style="display: inline; ">
+							<form action="ListAccountsServlet" style="display: inline; ">
 								<div id="botonP" style="display: inline; margin-right: 30px;">
 											<input type="submit"  class="button"  name="sbmtButton" value="Editar" />
 								</div>
 							</form>	
-							<form action="accounts.jsp#tabs-1" style="display: inline; ">
+							<form action="ListAccountsServlet#tabs-1" style="display: inline; ">
 								<div id="botonV" style="display: inline; margin-right: 30px;" >
 										<input type="submit" class="button" value="Regresar" />		
 								</div>

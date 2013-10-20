@@ -91,7 +91,7 @@
          	 </ul>
          </nav>        
 		<div id="menu">
-				<div class="menuitemHome" ><a href="mainMenu.jsp">Home</a></div>	
+				<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 		    	<ul>
             		<li class="menuitem"><a href="preadmission.jsp">Ver Pre-Admisiones</a></li>
            		 </ul>
@@ -124,7 +124,7 @@
 								<br><br>
 					
 							   <label> Médico Tratante:</label> <input type="text" name="reasonAdmission" id="reasonAdmission" value="" >
-							    <a href="searchDoctor.jsp?function=preAdmitPatient" style="color: #f7941e; font-weight: bold;">
+							    <a href="SearchDoctorServlet?function=preAdmitPatient" style="color: #f7941e; font-weight: bold;">
 									<input type="button"id="doctor" value="Buscar" >
 								</a> <br><br>
 							    <label> Área:  </label>

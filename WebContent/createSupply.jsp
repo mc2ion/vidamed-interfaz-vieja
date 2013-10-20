@@ -38,7 +38,7 @@
          	 </ul>
          </nav>        
 		<div id="menu">
-				<div class="menuitemHome" ><a href="mainMenu.jsp">Home</a></div>	
+				<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 		    	<ul>
 	            	<li class="menuitem"><a href="supplyAreas.jsp" >Ver Áreas Insumos</a></li>
 	            	<li class="menuitem"><a href="supplies.jsp"style="margin-left:10px;">Ver Insumos</a></li>

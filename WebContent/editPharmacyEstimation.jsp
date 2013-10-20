@@ -50,7 +50,7 @@
          	 </ul>
          </nav>       
 		 <div id="menu">
-			<div class="menuitemHome" ><a href="mainMenu.jsp">Home</a></div>	
+			<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 			<ul>
             	<li class="menuitem"><a href="supplyAreas.jsp">Ver Áreas Insumos</a></li>
             	<li class="menuitem"><a href="pendingPharmacyDischarges.jsp">Ver Altas Pendientes</a></li>
@@ -75,7 +75,7 @@
 					    <input type="text" name="departament" id="departament" value="Nutrición" readonly>
 					    <br><br>
 					   <label>Médico Tratante: </label> <input type="text" name="doctorName" id="doctorName" value="Ricardo García" readonly>
-					    <a href="searchDoctor.jsp?function=editPharmacyEstimation" style="color: #f7941e; font-weight: bold;">
+					    <a href="SearchDoctorServlet?function=editPharmacyEstimation" style="color: #f7941e; font-weight: bold;">
 							<input type="button"id="doctorId" value="Cambiar" >
 						</a> <br><br>
 					   <label> Responsable del Pago:</label>  <input type="text" name="insuranceName" id="insuranceName" value="La Previsora" readonly>
@@ -97,7 +97,7 @@
 					</div>
   					<div id="tabs-2">
   						<div style="text-align:right;">
-	  						<a href="searchadmission.jsp?function=editPharmacyEstimation" style="color: #006c92; font-weight: bold;">
+	  						<a href="SearchAdmissionServlet?function=editPharmacyEstimation" style="color: #006c92; font-weight: bold;">
 								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Protocolo
 							</a>						
   						</div>

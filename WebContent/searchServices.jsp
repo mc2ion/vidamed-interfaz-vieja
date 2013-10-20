@@ -83,7 +83,7 @@
 				else if (first.indexOf("Patient") > 0){
 					$("#admission").attr('class', 'active');
 					if (first == "admitPatient")
-						$("#form").attr('action', 'admitPatient.jsp');
+						$("#form").attr('action', 'AdmitPatientServlet');
 					
 				}
 				else if (first.indexOf("Emergency") > 0){
@@ -115,7 +115,7 @@
          </nav>        
 		<div id="menu">
 			
-			<div class="menuitemHome" ><a href="mainMenu.jsp">Home</a></div>	
+			<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 			<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
         </div>        
 		<jsp:include page="./menu.jsp" />

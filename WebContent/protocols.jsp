@@ -69,9 +69,9 @@
          </nav>        
 		<div id="menu">
 			
-			<div class="menuitemHome" ><a href="mainMenu.jsp">Home</a></div>	
+			<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 			<ul>
-            	<li class="menuitem"><a href="createProtocol.jsp">Crear Protocolo</a></li>
+            	<li class="menuitem"><a href="CreateProtocolServlet">Crear Protocolo</a></li>
             </ul>
 	    	<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
         </div>        

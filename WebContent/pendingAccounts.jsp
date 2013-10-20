@@ -102,9 +102,9 @@
          	 </ul>
          </nav>        
 		<div id="menu">
-				<div class="menuitemHome" ><a href="mainMenu.jsp">Home</a></div>	
+				<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 		    	<ul>
-	            	<li class="menuitem"><a href="bank.jsp">Ver cajas</a></li>
+	            	<li class="menuitem"><a href="ListBanksServlet">Ver cajas</a></li>
 	            </ul>
 				<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
         	</div>        

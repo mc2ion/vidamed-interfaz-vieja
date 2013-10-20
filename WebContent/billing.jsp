@@ -137,7 +137,7 @@
          	 </ul>
          </nav>        
 		<div id="menu">
-				<div class="menuitemHome" ><a href="mainMenu.jsp">Home</a></div>	
+				<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 		    	<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
         	</div>        
 			 <jsp:include page="./menu.jsp" />

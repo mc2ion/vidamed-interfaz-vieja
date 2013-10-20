@@ -26,10 +26,10 @@
          	 </ul>
          </nav>        
 		<div id="menu">
-				<div class="menuitemHome" ><a href="mainMenu.jsp">Home</a></div>	
+				<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 		    	<ul>
-	            	<li class="menuitem"><a href="bankaccounts.jsp">Ver Cuentas</a></li>
-	            	<li class="menuitem"><a href="accountMovements.jsp" style="margin-left: 10px;">Ver Movimientos</a></li>
+	            	<li class="menuitem"><a href="ListBanksAccountsServlet">Ver Cuentas</a></li>
+	            	<li class="menuitem"><a href="ListAccountMovementsServlet" style="margin-left: 10px;">Ver Movimientos</a></li>
 	            </ul>
 				<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
         	</div>        

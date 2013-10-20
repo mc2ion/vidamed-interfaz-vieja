@@ -71,7 +71,7 @@
          </nav>        
 		<div id="menu">
 			
-			<div class="menuitemHome" ><a href="mainMenu.jsp">Home</a></div>	
+			<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 	    	<ul>
             	<li class="menuitem"><a href="createUser.jsp">Crear Usuario</a></li>
             </ul>

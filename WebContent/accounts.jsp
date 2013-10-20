@@ -107,7 +107,7 @@
          	 </ul>
          </nav>        
  	<div id="menu">		
-        		<div class="menuitemHome" ><a href="mainMenu.jsp">Home</a></div>	
+        		<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 		    	<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
         	</div>        
 			 <jsp:include page="./menu.jsp" />
@@ -120,7 +120,7 @@
 					</ul>
   					<div id="tabs-1">
   						<div style="text-align:right; margin-top: 5px; margin-bottom:20px;">
-	  						<a href="createReceivable.jsp" style="color: #006c92; font-weight: bold;">
+	  						<a href="CreateReceivableServlet" style="color: #006c92; font-weight: bold;">
 								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Cuenta por Cobrar
 							</a>						
   						</div>
@@ -142,10 +142,10 @@
 											<td>Bs. 15000</td>
 											<td>20/08/2013</td>
 											<td>
-												<a href="editReceivable.jsp" style="color: transparent" >
+												<a href="EditReceivableServlet" style="color: transparent" >
 												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
 												</a>
-												<a href="showReceivable.jsp" style="color: transparent" >
+												<a href="ShowReceivableServlet" style="color: transparent" >
 													<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 												</a>
 												<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
@@ -211,7 +211,7 @@
 						</div>
 					<div id="tabs-2">
   						<div style="text-align:right; margin-top: 5px; margin-bottom:20px;">
-	  						<a href="createAccountPayable.jsp" style="color: #006c92; font-weight: bold;">
+	  						<a href="CreateAccountPayableServlet" style="color: #006c92; font-weight: bold;">
 								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Cuenta por Pagar
 							</a>						
   						</div>
@@ -233,10 +233,10 @@
 											<td>Bs. 15000</td>
 											<td>20/09/2013</td>
 											<td>
-												<a href="editAccountPayable.jsp" style="color: transparent" >
+												<a href="EditAccountPayableServlet" style="color: transparent" >
 												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
 												</a>
-												<a href="showAccountPayable.jsp" style="color: transparent" >
+												<a href="ShowAccountPayableServlet" style="color: transparent" >
 													<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 												</a>
 												<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 

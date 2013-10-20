@@ -26,9 +26,9 @@
          	 </ul>
          </nav>        
 		<div id="menu">
-				<div class="menuitemHome" ><a href="mainMenu.jsp">Home</a></div>	
+				<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 		    	<ul>
-	            	<li class="menuitem"><a href="bankaccounts.jsp">Ver Cuentas</a></li>
+	            	<li class="menuitem"><a href="ListBanksAccountsServlet">Ver Cuentas</a></li>
 	            </ul>
 				<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
         	</div>        
@@ -71,7 +71,7 @@
 					<input type="text" name="txtName" id="txtName" maxlength="50" size="5"/> <br><br>
 				</fieldset>
 				<div id="botonera">
-					<form action="bankaccounts.jsp">
+					<form action="ListBanksAccountsServlet">
 						<div id="botonP" style="display: inline; margin-right: 30px;">
 									<input type="submit"  class="button"  name="sbmtButton" value="Agregar" />
 						</div>	

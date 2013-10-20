@@ -29,7 +29,7 @@
          	 </ul>
          </nav>        
 		<div id="menu">
-				<div class="menuitemHome" ><a href="mainMenu.jsp">Home</a></div>	
+				<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 		    	<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
         	</div>        
 			 <jsp:include page="./menu.jsp" />
@@ -51,7 +51,7 @@
 				</tr>         
 				</table><br>
 				 <div id="botonera" style="margin-top: -3px;">
-					<form action="./createProtocol.jsp">
+					<form action="CreateProtocolServlet">
 						<div id="botonP" style="display: none; margin-right: 30px;">
 									<input type="submit"  class="button"  name="sbmtButton" value="Aceptar" />
 						</div>	

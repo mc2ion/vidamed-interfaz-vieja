@@ -26,9 +26,9 @@
          	 </ul>
          </nav>        
 		<div id="menu">
-				<div class="menuitemHome" ><a href="mainMenu.jsp">Home</a></div>	
+				<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 		    	<ul>
-	            	<li class="menuitem"><a href="departments.jsp">Ver Unidades</a></li>
+	            	<li class="menuitem"><a href="ListDepartmentsServlet">Ver Unidades</a></li>
 	            </ul>
 				<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
         	</div>        
@@ -43,7 +43,7 @@
 					<textarea name="txtDescription" id="txtDescription" rows="3" cols="50"></textarea> <br><br>
 				</fieldset>
 				<div id="botonera">
-					<form action="departments.jsp">
+					<form action="ListDepartamentsServlet">
 						<div id="botonP" style="display: inline; margin-right: 30px;">
 									<input type="submit"  class="button"  name="sbmtButton" value="Agregar" />
 						</div>	

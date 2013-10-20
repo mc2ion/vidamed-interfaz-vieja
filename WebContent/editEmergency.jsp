@@ -76,7 +76,7 @@
          	 </ul>
          </nav>        
 		<div id="menu">
-				<div class="menuitemHome" ><a href="mainMenu.jsp">Home</a></div>	
+				<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 				<ul>
             		<li class="menuitem"><a href="emergencies.jsp">Ver Emergencias</a></li>
            		</ul>
@@ -119,7 +119,7 @@
   					</div>
   					<div id="tabs-2">
   						<div style="text-align:right;">
-	  						<a href="searchadmission.jsp?function=editEmergency" style="color: #006c92; font-weight: bold;">
+	  						<a href="SearchAdmissionServlet?function=editEmergency" style="color: #006c92; font-weight: bold;">
 								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Protocolo
 							</a>						
   						</div>

@@ -60,9 +60,9 @@
          	 </ul>
          </nav>        
 		<div id="menu">
-				<div class="menuitemHome" ><a href="mainMenu.jsp">Home</a></div>	
+				<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 		    	<ul>
-	            	<li class="menuitem"><a href="accounts.jsp">Ver Cuentas</a></li>
+	            	<li class="menuitem"><a href="ListAccountsServlet">Ver Cuentas</a></li>
 	            </ul>
 				<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
         	</div>        
@@ -103,12 +103,12 @@
 							<input type="text" name="txtDateIni2" id="txtDateIni2" maxlength="50" size="10" value="20/09/2013" />
 						</fieldset>						
 						<div id="botonera">
-							<form action="accounts.jsp" style="display: inline; ">
+							<form action="ListAccountsServlet" style="display: inline; ">
 								<div id="botonP" style="display: inline; margin-right: 30px;">
 											<input type="submit"  class="button"  name="sbmtButton" value="Editar" />
 								</div>
 							</form>	
-							<form action="accounts.jsp#tabs-2" style="display: inline; ">
+							<formaction="ListAccountsServlet#tabs-2" style="display: inline; ">
 								<div id="botonV" style="display: inline; margin-right: 30px;" >
 										<input type="submit" class="button" value="Regresar" />		
 								</div>
@@ -131,12 +131,12 @@
 							<input type="text" name="txtName" id="txtName" maxlength="50" size="5" value="Bs. 15000"/>
 						</fieldset>						
 						<div id="botonera">
-							<form action="accounts.jsp" style="display: inline; ">
+							<form action="ListAccountsServlet" style="display: inline; ">
 								<div id="botonP" style="display: inline; margin-right: 30px;">
 											<input type="submit"  class="button"  name="sbmtButton" value="Editar" />
 								</div>
 							</form>	
-							<form action="accounts.jsp#tabs-2" style="display: inline; ">
+							<formaction="ListAccountsServlet#tabs-2" style="display: inline; ">
 								<div id="botonV" style="display: inline; margin-right: 30px;" >
 										<input type="submit" class="button" value="Regresar" />		
 								</div>
@@ -182,12 +182,12 @@
 							<textarea name="txtDescription" id="txtDescription" rows="2" cols="50"></textarea>
 						</fieldset>		
 						<div id="botonera">
-							<form action="accounts.jsp" style="display: inline; ">
+							<form action="ListAccountsServlet" style="display: inline; ">
 								<div id="botonP" style="display: inline; margin-right: 30px;">
 											<input type="submit"  class="button"  name="sbmtButton" value="Editar" />
 								</div>
 							</form>	
-							<form action="accounts.jsp#tabs-2" style="display: inline; ">
+							<formaction="ListAccountsServlet#tabs-2" style="display: inline; ">
 								<div id="botonV" style="display: inline; margin-right: 30px;" >
 										<input type="submit" class="button" value="Regresar" />		
 								</div>

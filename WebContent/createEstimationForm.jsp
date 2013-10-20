@@ -58,9 +58,9 @@
          	 </ul>
          </nav>        
 		<div id="menu">
-				<div class="menuitemHome" ><a href="mainMenu.jsp">Home</a></div>	
+				<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 		    	<ul>
-	            	<li class="menuitem"><a href="estimations.jsp">Ver Presupuestos</a></li>
+	            	<li class="menuitem"><a href="ListEstimationsServlet">Ver Presupuestos</a></li>
 	            </ul>
 				<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
         	</div>        
@@ -75,7 +75,7 @@
 				</select> &nbsp;<input id="cedNumber" type="text">
 				
 				
-					 <form action="createEstimation.jsp"  id="form" style="display: none; ">
+					 <form action="CreateEstimationServlet"  id="form" style="display: none; ">
 					 	<input type="image" src="./images/detail.png" height="16" width="16" title="Ver Detalle" />
 					 </form>
 		        	<a id="go" rel="leanModal"  href="#deleteVitalSign" style="color: #f7941e; font-weight: bold;" >
@@ -93,7 +93,7 @@
 		
 		<div id="deleteVitalSign">
 			<div id="signup-ct">
-				<form action="createPatientEstimation.jsp">
+				<form action="CreatePatientEstimationServlet">
 				<h3 id="see_id" class="sprited" > Paciente Inexistente</h3>
 				<br><br>
 				<span style="font-size: 16px; text-align: center;">El paciente indicado no se encuentra registrado en el sistema. ¿Desea agregarlo? </span> <br><br>

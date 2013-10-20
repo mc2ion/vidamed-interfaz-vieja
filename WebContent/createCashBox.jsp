@@ -63,9 +63,9 @@
          	 </ul>
          </nav>        
 		<div id="menu">
-				<div class="menuitemHome" ><a href="mainMenu.jsp">Home</a></div>	
+				<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 		    	<ul>
-	            	<li class="menuitem"><a href="bank.jsp">Ver Cajas</a></li>
+	            	<li class="menuitem"><a href="ListBanksServlet">Ver Cajas</a></li>
 	            </ul>
 				<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
         	</div>        
@@ -100,7 +100,7 @@
 				  	 </div>
 				</fieldset>
 				<div id="botonera">
-					<form action="bank.jsp">
+					<form action="ListBanksServlet">
 						<div id="botonP" style="display: inline; margin-right: 30px;">
 									<input type="submit"  class="button"  name="sbmtButton" value="Agregar" />
 						</div>	

@@ -71,9 +71,9 @@
          </nav>        
 		<div id="menu">
 			
-			<div class="menuitemHome" ><a href="mainMenu.jsp">Home</a></div>	
+			<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 	    	<ul>
-            	<li class="menuitem"><a href="createEstimationForm.jsp">Crear Presupuesto</a></li>
+            	<li class="menuitem"><a href="CreateEstimationFormServlet">Crear Presupuesto</a></li>
             </ul>
 			<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
         </div>        
@@ -102,14 +102,14 @@
 										<td>Histerectomía</td>
 										<td>17/06/2013</td>
 										<td>
-											<a href="showEstimation.jsp?function=estimations" style="color: transparent" >
+											<a href="ShowEstimationServlet?function=estimations" style="color: transparent" >
 												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 											</a>
 											<a id="go" rel="leanModal" href="#printUser" style="color: #f7941e; font-weight: bold;" 
 												onclick="return loadVars(1001,'1001');" >
 												<img alt="logo" src="./images/print.png"  height="16" width="16" title="Imprimir"/>
 											</a> 
-											<a href="editEstimation.jsp" style="color: transparent" >
+											<a href="EditEstimationServlet" style="color: transparent" >
 												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
 											</a>
 											<a id="go" rel="leanModal" href="#refreshUser" style="color: #f7941e; font-weight: bold;" 
@@ -237,7 +237,7 @@
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="estimations.jsp" method="post"  onsubmit="return setV(this)">
+				<form action="ListEstimations" method="post"  onsubmit="return setV(this)">
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />

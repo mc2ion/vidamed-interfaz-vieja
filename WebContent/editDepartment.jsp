@@ -26,9 +26,9 @@
          	 </ul>
          </nav>        
 		<div id="menu">
-				<div class="menuitemHome" ><a href="mainMenu.jsp">Home</a></div>	
+				<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 		    	<ul>
-	            	<li class="menuitem"><a href="departments.jsp">Ver Unidades</a></li>
+	            	<li class="menuitem"><a href="ListDepartmentsServlet">Ver Unidades</a></li>
             		<li class="menuitem"><a href="createDepartment.jsp">Crear Unidad</a></li>
 	            </ul>
 				<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	

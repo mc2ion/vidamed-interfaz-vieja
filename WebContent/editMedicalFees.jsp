@@ -33,10 +33,10 @@
          	 </ul>
          </nav>        
 		<div id="menu">
-				<div class="menuitemHome" ><a href="mainMenu.jsp">Home</a></div>	
+				<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 		    	<ul>
-	            	<li class="menuitem"><a href="estimations.jsp">Ver Presupuestos</a></li>
-	            	<li class="menuitem"><a href="createEstimation.jsp">Crear Presupuesto</a></li>
+	            	<li class="menuitem"><a href="ListEstimationsServlet">Ver Presupuestos</a></li>
+	            	<li class="menuitem"><a href="CreateEstimationServlet">Crear Presupuesto</a></li>
 	     
 	            </ul>
 				<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	

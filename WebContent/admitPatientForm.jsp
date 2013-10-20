@@ -57,9 +57,9 @@
          	 </ul>
          </nav>        
 		<div id="menu">
-				<div class="menuitemHome" ><a href="mainMenu.jsp">Home</a></div>	
+				<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 		    	<ul>
-	            	<li class="menuitem"><a href="admission.jsp">Ver Admisiones</a></li>
+	            	<li class="menuitem"><a href="ListAdmissionsServlet">Ver Admisiones</a></li>
 	            </ul>
 				<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
         	</div>        
@@ -73,7 +73,7 @@
 					<option value="E-" >E</option>
 				</select> &nbsp;<input type="text" id="cedNumber">
 				
-				 	<form action="admitPatient.jsp"  id="form" style="display: none; ">
+				 	<form action="AdmitPatientServlet"  id="form" style="display: none; ">
 					 	<input type="image" src="./images/detail.png" height="16" width="16" title="Ver Detalle" />
 					 </form>
 		        	<a id="go" rel="leanModal"  href="#deleteVitalSign" style="color: #f7941e; font-weight: bold;" >

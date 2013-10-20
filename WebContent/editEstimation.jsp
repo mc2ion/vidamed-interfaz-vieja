@@ -50,10 +50,10 @@
          	 </ul>
          </nav>        
 		<div id="menu">
-				<div class="menuitemHome" ><a href="mainMenu.jsp">Home</a></div>	
+				<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 		    	<ul>
-	            	<li class="menuitem"><a href="estimations.jsp">Ver Presupuestos</a></li>
-	            	<li class="menuitem"><a href="createEstimation.jsp">Crear Presupuesto</a></li>
+	            	<li class="menuitem"><a href="ListEstimationsServlet">Ver Presupuestos</a></li>
+	            	<li class="menuitem"><a href="CreateEstimationServlet">Crear Presupuesto</a></li>
 	     
 	            </ul>
 				<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
@@ -76,7 +76,7 @@
 					    <input type="text" name="departament" id="departament" value="Nutrición" readonly>
 					    <br><br>
 					   <label>Médico Tratante: </label> <input type="text" name="doctorName" id="doctorName" value="Ricardo García" readonly>
-					    <a href="searchDoctor.jsp?function=editEstimation" style="color: #f7941e; font-weight: bold;">
+					    <a href="SearchDoctorServlet?function=editEstimation" style="color: #f7941e; font-weight: bold;">
 							<input type="button"id="doctorId" value="Cambiar" >
 						</a> <br><br>
 					   <label> Responsable del Pago:</label>  <input type="text" name="insuranceName" id="insuranceName" value="La Previsora" readonly>
@@ -98,7 +98,7 @@
 					</div>
   					<div id="tabs-2">
   						<div style="text-align:right;">
-	  						<a href="searchadmission.jsp?function=editEstimation" style="color: #006c92; font-weight: bold;">
+	  						<a href="SearchAdmissionServlet?function=editEstimation" style="color: #006c92; font-weight: bold;">
 								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Protocolo
 							</a>						
   						</div>

@@ -82,9 +82,9 @@
          </nav>        
 		<div id="menu">
 			
-				<div class="menuitemHome" ><a href="mainMenu.jsp">Home</a></div>	
+				<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 		    	<ul>
-	            	<li class="menuitem"><a href="estimations.jsp">Ver Presupuestos</a></li>
+	            	<li class="menuitem"><a href="ListEstimationsServlet">Ver Presupuestos</a></li>
 	            </ul>
 				<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
         	</div>           
@@ -112,11 +112,11 @@
 					    <input type="text" name="departament" id="departament" value="" readonly>
 					    <br><br>
 					   <label>Médico Tratante: </label> <input type="text" name="doctorName" id="doctorName" readonly>
-					    <a href="searchDoctor.jsp?function=createEstimation" style="color: #f7941e; font-weight: bold;">
+					    <a href="SearchDoctorServlet?function=createEstimation" style="color: #f7941e; font-weight: bold;">
 							<input type="button"id="doctorId" value="Escoger" >
 						</a> <br><br>
 						<label> Responsable del Pago:</label>  <input type="text" name="insuranceName" id="insuranceName" readonly>
-					    <a href="searchInsurance.jsp?function=createEstimation" style="color: #f7941e; font-weight: bold;">
+					    <a href="SearchInsuranceServlet?function=createEstimation" style="color: #f7941e; font-weight: bold;">
 							<input type="button"id="paymentResp" value="Escoger" >
 						</a> 
 					    </fieldset>
@@ -124,7 +124,7 @@
 					</div>
   					<div id="tabs-2">
   						<div style="text-align:right;">
-	  						<a href="searchadmission.jsp?function=createEstimation" style="color: #006c92; font-weight: bold;">
+	  						<a href="SearchAdmission?function=createEstimation" style="color: #006c92; font-weight: bold;">
 								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Protocolo
 							</a>						
   						</div>
@@ -148,7 +148,7 @@
   				</div><BR><BR>
   				
 				  <div id="botonera" style="margin-top: -3px;">
-					<form action="estimations.jsp">
+					<form action="ListEstimationsServlet">
 						<div id="botonP" style="display: inline; margin-right: 30px;">
 									<input type="submit"  class="button"  name="sbmtButton" value="Crear" />
 						</div>	
@@ -220,7 +220,7 @@
 				<div id="signup-header">
 					<a class="close_x" id="close_x_aux"  href="#"></a>
 				</div>
-				<form action="createEstimation.jsp" method="post"  onsubmit="return setV(this)">
+				<form action="CreateEstimationServlet" method="post"  onsubmit="return setV(this)">
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpAux"  name="sbmtButton" value="Solicitar"  />
 					</div>

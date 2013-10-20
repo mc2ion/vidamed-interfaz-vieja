@@ -69,16 +69,16 @@
          	 </ul>
          </nav>        
 		<div id="menu">
-					<div class="menuitemHome" ><a href="mainMenu.jsp">Home</a></div>	
+					<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 			<ul>
-            	<li class="menuitem"><a href="createCashBox.jsp">Crear Caja</a></li>
+            	<li class="menuitem"><a href="CreateCashBoxServlet">Crear Caja</a></li>
             </ul>
 	    	<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
         </div>        
 			 <jsp:include page="./menu.jsp" />
 		<div id="content">  
 			<h2>Cajas:</h2>
-			<div id="printCashBox"><a href="searchCashBoxForm.jsp" id="printCashBoxText" >Imprimir cierre de cajas</a></div>
+			<div id="printCashBox"><a href="SearchCashBoxFormServlet" id="printCashBoxText" >Imprimir cierre de cajas</a></div>
 			<div id="dt_example">
 					<div id="container">
 						<div id="demo">
@@ -103,13 +103,13 @@
 											onclick="return loadVars(1001,'Principal');" >
 												<img alt="logo" src="./images/close.png"  height="16" width="16" title="Cerrar Caja" />
 											</a>
-											<a href="createPayment.jsp" style="color: transparent" >
+											<a href="CreatePaymentServlet" style="color: transparent" >
 												<img alt="logo" src="./images/movements.png"  height="16" width="16" title="Registrar Pago" />
 											</a>
-											<a href="showCashBox.jsp" style="color: transparent" >
+											<a href="ShowCashBoxServlet" style="color: transparent" >
 												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 											</a>
-											<a href="editCashBox.jsp" style="color: transparent" >
+											<a href="EditCashBoxServlet" style="color: transparent" >
 												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar Caja" />
 											</a>
 											<a id="go" rel="leanModal" href="#deleteCash" style="color: #f7941e; font-weight: bold;" 
@@ -218,7 +218,7 @@
 					<a class="close_x" id="close_x_aux"  href="#"></a>
 				</div>
 				
-				<form action="bank.jsp" method="post"  onsubmit="return setV(this)">
+				<form action="ListBanksServlet" method="post"  onsubmit="return setV(this)">
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpAux"  name="sbmtButton" value="Aceptar"  />
@@ -250,7 +250,7 @@
 				<div id="signup-header">
 					<a class="close_x" id="close_x_aux"  href="#"></a>
 				</div>
-				<form action="bank.jsp" method="post"  onsubmit="return setV(this)">
+				<form action="ListBanksServlet" method="post"  onsubmit="return setV(this)">
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpAux"  name="sbmtButton" value="Aceptar"  />
@@ -266,7 +266,7 @@
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="bank.jsp" method="post"  onsubmit="return setV(this)">
+				<form action="ListBanksServlet" method="post"  onsubmit="return setV(this)">
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />

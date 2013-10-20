@@ -70,9 +70,9 @@
          </nav>        
 		<div id="menu">
 			
-			<div class="menuitemHome" ><a href="mainMenu.jsp">Home</a></div>	
+			<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 			<ul>
-            	<li class="menuitem"><a href="createBankAccount.jsp">Crear Cuenta</a></li>
+            	<li class="menuitem"><a href="CreateBankAccountServlet">Crear Cuenta</a></li>
             </ul>
 	    	<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
         </div>        
@@ -99,10 +99,10 @@
 										<td>Caja Chica</td>
 										<td>Clínica Vidamed</td>
 										<td>
-											<a href="accountMovements.jsp" style="color: transparent" >
+											<a href="ListAccountMovementsServlet" style="color: transparent" >
 												<img alt="logo" src="./images/movements.png"  height="18" width="18" title="Ver Movimientos" />
 											</a>
-											<a href="showBankAccount.jsp" style="color: transparent" >
+											<a href="ShowBankAccountServlet" style="color: transparent" >
 												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 											</a>
 											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
@@ -166,7 +166,7 @@
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="bankaccounts.jsp" method="post"  onsubmit="return setV(this)">
+				<form action="ListBanksAccountsServlet" method="post"  onsubmit="return setV(this)">
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />

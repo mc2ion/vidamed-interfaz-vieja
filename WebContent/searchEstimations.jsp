@@ -74,7 +74,7 @@
 		<div id="menu">
 			
 			
-			<div class="menuitemHome" ><a href="mainMenu.jsp">Home</a></div>	
+			<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 	    	<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
         </div>        
 		<jsp:include page="./menu.jsp" />
@@ -150,7 +150,7 @@
 								<input type="button" class="button" value="Regresar" style="margin-left:30%;" onClick="javascript:history.back();" style="margin-left:40%;" />		
 						</div>	
 					</form>
-					<form action="admitPatient.jsp?id=1" method="post" style="display: inline;">
+					<form action="AdmitPatientServlet?id=1" method="post" style="display: inline;">
 						<input type="submit"  class="button"  name="sbmtButton" value="Seleccionar" style="margin-left:20%; "/>
 					</form>
 				</div>

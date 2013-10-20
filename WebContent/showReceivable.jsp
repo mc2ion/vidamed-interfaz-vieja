@@ -46,9 +46,9 @@
          	 </ul>
          </nav>        
 		<div id="menu">
-				<div class="menuitemHome" ><a href="mainMenu.jsp">Home</a></div>	
+				<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 		    	<ul>
-	            	<li class="menuitem"><a href="accounts.jsp">Ver Cuentas</a></li>
+	            	<li class="menuitem"><a href="ListAccountsServlet">Ver Cuentas</a></li>
 	            </ul>
 	           <div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
         	</div>        
@@ -83,7 +83,7 @@
 					</div>
 			  	</div>
 		  		<div id="botonera">
-			  		<form action="accounts.jsp#tabs-1">
+			  		<form action="ListAccountsServlet#tabs-1">
 						<div id="botonV" style="display: inline; margin-left: 40px;">
 								<input type="submit" class="button" value="Regresar" />		
 						</div>

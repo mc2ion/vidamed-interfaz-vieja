@@ -60,9 +60,9 @@
          	 </ul>
          </nav>        
 		<div id="menu">
-				<div class="menuitemHome" ><a href="mainMenu.jsp">Home</a></div>	
+				<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 		    	<ul>
-	            	<li class="menuitem"><a href="estimations.jsp">Ver Presupuestos</a></li>
+	            	<li class="menuitem"><a href="ListEstimationsServlet">Ver Presupuestos</a></li>
 	            </ul>
 				<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
         	</div>        
@@ -128,7 +128,7 @@
   					</div>
   				</div>
 				<div id="botonera">
-					<form action="createEstimation.jsp">
+					<form action="CreateEstimationServlet">
 						<div id="botonP" style="display: inline; margin-right: 30px;">
 								<input type="submit"  class="button"  name="sbmtButton" value="Crear" />
 						</div>	
@@ -147,7 +147,7 @@
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="estimations.jsp" method="post"  onsubmit="return setV(this)">
+				<form action="ListEstimationsServlet" method="post"  onsubmit="return setV(this)">
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />

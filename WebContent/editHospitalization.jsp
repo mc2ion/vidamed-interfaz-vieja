@@ -49,7 +49,7 @@
          	 </ul>
          </nav>        
 		<div id="menu">
-				<div class="menuitemHome" ><a href="mainMenu.jsp">Home</a></div>	
+				<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 				<ul>
             		<li class="menuitem"><a href="hospitalization.jsp">Ver Hospitalizaciones</a></li>
            		</ul>
@@ -75,7 +75,7 @@
 							   <input type="text" name="departament" id="departament" value="Cirugía" readonly>
 							    <br><br>
 							   <label>Médico Tratante: </label> <input type="text" name="doctorName" id="doctorName" value="Ricardo García" readonly>
-							    <a href="searchDoctor.jsp?function=editHospitalization" style="color: #f7941e; font-weight: bold;">
+							    <a href="SearchDoctorServlet?function=editHospitalization" style="color: #f7941e; font-weight: bold;">
 									<input type="button"id="doctorId" value="Cambiar" >
 								</a> <br><br>
 								<label> Ubicación:  </label>
@@ -104,7 +104,7 @@
 					</div>
   					<div id="tabs-2">
   						<div style="text-align:right;">
-	  						<a href="searchadmission.jsp?function=editHospitalization" style="color: #006c92; font-weight: bold;">
+	  						<a href="SearchAdmissionServlet?function=editHospitalization" style="color: #006c92; font-weight: bold;">
 								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Protocolo
 							</a>						
   						</div>
