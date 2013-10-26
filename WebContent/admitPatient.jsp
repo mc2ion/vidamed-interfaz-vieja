@@ -83,11 +83,11 @@
         	   	<nav>
          	<ul>
          		<li><a href="#">Bienvenido, Prueba</a></li>
-                <li><a href="pendingAdmissionDischarges.jsp">Altas Admisión<span class="badge yellow">3</span></a></li>
-		 		<li><a href="pendingCreditNotes.jsp">Prefacturas por Generar<span class="badge blue">3</span></a></li><li><a href="pendingCreditNotesReview.jsp">Prefacturas por Revisar<span class="badge green">3</span></a></li><li><a href="pendingInvoices.jsp">Facturas por Generar<span class="badge red">3</span></a></li>
-		     	<li><a href="pendingRequest.jsp">Descuentos<span class="badge yellow">2</span></a></li>
-		     	<li><a href="pendingPharmacyDischarges.jsp">Altas Farmacia<span class="badge blue">3</span></a></li>
-		     	<li><a href="billing.jsp">Pagos Pendientes<span class="badge green">6</span></a></li>
+                <li><a href="ListAdmissionDischargesServlet">Altas Admisión<span class="badge yellow">3</span></a></li>
+		 		<li><a href="ListCreditNotesServlet">Prefacturas por Generar<span class="badge blue">3</span></a></li><li><a href="ListCreditNotesReviewServlet">Prefacturas por Revisar<span class="badge green">3</span></a></li><li><a href="ListInvoicesServlet">Facturas por Generar<span class="badge red">3</span></a></li>
+		     	<li><a href="ListRequestsServlet">Descuentos<span class="badge yellow">2</span></a></li>
+		     	<li><a href="ListPharmacyDischargesServlet">Altas Farmacia<span class="badge blue">3</span></a></li>
+		     	<li><a href="ListBillingsServlet">Pagos Pendientes<span class="badge green">6</span></a></li>
          	 </ul>
          </nav>        
 		<div id="menu">
@@ -108,7 +108,7 @@
 							   <b>Cédula:</b> <span style="margin-left: 130px;">V-12345678</span><br/><br/>
 							   <b>Nombre: </b><span style="margin-left: 125px;">Ana Rojas</span><br><br/>
 							   <label> Responsable del Pago:</label>  <input type="text" name="insuranceName" id="insuranceName" value="" readonly>
-							    <a href="searchInsurance.jsp?function=admitPatient" style="color: #f7941e; font-weight: bold;">
+							    <a href="SearchInsuranceServlet?function=admitPatient" style="color: #f7941e; font-weight: bold;">
 									<input type="button"id="paymentResp" value="Cambiar" >
 								</a> 
 								<br><br>
@@ -119,13 +119,13 @@
 								<input type="text" name="ubication" id="ubication" readonly><br><br>
 								 
 								<label> Cama:</label>  <input type="text" name="bedId" id="bedId"  readonly>
-							    <a href="searchBed.jsp?function=admitPatient" style="color: #f7941e; font-weight: bold;">
+							    <a href="SearchBedsServlet?function=admitPatient" style="color: #f7941e; font-weight: bold;">
 									<input type="button"id="bedUbication" value="Cambiar" >
 								</a> <br><br>
 						   
 							   <label> Número de presupuesto:</label> 
 							   	<input type="text" name="estimationId" id="estimationId" value="">
-							    <a href="searchEstimations.jsp" style="color: #f7941e; font-weight: bold;" >
+							    <a href="SearchEstimationServlet" style="color: #f7941e; font-weight: bold;" >
 									<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Buscar" />
 								</a><br><br>
 							</fieldset>

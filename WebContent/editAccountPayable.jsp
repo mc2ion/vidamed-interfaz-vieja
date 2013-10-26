@@ -52,11 +52,11 @@
         	   	<nav>
          	<ul>
          		<li><a href="#">Bienvenido, Prueba</a></li>
-                <li><a href="pendingAdmissionDischarges.jsp">Altas Admisión<span class="badge yellow">3</span></a></li>
-		 		<li><a href="pendingCreditNotes.jsp">Prefacturas por Generar<span class="badge blue">3</span></a></li><li><a href="pendingCreditNotesReview.jsp">Prefacturas por Revisar<span class="badge green">3</span></a></li><li><a href="pendingInvoices.jsp">Facturas por Generar<span class="badge red">3</span></a></li>
-		     	<li><a href="pendingRequest.jsp">Descuentos<span class="badge yellow">2</span></a></li>
-		     	<li><a href="pendingPharmacyDischarges.jsp">Altas Farmacia<span class="badge blue">3</span></a></li>
-		     	<li><a href="billing.jsp">Pagos Pendientes<span class="badge green">6</span></a></li>
+                <li><a href="ListAdmissionDischargesServlet">Altas Admisión<span class="badge yellow">3</span></a></li>
+		 		<li><a href="ListCreditNotesServlet">Prefacturas por Generar<span class="badge blue">3</span></a></li><li><a href="ListCreditNotesReviewServlet">Prefacturas por Revisar<span class="badge green">3</span></a></li><li><a href="ListInvoicesServlet">Facturas por Generar<span class="badge red">3</span></a></li>
+		     	<li><a href="ListRequestsServlet">Descuentos<span class="badge yellow">2</span></a></li>
+		     	<li><a href="ListPharmacyDischargesServlet">Altas Farmacia<span class="badge blue">3</span></a></li>
+		     	<li><a href="ListBillingsServlet">Pagos Pendientes<span class="badge green">6</span></a></li>
          	 </ul>
          </nav>        
 		<div id="menu">
@@ -96,7 +96,7 @@
 							<input type="text" name="txtName" id="txtName" maxlength="50" size="5" value="1725778"/> <br><br>
 							<label for="name">Proveedor:</label>
 							<input type="text" name="txtName" id="txtName" maxlength="50" size="5" value="Anthony Bernal"/> 
-							<a href="createSupplier.jsp?function=editAccountPayable"> <input type="submit"  class="button"  name="sbmtButton" value="Nuevo..." /></a><br><br>
+							<a href="CreateSupplierServlet?function=editAccountPayable"> <input type="submit"  class="button"  name="sbmtButton" value="Nuevo..." /></a><br><br>
 							<label for="name">Fecha Facturación:</label>
 							<input type="text" name="txtDateIni" id="txtDateIni" maxlength="50" size="10" value="18/07/2013" /> <br><br>
 							<label for="name">Fecha Vencimiento:</label>
@@ -108,7 +108,7 @@
 											<input type="submit"  class="button"  name="sbmtButton" value="Editar" />
 								</div>
 							</form>	
-							<formaction="ListAccountsServlet#tabs-2" style="display: inline; ">
+							<form action="ListAccountsServlet#tabs-2" style="display: inline; ">
 								<div id="botonV" style="display: inline; margin-right: 30px;" >
 										<input type="submit" class="button" value="Regresar" />		
 								</div>
@@ -136,7 +136,7 @@
 											<input type="submit"  class="button"  name="sbmtButton" value="Editar" />
 								</div>
 							</form>	
-							<formaction="ListAccountsServlet#tabs-2" style="display: inline; ">
+							<form action="ListAccountsServlet#tabs-2" style="display: inline; ">
 								<div id="botonV" style="display: inline; margin-right: 30px;" >
 										<input type="submit" class="button" value="Regresar" />		
 								</div>
@@ -187,7 +187,7 @@
 											<input type="submit"  class="button"  name="sbmtButton" value="Editar" />
 								</div>
 							</form>	
-							<formaction="ListAccountsServlet#tabs-2" style="display: inline; ">
+							<form action="ListAccountsServlet#tabs-2" style="display: inline; ">
 								<div id="botonV" style="display: inline; margin-right: 30px;" >
 										<input type="submit" class="button" value="Regresar" />		
 								</div>

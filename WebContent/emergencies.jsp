@@ -62,11 +62,11 @@
       	<nav>
          	<ul>
          		<li><a href="#">Bienvenido, Prueba</a></li>
-                <li><a href="pendingAdmissionDischarges.jsp">Altas Admisión<span class="badge yellow">3</span></a></li>
-		 		<li><a href="pendingCreditNotes.jsp">Prefacturas por Generar<span class="badge blue">3</span></a></li><li><a href="pendingCreditNotesReview.jsp">Prefacturas por Revisar<span class="badge green">3</span></a></li><li><a href="pendingInvoices.jsp">Facturas por Generar<span class="badge red">3</span></a></li>
-		     	<li><a href="pendingRequest.jsp">Descuentos<span class="badge yellow">2</span></a></li>
-		     	<li><a href="pendingPharmacyDischarges.jsp">Altas Farmacia<span class="badge blue">3</span></a></li>
-		     	<li><a href="billing.jsp">Pagos Pendientes<span class="badge green">6</span></a></li>
+                <li><a href="ListAdmissionDischargesServlet">Altas Admisión<span class="badge yellow">3</span></a></li>
+		 		<li><a href="ListCreditNotesServlet">Prefacturas por Generar<span class="badge blue">3</span></a></li><li><a href="ListCreditNotesReviewServlet">Prefacturas por Revisar<span class="badge green">3</span></a></li><li><a href="ListInvoicesServlet">Facturas por Generar<span class="badge red">3</span></a></li>
+		     	<li><a href="ListRequestsServlet">Descuentos<span class="badge yellow">2</span></a></li>
+		     	<li><a href="ListPharmacyDischargesServlet">Altas Farmacia<span class="badge blue">3</span></a></li>
+		     	<li><a href="ListBillingsServlet">Pagos Pendientes<span class="badge green">6</span></a></li>
          	 </ul>
          </nav>        
 		<div id="menu">
@@ -99,10 +99,10 @@
 										<td>Camilla 1</td>
 										<td>20/06/2013 07:35</td>
 										<td>
-											<a href="showEmergency.jsp" style="color: transparent" >
+											<a href="ShowEmergencyServlet" style="color: transparent" >
 												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 											</a>
-											<a href="editEmergency.jsp" style="color: transparent" >
+											<a href="EditEmergencyServlet" style="color: transparent" >
 												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
 											</a>
 											<a id="go" rel="leanModal" href="#dischargeUser" style="color: #f7941e; font-weight: bold;" 
@@ -117,7 +117,7 @@
 												onclick="return loadVars(1001,'Ana Rojas');" >
 												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
 											</a> 
-											<a href="printStatement.jsp" style="color: transparent" >
+											<a href="PrintStatementServlet" style="color: transparent" >
 												<img alt="logo" src="./images/movements.png"  height="16" width="16" title="Corte de Cuenta" />
 											</a>
 											<br>
@@ -202,7 +202,7 @@
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="emergencies.jsp" method="post"  onsubmit="return setV(this)">
+				<form action="ListEmergenciesServlet" method="post"  onsubmit="return setV(this)">
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
@@ -218,7 +218,7 @@
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="emergencies.jsp" method="post"  onsubmit="return setV(this)">
+				<form action="ListEmergenciesServlet" method="post"  onsubmit="return setV(this)">
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
 					Indique Razón: 
 					<select>
@@ -248,7 +248,7 @@
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="emergencies.jsp" method="post"  onsubmit="return setV(this)">
+				<form action="ListEmergenciesServlet" method="post"  onsubmit="return setV(this)">
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />

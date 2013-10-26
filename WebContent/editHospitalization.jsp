@@ -41,17 +41,17 @@
         	   	<nav>
          	<ul>
          		<li><a href="#">Bienvenido, Prueba</a></li>
-                <li><a href="pendingAdmissionDischarges.jsp">Altas Admisión<span class="badge yellow">3</span></a></li>
-		 		<li><a href="pendingCreditNotes.jsp">Prefacturas por Generar<span class="badge blue">3</span></a></li><li><a href="pendingCreditNotesReview.jsp">Prefacturas por Revisar<span class="badge green">3</span></a></li><li><a href="pendingInvoices.jsp">Facturas por Generar<span class="badge red">3</span></a></li>
-		     	<li><a href="pendingRequest.jsp">Descuentos<span class="badge yellow">2</span></a></li>
-		     	<li><a href="pendingPharmacyDischarges.jsp">Altas Farmacia<span class="badge blue">3</span></a></li>
-		     	<li><a href="billing.jsp">Pagos Pendientes<span class="badge green">6</span></a></li>
+                <li><a href="ListAdmissionDischargesServlet">Altas Admisión<span class="badge yellow">3</span></a></li>
+		 		<li><a href="ListCreditNotesServlet">Prefacturas por Generar<span class="badge blue">3</span></a></li><li><a href="ListCreditNotesReviewServlet">Prefacturas por Revisar<span class="badge green">3</span></a></li><li><a href="ListInvoicesServlet">Facturas por Generar<span class="badge red">3</span></a></li>
+		     	<li><a href="ListRequestsServlet">Descuentos<span class="badge yellow">2</span></a></li>
+		     	<li><a href="ListPharmacyDischargesServlet">Altas Farmacia<span class="badge blue">3</span></a></li>
+		     	<li><a href="ListBillingsServlet">Pagos Pendientes<span class="badge green">6</span></a></li>
          	 </ul>
          </nav>        
 		<div id="menu">
 				<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 				<ul>
-            		<li class="menuitem"><a href="hospitalization.jsp">Ver Hospitalizaciones</a></li>
+            		<li class="menuitem"><a href="ListHospitalizationsServlet">Ver Hospitalizaciones</a></li>
            		</ul>
 				<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
         	</div>        
@@ -82,12 +82,12 @@
 								<input type="text" name="ubication" id="ubication" value="UCI" readonly><br><br>
 								 
 								<label> Cama:</label>  <input type="text" name="bedId" id="bedId" value="Cama 1" readonly>
-								    <a href="searchBed.jsp?function=editHospitalization" style="color: #f7941e; font-weight: bold;">
+								    <a href="SearchBedsServlet?function=editHospitalization" style="color: #f7941e; font-weight: bold;">
 										<input type="button"id="bedUbication" value="Cambiar" >
 									</a> <br><br>
 								
 								 <label> Responsable del Pago:</label>  <input type="text" name="insuranceName" id="insuranceName" value="La Previsora" readonly>
-								    <a href="searchInsurance.jsp?function=editHospitalization" style="color: #f7941e; font-weight: bold;">
+								    <a href="SearchInsuranceServlet?function=editHospitalization" style="color: #f7941e; font-weight: bold;">
 										<input type="button"id="paymentResp" value="Cambiar" >
 									</a> 
 						  </fieldset>
@@ -149,7 +149,7 @@
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="edithospitalization.jsp#tabs-2" method="post"  onsubmit="return setV(this)">
+				<form action="EditHospitalizationServlet#tabs-2" method="post"  onsubmit="return setV(this)">
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
@@ -165,7 +165,7 @@
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-					<form action="edithospitalization.jsp#tabs-3" method="post"  onsubmit="return setV(this)">
+					<form action="EditHospitalizationServlet#tabs-3" method="post"  onsubmit="return setV(this)">
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
@@ -181,7 +181,7 @@
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="edithospitalization.jsp#tabs-4" method="post"  onsubmit="return setV(this)">
+				<form action="EditHospitalizationServlet#tabs-4" method="post"  onsubmit="return setV(this)">
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />

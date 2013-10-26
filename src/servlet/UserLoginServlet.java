@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import command.CommandExecutor;
+
 
 
 /**
@@ -18,14 +20,14 @@ import javax.servlet.http.HttpServletResponse;
 public class UserLoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	/*public void init() throws ServletException {
+	public void init() throws ServletException {
 		super.init();
 		try {
 			CommandExecutor.getInstance();
 		} catch (Exception e) {
 			throw new ServletException(e);
 		}
-	}*/
+	}
        
     /**
      * @see HttpServlet#HttpServlet()

@@ -43,7 +43,10 @@ public class ShowEstimationServlet extends HttpServlet {
 
 		RequestDispatcher rd;
 		String function = request.getParameter("function");
-		rd = getServletContext().getRequestDispatcher("/showEstimation.jsp?function=" + function);			
+		if (function != null)
+			rd = getServletContext().getRequestDispatcher("/showEstimation.jsp?function=" + function);			
+		else
+			rd = getServletContext().getRequestDispatcher("/showEstimation.jsp");	
 		rd.forward(request, response);
 	}
 

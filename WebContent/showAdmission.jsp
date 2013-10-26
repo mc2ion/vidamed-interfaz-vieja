@@ -14,11 +14,11 @@
         	   	<nav>
          	<ul>
          		<li><a href="#">Bienvenido, Prueba</a></li>
-                <li><a href="pendingAdmissionDischarges.jsp">Altas Admisión<span class="badge yellow">3</span></a></li>
-		 		<li><a href="pendingCreditNotes.jsp">Prefacturas por Generar<span class="badge blue">3</span></a></li><li><a href="pendingCreditNotesReview.jsp">Prefacturas por Revisar<span class="badge green">3</span></a></li><li><a href="pendingInvoices.jsp">Facturas por Generar<span class="badge red">3</span></a></li>
-		     	<li><a href="pendingRequest.jsp">Descuentos<span class="badge yellow">2</span></a></li>
-		     	<li><a href="pendingPharmacyDischarges.jsp">Altas Farmacia<span class="badge blue">3</span></a></li>
-		     	<li><a href="billing.jsp">Pagos Pendientes<span class="badge green">6</span></a></li>
+                <li><a href="ListAdmissionDischargesServlet">Altas Admisión<span class="badge yellow">3</span></a></li>
+		 		<li><a href="ListCreditNotesServlet">Prefacturas por Generar<span class="badge blue">3</span></a></li><li><a href="ListCreditNotesReviewServlet">Prefacturas por Revisar<span class="badge green">3</span></a></li><li><a href="ListInvoicesServlet">Facturas por Generar<span class="badge red">3</span></a></li>
+		     	<li><a href="ListRequestsServlet">Descuentos<span class="badge yellow">2</span></a></li>
+		     	<li><a href="ListPharmacyDischargesServlet">Altas Farmacia<span class="badge blue">3</span></a></li>
+		     	<li><a href="ListBillingsServlet">Pagos Pendientes<span class="badge green">6</span></a></li>
          	 </ul>
          </nav>        
 		<div id="menu">
@@ -39,13 +39,13 @@
 				    <div class="leftColum"><b> Motivo de Admisión: </b></div> Dolor abdominal<br><br>
 				    <div class="leftColum"><b>Ubicación: </b></div> Emergencias<br><br>
 				    <div class="leftColum"><b>N° Presupuesto:  </b></div>1001
-				    <a href="showEstimation.jsp?function=showAdmission" style="color: transparent" >
+				    <a href="ShowEstimationServlet?function=showAdmission" style="color: transparent" >
 						<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 					</a>
 				    <br><br>
 			    </div>
 				<div id="botonera">
-					<form action="printadmission.jsp">
+					<form action="PrintAdmissionServlet">
 						<div id="botonP" style="display: inline; margin-right: 30px;">
 									<input type="submit"  class="button"  name="sbmtButton" value="Imprimir" />
 						</div>	

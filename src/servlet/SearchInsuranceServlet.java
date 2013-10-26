@@ -43,7 +43,10 @@ public class SearchInsuranceServlet extends HttpServlet {
 
 		RequestDispatcher rd;
 		String function = request.getParameter("function");
-		rd = getServletContext().getRequestDispatcher("/searchInsurance.jsp?function=" + function);			
+		if (function != null)
+			rd = getServletContext().getRequestDispatcher("/searchInsurance.jsp?function=" + function);	
+		else
+			rd = getServletContext().getRequestDispatcher("/searchInsurance.jsp");	
 		rd.forward(request, response);
 	}
 

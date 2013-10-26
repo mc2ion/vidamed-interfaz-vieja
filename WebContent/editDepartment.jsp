@@ -18,18 +18,18 @@
         	   	<nav>
          	<ul>
          		<li><a href="#">Bienvenido, Prueba</a></li>
-                <li><a href="pendingAdmissionDischarges.jsp">Altas Admisión<span class="badge yellow">3</span></a></li>
-		 		<li><a href="pendingCreditNotes.jsp">Prefacturas por Generar<span class="badge blue">3</span></a></li><li><a href="pendingCreditNotesReview.jsp">Prefacturas por Revisar<span class="badge green">3</span></a></li><li><a href="pendingInvoices.jsp">Facturas por Generar<span class="badge red">3</span></a></li>
-		     	<li><a href="pendingRequest.jsp">Descuentos<span class="badge yellow">2</span></a></li>
-		     	<li><a href="pendingPharmacyDischarges.jsp">Altas Farmacia<span class="badge blue">3</span></a></li>
-		     	<li><a href="billing.jsp">Pagos Pendientes<span class="badge green">6</span></a></li>
+                <li><a href="ListAdmissionDischargesServlet">Altas Admisión<span class="badge yellow">3</span></a></li>
+		 		<li><a href="ListCreditNotesServlet">Prefacturas por Generar<span class="badge blue">3</span></a></li><li><a href="ListCreditNotesReviewServlet">Prefacturas por Revisar<span class="badge green">3</span></a></li><li><a href="ListInvoicesServlet">Facturas por Generar<span class="badge red">3</span></a></li>
+		     	<li><a href="ListRequestsServlet">Descuentos<span class="badge yellow">2</span></a></li>
+		     	<li><a href="ListPharmacyDischargesServlet">Altas Farmacia<span class="badge blue">3</span></a></li>
+		     	<li><a href="ListBillingsServlet">Pagos Pendientes<span class="badge green">6</span></a></li>
          	 </ul>
          </nav>        
 		<div id="menu">
 				<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 		    	<ul>
 	            	<li class="menuitem"><a href="ListDepartmentsServlet">Ver Unidades</a></li>
-            		<li class="menuitem"><a href="createDepartment.jsp">Crear Unidad</a></li>
+            		<li class="menuitem"><a href="CreateDepartmentServlet">Crear Unidad</a></li>
 	            </ul>
 				<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
         	</div>        
@@ -44,7 +44,7 @@
 					<textarea name="txtDescription" id="txtDescription" rows="3" cols="50">Especialidad médica de clase quirúrgica que abarca las operaciones del aparato digestivo; incluyendo el tracto gastrointestinal y el sistema hepato-bilio-pancreático, el sistema endocrino; incluyendo las glándulas suprarrenales, tiroides, paratiroides y otras glándulas incluidas en el aparato digestivo. Asimismo incluye la reparación de hernias y eventraciones de la pared abdominal.</textarea> <br><br>
 				</fieldset>
 				<div id="botonera">
-					<form action="departments.jsp">
+					<form action="ListDepartmentsServlet">
 						<div id="botonP" style="display: inline; margin-right: 30px;">
 									<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
 						</div>	

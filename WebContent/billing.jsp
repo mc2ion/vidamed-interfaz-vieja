@@ -129,11 +129,11 @@
         <nav>
          	<ul>
          		<li><a href="#">Bienvenido, Prueba</a></li>
-                <li><a href="pendingAdmissionDischarges.jsp">Altas Admisión<span class="badge yellow">3</span></a></li>
-		 		<li><a href="pendingCreditNotes.jsp">Prefacturas por Generar<span class="badge blue">3</span></a></li><li><a href="pendingCreditNotesReview.jsp">Prefacturas por Revisar<span class="badge green">3</span></a></li><li><a href="pendingInvoices.jsp">Facturas por Generar<span class="badge red">3</span></a></li>
-		     	<li><a href="pendingRequest.jsp">Descuentos<span class="badge yellow">2</span></a></li>
-		     	<li><a href="pendingPharmacyDischarges.jsp">Altas Farmacia<span class="badge blue">3</span></a></li>
-		     	<li><a href="billing.jsp">Pagos Pendientes<span class="badge green">6</span></a></li>
+                <li><a href="ListAdmissionDischargesServlet">Altas Admisión<span class="badge yellow">3</span></a></li>
+		 		<li><a href="ListCreditNotesServlet">Prefacturas por Generar<span class="badge blue">3</span></a></li><li><a href="ListCreditNotesReviewServlet">Prefacturas por Revisar<span class="badge green">3</span></a></li><li><a href="ListInvoicesServlet">Facturas por Generar<span class="badge red">3</span></a></li>
+		     	<li><a href="ListRequestsServlet">Descuentos<span class="badge yellow">2</span></a></li>
+		     	<li><a href="ListPharmacyDischargesServlet">Altas Farmacia<span class="badge blue">3</span></a></li>
+		     	<li><a href="ListBillingsServlet">Pagos Pendientes<span class="badge green">6</span></a></li>
          	 </ul>
          </nav>        
 		<div id="menu">
@@ -169,7 +169,7 @@
 											<td>Bs. 15000</td>
 											<td>F-2015</td>
 											<td>
-												<a href="showMedicalFeed.jsp" style="color: transparent" >
+												<a href="ShowMedicalFeedServlet" style="color: transparent" >
 													<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 												</a>
 											</td>
@@ -180,7 +180,7 @@
 											<td>Bs. 5000</td>
 											<td>F-24410</td>
 											<td>
-												<a href="showMedicalFeed.jsp" style="color: transparent" >
+												<a href="ShowMedicalFeedServlet" style="color: transparent" >
 													<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 												</a>
 												<a id="go" rel="leanModal" href="#closeAccount" style="color: #f7941e; font-weight: bold;" 
@@ -195,7 +195,7 @@
 											<td>Bs. 34500</td>
 											<td>F-1324A</td>
 											<td>
-												<a href="showMedicalFeed.jsp" style="color: transparent" >
+												<a href="ShowMedicalFeedServlet" style="color: transparent" >
 													<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 												</a>
 												<a id="go" rel="leanModal" href="#closeAccount" style="color: #f7941e; font-weight: bold;" 
@@ -375,7 +375,7 @@
 											<td>F-2015</td>
 											<td>Pendiente</td>
 											<td>
-												<a href="showPromptPayment.jsp" style="color: transparent" >
+												<a href="ShowPromptPaymentServlet" style="color: transparent" >
 													<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 												</a>
 												<a id="go" rel="leanModal" href="#closeAccount" style="color: #f7941e; font-weight: bold;" 
@@ -391,7 +391,7 @@
 											<td>F-24410</td>
 											<td>Pendiente</td>
 											<td>
-												<a href="showPromptPayment.jsp" style="color: transparent" >
+												<a href="ShowPromptPaymentServlet" style="color: transparent" >
 													<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 												</a>
 												<a id="go" rel="leanModal" href="#closeAccount" style="color: #f7941e; font-weight: bold;" 
@@ -407,7 +407,7 @@
 											<td>F-1324A</td>
 											<td><span style="color: rgb(241, 224, 180);font-weight: bold;font-style: italic;"> Cobrado</span></td>
 											<td>
-												<a href="showPromptPayment.jsp" style="color: transparent" >
+												<a href="ShowPromptPaymentServlet" style="color: transparent" >
 													<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 												</a>
 												<br>

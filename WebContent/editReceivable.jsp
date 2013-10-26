@@ -38,11 +38,11 @@
         	   	<nav>
          	<ul>
          		<li><a href="#">Bienvenido, Prueba</a></li>
-                <li><a href="pendingAdmissionDischarges.jsp">Altas Admisión<span class="badge yellow">3</span></a></li>
-		 		<li><a href="pendingCreditNotes.jsp">Prefacturas por Generar<span class="badge blue">3</span></a></li><li><a href="pendingCreditNotesReview.jsp">Prefacturas por Revisar<span class="badge green">3</span></a></li><li><a href="pendingInvoices.jsp">Facturas por Generar<span class="badge red">3</span></a></li>
-		     	<li><a href="pendingRequest.jsp">Descuentos<span class="badge yellow">2</span></a></li>
-		     	<li><a href="pendingPharmacyDischarges.jsp">Altas Farmacia<span class="badge blue">3</span></a></li>
-		     	<li><a href="billing.jsp">Pagos Pendientes<span class="badge green">6</span></a></li>
+                <li><a href="ListAdmissionDischargesServlet">Altas Admisión<span class="badge yellow">3</span></a></li>
+		 		<li><a href="ListCreditNotesServlet">Prefacturas por Generar<span class="badge blue">3</span></a></li><li><a href="ListCreditNotesReviewServlet">Prefacturas por Revisar<span class="badge green">3</span></a></li><li><a href="ListInvoicesServlet">Facturas por Generar<span class="badge red">3</span></a></li>
+		     	<li><a href="ListRequestsServlet">Descuentos<span class="badge yellow">2</span></a></li>
+		     	<li><a href="ListPharmacyDischargesServlet">Altas Farmacia<span class="badge blue">3</span></a></li>
+		     	<li><a href="ListBillingsServlet">Pagos Pendientes<span class="badge green">6</span></a></li>
          	 </ul>
          </nav>        
 		<div id="menu">
@@ -69,7 +69,7 @@
 							<input type="text" name="txtControl" id="txtControl" maxlength="50" size="5" value="1726289"/> <br><br>
 							<label for="name">Responsable Pago:</label>
 							<input type="text" name="txtInsurance" id="txtInsurance" maxlength="50" size="5" value="Multinacional de Seguros, C.A"/>
-							<a href="createInsurance.jsp"><input type="submit"  class="button"  name="sbmtButton" value="Nuevo..." /></a><br><br>
+							<a href="CreateInsuranceServlet"><input type="submit"  class="button"  name="sbmtButton" value="Nuevo..." /></a><br><br>
 							<label for="name">Monto a Cobrar:</label>
 							<input type="text" name="txtMount" id="txtMount" maxlength="50" size="5" value="Bs. 13392,85 "/> <br><br>
 							<label for="name">IVA:</label>

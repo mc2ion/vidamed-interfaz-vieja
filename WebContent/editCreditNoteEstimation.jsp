@@ -44,11 +44,11 @@
         <nav>
          	<ul>
          		<li><a href="#">Bienvenido, Prueba</a></li>
-                <li><a href="pendingAdmissionDischarges.jsp">Altas Admisión<span class="badge yellow">3</span></a></li>
-		 		<li><a href="pendingCreditNotes.jsp">Prefacturas por Generar<span class="badge blue">3</span></a></li><li><a href="pendingCreditNotesReview.jsp">Prefacturas por Revisar<span class="badge green">3</span></a></li><li><a href="pendingInvoices.jsp">Facturas por Generar<span class="badge red">3</span></a></li>
-		     	<li><a href="pendingRequest.jsp">Descuentos<span class="badge yellow">2</span></a></li>
-		     	<li><a href="pendingPharmacyDischarges.jsp">Altas Farmacia<span class="badge blue">3</span></a></li>
-		     	<li><a href="billing.jsp">Pagos Pendientes<span class="badge green">6</span></a></li>
+                <li><a href="ListAdmissionDischargesServlet">Altas Admisión<span class="badge yellow">3</span></a></li>
+		 		<li><a href="ListCreditNotesServlet">Prefacturas por Generar<span class="badge blue">3</span></a></li><li><a href="ListCreditNotesReviewServlet">Prefacturas por Revisar<span class="badge green">3</span></a></li><li><a href="ListInvoicesServlet">Facturas por Generar<span class="badge red">3</span></a></li>
+		     	<li><a href="ListRequestsServlet">Descuentos<span class="badge yellow">2</span></a></li>
+		     	<li><a href="ListPharmacyDischargesServlet">Altas Farmacia<span class="badge blue">3</span></a></li>
+		     	<li><a href="ListBillingsServlet">Pagos Pendientes<span class="badge green">6</span></a></li>
          	 </ul>
          </nav>              
         <div id="menu">
@@ -81,7 +81,7 @@
 							<input type="button"id="doctorId" value="Cambiar" >
 						</a> <br><br>
 					   <label> Responsable del Pago:</label>  <input type="text" name="insuranceName" id="insuranceName" value="La Previsora" readonly>
-					    <a href="searchInsurance.jsp?function=editCreditNoteEstimation" style="color: #f7941e; font-weight: bold;">
+					    <a href="SearchInsuranceServlet?function=editCreditNoteEstimation" style="color: #f7941e; font-weight: bold;">
 							<input type="button"id="paymentResp" value="Cambiar" >
 						</a> 
 					    </fieldset>
@@ -115,7 +115,7 @@
 					   			<td>Frenuloplastia</td>
 					   			<td>Bs. 14321,00</td>
 					   			<td>
-					   				<a href="editCreditNoteProtocol.jsp" style="color: transparent" >
+					   				<a href="EditCreditNoteProtocolServlet" style="color: transparent" >
 										<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar Protocolo" />
 									</a>
 										<a id="go" rel="leanModal" href="#deleteProtocol" style="color: #f7941e; font-weight: bold;" 
