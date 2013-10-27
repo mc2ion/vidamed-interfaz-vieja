@@ -80,22 +80,22 @@
 					<textarea name="txtDescription" id="txtDescription" rows="3" cols="50"></textarea> <br><br>
 					<label for="name">Punto de Venta:</label>
 					<div >
-				  	 	<input type="text" value="" style="width: 135px;">
+				  	 	<input type="text" value="" style="width: 135px;"> % Comisión: <input type="text" value="" style="width: 135px;"> % ISLR: <input type="text" value="" style="width: 135px;"> 
 				  	 	<img alt="logo" src="./images/add.png"  id="addSellPoint" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Agregar otro punto" />
 						<br /><br />
 					</div>
 					<div id="otherSellPoint" style="display:none;">
-						<input type="text" value="" style="width: 135px;">
+						<input type="text" value="" style="width: 135px;"> % Comisión: <input type="text" value="" style="width: 135px;"> % ISLR: <input type="text" value="" style="width: 135px;"> 
 						<img alt="logo" src="./images/close.png"  id="deleteSellPoint" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Agregar otro punto" />
 				 		<br /><br />
 				 	</div>
 					<div id="otherSellPoint2" style="display:none;">
-						<input type="text" value="" style="width: 135px;">
+						<input type="text" value="" style="width: 135px;"> % Comisión: <input type="text" value="" style="width: 135px;"> % ISLR: <input type="text" value="" style="width: 135px;"> 
 						<img alt="logo" src="./images/close.png"  id="deleteSellPoint2" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Agregar otro punto" />
 				  	 	<br /><br />
 				  	 </div>
 					 <div id="otherSellPoint3" style="display:none;">
-					  	 <input type="text" value="" style="width: 135px;">
+					  	 <input type="text" value="" style="width: 135px;"> % Comisión: <input type="text" value="" style="width: 135px;"> % ISLR: <input type="text" value="" style="width: 135px;">  
 					  	 <img alt="logo" src="./images/close.png"  id="deleteSellPoint3" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Agregar otro punto" />				
 				  	 </div>
 				</fieldset>

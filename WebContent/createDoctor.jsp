@@ -159,6 +159,8 @@
 								<option value="F">Femenino</option>
 								<option value="M" >Masculino</option>
 							</select><br><br>
+							<label for="name">RIF:</label>
+							<input type="text" name="txtCedIdNum" id="txtCedIdNum" maxlength="50" size="18" /> <br><br>
 						</fieldset>						
 						<div id="botonera">
 							<form action="ListDoctorsServlet">

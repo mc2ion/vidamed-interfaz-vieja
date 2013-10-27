@@ -113,6 +113,7 @@ function addRowForDoctor(tableId) {
 	element1.options[2] = new Option("Anestesiologo", 2);
 	element1.options[3] = new Option("Instrumentista", 3);
 	element1.options[4] = new Option("Enfermera Circulante", 4);
+	element1.options[4] = new Option("Instrumental Especial", 5);
 	element1.setAttribute("onchange", "changePrice("+ no_of_rows+");");
     column1.appendChild(element1);
     

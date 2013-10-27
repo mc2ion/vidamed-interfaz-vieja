@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-		<title>Imprimir Corte Cuenta</title>	
+		<title>Imprimir Presupuesto</title>	
 		<script type="text/javascript">
 		
 		function printPageContentB() {
@@ -170,208 +170,98 @@
         <table id="sweetTable">
 			<tbody>
 				<tr>
-					<th style="width:10%">Número</th>
-					<th style="width:45%">Diagnóstico</th>
-					<th style="width:45%">Protocolo</th>
+					<th style="width:8%">Número</th>
+					<th style="width:15%">Diagnóstico</th>
+					<th style="width:77%">Protocolo</th>
 				</tr>				
 				<tr>
 					<td>001</td>
 					<td>Rinopatía Obstructiva</td>
-					<td>Cirugía Funcional Endonasal</td>
+					<td>
+					<table id="invisibleTable">
+			<tbody>
+				<tr>
+					<th colspan="2">Cirugía Funcional Endonasal</th>
+					<th style="width:20%;text-align:right;">Precio Bs.F.</th>
+				</tr>
+				<tr>
+					<td colspan="2">Hospitalización</td>
+					<td style="width:20%;text-align:right;">3.042,75</td>
+				</tr>
+				<tr>
+					<td colspan="2">Gastos en Quirófano</td>
+					<td style="width:20%;text-align:right;">17.720,34</td>
+				</tr>
+				<tr>
+					<td colspan="2">Servicios Médicos</td>
+					<td style="width:20%;text-align:right;">2.960,15</td>
+				</tr>
+				<tr>
+					<td colspan="2">Honorarios Profesionales</td>
+					<td style="width:20%;text-align:right;">13.528,83</td>
+				</tr>
+				<tr id="totalTr3">
+					<td colspan="2">*** TOTAL PROTOCOLO ***</td>
+					<td style="width:20%;text-align:right;">37.252,07</td>
+				</tr>
+			</tbody>
+			</table>
+					</td>
 				</tr>					
 				<tr>
 					<td>002</td>
 					<td>Amigdalitis Crónica</td>
-					<td>Amigdalectomía o Tonsilectomía</td>
-				</tr>
-			</tbody>
-		</table>
-		<br>
-		<table id="sweetTable">
+					<td>
+					<table id="invisibleTable">
 			<tbody>
 				<tr>
-					<th colspan="2">Hospitalización</th>
+					<th colspan="2">Amigdalectomía o Tonsilectomía</th>
 					<th style="width:20%;text-align:right;">Precio Bs.F.</th>
-				</tr>				
-				<tr>
-					<td style="width:50%">Habitación</td>
-					<td style="width:30%">Ambulatorio</td>
-					<td style="width:20%;text-align:right;">1.135,20</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Médico Residente</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">220,00</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Servicios de Asistencia Permanente</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">154,69</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Servicios de Alimentación</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">260,00</td>
-				</tr>								
-				<tr>
-					<td style="width:50%">Servicios Farmacéuticos Ambulatorios</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">35,20</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Fármacos en Habitación</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">650,32</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Material Médico Quirúrgico en Habitación</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">587,34</td>
 				</tr>
-				<tr id="totalTr">
-					<td colspan="2">*** SUB-TOTAL ***</td>
+				<tr>
+					<td colspan="2">Hospitalización</td>
 					<td style="width:20%;text-align:right;">3.042,75</td>
-				</tr>
-				<tr>
-					<th colspan="2">Gastos en Quirófano</th>
-					<th style="width:20%;text-align:right;">Precio Bs.F.</th>
 				</tr>				
 				<tr>
-					<td style="width:50%">Quirófano</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">4.875,00</td>
-				</tr>				
 				<tr>
-					<td style="width:50%">Sala de Recuperación</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">450,00</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Monitoreo</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">1.950,00</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Gases, Anestésicos y Medicamentos</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">4.593,91</td>
-				</tr>								
-				<tr>
-					<td style="width:50%">Material Médico Quirúrgico</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">5852,03</td>
-				</tr>
-				<tr id="totalTr">
-					<td colspan="2">*** SUB-TOTAL ***</td>
+					<td colspan="2">Gastos en Quirófano</td>
 					<td style="width:20%;text-align:right;">17.720,34</td>
 				</tr>
 				<tr>
-					<th colspan="2">Servicios Médicos</th>
-					<th style="width:20%;text-align:right;">Precio Bs.F.</th>
-				</tr>				
-				<tr>
-					<td style="width:50%">Banco de Sangre (Tipiaje)</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">591,25</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Electrocardiograma Reposo</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">402,50</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Evaluación Cardiovascular Pre-Operatoria</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">812,50</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Laboratorio Clínico</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">552,00</td>
-				</tr>								
-				<tr>
-					<td style="width:50%">Rayos X</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">601,90</td>
-				</tr>
-				<tr id="totalTr">
-					<td colspan="2">*** SUB-TOTAL ***</td>
+					<td colspan="2">Servicios Médicos</td>
 					<td style="width:20%;text-align:right;">2.960,15</td>
 				</tr>
 				<tr>
-					<th colspan="2">Honorarios Profesionales</th>
-					<th style="width:20%;text-align:right;">Precio Bs.F.</th>
-				</tr>				
-				<tr>
-					<td style="width:50%">Cirujano Principal</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">3.300,00</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Cirujano Ayudante I</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">1.320,00</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Anestesiólogo</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">1.320,00</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Instrumentista</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">224,20</td>
-				</tr>								
-				<tr>
-					<td style="width:50%">Enfermera Circulante</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">56,63</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Instrumental Especial</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">2.000,00</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Equipo Endoscopio</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">2.500,00</td>
-				</tr>								
-				<tr>
-					<td style="width:50%">Material Especial</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">2.500,00</td>
-				</tr>								
-				<tr>
-					<td style="width:50%">Consulta Pre-Anestésica</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">308,00</td>
-				</tr>
-				<tr id="totalTr">
-					<td colspan="2">*** SUB-TOTAL ***</td>
+					<td colspan="2">Honorarios Profesionales</td>
 					<td style="width:20%;text-align:right;">13.528,83</td>
 				</tr>
-				<tr id="totalTr2">
-					<td colspan="2">*** TOTAL ***</td>
+				<tr id="totalTr3">
+					<td colspan="2">*** TOTAL PROTOCOLO ***</td>
 					<td style="width:20%;text-align:right;">37.252,07</td>
 				</tr>
-				<tr id="totalTr">
-					<td colspan="2">*** DESCUENTO ***</td>
-					<td style="width:20%;text-align:right;">1.000,00</td>
+			</tbody>
+			</table></td>
 				</tr>
 				<tr id="totalTr2">
+					<td colspan="2">*** SUB-TOTAL ***</td>
+					<td style="width:20%;text-align:right;">74.504,14</td>
+				</tr>
+				<tr id="totalTr">
 					<td colspan="2">I.V.A.</td>
 					<td style="width:20%;text-align:right;">0,00</td>
 				</tr>
-				<tr id="totalTr">
+				<tr id="totalTr2">
 					<td colspan="2">*** TOTAL GENERAL ***</td>
-					<td style="width:20%;text-align:right;">36.252,07</td>
+					<td style="width:20%;text-align:right;">74.504,14</td>
 				</tr>
 			</tbody>
-			</table>				
+		</table>		
+		<br>		
+		<br>		
 		<br>
 		<div style="text-align:center;font-weight:bold;font-size:11px;">CENTRO MÉDICO QUIRÚRGICO VIDAMED		
-		<br>Departamento Administrativo</div>
+		<br>Departamento Administrativo</div>		
+		<br>
 		<div style="text-align:left;font-size:10px;">Elaborado Por: Elizabeth Hernandez</div>
 		<div style="text-align:left;font-size:10px;">Modificado Por: Elizabeth Hernandez</div>
 		<br>	

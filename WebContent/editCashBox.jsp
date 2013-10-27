@@ -83,22 +83,22 @@
 					<textarea name="txtDescription" id="txtDescription" rows="3" cols="50">Caja Principal de la Clínica. Ubicada en admisión. Se encarga de recibir y dar los pagos relacionados con emergencia y hospitalización.</textarea> <br><br>
 					<label for="name">Punto de Venta:</label>
 					<div >
-				  	 	<input type="text" style="width: 135px;" value="Banesco">
+				  	 	<input type="text" style="width: 135px;" value="Banesco"> % Comisión: <input type="text" value="5" style="width: 135px;"> % ISLR: <input type="text" value="3" style="width: 135px;">
 				  	 	<img alt="logo" src="./images/add.png"  id="addSellPoint" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Agregar otro punto" />
 						<br /><br />
 					</div>
 					<div id="otherSellPoint" style="display:block;">
-						<input type="text" value="Banco Mercantil" style="width: 135px;">
+						<input type="text" value="Banco Mercantil" style="width: 135px;"> % Comisión: <input type="text" value="4" style="width: 135px;"> % ISLR: <input type="text" value="3" style="width: 135px;">
 						<img alt="logo" src="./images/close.png"  id="deleteSellPoint" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Agregar otro punto" />
 				 		<br /><br />
 				 	</div>
 					<div id="otherSellPoint2" style="display:block;">
-						<input type="text" value="Banco Activo" style="width: 135px;">
+						<input type="text" value="Banco Activo" style="width: 135px;"> % Comisión: <input type="text" value="2" style="width: 135px;"> % ISLR: <input type="text" value="3" style="width: 135px;">
 						<img alt="logo" src="./images/close.png"  id="deleteSellPoint2" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Agregar otro punto" />
 				  	 	<br /><br />
 				  	 </div>
 					 <div id="otherSellPoint3" style="display:none;">
-					  	 <input type="text" value="" style="width: 135px;">
+					  	 <input type="text" value="" style="width: 135px;"> % Comisión: <input type="text" value="" style="width: 135px;"> % ISLR: <input type="text" value="" style="width: 135px;">
 					  	 <img alt="logo" src="./images/close.png"  id="deleteSellPoint3" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Agregar otro punto" />				
 				  	 </div>
 				</fieldset>

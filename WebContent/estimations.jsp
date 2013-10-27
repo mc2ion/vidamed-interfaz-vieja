@@ -205,12 +205,6 @@
 						<input type="submit"  class="buttonPopUpDelete3"  name="sbmtButton" value="Detallado"  />
 					</div>
 		 		</form>
-				<form action="PrintEstimation2Servlet" method="post"  onsubmit="return setV(this)">
-					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
-					<div class="btn-fld">
-						<input type="submit"  class="buttonPopUpDelete4"  name="sbmtButton" value="Detallado 2"  />
-					</div>
-		 		</form>
 			</div>
 		</div>
 		<div id="deleteUser">

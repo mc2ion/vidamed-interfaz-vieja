@@ -88,6 +88,8 @@
 					<input type="number" min="1" name="txtAmount" id="txtAmount" maxlength="3" size="3" value="12" /> <br><br>
 					<label for="name">Precio Unitario:</label>
 					<input type="number" min="1" name="txtAmount" id="txtAmount" maxlength="3" size="3" value="350" /> <br><br>
+					<label for="name"> </label>
+					<input type="checkbox" name="isRegulated" id="isRegulated" value="true"> Producto Regulado <br><br>
 				</fieldset>
 				<div id="botonera">
 					<form action="ListSuppliesServlet">
