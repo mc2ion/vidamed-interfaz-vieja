@@ -188,6 +188,21 @@
 											<br>
 										</td>
 									</tr>
+									<tr class="gradeA">
+										<td>1001</td>
+										<td>Caja Administrativa</td>
+										<td>Abierta</td>
+										<td>Bs. 100</td>
+										<td>
+											<a href="CreateDepositServlet" style="color: transparent" >
+												<img alt="logo" src="./images/movements.png"  height="16" width="16" title="Registrar Pago" />
+											</a>
+											<a href="#" style="color: transparent" >
+												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
+											</a>
+											<br>
+										</td>
+									</tr>
 								</tbody>
 							</table>
 						</div>

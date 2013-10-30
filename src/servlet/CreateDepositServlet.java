@@ -14,10 +14,10 @@ import command.CommandExecutor;
 
 
 /**
- * Servlet implementation class PrintEstimation2Servlet
+ * Servlet implementation class CreateDepositServlet
  */
-@WebServlet(description = "servlet to log in users", urlPatterns = { "/PrintEstimation2Servlet" })
-public class PrintEstimation2Servlet extends HttpServlet {
+@WebServlet(description = "servlet to log in users", urlPatterns = { "/CreateDepositServlet" })
+public class CreateDepositServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	public void init() throws ServletException {
@@ -32,7 +32,7 @@ public class PrintEstimation2Servlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PrintEstimation2Servlet() {
+    public CreateDepositServlet() {
         super();
     }
 
@@ -42,7 +42,7 @@ public class PrintEstimation2Servlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		RequestDispatcher rd;
-		rd = getServletContext().getRequestDispatcher("/printEstimation2.jsp");			
+		rd = getServletContext().getRequestDispatcher("/createDeposit.jsp");			
 		rd.forward(request, response);
 	}
 
@@ -50,6 +50,7 @@ public class PrintEstimation2Servlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request,response);
+		
+		doGet(request, response);
 	}
 }
