@@ -160,6 +160,11 @@
 				<h3 id="see_id" class="sprited" > Alta de Admisión</h3>
 				<br><br>
 				<span>¿Está seguro que desea darle el alta de admisión a <span class="cliente"></span>? </span> <br><br>
+				<span style="
+    color: red;
+    font-size: small;
+    font-style: italic;
+">Recuerde que debe verificar los servicios de Rayos X, Laboratorio y Servicios Médicos del paciente antes de darle de alta.</span> <br><br>
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>

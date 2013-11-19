@@ -106,6 +106,9 @@
 											<a href="EditCreditNoteEstimationServlet" style="color: transparent" >
 												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 											</a>
+											<a id="go" rel="leanModal" href="#discount" style="color: #f7941e; font-weight: bold;" onclick="return loadVars(1001,'1001');" >
+												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Aplicar Descuento" />			
+											</a>
 											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
 												onclick="return loadVars(1001,'Ana Rojas');" >
 												<img alt="logo" src="./images/refresh.png"  height="16" width="16" title="Reenviar Prefactura" />
@@ -127,6 +130,9 @@
 											<a href="#" style="color: transparent" >
 												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 											</a>
+											<a id="go" rel="leanModal" href="#discount" style="color: #f7941e; font-weight: bold;" onclick="return loadVars(1002,'1002');" >
+												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Aplicar Descuento" />			
+											</a>
 											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
 												onclick="return loadVars(1002,'Luis Mujica');" >
 												<img alt="logo" src="./images/refresh.png"  height="16" width="16" title="Reenviar Prefactura" />
@@ -147,6 +153,9 @@
 										<td>
 											<a href="#" style="color: transparent" >
 												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
+											</a>
+											<a id="go" rel="leanModal" href="#discount" style="color: #f7941e; font-weight: bold;" onclick="return loadVars(1003,'1003');" >
+												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Aplicar Descuento" />			
 											</a>
 											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
 												onclick="return loadVars(1003,'Miguel Álvarez');" >
@@ -195,6 +204,30 @@
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
+					</div>
+		 		</form>
+			</div>
+		</div>
+		<div id="discount">
+			<div id="signup-ct">
+				<h3 id="see_id" class="sprited" > Aplicar Descuento</h3><br><br>
+				Por favor, indique la siguiente información.
+				<div class="text">
+					<div class="leftColum"><b>Descuento:</b></div>
+						<select>
+							<option value="P">%</option>
+							<option value="Monto">Bs.</option>
+						</select>
+						<input type="text" size='10'/>
+					<br>
+					<div class="leftColum"><b>Justicación:</b></div><textarea style="width: 138px;"></textarea><br>
+				</div>
+				<div id="signup-header">
+					<a class="close_x" id="close_x_aux"  href="#"></a>
+				</div>
+				<form action="ListCreditNotesReviewServlet" method="post"  onsubmit="return setV(this)">
+					<div class="btn-fld">
+						<input type="submit"  class="buttonPopUpAux"  name="sbmtButton" value="Aplicar"  />
 					</div>
 		 		</form>
 			</div>
