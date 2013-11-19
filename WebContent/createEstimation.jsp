@@ -124,7 +124,7 @@
 					</div>
   					<div id="tabs-2">
   						<div style="text-align:right;">
-	  						<a href="SearchAdmission?function=createEstimation" style="color: #006c92; font-weight: bold;">
+	  						<a href="SearchProtocolsServlet?function=createEstimation" style="color: #006c92; font-weight: bold;">
 								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Protocolo
 							</a>						
   						</div>
