@@ -37,6 +37,9 @@
 			   	<b>Especialista:</b> Juan Pérez<br><br>
 			    <b>N° de factura:</b> F-24410<br><br>
 			    <b>Fecha de la factura:</b> 05/10/2013<br><br>
+			    <b>Monto inicial:</b> Bs. 6220,00<br><br>
+			    <b>Deducciones realizadas:</b> Bs. 1220,00<br><br>
+			    <b>Descuentos aplicados:</b> Bs. 0,00<br><br>
 			    <b>Monto a cobrar:</b> Bs. 5000,00<br><br>
 			    <b>Cargo desempeñado:</b> Cirujano Ayudante<br><br>
 			    <br><br>

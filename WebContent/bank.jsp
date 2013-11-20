@@ -194,6 +194,10 @@
 										<td>Abierta</td>
 										<td>Bs. 100</td>
 										<td>
+											<a id="go" rel="leanModal" href="#closeCashW" style="color: #f7941e; font-weight: bold;"
+											onclick="return loadVars(1001,'Administrativa');" >
+												<img alt="logo" src="./images/close.png"  height="16" width="16" title="Cerrar Caja" />
+											</a>
 											<a href="CreateDepositServlet" style="color: transparent" >
 												<img alt="logo" src="./images/movements.png"  height="16" width="16" title="Registrar Pago" />
 											</a>
