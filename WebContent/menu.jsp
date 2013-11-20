@@ -12,7 +12,7 @@
 		         <li class='last'><a href='ListMedicalTreatmentsServlet'><span>Tratamiento Médico</span></a></li>
 		      </ul>
 		   </li>
-		   <li><a href='ListServicesServlet'><span>Servicios</span></a></li>
+		   <li><a href='ListXRayReportsServlet'><span>Rayos X</span></a></li>
 		   <li><a href='ListSupplyAreasServlet'><span>Farmacia</span></a></li>
 		   <li><a href='ListDepartmentsServlet'><span>Unidades</span></a></li>
 		   <li><a href='ListDoctorsServlet'><span>Especialistas</span></a></li>
