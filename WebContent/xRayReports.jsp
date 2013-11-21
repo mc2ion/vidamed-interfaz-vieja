@@ -72,7 +72,7 @@
 			
 			<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 			<ul>
-            	<li class="menuitem"><a href="CreateXRayReportServlet">Cargar Informe</a></li>
+            	<li class="menuitem"><a href="CreateXRayReportFormServlet">Cargar Informe</a></li>
             </ul>
 	    	<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
         </div>        
