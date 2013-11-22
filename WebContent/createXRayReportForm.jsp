@@ -82,10 +82,10 @@
 	   	</div>
 	   	<div id="deleteVitalSign">
 			<div id="signup-ct">
-				<form action="CreatePatientXRayServlet">
+				<form action="CreateXRayReportFormServlet">
 				<h3 id="see_id" class="sprited" > Paciente Inexistente</h3>
 				<br><br>
-				<span style="font-size: 16px; text-align: center;">El paciente indicado no se encuentra registrado en el sistema. ¿Desea agregarlo? </span> <br><br>
+				<span style="font-size: 16px; text-align: center;">El paciente indicado no se encuentra registrado en el sistema.</span> <br><br>
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
