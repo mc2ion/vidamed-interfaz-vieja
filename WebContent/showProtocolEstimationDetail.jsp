@@ -146,27 +146,27 @@
 				  <div>
 				  	<table class="table-simple">
 				    	<tr>
-				    		<td>Cirujano Principal</td>
+				    		<td>Cirujano Principal - Dr. Ricardo Perez</td>
 				    		<td>Bs. 2270</td>
 				    	</tr>
 				    	<tr>
-				    		<td>Cirujano Ayudante I</td>
+				    		<td>Cirujano Ayudante I - Dra. Ana Rojas </td>
 				    		<td>Bs. 2270</td>
 				    	</tr>
 				    	<tr>
-				    		<td>Cirujano Ayudante II</td>
+				    		<td>Cirujano Ayudante II  - Dra. Luisa Mendez </td>
 				    		<td>Bs. 2270</td>
 				    	</tr>
 				    	<tr>
-				    		<td>Anestesiólogo</td>
+				    		<td>Anestesiólogo - Pedro Rojas</td>
 				    		<td>Bs. 2270</td>
 				    	</tr>
 				    	<tr>
-				    		<td>Instrumentista</td>
+				    		<td>Instrumentista - Luis Gonzalez </td>
 				    		<td>Bs. 2270</td>
 				    	</tr>
 				    	<tr>
-				    		<td>Enfermera Circulante</td>
+				    		<td>Enfermera Circulante - Maria Cruz</td>
 				    		<td>Bs. 2270</td>
 				    	</tr>
 				    	<tr>

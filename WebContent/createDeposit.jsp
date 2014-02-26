@@ -74,10 +74,10 @@
 	        	<h2>Registrar Deposito:</h2>
 				<br>
 				<fieldset>
-					<label for="name">Fecha:</label>
+					<label for="name">Fecha de la transacción:</label>
 					<input type="text" style="width: 135px;"> <br><br>
 					<div id="bank">
-						<label for="name">Banco:</label>
+						<label for="name">Banco Receptor:</label>
 						<select>
 							<option value="0">Seleccionar</option>
 							<option value="5">Banco Bicentenario</option>
@@ -89,8 +89,16 @@
 					</div>
 					<label for="name">N° de Planilla:</label>
 					<input type="text" style="width: 135px;"> <br><br>
-					<label for="name">Monto:</label>
+					
+					<label for="name">Monto Efectivo:</label>
 					<input type="text" value="" style="width: 135px;"> <br><br>
+					
+					<label for="name">Monto Cheques:</label>
+					<input type="text" value="" style="width: 135px;"> <br><br>
+					
+					<label for="name">Monto Total:</label>
+					<input type="text" value="" style="width: 135px;"> <br><br>
+					
 				</fieldset>
 				<div id="botonera">
 					<form action="ListBanksServlet">
