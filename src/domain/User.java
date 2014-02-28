@@ -1,196 +1,153 @@
 package domain;
 
-public class User {
+import java.sql.Date;
 
-	private int id;
-	/*private String name;
-	private String firstName;
-	private String lastName;
-	private String identityCard;*/
-	private String username;
-	private String password;
-	/*private int roleId;
-	private String roleName;
-	private Integer roomId;
-	private String roomName; 
-	private String productName;
-	private String turn;*/
+public class User {
 	
-	/**
-	 * 
-	 * @param id
-	 */
-	public void setId(int id) {
+	private long id;
+	private String name;
+	private String lastname;
+	private String cedula;
+	private int departmentId;
+	private String department;
+	private String userName;
+	private String password;
+	private Date birthDate;
+	private String gender;
+	private String dir;
+	private String email;
+	private String[] numbers;
+	private Date admissionDate;
+	private String charge;
+	private String salary;
+	
+	
+	public void setId(long id) {        
 		this.id = id;
 	}
 	
-	/**
-	 * 
-	 * @return
-	 */
-	public int getId() {
+	public long getId() {
 		return id;
 	}
-
-	/**
-	 * 
-	 * @param name
-	 */
-	/*public void setName(String name) {
+	
+	public void setName(String name) {
 		this.name = name;
 	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	/*public String getName() {
+	
+	public String getName() {
 		return name;
 	}
+
+	public void setLastname(String lastname){
+		this.lastname = lastname;
+	}
 	
-	/**
-	 * 
-	 * @param username
-	 */
-	public void setUserName(String username) {
-		this.username = username;
+	public String getLastname(){
+		return lastname;
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
-	public String getUserName() {
-		return username;
+	public void setCedula(String cedula){
+		this.cedula = cedula;
 	}
-
-	/**
-	 * 
-	 * @param password
-	 */
+	
+	public String getCedula(){
+		return cedula;
+	}
+	
+	public void setDepartamntId(int departamentId){
+		this.departmentId = departamentId;
+	}
+	
+	public int getDepartamntId(){
+		return departmentId;
+	}
+	
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
 	public String getPassword() {
 		return password;
 	}
-
-	/**
-	 * 
-	 * @param roleId
-	 */
-	/*public void setRoleId(int roleId) {
-		this.roleId = roleId;
+	
+	public void setDepartment(String department) {
+		this.department = department;
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
-	/*public int getRoleId() {
-		return roleId;
+	public String getDepartment() {
+		return department;
+	}
+	
+	public void setBirthDate(Date birthdate) {
+		this.birthDate = birthdate;
 	}
 
-	/**
-	 * 
-	 * @param roleName
-	 */
-	/*public void setRoleName(String roleName) {
-		this.roleName = roleName;
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	/*public String getRoleName() {
-		return roleName;
+	public Date getBirthDate() {
+		return birthDate;
 	}
 	
 	
-	/**
-	 * 
-	 * @param roomId
-	 */
-	/*public void setRoomId(Integer roomId) {
-		this.roomId = roomId;
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
-	/*public Integer getRoomId() {
-		return roomId;
+	public String getGender() {
+		return gender;
 	}
 	
-	/**
-	 * 
-	 * @param roomId
-	 */
-	/*public void setRoomName(String roomName) {
-		this.roomName = roomName;
+	public void setDir(String dir) {
+		this.dir = dir;
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
-	/*public String getRoomName() {
-		return roomName;
+	public String getDir() {
+		return dir;
 	}
 	
-	/**
-	 * 
-	 * @param productName
-	 */
-	/*public void setProductName(String productName) {
-		this.productName = productName;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
-	/*public String getProductName() {
-		return productName;
+	public String getEmail() {
+		return email;
 	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setIdentityCard(String identityCard) {
-		this.identityCard = identityCard;
-	}
-
-	public String getIdentityCard() {
-		return identityCard;
-	}
-
-	public void setTurn(String turn) {
-		this.turn = turn;
-	}
-
-	public String getTurn() {
-		return turn;
-	}*/
 	
+	public void setCharge(String charge) {
+		this.charge = charge;
+	}
+
+	public String getCharge() {
+		return charge;
+	}
+	
+	public void setSalary(String salary) {
+		this.salary = salary;
+	}
+
+	public String getSalary() {
+		return salary;
+	}
+	
+	public void setNumbers(String[] numbers) {
+		this.numbers = numbers;
+	}
+
+	public String[] getNumber() {
+		return numbers;
+	}
+	
+	public void setAdmissionDate(Date admissionDate) {
+		this.admissionDate = admissionDate;
+	}
+
+	public Date getAdmissionDate() {
+		return admissionDate;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
 }
