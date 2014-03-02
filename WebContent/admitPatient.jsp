@@ -113,8 +113,12 @@
 								</a> 
 								<br><br>
 					
-							   <label> Motivo de la admisión:</label> <input type="text" name="reasonAdmission" id="reasonAdmission" value="" ><br><br>
-							    
+							   <label> Motivo de la admisión:</label>
+							   <select name="reasonAdmission" id="reasonAdmission" >
+							   		<option value="h">Hospitalizaci&oacute;n</option>  
+							   		<option value="e">Emergencia</option> 
+							   		<option value="t">Tratamiento M&eacute;dico</option>   
+							   </select><br/><br/>							    
 							    <label> Ubicación:  </label>
 								<input type="text" name="ubication" id="ubication" readonly><br><br>
 								 
