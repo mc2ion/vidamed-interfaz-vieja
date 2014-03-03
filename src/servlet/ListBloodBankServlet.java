@@ -13,10 +13,10 @@ import command.CommandExecutor;
 
 
 /**
- * Servlet implementation class ListMedicalTreatmentServlet
+ * Servlet implementation class ListBloodBankServlet
  */
-@WebServlet(description = "servlet to generate reports", urlPatterns = { "/ListMedicalTreatmentServlet" })
-public class ListMedicalTreatmentsServlet extends HttpServlet {
+@WebServlet(description = "servlet to generate reports", urlPatterns = { "/ListBloodBankServlet" })
+public class ListBloodBankServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	public void init() throws ServletException {
@@ -31,7 +31,7 @@ public class ListMedicalTreatmentsServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ListMedicalTreatmentsServlet() {
+    public ListBloodBankServlet() {
         super();
     }
 
@@ -39,7 +39,7 @@ public class ListMedicalTreatmentsServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/medicalTreatment.jsp");
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/bloodBank.jsp");
 		rd.forward(request, response);
 	}
 	

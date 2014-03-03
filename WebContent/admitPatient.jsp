@@ -8,7 +8,6 @@
 	  	<script src="./js/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
-		<link rel="stylesheet" href="/resources/demos/style.css" />
 		<script>
 			$(function() {
 				$( "#tabs" ).tabs();
@@ -130,8 +129,16 @@
 							   <label> Número de presupuesto:</label> 
 							   	<input type="text" name="estimationId" id="estimationId" value="">
 							    <a href="SearchEstimationServlet" style="color: #f7941e; font-weight: bold;" >
-									<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Buscar" />
-								</a><br><br>
+									<input type="button" value="Buscar" >
+								</a>
+								<a href="CreateEstimationServlet" style="color: #f7941e; font-weight: bold;" >
+									<input type="button" value="Crear" >
+								</a>
+								<br><br>
+								 <label> Observaciones:</label>  
+								 <textarea name="observations" id="observations" ></textarea>
+							   
+								<br><br>
 							</fieldset>
 							<div id="botonP">
 										<input type="button"  class="button" id="subAdmit"  name="sbmtButton" value="Aceptar" style="margin-left:30%; margin-top: 5px;"/>

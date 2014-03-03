@@ -1540,7 +1540,7 @@ div.box {
 }
 
 #deleteUser, #deleteProduct, #deleteRequest, #refreshUser, #dischargeUser, #hospitalizeUser, #deleteService, #deleteProtocol, #deleteSupply,
-#deleteEvaluation, #deleteVitalSign, #deleteCash, #printUser, #closeAccount, #discount, #generateInvoice{
+#deleteEvaluation, #deleteVitalSign, #deleteCash, #printUser, #closeAccount, #discount, #generateInvoice, #editStatus{
 	position: absolute;
 	text-align: center;
 	width: 295px;
@@ -2640,4 +2640,9 @@ nav .badge.blue {
 	position: absolute;
 	right: 123px;
 	top: 78px;
+}
+
+#observations{
+	width:277px; 
+	height:60px;
 }

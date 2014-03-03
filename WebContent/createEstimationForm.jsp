@@ -79,9 +79,9 @@
 					 	<input type="image" src="./images/detail.png" height="16" width="16" title="Ver Detalle" />
 					 </form>
 		        	<a id="go" rel="leanModal"  href="#deleteVitalSign" style="color: #f7941e; font-weight: bold;" >
-						<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
+					 	<input type="image" src="./images/detail.png" height="16" width="16" title="Ver Detalle" />
 					</a>	 
-	        		<div id="botonera" style="width:100px;">
+	        		<div id="botonera" style="width:100px; margin-top: 200px;">
 						<div id="botonV" style="display: inline;">
 								<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
 						</div>		

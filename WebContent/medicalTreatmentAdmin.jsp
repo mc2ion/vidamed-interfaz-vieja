@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!DOCTYPE >
 <html>
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-	<title>Admisión</title>
+	<title>Tratamientos Médicos</title>
 	<script type="text/javascript" src="./js/jquery.js"></script>
 	<script type="text/javascript" src="./js/jquery.dataTables.js"></script>
 	<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
@@ -15,8 +15,6 @@
 			"sScrollY": "250px",
 			"bPaginate": false,
 			"aoColumns": [
-				null,
-				null,
 				null,
 				null,
 				null,
@@ -52,16 +50,14 @@
 		f.elements['userId'].value = idUser;
 		return true;
 	}
-	
-	
 	</script>
 </head>
 <body>
 	<div id="container">
 		<div id="header">
         	<img alt="logo" src="./images/logo.png"/>
-        </div>  
-           	<nav>
+        </div>         
+      	<nav>
          	<ul>
          		<li><a href="#">Bienvenido, Prueba</a></li>
                 <li><a href="ListAdmissionDischargesServlet">Altas Admisión<span class="badge yellow">3</span></a></li>
@@ -74,14 +70,14 @@
 		<div id="menu">
 			
 			<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
-	    	<ul>
-            	<li class="menuitem"><a href="AdmitPatientFormServlet">Admitir Paciente</a></li>
+			<ul>
+            	<li class="menuitem"><a href="CreateMedicalTreatmentServlet">Crear Tratamiento Médico</a></li>
             </ul>
-            <div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
+	    	<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
         </div>        
 		 <jsp:include page="./menu.jsp" />
 		<div id="content">  
-			<h2>Admisión:</h2>
+			<h2>Tratamientos Médicos:</h2>
 			<div id="dt_example">
 					<div id="container">
 						<div id="demo">
@@ -89,29 +85,22 @@
 								<thead>
 									<tr>
 										<th>ID</th>
-										<th>Paciente</th>
-										<th>Responsable Pago</th>
-										<th>Status</th>
-										<th>Ubicación</th>
+										<th>Unidad</th>
+										<th>Nombre</th>
 										<th>Acciones</th>
 									</tr>
 								</thead>
 								<tbody>			
 									<tr class="gradeA">
 										<td>1001</td>
-										<td>Ana Rojas</td>
-										<td>Multinacional de Seguros</td>
-										<td>Esperando Clave</td>
-										<td>Emergencias</td>
+										<td>Cirugía General</td>
+										<td>Frenuloplastia</td>
 										<td>
-											<a id="go" rel="leanModal" href="#editStatus" style="color: #f7941e; font-weight: bold;" >
-												<img alt="logo" src="./images/edit.png" height="16" width="16" title="Eliminar"/>
-											</a> 
-											<a href="ShowAdmissionServlet" style="color: transparent" >
-												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
+											<a href="EditMedicalTreatmentServlet" style="color: transparent" >
+												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
 											</a>
 											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1001,'Ana Rojas');" >
+												onclick="return loadVars(1001,'Frenuloplastia');" >
 												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
 											</a> 
 											<br>
@@ -119,19 +108,14 @@
 									</tr>
 									<tr class="gradeA">
 										<td>1002</td>
-										<td>Luis Mujica</td>
-										<td>La Previsora</td>
-										<td>Esperando Clave</td>
-										<td>Hospitalización</td>
+										<td>Otros Procedimientos</td>
+										<td>Tratamiento Médico</td>
 										<td>
-											<a id="go" rel="leanModal" href="#editStatus" style="color: #f7941e; font-weight: bold;" >
-												<img alt="logo" src="./images/edit.png" height="16" width="16" title="Eliminar"/>
-											</a> 
 											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
+												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
 											</a>
 											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1001,'Ana Rojas');" >
+												onclick="return loadVars(1002,'Tratamiento Médico');" >
 												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
 											</a> 
 											<br>
@@ -139,19 +123,14 @@
 									</tr>
 									<tr class="gradeA">
 										<td>1003</td>
-										<td>Miguel Álvarez</td>
-										<td>Seguros Caroní</td>
-										<td>Denegado</td>
-										<td>Emergencias</td>
+										<td>Emergencia</td>
+										<td>Emergencia</td>
 										<td>
-											<a id="go" rel="leanModal" href="#editStatus" style="color: #f7941e; font-weight: bold;" >
-												<img alt="logo" src="./images/edit.png" height="16" width="16" title="Eliminar"/>
-											</a> 
 											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
+												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
 											</a>
 											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1001,'Ana Rojas');" >
+												onclick="return loadVars(1003,'Emergencia');" >
 												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
 											</a> 
 											<br>
@@ -163,42 +142,17 @@
 					</div>
 				</div>
 				<div class="spacer"></div>
-        	</div>
        	</div>
+		</div>
 		<div id="deleteUser">
 			<div id="signup-ct">
-				<h3 id="see_id" class="sprited" > Eliminar Admisión</h3>
+				<h3 id="see_id" class="sprited" > Eliminar Tratamiento Médico</h3>
 				<br><br>
-				<span>¿Está seguro que desea eliminar del sistema la admisión de <span class="cliente"></span>? </span> <br><br>
+				<span>¿Está seguro que desea eliminar el tratamiento médico '<span class="cliente"></span>' y su información asociada? </span> <br><br>
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
 				<form action="ListAdmissionsServlet" method="post"  onsubmit="return setV(this)">
-					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
-					<div class="btn-fld">
-						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
-					</div>
-		 		</form>
-			</div>
-		</div>
-		<div id="editStatus">
-			<div id="signup-ct">
-				<h3 id="see_id" class="sprited" > Editar Status</h3>
-				<br><br>
-				<span>Seleccione el nuevo status</span> <br><br>
-				<form id="gastos" style="text-align: center">
-					<select>
-						<option value="-">Seleccionar</option>
-						<option value="A">Aceptado</option>
-						<option value="D">Denegado</option>
-						<option value="E">Esperando Clave</option>
-						<option value="O">Otro</option>
-					</select>
-				</form>
-				<div id="signup-header">
-					<a class="close_x" id="close_x"  href="#"></a>
-				</div>
-				<form action="ListEmergenciesServlet" method="post"  onsubmit="return setV(this)">
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
