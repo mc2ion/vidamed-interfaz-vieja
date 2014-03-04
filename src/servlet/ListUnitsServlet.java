@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,16 +9,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
-
+import domain.Unit;
 
 
 /**
- * Servlet implementation class EditDoctorServlet
+ * Servlet implementation class ListDepartmentsServlet
  */
-@WebServlet(description = "servlet to log in users", urlPatterns = { "/EditDoctorServlet" })
-public class EditDoctorServlet extends HttpServlet {
+@WebServlet(description = "servlet to generate reports", urlPatterns = { "/ListUnitsServlet" })
+public class ListUnitsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	public void init() throws ServletException {
@@ -32,25 +34,34 @@ public class EditDoctorServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EditDoctorServlet() {
+    public ListUnitsServlet() {
         super();
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		RequestDispatcher rd;
-		rd = getServletContext().getRequestDispatcher("/editDoctor.jsp");			
-		rd.forward(request, response);
+		
+		try {
+			ArrayList<Unit> units = (ArrayList<Unit>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetUnits());
+			HttpSession session = request.getSession(true);
+			session.setAttribute("units", units);
+			
+			RequestDispatcher rd;
+			rd = getServletContext().getRequestDispatcher("/units.jsp");			
+			rd.forward(request, response);
+		} 
+		catch (Exception e) {
+			throw new ServletException(e);
+		}
 	}
-
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		doGet(request, response);
 	}
 }

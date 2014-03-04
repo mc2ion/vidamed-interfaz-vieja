@@ -14,10 +14,10 @@ import command.CommandExecutor;
 
 
 /**
- * Servlet implementation class EditDepartmentServlet
+ * Servlet implementation class CreateDepartmentServlet
  */
-@WebServlet(description = "servlet to log in users", urlPatterns = { "/EditDepartmentServlet" })
-public class EditDepartmentServlet extends HttpServlet {
+@WebServlet(description = "servlet to log in users", urlPatterns = { "/RemoveSpecialistServlet" })
+public class RemoveSpecialistServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	public void init() throws ServletException {
@@ -32,7 +32,7 @@ public class EditDepartmentServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EditDepartmentServlet() {
+    public RemoveSpecialistServlet() {
         super();
     }
 
@@ -41,9 +41,16 @@ public class EditDepartmentServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		RequestDispatcher rd;
-		rd = getServletContext().getRequestDispatcher("/editDepartment.jsp");			
-		rd.forward(request, response);
+		try {
+			Long specialistID = Long.parseLong(request.getParameter("specialistID"));
+			CommandExecutor.getInstance().executeDatabaseCommand(new command.RemoveSpecialist(specialistID));
+			RequestDispatcher rd;
+			rd = getServletContext().getRequestDispatcher("/ListSpecialistsServlet");
+			rd.forward(request, response);
+		}
+		catch (Exception e) {
+			throw new ServletException(e);
+		}
 	}
 
 	/**

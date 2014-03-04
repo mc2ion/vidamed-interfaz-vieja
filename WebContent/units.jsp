@@ -1,9 +1,14 @@
+<%@ page import="domain.Unit" %>
+<%@ page import="java.util.ArrayList" %>
+<%
+ArrayList<Unit> units = (ArrayList<Unit>)session.getAttribute("units");
+%>
 <!DOCTYPE >
 <html>
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-	<title>Especialistas</title>
+	<title>Unidades</title>
 	<script type="text/javascript" src="./js/jquery.js"></script>
 	<script type="text/javascript" src="./js/jquery.dataTables.js"></script>
 	<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
@@ -15,8 +20,6 @@
 			"sScrollY": "250px",
 			"bPaginate": false,
 			"aoColumns": [
-				null,
-				null,
 				null,
 				null,
 				{ "bSearchable": false, "asSorting": false, "sWidth": "18%" }
@@ -35,20 +38,20 @@
 	} );
 	</script>
 	<script type="text/javascript">
-	var idUser;
+	var idUnit;
 			
 	$(function() {
 		$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x" });		
 	});
 	
 	function loadVars(var1, var2) {
-		idUser = var1;
+		idUnit = var1;
 		$('.cliente').text(var2);
 		
 	};
 	
 	function setV(f){
-		f.elements['userId'].value = idUser;
+		f.elements['unitID'].value = idUnit;
 		return true;
 	}
 	</script>
@@ -72,13 +75,13 @@
 			
 			<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 			<ul>
-            	<li class="menuitem"><a href="CreateDoctorServlet">Crear Especialista</a></li>
+            	<li class="menuitem"><a href="CreateUnitServlet">Crear Unidad</a></li>
             </ul>
 	    	<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
         </div>        
 		<jsp:include page="./menu.jsp" />
 		<div id="content">  
-			<h2>Especialistas:</h2>
+			<h2>Unidades:</h2>
 			<div id="dt_example">
 					<div id="container">
 						<div id="demo">
@@ -87,60 +90,33 @@
 									<tr>
 										<th>ID</th>
 										<th>Nombre</th>
-										<th>Apellido</th>
-										<th>Unidad(es)</th>
 										<th>Acciones</th>
 									</tr>
 								</thead>
-								<tbody>			
+								<tbody>
+								<% if (units.size() == 0)  { %>
+									<tr class="gradeA"><td colspan="3">No hay unidades disponibles</td></tr>
+								<% }
+								   else { 
+								   		for (int i = 0; i<units.size(); i++) { 
+								   			Unit u = units.get(i);
+								%>										
 									<tr class="gradeA">
-										<td>1001</td>
-										<td>Ricardo</td>
-										<td>López</td>
-										<td>Cirugía General, Oncología Médica, Ginecología Clínica</td>
+										<td><%= u.getUnitID() %></td>
+										<td><%= u.getName() %></td>
 										<td>
-											<a href="EditDoctorServlet" style="color: transparent" >
+											<a href="EditUnitServlet?unitID=<%= u.getUnitID() %>" style="color: transparent" >
 												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
 											</a>
-											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1001,'Ricardo López');" >
+											<a id="go" rel="leanModal" href="#deleteUnit" style="color: #f7941e; font-weight: bold;" 
+												onclick="return loadVars(<%= u.getUnitID() %>,'<%= u.getName() %>');" >
 												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
 											</a> 
 											<br>
 										</td>
 									</tr>
-									<tr class="gradeA">
-										<td>1002</td>
-										<td>Javier</td>
-										<td>Barbeito</td>
-										<td>Cirugía General</td>
-										<td>
-											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
-											</a>
-											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1002,'Javier Barbeito');" >
-												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-											</a> 
-											<br>
-										</td>
-									</tr>
-									<tr class="gradeA">
-										<td>1003</td>
-										<td>José</td>
-										<td>Herrera</td>
-										<td>Cirugía General, Urología</td>
-										<td>
-											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
-											</a>
-											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1003,'José Herrera');" >
-												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-											</a> 
-											<br>
-										</td>
-									</tr>
+									<% 	} 
+									} %>
 								</tbody>
 							</table>
 						</div>
@@ -149,16 +125,16 @@
 				<div class="spacer"></div>
        	</div>
 		</div>
-		<div id="deleteUser">
+		<div id="deleteUnit">
 			<div id="signup-ct">
-				<h3 id="see_id" class="sprited" > Eliminar Especialista</h3>
+				<h3 id="see_id" class="sprited" > Eliminar Unidad</h3>
 				<br><br>
-				<span>¿Está seguro que desea eliminar el especialista '<span class="cliente"></span>' y su información asociada? </span> <br><br>
+				<span>¿Está seguro que desea eliminar la unidad '<span class="cliente"></span>' y su información asociada? </span> <br><br>
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="ListDoctorsServlet" method="post"  onsubmit="return setV(this)">
-					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+				<form action="RemoveUnitServlet" method="post"  onsubmit="return setV(this)">
+					<input type="hidden" id="unitID" class="good_input" name="unitID"  value=""/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
 					</div>

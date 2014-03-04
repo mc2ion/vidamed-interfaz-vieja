@@ -1539,8 +1539,9 @@ div.box {
 	display: none;
 }
 
-#deleteUser, #deleteProduct, #deleteRequest, #refreshUser, #dischargeUser, #hospitalizeUser, #deleteService, #deleteProtocol, #deleteSupply,
-#deleteEvaluation, #deleteVitalSign, #deleteCash, #printUser, #closeAccount, #discount, #generateInvoice, #editStatus{
+#deleteUser, #deleteUnit, #deleteSpecialist, #deleteProduct, #deleteRequest, #refreshUser, #dischargeUser, #hospitalizeUser, 
+#deleteService, #deleteProtocol, #deleteSupply, #deleteEvaluation, #deleteVitalSign, #deleteCash, #printUser, #closeAccount, 
+#discount, #generateInvoice, #editStatus{
 	position: absolute;
 	text-align: center;
 	width: 295px;
@@ -1809,7 +1810,7 @@ fieldset .rightCol input[type="text"]{
 	width: 20%;
 }
 
-#otherPhone, #otherPhone2, #otherPhone3{
+#otherPhone, #otherPhone1, #otherPhone2, #otherPhone3{
 	margin-left: 194px;
 	
 }

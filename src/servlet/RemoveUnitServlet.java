@@ -12,11 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import command.CommandExecutor;
 
 
+
 /**
- * Servlet implementation class ListDepartmentsServlet
+ * Servlet implementation class CreateDepartmentServlet
  */
-@WebServlet(description = "servlet to generate reports", urlPatterns = { "/ListDepartmentsServlet" })
-public class ListDepartmentsServlet extends HttpServlet {
+@WebServlet(description = "servlet to log in users", urlPatterns = { "/RemoveUnitServlet" })
+public class RemoveUnitServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	public void init() throws ServletException {
@@ -31,7 +32,7 @@ public class ListDepartmentsServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ListDepartmentsServlet() {
+    public RemoveUnitServlet() {
         super();
     }
 
@@ -39,14 +40,24 @@ public class ListDepartmentsServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/departments.jsp");
-		rd.forward(request, response);
+
+		try {
+			Long unitID = Long.parseLong(request.getParameter("unitID"));
+			CommandExecutor.getInstance().executeDatabaseCommand(new command.RemoveUnit(unitID));
+			RequestDispatcher rd;
+			rd = getServletContext().getRequestDispatcher("/ListUnitsServlet");
+			rd.forward(request, response);
+		}
+		catch (Exception e) {
+			throw new ServletException(e);
+		}
 	}
-	
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		doGet(request, response);
 	}
 }

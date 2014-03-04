@@ -1,6 +1,6 @@
 package domain;
 
-public class Doctor {
+public class Specialist {
 
 	private long id;
 	private String identityCard;
@@ -8,6 +8,7 @@ public class Doctor {
 	private String lastName;
 	private String birthdate;
 	private String sex;
+	private String rif;
 	private String address;
 	private String email;
 	
@@ -74,7 +75,13 @@ public class Doctor {
 	public String getEmail() {
 		return email;
 	}
-	
-	
+
+	public String getRif() {
+		return rif;
+	}
+
+	public void setRif(String rif) {
+		this.rif = rif;
+	}
 	
 }

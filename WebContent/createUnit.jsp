@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-		<title>Editar Unidad</title>
+		<title>Crear Unidad</title>
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css" />
 	  	<script src="./js/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
@@ -28,31 +28,30 @@
 		<div id="menu">
 				<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 		    	<ul>
-	            	<li class="menuitem"><a href="ListDepartmentsServlet">Ver Unidades</a></li>
-            		<li class="menuitem"><a href="CreateDepartmentServlet">Crear Unidad</a></li>
+	            	<li class="menuitem"><a href="ListUnitsServlet">Ver Unidades</a></li>
 	            </ul>
 				<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
         	</div>        
-			<jsp:include page="./menu.jsp" />
+			 <jsp:include page="./menu.jsp" />
         	<div id="content" style="position:absolute;">	
-	        	<h2>Editar Unidad:</h2>
+	        	<h2>Crear Unidad:</h2>
 				<br>
+				<form action="CreateUnitServlet">
 				<fieldset>
 					<label for="name">Nombre:</label>
-					<input type="text" name="txtName" id="txtName" maxlength="50" size="5" value="Cirugía General"/> <br><br>
+					<input type="text" name="txtName" id="txtName" maxlength="50" size="5"/> <br><br>
 					<label for="name">Descripción:</label>
-					<textarea name="txtDescription" id="txtDescription" rows="3" cols="50">Especialidad médica de clase quirúrgica que abarca las operaciones del aparato digestivo; incluyendo el tracto gastrointestinal y el sistema hepato-bilio-pancreático, el sistema endocrino; incluyendo las glándulas suprarrenales, tiroides, paratiroides y otras glándulas incluidas en el aparato digestivo. Asimismo incluye la reparación de hernias y eventraciones de la pared abdominal.</textarea> <br><br>
+					<textarea name="txtDescription" id="txtDescription" rows="3" cols="50"></textarea> <br><br>
 				</fieldset>
 				<div id="botonera">
-					<form action="ListDepartmentsServlet">
 						<div id="botonP" style="display: inline; margin-right: 30px;">
-									<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
+									<input type="submit"  class="button"  name="sbmtButton" value="Agregar" />
 						</div>	
 						<div id="botonV" style="display: inline;">
 								<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
 						</div>	
-					</form>
 				</div><br>
+				</form>
 			</div>
 		</div>
 	</body>
