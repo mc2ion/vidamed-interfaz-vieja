@@ -1837,7 +1837,7 @@ table {
 #doctorId{
 	height: 50px;
 	position: absolute;
-	top: 160px;
+	top: 120px;
 	
 }
 
@@ -2028,6 +2028,7 @@ input.search-input{
 	/* background: red; */
 	box-shadow: 2px 2px 10px;
 	border-radius: 10px;
+	margin-bottom: 30px;
 }
 
 #cssmenu ul,

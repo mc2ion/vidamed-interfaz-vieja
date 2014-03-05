@@ -8,7 +8,6 @@
 	  	<script src="./js/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
-		<link rel="stylesheet" href="/resources/demos/style.css" />
 		<script>
 			$(function() {
 				$( "#tabs" ).tabs();
@@ -39,6 +38,15 @@
 			return true;
 		}
 		
+		$(document).ready(function() {
+			$( ".target" ).change(function() {
+			  if( $(this).find(":selected").text() == "Pediátrico"){
+				$("#info-title").text("Ingrese el número de cédula de identidad de algún representante legal:");
+			  }else
+				$("#info-title").text("Ingrese el número de cédula de identidad del paciente:");
+				
+			});
+		});
 		
 		</script>
 	</head>
@@ -67,20 +75,26 @@
 			<jsp:include page="./menu.jsp" />
         	<div id="content" style="position:absolute;">	
 	        	<h2>Crear Presupuesto:</h2><br><br>
-	        	Ingrese el número de cédula de identidad del paciente: <br>
+				Escoja el tipo de paciente:
+				<select class="target">
+					<option value="Adulto">Adulto</option>
+					<option value="Pediátrico">Pedi&aacute;trico</option>
+				</select><br><br><br>
+				<div id="info-title" style="text-align: center;">Ingrese el número de cédula de identidad del paciente: </div><br>
 	        	<br>
 	        	<select id="cedId" name="cedId">
 					<option value="V-" >V</option>
 					<option value="E-" >E</option>
 				</select> &nbsp;<input id="cedNumber" type="text">
-				
-				
-					 <form action="CreateEstimationServlet"  id="form" style="display: none; ">
+					<form action="CreateEstimationServlet"  id="form" style="display: none; ">
 					 	<input type="image" src="./images/detail.png" height="16" width="16" title="Ver Detalle" />
 					 </form>
-		        	<a id="go" rel="leanModal"  href="#deleteVitalSign" style="color: #f7941e; font-weight: bold;" >
+					 <!-- Eventualmente hay que cambiar la forma como se esta haciendo esto -->
+		        	 <a id="go" rel="leanModal"  href="#deleteVitalSign" style="color: #f7941e; font-weight: bold;" >
 					 	<input type="image" src="./images/detail.png" height="16" width="16" title="Ver Detalle" />
-					</a>	 
+					</a>
+			
+					
 	        		<div id="botonera" style="width:100px; margin-top: 200px;">
 						<div id="botonV" style="display: inline;">
 								<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		

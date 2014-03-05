@@ -13,9 +13,9 @@ import command.CommandExecutor;
 
 
 /**
- * Servlet implementation class ListMedicalTreatmentServlet
+ * Servlet implementation class ListMedicalTreatmentsServlet
  */
-@WebServlet(description = "servlet to generate reports", urlPatterns = { "/ListMedicalTreatmentServlet" })
+@WebServlet(description = "servlet to generate reports", urlPatterns = { "/ListMedicalTreatmentsServlet" })
 public class ListMedicalTreatmentsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	

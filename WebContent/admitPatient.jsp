@@ -104,8 +104,8 @@
 				<br>
 						 <form action="#">
 						 	<fieldset>
-							   <b>Cédula:</b> <span style="margin-left: 130px;">V-12345678</span><br/><br/>
-							   <b>Nombre: </b><span style="margin-left: 125px;">Ana Rojas</span><br><br/>
+							   <b>Cédula:</b> <span style="margin-left: 155px;">V-12345678</span><br/><br/>
+							   <b>Nombre: </b><span style="margin-left: 150px;">Ana Rojas</span><br><br/>
 							   <label> Responsable del Pago:</label>  <input type="text" name="insuranceName" id="insuranceName" value="" readonly>
 							    <a href="SearchInsuranceServlet?function=admitPatient" style="color: #f7941e; font-weight: bold;">
 									<input type="button"id="paymentResp" value="Cambiar" >
