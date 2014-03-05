@@ -1,17 +1,17 @@
 package domain;
 
-public class Department {
+public class Unit {
 
-	private long id;
+	private long unitID;
 	private String name;
 	private String description;
 	
-	public void setId(long id) {
-		this.id = id;
+	public void setUnitID(long unitID) {
+		this.unitID = unitID;
 	}
 	
-	public long getId() {
-		return id;
+	public long getUnitID() {
+		return unitID;
 	}
 
 	public void setName(String name) {

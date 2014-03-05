@@ -15,8 +15,8 @@
 		   <li><a href='ListProtocolsServlet'><span>Protocolos</span></a></li>
 		   <li><a href='ListXRayReportsServlet'><span>Rayos X</span></a></li>
 		   <li><a href='ListSupplyAreasServlet'><span>Farmacia</span></a></li>
-		   <li><a href='ListDepartmentsServlet'><span>Unidades</span></a></li>
-		   <li><a href='ListDoctorsServlet'><span>Especialistas</span></a></li>
+		   <li><a href='ListUnitsServlet'><span>Unidades</span></a></li>
+		   <li><a href='ListSpecialistsServlet'><span>Especialistas</span></a></li>
 		   <li><a href='ListPaymentResponsiblesServlet'><span>Responsables de Pago</span></a></li>
 		   <li><a href='ListBanksServlet'><span>Cajas</span></a></li>
 		   <li><a href='ListAccountsServlet'><span>Cuentas Pendientes</span></a></li>

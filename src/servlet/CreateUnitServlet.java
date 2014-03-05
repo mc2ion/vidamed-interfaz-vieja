@@ -12,11 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import command.CommandExecutor;
 
 
+
 /**
- * Servlet implementation class ListDoctorsServlet
+ * Servlet implementation class CreateDepartmentServlet
  */
-@WebServlet(description = "servlet to generate reports", urlPatterns = { "/ListDoctorsServlet" })
-public class ListDoctorsServlet extends HttpServlet {
+@WebServlet(description = "servlet to log in users", urlPatterns = { "/CreateUnitServlet" })
+public class CreateUnitServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	public void init() throws ServletException {
@@ -31,7 +32,7 @@ public class ListDoctorsServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ListDoctorsServlet() {
+    public CreateUnitServlet() {
         super();
     }
 
@@ -39,14 +40,33 @@ public class ListDoctorsServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/doctors.jsp");
-		rd.forward(request, response);
+
+		try {
+			String action = request.getParameter("sbmtButton");
+			RequestDispatcher rd;
+			if (action == null || action.trim().equals("")) {				
+				rd = getServletContext().getRequestDispatcher("/createUnit.jsp");
+				rd.forward(request, response);
+			}
+			else {
+				String name = request.getParameter("txtName");
+				String description = request.getParameter("txtDescription");
+				description = description == null ? "" : description;
+				CommandExecutor.getInstance().executeDatabaseCommand(new command.AddUnit(name, description));
+				rd = getServletContext().getRequestDispatcher("/ListUnitsServlet");
+				rd.forward(request, response);
+			}
+		}
+		catch (Exception e) {
+			throw new ServletException(e);
+		}
 	}
-	
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		doGet(request, response);
 	}
 }

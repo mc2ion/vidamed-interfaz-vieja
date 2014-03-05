@@ -1,9 +1,17 @@
+<%@ page import="domain.Specialist" %>
+<%@ page import="domain.Unit" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.HashMap" %>
+<%
+ArrayList<Specialist> specialists = (ArrayList<Specialist>)session.getAttribute("specialists");
+HashMap<Long, ArrayList<Unit>> specialistUnits = (HashMap<Long, ArrayList<Unit>>)session.getAttribute("specialistUnits");
+%>
 <!DOCTYPE >
 <html>
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-	<title>Unidades</title>
+	<title>Especialistas</title>
 	<script type="text/javascript" src="./js/jquery.js"></script>
 	<script type="text/javascript" src="./js/jquery.dataTables.js"></script>
 	<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
@@ -15,6 +23,8 @@
 			"sScrollY": "250px",
 			"bPaginate": false,
 			"aoColumns": [
+				null,
+				null,
 				null,
 				null,
 				{ "bSearchable": false, "asSorting": false, "sWidth": "18%" }
@@ -33,20 +43,20 @@
 	} );
 	</script>
 	<script type="text/javascript">
-	var idUser;
+	var idSpecialist;
 			
 	$(function() {
 		$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x" });		
 	});
 	
 	function loadVars(var1, var2) {
-		idUser = var1;
+		idSpecialist = var1;
 		$('.cliente').text(var2);
 		
 	};
 	
 	function setV(f){
-		f.elements['userId'].value = idUser;
+		f.elements['specialistID'].value = idSpecialist;
 		return true;
 	}
 	</script>
@@ -70,13 +80,13 @@
 			
 			<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 			<ul>
-            	<li class="menuitem"><a href="CreateDepartmentServlet">Crear Unidad</a></li>
+            	<li class="menuitem"><a href="CreateSpecialistServlet">Crear Especialista</a></li>
             </ul>
 	    	<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
         </div>        
 		<jsp:include page="./menu.jsp" />
 		<div id="content">  
-			<h2>Unidades:</h2>
+			<h2>Especialistas:</h2>
 			<div id="dt_example">
 					<div id="container">
 						<div id="demo">
@@ -85,52 +95,44 @@
 									<tr>
 										<th>ID</th>
 										<th>Nombre</th>
+										<th>Apellido</th>
+										<th>Unidad(es)</th>
 										<th>Acciones</th>
 									</tr>
 								</thead>
-								<tbody>			
-									<tr class="gradeA">
-										<td>1001</td>
-										<td>Cirugía General</td>
-										<td>
-											<a href="EditDepartmentServlet" style="color: transparent" >
-												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
-											</a>
-											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1001,'Cirugía General');" >
-												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-											</a> 
-											<br>
-										</td>
-									</tr>
-									<tr class="gradeA">
-										<td>1002</td>
-										<td>Alergología</td>
-										<td>
-											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
-											</a>
-											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1002,'Alergología');" >
-												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-											</a> 
-											<br>
-										</td>
-									</tr>
-									<tr class="gradeA">
-										<td>1003</td>
-										<td>Bioanálisis</td>
-										<td>
-											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
-											</a>
-											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1003,'Bioanálisis');" >
-												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-											</a> 
-											<br>
-										</td>
-									</tr>
+								<tbody>	
+									<% if (specialists.size() == 0) { %>
+										<tr class="gradeA"><td colspan="5">No hay especialistas disponibles</td></tr>
+									<% }
+									   else { 
+									   		for (int i = 0; i<specialists.size(); i++) { 
+									   			Specialist spec = specialists.get(i);
+									   			ArrayList<Unit> units = (ArrayList<Unit>)specialistUnits.get(spec.getId());
+									   			String unitNames = "";
+									   			for (int j = 0; j<units.size(); j++) {
+									   				unitNames += ", " + units.get(j).getName();
+									   			}
+									   			unitNames = unitNames.length() < 2 ? unitNames : unitNames.substring(2);
+									%> 		
+												<tr class="gradeA">
+													<td><%= spec.getId() %></td>
+													<td><%= spec.getFirstName() %></td>
+													<td><%= spec.getLastName() %></td>
+													<td><%= unitNames %></td>
+													<td>
+														<a href="EditSpecialistServlet?specialistID=<%= spec.getId() %>" style="color: transparent" >
+															<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
+														</a>
+														<a id="go" rel="leanModal" href="#deleteSpecialist" style="color: #f7941e; font-weight: bold;" 
+															onclick="return loadVars(<%= spec.getId() %>,'<%= spec.getFirstName() + " " + spec.getLastName() %>');" >
+															<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
+														</a> 
+														<br>
+													</td>
+												</tr>
+									<% 		}
+									   }
+									%>									
 								</tbody>
 							</table>
 						</div>
@@ -139,16 +141,16 @@
 				<div class="spacer"></div>
        	</div>
 		</div>
-		<div id="deleteUser">
+		<div id="deleteSpecialist">
 			<div id="signup-ct">
-				<h3 id="see_id" class="sprited" > Eliminar Unidad</h3>
+				<h3 id="see_id" class="sprited" > Eliminar Especialista</h3>
 				<br><br>
-				<span>¿Está seguro que desea eliminar la unidad '<span class="cliente"></span>' y su información asociada? </span> <br><br>
+				<span>¿Está seguro que desea eliminar el especialista '<span class="cliente"></span>' y su información asociada? </span> <br><br>
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="ListDepartmentsServlet" method="post"  onsubmit="return setV(this)">
-					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+				<form action="RemoveSpecialistServlet" method="post"  onsubmit="return setV(this)">
+					<input type="hidden" id="specialistID" class="good_input" name="specialistID"  value=""/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
 					</div>
