@@ -18,6 +18,7 @@
 			"bPaginate": false,
 			"aoColumns": [
 				null,
+				{ "bSearchable": false, "asSorting": false, "sWidth": "18%" },
 				null,
 				null,
 				null,
@@ -41,8 +42,7 @@
 				"sScrollY": "200px",
 				"bPaginate": false,
 				"aoColumns": [
-					null,
-					null,
+					{ "bSearchable": false, "asSorting": false, "sWidth": "18%" },
 					null,
 					null,
 					null,
@@ -119,11 +119,16 @@
 					    <li><a href="#tabs-2">Por Pagar</a></li>
 					</ul>
   					<div id="tabs-1">
+						<a id="go" rel="leanModal" href="#closeAccount2" class="buttonGray" style="position: absolute;"
+													onclick="return loadVars(1001,'Cobrar', 'Vidamed', 'cobrada');" >
+							Pagar facturas
+						</a> 
+						
   						<div style="text-align:right; margin-top: 5px; margin-bottom:20px;">
 	  						<a href="CreateReceivableServlet" style="color: #006c92; font-weight: bold;">
 								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Cuenta por Cobrar
-							</a>						
-  						</div>
+							</a>	
+						</div>
  								<div id="demo">
 								<table class="display" id="example">
 									<thead>
@@ -328,6 +333,23 @@
 				<h3 id="see_id" class="sprited" > Pagar cuenta <span class="type"></span>  </h3>
 				<br><br>
 				<span>¿Está seguro que la cuenta de <span class="name"></span> fue <span class="actionAccount"></span>? </span> <br><br>
+				<div id="signup-header">
+					<a class="close_x" id="close_x"  href="#"></a>
+				</div>
+				<form >
+					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+					<div class="btn-fld">
+						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
+					</div>
+		 		</form>
+			</div>
+		</div>
+		
+		<div id="closeAccount2">
+			<div id="signup-ct">
+				<h3 id="see_id" class="sprited" > Pagar cuenta <span class="type"></span>  </h3>
+				<br><br>
+				<span>¿Está seguro que las cuentas seleccionadas fueron cobradas? </span> <br><br>
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>

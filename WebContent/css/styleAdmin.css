@@ -1553,7 +1553,7 @@ div.box {
 }
 
 #deleteUser, #deleteProduct, #deleteRequest, #refreshUser, #dischargeUser, #hospitalizeUser, #deleteService, #deleteProtocol, #deleteSupply,
-#deleteEvaluation, #deleteVitalSign, #deleteCash, #printUser, #closeAccount, #discount, #generateInvoice, #editStatus{
+#deleteEvaluation, #deleteVitalSign, #deleteCash, #printUser, #closeAccount, #closeAccount2, #discount, #generateInvoice, #editStatus{
 	position: absolute;
 	text-align: center;
 	width: 295px;
@@ -2322,9 +2322,6 @@ input.search-input{
 	background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
 	background-color:#dfdfdf;
-}.buttonGray:active {
-	position:relative;
-	top:1px;
 }
 
 
