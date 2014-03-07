@@ -152,10 +152,17 @@
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
+				<!-- Hay que hacer ambas versiones para imprimir -->
 				<form action="PrintInvoiceServlet" method="post"  onsubmit="return setV(this)">
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
 					<div class="btn-fld">
-						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
+						<input type="submit"  class="buttonPopUpDelete2"  name="sbmtButton" value="Compacto"  />
+					</div>
+		 		</form>
+				<form action="PrintInvoiceServlet" method="post"  onsubmit="return setV(this)">
+					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+					<div class="btn-fld">
+						<input type="submit"  class="buttonPopUpDelete3"  name="sbmtButton" value="Detallado"  />
 					</div>
 		 		</form>
 			</div>

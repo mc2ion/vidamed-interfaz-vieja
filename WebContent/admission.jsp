@@ -20,6 +20,7 @@
 				null,
 				null,
 				null,
+				null,
 				{ "bSearchable": false, "asSorting": false, "sWidth": "18%" }
 			],
 			"oLanguage": {
@@ -90,6 +91,7 @@
 									<tr>
 										<th>ID</th>
 										<th>Paciente</th>
+										<th>Tipo</th>
 										<th>Responsable Pago</th>
 										<th>Status</th>
 										<th>Ubicación</th>
@@ -100,6 +102,7 @@
 									<tr class="gradeA">
 										<td>1001</td>
 										<td>Ana Rojas</td>
+										<td>Adulto</td>										
 										<td>Multinacional de Seguros</td>
 										<td>Esperando Clave</td>
 										<td>Emergencias</td>
@@ -120,6 +123,7 @@
 									<tr class="gradeA">
 										<td>1002</td>
 										<td>Luis Mujica</td>
+										<td>Pedi&aacute;trico</td>	
 										<td>La Previsora</td>
 										<td>Esperando Clave</td>
 										<td>Hospitalización</td>
@@ -140,6 +144,7 @@
 									<tr class="gradeA">
 										<td>1003</td>
 										<td>Miguel Álvarez</td>
+										<td>Pedi&aacute;trico</td>	
 										<td>Seguros Caroní</td>
 										<td>Denegado</td>
 										<td>Emergencias</td>

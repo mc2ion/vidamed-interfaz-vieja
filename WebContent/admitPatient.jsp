@@ -98,6 +98,9 @@
 				<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
         	</div>        
 			 <jsp:include page="./menu.jsp" />
+			 <!-- OJO TODA ADMISION DEBE TENER PRESUPUESTO.. TENER ESO EN CUENTA
+			 	COMO RESTRICCION PARA CREAR LA ADMISION
+			  -->
         	<div id="content" style="position:absolute;">
         		<div id="admitP">
 	        	<h2>Admitir Paciente:</h2>

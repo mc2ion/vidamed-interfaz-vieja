@@ -55,12 +55,12 @@
 						<select id="typeOfProtocol">
 							<option value="A">Ambulatorio</option>
 							<option value="H">No Ambulatorio</option>
-						</select><br><br>
+						</select><br><br><br>
 						<label> Sexo asociado al protocolo:</label>
 						<select id="gender">
+							<option value="G">General</option>
 							<option value="F">Femenino</option>
 							<option value="M">Masculino</option>
-							<option value="G">General</option>
 						</select>
 			        </fieldset>
 			        <fieldset id="field2">

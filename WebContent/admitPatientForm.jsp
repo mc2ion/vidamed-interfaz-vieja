@@ -39,6 +39,16 @@
 			f.elements['userId'].value = idUser;
 			return true;
 		}
+		
+		$(document).ready(function() {
+			$( ".target" ).change(function() {
+			  if( $(this).find(":selected").text() == "Pediátrico"){
+				$("#info-title").text("Cédula de identidad de algún representante legal:");
+			  }else
+				$("#info-title").text("Cédula de identidad del paciente:");
+				
+			});
+		});
 		</script>
 	</head>
 	<body>
@@ -66,26 +76,33 @@
 			 <jsp:include page="./menu.jsp" />
         	<div id="content" style="position:absolute;">	
 	        	<h2>Admitir Paciente:</h2><br><br>
-	        	Ingrese el número de cédula de identidad del paciente: <br>
-	        	<br>
-	        	<select id="cedId" name="cedId">
-					<option value="V-" >V</option>
-					<option value="E-" >E</option>
-				</select> &nbsp;<input type="text" id="cedNumber">
-				
-				 	<form action="AdmitPatientServlet"  id="form" style="display: none; ">
-					 	<input type="image" src="./images/detail.png" height="16" width="16" title="Ver Detalle" />
-					 </form>
-		        	<a id="go" rel="leanModal"  href="#deleteVitalSign" style="color: #f7941e; font-weight: bold;" >
-						<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
-					</a>	 
-	        		<div id="botonera" style="width:100px;">
+	        	<!-- Recordar que sino se consigue al cliente, se debe mostrar una ventana para indicarlo
+				     y verificar si se desea crear el usuario (mostrar deleteVitalSign) -->
+				<form action="AdmitPatientServlet"  id="form" >
+					<fieldset class="bigger">
+						<label>Escoja el tipo de paciente:</label>
+						<select class="target">
+							<option value="Adulto">Adulto</option>
+							<option value="Pediátrico">Pedi&aacute;trico</option>
+						</select><br><br><br>
+						<div style="font-size: 14px;">Proporcione alguno de los siguientes datos: </div><br><br>
+						<label id="info-title">Cédula de identidad del paciente:</label>
+						<select id="cedId" name="cedId">
+							<option value="V-" >V</option>
+							<option value="E-" >E</option>
+						</select> <input id="cedNumber" type="text"><br><br>
+						<label>No. Presupuesto:</label>  <input id="estimation" type="text" style="width: 25%;">
+					</fieldset>
+					<div id="botonera" style="width:300px; margin-top: 50px;">
 						<div id="botonV" style="display: inline;">
 								<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
-						</div>		
+						</div>
+						<div id="botonV" style="display: inline; margin-left: 20px;">
+							<input type="submit" class="button" value="Buscar" />
+						</div>							
 					</div>	
+				</form>
 				
-			
 			</div>
 		</div>
 		

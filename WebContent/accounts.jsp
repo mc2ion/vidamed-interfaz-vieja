@@ -9,7 +9,6 @@
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		<script type="text/javascript" src="./js/jquery.dataTables.js"></script>
 		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
-		<link rel="stylesheet" href="/resources/demos/style.css" />
 		<script type="text/javascript" charset="utf-8">
 		$(document).ready(function() {
 			$('#example').dataTable( {
@@ -42,6 +41,7 @@
 				"sScrollY": "200px",
 				"bPaginate": false,
 				"aoColumns": [
+					null,
 					null,
 					null,
 					null,
@@ -129,6 +129,7 @@
 									<thead>
 										<tr>
 											<th>ID</th>
+											<th>Seleccionar</th>
 											<th>Empresa</th>
 											<th>Monto</th>
 											<th>Fecha Vencimiento</th>
@@ -138,6 +139,7 @@
 									<tbody>			
 										<tr class="gradeA">
 											<td>1001</td>
+											<td><input type="checkbox" name="account" value="1"/></td>
 											<td>Vidamed</td>
 											<td>Bs. 15000</td>
 											<td>20/08/2013</td>
@@ -161,6 +163,7 @@
 										</tr>
 										<tr class="gradeA">
 											<td>1002</td>
+											<td><input type="checkbox" name="account" value="2"/></td>
 											<td>La Previsora</td>
 											<td>Bs. 5000</td>
 											<td>25/11/2013</td>
@@ -184,6 +187,7 @@
 										</tr>
 										<tr class="gradeA">
 											<td>1003</td>
+											<td><input type="checkbox" name="account" value="3"/></td>
 											<td>Multinacional de Seguros</td>
 											<td>Bs. 34500</td>
 											<td>17/10/2013</td>
