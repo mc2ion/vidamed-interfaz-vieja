@@ -1,7 +1,7 @@
 <%@ page import="domain.Unit" %>
 <%@ page import="java.util.ArrayList" %>
 <%
-ArrayList<Unit> units = (ArrayList<Unit>)session.getAttribute("units");
+ArrayList<Unit> units = (ArrayList<Unit>)request.getAttribute("units");
 %>
 <!DOCTYPE >
 <html>

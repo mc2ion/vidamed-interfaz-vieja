@@ -41,9 +41,25 @@ public class CreateSupplyAreaServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		RequestDispatcher rd;
-		rd = getServletContext().getRequestDispatcher("/createSupplyArea.jsp");			
-		rd.forward(request, response);
+		try {
+			String action = request.getParameter("sbmtButton");
+			RequestDispatcher rd;
+			if (action == null || action.trim().equals("")) {				
+				rd = getServletContext().getRequestDispatcher("/createSupplyArea.jsp");
+				rd.forward(request, response);
+			}
+			else {
+				String name = request.getParameter("txtName");
+				String description = request.getParameter("txtDescription");
+				description = description == null ? "" : description;
+				CommandExecutor.getInstance().executeDatabaseCommand(new command.AddSupplyArea(name, description));
+				rd = getServletContext().getRequestDispatcher("/ListSupplyAreasServlet");
+				rd.forward(request, response);
+			}
+		}
+		catch (Exception e) {
+			throw new ServletException(e);
+		}
 	}
 
 	/**

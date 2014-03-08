@@ -10,7 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
 import domain.Specialist;
@@ -62,9 +61,8 @@ public class ListSpecialistsServlet extends HttpServlet {
 				specialistUnits.put(specialists.get(i).getId(), units);
 			}
 			
-			HttpSession session = request.getSession(true);
-			session.setAttribute("specialists", specialists);
-			session.setAttribute("specialistUnits", specialistUnits);
+			request.setAttribute("specialists", specialists);
+			request.setAttribute("specialistUnits", specialistUnits);
 			
 			RequestDispatcher rd;			
 			rd = getServletContext().getRequestDispatcher("/specialists.jsp");

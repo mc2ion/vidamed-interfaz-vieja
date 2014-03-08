@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,14 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import command.CommandExecutor;
-import domain.SupplyArea;
+
 
 
 /**
- * Servlet implementation class ListSupplyAreasServlet
+ * Servlet implementation class CreateDepartmentServlet
  */
-@WebServlet(description = "servlet to generate reports", urlPatterns = { "/ListSupplyAreasServlet" })
-public class ListSupplyAreasServlet extends HttpServlet {
+@WebServlet(description = "servlet to log in users", urlPatterns = { "/RemoveSupplyServlet" })
+public class RemoveSupplyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	public void init() throws ServletException {
@@ -33,32 +32,33 @@ public class ListSupplyAreasServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ListSupplyAreasServlet() {
+    public RemoveSupplyServlet() {
         super();
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		try {
-			ArrayList<SupplyArea> supplyAreas = (ArrayList<SupplyArea>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetSupplyAreas());
-			request.setAttribute("supplyAreas", supplyAreas);
-		
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/supplyAreas.jsp");
+			Long supplyID = Long.parseLong(request.getParameter("supplyID"));
+			Long supplyAreaID = Long.parseLong(request.getParameter("supplyAreaID"));
+			CommandExecutor.getInstance().executeDatabaseCommand(new command.RemoveSupply(supplyID));
+			RequestDispatcher rd;
+			rd = getServletContext().getRequestDispatcher("/ListSuppliesServlet?supplyAreaID=" + supplyAreaID);
 			rd.forward(request, response);
 		}
 		catch (Exception e) {
 			throw new ServletException(e);
 		}
 	}
-	
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		doGet(request, response);
 	}
 }

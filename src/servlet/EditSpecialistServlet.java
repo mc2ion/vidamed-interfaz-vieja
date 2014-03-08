@@ -11,7 +11,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
 import domain.Specialist;
@@ -63,11 +62,10 @@ public class EditSpecialistServlet extends HttpServlet {
 				}
 				ArrayList<SpecialistPhoneNumber> specialistPhoneNumbers = (ArrayList<SpecialistPhoneNumber>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetSpecialistPhoneNumbers(specialistID));
 				ArrayList<Unit> units = (ArrayList<Unit>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetUnits());
-				HttpSession session = request.getSession(true);
-				session.setAttribute("specialist", spec);
-				session.setAttribute("specialistUnits", specialistUnits);
-				session.setAttribute("specialistPhoneNumbers", specialistPhoneNumbers);
-				session.setAttribute("units", units);
+				request.setAttribute("specialist", spec);
+				request.setAttribute("specialistUnits", specialistUnits);
+				request.setAttribute("specialistPhoneNumbers", specialistPhoneNumbers);
+				request.setAttribute("units", units);
 				
 				rd = getServletContext().getRequestDispatcher("/editSpecialist.jsp");			
 				rd.forward(request, response);
@@ -104,9 +102,11 @@ public class EditSpecialistServlet extends HttpServlet {
 					}
 				}
 				
-				HttpSession session = request.getSession(true);
-				HashMap<Long, SpecialistUnit> specialistUnits = (HashMap<Long, SpecialistUnit>)session.getAttribute("specialistUnits");
-				
+				ArrayList<SpecialistUnit> auxUnits = (ArrayList<SpecialistUnit>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetSpecialistUnits(specialistID));
+				HashMap<Long, SpecialistUnit> specialistUnits = new HashMap<Long, SpecialistUnit>();
+				for (int i = 0; i<auxUnits.size(); i++) {
+					specialistUnits.put(auxUnits.get(i).getUnitID(), auxUnits.get(i));
+				}
 				String[] units = request.getParameterValues("my-select[]");
 				for (int i = 0; i<units.length; i++) {
 					if (specialistUnits.containsKey(Long.parseLong(units[i]))) {

@@ -1,6 +1,6 @@
 <%@ page import="domain.Unit" %>
 <%
-Unit unit = (Unit)session.getAttribute("unit");
+Unit unit = (Unit)request.getAttribute("unit");
 %>
 <!DOCTYPE html>
 <html>

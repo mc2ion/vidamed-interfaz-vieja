@@ -2,22 +2,22 @@ package domain;
 
 public class SpecialistUnit {
 	
-	private long specialistID;
-	private long unitID;
+	private Long specialistID;
+	private Long unitID;
 	
-	public long getSpecialistID() {
+	public Long getSpecialistID() {
 		return specialistID;
 	}
 	
-	public void setSpecialistID(long specialistID) {
+	public void setSpecialistID(Long specialistID) {
 		this.specialistID = specialistID;
 	}
 	
-	public long getUnitID() {
+	public Long getUnitID() {
 		return unitID;
 	}
 	
-	public void setUnitID(long unitID) {
+	public void setUnitID(Long unitID) {
 		this.unitID = unitID;
 	}
 	

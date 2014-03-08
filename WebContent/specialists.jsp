@@ -3,8 +3,8 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.HashMap" %>
 <%
-ArrayList<Specialist> specialists = (ArrayList<Specialist>)session.getAttribute("specialists");
-HashMap<Long, ArrayList<Unit>> specialistUnits = (HashMap<Long, ArrayList<Unit>>)session.getAttribute("specialistUnits");
+ArrayList<Specialist> specialists = (ArrayList<Specialist>)request.getAttribute("specialists");
+HashMap<Long, ArrayList<Unit>> specialistUnits = (HashMap<Long, ArrayList<Unit>>)request.getAttribute("specialistUnits");
 %>
 <!DOCTYPE >
 <html>

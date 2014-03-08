@@ -1,3 +1,8 @@
+<%@ page import="domain.SupplyArea" %>
+<%@ page import="java.util.ArrayList" %>
+<%
+ArrayList<SupplyArea> supplyAreas = (ArrayList<SupplyArea>)request.getAttribute("supplyAreas");
+%>
 <!DOCTYPE >
 <html>
 	<head>
@@ -33,20 +38,20 @@
 	} );
 	</script>
 	<script type="text/javascript">
-	var idUser;
+	var idSupplyArea;
 			
 	$(function() {
 		$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x" });		
 	});
 	
 	function loadVars(var1, var2) {
-		idUser = var1;
+		idSupplyArea = var1;
 		$('.cliente').text(var2);
 		
 	};
 	
 	function setV(f){
-		f.elements['userId'].value = idUser;
+		f.elements['supplyAreaID'].value = idSupplyArea;
 		return true;
 	}
 	</script>
@@ -88,41 +93,34 @@
 										<th>Acciones</th>
 									</tr>
 								</thead>
-								<tbody>			
-									<tr class="gradeA">
-										<td>1001</td>
-										<td>Fármacos</td>
-										<td>
-											<a href="ListSuppliesServlet" style="color: transparent" >
-												<img alt="logo" src="./images/meds.png"  height="18" width="18" title="Ver Farmacia" />
-											</a>
-											<a href="EditSupplyAreaServlet" style="color: transparent" >
-												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
-											</a>
-											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1001,'Fármacos');" >
-												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-											</a> 
-											<br>
-										</td>
-									</tr>
-									<tr class="gradeA">
-										<td>1002</td>
-										<td>Material Médico Quirúrgico</td>
-										<td>
-											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/meds.png"  height="18" width="18" title="Ver Farmacia" />
-											</a>
-											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
-											</a>
-											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1002,'Material Médico Quirúrgico');" >
-												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-											</a> 
-											<br>
-										</td>
-									</tr>
+								<tbody>	
+									<% if (supplyAreas.size() == 0)  { %>
+											<tr class="gradeA"><td colspan="3">No hay áreas de insumos disponibles</td></tr>
+									<% }
+								   		else { 
+								   			for (int i = 0; i<supplyAreas.size(); i++) { 
+								   				SupplyArea sa = supplyAreas.get(i);
+									%>			
+												<tr class="gradeA">
+													<td><%= sa.getSupplyAreaID() %></td>
+													<td><%= sa.getName() %></td>
+													<td>
+														<a href="ListSuppliesServlet?supplyAreaID=<%= sa.getSupplyAreaID() %>" style="color: transparent" >
+															<img alt="logo" src="./images/meds.png"  height="18" width="18" title="Ver Insumos" />
+														</a>
+														<a href="EditSupplyAreaServlet?supplyAreaID=<%= sa.getSupplyAreaID() %>" style="color: transparent" >
+															<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
+														</a>
+														<a id="go" rel="leanModal" href="#deleteSupplyArea" style="color: #f7941e; font-weight: bold;" 
+															onclick="return loadVars(<%= sa.getSupplyAreaID() %>,'<%= sa.getName() %>');" >
+															<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
+														</a> 
+														<br>
+													</td>
+												</tr>
+									<% 		}
+								   		}
+								   	%>
 								</tbody>
 							</table>
 						</div>
@@ -131,7 +129,7 @@
 				<div class="spacer"></div>
        	</div>
 		</div>
-		<div id="deleteUser">
+		<div id="deleteSupplyArea">
 			<div id="signup-ct">
 				<h3 id="see_id" class="sprited" > Eliminar Área Insumos</h3>
 				<br><br>
@@ -139,8 +137,8 @@
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="ListSupplyAreasServlet" method="post"  onsubmit="return setV(this)">
-					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+				<form action="RemoveSupplyAreaServlet" method="post"  onsubmit="return setV(this)">
+					<input type="hidden" id="supplyAreaID" class="good_input" name="supplyAreaID"  value=""/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
 					</div>

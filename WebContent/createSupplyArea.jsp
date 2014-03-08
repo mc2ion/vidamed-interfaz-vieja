@@ -36,22 +36,22 @@
         	<div id="content" style="position:absolute;">	
 	        	<h2>Crear Área Insumos:</h2>
 				<br>
-				<fieldset>
-					<label for="name">Nombre:</label>
-					<input type="text" name="txtName" id="txtName" maxlength="50" size="5"/> <br><br>
-					<label for="name">Descripción:</label>
-					<textarea name="txtDescription" id="txtDescription" rows="3" cols="50"></textarea> <br><br>
-				</fieldset>
-				<div id="botonera">
-					<form action="ListSupplyAreasServlet">
+				<form action="CreateSupplyAreaServlet">
+					<fieldset>
+						<label for="name">Nombre:</label>
+						<input type="text" name="txtName" id="txtName" maxlength="50" size="5"/> <br><br>
+						<label for="name">Descripción:</label>
+						<textarea name="txtDescription" id="txtDescription" rows="3" cols="50"></textarea> <br><br>
+					</fieldset>
+					<div id="botonera">
 						<div id="botonP" style="display: inline; margin-right: 30px;">
-									<input type="submit"  class="button"  name="sbmtButton" value="Agregar" />
+							<input type="submit"  class="button"  name="sbmtButton" value="Agregar" />
 						</div>	
 						<div id="botonV" style="display: inline;">
-								<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
+							<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
 						</div>	
-					</form>
-				</div>
+					</div>
+				</form>
 			</div>
 		</div>
 	</body>

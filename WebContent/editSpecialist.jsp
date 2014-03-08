@@ -5,10 +5,10 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.HashMap" %>
 <%
-Specialist spec = (Specialist)session.getAttribute("specialist");
-ArrayList<SpecialistPhoneNumber> specialistPhoneNumbers = (ArrayList<SpecialistPhoneNumber>) session.getAttribute("specialistPhoneNumbers");
-HashMap<Long, SpecialistUnit> specialistUnits = (HashMap<Long, SpecialistUnit>) session.getAttribute("specialistUnits");
-ArrayList<Unit> units = (ArrayList<Unit>) session.getAttribute("units");
+Specialist spec = (Specialist)request.getAttribute("specialist");
+ArrayList<SpecialistPhoneNumber> specialistPhoneNumbers = (ArrayList<SpecialistPhoneNumber>) request.getAttribute("specialistPhoneNumbers");
+HashMap<Long, SpecialistUnit> specialistUnits = (HashMap<Long, SpecialistUnit>) request.getAttribute("specialistUnits");
+ArrayList<Unit> units = (ArrayList<Unit>) request.getAttribute("units");
 String[] ci = spec.getIdentityCard().split("-");
 %>
 <!DOCTYPE html>

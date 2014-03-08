@@ -1,17 +1,17 @@
 package domain;
 
-public class Unit {
+public class SupplyArea {
 
-	private Long unitID;
+	private Long supplyAreaID;
 	private String name;
 	private String description;
 	
-	public void setUnitID(Long unitID) {
-		this.unitID = unitID;
+	public Long getSupplyAreaID() {
+		return supplyAreaID;
 	}
-	
-	public Long getUnitID() {
-		return unitID;
+
+	public void setSupplyAreaID(Long supplyAreaID) {
+		this.supplyAreaID = supplyAreaID;
 	}
 
 	public void setName(String name) {

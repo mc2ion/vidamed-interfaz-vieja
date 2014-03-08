@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import command.CommandExecutor;
+import domain.SupplyArea;
 
 
 
@@ -41,9 +42,28 @@ public class EditSupplyAreaServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		RequestDispatcher rd;
-		rd = getServletContext().getRequestDispatcher("/editSupplyArea.jsp");			
-		rd.forward(request, response);
+		try {
+			String action = request.getParameter("sbmtButton");
+			RequestDispatcher rd;
+			if (action == null || action.trim().equals("")) {
+				Long supplyAreaID = Long.parseLong(request.getParameter("supplyAreaID"));
+				SupplyArea sa = (SupplyArea)CommandExecutor.getInstance().executeDatabaseCommand(new command.GetSupplyArea(supplyAreaID));
+				request.setAttribute("supplyArea", sa);
+				rd = getServletContext().getRequestDispatcher("/editSupplyArea.jsp");			
+				rd.forward(request, response);
+			}
+			else {
+				Long supplyAreaID = Long.parseLong(request.getParameter("supplyAreaID"));
+				String name = request.getParameter("txtName");
+				String description = request.getParameter("txtDescription");
+				CommandExecutor.getInstance().executeDatabaseCommand(new command.EditSupplyArea(supplyAreaID, name, description));
+				rd = getServletContext().getRequestDispatcher("/ListSupplyAreasServlet");			
+				rd.forward(request, response);
+			}
+		}
+		catch (Exception e) {
+			throw new ServletException(e);
+		}
 	}
 
 	/**
