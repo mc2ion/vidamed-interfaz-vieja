@@ -21,7 +21,7 @@
 			check = document.getElementById('check');
 			sellPoint = document.getElementById('sellPoint');
 			insurance = document.getElementById('insurance');
-			
+			pass = document.getElementById('aval');
 			if(sel == 1 || sel == 0){
 				bank.style.display = "none";
 				check.style.display = "none";
@@ -32,16 +32,26 @@
 				check.style.display = "none";
 				sellPoint.style.display = "block";
 				insurance.style.display = "none";
+				pass.style.display = "none";
 			} else if(sel == 4){
 				bank.style.display = "block";
 				check.style.display = "block";
 				sellPoint.style.display = "none";
 				insurance.style.display = "none";
+				pass.style.display = "none";
 			} else if(sel == 5){
 				bank.style.display = "none";
 				check.style.display = "none";
 				sellPoint.style.display = "none";
 				insurance.style.display = "block";
+				pass.style.display = "none";
+			}
+			else if(sel == 6){
+				bank.style.display = "none";
+				check.style.display = "none";
+				sellPoint.style.display = "none";
+				insurance.style.display = "none";
+				pass.style.display = "block";
 			}
 		}
 		</script>
@@ -108,7 +118,12 @@
 						<option value="5">Orden Pago</option>
 						<option value="3">Tarjeta Crédito</option>
 						<option value="2">Tarjeta Débito</option>
+						<option value="6">Carta Aval</option>
 					</select> <br><br>
+					<div id="aval" style="display:none;">
+						<label for="name">Clave:</label>
+						<input type="text" id="pass" style="width: 135px;"><br><br>
+					</div>
 					<div id="bank" style="display:none;">
 						<label for="name">Banco:</label>
 						<select>

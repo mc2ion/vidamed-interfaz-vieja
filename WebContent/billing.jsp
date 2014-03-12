@@ -172,6 +172,10 @@
 												<a href="ShowMedicalFeedServlet" style="color: transparent" >
 													<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 												</a>
+												<a id="go" rel="leanModal" href="#payment" style="color: #f7941e; font-weight: bold;" 
+													onclick="return loadVars(1001,'', 'Luisa Mendez');" >
+													<img alt="logo" src="./images/prontopago.png" height="16" width="16" title="Mover a Pronto Pago"/>
+												</a> 
 											</td>
 										</tr>
 										<tr class="gradeA">
@@ -226,6 +230,7 @@
 											<th>Fecha de Pago</th>
 											<th>Especialista</th>
 											<th>Importe</th>
+											<th style="text-align:center;">Acciones</th>
 										</tr>
 									</thead>
 									<tbody>			
@@ -233,44 +238,68 @@
 											<td>20/09/2013</td>
 											<td>Ana Rojas</td>
 											<td>Bs. 15000</td>
+											<td style="text-align:center;"><a href="ShowPaymentServlet?id=" style="color: transparent" >
+												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
+											</a></td>
 										</tr>
 										<tr>
 											<td>20/09/2013</td>
 											<td>Pedro Ramirez</td>
 											<td>Bs. 5000</td>
+											<td style="text-align:center;"><a href="ShowPaymentServlet?id=" style="color: transparent" >
+												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
+											</a></td>
 										</tr>
 										<tr>
 											<td>20/09/2013</td>
 											<td>Luis Gomez</td>
 											<td>Bs. 34500</td>
+											<td style="text-align:center;"><a href="ShowPaymentServlet?id=" style="color: transparent" >
+												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
+											</a></td>
 										</tr>
 										<tr>
 											<td>20/09/2013</td>
 											<td>Juan Medina</td>
 											<td>Bs. 15000</td>
+											<td style="text-align:center;"><a href="ShowPaymentServlet?id=" style="color: transparent" >
+												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
+											</a></td>
 										</tr>
 										<tr>
 											<td>20/09/2013</td>
 											<td>Ana Rojas</td>
 											<td>Bs. 15000</td>
+											<td style="text-align:center;"><a href="ShowPaymentServlet?id=" style="color: transparent" >
+												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
+											</a></td>
 										</tr>
 										<tr>
 											<td>20/09/2013</td>
 											<td>Pedro Ramirez</td>
 											<td>Bs. 5000</td>
+											<td style="text-align:center;"><a href="ShowPaymentServlet?id=" style="color: transparent" >
+												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
+											</a></td>
 										</tr>
 										<tr>
 											<td>20/09/2013</td>
 											<td>Luis Gomez</td>
 											<td>Bs. 34500</td>
+											<td style="text-align:center;"><a href="ShowPaymentServlet?id=" style="color: transparent" >
+												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
+											</a></td>
 										</tr>
 										<tr>
 											<td>20/09/2013</td>
 											<td>Juan Medina</td>
 											<td>Bs. 15000</td>
+											<td style="text-align:center;"><a href="ShowPaymentServlet?id=" style="color: transparent" >
+												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
+											</a></td>
 										</tr>
 										<tr style="background: gray;">
-											<td colspan="2">Total</td>
+											<td colspan="3">Total</td>
 											<td>Bs. 165.240,20</td>
 										</tr>
 										
@@ -279,6 +308,11 @@
 							</div>
 					</div>
 					<div id="tabs-3">
+							<div style="text-align:right; margin-bottom: 10px;">
+								<a href="AddEmployerServlet" style="color: #006c92; font-weight: bold;">
+									<img alt="logo" src="./images/add.png" height="12" width="12">Agregar Empleado
+								</a>						
+							</div>
   							<div id="demo" style="display: block; height: 300px; overflow-y: scroll;">
 								<table id="sweetTable" >
 									<thead>
@@ -443,6 +477,23 @@
 				<h3 id="see_id" class="sprited" > Pago Realizado</h3>
 				<br><br>
 				<span>¿Está seguro que el pago al doctor <span class="name"></span> fue realizado? </span> <br><br>
+				<div id="signup-header">
+					<a class="close_x" id="close_x"  href="#"></a>
+				</div>
+				<form >
+					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+					<div class="btn-fld">
+						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
+					</div>
+		 		</form>
+			</div>
+		</div>
+		
+		<div id="payment">
+			<div id="signup-ct">
+				<h3 id="see_id" class="sprited" > Mover a Pronto Pago</h3>
+				<br><br>
+				<span>¿Está seguro que desea mover al doctor <span class="name"></span> a pronto pago? </span> <br><br>
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>

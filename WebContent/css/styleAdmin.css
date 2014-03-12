@@ -288,8 +288,8 @@ color:#67A0F5;
 /*CAMBIE ESTO*/
 #content, #contentP
 {
-	min-width: 808px;
-	height: 465px;
+	width: 808px;
+	min-height: 465px;
 	padding-left:30px;
 	padding-top: 20px;
 	padding-right:30px;
@@ -488,6 +488,24 @@ color:#67A0F5;
 	padding-bottom: 5px;
 }
 
+.ayudaitemHome a{
+	position: absolute;
+	right: 223px;
+	color: #ffffff !important;
+	border-radius: 10px;
+	margin-top: 11px;
+	padding-top: 1px;
+	padding-bottom: 6px;
+	text-shadow: 2px 2px black;
+	font-weight: bold;
+	font-size: 15px;
+}
+
+.ayudaitemHome a:hover{
+	color:#0098b6;
+}
+
+
 #menu a:hover{
 	color:#0098b6;
 }
@@ -615,6 +633,12 @@ font-weight: bold;
   font-size: 14px;
 }
 
+.bigger label{
+  float:left;
+  width:40%;
+}
+
+
 
 
 fieldset{
@@ -659,7 +683,14 @@ fieldset label{
 
 fieldset input[type="text"]{
   width:35%;
- 
+}
+
+.bigger input[type="text"]{
+  width:20%;
+}
+
+.target{
+	width: 25%;
 }
 
 .noReg{
@@ -1539,8 +1570,16 @@ div.box {
 	display: none;
 }
 
+<<<<<<< HEAD
 #deleteUser, #deleteProduct, #deleteRequest, #refreshUser, #dischargeUser, #hospitalizeUser, #deleteService, #deleteProtocol, #deleteSupply,
-#deleteEvaluation, #deleteVitalSign, #deleteCash, #printUser, #closeAccount, #discount, #generateInvoice{
+#deleteEvaluation, #deleteVitalSign, #deleteCash, #printUser, #closeAccount, #closeAccount2, #discount, #generateInvoice, #editStatus,
+#payment
+{
+=======
+#deleteUser, #deleteUnit, #deleteSpecialist, #deleteSupplyArea, #deleteSupply, #deleteProduct, #deleteRequest, #refreshUser, #dischargeUser, 
+#hospitalizeUser, #deleteService, #deleteProtocol, #deleteEvaluation, #deleteVitalSign, #deleteCash, #printUser, #closeAccount, #closeAccount2, 
+#discount, #generateInvoice, #editStatus{
+>>>>>>> fbf5b1aece365ed873c1c1b2f779ae90c97f39c2
 	position: absolute;
 	text-align: center;
 	width: 295px;
@@ -1809,7 +1848,7 @@ fieldset .rightCol input[type="text"]{
 	width: 20%;
 }
 
-#otherPhone, #otherPhone2, #otherPhone3{
+#otherPhone1, #otherPhone2, #otherPhone3{
 	margin-left: 194px;
 	
 }
@@ -1837,7 +1876,7 @@ table {
 #doctorId{
 	height: 50px;
 	position: absolute;
-	top: 160px;
+	top: 120px;
 	
 }
 
@@ -2028,6 +2067,7 @@ input.search-input{
 	/* background: red; */
 	box-shadow: 2px 2px 10px;
 	border-radius: 10px;
+	margin-bottom: 30px;
 }
 
 #cssmenu ul,
@@ -2308,9 +2348,6 @@ input.search-input{
 	background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
 	background-color:#dfdfdf;
-}.buttonGray:active {
-	position:relative;
-	top:1px;
 }
 
 
@@ -2640,4 +2677,9 @@ nav .badge.blue {
 	position: absolute;
 	right: 123px;
 	top: 78px;
+}
+
+#observations{
+	width:277px; 
+	height:60px;
 }

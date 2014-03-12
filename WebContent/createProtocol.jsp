@@ -55,6 +55,12 @@
 						<select id="typeOfProtocol">
 							<option value="A">Ambulatorio</option>
 							<option value="H">No Ambulatorio</option>
+						</select><br><br><br>
+						<label> Sexo asociado al protocolo:</label>
+						<select id="gender">
+							<option value="G">General</option>
+							<option value="F">Femenino</option>
+							<option value="M">Masculino</option>
 						</select>
 			        </fieldset>
 			        <fieldset id="field2">
@@ -137,16 +143,6 @@
 			        	  <table class="table-simple">
 							    	<tr>
 							    		<td>Quirófano</td>
-							    		<td>Bs. 2270</td>
-							    		<td></td>
-							    	</tr>
-							    	<tr>
-							    		<td>Sala de Recuperación</td>
-							    		<td>Bs. 2270</td>
-							    		<td></td>
-							    	</tr>
-							    	<tr>
-							    		<td>Monitoreo</td>
 							    		<td>Bs. 2270</td>
 							    		<td></td>
 							    	</tr>

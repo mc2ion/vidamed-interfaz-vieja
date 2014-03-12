@@ -20,6 +20,7 @@
 				null,
 				null,
 				null,
+				null,
 				{ "bSearchable": false, "asSorting": false, "sWidth": "18%" }
 			],
 			"oLanguage": {
@@ -88,6 +89,7 @@
 									<tr>
 										<th>ID</th>
 										<th>Paciente</th>
+										<th>Tipo</th>
 										<th>Descuento</th>
 										<th>Protocolo</th>
 										<th>Fecha</th>
@@ -98,6 +100,7 @@
 									<tr class="gradeA">
 										<td>1001</td>
 										<td>Ana Rojas</td>
+										<td>Adulto</td>
 										<td>Aprobado</td>
 										<td>Histerectomía</td>
 										<td>17/06/2013</td>
@@ -126,6 +129,7 @@
 									<tr class="gradeA">
 										<td>1002</td>
 										<td>Luis Mujica</td>
+										<td>Adulto</td>
 										<td>No Aplica</td>
 										<td>Colecistectomía</td>
 										<td>17/06/2013</td>
@@ -153,6 +157,7 @@
 									<tr class="gradeA">
 										<td>1003</td>
 										<td>Miguel Álvarez</td>
+										<td>Pedi&aacute;trico</td>
 										<td>En Espera</td>
 										<td>Apendicectomía</td>
 										<td>17/06/2013</td>

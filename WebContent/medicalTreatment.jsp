@@ -1,9 +1,9 @@
-<!DOCTYPE >
+<!DOCTYPE html>
 <html>
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-	<title>Tratamientos Médicos</title>
+	<title>Tratamientos M&eacute;dicos</title>
 	<script type="text/javascript" src="./js/jquery.js"></script>
 	<script type="text/javascript" src="./js/jquery.dataTables.js"></script>
 	<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
@@ -15,6 +15,8 @@
 			"sScrollY": "250px",
 			"bPaginate": false,
 			"aoColumns": [
+				null,
+				null,
 				null,
 				null,
 				null,
@@ -69,15 +71,12 @@
          </nav>        
 		<div id="menu">
 			
-			<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
-			<ul>
-            	<li class="menuitem"><a href="CreateMedicalTreatmentServlet">Crear Tratamiento Médico</a></li>
-            </ul>
-	    	<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
+			<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>
+			<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
         </div>        
 		 <jsp:include page="./menu.jsp" />
 		<div id="content">  
-			<h2>Tratamientos Médicos:</h2>
+			<h2>Tratamiento M&eacute;dico:</h2>
 			<div id="dt_example">
 					<div id="container">
 						<div id="demo">
@@ -85,54 +84,105 @@
 								<thead>
 									<tr>
 										<th>ID</th>
-										<th>Unidad</th>
-										<th>Nombre</th>
+										<th>Paciente</th>
+										<th>Ubicación</th>
+										<th>Cama</th>
+										<th>Fecha Ingreso</th>
 										<th>Acciones</th>
 									</tr>
 								</thead>
 								<tbody>			
 									<tr class="gradeA">
 										<td>1001</td>
-										<td>Cirugía General</td>
-										<td>Frenuloplastia</td>
+										<td>Ana Rojas</td>
+										<td>Planta Baja</td>
+										<td>Camilla 1</td>
+										<td>20/06/2013 07:35</td>
 										<td>
-											<a href="EditMedicalTreatmentServlet" style="color: transparent" >
+											<a href="ShowEmergencyServlet" style="color: transparent" >
+												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
+											</a>
+											<a href="EditEmergencyServlet" style="color: transparent" >
 												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
 											</a>
+											<a id="go" rel="leanModal" href="#dischargeUser" style="color: #f7941e; font-weight: bold;" 
+												onclick="return loadVars(1001,'Ana Rojas');" >
+												<img alt="logo" src="./images/check.png"  height="16" width="16" title="Dar de Alta" />
+											</a>
+											<a id="go" rel="leanModal" href="#hospitalizeUser" style="color: #f7941e; font-weight: bold;" 
+												onclick="return loadVars(1001,'Ana Rojas');" >
+												<img alt="logo" src="./images/hospitalize.png"  height="18" width="18" title="Hospitalizar"/>
+											</a> 
 											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1001,'Frenuloplastia');" >
+												onclick="return loadVars(1001,'Ana Rojas');" >
 												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
 											</a> 
+											<a href="PrintStatementServlet" style="color: transparent" >
+												<img alt="logo" src="./images/movements.png"  height="16" width="16" title="Corte de Cuenta" />
+											</a>
 											<br>
 										</td>
 									</tr>
 									<tr class="gradeA">
 										<td>1002</td>
-										<td>Otros Procedimientos</td>
-										<td>Tratamiento Médico</td>
+										<td>Luis Mujica</td>
+										<td>Planta Baja</td>
+										<td>Cupo 6</td>
+										<td>20/06/2013 08:42</td>
 										<td>
+											<a href="#" style="color: transparent" >
+												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
+											</a>
 											<a href="#" style="color: transparent" >
 												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
 											</a>
+											<a id="go" rel="leanModal" href="#dischargeUser" style="color: #f7941e; font-weight: bold;" 
+												onclick="return loadVars(1002,'Luis Mujica');" >
+												<img alt="logo" src="./images/check.png"  height="16" width="16" title="Dar de Alta" />
+											</a>
+											<a id="go" rel="leanModal" href="#hospitalizeUser" style="color: #f7941e; font-weight: bold;" 
+												onclick="return loadVars(1002,'Luis Mujica');" >
+												<img alt="logo" src="./images/hospitalize.png"  height="18" width="18" title="Hospitalizar"/>
+											</a> 
 											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1002,'Tratamiento Médico');" >
+												onclick="return loadVars(1002,'Luis Mujica');" >
 												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
 											</a> 
+											<a href="#" style="color: transparent" >
+												<img alt="logo" src="./images/movements.png"  height="16" width="16" title="Corte de Cuenta" />
+											</a>
 											<br>
 										</td>
 									</tr>
 									<tr class="gradeA">
 										<td>1003</td>
-										<td>Emergencia</td>
-										<td>Emergencia</td>
+										<td>Miguel Álvarez</td>
+										<td>Planta Baja</td>
+										<td>Camilla 17</td>
+										<td>20/06/2013 08:55</td>
 										<td>
+											<a href="#" style="color: transparent" >
+												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
+											</a>
 											<a href="#" style="color: transparent" >
 												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
 											</a>
+											<a id="go" rel="leanModal" href="#dischargeUser" style="color: #f7941e; font-weight: bold;" 
+												onclick="return loadVars(1003,'Miguel Álvarez');" >
+												<img alt="logo" src="./images/check.png"  height="16" width="16" title="Dar de Alta" />
+											</a>
+											<a id="go" rel="leanModal" href="#hospitalizeUser" style="color: #f7941e; font-weight: bold;" 
+												onclick="return loadVars(1003,'Miguel Álvarez');" >
+												<img alt="logo" src="./images/hospitalize.png"  height="18" width="18" title="Hospitalizar"/>
+											</a> 
 											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1003,'Emergencia');" >
+												onclick="return loadVars(1003,'Miguel Álvarez');" >
 												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
 											</a> 
+											<a href="#" style="color: transparent" >
+												<img alt="logo" src="./images/movements.png"  height="16" width="16" title="Corte de Cuenta" />
+											</a>
+											
 											<br>
 										</td>
 									</tr>
@@ -142,17 +192,64 @@
 					</div>
 				</div>
 				<div class="spacer"></div>
+        	</div>
        	</div>
-		</div>
 		<div id="deleteUser">
 			<div id="signup-ct">
-				<h3 id="see_id" class="sprited" > Eliminar Tratamiento Médico</h3>
+				<h3 id="see_id" class="sprited" > Eliminar Emergencia</h3>
 				<br><br>
-				<span>¿Está seguro que desea eliminar el tratamiento médico '<span class="cliente"></span>' y su información asociada? </span> <br><br>
+				<span>¿Está seguro que desea eliminar del sistema la emergencia de <span class="cliente"></span>? </span> <br><br>
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="ListAdmissionsServlet" method="post"  onsubmit="return setV(this)">
+				<form action="ListEmergenciesServlet" method="post"  onsubmit="return setV(this)">
+					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+					<div class="btn-fld">
+						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
+					</div>
+		 		</form>
+			</div>
+		</div>
+		<div id="dischargeUser">
+			<div id="signup-ct">
+				<h3 id="see_id" class="sprited" > Dar de Alta</h3>
+				<br><br>
+				<span>¿Está seguro que desea darle de alta a <span class="cliente"></span>? </span> <br><br>
+				<div id="signup-header">
+					<a class="close_x" id="close_x"  href="#"></a>
+				</div>
+				<form action="ListEmergenciesServlet" method="post"  onsubmit="return setV(this)">
+					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+					Indique Razón: 
+					<select>
+						<option value="1">Alta Administrativa</option>
+						<option value="2">Alta Médica</option>
+						<option value="3">Alta por Defunción</option>
+						<option value="4">Alta por Traslado</option>
+						<option value="4">Alta Contraindicaci&oacute;n M&eacute;dica</option>
+					</select>
+					<div class="btn-fld">
+						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
+					</div>
+		 		</form>
+			</div>
+		</div>
+		<div id="hospitalizeUser">
+			<div id="signup-ct">
+				<h3 id="see_id" class="sprited" > Hospitalizar</h3>
+				<br><br>
+				<span>¿Qué acción desea realizar sobre los gastos del paciente <span class="cliente"></span>? </span> <br><br>
+				<form id="gastos" style="text-align: center">
+					<select>
+						<option value="-">Seleccionar</option>
+						<option value="F">Generar una factura</option>
+						<option value="T">Trasladar los gastos actuales</option>
+					</select>
+				</form>
+				<div id="signup-header">
+					<a class="close_x" id="close_x"  href="#"></a>
+				</div>
+				<form action="ListEmergenciesServlet" method="post"  onsubmit="return setV(this)">
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />

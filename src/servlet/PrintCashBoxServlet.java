@@ -43,7 +43,7 @@ public class PrintCashBoxServlet extends HttpServlet {
 
 		RequestDispatcher rd;
 		   
-		rd = getServletContext().getRequestDispatcher("/printCashBoxServlet.jsp");			
+		rd = getServletContext().getRequestDispatcher("/printCashBox.jsp");			
 		rd.forward(request, response);
 	}
 

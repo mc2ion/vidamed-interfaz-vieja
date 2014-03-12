@@ -8,7 +8,6 @@
 	  	<script src="./js/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
-		<link rel="stylesheet" href="/resources/demos/style.css" />
 		<script>
 			$(function() {
 				$( "#tabs" ).tabs();
@@ -99,22 +98,29 @@
 				<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
         	</div>        
 			 <jsp:include page="./menu.jsp" />
+			 <!-- OJO TODA ADMISION DEBE TENER PRESUPUESTO.. TENER ESO EN CUENTA
+			 	COMO RESTRICCION PARA CREAR LA ADMISION
+			  -->
         	<div id="content" style="position:absolute;">
         		<div id="admitP">
 	        	<h2>Admitir Paciente:</h2>
 				<br>
 						 <form action="#">
 						 	<fieldset>
-							   <b>Cédula:</b> <span style="margin-left: 130px;">V-12345678</span><br/><br/>
-							   <b>Nombre: </b><span style="margin-left: 125px;">Ana Rojas</span><br><br/>
+							   <b>Cédula:</b> <span style="margin-left: 155px;">V-12345678</span><br/><br/>
+							   <b>Nombre: </b><span style="margin-left: 150px;">Ana Rojas</span><br><br/>
 							   <label> Responsable del Pago:</label>  <input type="text" name="insuranceName" id="insuranceName" value="" readonly>
 							    <a href="SearchInsuranceServlet?function=admitPatient" style="color: #f7941e; font-weight: bold;">
 									<input type="button"id="paymentResp" value="Cambiar" >
 								</a> 
 								<br><br>
 					
-							   <label> Motivo de la admisión:</label> <input type="text" name="reasonAdmission" id="reasonAdmission" value="" ><br><br>
-							    
+							   <label> Motivo de la admisión:</label>
+							   <select name="reasonAdmission" id="reasonAdmission" >
+							   		<option value="h">Hospitalizaci&oacute;n</option>  
+							   		<option value="e">Emergencia</option> 
+							   		<option value="t">Tratamiento M&eacute;dico</option>   
+							   </select><br/><br/>							    
 							    <label> Ubicación:  </label>
 								<input type="text" name="ubication" id="ubication" readonly><br><br>
 								 
@@ -126,8 +132,16 @@
 							   <label> Número de presupuesto:</label> 
 							   	<input type="text" name="estimationId" id="estimationId" value="">
 							    <a href="SearchEstimationServlet" style="color: #f7941e; font-weight: bold;" >
-									<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Buscar" />
-								</a><br><br>
+									<input type="button" value="Buscar" >
+								</a>
+								<a href="CreateEstimationServlet" style="color: #f7941e; font-weight: bold;" >
+									<input type="button" value="Crear" >
+								</a>
+								<br><br>
+								 <label> Observaciones:</label>  
+								 <textarea name="observations" id="observations" ></textarea>
+							   
+								<br><br>
 							</fieldset>
 							<div id="botonP">
 										<input type="button"  class="button" id="subAdmit"  name="sbmtButton" value="Aceptar" style="margin-left:30%; margin-top: 5px;"/>

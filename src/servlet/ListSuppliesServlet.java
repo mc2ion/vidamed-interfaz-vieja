@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import command.CommandExecutor;
+import domain.Supply;
 
 
 /**
@@ -38,9 +40,20 @@ public class ListSuppliesServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/supplies.jsp");
-		rd.forward(request, response);
+		
+		try {
+			Long supplyAreaID = Long.parseLong(request.getParameter("supplyAreaID"));
+			ArrayList<Supply> supplies = (ArrayList<Supply>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetSupplies(supplyAreaID));
+			request.setAttribute("supplies", supplies);
+			request.setAttribute("supplyAreaID", supplyAreaID);
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/supplies.jsp");
+			rd.forward(request, response);
+		} 
+		catch (Exception e) {
+			throw new ServletException(e);
+		}
 	}
 	
 	/**

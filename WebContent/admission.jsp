@@ -20,6 +20,7 @@
 				null,
 				null,
 				null,
+				null,
 				{ "bSearchable": false, "asSorting": false, "sWidth": "18%" }
 			],
 			"oLanguage": {
@@ -90,6 +91,7 @@
 									<tr>
 										<th>ID</th>
 										<th>Paciente</th>
+										<th>Tipo</th>
 										<th>Responsable Pago</th>
 										<th>Status</th>
 										<th>Ubicación</th>
@@ -100,10 +102,14 @@
 									<tr class="gradeA">
 										<td>1001</td>
 										<td>Ana Rojas</td>
+										<td>Adulto</td>										
 										<td>Multinacional de Seguros</td>
 										<td>Esperando Clave</td>
 										<td>Emergencias</td>
 										<td>
+											<a id="go" rel="leanModal" href="#editStatus" style="color: #f7941e; font-weight: bold;" >
+												<img alt="logo" src="./images/edit.png" height="16" width="16" title="Eliminar"/>
+											</a> 
 											<a href="ShowAdmissionServlet" style="color: transparent" >
 												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 											</a>
@@ -117,10 +123,14 @@
 									<tr class="gradeA">
 										<td>1002</td>
 										<td>Luis Mujica</td>
+										<td>Pedi&aacute;trico</td>	
 										<td>La Previsora</td>
 										<td>Esperando Clave</td>
 										<td>Hospitalización</td>
 										<td>
+											<a id="go" rel="leanModal" href="#editStatus" style="color: #f7941e; font-weight: bold;" >
+												<img alt="logo" src="./images/edit.png" height="16" width="16" title="Eliminar"/>
+											</a> 
 											<a href="#" style="color: transparent" >
 												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 											</a>
@@ -134,10 +144,14 @@
 									<tr class="gradeA">
 										<td>1003</td>
 										<td>Miguel Álvarez</td>
+										<td>Pedi&aacute;trico</td>	
 										<td>Seguros Caroní</td>
 										<td>Denegado</td>
 										<td>Emergencias</td>
 										<td>
+											<a id="go" rel="leanModal" href="#editStatus" style="color: #f7941e; font-weight: bold;" >
+												<img alt="logo" src="./images/edit.png" height="16" width="16" title="Eliminar"/>
+											</a> 
 											<a href="#" style="color: transparent" >
 												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 											</a>
@@ -165,6 +179,31 @@
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
 				<form action="ListAdmissionsServlet" method="post"  onsubmit="return setV(this)">
+					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+					<div class="btn-fld">
+						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
+					</div>
+		 		</form>
+			</div>
+		</div>
+		<div id="editStatus">
+			<div id="signup-ct">
+				<h3 id="see_id" class="sprited" > Editar Status</h3>
+				<br><br>
+				<span>Seleccione el nuevo status</span> <br><br>
+				<form id="gastos" style="text-align: center">
+					<select>
+						<option value="-">Seleccionar</option>
+						<option value="A">Aceptado</option>
+						<option value="D">Denegado</option>
+						<option value="E">Esperando Clave</option>
+						<option value="O">Otro</option>
+					</select>
+				</form>
+				<div id="signup-header">
+					<a class="close_x" id="close_x"  href="#"></a>
+				</div>
+				<form action="ListEmergenciesServlet" method="post"  onsubmit="return setV(this)">
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />

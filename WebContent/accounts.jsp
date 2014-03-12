@@ -9,7 +9,6 @@
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		<script type="text/javascript" src="./js/jquery.dataTables.js"></script>
 		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
-		<link rel="stylesheet" href="/resources/demos/style.css" />
 		<script type="text/javascript" charset="utf-8">
 		$(document).ready(function() {
 			$('#example').dataTable( {
@@ -19,6 +18,7 @@
 			"bPaginate": false,
 			"aoColumns": [
 				null,
+				{ "bSearchable": false, "asSorting": false, "sWidth": "18%" },
 				null,
 				null,
 				null,
@@ -42,7 +42,7 @@
 				"sScrollY": "200px",
 				"bPaginate": false,
 				"aoColumns": [
-					null,
+					{ "bSearchable": false, "asSorting": false, "sWidth": "18%" },
 					null,
 					null,
 					null,
@@ -119,16 +119,22 @@
 					    <li><a href="#tabs-2">Por Pagar</a></li>
 					</ul>
   					<div id="tabs-1">
+						<a id="go" rel="leanModal" href="#closeAccount2" class="buttonGray" style="position: absolute;"
+													onclick="return loadVars(1001,'Cobrar', 'Vidamed', 'cobrada');" >
+							Pagar facturas
+						</a> 
+						
   						<div style="text-align:right; margin-top: 5px; margin-bottom:20px;">
 	  						<a href="CreateReceivableServlet" style="color: #006c92; font-weight: bold;">
 								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Cuenta por Cobrar
-							</a>						
-  						</div>
+							</a>	
+						</div>
  								<div id="demo">
 								<table class="display" id="example">
 									<thead>
 										<tr>
 											<th>ID</th>
+											<th>Seleccionar</th>
 											<th>Empresa</th>
 											<th>Monto</th>
 											<th>Fecha Vencimiento</th>
@@ -138,6 +144,7 @@
 									<tbody>			
 										<tr class="gradeA">
 											<td>1001</td>
+											<td><input type="checkbox" name="account" value="1"/></td>
 											<td>Vidamed</td>
 											<td>Bs. 15000</td>
 											<td>20/08/2013</td>
@@ -161,6 +168,7 @@
 										</tr>
 										<tr class="gradeA">
 											<td>1002</td>
+											<td><input type="checkbox" name="account" value="2"/></td>
 											<td>La Previsora</td>
 											<td>Bs. 5000</td>
 											<td>25/11/2013</td>
@@ -184,6 +192,7 @@
 										</tr>
 										<tr class="gradeA">
 											<td>1003</td>
+											<td><input type="checkbox" name="account" value="3"/></td>
 											<td>Multinacional de Seguros</td>
 											<td>Bs. 34500</td>
 											<td>17/10/2013</td>
@@ -324,6 +333,23 @@
 				<h3 id="see_id" class="sprited" > Pagar cuenta <span class="type"></span>  </h3>
 				<br><br>
 				<span>¿Está seguro que la cuenta de <span class="name"></span> fue <span class="actionAccount"></span>? </span> <br><br>
+				<div id="signup-header">
+					<a class="close_x" id="close_x"  href="#"></a>
+				</div>
+				<form >
+					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+					<div class="btn-fld">
+						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
+					</div>
+		 		</form>
+			</div>
+		</div>
+		
+		<div id="closeAccount2">
+			<div id="signup-ct">
+				<h3 id="see_id" class="sprited" > Pagar cuenta <span class="type"></span>  </h3>
+				<br><br>
+				<span>¿Está seguro que las cuentas seleccionadas fueron cobradas? </span> <br><br>
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>

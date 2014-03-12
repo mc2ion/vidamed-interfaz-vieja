@@ -8,7 +8,6 @@
 	  	<script src="./js/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
-		<link rel="stylesheet" href="/resources/demos/style.css" />
 		<script>
 			$(function() {
 				$( "#tabs" ).tabs();
@@ -61,6 +60,13 @@
 				$("#departament").val("Alergogía");
 			}
 			
+			$('#titular').change(function() {
+		        if(!$(this).is(":checked")) {
+		            $("#div-3").show();
+		        }else
+					 $("#div-3").hide();
+		               
+		    });
 			
 		});
 		</script>
@@ -104,8 +110,8 @@
   					<div id="tabs-1">
   						<br>
 					    <p>
-					    <b> Cédula: </b> V-12345678<br><br>
-					    <b> Nombre: </b> Ana Rojas<br><br>
+					    <b> Cédula: </b> V-12345678 
+					    <b style="margin-left: 60px;"> Nombre: </b> Ana Rojas<br><br>
 					    </p>
 					    <fieldset>
 					  	<label> Unidad: </label>
@@ -118,7 +124,19 @@
 						<label> Responsable del Pago:</label>  <input type="text" name="insuranceName" id="insuranceName" readonly>
 					    <a href="SearchInsuranceServlet?function=createEstimation" style="color: #f7941e; font-weight: bold;">
 							<input type="button"id="paymentResp" value="Escoger" >
-						</a> 
+						</a> <br><br>
+						<input type="checkbox" id="aval" value="1" /> &iquest; El paciente tiene carta aval?<br><br>
+						<input type="checkbox" id="titular" value="1" checked /> &iquest; Es el paciente el titular del seguro?<br><br>
+						<div id="div-3" style="display: none;">
+							Datos del titular:<br><br>
+							<label> Cédula Titular: </label> 
+							<select id="cedula">
+								<option value="V-">V</option>
+								<option value="E-">E</option>
+							</select><input type="text" name="cedula" id="cedula" value="" style="width: 227px;"><br><br>
+							<label> Nombre Titular: </label>
+							<input type="text" name="name" id="name" value=""><br><br>
+						</div>
 					    </fieldset>
 					 	<br>
 					</div>
@@ -145,9 +163,9 @@
 						</table>
 						<br>
 					</div>
-  				</div><BR><BR>
+				</div><BR><BR>
   				
-				  <div id="botonera" style="margin-top: -3px;">
+				  <div id="botonera" style="margin-top: -20px;">
 					<form action="ListEstimationsServlet">
 						<div id="botonP" style="display: inline; margin-right: 30px;">
 									<input type="submit"  class="button"  name="sbmtButton" value="Crear" />

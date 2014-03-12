@@ -4,8 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
 	<title>Vidamed - Administrador</title>
-	<script type="text/javascript" src="./js/messages.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
 </head>
 <body >
 	<div id="containerIni">

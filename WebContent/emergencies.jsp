@@ -226,6 +226,7 @@
 						<option value="2">Alta Médica</option>
 						<option value="3">Alta por Defunción</option>
 						<option value="4">Alta por Traslado</option>
+						<option value="4">Alta Contraindicaci&oacute;n M&eacute;dica</option>
 					</select>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
