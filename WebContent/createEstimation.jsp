@@ -110,11 +110,6 @@
   					<div id="tabs-1">
   						<br>
 					    <p>
-					    <!--  Ojoooooo: Hay que verificar si el paciente es pediatrico o adulto.
-					    	Si es adulto, la cedula saldra fija. Pero se debe tener la posibilidad
-					    	de colocar el nombre del paciente. En el caso de que el paciente sea adulto
-					    	ambos valores ya pueden aparecer establecidos.
-					     -->
 					    <b> Cédula: </b> V-12345678 
 					    <b style="margin-left: 60px;"> Nombre: </b> Ana Rojas<br><br>
 					    </p>
@@ -130,8 +125,10 @@
 					    <a href="SearchInsuranceServlet?function=createEstimation" style="color: #f7941e; font-weight: bold;">
 							<input type="button"id="paymentResp" value="Escoger" >
 						</a> <br><br>
+						<input type="checkbox" id="aval" value="1" /> &iquest; El paciente tiene carta aval?<br><br>
 						<input type="checkbox" id="titular" value="1" checked /> &iquest; Es el paciente el titular del seguro?<br><br>
 						<div id="div-3" style="display: none;">
+							Datos del titular:<br><br>
 							<label> Cédula Titular: </label> 
 							<select id="cedula">
 								<option value="V-">V</option>
