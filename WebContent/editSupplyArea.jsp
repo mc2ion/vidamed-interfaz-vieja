@@ -1,3 +1,7 @@
+<%@ page import="domain.SupplyArea" %>
+<%
+SupplyArea sa = (SupplyArea)request.getAttribute("supplyArea");
+%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -37,22 +41,23 @@
         	<div id="content" style="position:absolute;">	
 	        	<h2>Editar Área Insumos:</h2>
 				<br>
-				<fieldset>
-					<label for="name">Nombre:</label>
-					<input type="text" name="txtName" id="txtName" maxlength="50" size="5" value="Fármacos"/> <br><br>
-					<label for="name">Descripción:</label>
-					<textarea name="txtDescription" id="txtDescription" rows="3" cols="50">Sustancias químicas purificadas</textarea> <br><br>
-				</fieldset>
-				<div id="botonera">
-					<form action="ListSupplyAreasServlet">
+				<form action="EditSupplyAreaServlet">
+					<input type="hidden" id="supplyAreaID" name="supplyAreaID" value="<%= sa.getSupplyAreaID() %>" />
+					<fieldset>
+						<label for="name">Nombre:</label>
+						<input type="text" name="txtName" id="txtName" maxlength="50" size="5" value="<%= sa.getName() %>"/> <br><br>
+						<label for="name">Descripción:</label>
+						<textarea name="txtDescription" id="txtDescription" rows="3" cols="50"><%= sa.getDescription() %></textarea> <br><br>
+					</fieldset>
+					<div id="botonera">
 						<div id="botonP" style="display: inline; margin-right: 30px;">
-									<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
+							<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
 						</div>	
 						<div id="botonV" style="display: inline;">
-								<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
+							<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
 						</div>	
-					</form>
-				</div>
+					</div>
+				</form>
 			</div>
 		</div>
 	</body>

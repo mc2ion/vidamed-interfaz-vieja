@@ -21,7 +21,7 @@ public class UserExists implements DatabaseCommand {
 	public Object executeDatabaseOperation(Connection conn) throws SQLException {
 		
 		User u = null;
-		PreparedStatement sta = conn.prepareStatement("SELECT [id],[username],[password] FROM [dbo].[USER] WHERE [username]=? AND [password]=?");
+		PreparedStatement sta = conn.prepareStatement("SELECT [UserID],[username],[password] FROM [dbo].[USER] WHERE [username]=? AND [password]=?");
 		
 		sta.setString(1, this.name);
 		sta.setString(2, this.encryptPassword);

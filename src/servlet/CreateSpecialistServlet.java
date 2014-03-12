@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
 import domain.Unit;
@@ -50,8 +49,7 @@ public class CreateSpecialistServlet extends HttpServlet {
 			RequestDispatcher rd;
 			if (action == null || action.trim().equals("")) {
 				ArrayList<Unit> units = (ArrayList<Unit>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetUnits());
-				HttpSession session = request.getSession(true);
-				session.setAttribute("units", units);
+				request.setAttribute("units", units);
 				rd = getServletContext().getRequestDispatcher("/createSpecialist.jsp");			
 				rd.forward(request, response);
 			}

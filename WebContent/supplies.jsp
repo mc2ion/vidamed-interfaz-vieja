@@ -1,3 +1,9 @@
+<%@ page import="domain.Supply" %>
+<%@ page import="java.util.ArrayList" %>
+<%
+ArrayList<Supply> supplies = (ArrayList<Supply>)request.getAttribute("supplies");
+Long supplyAreaID = (Long) request.getAttribute("supplyAreaID");
+%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -34,20 +40,20 @@
 	} );
 	</script>
 	<script type="text/javascript">
-	var idUser;
+	var idSupply;
 			
 	$(function() {
 		$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x" });		
 	});
 	
 	function loadVars(var1, var2) {
-		idUser = var1;
+		idSupply = var1;
 		$('.cliente').text(var2);
 		
 	};
 	
 	function setV(f){
-		f.elements['userId'].value = idUser;
+		f.elements['supplyID'].value = idSupply;
 		return true;
 	}
 	</script>
@@ -72,7 +78,7 @@
 			<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 			<ul>
             	<li class="menuitem"><a href="ListSupplyAreasServlet">Ver Áreas Insumos</a></li>
-            	<li class="menuitem"><a href="CreateSupplyServlet" style="margin-left:15px;">Crear Insumo</a></li>
+            	<li class="menuitem"><a href="CreateSupplyServlet?supplyAreaID=<%= supplyAreaID %>" style="margin-left:15px;">Crear Insumo</a></li>
             </ul>
 	    	<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
         </div>        
@@ -91,52 +97,32 @@
 										<th>Acciones</th>
 									</tr>
 								</thead>
-								<tbody>			
-									<tr class="gradeA">
-										<td>1001</td>
-										<td>Albumina Humana 20% 50 ml</td>
-										<td>12</td>
-										<td>
-											<a href="EditSupplyServlet" style="color: transparent" >
-												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
-											</a>
-											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1001,'Albumina Humana 20% 50 ml');" >
-												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-											</a> 
-											<br>
-										</td>
-									</tr>
-									<tr class="gradeA">
-										<td>1002</td>
-										<td>Benutrex B12 Ampolla</td>
-										<td>7</td>
-										<td>
-											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
-											</a>
-											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1002,'Benutrex B12 Ampolla');" >
-												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-											</a> 
-											<br>
-										</td>
-									</tr>
-									<tr class="gradeA">
-										<td>1003</td>
-										<td>Daktarin Crema</td>
-										<td>25</td>
-										<td>
-											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
-											</a>
-											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1003,'Daktarin Crema');" >
-												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-											</a> 
-											<br>
-										</td>
-									</tr>
+								<tbody>
+									<% if (supplies.size() == 0)  { %>
+											<tr class="gradeA"><td colspan="4">No hay insumos disponibles</td></tr>
+									<% }
+								   	   else { 
+								   			for (int i = 0; i<supplies.size(); i++) { 
+								   				Supply s = supplies.get(i);
+									%>
+												<tr class="gradeA">
+													<td><%= s.getSupplyID() %></td>
+													<td><%= s.getName() %></td>
+													<td><%= s.getAmount() %></td>
+													<td>
+														<a href="EditSupplyServlet?supplyID=<%= s.getSupplyID() %>" style="color: transparent" >
+															<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
+														</a>
+														<a id="go" rel="leanModal" href="#deleteSupply" style="color: #f7941e; font-weight: bold;" 
+															onclick="return loadVars(<%= s.getSupplyID() %>,'<%= s.getName() %>');" >
+															<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
+														</a> 
+														<br>
+													</td>
+												</tr>
+									<%		}
+								   		}
+								   	%>
 								</tbody>
 							</table>
 						</div>
@@ -145,7 +131,7 @@
 				<div class="spacer"></div>
        	</div>
 		</div>
-		<div id="deleteUser">
+		<div id="deleteSupply">
 			<div id="signup-ct">
 				<h3 id="see_id" class="sprited" > Eliminar Insumo</h3>
 				<br><br>
@@ -153,8 +139,8 @@
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="ListSuppliesServlet" method="post"  onsubmit="return setV(this)">
-					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+				<form action="RemoveSupplyServlet?supplyAreaID=<%= supplyAreaID %>" method="post"  onsubmit="return setV(this)">
+					<input type="hidden" id="supplyID" class="good_input" name="supplyID"  value=""/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
 					</div>
