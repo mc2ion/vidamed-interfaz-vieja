@@ -23,6 +23,7 @@ public class EditUserPhoneNumber implements DatabaseCommand {
 		try {
 			ps = conn.prepareStatement("exec dbo.EditUserPhoneNumber '" + type + "', '" + phoneNumber + "', "
 					+ phoneNumberID);
+			ps.execute();
 		}
 		finally {
 			ps.close();
