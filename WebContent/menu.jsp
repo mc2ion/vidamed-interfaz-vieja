@@ -1,4 +1,5 @@
- <div id='cssmenu'>
+<div class="ayudaitemHome"><a href="HelpServlet">Ayuda</a></div>	
+<div id='cssmenu'>
 		<ul>
 		   <li class='first'><a href='ListEstimationsServlet'><span>Presupuesto</span></a></li>
 		   <li><a href='ListEmergenciesServlet'><span>Emergencia</span></a></li>

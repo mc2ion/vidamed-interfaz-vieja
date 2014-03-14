@@ -14,10 +14,10 @@ import command.CommandExecutor;
 
 
 /**
- * Servlet implementation class PrintCashBoxServlet
+ * Servlet implementation class CreateUserServlet
  */
-@WebServlet(description = "servlet to log in users", urlPatterns = { "/PrintCashBoxServlet" })
-public class PrintCashBoxServlet extends HttpServlet {
+@WebServlet(description = "servlet to log in users", urlPatterns = { "/HelpServlet" })
+public class HelpServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	public void init() throws ServletException {
@@ -32,7 +32,7 @@ public class PrintCashBoxServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PrintCashBoxServlet() {
+    public HelpServlet() {
         super();
     }
 
@@ -42,8 +42,7 @@ public class PrintCashBoxServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		RequestDispatcher rd;
-		   
-		rd = getServletContext().getRequestDispatcher("/printCashBox.jsp");			
+		rd = getServletContext().getRequestDispatcher("/help.jsp");			
 		rd.forward(request, response);
 	}
 
@@ -52,6 +51,6 @@ public class PrintCashBoxServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		doGet(request,response);
+		doGet(request, response);
 	}
 }

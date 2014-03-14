@@ -188,6 +188,10 @@
 											<br>
 										</td>
 									</tr>
+									<!--  La caja administrativa es especial
+										no se puede eliminar ni editar..
+										OJO!!
+									 -->
 									<tr class="gradeA">
 										<td>1001</td>
 										<td>Caja Administrativa</td>

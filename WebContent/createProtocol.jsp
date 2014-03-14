@@ -147,16 +147,6 @@
 							    		<td></td>
 							    	</tr>
 							    	<tr>
-							    		<td>Sala de Recuperación</td>
-							    		<td>Bs. 2270</td>
-							    		<td></td>
-							    	</tr>
-							    	<tr>
-							    		<td>Monitoreo</td>
-							    		<td>Bs. 2270</td>
-							    		<td></td>
-							    	</tr>
-							    	<tr>
 							    		<td>Gases, anestésicos y medicamentos</td>
 							    		<td>Bs. 2270</td>
 							    		<td>

@@ -41,6 +41,16 @@
 			return true;
 		}
 		
+		$(document).ready(function() {
+			$( ".target" ).change(function() {
+			  if( $(this).find(":selected").text() == "Pediátrico"){
+				$("#id").text("Cédula de identidad del representante:");
+			  }else
+				$("#id").text("Cédula de identidad del paciente:");
+				
+			});
+		});
+		
 		
 		</script>
 	</head>
@@ -79,7 +89,12 @@
   					<div id="tabs-1">
   						<br>
 					    <fieldset>
-							<label>Cédula de Identidad:</label>
+					    	<label>Tipo de Paciente:</label>
+							<select id="typePatient" name="typePatient" class="target">
+								<option value="Adulto">Adulto</option>
+								<option value="Pediátrico">Pedi&aacute;trico</option>
+							</select><br /><br />
+							<label id="id">Cédula de identidad del paciente:</label>
 							<select id="cedId" name="cedId">
 								<option value="V-" >V</option>
 								<option value="E-" >E</option>
