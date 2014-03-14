@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,7 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
 import domain.User;
-
+import domain.UserPermission;
 
 
 /**
@@ -61,6 +62,7 @@ public class UserLoginServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@SuppressWarnings("unchecked")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		/*try{
@@ -82,8 +84,10 @@ public class UserLoginServlet extends HttpServlet {
 			RequestDispatcher rd;
 			
 			if(user != null){
+				ArrayList<UserPermission> userPermissions = (ArrayList<UserPermission>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetUserPermissions(user.getUserID()));
 				HttpSession session = request.getSession(true);
 				session.setAttribute("user", user);
+				session.setAttribute("userPermissions", userPermissions);
 				//request.setAttribute("user", user);
 				rd = getServletContext().getRequestDispatcher("/mainMenu.jsp");			
 

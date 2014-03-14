@@ -41,9 +41,26 @@ public class EditUserPasswordServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		RequestDispatcher rd;
-		rd = getServletContext().getRequestDispatcher("/editUserPassword.jsp");			
-		rd.forward(request, response);
+		try {
+			String action = request.getParameter("txtPassword");
+			if (action == null || action.trim().equals("")) {
+				Long userID = Long.parseLong(request.getParameter("userID"));
+				request.setAttribute("userID", userID);
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/editUserPassword.jsp");			
+				rd.forward(request, response);
+			}
+			else {
+				Long userID = Long.parseLong(request.getParameter("userID"));
+				String password = request.getParameter("txtPassword");
+				CommandExecutor.getInstance().executeDatabaseCommand(new command.EditUserPassword(userID, password));
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/ListUsersServlet");			
+				rd.forward(request, response);
+			}
+			
+		}
+		catch (Exception e) {
+			throw new ServletException(e);
+		}
 	}
 
 	/**

@@ -27,14 +27,14 @@ public class UserExists implements DatabaseCommand {
 		sta.setString(2, this.encryptPassword);
 		ResultSet rs = sta.executeQuery();
 		
-		while(rs.next()) {
+		if (rs.next()) {
 			u = new User();
-			u.setId(rs.getInt(1));
+			u.setUserID(rs.getLong(1));
 			//u.setFirstName(rs.getString(2));
 			//u.setLastName(rs.getString(3));
 			//u.setIdentityCard(rs.getString(4));
 			u.setUserName(rs.getString(2));
-			u.setPassword(rs.getString(3));
+			//u.setPassword(rs.getString(3));
 			//u.setRoleId(rs.getInt(7));		
 			//u.setRoomId(rs.getInt(8));		
 		}

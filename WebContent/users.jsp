@@ -1,3 +1,10 @@
+<%@ page import="domain.User" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.HashMap" %>
+<%
+ArrayList<User> users = (ArrayList<User>)request.getAttribute("users");
+HashMap<Long, String> userUnits = (HashMap<Long, String>)request.getAttribute("userUnits");
+%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -49,7 +56,7 @@
 	};
 	
 	function setV(f){
-		f.elements['userId'].value = idUser;
+		f.elements['userID'].value = idUser;
 		return true;
 	}
 	</script>
@@ -94,67 +101,32 @@
 										<th>Acciones</th>
 									</tr>
 								</thead>
-								<tbody>			
-									<tr class="gradeA">
-										<td>1001</td>
-										<td>V-18143984</td>
-										<td>Rafael</td>
-										<td>Chávez</td>
-										<td>Sistemas</td>
-										<td>
-											<a href="EditUserServlet" style="color: transparent" >
-												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
-											</a>
-											<a href="EditUserPasswordServlet" style="color: transparent" >
-												<img alt="logo" src="./images/editPassword2.png"  height="16" width="16" title="Contraseña"/>
-											</a>
-											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1001,'1001');" >
-												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-											</a> 
-											<br>
-										</td>
-									</tr>
-									<tr class="gradeA">
-										<td>1002</td>
-										<td>V-5423944</td>
-										<td>Marina</td>
-										<td>Carvajal</td>
-										<td>Admisión</td>
-										<td>
-											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
-											</a>
-											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/editPassword2.png"  height="16" width="16" title="Contraseña"/>
-											</a>
-											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1002,'1002');" >
-												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-											</a> 
-											<br>
-										</td>
-									</tr>
-									<tr class="gradeA">
-										<td>1003</td>
-										<td>V-18987654</td>
-										<td>Cristina</td>
-										<td>Cruz</td>
-										<td>Facturación</td>
-										<td>
-											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
-											</a>
-											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/editPassword2.png"  height="16" width="16" title="Contraseña"/>
-											</a>
-											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1003,'1003');" >
-												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-											</a> 
-											<br>
-										</td>
-									</tr>
+								<tbody>	
+									<% for (int i = 0; i< users.size(); i++) {
+											User u = users.get(i);
+											String unitName = userUnits.get(u.getUserUnitID());
+									%>		
+											<tr class="gradeA">
+												<td><%= u.getUserID() %></td>
+												<td><%= u.getIdentityCard() %></td>
+												<td><%= u.getFirstName() %></td>
+												<td><%= u.getLastName() %></td>
+												<td><%= unitName == null ? "" : unitName %></td>
+												<td>
+													<a href="EditUserServlet?userID=<%= u.getUserID() %>" style="color: transparent" >
+														<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
+													</a>
+													<a href="EditUserPasswordServlet?userID=<%= u.getUserID() %>" style="color: transparent" >
+														<img alt="logo" src="./images/editPassword2.png"  height="16" width="16" title="Contraseña"/>
+													</a>
+													<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
+														onclick="return loadVars(<%= u.getUserID() %>,'<%= u.getUserID() %>');" >
+														<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
+													</a> 
+													<br>
+												</td>
+											</tr>
+										<% } %>
 								</tbody>
 							</table>
 						</div>
@@ -171,8 +143,8 @@
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="ListUsersServlet" method="post"  onsubmit="return setV(this)">
-					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+				<form action="RemoveUserServlet" method="post"  onsubmit="return setV(this)">
+					<input type="hidden" id="userID" class="good_input" name="userID"  value=""/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
 					</div>

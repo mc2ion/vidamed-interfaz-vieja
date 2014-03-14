@@ -1,3 +1,4 @@
+<% Long userID = (Long) request.getAttribute("userID"); %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -14,95 +15,41 @@
 		<!--JS Buscador de Multiselect-->
 		<script type="text/javascript" src="./js/jquery.quicksearch.js"></script>
 		<script>
-			
 			$(function() {
-				$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x" });
-				$("#addPhone").click(function() {
-					
-					if($('#otherPhone').is(':hidden')) {
-						$("#otherPhone").show();
-					} else {
-						if($('#otherPhone2').is(':hidden')) {
-							$("#otherPhone2").show();
-						} else {
-							$("#otherPhone3").show();
-						}
-					}
-					
-					if($('#otherPhone').is(':visible') && $('#otherPhone2').is(':visible') && $('#otherPhone3').is(':visible')){
-						$(this).hide();						
-					}
-					  
-				});
-				
-				$("#deletePhone").click(function() {
-					  $("#otherPhone").hide();
-					  $("#addPhone").show();
-				});
-				
-				$("#deletePhone2").click(function() {
-					  $("#otherPhone2").hide();
-					  $("#addPhone").show();
-				});
-				
-				$("#deletePhone3").click(function() {
-					  $("#otherPhone3").hide();
-					  $("#addPhone").show();
-				});
-			});
-			
-			$(function() {
-				$('#my-select').multiSelect({
-					  selectableHeader: "<input type='text' class='search-input' autocomplete='off' placeholder='Buscar' style='width:100%'>",
-					  selectionHeader: "<input type='text' class='search-input' autocomplete='off' placeholder='Buscar' style='width:100%'>",
-					  afterInit: function(ms){
-					    var that = this,
-					        $selectableSearch = that.$selectableUl.prev(),
-					        $selectionSearch = that.$selectionUl.prev(),
-					        selectableSearchString = '#'+that.$container.attr('id')+' .ms-elem-selectable:not(.ms-selected)',
-					        selectionSearchString = '#'+that.$container.attr('id')+' .ms-elem-selection.ms-selected';
-
-					    that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
-					    .on('keydown', function(e){
-					      if (e.which === 40){
-					        that.$selectableUl.focus();
-					        return false;
-					      }
-					    });
-
-					    that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
-					    .on('keydown', function(e){
-					      if (e.which == 40){
-					        that.$selectionUl.focus();
-					        return false;
-					      }
-					    });
-					  },
-					  afterSelect: function(){
-					    this.qs1.cache();
-					    this.qs2.cache();
-					  },
-					  afterDeselect: function(){
-					    this.qs1.cache();
-					    this.qs2.cache();
-					  }
-					});
+				 $("#txtPasswordRpt").keyup(function(e) {
+				        var pass = $("#txtPassword").val();
+				        var re_pass=$("#txtPasswordRpt").val();
+				 
+				        if(pass != re_pass) {
+				            $("#txtPasswordRpt").css({"background":"#F22" }); 
+				        }
+				        else if(pass == re_pass) {
+				            $("#txtPasswordRpt").css({"background":"#8F8"});
+				        }
+				    });
 			});
 		</script>
-		<script type="text/javascript">
-			$(function(){
-				$.datepicker.setDefaults($.datepicker.regional['es']);
-				$('#txtDateIni').datepicker({
-					showOn: "button",
-					buttonImage: "images/calendar.png",
-					buttonImageOnly: true,
-					buttonText: "Seleccione una fecha",
-					dateFormat:'dd/mm/yyyy',
-					changeMonth: true,
-				    changeYear: true
-				});
-			} );
-		</script>
+		<script>
+			$(function() {    
+            	$('#sbmtButton').click(function(event) {  
+            		var tPassword=$('#txtOldPassword').val();
+                	var tUserID=$('#userID').val(); 
+                	if ($('#txtPassword').val() == $('#txtPasswordRpt').val()) {
+                		$.get('verifyPassword.jsp',{userID:tUserID, password:tPassword}, function(responseText) { 
+                			if(responseText.trim() == 'valid') {
+                       			$('#form1').submit();
+                    		}
+                    		else {
+                       			alert("El password es inválido");
+                    		}
+                		});
+                	}
+                	else {
+                		alert("Las contraseñas no coinciden");
+                	}
+            	});
+			});
+        </script>
 	</head>
 	<body>
 		<div id="container">
@@ -131,27 +78,27 @@
         	<div id="content" style="position:absolute;">	
 	        	<h2>Editar Contraseña:</h2>
 				<br>
-				<fieldset>
-					<br><br>
-					<label for="oldPassword">Contraseña anterior:</label>
-					<input type="password" name="txtOldPassword" id="txtOldPassword" maxlength="50"  /><br><br>
-					<label for="LastName">Contraseña nueva:</label>
-					<input type="password" name="txtPassword" id="txtPassword" maxlength="50"  /><br><br>
-					<label for="LastName">Repita contraseña:</label>
-					<input type="password" name="txtPasswordRpt" id="txtPasswordRpt" maxlength="50" /><br><br>
-					
-					<br><br><br><br><br>	
-				</fieldset>	
-				<div id="botonera">
-					<form action="ListUsersServlet">
+				<form id="form1" action="EditUserPasswordServlet">
+					<input type="hidden" id="userID" name="userID" value="<%= userID %>" />
+					<fieldset>
+						<br><br>
+						<label for="name">Contraseña anterior:</label>
+						<input type="password" name="txtOldPassword" id="txtOldPassword" maxlength="50"  /><br><br>
+						<label for="name">Contraseña nueva:</label>
+						<input type="password" name="txtPassword" id="txtPassword" maxlength="50"  /><br><br>
+						<label for="name">Repita contraseña:</label>
+						<input type="password" name="txtPasswordRpt" id="txtPasswordRpt" maxlength="50" /><br><br>
+						<br><br><br><br><br>	
+					</fieldset>	
+					<div id="botonera">
 						<div id="botonP" style="display: inline; margin-right: 30px;">
-									<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
+							<input type="button"  class="button" id="sbmtButton"  name="sbmtButton" value="Modificar" />
 						</div>	
 						<div id="botonV" style="display: inline;">
-								<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
+							<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
 						</div>	
-					</form>
-				</div><br>
+					</div><br>
+				</form>
 			</div>
 		</div>
 	</body>
