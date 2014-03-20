@@ -1,3 +1,22 @@
+<%@page import="domain.ResponsibleRule"%>
+<%@ page import="domain.PaymentResponsible" %>
+<%@ page import="domain.BussinessRules" %>
+<%@ page import="domain.BussinessModels" %>
+<%@ page import="domain.BussinessMicro" %>
+<%@ page import="domain.Unit" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.HashMap" %>
+
+<%
+	PaymentResponsible responsible = (PaymentResponsible)request.getAttribute("responsible");
+	@SuppressWarnings("unchecked")
+	ArrayList<BussinessRules> b = (ArrayList<BussinessRules>) request.getAttribute("bussinessRules");
+	@SuppressWarnings("unchecked")
+	ArrayList<BussinessModels> m = (ArrayList<BussinessModels>) request.getAttribute("bussinessModels");
+	@SuppressWarnings("unchecked")
+	ArrayList<BussinessMicro> micros = (ArrayList<BussinessMicro>) request.getAttribute("bussinessMicros");
+	ArrayList<ResponsibleRule> rrList = responsible.getResponsableRulesList();
+%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -8,7 +27,6 @@
 	  	<script src="./js/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
-		<link rel="stylesheet" href="/resources/demos/style.css" />		
 		<script type="text/javascript">
 		
 		function displayDiv(combo) {
@@ -74,108 +92,152 @@
         	<div id="content" style="position:absolute; overflow-y: scroll;">	
 	        	<h2>Editar Responsable de Pago:</h2>
 				<br>
-				<fieldset>
+				<% String info = (String) request.getAttribute("info"); 
+					if (info != null){%>
+						<div class="info-text"><%= info %></div>
+				<% 
+				}
+				%>
+				
+				
+				<form action="EditPaymentResponsibleServlet" method="post" novalidate>
+	  				<input type="hidden" id="rId" name="rId" value="<%= responsible.getId() %>" /> 
+	  				<input type="hidden" id="rName" name="rName" value="<%= responsible.getName() %>" /> 
+	  				<input type="hidden" id="rbrId" name="rbrId" value="<%= responsible.getBussinessRuleId() %>" /> 
+			  		
+			  		<fieldset>
 					<label for="name">Nombre:</label>
-					<input type="text" name="txtName" id="txtName" maxlength="50" size="5" value="MAPFRE La Seguridad"/> <br><br>
+					<input type="text" name="txtName" id="txtName" maxlength="50" size="5" value="<%= responsible.getName() %>"/> <br><br>
 					<label for="name">Regla de Negocio:</label>
 					<select name="selBusinessRule" id="selBusinessRule" onchange="displayDiv(this);">
-						<option value="0">Seleccione...</option>
-						<option value="1" selected>General</option>
-						<option value="2">Específica (Por Micros)</option>
+						<option value="0">Seleccionar</option>
+							<% for (int i = 0; i < b.size(); i++){ 
+							BussinessRules bRules = b.get(i); 
+							String selected = "";
+							if (bRules.getId() == responsible.getBussinessRuleId())
+								selected = "selected";
+						%>
+							<option value="<%= bRules.getId() %>" <%= selected %> ><%= bRules.getName() %></option>
+						<% } %>
 					</select> <br><br>
-					<div id="genModel" style="display:block;">
+					<% 
+					String styleModel = "style=\"display:block;\"";
+					String styleModel2 = "style=\"display:none;\"";
+					if (responsible.getBussinessRuleId() == 1){
+						styleModel = "style=\"display:block;\"";
+						styleModel2 = "style=\"display:none;\"";
+					}else{
+						styleModel = "style=\"display:none;\"";
+						styleModel2 = "style=\"display:block;\"";
+					} %>
+					
+					<div id="genModel" <%= styleModel %> >
 						<label for="name">Modelo de Negocio:</label>
 						<select name="selBusinessModel" id="selBusinessModel" onchange="displaySubDiv(this, 1);">
-							<option value="0">Seleccione...</option>
-							<option value="1" selected>Baremo</option>
-							<option value="2">Baremo - Descuento</option>
-							<option value="3">Baremo + Aumento</option>
+							<option value="0">Seleccionar</option>
+							<%
+							for (int i = 0; i< m.size(); i++){ 
+								BussinessModels models = m.get(i);
+								Long id2 = responsible.getResponsableRulesList().get(0).getBussinessModelId();
+								String selected = "";
+								if (id2  == models.getId())
+									selected = "selected";
+							%>
+								<option value="<%= models.getId()%>" <%= selected %>><%= models.getName()%></option>
+							<% 
+							}
+							%>
 						</select> <br><br>
-						<div id="genDesc1" style="display:none;">
+						<% 
+						String style = "style=\"display:none;\"";
+						String style2 = "style=\"display:none;\"";
+						
+						if (responsible.getResponsableRulesList().get(0).getBussinessModelId() == 2)
+							style = "";
+						else if (responsible.getResponsableRulesList().get(0).getBussinessModelId() == 3)
+							style2 = "";
+						
+							System.out.println(responsible.getResponsableRulesList().get(0).getPercentage() );
+						%>
+						<div id="genDesc1" <%= style %>>
 							<label for="name">Porcentaje de Descuento:</label>
-							<input type="number" min="1" name="txtPrice" id="txtPrice" maxlength="3" size="3" /> <br><br>
+							<input type="number" min="1" name="txtPrice2" id="txtPrice2" maxlength="3" size="3" value="<%= responsible.getResponsableRulesList().get(0).getPercentage() %>" /> <br><br>
 						</div>
-						<div id="genAum1" style="display:none;">
+						<div id="genAum1" <%= style2 %>>
 							<label for="name">Porcentaje de Aumento:</label>
-							<input type="number" min="1" name="txtPrice" id="txtPrice" maxlength="3" size="3" /> <br><br>
+							<input type="number" min="1" name="txtPrice3" id="txtPrice3" maxlength="3" size="3" value="<%= responsible.getResponsableRulesList().get(0).getPercentage() %>" /> <br><br>
 						</div>
 					</div>
-					<div id="espModel" style="display:none;">
-						<h3>Hospitalización</h3>
-						<label for="name">Modelo de Negocio:</label>
-						<select name="selBusinessModel" id="selBusinessModel" onchange="displaySubDiv(this, 2);">
-							<option value="0" selected>Seleccione...</option>
-							<option value="1">Baremo</option>
-							<option value="2">Baremo - Descuento</option>
-							<option value="3">Baremo + Aumento</option>
-						</select> <br><br>
-						<div id="genDesc2" style="display:none;">
+					<div id="espModel" <%= styleModel2 %>>
+						<% for (int j = 0; j < micros.size(); j++){
+							BussinessMicro microE =  micros.get(j);
+							String displayInput2 = "style=\"display:none;\"";
+							String displayInput3 = "style=\"display:none;\"";
+							Double percentage = 0.0;
+							
+						%>	
+							<h3><%= microE.getName() %></h3>
+							<label for="name">Modelo de Negocio:</label>
+							<select name="selBusinessModel<%= j+1 %>" id="selBusinessModel<%= j+1 %>" onchange="displaySubDiv(this, <%= j+2 %>);">
+								<option value="0">Seleccionar</option>
+								<%
+								for (int i = 0; i< m.size(); i++){ 
+									BussinessModels models = m.get(i);
+									
+									Long rule = (long) 0;
+									for (int z = 0; z < rrList.size(); z++){
+										ResponsibleRule microRule = rrList.get(z);
+										// Estoy en el micro corrrespondiente
+										System.out.println(microRule.getBussinesRuleMicroId() + " " + microE.getId());
+										if (microRule.getBussinesRuleMicroId() == microE.getId()){
+											//Verifico cual regla de negocio tiene:
+												rule = microRule.getBussinessModelId();
+												percentage = microRule.getPercentage();
+										}
+									}
+									String rulSelected = "";
+									if (models.getId() == rule){
+										rulSelected = "selected";
+									}	
+									
+									
+									if (rule == 2){
+										displayInput2 = "style=\"display:block;\"";
+									}
+									else if (rule == 3){
+										displayInput3 = "style=\"display:block;\"";
+									}
+										
+										
+								%>
+									<option value="<%= models.getId()%>" <%= rulSelected %>><%= models.getName()%></option>
+								<% 
+								}
+								%>
+							</select> <br><br>
+							<div id="genDesc<%= j+2 %>" <%= displayInput2 %>>
 							<label for="name">Porcentaje de Descuento:</label>
-							<input type="number" min="1" name="txtPrice" id="txtPrice" maxlength="3" size="3" /><br><br>
-						</div>
-						<div id="genAum2" style="display:none;">
+							<input type="number" min="1" name="txtPrice2<%= j+1 %>" id="txtPrice2<%= j+1 %>" maxlength="3" size="3" value="<%= percentage %>" /><br><br>
+							</div>
+							<div id="genAum<%= j+2 %>" <%= displayInput3 %>>
 							<label for="name">Porcentaje de Aumento:</label>
-							<input type="number" min="1" name="txtPrice" id="txtPrice" maxlength="3" size="3" /> <br><br>
-						</div>
-						<h3>Gastos en Quirófano</h3>
-						<label for="name">Modelo de Negocio:</label>
-						<select name="selBusinessModel" id="selBusinessModel" onchange="displaySubDiv(this, 3);">
-							<option value="0" selected>Seleccione...</option>
-							<option value="1">Baremo</option>
-							<option value="2">Baremo - Descuento</option>
-							<option value="3">Baremo + Aumento</option>
-						</select> <br><br>
-						<div id="genDesc3" style="display:none;">
-							<label for="name">Porcentaje de Descuento:</label>
-							<input type="number" min="1" name="txtPrice" id="txtPrice" maxlength="3" size="3" /><br><br>
-						</div>
-						<div id="genAum3" style="display:none;">
-							<label for="name">Porcentaje de Aumento:</label>
-							<input type="number" min="1" name="txtPrice" id="txtPrice" maxlength="3" size="3" /> <br><br>
-						</div>
-						<h3>Servicios Médicos</h3><label for="name">Modelo de Negocio:</label>
-						<select name="selBusinessModel" id="selBusinessModel" onchange="displaySubDiv(this, 4);">
-							<option value="0" selected>Seleccione...</option>
-							<option value="1">Baremo</option>
-							<option value="2">Baremo - Descuento</option>
-							<option value="3">Baremo + Aumento</option>
-						</select> <br><br>
-						<div id="genDesc4" style="display:none;">
-							<label for="name">Porcentaje de Descuento:</label>
-							<input type="number" min="1" name="txtPrice" id="txtPrice" maxlength="3" size="3" /> <br><br>
-						</div>
-						<div id="genAum4" style="display:none;">
-							<label for="name">Porcentaje de Aumento:</label>
-							<input type="number" min="1" name="txtPrice" id="txtPrice" maxlength="3" size="3" /> <br><br>
-						</div>
-						<h3>Honorarios Profesionales</h3>
-						<label for="name">Modelo de Negocio:</label>
-						<select name="selBusinessModel" id="selBusinessModel" onchange="displaySubDiv(this, 5);">
-							<option value="0" selected>Seleccione...</option>
-							<option value="1">Baremo</option>
-							<option value="2">Baremo - Descuento</option>
-							<option value="3">Baremo + Aumento</option>
-						</select> <br><br>
-						<div id="genDesc5" style="display:none;">
-							<label for="name">Porcentaje de Descuento:</label>
-							<input type="number" min="1" name="txtPrice" id="txtPrice" maxlength="3" size="3" /> <br><br>
-						</div>
-						<div id="genAum5" style="display:none;">
-							<label for="name">Porcentaje de Aumento:</label>
-							<input type="number" min="1" name="txtPrice" id="txtPrice" maxlength="3" size="3" /><br><br>
-						</div>
+							<input type="number" min="1" name="txtPrice3<%= j+1 %>" id="txtPrice3<%= j+1 %>" maxlength="3" size="3" value="<%= percentage %>" /> <br><br>
+							</div>
+						<%
+						}
+						%>
 					</div>
 				</fieldset>
 				<div id="botonera">
-					<form action="ListPaymentResponsiblesServlet">
 						<div id="botonP" style="display: inline; margin-right: 30px;">
 									<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
 						</div>	
 						<div id="botonV" style="display: inline;">
-								<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
+								<a href="ListPaymentResponsiblesServlet" class="button">Regresar</a>	
 						</div>	
-					</form>
+					
 				</div><br>
+				</form>
 			</div>
 		</div>
 	</body>

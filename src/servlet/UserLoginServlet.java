@@ -46,15 +46,14 @@ public class UserLoginServlet extends HttpServlet {
 
 		HttpSession session = request.getSession(true);
 		User user = (User) session.getAttribute("user");
+		
 		RequestDispatcher rd;
 		   
 		if(user != null){
 			rd = getServletContext().getRequestDispatcher("/mainMenu.jsp");			
-
 			rd.forward(request, response);
 		} else {
 			rd = getServletContext().getRequestDispatcher("/index.jsp");			
-
 			rd.forward(request, response);
 		}
 	}
@@ -64,18 +63,6 @@ public class UserLoginServlet extends HttpServlet {
 	 */
 	@SuppressWarnings("unchecked")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		/*try{
-	//		String name = request.getParameter("txtName");
-	//		String password = request.getParameter("txtPassword");
-			RequestDispatcher rd;
-			
-			rd = getServletContext().getRequestDispatcher("/mainMenu.jsp");			
-			rd.forward(request, response);
-		} catch (Exception e) {
-			throw new ServletException(e);
-		}*/
-		
 		try{
 			String name = request.getParameter("username");
 			String password = request.getParameter("password");
@@ -89,13 +76,13 @@ public class UserLoginServlet extends HttpServlet {
 				session.setAttribute("user", user);
 				session.setAttribute("userPermissions", userPermissions);
 				//request.setAttribute("user", user);
+				System.out.println("user" + user);
 				rd = getServletContext().getRequestDispatcher("/mainMenu.jsp");			
 
 				rd.forward(request, response);
 			} else {
 				request.setAttribute("error", "La información de nombre de usuario o contraseña introducida no es correcta.");
 				rd = getServletContext().getRequestDispatcher("/index.jsp");			
-
 				rd.forward(request, response);
 			}
 			

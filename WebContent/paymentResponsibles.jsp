@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<%@ page import="domain.PaymentResponsible" %>
+<%@ page import="java.util.ArrayList" %>
+<%
+ArrayList<PaymentResponsible> responsibles = (ArrayList<PaymentResponsible>)request.getAttribute("responsibles");
+%>
 <html>
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -18,7 +23,6 @@
 				null,
 				null,
 				null,
-				null,
 				{ "bSearchable": false, "asSorting": false, "sWidth": "18%" }
 			],
 			"oLanguage": {
@@ -35,20 +39,20 @@
 	} );
 	</script>
 	<script type="text/javascript">
-	var idUser;
+	var rId;
 			
 	$(function() {
 		$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x" });		
 	});
 	
 	function loadVars(var1, var2) {
-		idUser = var1;
+		rId = var1;
 		$('.cliente').text(var2);
 		
 	};
 	
 	function setV(f){
-		f.elements['userId'].value = idUser;
+		f.elements['rId'].value = rId;
 		return true;
 	}
 	</script>
@@ -88,59 +92,33 @@
 										<th>ID</th>
 										<th>Responsable de Pago</th>
 										<th>Regla de Negocio</th>
-										<th>Modelo de Negocio</th>
 										<th>Acciones</th>
 									</tr>
 								</thead>
 								<tbody>			
+									<% 
+									System.out.println("size " + responsibles.size());
+									if (responsibles.size() != 0) { 
+										for (int i = 0; i<responsibles.size(); i++) { 
+											PaymentResponsible responsible = responsibles.get(i);
+									%>
 									<tr class="gradeA">
-										<td>1001</td>
-										<td>MAPFRE La Seguridad</td>
-										<td>General</td>
-										<td>Baremo</td>
+										<td><%= responsible.getId() %></td>
+										<td><%= responsible.getName() %></td>
+										<td><%= responsible.getRuleName() %></td>
 										<td>
-											<a href="EditPaymentResponsibleServlet" style="color: transparent" >
+											<a href="EditPaymentResponsibleServlet?rId=<%=responsible.getId() %>" style="color: transparent" >
 												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
 											</a>
 											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1001,'1001');" >
+												onclick="return loadVars('<%=responsible.getId() %>','<%=responsible.getName() %>');" >
 												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
 											</a> 
 											<br>
 										</td>
 									</tr>
-									<tr class="gradeA">
-										<td>1002</td>
-										<td>Mercantil Seguros</td>
-										<td>Específica (Por Micros)</td>
-										<td>*</td>
-										<td>
-											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
-											</a>
-											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1002,'1002');" >
-												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-											</a> 
-											<br>
-										</td>
-									</tr>
-									<tr class="gradeA">
-										<td>1003</td>
-										<td>Banesco Seguros</td>
-										<td>General</td>
-										<td>Baremo + Aumento</td>
-										<td>
-											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
-											</a>
-											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1003,'1003');" >
-												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-											</a> 
-											<br>
-										</td>
-									</tr>
+									<% 		}
+										} %>
 								</tbody>
 							</table>
 						</div>
@@ -153,12 +131,12 @@
 			<div id="signup-ct">
 				<h3 id="see_id" class="sprited" > Eliminar Responsable</h3>
 				<br><br>
-				<span>¿Está seguro que desea eliminar el responsable de pago n° <span class="cliente"></span>? </span> <br><br>
+				<span>¿Está seguro que desea eliminar el responsable de pago "<span class="cliente"></span>"? </span> <br><br>
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="ListPaymentResponsiblesServlet" method="post"  onsubmit="return setV(this)">
-					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+				<form action="RemovePaymentResponsibleServlet" method="post"  onsubmit="return setV(this)">
+					<input type="hidden" id="rId" class="good_input" name="rId"  value=""/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
 					</div>
