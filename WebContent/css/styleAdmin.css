@@ -1570,16 +1570,9 @@ div.box {
 	display: none;
 }
 
-<<<<<<< HEAD
-#deleteUser, #deleteProduct, #deleteRequest, #refreshUser, #dischargeUser, #hospitalizeUser, #deleteService, #deleteProtocol, #deleteSupply,
-#deleteEvaluation, #deleteVitalSign, #deleteCash, #printUser, #closeAccount, #closeAccount2, #discount, #generateInvoice, #editStatus,
-#payment
-{
-=======
 #deleteUser, #deleteUnit, #deleteSpecialist, #deleteSupplyArea, #deleteSupply, #deleteProduct, #deleteRequest, #refreshUser, #dischargeUser, 
 #hospitalizeUser, #deleteService, #deleteProtocol, #deleteEvaluation, #deleteVitalSign, #deleteCash, #printUser, #closeAccount, #closeAccount2, 
 #discount, #generateInvoice, #editStatus{
->>>>>>> fbf5b1aece365ed873c1c1b2f779ae90c97f39c2
 	position: absolute;
 	text-align: center;
 	width: 295px;
@@ -1853,7 +1846,7 @@ fieldset .rightCol input[type="text"]{
 	
 }
 
-#otherSellPoint, #otherSellPoint2, #otherSellPoint3{
+#otherSellPoint, #otherSellPoint1, #otherSellPoint2, #otherSellPoint3{
 	margin-left: 206px;
 	
 }

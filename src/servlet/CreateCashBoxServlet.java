@@ -41,9 +41,34 @@ public class CreateCashBoxServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		RequestDispatcher rd;
-		rd = getServletContext().getRequestDispatcher("/createCashBox.jsp");			
-		rd.forward(request, response);
+		try {
+			String action = request.getParameter("sbmtButton");
+			RequestDispatcher rd;
+			if (action == null || action.trim().equals("")) {				
+				rd = getServletContext().getRequestDispatcher("/createCashBox.jsp");
+				rd.forward(request, response);
+			}
+			else {
+				String name = request.getParameter("txtName");
+				String description = request.getParameter("txtDescription");
+				Long cashBoxID = (Long)CommandExecutor.getInstance().executeDatabaseCommand(new command.AddCashBox(name, description));
+				
+				for (int i = 0; i<4; i++) {
+					String nameSP = request.getParameter("txtNameSP" + i);
+					String commission = request.getParameter("txtCommission" + i); 
+					String islrPercentage = request.getParameter("txtIslrPercentage" + i); 
+					if (commission != null && !commission.trim().equals("") && islrPercentage != null && !islrPercentage.trim().equals("")) {
+						CommandExecutor.getInstance().executeDatabaseCommand(new command.AddCashBoxSalePoint(cashBoxID, nameSP, Double.parseDouble(commission), Double.parseDouble(islrPercentage)));
+					}
+				}
+				
+				rd = getServletContext().getRequestDispatcher("/ListCashBoxesServlet");
+				rd.forward(request, response);
+			}
+		}
+		catch (Exception e) {
+			throw new ServletException(e);
+		}
 	}
 
 	/**
