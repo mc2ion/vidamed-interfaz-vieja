@@ -745,10 +745,12 @@ fieldset input[type="text"]{
 .button
 {
 	background-color: #1EB1DD;
-	color:#FAFAFA;
+	color:#FAFAFA !important;
 	font-family: Verdana, Arial;
 	cursor: pointer;
 }
+
+
 
 .inner-button
 {
@@ -1075,7 +1077,6 @@ a, a:visited, a:hover {
 	height: 19px;
 	float: left;
 	cursor: pointer;
-	*cursor: hand;
 	color: #111 !important;
 }
 .paginate_disabled_previous:hover, .paginate_enabled_previous:hover,
@@ -1151,7 +1152,6 @@ table.display thead th {
 	border-bottom: 1px solid black;
 	font-weight: bold;
 	cursor: pointer;
-	* cursor: hand;
 	background-color: #A3A4A4;
 	font-size: 12px;
 	text-align:center;
@@ -1225,7 +1225,7 @@ table.display tr.even.gradeA {
 }
 
 .dataTables_scrollBody {
-	*margin-top: -1px;
+	margin-top: -1px;
 	-webkit-overflow-scrolling: touch;
 }
 
@@ -1290,7 +1290,6 @@ td.details {
 	padding: 2px 5px;
 	margin: 0 3px;
 	cursor: pointer;
-	*cursor: hand;
 	color: #333 !important;
 }
 
@@ -1572,7 +1571,7 @@ div.box {
 
 #deleteUser, #deleteUnit, #deleteSpecialist, #deleteSupplyArea, #deleteSupply, #deleteProduct, #deleteRequest, #refreshUser, #dischargeUser, 
 #hospitalizeUser, #deleteService, #deleteProtocol, #deleteEvaluation, #deleteVitalSign, #deleteCash, #printUser, #closeAccount, #closeAccount2, 
-#discount, #generateInvoice, #editStatus{
+#discount, #generateInvoice, #editStatus, #payment {
 	position: absolute;
 	text-align: center;
 	width: 295px;
@@ -1989,7 +1988,7 @@ input.search-input{
 	display: inline-block;
 	background: #E65606;
 	text-transform: uppercase;
-	color: #fff;
+	color: #fff !important;
 	line-height: 25px;
 	height: 50px;
 	-webkit-border-radius: 5px;
@@ -2283,7 +2282,7 @@ input.search-input{
 	text-indent:0;
 	border:1px solid #3866a3;
 	display:inline-block;
-	color:#14396a;
+	color: #14396a !important;
 	font-family:Arial;
 	font-size:15px;
 	font-weight:bold;
@@ -2675,4 +2674,15 @@ nav .badge.blue {
 #observations{
 	width:277px; 
 	height:60px;
+}
+
+.login-error{
+	color: red;
+	font-weight: bold;
+}
+.info-text{
+	color: #E89035;
+	font-weight: bold;
+	font-size: 14px;
+	margin-bottom: 16px;
 }

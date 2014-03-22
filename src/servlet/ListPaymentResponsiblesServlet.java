@@ -1,7 +1,10 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
+import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import command.CommandExecutor;
+import domain.PaymentResponsible;
+import domain.Specialist;
+import domain.SpecialistUnit;
+import domain.Unit;
 
 
 /**
@@ -39,8 +46,24 @@ public class ListPaymentResponsiblesServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/paymentResponsibles.jsp");
-		rd.forward(request, response);
+		RequestDispatcher rd;
+		
+		ArrayList<PaymentResponsible> responsibles;
+		try {
+			responsibles = (ArrayList<PaymentResponsible>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPaymentResponsibles());
+			request.setAttribute("responsibles", responsibles);
+			
+			rd = getServletContext().getRequestDispatcher("/paymentResponsibles.jsp");
+			rd.forward(request, response);
+		
+		} catch (Exception e) {
+			request.setAttribute("responsibles", new ArrayList<PaymentResponsible>());
+			rd = getServletContext().getRequestDispatcher("/paymentResponsibles.jsp");
+			rd.forward(request, response);
+		}
+		
+		
+		
 	}
 	
 	/**
