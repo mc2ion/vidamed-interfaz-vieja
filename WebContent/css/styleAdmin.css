@@ -1569,12 +1569,9 @@ div.box {
 	display: none;
 }
 
-
-#deleteUser, #deleteProduct, #deleteRequest, #refreshUser, #dischargeUser, #hospitalizeUser, #deleteService, #deleteProtocol, #deleteSupply,
-#deleteEvaluation, #deleteVitalSign, #deleteCash, #printUser, #closeAccount, #closeAccount2, #discount, #generateInvoice, #editStatus,
-#payment, #deleteUser, #deleteUnit, #deleteSpecialist, #deleteSupplyArea, #deleteSupply, #deleteProduct, #deleteRequest, #refreshUser, #dischargeUser, 
+#deleteUser, #deleteUnit, #deleteSpecialist, #deleteSupplyArea, #deleteSupply, #deleteProduct, #deleteRequest, #refreshUser, #dischargeUser, 
 #hospitalizeUser, #deleteService, #deleteProtocol, #deleteEvaluation, #deleteVitalSign, #deleteCash, #printUser, #closeAccount, #closeAccount2, 
-#discount, #generateInvoice, #editStatus{
+#discount, #generateInvoice, #editStatus, #payment {
 	position: absolute;
 	text-align: center;
 	width: 295px;
@@ -1848,7 +1845,7 @@ fieldset .rightCol input[type="text"]{
 	
 }
 
-#otherSellPoint, #otherSellPoint2, #otherSellPoint3{
+#otherSellPoint, #otherSellPoint1, #otherSellPoint2, #otherSellPoint3{
 	margin-left: 206px;
 	
 }

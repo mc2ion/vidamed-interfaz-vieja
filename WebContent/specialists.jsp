@@ -35,7 +35,7 @@ HashMap<Long, ArrayList<Unit>> specialistUnits = (HashMap<Long, ArrayList<Unit>>
 	            "sInfo": "Mostrando _START_ a _END_ de _TOTAL_ registros",
 	            "sInfoEmpty": "Mostrando 0 a 0 de 0 registros",
 	            "sInfoFiltered": "(filtrando de _MAX_ registros totales)",
-	            "sEmptyTable": "No hay datos disponibles en la tabla",
+	            "sEmptyTable": "No hay especialistas disponibles",
 	            "sLoadingRecords": "Por favor, espere - cargando...",
 	            "sSearch": "Buscar:"
         	}
@@ -101,38 +101,32 @@ HashMap<Long, ArrayList<Unit>> specialistUnits = (HashMap<Long, ArrayList<Unit>>
 									</tr>
 								</thead>
 								<tbody>	
-									<% if (specialists.size() == 0) { %>
-										<tr class="gradeA"><td colspan="5">No hay especialistas disponibles</td></tr>
-									<% }
-									   else { 
-									   		for (int i = 0; i<specialists.size(); i++) { 
-									   			Specialist spec = specialists.get(i);
-									   			ArrayList<Unit> units = (ArrayList<Unit>)specialistUnits.get(spec.getId());
-									   			String unitNames = "";
-									   			for (int j = 0; j<units.size(); j++) {
-									   				unitNames += ", " + units.get(j).getName();
-									   			}
-									   			unitNames = unitNames.length() < 2 ? unitNames : unitNames.substring(2);
+									<% 	for (int i = 0; i<specialists.size(); i++) { 
+									   		Specialist spec = specialists.get(i);
+									   		ArrayList<Unit> units = (ArrayList<Unit>)specialistUnits.get(spec.getId());
+									   		String unitNames = "";
+									   		for (int j = 0; j<units.size(); j++) {
+									   			unitNames += ", " + units.get(j).getName();
+									   		}
+									   		unitNames = unitNames.length() < 2 ? unitNames : unitNames.substring(2);
 									%> 		
-												<tr class="gradeA">
-													<td><%= spec.getId() %></td>
-													<td><%= spec.getFirstName() %></td>
-													<td><%= spec.getLastName() %></td>
-													<td><%= unitNames %></td>
-													<td>
-														<a href="EditSpecialistServlet?specialistID=<%= spec.getId() %>" style="color: transparent" >
-															<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
-														</a>
-														<a id="go" rel="leanModal" href="#deleteSpecialist" style="color: #f7941e; font-weight: bold;" 
-															onclick="return loadVars(<%= spec.getId() %>,'<%= spec.getFirstName() + " " + spec.getLastName() %>');" >
-															<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-														</a> 
-														<br>
-													</td>
-												</tr>
-									<% 		}
-									   }
-									%>									
+											<tr class="gradeA">
+												<td><%= spec.getId() %></td>
+												<td><%= spec.getFirstName() %></td>
+												<td><%= spec.getLastName() %></td>
+												<td><%= unitNames %></td>
+												<td>
+													<a href="EditSpecialistServlet?specialistID=<%= spec.getId() %>" style="color: transparent" >
+														<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
+													</a>
+													<a id="go" rel="leanModal" href="#deleteSpecialist" style="color: #f7941e; font-weight: bold;" 
+														onclick="return loadVars(<%= spec.getId() %>,'<%= spec.getFirstName() + " " + spec.getLastName() %>');" >
+														<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
+													</a> 
+													<br>
+												</td>
+											</tr>
+									<% 	} %>									
 								</tbody>
 							</table>
 						</div>

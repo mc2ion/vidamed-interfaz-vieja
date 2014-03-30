@@ -30,7 +30,7 @@ ArrayList<Unit> units = (ArrayList<Unit>)request.getAttribute("units");
 	            "sInfo": "Mostrando _START_ a _END_ de _TOTAL_ registros",
 	            "sInfoEmpty": "Mostrando 0 a 0 de 0 registros",
 	            "sInfoFiltered": "(filtrando de _MAX_ registros totales)",
-	            "sEmptyTable": "No hay datos disponibles en la tabla",
+	            "sEmptyTable": "No hay unidades disponibles",
 	            "sLoadingRecords": "Por favor, espere - cargando...",
 	            "sSearch": "Buscar:"
         	}
@@ -94,12 +94,8 @@ ArrayList<Unit> units = (ArrayList<Unit>)request.getAttribute("units");
 									</tr>
 								</thead>
 								<tbody>
-								<% if (units.size() == 0)  { %>
-									<tr class="gradeA"><td colspan="3">No hay unidades disponibles</td></tr>
-								<% }
-								   else { 
-								   		for (int i = 0; i<units.size(); i++) { 
-								   			Unit u = units.get(i);
+								<% 	for (int i = 0; i<units.size(); i++) { 
+								   		Unit u = units.get(i);
 								%>										
 									<tr class="gradeA">
 										<td><%= u.getUnitID() %></td>
@@ -115,8 +111,7 @@ ArrayList<Unit> units = (ArrayList<Unit>)request.getAttribute("units");
 											<br>
 										</td>
 									</tr>
-									<% 	} 
-									} %>
+								<% 	} %>
 								</tbody>
 							</table>
 						</div>
