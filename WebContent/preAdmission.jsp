@@ -85,7 +85,7 @@
 	    	<ul>
             	<li class="menuitem"><a href="CreatePreAdmissionServlet">Crear Pre-Admisión</a></li>
             </ul>
-			<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
+			<div class="menuitemSalir"><a href="LogoutServlet">Salir</a></div>	
         </div>        
 		 <jsp:include page="./menu.jsp" />
 		<div id="content">  

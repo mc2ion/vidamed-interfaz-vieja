@@ -102,7 +102,7 @@
 		    	<ul>
 	            	<li class="menuitem"><a href="ListAdmissionsServlet">Ver Admisiones</a></li>
 	            </ul>
-				<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
+				<div class="menuitemSalir"><a href="LogoutServlet">Salir</a></div>	
         	</div>        
 			 <jsp:include page="./menu.jsp" />
 			 <!-- OJO TODA ADMISION DEBE TENER PRESUPUESTO.. TENER ESO EN CUENTA

@@ -45,7 +45,7 @@
 		    	<ul>
 	            	<li class="menuitem"><a href="ListProtocolsServlet">Ver Protocolos</a></li>
 	            </ul>
-				<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
+				<div class="menuitemSalir"><a href="LogoutServlet">Salir</a></div>	
         	</div>        
 			 <jsp:include page="./menu.jsp" />
         	<div id="content" style="position:absolute;">	
