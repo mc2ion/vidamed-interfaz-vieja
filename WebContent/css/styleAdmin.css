@@ -1571,11 +1571,7 @@ div.box {
 
 #deleteUser, #deleteUnit, #deleteSpecialist, #deleteSupplyArea, #deleteSupply, #deleteProduct, #deleteRequest, #refreshUser, #dischargeUser, 
 #hospitalizeUser, #deleteService, #deleteProtocol, #deleteEvaluation, #deleteVitalSign, #deleteCash, #printUser, #closeAccount, #closeAccount2, 
-<<<<<<< HEAD
 #discount, #generateInvoice, #editStatus, #payment{
-=======
-#discount, #generateInvoice, #editStatus, #payment {
->>>>>>> e1538f85a94c10f3f82e357263bb98166adbbaa1
 	position: absolute;
 	text-align: center;
 	width: 295px;
