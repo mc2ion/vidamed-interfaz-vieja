@@ -1,11 +1,20 @@
+<%@page import="domain.User"%>
+<%
+	User user = (User) session.getAttribute("user");
+	String name = "";
+	if (user != null)
+		name = user.getFirstName() ;
+%>
 <%@ page import="domain.User" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.HashMap" %>
 <%
-ArrayList<User> users = (ArrayList<User>)request.getAttribute("users");
-HashMap<Long, String> userUnits = (HashMap<Long, String>)request.getAttribute("userUnits");
+	@SuppressWarnings("unchecked")
+	ArrayList<User> users = (ArrayList<User>)request.getAttribute("users");
+	@SuppressWarnings("unchecked")
+	HashMap<Long, String> userUnits = (HashMap<Long, String>)request.getAttribute("userUnits");
 %>
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -68,7 +77,7 @@ HashMap<Long, String> userUnits = (HashMap<Long, String>)request.getAttribute("u
         </div>         
       	<nav>
          	<ul>
-         		<li><a href="#">Bienvenido, Prueba</a></li>
+         		<li><a href="#">Bienvenido, <%= name %></a></li>
                 <li><a href="ListAdmissionDischargesServlet">Altas Admisión<span class="badge yellow">3</span></a></li>
 		 		<li><a href="ListCreditNotesServlet">Prefacturas por Generar<span class="badge blue">3</span></a></li><li><a href="ListCreditNotesReviewServlet">Prefacturas por Revisar<span class="badge green">3</span></a></li><li><a href="ListInvoicesServlet">Facturas por Generar<span class="badge red">3</span></a></li>
 		     	<li><a href="ListRequestsServlet">Descuentos<span class="badge yellow">2</span></a></li>
@@ -82,7 +91,7 @@ HashMap<Long, String> userUnits = (HashMap<Long, String>)request.getAttribute("u
 	    	<ul>
             	<li class="menuitem"><a href="CreateUserServlet">Crear Usuario</a></li>
             </ul>
-			<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
+			<div class="menuitemSalir"><a href="LogoutServlet">Salir</a></div>	
         </div>        
 		 <jsp:include page="./menu.jsp" />
 		<div id="content">  

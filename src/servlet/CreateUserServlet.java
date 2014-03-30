@@ -1,6 +1,9 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -11,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import sun.misc.BASE64Encoder;
 import command.CommandExecutor;
 import domain.Permission;
 import domain.PermissionModule;
@@ -78,8 +82,10 @@ public class CreateUserServlet extends HttpServlet {
 				Double salary = Double.parseDouble(request.getParameter("txtSalary"));
 				String userName = request.getParameter("txtUserName");
 				String password = request.getParameter("txtPassword");
+				String encryptPassword = getEncryptPassword(password);
 				
-				Long userID = (Long) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddUser(identityCard, firstName, lastName, birthday, gender, address, email, userUnitID, startDate, position, salary, userName, password));
+				
+				Long userID = (Long) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddUser(identityCard, firstName, lastName, birthday, gender, address, email, userUnitID, startDate, position, salary, userName, encryptPassword));
 				
 				for (int i = 0; i<4; i++) {
 					String type = request.getParameter("txtType" + i); 
@@ -110,5 +116,33 @@ public class CreateUserServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		doGet(request, response);
+	}
+	
+	
+	/**
+	 * 
+	 * @param password
+	 * @return
+	 */
+	public static String getEncryptPassword(String password){
+		MessageDigest md;
+
+		try {
+
+			md = MessageDigest.getInstance("SHA");
+			String clearPassword = password;
+			md.update(clearPassword.getBytes("UTF-8"));
+	        byte[] digestedPassword = md.digest();
+		    String hash = (new BASE64Encoder()).encode(digestedPassword);
+		    return hash;
+
+		} catch (NoSuchAlgorithmException e) {
+
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 }

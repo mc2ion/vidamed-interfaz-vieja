@@ -42,6 +42,20 @@ public class CreateEstimationServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		RequestDispatcher rd;
+		String function = request.getParameter("function");
+		String patientID = request.getParameter("patientID");
+		String txtCedNumber = request.getParameter("txtCedNumber");
+		String txtName = request.getParameter("txtName");
+		String txtLastName = request.getParameter("txtLastName");
+		
+		System.out.println("get " + function + " " + patientID + " " + txtCedNumber + " " + txtName + " " + txtLastName );
+		
+		request.setAttribute("txtCedNumber", txtCedNumber);
+		request.setAttribute("patientID", patientID);
+		request.setAttribute("txtName", txtName);
+		request.setAttribute("txtLastName", txtLastName);
+		
+		
 		rd = getServletContext().getRequestDispatcher("/createEstimation.jsp");			
 		rd.forward(request, response);
 	}
@@ -50,7 +64,16 @@ public class CreateEstimationServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String function = request.getParameter("function");
+		String patientID = request.getParameter("patientID");
+		String txtCedNumber = request.getParameter("txtCedNumber");
+		String txtName = request.getParameter("txtName");
+		String txtLastName = request.getParameter("txtLastName");
 		
-		doGet(request, response);
+		System.out.println(function + " " + patientID + " " + txtCedNumber + " " + txtName + " " + txtLastName );
+		if (function.equals("estimationForm")){
+			doGet(request, response);
+		}
+		
 	}
 }

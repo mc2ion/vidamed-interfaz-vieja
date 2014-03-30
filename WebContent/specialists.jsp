@@ -1,12 +1,21 @@
+<%@page import="domain.User"%>
+<%
+	User user = (User) session.getAttribute("user");
+	String name = "";
+	if (user != null)
+		name = user.getFirstName() ;
+%>
 <%@ page import="domain.Specialist" %>
 <%@ page import="domain.Unit" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.HashMap" %>
 <%
-ArrayList<Specialist> specialists = (ArrayList<Specialist>)request.getAttribute("specialists");
-HashMap<Long, ArrayList<Unit>> specialistUnits = (HashMap<Long, ArrayList<Unit>>)request.getAttribute("specialistUnits");
+	@SuppressWarnings("unchecked")
+	ArrayList<Specialist> specialists = (ArrayList<Specialist>)request.getAttribute("specialists");
+	@SuppressWarnings("unchecked")
+	HashMap<Long, ArrayList<Unit>> specialistUnits = (HashMap<Long, ArrayList<Unit>>)request.getAttribute("specialistUnits");
 %>
-<!DOCTYPE >
+<!DOCTYPE HTML>
 <html>
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -68,7 +77,7 @@ HashMap<Long, ArrayList<Unit>> specialistUnits = (HashMap<Long, ArrayList<Unit>>
         </div>         
       	<nav>
          	<ul>
-         		<li><a href="#">Bienvenido, Prueba</a></li>
+         		<li><a href="#">Bienvenido, <%= name %></a></li>
                 <li><a href="ListAdmissionDischargesServlet">Altas Admisión<span class="badge yellow">3</span></a></li>
 		 		<li><a href="ListCreditNotesServlet">Prefacturas por Generar<span class="badge blue">3</span></a></li><li><a href="ListCreditNotesReviewServlet">Prefacturas por Revisar<span class="badge green">3</span></a></li><li><a href="ListInvoicesServlet">Facturas por Generar<span class="badge red">3</span></a></li>
 		     	<li><a href="ListRequestsServlet">Descuentos<span class="badge yellow">2</span></a></li>
@@ -82,7 +91,7 @@ HashMap<Long, ArrayList<Unit>> specialistUnits = (HashMap<Long, ArrayList<Unit>>
 			<ul>
             	<li class="menuitem"><a href="CreateSpecialistServlet">Crear Especialista</a></li>
             </ul>
-	    	<div class="menuitemSalir"><a href="index.jsp">Salir</a></div>	
+	    	<div class="menuitemSalir"><a href="LogoutServlet">Salir</a></div>	
         </div>        
 		<jsp:include page="./menu.jsp" />
 		<div id="content">  

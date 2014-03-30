@@ -1,10 +1,13 @@
+<%@page import="servlet.EditUserPasswordServlet"%>
 <%@ page import="command.CommandExecutor" %>
 <%@ page import="domain.User" %>
 <%  
 	try {
 		User u = (User) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetUserCurrentPassword(Long.parseLong(request.getParameter("userID"))));  
 	    String isValid = "";
-    	if (request.getParameter("password").equals(u.getPassword())) {
+	    String encryptPassword = EditUserPasswordServlet.getEncryptPassword(request.getParameter("password"));
+	    System.out.println(encryptPassword);
+    	if (encryptPassword.equals(u.getPassword())) {
 	    	isValid = "valid";
     	}
     	else {

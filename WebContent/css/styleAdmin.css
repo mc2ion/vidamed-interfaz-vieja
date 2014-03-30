@@ -1571,7 +1571,7 @@ div.box {
 
 #deleteUser, #deleteUnit, #deleteSpecialist, #deleteSupplyArea, #deleteSupply, #deleteProduct, #deleteRequest, #refreshUser, #dischargeUser, 
 #hospitalizeUser, #deleteService, #deleteProtocol, #deleteEvaluation, #deleteVitalSign, #deleteCash, #printUser, #closeAccount, #closeAccount2, 
-#discount, #generateInvoice, #editStatus, #payment {
+#discount, #generateInvoice, #editStatus, #payment{
 	position: absolute;
 	text-align: center;
 	width: 295px;
