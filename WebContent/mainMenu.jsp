@@ -27,7 +27,7 @@
         </div>   	
        <jsp:include page="./menu.jsp" />    
 		<div id="content">  
-			<h2>Bienvenido al Sistema Hospitalario de Pedenmed </h2>
+			<h2>Bienvenido al Sistema Hospitalario de Vidamed </h2>
 			<p>&nbsp;</p>
 			<p>&nbsp;</p>
 			<h3>Menú Superior</h3>
