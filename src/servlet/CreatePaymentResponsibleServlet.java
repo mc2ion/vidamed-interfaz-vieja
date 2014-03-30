@@ -14,7 +14,6 @@ import command.CommandExecutor;
 import domain.BussinessMicro;
 import domain.BussinessModels;
 import domain.BussinessRules;
-import domain.PaymentResponsible;
 import domain.ResponsibleRule;
 
 

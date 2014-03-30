@@ -1,3 +1,9 @@
+<%
+	String txtCedNumber = (String) request.getAttribute("txtCedNumber");
+	String patientID 	= (String) request.getAttribute("patientID" );
+	String txtName 		= (String) request.getAttribute("txtName");
+	String txtLastName 	= (String) request.getAttribute("txtLastName");
+%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -110,8 +116,8 @@
   					<div id="tabs-1">
   						<br>
 					    <p>
-					    <b> Cédula: </b> V-12345678 
-					    <b style="margin-left: 60px;"> Nombre: </b> Ana Rojas<br><br>
+					    <b> Cédula: </b> <%= txtCedNumber %>
+					    <b style="margin-left: 60px;"> Nombre: </b> <%= txtName + " " + txtLastName %><br><br>
 					    </p>
 					    <fieldset>
 					  	<label> Unidad: </label>
