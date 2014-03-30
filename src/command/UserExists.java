@@ -21,28 +21,27 @@ public class UserExists implements DatabaseCommand {
 	public Object executeDatabaseOperation(Connection conn) throws SQLException {
 		
 		User u = null;
-		PreparedStatement sta = conn.prepareStatement("SELECT [userid],[username],[password] FROM [dbo].[USER] WHERE [username]=? AND [password]=?");
+		PreparedStatement ps = null;
+		ResultSet rs = null;
 		
-		sta.setString(1, this.name);
-		sta.setString(2, this.encryptPassword);
-		ResultSet rs = sta.executeQuery();
-		
-		if (rs.next()) {
-			u = new User();
-			u.setUserID(rs.getLong(1));
-			//u.setFirstName(rs.getString(2));
-			//u.setLastName(rs.getString(3));
-			//u.setIdentityCard(rs.getString(4));
-			u.setUserName(rs.getString(2));
-			//u.setPassword(rs.getString(3));
-			//u.setRoleId(rs.getInt(7));		
-			//u.setRoomId(rs.getInt(8));		
+		try {
+			ps = conn.prepareStatement("exec dbo.GetUserAuthentication '" + name + "' , '" + encryptPassword + "'");
+			rs = ps.executeQuery();
+
+			if (rs.next()) {
+				u = new User();
+				u.setUserID(rs.getLong(1));
+				u.setUserName(rs.getString(2));
+				u.setPassword(rs.getString(3));
+				u.setFirstName(rs.getString(4));
+				u.setLastName(rs.getString(5));
+			}
 		}
-		
-		rs.close();
-		sta.close();
+		finally {
+			rs.close();
+			ps.close();
+		}		
 		
 		return u;
 	}
-
 }

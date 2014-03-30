@@ -2,9 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,9 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import command.CommandExecutor;
 import domain.PaymentResponsible;
-import domain.Specialist;
-import domain.SpecialistUnit;
-import domain.Unit;
 
 
 /**
@@ -45,6 +40,7 @@ public class ListPaymentResponsiblesServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher rd;
 		

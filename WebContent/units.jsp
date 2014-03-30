@@ -1,9 +1,17 @@
+<%@page import="domain.User"%>
+<%
+	User user = (User) session.getAttribute("user");
+	String name = "";
+	if (user != null)
+		name = user.getFirstName() ;
+%>
 <%@ page import="domain.Unit" %>
 <%@ page import="java.util.ArrayList" %>
 <%
-ArrayList<Unit> units = (ArrayList<Unit>)request.getAttribute("units");
+	@SuppressWarnings("unchecked")
+	ArrayList<Unit> units = (ArrayList<Unit>)request.getAttribute("units");
 %>
-<!DOCTYPE >
+<!DOCTYPE HTML>
 <html>
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -63,7 +71,7 @@ ArrayList<Unit> units = (ArrayList<Unit>)request.getAttribute("units");
         </div>         
       	<nav>
          	<ul>
-         		<li><a href="#">Bienvenido, Prueba</a></li>
+         		<li><a href="#">Bienvenido, <%= name %></a></li>
                 <li><a href="ListAdmissionDischargesServlet">Altas Admisión<span class="badge yellow">3</span></a></li>
 		 		<li><a href="ListCreditNotesServlet">Prefacturas por Generar<span class="badge blue">3</span></a></li><li><a href="ListCreditNotesReviewServlet">Prefacturas por Revisar<span class="badge green">3</span></a></li><li><a href="ListInvoicesServlet">Facturas por Generar<span class="badge red">3</span></a></li>
 		     	<li><a href="ListRequestsServlet">Descuentos<span class="badge yellow">2</span></a></li>

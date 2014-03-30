@@ -1,11 +1,19 @@
+<%@page import="domain.User"%>
+<%
+	User user = (User) session.getAttribute("user");
+	String name = "";
+	if (user != null)
+		name = user.getFirstName() ;
+%>
 <%@ page import="domain.CashBox" %>
 <%@ page import="domain.CashBoxSalePoint" %>
 <%@ page import="java.util.ArrayList" %>
 <%
 CashBox cb = (CashBox) request.getAttribute("cashBox");
+@SuppressWarnings("unchecked")
 ArrayList<CashBoxSalePoint> cbSalePoints = (ArrayList<CashBoxSalePoint>)request.getAttribute("cbSalePoints");
 %>
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -70,7 +78,7 @@ ArrayList<CashBoxSalePoint> cbSalePoints = (ArrayList<CashBoxSalePoint>)request.
 	        </div>         
         	   	<nav>
          	<ul>
-         		<li><a href="#">Bienvenido, Prueba</a></li>
+         		<li><a href="#">Bienvenido, <%= name %></a></li>
                 <li><a href="ListAdmissionDischargesServlet">Altas Admisión<span class="badge yellow">3</span></a></li>
 		 		<li><a href="ListCreditNotesServlet">Prefacturas por Generar<span class="badge blue">3</span></a></li>
 		 		<li><a href="ListCreditNotesReviewServlet">Prefacturas por Revisar<span class="badge green">3</span></a></li>

@@ -1,11 +1,19 @@
+<%@page import="domain.User"%>
+<%
+	User user = (User) session.getAttribute("user");
+	String name = "";
+	if (user != null)
+		name = user.getFirstName() ;
+%>
 <%@ page import="domain.Supply" %>
 <%@ page import="domain.SupplyForm" %>
 <%@ page import="java.util.ArrayList" %>
 <%
+@SuppressWarnings("unchecked")
 ArrayList<SupplyForm> supplyForms = (ArrayList<SupplyForm>)request.getAttribute("supplyForms");
 Supply supply = (Supply) request.getAttribute("supply");
 %>
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -36,7 +44,7 @@ Supply supply = (Supply) request.getAttribute("supply");
 	        </div>         
         	   	<nav>
          	<ul>
-         		<li><a href="#">Bienvenido, Prueba</a></li>
+         		<li><a href="#">Bienvenido, <%= name %></a></li>
                 <li><a href="ListAdmissionDischargesServlet">Altas Admisión<span class="badge yellow">3</span></a></li>
 		 		<li><a href="ListCreditNotesServlet">Prefacturas por Generar<span class="badge blue">3</span></a></li><li><a href="ListCreditNotesReviewServlet">Prefacturas por Revisar<span class="badge green">3</span></a></li><li><a href="ListInvoicesServlet">Facturas por Generar<span class="badge red">3</span></a></li>
 		     	<li><a href="ListRequestsServlet">Descuentos<span class="badge yellow">2</span></a></li>
