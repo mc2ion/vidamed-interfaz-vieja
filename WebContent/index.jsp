@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -13,6 +13,13 @@
         </div>  
         <div id="menu"> </div>            
        			 <div id="wrapper">
+       			 			<% String error = (String) request.getAttribute("error");
+							if (error != null){
+							%>
+								<div class="login-error"><%= error %></div>
+							<%
+							}
+							%>
 	                        <div id="login" class="animate form">
 	                            <form  action="/vidamed/UserLoginServlet" method="post" > 
 	                                <h1> </h1> 

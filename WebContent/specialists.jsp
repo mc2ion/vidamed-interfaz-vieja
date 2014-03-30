@@ -1,12 +1,21 @@
+<%@page import="domain.User"%>
+<%
+	User user = (User) session.getAttribute("user");
+	String name = "";
+	if (user != null)
+		name = user.getFirstName() ;
+%>
 <%@ page import="domain.Specialist" %>
 <%@ page import="domain.Unit" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.HashMap" %>
 <%
-ArrayList<Specialist> specialists = (ArrayList<Specialist>)request.getAttribute("specialists");
-HashMap<Long, ArrayList<Unit>> specialistUnits = (HashMap<Long, ArrayList<Unit>>)request.getAttribute("specialistUnits");
+	@SuppressWarnings("unchecked")
+	ArrayList<Specialist> specialists = (ArrayList<Specialist>)request.getAttribute("specialists");
+	@SuppressWarnings("unchecked")
+	HashMap<Long, ArrayList<Unit>> specialistUnits = (HashMap<Long, ArrayList<Unit>>)request.getAttribute("specialistUnits");
 %>
-<!DOCTYPE >
+<!DOCTYPE HTML>
 <html>
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -35,7 +44,7 @@ HashMap<Long, ArrayList<Unit>> specialistUnits = (HashMap<Long, ArrayList<Unit>>
 	            "sInfo": "Mostrando _START_ a _END_ de _TOTAL_ registros",
 	            "sInfoEmpty": "Mostrando 0 a 0 de 0 registros",
 	            "sInfoFiltered": "(filtrando de _MAX_ registros totales)",
-	            "sEmptyTable": "No hay datos disponibles en la tabla",
+	            "sEmptyTable": "No hay especialistas disponibles",
 	            "sLoadingRecords": "Por favor, espere - cargando...",
 	            "sSearch": "Buscar:"
         	}
@@ -68,7 +77,7 @@ HashMap<Long, ArrayList<Unit>> specialistUnits = (HashMap<Long, ArrayList<Unit>>
         </div>         
       	<nav>
          	<ul>
-         		<li><a href="#">Bienvenido, Prueba</a></li>
+         		<li><a href="#">Bienvenido, <%= name %></a></li>
                 <li><a href="ListAdmissionDischargesServlet">Altas Admisión<span class="badge yellow">3</span></a></li>
 		 		<li><a href="ListCreditNotesServlet">Prefacturas por Generar<span class="badge blue">3</span></a></li><li><a href="ListCreditNotesReviewServlet">Prefacturas por Revisar<span class="badge green">3</span></a></li><li><a href="ListInvoicesServlet">Facturas por Generar<span class="badge red">3</span></a></li>
 		     	<li><a href="ListRequestsServlet">Descuentos<span class="badge yellow">2</span></a></li>
@@ -101,38 +110,32 @@ HashMap<Long, ArrayList<Unit>> specialistUnits = (HashMap<Long, ArrayList<Unit>>
 									</tr>
 								</thead>
 								<tbody>	
-									<% if (specialists.size() == 0) { %>
-										<tr class="gradeA"><td colspan="5">No hay especialistas disponibles</td></tr>
-									<% }
-									   else { 
-									   		for (int i = 0; i<specialists.size(); i++) { 
-									   			Specialist spec = specialists.get(i);
-									   			ArrayList<Unit> units = (ArrayList<Unit>)specialistUnits.get(spec.getId());
-									   			String unitNames = "";
-									   			for (int j = 0; j<units.size(); j++) {
-									   				unitNames += ", " + units.get(j).getName();
-									   			}
-									   			unitNames = unitNames.length() < 2 ? unitNames : unitNames.substring(2);
+									<% 	for (int i = 0; i<specialists.size(); i++) { 
+									   		Specialist spec = specialists.get(i);
+									   		ArrayList<Unit> units = (ArrayList<Unit>)specialistUnits.get(spec.getId());
+									   		String unitNames = "";
+									   		for (int j = 0; j<units.size(); j++) {
+									   			unitNames += ", " + units.get(j).getName();
+									   		}
+									   		unitNames = unitNames.length() < 2 ? unitNames : unitNames.substring(2);
 									%> 		
-												<tr class="gradeA">
-													<td><%= spec.getId() %></td>
-													<td><%= spec.getFirstName() %></td>
-													<td><%= spec.getLastName() %></td>
-													<td><%= unitNames %></td>
-													<td>
-														<a href="EditSpecialistServlet?specialistID=<%= spec.getId() %>" style="color: transparent" >
-															<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
-														</a>
-														<a id="go" rel="leanModal" href="#deleteSpecialist" style="color: #f7941e; font-weight: bold;" 
-															onclick="return loadVars(<%= spec.getId() %>,'<%= spec.getFirstName() + " " + spec.getLastName() %>');" >
-															<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-														</a> 
-														<br>
-													</td>
-												</tr>
-									<% 		}
-									   }
-									%>									
+											<tr class="gradeA">
+												<td><%= spec.getId() %></td>
+												<td><%= spec.getFirstName() %></td>
+												<td><%= spec.getLastName() %></td>
+												<td><%= unitNames %></td>
+												<td>
+													<a href="EditSpecialistServlet?specialistID=<%= spec.getId() %>" style="color: transparent" >
+														<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
+													</a>
+													<a id="go" rel="leanModal" href="#deleteSpecialist" style="color: #f7941e; font-weight: bold;" 
+														onclick="return loadVars(<%= spec.getId() %>,'<%= spec.getFirstName() + " " + spec.getLastName() %>');" >
+														<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
+													</a> 
+													<br>
+												</td>
+											</tr>
+									<% 	} %>									
 								</tbody>
 							</table>
 						</div>

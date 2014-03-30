@@ -19,7 +19,7 @@
 		   <li><a href='ListUnitsServlet'><span>Unidades</span></a></li>
 		   <li><a href='ListSpecialistsServlet'><span>Especialistas</span></a></li>
 		   <li><a href='ListPaymentResponsiblesServlet'><span>Responsables de Pago</span></a></li>
-		   <li><a href='ListBanksServlet'><span>Cajas</span></a></li>
+		   <li><a href='ListCashBoxesServlet'><span>Cajas</span></a></li>
 		   <li><a href='ListAccountsServlet'><span>Cuentas Pendientes</span></a></li>
 		   <li><a href='ListBillingsServlet'><span>Facturación</span></a></li>
 		   <li><a href='ListBloodBankServlet'><span>Banco de Sangre</span></a></li>

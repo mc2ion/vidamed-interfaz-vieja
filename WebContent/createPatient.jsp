@@ -1,4 +1,23 @@
-<!DOCTYPE html>
+<%
+	String cedId  		= (String) request.getAttribute("cedId");
+	String cedNum 		= (String) request.getAttribute("cedNum");
+	String patientType  = (String) request.getAttribute("patientType");
+	String function	    = (String) request.getAttribute("function");
+	
+	String cedNumTxt = "";
+	if (cedNum != null)
+		cedNumTxt = cedNum;
+		
+	System.out.println("patientType " + patientType);
+%>
+<%@page import="domain.User"%>
+<%
+	User user = (User) session.getAttribute("user");
+	String name = "";
+	if (user != null)
+		name = user.getFirstName() ;
+%>
+<!DOCTYPE HTML>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -19,15 +38,25 @@
 				
 		$(function() {
 			$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x" });
+			
 			$("#addPhone").click(function() {
-				  $("#otherPhone").show();
-				  $(this).hide();
+				if($('#otherPhone1').is(':hidden')) {
+					$("#otherPhone1").show();
+				}
+				if($('#otherPhone1').is(':visible')){
+					$(this).hide();						
+				}
+				  
 			});
 			
-			$("#deletePhone").click(function() {
-				  $("#otherPhone").hide();
+			$("#deletePhone1").click(function() {
+				  $("#otherPhone1").hide();
 				  $("#addPhone").show();
+				  $("#txtPhoneNumber1").val("");
+				  $("#txtType1").val("L");
 			});
+			
+			
 		});
 		
 		function loadVars(var1, var2) {
@@ -50,8 +79,31 @@
 				
 			});
 		});
-		
-		
+		</script>
+		<script type="text/javascript">
+			$(function(){
+				$.datepicker.setDefaults($.datepicker.regional['es']);
+				$('#txtDateIni').datepicker({
+					showOn: "button",
+					buttonImage: "images/calendar.png",
+					buttonImageOnly: true,
+					buttonText: "Seleccione una fecha",
+					dateFormat:'dd/mm/yy',
+					changeMonth: true,
+				    changeYear: true,
+				    yearRange: "-100:+20"
+				});
+				$('#txtDateIni2').datepicker({
+					showOn: "button",
+					buttonImage: "images/calendar.png",
+					buttonImageOnly: true,
+					buttonText: "Seleccione una fecha",
+					dateFormat:'dd/mm/yy',
+					changeMonth: true,
+				    changeYear: true,
+				    yearRange: "-100:+20"
+				});
+			} );
 		</script>
 	</head>
 	<body>
@@ -61,7 +113,7 @@
 	        </div>         
         	   	<nav>
          	<ul>
-         		<li><a href="#">Bienvenido, Prueba</a></li>
+         		<li><a href="#">Bienvenido, <%= name %></a></li>
                 <li><a href="ListAdmissionDischargesServlet">Altas Admisión<span class="badge yellow">3</span></a></li>
 		 		<li><a href="ListCreditNotesServlet">Prefacturas por Generar<span class="badge blue">3</span></a></li><li><a href="ListCreditNotesReviewServlet">Prefacturas por Revisar<span class="badge green">3</span></a></li><li><a href="ListInvoicesServlet">Facturas por Generar<span class="badge red">3</span></a></li>
 		     	<li><a href="ListRequestsServlet">Descuentos<span class="badge yellow">2</span></a></li>
@@ -86,73 +138,96 @@
 					    <li><a href="#tabs-2">Datos de Contacto</a></li>
 					  
 			  		</ul>
-  					<div id="tabs-1">
+					<form action="CreatePatientServlet" method="post">
+					<input type="hidden" name="function"  value="<%= function %>" />
+					<div id="tabs-1">
   						<br>
 					    <fieldset>
 					    	<label>Tipo de Paciente:</label>
-							<select id="typePatient" name="typePatient" class="target">
-								<option value="Adulto">Adulto</option>
-								<option value="Pediátrico">Pedi&aacute;trico</option>
+					    	<%
+								String aSelected = "";
+								if (patientType != null){
+									if (patientType.equals("1"))
+										aSelected = "selected";
+								}
+									
+							%>
+							<select id="isAdult" name="isAdult" class="target">
+								<option value="0" >Pedi&aacute;trico</option>
+								<option value="1" <%= aSelected %>>Adulto</option>
 							</select><br /><br />
-							<label id="id">Cédula de identidad del paciente:</label>
-							<select id="cedId" name="cedId">
-								<option value="V-" >V</option>
-								<option value="E-" >E</option>
+							<label for="name">Cédula de Identidad:</label>
+							<%
+								String vSelected = "";
+								String eSelected = "";
+								if (cedId != null){
+									if (cedId.equals("V-"))
+										vSelected = "selected";
+									else
+										eSelected = "selected";
+								}
+									
+							%>
+							<select name="txtCedId" id="txtCedId">
+									<option value="V-" <%= vSelected %>>V</option>
+									<option value="E-" <%= eSelected %>>E</option>
 							</select>
-						  	 <input type="text" value="" style="width: 29%;"> <br /><br />
-						  	  <label>Nombres:</label>
-						  	 <input type="text" value=""> <br /><br />
-						  	  <label>Apellidos:</label>
-						  	 <input type="text" value=""> <br /><br />
-						  	  <label>Fecha de Nacimiento:</label>
-						  	 <input type="text" value=""> <br /><br />
-						  	  <label>Sexo:</label>
-							  	<select id="sex" name="sex">
-									<option value="F" >Femenino</option>
-									<option value="M" >Masculino</option>
-								</select>
+							<input type="text" name="txtCedIdNum" id="txtCedIdNum" maxlength="50" size="18" value="<%= cedNumTxt %>"/> <br><br>
+						  	<label for="name">Nombre:</label>
+							<input type="text" name="txtFirstName" id="txtFirstName" maxlength="50" size="5"/> <br><br>
+							<label for="name">Apellido:</label>
+							<input type="text" name="txtLastName" id="txtLastName" maxlength="50" size="5"/> <br><br>
+							<label for="name">Fecha de Nacimiento:</label>
+							<input type="text" name="txtDateIni" id="txtDateIni" maxlength="50" size="10" /><br><br>
+							<label for="name">Sexo:</label>
+							<select name="txtGen" id="txtGen">	
+								<option value="-" selected="selected">Seleccionar</option>
+								<option value="F">Femenino</option>
+								<option value="M" >Masculino</option>
+							</select><br><br>
 				   		 </fieldset>
   					</div>
   					<div id="tabs-2">
   						<br>
 					    <fieldset>
-							<label>Dirección:</label>
-							 <textarea rows="4" cols="40"></textarea> <br /><br />
-						  	  <label>Correo Electrónico:</label>
-						  	 <input type="text" value=""> <br /><br />
-						  	  <label>Teléfono:</label>
-						  	  	<select id="phone" name="phone">
-									<option value="L" >Local</option>
-									<option value="P" >Particular</option>
-									<option value="T" >Trabajo</option>
-								</select>
-						  	 <input type="text" value="" style="width: 135px;">
-					  	 	<img alt="logo" src="./images/add.png"  id="addPhone" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Agregar otro telefono" />
-							 <br /><br />
-							 <div id="otherPhone" style="display:none;">
-								 <select id="phone" name="phone">
+							<label for="name">Dirección:</label>
+								<textarea name="txtAddress" id="txtAddress" rows="2" cols="50"></textarea> <br><br>
+								<label for="name">Correo Electrónico:</label>
+								<input type="text" name="txtEmail" id="txtEmail" maxlength="50" size="5"/> <br><br>
+								<label for="name">Teléfono:</label>
+								<div >
+									<select id="txtType0" name="txtType0">
 										<option value="L" >Local</option>
 										<option value="P" >Particular</option>
 										<option value="T" >Trabajo</option>
 									</select>
-							  	 <input type="text" value="" style="width: 135px;">
-							  	 <img alt="logo" src="./images/close.png"  id="deletePhone" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Agregar otro telefono" />
-							
-						  	 </div>
+						  	 		<input type="text" id="txtPhoneNumber0" name="txtPhoneNumber0" value="" style="width: 135px;">
+						  	 		<img alt="logo" src="./images/add.png"  id="addPhone" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Agregar otro telefono" />
+									<br /><br />
+								</div>
+								<div id="otherPhone1" style="display:none;">
+									<select id="txtType1" name="txtType1">
+										<option value="L" >Local</option>
+										<option value="P" >Particular</option>
+										<option value="T" >Trabajo</option>
+									</select>
+									<input type="text" id="txtPhoneNumber1" name="txtPhoneNumber1" value="" style="width: 135px;">
+									<img alt="logo" src="./images/close.png"  id="deletePhone1" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Agregar otro telefono" />
+						 			<br /><br />
+						 		</div>
 						 </fieldset>
   					</div>
-  				</div>
-				<div id="botonera">
-					<form action="ListAdmissionsServlet">
+  					<div id="botonera">
 						<div id="botonP" style="display: inline; margin-right: 30px;">
 									<input type="submit"  class="button"  name="sbmtButton" value="Agregar" />
 						</div>	
 						<div id="botonV" style="display: inline;">
 								<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
 						</div>	
-					</form>
-				</div>
+					</div>
+				</form>
 			</div>
+		</div>
 		</div>
 		<div id="refreshUser">
 			<div id="signup-ct">

@@ -1,9 +1,17 @@
+<%@page import="domain.User"%>
+<%
+	User user = (User) session.getAttribute("user");
+	String name = "";
+	if (user != null)
+		name = user.getFirstName() ;
+%>
 <%@ page import="domain.Unit" %>
 <%@ page import="java.util.ArrayList" %>
 <%
-ArrayList<Unit> units = (ArrayList<Unit>)request.getAttribute("units");
+	@SuppressWarnings("unchecked")
+	ArrayList<Unit> units = (ArrayList<Unit>)request.getAttribute("units");
 %>
-<!DOCTYPE >
+<!DOCTYPE HTML>
 <html>
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -30,7 +38,7 @@ ArrayList<Unit> units = (ArrayList<Unit>)request.getAttribute("units");
 	            "sInfo": "Mostrando _START_ a _END_ de _TOTAL_ registros",
 	            "sInfoEmpty": "Mostrando 0 a 0 de 0 registros",
 	            "sInfoFiltered": "(filtrando de _MAX_ registros totales)",
-	            "sEmptyTable": "No hay datos disponibles en la tabla",
+	            "sEmptyTable": "No hay unidades disponibles",
 	            "sLoadingRecords": "Por favor, espere - cargando...",
 	            "sSearch": "Buscar:"
         	}
@@ -63,7 +71,7 @@ ArrayList<Unit> units = (ArrayList<Unit>)request.getAttribute("units");
         </div>         
       	<nav>
          	<ul>
-         		<li><a href="#">Bienvenido, Prueba</a></li>
+         		<li><a href="#">Bienvenido, <%= name %></a></li>
                 <li><a href="ListAdmissionDischargesServlet">Altas Admisión<span class="badge yellow">3</span></a></li>
 		 		<li><a href="ListCreditNotesServlet">Prefacturas por Generar<span class="badge blue">3</span></a></li><li><a href="ListCreditNotesReviewServlet">Prefacturas por Revisar<span class="badge green">3</span></a></li><li><a href="ListInvoicesServlet">Facturas por Generar<span class="badge red">3</span></a></li>
 		     	<li><a href="ListRequestsServlet">Descuentos<span class="badge yellow">2</span></a></li>
@@ -94,12 +102,8 @@ ArrayList<Unit> units = (ArrayList<Unit>)request.getAttribute("units");
 									</tr>
 								</thead>
 								<tbody>
-								<% if (units.size() == 0)  { %>
-									<tr class="gradeA"><td colspan="3">No hay unidades disponibles</td></tr>
-								<% }
-								   else { 
-								   		for (int i = 0; i<units.size(); i++) { 
-								   			Unit u = units.get(i);
+								<% 	for (int i = 0; i<units.size(); i++) { 
+								   		Unit u = units.get(i);
 								%>										
 									<tr class="gradeA">
 										<td><%= u.getUnitID() %></td>
@@ -115,8 +119,7 @@ ArrayList<Unit> units = (ArrayList<Unit>)request.getAttribute("units");
 											<br>
 										</td>
 									</tr>
-									<% 	} 
-									} %>
+								<% 	} %>
 								</tbody>
 							</table>
 						</div>

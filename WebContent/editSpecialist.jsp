@@ -1,3 +1,10 @@
+<%@page import="domain.User"%>
+<%
+	User user = (User) session.getAttribute("user");
+	String name = "";
+	if (user != null)
+		name = user.getFirstName() ;
+%>
 <%@ page import="domain.Specialist" %>
 <%@ page import="domain.SpecialistPhoneNumber" %>
 <%@ page import="domain.SpecialistUnit" %>
@@ -6,12 +13,15 @@
 <%@ page import="java.util.HashMap" %>
 <%
 Specialist spec = (Specialist)request.getAttribute("specialist");
+@SuppressWarnings("unchecked")
 ArrayList<SpecialistPhoneNumber> specialistPhoneNumbers = (ArrayList<SpecialistPhoneNumber>) request.getAttribute("specialistPhoneNumbers");
+@SuppressWarnings("unchecked")
 HashMap<Long, SpecialistUnit> specialistUnits = (HashMap<Long, SpecialistUnit>) request.getAttribute("specialistUnits");
+@SuppressWarnings("unchecked")
 ArrayList<Unit> units = (ArrayList<Unit>) request.getAttribute("units");
 String[] ci = spec.getIdentityCard().split("-");
 %>
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -134,7 +144,7 @@ String[] ci = spec.getIdentityCard().split("-");
 	        </div>         
         	   	<nav>
          	<ul>
-         		<li><a href="#">Bienvenido, Prueba</a></li>
+         		<li><a href="#">Bienvenido, <%= name %></a></li>
                 <li><a href="ListAdmissionDischargesServlet">Altas Admisión<span class="badge yellow">3</span></a></li>
 		 		<li><a href="ListCreditNotesServlet">Prefacturas por Generar<span class="badge blue">3</span></a></li><li><a href="ListCreditNotesReviewServlet">Prefacturas por Revisar<span class="badge green">3</span></a></li><li><a href="ListInvoicesServlet">Facturas por Generar<span class="badge red">3</span></a></li>
 		     	<li><a href="ListRequestsServlet">Descuentos<span class="badge yellow">2</span></a></li>
