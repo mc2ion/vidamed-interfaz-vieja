@@ -35,7 +35,7 @@ HashMap<Long, String> userUnits = (HashMap<Long, String>)request.getAttribute("u
 	            "sInfo": "Mostrando _START_ a _END_ de _TOTAL_ registros",
 	            "sInfoEmpty": "Mostrando 0 a 0 de 0 registros",
 	            "sInfoFiltered": "(filtrando de _MAX_ registros totales)",
-	            "sEmptyTable": "No hay datos disponibles en la tabla",
+	            "sEmptyTable": "No hay usuarios disponibles",
 	            "sLoadingRecords": "Por favor, espere - cargando...",
 	            "sSearch": "Buscar:"
         	}
@@ -102,7 +102,7 @@ HashMap<Long, String> userUnits = (HashMap<Long, String>)request.getAttribute("u
 									</tr>
 								</thead>
 								<tbody>	
-									<% for (int i = 0; i< users.size(); i++) {
+									<% 	for (int i = 0; i< users.size(); i++) {
 											User u = users.get(i);
 											String unitName = userUnits.get(u.getUserUnitID());
 									%>		

@@ -30,7 +30,7 @@ ArrayList<SupplyArea> supplyAreas = (ArrayList<SupplyArea>)request.getAttribute(
 	            "sInfo": "Mostrando _START_ a _END_ de _TOTAL_ registros",
 	            "sInfoEmpty": "Mostrando 0 a 0 de 0 registros",
 	            "sInfoFiltered": "(filtrando de _MAX_ registros totales)",
-	            "sEmptyTable": "No hay datos disponibles en la tabla",
+	            "sEmptyTable": "No hay áreas de insumos disponibles",
 	            "sLoadingRecords": "Por favor, espere - cargando...",
 	            "sSearch": "Buscar:"
         	}
@@ -94,33 +94,27 @@ ArrayList<SupplyArea> supplyAreas = (ArrayList<SupplyArea>)request.getAttribute(
 									</tr>
 								</thead>
 								<tbody>	
-									<% if (supplyAreas.size() == 0)  { %>
-											<tr class="gradeA"><td colspan="3">No hay áreas de insumos disponibles</td></tr>
-									<% }
-								   		else { 
-								   			for (int i = 0; i<supplyAreas.size(); i++) { 
-								   				SupplyArea sa = supplyAreas.get(i);
+									<% 	for (int i = 0; i<supplyAreas.size(); i++) { 
+								   			SupplyArea sa = supplyAreas.get(i);
 									%>			
-												<tr class="gradeA">
-													<td><%= sa.getSupplyAreaID() %></td>
-													<td><%= sa.getName() %></td>
-													<td>
-														<a href="ListSuppliesServlet?supplyAreaID=<%= sa.getSupplyAreaID() %>" style="color: transparent" >
-															<img alt="logo" src="./images/meds.png"  height="18" width="18" title="Ver Insumos" />
-														</a>
-														<a href="EditSupplyAreaServlet?supplyAreaID=<%= sa.getSupplyAreaID() %>" style="color: transparent" >
-															<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
-														</a>
-														<a id="go" rel="leanModal" href="#deleteSupplyArea" style="color: #f7941e; font-weight: bold;" 
-															onclick="return loadVars(<%= sa.getSupplyAreaID() %>,'<%= sa.getName() %>');" >
-															<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-														</a> 
-														<br>
-													</td>
-												</tr>
-									<% 		}
-								   		}
-								   	%>
+											<tr class="gradeA">
+												<td><%= sa.getSupplyAreaID() %></td>
+												<td><%= sa.getName() %></td>
+												<td>
+													<a href="ListSuppliesServlet?supplyAreaID=<%= sa.getSupplyAreaID() %>" style="color: transparent" >
+														<img alt="logo" src="./images/meds.png"  height="18" width="18" title="Ver Insumos" />
+													</a>
+													<a href="EditSupplyAreaServlet?supplyAreaID=<%= sa.getSupplyAreaID() %>" style="color: transparent" >
+														<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
+													</a>
+													<a id="go" rel="leanModal" href="#deleteSupplyArea" style="color: #f7941e; font-weight: bold;" 
+														onclick="return loadVars(<%= sa.getSupplyAreaID() %>,'<%= sa.getName() %>');" >
+														<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
+													</a> 
+													<br>
+												</td>
+											</tr>
+									<% 	} %>
 								</tbody>
 							</table>
 						</div>
