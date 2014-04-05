@@ -40,7 +40,7 @@
 	            "sInfo": "Mostrando _START_ a _END_ de _TOTAL_ registros",
 	            "sInfoEmpty": "Mostrando 0 a 0 de 0 registros",
 	            "sInfoFiltered": "(filtrando de _MAX_ registros totales)",
-	            "sEmptyTable": "No hay datos disponibles en la tabla",
+	            "sEmptyTable": "No hay insumos disponibles",
 	            "sLoadingRecords": "Por favor, espere - cargando...",
 	            "sSearch": "Buscar:"
         	}
@@ -106,31 +106,25 @@
 									</tr>
 								</thead>
 								<tbody>
-									<% if (supplies.size() == 0)  { %>
-											<tr class="gradeA"><td colspan="4">No hay insumos disponibles</td></tr>
-									<% }
-								   	   else { 
-								   			for (int i = 0; i<supplies.size(); i++) { 
-								   				Supply s = supplies.get(i);
+									<% 	for (int i = 0; i<supplies.size(); i++) { 
+								   			Supply s = supplies.get(i);
 									%>
-												<tr class="gradeA">
-													<td><%= s.getSupplyID() %></td>
-													<td><%= s.getName() %></td>
-													<td><%= s.getAmount() %></td>
-													<td>
-														<a href="EditSupplyServlet?supplyID=<%= s.getSupplyID() %>" style="color: transparent" >
-															<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
-														</a>
-														<a id="go" rel="leanModal" href="#deleteSupply" style="color: #f7941e; font-weight: bold;" 
-															onclick="return loadVars(<%= s.getSupplyID() %>,'<%= s.getName() %>');" >
-															<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-														</a> 
-														<br>
-													</td>
-												</tr>
-									<%		}
-								   		}
-								   	%>
+											<tr class="gradeA">
+												<td><%= s.getSupplyID() %></td>
+												<td><%= s.getName() %></td>
+												<td><%= s.getAmount() %></td>
+												<td>
+													<a href="EditSupplyServlet?supplyID=<%= s.getSupplyID() %>" style="color: transparent" >
+														<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
+													</a>
+													<a id="go" rel="leanModal" href="#deleteSupply" style="color: #f7941e; font-weight: bold;" 
+														onclick="return loadVars(<%= s.getSupplyID() %>,'<%= s.getName() %>');" >
+														<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
+													</a> 
+													<br>
+												</td>
+											</tr>
+									<%	} %>
 								</tbody>
 							</table>
 						</div>
