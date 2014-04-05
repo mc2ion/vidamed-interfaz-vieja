@@ -30,6 +30,7 @@ public class GetCashBoxes implements DatabaseCommand {
 				cb.setDescription(rs.getString(3));
 				cb.setIsOpen(rs.getInt(4));
 				cb.setInitialAmount(rs.getDouble(5));
+				cb.setTotalAmount(rs.getDouble(6));
 				cbs.add(cb);
 			}
 		}
