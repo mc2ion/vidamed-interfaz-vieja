@@ -1,9 +1,12 @@
+<%@page import="domain.PendingEstimationDiscount"%>
 <%@page import="domain.User"%>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
 	if (user != null)
 		name = user.getFirstName() ;
+	
+	PendingEstimationDiscount discount = (PendingEstimationDiscount) request.getAttribute("discount");
 %>
 <!DOCTYPE HTML>
 <html>
@@ -37,16 +40,16 @@
 	        	<h2>Detalle solicitud descuento:</h2>   
 	        	<br>
 				<p class="p-align">
-			   	<b>Paciente:</b> Ana Rojas<br><br>
-			    <b>Monto total de la factura:</b>Bs. 35562,00<br><br>
-			    <b>Descuento Solicitado:</b>Bs. 1000,00<br><br>
-			    <b>Protocolo a realizar:</b>Histerectomía<br><br>
-			    <b>Justificación:</b> Se solicita este descuento ya que la paciente es hija del doctor Pablo Rojas, quien será quien realice la operación.<br><br>
-			    <b>Fecha Solicitud:</b> 17/06/2013<br><br>
+			   	<b>Paciente:</b> <%= discount.getFirstName() + " " + discount.getLastName() %><br><br>
+			    <b>Monto total de la factura:</b>Bs. <%= discount.getTotal() %><br><br>
+			    <b>Descuento Solicitado:</b>Bs. <%= discount.getAmount() %><br><br>
+			    <b>Justificación:</b><%= discount.getJustification() %><br><br>
+			    <b>Fecha Solicitud:</b> <%= discount.getRequestDate() %><br><br>
 			    <br><br>
 			    </p>
 				<div id="botonera" >
-					<form action="#">
+					<form action="DiscountActionServlet" method="post">
+						<input type="hidden" name="id" value="<%= discount.getDiscountID() %>"/>
 						<div id="botonP" style="display: inline; margin-right: 30px;">
 							<input type="submit"  class="buttonGreen"  name="sbmtButton" value="Aceptar" />
 						</div>	
@@ -54,7 +57,7 @@
 							<input type="submit"  class="buttonRed"  name="sbmtButton" value="Rechazar" />
 						</div><br>
 						<div id="botonV"  style="margin-left: 40px; margin-top: 20px;">
-								<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
+							<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
 						</div>	
 					</form>
 				</div>

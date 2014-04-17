@@ -1,9 +1,16 @@
+<%@page import="com.sun.xml.internal.ws.org.objectweb.asm.Label"%>
 <%@page import="domain.User"%>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
 	if (user != null)
 		name = user.getFirstName() ;
+	
+	String patientName 	= (String) request.getAttribute("txtFirstName");
+	String lastName 	= (String) request.getAttribute("txtLastName");
+	String identityCard = (String) request.getAttribute("identityCard");
+	
+	
 %>
 <!DOCTYPE HTML>
 <html>
@@ -114,8 +121,8 @@
 				<br>
 						 <form action="#">
 						 	<fieldset>
-							   <b>Cédula:</b> <span style="margin-left: 155px;">V-12345678</span><br/><br/>
-							   <b>Nombre: </b><span style="margin-left: 150px;">Ana Rojas</span><br><br/>
+							   <b>Cédula:</b> <span style="margin-left: 155px;"><%= identityCard %></span><br/><br/>
+							   <b>Nombre: </b><span style="margin-left: 150px;"><%= patientName + " " + lastName %></span><br><br/>
 							   <label> Responsable del Pago:</label>  <input type="text" name="insuranceName" id="insuranceName" value="" readonly>
 							    <a href="SearchInsuranceServlet?function=admitPatient" style="color: #f7941e; font-weight: bold;">
 									<input type="button"id="paymentResp" value="Cambiar" >
@@ -150,12 +157,9 @@
 							   
 								<br><br>
 							</fieldset>
-							<div id="botonP">
-										<input type="button"  class="button" id="subAdmit"  name="sbmtButton" value="Aceptar" style="margin-left:30%; margin-top: 5px;"/>
-							</div>	
-							
-							<div id="botonV" style="position:relative; margin-left: 250px; top: -22px;">
-									<input type="button" class="button" value="Regresar" style="margin-left:40%;" onClick="javascript:history.back();" style="margin-left:40%;" />		
+							<div id="botonV" style="position:relative;">
+									<input type="button"  class="button" id="subAdmit"  name="sbmtButton" value="Aceptar" style="margin-left:30%; margin-top: 5px;"/>
+									<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" style="margin-left:20px;" />		
 							</div>	
 				</form>
 			</div>

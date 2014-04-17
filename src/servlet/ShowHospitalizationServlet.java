@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import command.CommandExecutor;
+import domain.Hospitalization;
 
 
 
@@ -41,9 +42,17 @@ public class ShowHospitalizationServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		Long id = Long.valueOf(request.getParameter("id"));
 		RequestDispatcher rd;
-		rd = getServletContext().getRequestDispatcher("/showHospitalization.jsp");			
-		rd.forward(request, response);
+		try {
+			Hospitalization hosp = (Hospitalization) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetHospitalization(id));
+			request.setAttribute("hospitalization", hosp);
+			rd = getServletContext().getRequestDispatcher("/showHospitalization.jsp");			
+			rd.forward(request, response);
+		} 
+		catch (Exception e) {
+			throw new ServletException(e);
+		}
 	}
 
 	/**

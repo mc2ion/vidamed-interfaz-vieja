@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import command.CommandExecutor;
+import domain.DischargeType;
+import domain.Hospitalization;
 
 
 /**
@@ -39,8 +42,20 @@ public class ListHospitalizationsServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/hospitalization.jsp");
-		rd.forward(request, response);
+		RequestDispatcher rd;
+		try{
+			@SuppressWarnings("unchecked")
+			ArrayList<Hospitalization> hosp = (ArrayList<Hospitalization>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetHospitalizations());
+			request.setAttribute("hospitalizations", hosp);
+			@SuppressWarnings("unchecked")
+			ArrayList<DischargeType> disc = (ArrayList<DischargeType>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetDischargeTypes());
+			request.setAttribute("discharges", disc);
+			rd = getServletContext().getRequestDispatcher("/hospitalization.jsp");
+			rd.forward(request, response);
+		}catch(Exception e){
+			
+		}
+		
 	}
 	
 	/**

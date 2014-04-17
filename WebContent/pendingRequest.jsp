@@ -1,9 +1,20 @@
 <%@page import="domain.User"%>
+<%@page import="domain.PendingEstimationDiscount"%>
+<%@ page import="java.util.ArrayList" %>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
 	if (user != null)
 		name = user.getFirstName() ;
+	
+	String info_text = "";
+	String info = (String) session.getAttribute("info");
+	if (info != null ){
+		info_text = info;
+	}
+	session.removeAttribute("info");
+	@SuppressWarnings("unchecked")
+	ArrayList<PendingEstimationDiscount> pending  =  (ArrayList<PendingEstimationDiscount>) request.getAttribute("pending");
 %>
 <!DOCTYPE HTML>
 <html>
@@ -50,14 +61,14 @@
 	});
 	
 	function loadVars(var1, var2, var3) {
-		idUser = var1;
+		id = var1;
 		$('.cliente').text(var2);
 		$('.monto').text(var3);
 		
 	};
 	
 	function setV(f){
-		f.elements['userId'].value = idUser;
+		f.elements['id'].value = id;
 		return true;
 	}
 	</script>
@@ -90,7 +101,8 @@
         </div>        
 		<jsp:include page="./menu.jsp" />
 		<div id="content">  
-			<h2>Solicitudes Pendientes:</h2>
+			<h2>Solicitudes Pendientes:</h2><br/>
+			<div class="info-text"><%= info_text %></div>
 			<div id="dt_example">
 					<div id="container">
 						<div id="demo">
@@ -100,54 +112,41 @@
 										<th>ID</th>
 										<th>Paciente</th>
 										<th>Descuento</th>
-										<th>Protocolo</th>
+										<th># Presupuesto</th>
 										<th>Fecha</th>
 										<th>Acciones</th>
 									</tr>
 								</thead>
-								<tbody>			
+								<tbody>		
+									<% for (int i = 0; i < pending.size(); i++){
+										PendingEstimationDiscount estimation = pending.get(i);
+										Long id 		= estimation.getDiscountID();
+										String pacName 	= estimation.getFirstName() + " " + estimation.getLastName();
+										String amount 	= estimation.getAmount(); 
+									%>	
 									<tr class="gradeA">
-										<td>1001</td>
-										<td>Ana Rojas</td>
-										<td>Bs. 1000,00 </td>
-										<td>Histerectomía</td>
-										<td>17/06/2013</td>
+										<td><%= id %></td>
+										<td><%= pacName %></td>
+										<td><%= amount %></td>
+										<td><%= estimation.getEstimationID() %></td>
+										<td><%= estimation.getRequestDate() %></td>
 										<td>
-											<a href="ShowDiscountServlet" style="color: transparent" >
+											<a href="ShowDiscountServlet?discountId=<%= id %>" style="color: transparent" >
 												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 											</a>
 											<a id="go" rel="leanModal" href="#refreshUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1001,'Ana Rojas', '1000');" >
+												onclick="return loadVars(<%= id %>,'<%= pacName %>', '<%= amount %>');" >
 												<img alt="logo" src="./images/check.png"  height="16" width="16" title="Aceptar"/>
 											</a> 
 											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1001,'Ana Rojas','1000');" >
+												onclick="return loadVars(<%= id %>,'<%= pacName %>','<%= amount %>');" >
 												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Rechazar"/>
 											</a> 
 											<br>
 										</td>
 									</tr>
-									<tr class="gradeA">
-										<td>1002</td>
-										<td>Luis Mujica</td>
-										<td>Bs. 4000,00</td>
-										<td>Colecistectomía</td>
-										<td>17/06/2013</td>
-										<td>
-											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
-											</a>
-											<a id="go" rel="leanModal" href="#refreshUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1002,'Luis Mujica', '4000');" >
-												<img alt="logo" src="./images/check.png"  height="16" width="16" title="Aceptar"/>
-											</a> 
-											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1002,'Luis Mujica', '4000');" >
-												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Rechazar"/>
-											</a> 
-											<br>
-										</td>
-									</tr>
+									<% } %>
+								
 								</tbody>
 							</table>
 						</div>
@@ -164,10 +163,11 @@
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="ListRequestsServlet" method="post"  onsubmit="return setV(this)">
-					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+				<form action="DiscountActionServlet" method="post"  onsubmit="return setV(this)">
+					<input type="hidden" id="id" class="good_input" name="id"  value=""/>
+					<input type="hidden"  class="buttonPopUpDelete"  name="sbmtButton" value="Rechazar"  />
 					<div class="btn-fld">
-						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
+						<input type="submit"  class="buttonPopUpDelete"  name="button" value="Aceptar"  />
 					</div>
 		 		</form>
 			</div>
@@ -180,8 +180,8 @@
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="ListRequestsServlet" method="post"  onsubmit="return setV(this)">
-					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+				<form action="DiscountActionServlet" method="post"  onsubmit="return setV(this)">
+					<input type="hidden" id="id" class="good_input" name="id"  value=""/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
 					</div>

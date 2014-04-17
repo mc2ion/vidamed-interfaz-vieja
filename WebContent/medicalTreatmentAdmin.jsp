@@ -103,7 +103,7 @@
 										<td>Cirugía General</td>
 										<td>Frenuloplastia</td>
 										<td>
-											<a href="EditMedicalTreatmentServlet" style="color: transparent" >
+											<a href="EditMedicalTreatmentAdminServlet" style="color: transparent" >
 												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
 											</a>
 											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 

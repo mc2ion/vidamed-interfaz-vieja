@@ -1,29 +1,27 @@
+<%@page import="domain.MedicalTreatment"%>
 <%@page import="domain.User"%>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
 	if (user != null)
 		name = user.getFirstName() ;
+	
+	MedicalTreatment med = (MedicalTreatment) request.getAttribute("medical");
 %>
 <!DOCTYPE HTML>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-		<title>Editar Tratamiento Médico</title>
+		<title>Ver Tratamiento M&eacute;dico</title>
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css" />
-		<script src="./js/jquery-1.9.1.min.js"></script>
-	    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
-		<link rel="stylesheet" href="/resources/demos/style.css" />	
-		<script type="text/javascript" src="./js/formToWizard.js"></script>
-		<script type="text/javascript">
-		        $(document).ready(function(){
-		            $("#SignupForm").formToWizard({ submitButton: 'SaveAccount' })
-		        });
-		   </script>
-		<script type="text/javascript" src="./js/functions.js"></script>
-		
+	  	<script src="./js/jquery-1.9.1.min.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<script>
+			$(function() {
+				$( "#tabs" ).tabs();
+			});
+		</script>
 	</head>
 	<body>
 		<div id="container">
@@ -41,101 +39,73 @@
          	 </ul>
          </nav>        
 		<div id="menu">
-				<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
-		    	<ul>
-	            	<li class="menuitem"><a href="ListMedicalTreatmentsServlet">Ver Tratamientos</a></li>
-	            </ul>
+				<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>
+				<ul>
+	            	<li class="menuitem"><a href="ListEmergenciesServlet">Ver Emergencias</a></li>
+	              </ul>	
 				<div class="menuitemSalir"><a href="LogoutServlet">Salir</a></div>	
         	</div>        
 			 <jsp:include page="./menu.jsp" />
         	<div id="content" style="position:absolute;">	
-		       	<form id="SignupForm" action="ListAdmissionsServlet">
-		        	<fieldset id="field1">
-			            <legend>Información Básica</legend>
-			           <label for="name">Nombre:</label>
-						<input type="text" name="txtName" id="txtName" maxlength="50" size="5" value='Frenuloplastia'/> <br><br>
-						<label for="name">Descripción:</label>
-						<textarea name="txtDescription" id="txtDescription" rows="3" cols="50">Cirugía se realiza de forma ambulatoria con anestesia local y tiene una duración de 15 minutos.</textarea> <br><br>
-						<label for="name">Parecido A:</label>
-						<input type="button" name="txtSimilar" id="txtSimilar" value="Escoger"/> <br><br>
-						<label for="name">Tipo de Protocolo:</label>
-						<select id="typeOfProtocol">
-							<option value="A">Ambulatorio</option>
-							<option value="H" selected>No Ambulatorio</option>
-						</select>
-			        </fieldset>
-		       		<fieldset id="field4">
-			            <legend>Servicios Médicos</legend>
-			        	  <table class="table-simple">
-							    	<tr>
-							    		<td>Bancos de Sangre (Tipiaje)</td>
-							    		<td>Bs. 2270</td>
-							    	</tr>
-							    	<tr>
-							    		<td>Electrocardiograma (EKG)</td>
-							    		<td>Bs. 2270</td>
-							    	</tr>
-							    	<tr>
-							    		<td>Evaluación Cardiovascular pre-operatoria</td>
-							    		<td>Bs. 2270</td>
-							    	</tr>
-							    	<tr>
-							    		<td>Laboratorio Clínico</td>
-							    		<td>Bs. 2270</td>
-							    	</tr>
-							    	<tr>
-							    		<td>Rayos X</td>
-							    		<td>Bs. 2270</td>
-							    	</tr>
-						    </table>
-			        </fieldset>
-					<fieldset>
-			            <legend>Honorarios Médicos</legend>
-		        		<table class="table-simple">
-							    	<tr>
-							    		<td>Consulta Pre-anestésica</td>
-							    		<td></td>
-							    		<td>Bs. 2270</td>
-							    	</tr>
-						</table><br>
-						<div class="divisor"></div>
-						<h3>Personal Médico</h3>
-						<p class="button-par-doctors"> 
-			        		<input type ="button" value="Agregar Personal" class="buttonGray lessPadding"  onclick="addRowForDoctor('tableDoctors')"> 
-			        		<input type="button" value="Eliminar Personal" class="buttonGray lessPadding" onclick="deleteRowForDoctor('tableDoctors')">
-			        	</p> 
-	        			<table id="tableDoctors" class="sweetTable">
-							    	<tr>
-							    		<th style="width: 30%;">Personal</th>
-							    		<th style="width: 30%;">Cédula</th>
-							    		<th style="width: 20%;">Honorario</th>
-							    		<th style="width: 20%;">Seleccione para eliminar</th>
-							    	</tr>
-							    	<tr>
-							    		<td>Cirujano Principal</td>
-							    		<td>V-7103598</td>
-							    		<td>Bs. <input type="text" value="15000"></td>
-							    		<td><input type="checkbox"></td>
-							    	</tr>
-							    	<tr>
-							    		<td>Cirujano Ayudante I</td>
-							    		<td>V-123410</td>
-							    		<td>Bs. <input type="text" value="6000"></td>
-							    		<td><input type="checkbox"></td>
-							    	</tr>
-							    	<tr>
-							    		<td>Cirujano Ayudante Ii</td>
-							    		<td>V-7103598</td>
-							    		<td>Bs. <input type="text" value="4500"></td>
-							    		<td><input type="checkbox"></td>
-							    	</tr>
-							    </table>
-			        </fieldset>
-			        <p>
-			            <input id="SaveAccount" type="submit" class="button next" value="Editar Tratamiento" />
-			        </p>
-			        </form>
-				</div>
+	        	<h2>Ver Tratamiento M&eacute;dico:</h2>
+				<br>
+				<div id="tabs">
+					<ul>
+					    <li><a href="#tabs-1">Paciente</a></li>
+					    <li><a href="#tabs-2">Protocolos</a></li>
+					</ul>
+  					<div id="tabs-1">
+  						<div class="leftColumS"><b>Cédula: </b></div><%= med.getPatient().getIdentityCard() %><br>
+					   	<div class="leftColumS"><b>Nombre:</b></div><%= med.getPatient().getFirstName() + " " + med.getPatient().getLastName() %><br>
+					    <div class="leftColumS"><b>Fecha de Ingreso:</b></div><%= med.getAdmissionDate() %><br>
+					    <div class="leftColumS"><b>Ubicación:</b></div>
+					    <input type="text" name="ubication" id="ubication" value=" <%= med.getLocation().getName() %>" readonly><br>
+					    <div class="leftColumS"><b>Cama:</b></div> 
+					    <input type="text" name="bedId" id="bedId" value="<%= med.getBed().getName() %>" readonly>
+					    <a href="SearchBedsServlet?function=editMedicalTreatment" style="color: #f7941e; font-weight: bold;">
+							<input type="button"id="bedUbication"  style="margin-top: -25px;" value="Cambiar" >
+						</a> <br><br>
+					</div>
+  				<div id="tabs-2">
+  						<br>
+					   	<table id="sweetTable" style="margin-bottom: 10px;">
+					   		<tr style="background: rgb(136, 162, 190);">
+					   			<td>Nombre</td>
+					   			<td>Precio</td>
+					   			<td>Acción</td>
+					   		</tr>
+							<tr>
+					   			<td>Colocación de prótesis peneana</td>
+					   			<td>Bs. 14321,00</td>
+					   			<td>
+									<a href="ShowProtocolEmergencyDetailServlet" style="color: transparent" >
+												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
+									</a>
+								</td>
+					   		</tr>
+					   		<tr>
+					   			<td>Apendicectomía</td>
+					   			<td>Bs. 7680,00</td>
+					   			<td>
+									<a href="ShowProtocolEmergencyDetailServlet" style="color: transparent" >
+												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
+									</a>
+								</td>
+					   		</tr>
+					   	</table>
+					</div>
+  				</div>
+				<div id="botonera">
+					<form action="PrintEmergencyServlet">
+						<div id="botonP" style="display: inline; margin-right: 30px;">
+									<input type="submit"  class="button"  name="sbmtButton" value="Imprimir" />
+						</div>	
+						<div id="botonV" style="display: inline;">
+								<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
+						</div>	
+					</form>
+				</div><br>
 			</div>
+		</div>
 	</body>
 </html>

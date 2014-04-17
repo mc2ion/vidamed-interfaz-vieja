@@ -27,7 +27,6 @@
 	  	<script src="./js/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		<script type="text/javascript"  src="./js/jquery.leanModal.min.js"></script>
-		<link rel="stylesheet" href="/resources/demos/style.css" />
 		<script>
 			$(function() {
 				$( "#tabs" ).tabs();
@@ -132,13 +131,13 @@
         	<div id="content" style="position:absolute;">	
 	        	<h2>Crear Paciente:</h2>
 				<br>
+				<form action="CreatePatientServlet" method="post">
 				<div id="tabs">
 					<ul>
 					    <li><a href="#tabs-1">Datos Personales</a></li>
 					    <li><a href="#tabs-2">Datos de Contacto</a></li>
 					  
 			  		</ul>
-					<form action="CreatePatientServlet" method="post">
 					<input type="hidden" name="function"  value="<%= function %>" />
 					<div id="tabs-1">
   						<br>
@@ -217,16 +216,17 @@
 						 		</div>
 						 </fieldset>
   					</div>
-  					<div id="botonera">
-						<div id="botonP" style="display: inline; margin-right: 30px;">
-									<input type="submit"  class="button"  name="sbmtButton" value="Agregar" />
-						</div>	
-						<div id="botonV" style="display: inline;">
-								<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
-						</div>	
-					</div>
-				</form>
+  			</div>
+			<div id="botonera" style="position: absolute; bottom: 30px;text-align:center; width: 100%;">
+				<div id="botonP" style="display: inline; margin-right: 30px;">
+							<input type="submit"  class="button"  name="sbmtButton" value="Agregar" />
+				</div>	
+				<div id="botonV" style="display: inline;">
+						<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
+				</div>	
 			</div>
+		</form>
+			
 		</div>
 		</div>
 		<div id="refreshUser">

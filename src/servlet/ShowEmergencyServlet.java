@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import command.CommandExecutor;
+import domain.Emergency;
 
 
 
@@ -40,10 +41,18 @@ public class ShowEmergencyServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		Long id = Long.valueOf(request.getParameter("id"));
 		RequestDispatcher rd;
-		rd = getServletContext().getRequestDispatcher("/showEmergency.jsp");			
-		rd.forward(request, response);
+		try {
+			Emergency emergency = (Emergency) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEmergency(id));
+			request.setAttribute("emergency", emergency);
+			rd = getServletContext().getRequestDispatcher("/showEmergency.jsp");			
+			rd.forward(request, response);
+		} 
+		catch (Exception e) {
+			throw new ServletException(e);
+		}
+		
 	}
 
 	/**

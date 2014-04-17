@@ -1,9 +1,28 @@
+<%@page import="domain.DischargeType"%>
+<%@page import="domain.MedicalTreatment"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="domain.User"%>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
 	if (user != null)
 		name = user.getFirstName() ;
+	@SuppressWarnings("unchecked")
+	ArrayList<MedicalTreatment> med  =  (ArrayList<MedicalTreatment>) request.getAttribute("medical");
+
+	
+	String info_text = "";
+	String info = (String) session.getAttribute("info");
+	if (info != null ){
+		info_text = info;
+	}
+	session.removeAttribute("info");
+	
+	@SuppressWarnings("unchecked")
+	ArrayList<DischargeType> disc  =  (ArrayList<DischargeType>) request.getAttribute("discharges");
+	
+
+	
 %>
 <!DOCTYPE HTML>
 <html>
@@ -56,7 +75,7 @@
 	};
 	
 	function setV(f){
-		f.elements['userId'].value = idUser;
+		f.elements['userID'].value = idUser;
 		return true;
 	}
 	</script>
@@ -83,7 +102,8 @@
         </div>        
 		 <jsp:include page="./menu.jsp" />
 		<div id="content">  
-			<h2>Tratamiento M&eacute;dico:</h2>
+			<h2>Tratamiento M&eacute;dico:</h2><br/>
+			<div class="info-text"><%= info_text %></div>
 			<div id="dt_example">
 					<div id="container">
 						<div id="demo">
@@ -98,101 +118,43 @@
 										<th>Acciones</th>
 									</tr>
 								</thead>
-								<tbody>			
+								<tbody>		
+									<% for (int i=0; i< med.size(); i++){
+										MedicalTreatment m = med.get(i);
+										String patName = m.getPatient().getFirstName() + " " + m.getPatient().getLastName();
+									%>	
 									<tr class="gradeA">
-										<td>1001</td>
-										<td>Ana Rojas</td>
-										<td>Planta Baja</td>
-										<td>Camilla 1</td>
-										<td>20/06/2013 07:35</td>
+										<td><%= m.getId() %></td>
+										<td><%= patName %></td>
+										<td><%= m.getLocation().getName() %></td>
+										<td><%= m.getBed().getName() %></td>
+										<td><%= m.getAdmissionDate() %></td>
 										<td>
-											<a href="ShowEmergencyServlet" style="color: transparent" >
+											<a href="ShowMedicalTreatmentServlet?id=<%= m.getId() %>" style="color: transparent" >
 												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 											</a>
-											<a href="EditEmergencyServlet" style="color: transparent" >
+											<a href="EditMedicalTreatmentServlet?id=<%= m.getId() %>" style="color: transparent" >
 												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
 											</a>
 											<a id="go" rel="leanModal" href="#dischargeUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1001,'Ana Rojas');" >
+												onclick="return loadVars(<%= m.getId() %>,'<%= patName %>');" >
 												<img alt="logo" src="./images/check.png"  height="16" width="16" title="Dar de Alta" />
 											</a>
 											<a id="go" rel="leanModal" href="#hospitalizeUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1001,'Ana Rojas');" >
+												onclick="return loadVars(<%= m.getId() %>,'<%= patName %>');" >
 												<img alt="logo" src="./images/hospitalize.png"  height="18" width="18" title="Hospitalizar"/>
 											</a> 
 											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1001,'Ana Rojas');" >
+												onclick="return loadVars(<%= m.getId() %>,'<%= patName %>');" >
 												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
 											</a> 
-											<a href="PrintStatementServlet" style="color: transparent" >
+											<a href="PrintStatementServlet?id=<%= m.getId() %>" style="color: transparent" >
 												<img alt="logo" src="./images/movements.png"  height="16" width="16" title="Corte de Cuenta" />
 											</a>
 											<br>
 										</td>
 									</tr>
-									<tr class="gradeA">
-										<td>1002</td>
-										<td>Luis Mujica</td>
-										<td>Planta Baja</td>
-										<td>Cupo 6</td>
-										<td>20/06/2013 08:42</td>
-										<td>
-											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
-											</a>
-											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
-											</a>
-											<a id="go" rel="leanModal" href="#dischargeUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1002,'Luis Mujica');" >
-												<img alt="logo" src="./images/check.png"  height="16" width="16" title="Dar de Alta" />
-											</a>
-											<a id="go" rel="leanModal" href="#hospitalizeUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1002,'Luis Mujica');" >
-												<img alt="logo" src="./images/hospitalize.png"  height="18" width="18" title="Hospitalizar"/>
-											</a> 
-											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1002,'Luis Mujica');" >
-												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-											</a> 
-											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/movements.png"  height="16" width="16" title="Corte de Cuenta" />
-											</a>
-											<br>
-										</td>
-									</tr>
-									<tr class="gradeA">
-										<td>1003</td>
-										<td>Miguel Álvarez</td>
-										<td>Planta Baja</td>
-										<td>Camilla 17</td>
-										<td>20/06/2013 08:55</td>
-										<td>
-											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
-											</a>
-											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
-											</a>
-											<a id="go" rel="leanModal" href="#dischargeUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1003,'Miguel Álvarez');" >
-												<img alt="logo" src="./images/check.png"  height="16" width="16" title="Dar de Alta" />
-											</a>
-											<a id="go" rel="leanModal" href="#hospitalizeUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1003,'Miguel Álvarez');" >
-												<img alt="logo" src="./images/hospitalize.png"  height="18" width="18" title="Hospitalizar"/>
-											</a> 
-											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1003,'Miguel Álvarez');" >
-												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-											</a> 
-											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/movements.png"  height="16" width="16" title="Corte de Cuenta" />
-											</a>
-											
-											<br>
-										</td>
-									</tr>
+									<% } %>	
 								</tbody>
 							</table>
 						</div>
@@ -203,15 +165,16 @@
        	</div>
 		<div id="deleteUser">
 			<div id="signup-ct">
-				<h3 id="see_id" class="sprited" > Eliminar Emergencia</h3>
+				<h3 id="see_id" class="sprited" > Eliminar Tratamiento Médico</h3>
 				<br><br>
-				<span>¿Está seguro que desea eliminar del sistema la emergencia de <span class="cliente"></span>? </span> <br><br>
+				<span>¿Está seguro que desea eliminar del sistema el tratamiento médico de <span class="cliente"></span>? </span> <br><br>
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="ListEmergenciesServlet" method="post"  onsubmit="return setV(this)">
-					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
-					<div class="btn-fld">
+				<form action="RemoveAdmissionServlet" method="post"  onsubmit="return setV(this)">
+					<input type="hidden" id="userID" class="good_input" name="userID"  value=""/>
+					<input type="hidden" id="function" class="good_input" name="function"  value="treatment"/>
+						<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
 					</div>
 		 		</form>
@@ -225,15 +188,16 @@
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="ListEmergenciesServlet" method="post"  onsubmit="return setV(this)">
-					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+				<form action="DischargePatientServlet" method="post"  onsubmit="return setV(this)">
+					<input type="hidden" id="userID" class="good_input" name="userID"  value=""/>
+					<input type="hidden" id="function" class="good_input" name="function"  value="treatment"/>
 					Indique Razón: 
-					<select>
-						<option value="1">Alta Administrativa</option>
-						<option value="2">Alta Médica</option>
-						<option value="3">Alta por Defunción</option>
-						<option value="4">Alta por Traslado</option>
-						<option value="4">Alta Contraindicaci&oacute;n M&eacute;dica</option>
+					<select name="dischargeID">
+						<% for (int i=0; i< disc.size(); i++){ 
+							DischargeType dType = disc.get(i);
+						%>
+						<option value="<%= dType.getId() %>"><%= dType.getName() %></option>
+						<% } %>
 					</select>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />

@@ -1,9 +1,25 @@
+<%@page import="domain.AdmissionStatus"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="domain.Admission"%>
 <%@page import="domain.User"%>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
 	if (user != null)
 		name = user.getFirstName() ;
+	
+	@SuppressWarnings("unchecked")
+	ArrayList<Admission> admissionList  =  (ArrayList<Admission>) request.getAttribute("admissions");
+	@SuppressWarnings("unchecked")
+	ArrayList<AdmissionStatus> admissionStatus = (ArrayList<AdmissionStatus>) request.getAttribute("status");
+	
+	String info_text = "";
+	String info = (String) session.getAttribute("info");
+	if (info != null ){
+		info_text = info;
+	}
+	session.removeAttribute("info");
+	
 %>
 <!DOCTYPE HTML>
 <html>
@@ -55,9 +71,8 @@
 		$('.cliente').text(var2);
 		
 	};
-	
 	function setV(f){
-		f.elements['userId'].value = idUser;
+		f.elements['userID'].value = idUser;
 		return true;
 	}
 	
@@ -89,7 +104,8 @@
         </div>        
 		 <jsp:include page="./menu.jsp" />
 		<div id="content">  
-			<h2>Admisión:</h2>
+			<h2>Admisión:</h2><br/>
+			<div class="info-text"><%= info_text %></div>
 			<div id="dt_example">
 					<div id="container">
 						<div id="demo">
@@ -105,71 +121,41 @@
 										<th>Acciones</th>
 									</tr>
 								</thead>
-								<tbody>			
+								<tbody>		
+									<%
+										for (int i = 0; i< admissionList.size(); i++){ 
+											Admission admin = admissionList.get(i);
+											int isAdult = admin.getIsAdult();
+											String type = "Pediátrico";
+											if (isAdult == 1)
+												type = "Adulto";
+											Long id = admin.getAdmissionID() ;
+											String patient = admin.getFirstName() + " " + admin.getLastName() ;
+									%>
 									<tr class="gradeA">
-										<td>1001</td>
-										<td>Ana Rojas</td>
-										<td>Adulto</td>										
-										<td>Multinacional de Seguros</td>
-										<td>Esperando Clave</td>
-										<td>Emergencias</td>
+										<td><%= id %></td>
+										<td><%= patient %></td>
+										<td><%= type %></td>										
+										<td><%= admin.getResponsibleName() %></td>
+										<td><%= admin.getStatusName() %></td>
+										<td><%= admin.getReasonName() %></td>
 										<td>
-											<a id="go" rel="leanModal" href="#editStatus" style="color: #f7941e; font-weight: bold;" >
+											<a id="go" rel="leanModal" href="#editStatus" style="color: #f7941e; font-weight: bold;"
+											onclick="return loadVars(<%= id %>,'<%= patient %>');">
 												<img alt="logo" src="./images/edit.png" height="16" width="16" title="Eliminar"/>
 											</a> 
-											<a href="ShowAdmissionServlet" style="color: transparent" >
+											<a href="ShowAdmissionServlet?id=<%= id %>" style="color: transparent" >
 												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 											</a>
 											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1001,'Ana Rojas');" >
+												onclick="return loadVars(<%= id %>,'<%= patient %>');" >
 												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
 											</a> 
 											<br>
 										</td>
 									</tr>
-									<tr class="gradeA">
-										<td>1002</td>
-										<td>Luis Mujica</td>
-										<td>Pedi&aacute;trico</td>	
-										<td>La Previsora</td>
-										<td>Esperando Clave</td>
-										<td>Hospitalización</td>
-										<td>
-											<a id="go" rel="leanModal" href="#editStatus" style="color: #f7941e; font-weight: bold;" >
-												<img alt="logo" src="./images/edit.png" height="16" width="16" title="Eliminar"/>
-											</a> 
-											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
-											</a>
-											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1001,'Ana Rojas');" >
-												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-											</a> 
-											<br>
-										</td>
-									</tr>
-									<tr class="gradeA">
-										<td>1003</td>
-										<td>Miguel Álvarez</td>
-										<td>Pedi&aacute;trico</td>	
-										<td>Seguros Caroní</td>
-										<td>Denegado</td>
-										<td>Emergencias</td>
-										<td>
-											<a id="go" rel="leanModal" href="#editStatus" style="color: #f7941e; font-weight: bold;" >
-												<img alt="logo" src="./images/edit.png" height="16" width="16" title="Eliminar"/>
-											</a> 
-											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
-											</a>
-											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1001,'Ana Rojas');" >
-												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-											</a> 
-											<br>
-										</td>
-									</tr>
-								</tbody>
+									<% } %>
+									</tbody>
 							</table>
 						</div>
 					</div>
@@ -185,8 +171,9 @@
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="ListAdmissionsServlet" method="post"  onsubmit="return setV(this)">
-					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+				<form action="RemoveAdmissionServlet" method="post"  onsubmit="return setV(this)">
+					<input type="hidden" id="userID" class="good_input" name="userID"  value=""/>
+					<input type="hidden" id="function" class="good_input" name="function"  value="admission"/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
 					</div>
@@ -198,23 +185,22 @@
 				<h3 id="see_id" class="sprited" > Editar Status</h3>
 				<br><br>
 				<span>Seleccione el nuevo status</span> <br><br>
-				<form id="gastos" style="text-align: center">
-					<select>
-						<option value="-">Seleccionar</option>
-						<option value="A">Aceptado</option>
-						<option value="D">Denegado</option>
-						<option value="E">Esperando Clave</option>
-						<option value="O">Otro</option>
+				<form action="EditAdmissionStatusServlet" method="post" onsubmit="return setV(this)" id="gastos" style="text-align: center">
+					<input type="hidden" id="userID" class="good_input" name="userID"  value=""/>
+					<select name="status">
+					<option value="-">Seleccionar</option>
+					<% for (int i = 0; i < admissionStatus.size(); i++){
+						AdmissionStatus status = admissionStatus.get(i);
+						%>
+						<option value="<%= status.getId() %>"><%= status.getName() %></option>
+					<% } %>
 					</select>
-				</form>
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="ListEmergenciesServlet" method="post"  onsubmit="return setV(this)">
-					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
-					<div class="btn-fld">
-						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
-					</div>
+				<div class="btn-fld">
+					<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
+				</div>
 		 		</form>
 			</div>
 		</div>

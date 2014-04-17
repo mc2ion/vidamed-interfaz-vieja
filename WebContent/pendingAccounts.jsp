@@ -4,6 +4,8 @@
 	String name = "";
 	if (user != null)
 		name = user.getFirstName() ;
+	
+	
 %>
 <!DOCTYPE HTML>
 <html>

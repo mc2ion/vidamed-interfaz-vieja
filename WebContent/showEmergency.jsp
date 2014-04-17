@@ -1,9 +1,12 @@
+<%@page import="domain.Emergency"%>
 <%@page import="domain.User"%>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
 	if (user != null)
 		name = user.getFirstName() ;
+	
+	Emergency emergency = (Emergency) request.getAttribute("emergency");
 %>
 <!DOCTYPE HTML>
 <html>
@@ -14,7 +17,6 @@
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css" />
 	  	<script src="./js/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-		<link rel="stylesheet" href="/resources/demos/style.css" />
 		<script>
 			$(function() {
 				$( "#tabs" ).tabs();
@@ -53,15 +55,12 @@
 					    <li><a href="#tabs-2">Protocolos</a></li>
 					</ul>
   					<div id="tabs-1">
-  						<br>
-					    <p>
-					    Cédula: V-12345678<br><br>
-					    Nombre: Ana Rojas<br><br>
-					    Fecha de Ingreso: 20/06/2013 07:35 AM<br><br>
-					    Ubicación: Planta Baja<br><br>
-					    Cama: Camilla 1<br><br>
-					    </p>
-  					</div>
+  						<div class="leftColumS"><b> Cédula: </b></div><%= emergency.getPatient().getIdentityCard() %><br>
+					   	<div class="leftColumS"><b>Nombre:</b></div><%= emergency.getPatient().getFirstName() + " " + emergency.getPatient().getLastName() %><br>
+					    <div class="leftColumS"><b>Fecha de Ingreso:</b></div><%= emergency.getAdmissionDate() %><br>
+					    <div class="leftColumS"> <b>Ubicación:</b></div><%= emergency.getLocation().getName() %><br>
+					    <div class="leftColumS"> <b>Cama:</b></div><%= emergency.getBed().getName() %><br>
+					</div>
   				<div id="tabs-2">
   						<br>
 					   	<table id="sweetTable" style="margin-bottom: 10px;">

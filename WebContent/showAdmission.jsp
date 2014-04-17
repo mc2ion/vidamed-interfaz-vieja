@@ -1,9 +1,12 @@
+<%@page import="domain.Admission"%>
 <%@page import="domain.User"%>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
 	if (user != null)
 		name = user.getFirstName() ;
+	
+	Admission admission = (Admission) request.getAttribute("admission");
 %>
 <!DOCTYPE HTML>
 <html>
@@ -40,12 +43,15 @@
 	        	<h2>Ver Admisión:</h2>
 				<br>
 				<div style="text-align:left;">
-				    <div class="leftColum"><b> Cédula: </b></div> V-12345678<br><br>
-				   	<div class="leftColum"> <b> Nombre: </b></div> Ana Rojas<br><br>
-				   	<div class="leftColum"> <b> Responsable del Pago: </b></div> Multinacional de Seguros, C.A.<br><br>
-				    <div class="leftColum"><b> Motivo de Admisión: </b></div> Dolor abdominal<br><br>
-				    <div class="leftColum"><b>Ubicación: </b></div> Emergencias<br><br>
-				    <div class="leftColum"><b>N° Presupuesto:  </b></div>1001
+				    <div class="leftColum"><b> Cédula: </b></div> <%= admission.getIdentityCard() %><br><br>
+				   	<div class="leftColum"><b> Nombre: </b></div> <%= admission.getFirstName() + " " + admission.getLastName() %><br><br>
+				   	<div class="leftColum"><b> Responsable del Pago: </b></div> <%= admission.getResponsibleName() %><br><br>
+				    <div class="leftColum"><b> Motivo de Admisión: </b></div> <%= admission.getReasonName() %><br><br>
+				    <div class="leftColum"><b>N° Presupuesto:  </b></div><%= admission.getEstimationID() %><br><br>
+				    <div class="leftColum"><b>Fecha Admisi&oacute;n:  </b></div><%= admission.getAdmissionDate() %><br><br>
+				    <div class="leftColum"><b>Observaciones:  </b></div><%= admission.getObservation() %>
+				    
+				  
 				    <a href="ShowEstimationServlet?function=showAdmission" style="color: transparent" >
 						<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 					</a>

@@ -68,14 +68,11 @@ public class CreatePatientServlet extends HttpServlet {
 				
 				
 			}else{
-			
-				
 				String isAdultS = request.getParameter("isAdult");
 				int isAdult = 0;
 				if (isAdultS != null){
 					isAdult = Integer.valueOf(isAdultS);
 				}
-				System.out.println("isAdult " + isAdult);
 				
 				String identityCard = request.getParameter("txtCedId") + request.getParameter("txtCedIdNum");
 				String firstName	 = request.getParameter("txtFirstName");
@@ -86,7 +83,7 @@ public class CreatePatientServlet extends HttpServlet {
 				String email 		 = request.getParameter("txtEmail");
 				String function  	 = request.getParameter("function");
 				
-				System.out.println("ced " + identityCard + " "+ firstName + " " + lastName + " " + birthday + " " + gender + " " +  address + " " + email + " " + function );
+				//System.out.println("ced " + identityCard + " "+ firstName + " " + lastName + " " + birthday + " " + gender + " " +  address + " " + email + " " + function );
 				
 				Long userID = (Long) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddPatient(identityCard, isAdult, firstName, lastName, birthday, gender, address, email));
 				
@@ -94,16 +91,22 @@ public class CreatePatientServlet extends HttpServlet {
 					String type = request.getParameter("txtType" + i); 
 					String phoneNumber = request.getParameter("txtPhoneNumber" + i); 
 					if (phoneNumber != null && !phoneNumber.trim().equals("")) {
-						System.out.println("phone " + type + " "+ phoneNumber);
-						
 						CommandExecutor.getInstance().executeDatabaseCommand(new command.AddPatientPhoneNumber(userID, type, phoneNumber));
 					}
 				}
 				// Ir a la seccion de la cual venia el usuario y pasar la informacion del usuario
+				System.out.println("func " + function);
 				if (function.equals("estimation")){
 					rd = getServletContext().getRequestDispatcher("/CreateEstimationServlet");			
 					rd.forward(request, response);
+				}else if(function.equals("admision")){
+					request.setAttribute("identityCard", identityCard);
+					request.setAttribute("txtFirstName", firstName);
+					request.setAttribute("txtLastName", lastName);
+					rd = getServletContext().getRequestDispatcher("/AdmitPatientServlet");			
+					rd.forward(request, response);
 				}
+					
 			}
 		}catch(Exception e ){
 			System.out.print(e.getMessage());

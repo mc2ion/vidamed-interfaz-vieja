@@ -1,16 +1,22 @@
-<%@page import="domain.User"%>
+<%@page import="domain.Admission"%>
+<%@ page import="domain.User" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.HashMap" %>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
 	if (user != null)
 		name = user.getFirstName() ;
+	@SuppressWarnings("unchecked")
+	ArrayList<Admission> admiList = (ArrayList<Admission>)request.getAttribute("admissions");
+	
 %>
 <!DOCTYPE HTML>
 <html>
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-	<title>Informes Rayos X</title>
+	<title>Rayos X</title>
 	<script type="text/javascript" src="./js/jquery.js"></script>
 	<script type="text/javascript" src="./js/jquery.dataTables.js"></script>
 	<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
@@ -22,7 +28,6 @@
 			"sScrollY": "250px",
 			"bPaginate": false,
 			"aoColumns": [
-				null,
 				null,
 				null,
 				null,
@@ -85,7 +90,7 @@
         </div>        
 		<jsp:include page="./menu.jsp" />
 		<div id="content">  
-			<h2>Informes Rayos X:</h2>
+			<h2>Rayos X:</h2>
 			<div id="dt_example">
 					<div id="container">
 						<div id="demo">
@@ -94,44 +99,26 @@
 									<tr>
 										<th>ID</th>
 										<th>Paciente</th>
-										<th>Estudio</th>
-										<th>Fecha</th>
+										<th>Estado</th>
 										<th>Acciones</th>
 									</tr>
-								</thead>
 								<tbody>			
+									<% for (int i = 0; i < admiList.size(); i++){ 
+										Admission admi = admiList.get(i);
+										String patName = admi.getFirstName() + " " + admi.getLastName();
+									%>
 									<tr class="gradeA">
-										<td>1001</td>
-										<td>María Bencomo</td>
-										<td>Radiografía Torácica</td>										
-										<td>01/11/2013</td>
+										<td><%= admi.getAdmissionID() %></td>
+										<td><%= patName %></td>
+										<td><%= admi.getReasonName() %></td>
 										<td>
-											<a href="EditXRayReportServlet" style="color: transparent" >
-												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
+											<a href="ListPatientSuppliesServlet?id=<%= admi.getAdmissionID() %>&servId=1" style="color: transparent" >
+												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Agregar Suministro" />
 											</a>
-											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1001,'María Bencomo');" >
-												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-											</a> 
 											<br>
 										</td>
 									</tr>
-									<tr class="gradeA">
-										<td>1002</td>
-										<td>José Iglesias</td>										
-										<td>Radiografía Abdominal</td>										
-										<td>03/11/2013</td>
-										<td>
-											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
-											</a>
-											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1002,'José Iglesias');" >
-												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-											</a> 
-											<br>
-										</td>
-									</tr>
+									<% } %>
 								</tbody>
 							</table>
 						</div>

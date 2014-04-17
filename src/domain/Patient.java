@@ -7,7 +7,9 @@ public class Patient {
 	private String firstName;
 	private String lastName;
 	private String identityCard;
-	
+	private long numEstimation;
+	private long estimationPaymentResponsibleId;
+	private String estimationResponsibleName;
 	
 	public Long getPatientID() {
 		return patientID;
@@ -48,6 +50,30 @@ public class Patient {
 	
 	public void setIsAdult(int isAdult) {
 		this.isAdult = isAdult;
+	}
+	
+	public Long getEstimationID() {
+		return numEstimation;
+	}
+	
+	public void setEstimationID(Long numEstimation) {
+		this.numEstimation = numEstimation;
+	}
+	
+	public void setPaymentResponsibleId(long paymentResponsibleId) {
+		this.estimationPaymentResponsibleId = paymentResponsibleId;
+	}
+	
+	public long getPaymentResponsibleId() {
+		return estimationPaymentResponsibleId;
+	}
+	
+	public void setResponsibleName(String responsibleName) {
+		this.estimationResponsibleName = responsibleName;
+	}
+
+	public String getResponsibleName() {
+		return estimationResponsibleName;
 	}
 	
 }

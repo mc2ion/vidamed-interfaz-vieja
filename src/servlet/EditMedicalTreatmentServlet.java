@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import command.CommandExecutor;
+import domain.MedicalTreatment;
 
 
 
@@ -41,9 +42,17 @@ public class EditMedicalTreatmentServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		Long id = Long.valueOf(request.getParameter("id"));
 		RequestDispatcher rd;
-		rd = getServletContext().getRequestDispatcher("/editMedicalTreatment.jsp");			
-		rd.forward(request, response);
+		try {
+			MedicalTreatment med = (MedicalTreatment) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetMedicalTreatment(id));
+			request.setAttribute("medical", med);
+			rd = getServletContext().getRequestDispatcher("/editMedicalTreatment.jsp");			
+			rd.forward(request, response);
+		} 
+		catch (Exception e) {
+			throw new ServletException(e);
+		}
 	}
 
 	/**

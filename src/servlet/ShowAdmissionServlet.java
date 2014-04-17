@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import command.CommandExecutor;
+import domain.Admission;
 
 
 
@@ -45,9 +46,20 @@ public class ShowAdmissionServlet extends HttpServlet {
 		String function = request.getParameter("function");
 		if (function != null)
 			rd = getServletContext().getRequestDispatcher("/showAdmission.jsp?function=" + function);			
-		else
-			rd = getServletContext().getRequestDispatcher("/showAdmission.jsp");			
-		rd.forward(request, response);
+		else{
+			try {
+				Long id = Long.parseLong(request.getParameter("id"));
+				Admission admission = (Admission) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetAdmission(id));
+				request.setAttribute("admission", admission);
+				rd = getServletContext().getRequestDispatcher("/showAdmission.jsp");			
+				rd.forward(request, response);
+			} 
+			catch (Exception e) {
+				throw new ServletException(e);
+			}
+		}
+		
+		
 	}
 
 	/**

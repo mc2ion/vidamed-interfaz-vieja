@@ -1,9 +1,15 @@
-<%@page import="domain.User"%>
+<%@page import="domain.Admission"%>
+<%@ page import="domain.User" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.HashMap" %>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
 	if (user != null)
 		name = user.getFirstName() ;
+	@SuppressWarnings("unchecked")
+	ArrayList<Admission> admiList = (ArrayList<Admission>)request.getAttribute("admissions");
+	
 %>
 <!DOCTYPE HTML>
 <html>
@@ -95,10 +101,14 @@
 									</tr>
 								</thead>
 								<tbody>			
+									<% for (int i = 0; i < admiList.size(); i++){ 
+										Admission admi = admiList.get(i);
+										String patName = admi.getFirstName() + " " + admi.getLastName();
+									%>
 									<tr class="gradeA">
-										<td>1001</td>
-										<td>Luis Rojas</td>
-										<td>Emergencia</td>
+										<td><%= admi.getAdmissionID() %></td>
+										<td><%= patName %></td>
+										<td><%= admi.getReasonName() %></td>
 										<td>
 											<a href="" style="color: transparent" >
 												<img alt="logo" src="./images/add.png"  height="16" width="16" title="Agregar Suministro" />
@@ -106,28 +116,7 @@
 											<br>
 										</td>
 									</tr>
-									<tr class="gradeA">
-										<td>1002</td>
-										<td>Pedro Ramirez</td>
-										<td>Hospitalizaci&oacute;n</td>
-										<td>
-											<a href="" style="color: transparent" >
-												<img alt="logo" src="./images/add.png"  height="16" width="16" title="Agregar Suministro" />
-											</a>
-											<br>
-										</td>
-									</tr>
-									<tr class="gradeA">
-										<td>1003</td>
-										<td>Carlos Lugo</td>
-										<td>Emergencia</td>
-										<td>
-											<a href="" style="color: transparent" >
-												<img alt="logo" src="./images/add.png"  height="16" width="16" title="Agregar Suministro" />
-											</a>
-											<br>
-										</td>
-									</tr>
+									<% } %>
 								</tbody>
 							</table>
 						</div>

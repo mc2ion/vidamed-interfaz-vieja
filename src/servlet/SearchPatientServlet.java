@@ -47,28 +47,50 @@ public class SearchPatientServlet extends HttpServlet {
 		String cedType 		= request.getParameter("txtCedId"); 
 		String cedNum 		= request.getParameter("txtCedIdNum"); 
 		String identityCard = cedType + cedNum;
+		String estimationNumber = request.getParameter("estimation");
+		System.out.println("a " + estimationNumber);
 		
-		Patient p = null;
-		try {
-			p = (Patient) CommandExecutor.getInstance().executeDatabaseCommand(new command.SearchPatient(identityCard, patientType));
-			
-			if (p == null){
-				response.setContentType("text/plain");  
-				response.setCharacterEncoding("UTF-8"); 
-				response.getWriter().write("not found"); 
-			}else{
-				response.setContentType("text/plain");  
-				response.setCharacterEncoding("UTF-8"); 
-				String patient = p.getPatientID() + "/" + p.getIdentityCard() + "/" + p.getFirstName() + "/" + p.getLastName();
-				response.getWriter().write(patient); 
+		// Si tengo el numero de presupuesto busco por el.
+		if (estimationNumber != null && estimationNumber != ""){
+			Patient patient  = null;
+			try {
+				patient = (Patient) CommandExecutor.getInstance().executeDatabaseCommand(new command.SearchNumEstimation(estimationNumber));
+				
+				if (patient == null){
+					response.setContentType("text/plain");  
+					response.setCharacterEncoding("UTF-8"); 
+					response.getWriter().write("not found"); 
+				}else{
+					response.setContentType("text/plain");  
+					response.setCharacterEncoding("UTF-8"); 
+					String resp = patient.getPatientID() + "/" + patient.getIdentityCard() + "/" + patient.getFirstName() + "/" + patient.getLastName() +
+									  patient.getEstimationID() + "/" + patient.getPaymentResponsibleId() + "/" + patient.getResponsibleName();
+					response.getWriter().write(resp); 
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
+		}else{
+			Patient p = null;
+			try {
+				p = (Patient) CommandExecutor.getInstance().executeDatabaseCommand(new command.SearchPatient(identityCard, patientType));
+				
+				if (p == null){
+					response.setContentType("text/plain");  
+					response.setCharacterEncoding("UTF-8"); 
+					response.getWriter().write("not found"); 
+				}else{
+					response.setContentType("text/plain");  
+					response.setCharacterEncoding("UTF-8"); 
+					String patient = p.getPatientID() + "/" + p.getIdentityCard() + "/" + p.getFirstName() + "/" + p.getLastName();
+					response.getWriter().write(patient); 
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		
-		
-		
 	}
 
 	/**

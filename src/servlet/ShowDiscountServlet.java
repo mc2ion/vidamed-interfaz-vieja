@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import command.CommandExecutor;
+import domain.PendingEstimationDiscount;
 
 
 
@@ -40,10 +41,17 @@ public class ShowDiscountServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		RequestDispatcher rd;
-		rd = getServletContext().getRequestDispatcher("/showDiscount.jsp");			
-		rd.forward(request, response);
+		try {
+			Long id = Long.parseLong(request.getParameter("discountId"));
+			RequestDispatcher rd;
+			PendingEstimationDiscount discount = (PendingEstimationDiscount) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEstimationDiscount(id));
+			request.setAttribute("discount", discount);
+			rd = getServletContext().getRequestDispatcher("/showDiscount.jsp");			
+			rd.forward(request, response);
+		} 
+		catch (Exception e) {
+			throw new ServletException(e);
+		}
 	}
 
 	/**
