@@ -1,15 +1,13 @@
-<%@page import="domain.User"%>
+<%@ page import="domain.CashBox" %>
+<%@ page import="domain.User"%>
+<%@ page import="java.util.ArrayList" %>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
 	if (user != null)
 		name = user.getFirstName() ;
-%>
-<%@ page import="domain.CashBox" %>
-<%@ page import="java.util.ArrayList" %>
-<%
-@SuppressWarnings("unchecked")
-ArrayList<CashBox> cashBoxes = (ArrayList<CashBox>)request.getAttribute("cashBoxes");
+	@SuppressWarnings("unchecked")
+	ArrayList<CashBox> cashBoxes = (ArrayList<CashBox>)request.getAttribute("cashBoxes");
 %>
 <!DOCTYPE HTML>
 <html>
@@ -49,19 +47,22 @@ ArrayList<CashBox> cashBoxes = (ArrayList<CashBox>)request.getAttribute("cashBox
 	</script>
 	<script type="text/javascript">
 	var idCashBox;
+	var amountTotal;
 			
 	$(function() {
 		$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x" });		
 	});
 	
-	function loadVars(var1, var2) {
+	function loadVars(var1, var2, var3) {
 		idCashBox = var1;
+		amountTotal = var3;
 		$('.caja').text(var2);
-		
+		$('.totalAmount').text(var3);
 	};
 	
 	function setV(f){
 		f.elements['cashBoxID'].value = idCashBox;
+		f.elements['totalAmount'].value = amountTotal;
 		return true;
 	}
 	</script>
@@ -117,14 +118,14 @@ ArrayList<CashBox> cashBoxes = (ArrayList<CashBox>)request.getAttribute("cashBox
 												<td>
 													<% 	if(cb.getIsOpen() == 0) { %>
 															<a id="go" rel="leanModal" href="#openCashW" style="color: #f7941e; font-weight: bold;"
-																onclick="return loadVars(<%= cb.getCashBoxID() %>,'<%= cb.getName() %>');"  >
+																onclick="return loadVars(<%= cb.getCashBoxID() %>,'<%= cb.getName() %>', '');"  >
 																<img alt="logo" src="./images/open.png"  height="16" width="16" title="Abrir Caja" />
 															</a>
 													<% 	}
 														else {
 													%>
 															<a id="go" rel="leanModal" href="#closeCashW" style="color: #f7941e; font-weight: bold;"
-																onclick="return loadVars(<%= cb.getCashBoxID() %>,'<%= cb.getName() %>');" >
+																onclick="return loadVars(<%= cb.getCashBoxID() %>,'<%= cb.getName() %>', '<%= cb.getTotalAmount() %>');" >
 																<img alt="logo" src="./images/close.png"  height="16" width="16" title="Cerrar Caja" />
 															</a>
 															<a href="CreatePaymentServlet?cashBoxID=<%= cb.getCashBoxID() %>" style="color: transparent" >
@@ -139,7 +140,7 @@ ArrayList<CashBox> cashBoxes = (ArrayList<CashBox>)request.getAttribute("cashBox
 																<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar Caja" />
 															</a>
 															<a id="go" rel="leanModal" href="#deleteCash" style="color: #f7941e; font-weight: bold;" 
-																onclick="return loadVars(<%= cb.getCashBoxID() %>,'<%= cb.getName() %>');" >
+																onclick="return loadVars(<%= cb.getCashBoxID() %>,'<%= cb.getName() %>', '');" >
 																<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
 															</a> 
 													<% 	} %>
@@ -158,27 +159,20 @@ ArrayList<CashBox> cashBoxes = (ArrayList<CashBox>)request.getAttribute("cashBox
 		<div id="openCashW">
 			<div id="signup-ct">
 				<h3 id="see_id" class="sprited" > Abrir Caja</h3>
-				<div class="text">
-					<div class="leftColum"><b>Caja:</b></div><span class="caja"></span> <br>
-					<div class="leftColum"><b>Status:</b></div>Cerrada<br>
-					<div class="leftColum"><b>Cajero:</b></div>
-					<select>
-						<option>Ani Lugo</option>
-						<option>Pedro García</option>
-						<option>Juan Pérez</option>
-						<option>Ana María Luna</option>
-					</select>
-					<br>
-					<div class="leftColum"><b>Clave:</b></div><input type="text"/><br>
-					<div class="leftColum"><b>Monto:</b></div><input type="text"/><br><br>
-					<span>¿Está seguro que desea abrir la caja</span>  <span class="caja"></span>?  
-				</div>
-				<div id="signup-header">
-					<a class="close_x" id="close_x_aux"  href="#"></a>
-				</div>
-				
-				<form action="ListBanksServlet" method="post"  onsubmit="return setV(this)">
-					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+				<form action="OpenCashBoxServlet" method="post"  onsubmit="return setV(this)">
+					<input type="hidden" id="cashBoxID" class="good_input" name="cashBoxID"  value="" />
+					<input type="hidden" id="totalAmount" class="good_input" name="totalAmount" value="" />
+					<input type="hidden" id="userID" class="good_input" name="userID" value="<%= user.getUserID() %>" />
+					<div class="text">
+						<div class="leftColum"><b>Caja:</b></div><span class="caja"></span> <br>
+						<div class="leftColum"><b>Status:</b></div>Cerrada<br>
+						<div class="leftColum"><b>Clave:</b></div><input type="password" id="password" name="password" /><br>
+						<div class="leftColum"><b>Monto:</b></div><input type="text" id="initialAmount" name="initialAmount" /><br><br>
+						<span>¿Está seguro que desea abrir la caja</span>  <span class="caja"></span>?  
+					</div>
+					<div id="signup-header">
+						<a class="close_x" id="close_x_aux"  href="#"></a>
+					</div>	
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpAux"  name="sbmtButton" value="Aceptar"  />
 					</div>
@@ -190,27 +184,20 @@ ArrayList<CashBox> cashBoxes = (ArrayList<CashBox>)request.getAttribute("cashBox
 		<div id="closeCashW">
 			<div id="signup-ct">
 				<h3 id="see_id" class="sprited" > Cerrar Caja</h3>
-				<div class="text">
-					<div class="leftColum"><b>Caja:</b></div><span class="caja"></span> <br>
-					<div class="leftColum"><b>Status:</b></div>Abierta<br>
-					<div class="leftColum"><b>Cajero:</b></div>
-					<select>
-						<option>Ani Lugo</option>
-						<option>Pedro García</option>
-						<option>Juan Pérez</option>
-						<option>Ana María Luna</option>
-						
-					</select>
-					<br>
-					<div class="leftColum"><b>Clave:</b></div><input type="text"/><br>
-					<div class="leftColum"><b>Monto:</b></div><input type="text"/><br><br>
-					<span>¿Está seguro que desea cerrar la caja</span>  <span class="caja"></span>?  
-				</div>
-				<div id="signup-header">
-					<a class="close_x" id="close_x_aux"  href="#"></a>
-				</div>
-				<form action="ListBanksServlet" method="post"  onsubmit="return setV(this)">
-					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+				<form action="CloseCashBoxServlet" method="post"  onsubmit="return setV(this)">
+					<input type="hidden" id="cashBoxID" class="good_input" name="cashBoxID"  value="" />
+					<input type="hidden" id="totalAmount" class="good_input" name="totalAmount" value="" />
+					<input type="hidden" id="userID" class="good_input" name="userID" value="<%= user.getUserID() %>" />
+					<div class="text">
+						<div class="leftColum"><b>Caja:</b></div><span class="caja"></span> <br>
+						<div class="leftColum"><b>Status:</b></div>Abierta<br>
+						<div class="leftColum"><b>Clave:</b></div><input type="text" id="password" name="password" /><br>
+						<div class="leftColum"><b>Monto:</b></div><span class="totalAmount"></span><br><br>
+						<span>¿Está seguro que desea cerrar la caja</span>  <span class="caja"></span>?  
+					</div>
+					<div id="signup-header">
+						<a class="close_x" id="close_x_aux"  href="#"></a>
+					</div>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpAux"  name="sbmtButton" value="Aceptar"  />
 					</div>
@@ -226,7 +213,8 @@ ArrayList<CashBox> cashBoxes = (ArrayList<CashBox>)request.getAttribute("cashBox
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
 				<form action="RemoveCashBoxServlet" method="post"  onsubmit="return setV(this)">
-					<input type="hidden" id="cashBoxID" class="good_input" name="cashBoxID"  value=""/>
+					<input type="hidden" id="cashBoxID" class="good_input" name="cashBoxID"  value="" />
+					<input type="hidden" id="totalAmount" class="good_input" name="totalAmount" value="" />
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
 					</div>

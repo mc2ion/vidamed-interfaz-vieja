@@ -67,7 +67,7 @@ public class UserLoginServlet extends HttpServlet {
 	 */
 	@SuppressWarnings("unchecked")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try{
+		try {
 			String name = request.getParameter("username");
 			String password = request.getParameter("password");
 			String encryptPassword = getEncryptPassword(password);
