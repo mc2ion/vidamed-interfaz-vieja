@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
 import domain.Permission;
@@ -81,6 +82,9 @@ public class EditUserServlet extends HttpServlet {
 				rd.forward(request, response);
 			}
 			else {
+				HttpSession session = request.getSession(false);
+				String text_good = "El usuario fue editado exitosamente.";
+				String text_bad = "Se ha presentado un error al editar el usuario. Por favor, intente nuevamente.";
 				String identityCard = request.getParameter("txtCedId") + request.getParameter("txtCedIdNum");
 				String firstName = request.getParameter("txtFirstName");
 				String lastName = request.getParameter("txtLastName");
@@ -93,52 +97,78 @@ public class EditUserServlet extends HttpServlet {
 				String position = request.getParameter("txtPosition");
 				Double salary = Double.parseDouble(request.getParameter("txtSalary"));
 				String userName = request.getParameter("txtUserName");
+				boolean phoneNumberError = false;
+				boolean permissionError = false;
 				
-				CommandExecutor.getInstance().executeDatabaseCommand(new command.EditUser(userID, identityCard, firstName, lastName, birthday, gender, address, email, userUnitID, startDate, position, salary, userName));
+				int result = (Integer)CommandExecutor.getInstance().executeDatabaseCommand(new command.EditUser(userID, identityCard, firstName, lastName, birthday, gender, address, email, userUnitID, startDate, position, salary, userName));
+				if (result == 1) {
+					for (int i = 0; i<4; i++) {					
+						String phoneNumberID = request.getParameter("txtPhoneId" + i);
+						String type = request.getParameter("txtType" + i); 
+						String phoneNumber = request.getParameter("txtPhoneNumber" + i); 
+						if (phoneNumberID == null || phoneNumberID.trim().equals("")) {
+							if (phoneNumber != null && !phoneNumber.trim().equals("")) {
+								Long pnID = (Long)CommandExecutor.getInstance().executeDatabaseCommand(new command.AddUserPhoneNumber(userID, type, phoneNumber));
+								if (pnID == null && !phoneNumberError) {
+									phoneNumberError = true;
+									text_good += " Se ha presentado un error al editar uno o más números telefónicos del usuario. Por favor, intente nuevamente.";
+								}
+							}
+						}
+						else {
+							if (phoneNumber != null && !phoneNumber.trim().equals("")) {
+								Long pnID = (Long)CommandExecutor.getInstance().executeDatabaseCommand(new command.EditUserPhoneNumber(Long.parseLong(phoneNumberID), type, phoneNumber));
+								if (pnID == null && !phoneNumberError) {
+									phoneNumberError = true;
+									text_good += " Se ha presentado un error al editar uno o más números telefónicos del usuario. Por favor, intente nuevamente.";
+								}
+							}
+							else {
+								int resp = (Integer)CommandExecutor.getInstance().executeDatabaseCommand(new command.RemoveUserPhoneNumber(Long.parseLong(phoneNumberID)));
+								if (resp == 0 && !phoneNumberError) {
+									phoneNumberError = true;
+									text_good += " Se ha presentado un error al editar uno o más números telefónicos del usuario. Por favor, intente nuevamente.";
+								}
+							}
+						}
+					}
 
-				for (int i = 0; i<4; i++) {					
-					String phoneNumberID = request.getParameter("txtPhoneId" + i);
-					String type = request.getParameter("txtType" + i); 
-					String phoneNumber = request.getParameter("txtPhoneNumber" + i); 
-					if (phoneNumberID == null || phoneNumberID.trim().equals("")) {
-						if (phoneNumber != null && !phoneNumber.trim().equals("")) {
-							CommandExecutor.getInstance().executeDatabaseCommand(new command.AddUserPhoneNumber(userID, type, phoneNumber));
+					ArrayList<UserPermission> auxPermissions = (ArrayList<UserPermission>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetUserPermissions(userID));
+					HashMap<Long, UserPermission> userPermissions = new HashMap<Long, UserPermission>();
+					for (int i = 0; i<auxPermissions.size(); i++) {
+						userPermissions.put(auxPermissions.get(i).getPermissionID(), auxPermissions.get(i));
+					}
+					String[] permissions = request.getParameterValues("permissions");
+					if (permissions != null) {
+						for (int i = 0; i<permissions.length; i++) {
+							if (userPermissions.containsKey(Long.parseLong(permissions[i]))) {
+								userPermissions.remove(Long.parseLong(permissions[i]));
+							}
+							else {
+								int resp = (Integer)CommandExecutor.getInstance().executeDatabaseCommand(new command.AddUserPermission(userID, Long.parseLong(permissions[i])));
+								if (resp == 0 && !permissionError) {
+									permissionError = true;
+									text_good += " Se ha presentado un error al editar uno o más permisos del usuario. Por favor, intente nuevamente.";
+								}
+							}
 						}
 					}
-					else {
-						if (phoneNumber != null && !phoneNumber.trim().equals("")) {
-							CommandExecutor.getInstance().executeDatabaseCommand(new command.EditUserPhoneNumber(Long.parseLong(phoneNumberID), type, phoneNumber));
-						}
-						else {
-							CommandExecutor.getInstance().executeDatabaseCommand(new command.RemoveUserPhoneNumber(Long.parseLong(phoneNumberID)));
+					Iterator<Long> it = userPermissions.keySet() == null ? new ArrayList<Long>().iterator() : userPermissions.keySet().iterator();
+					while (it.hasNext()) {
+						Long permissionID = it.next();
+						int resp = (Integer)CommandExecutor.getInstance().executeDatabaseCommand(new command.RemoveUserPermission(userID, permissionID));
+						if (resp == 0 && !permissionError) {
+							permissionError = true;
+							text_good += " Se ha presentado un error al editar uno o más permisos del usuario. Por favor, intente nuevamente.";
 						}
 					}
+					session.setAttribute("info",text_good);
+				}
+				else {
+					session.setAttribute("info",text_bad);
 				}
 				
-				ArrayList<UserPermission> auxPermissions = (ArrayList<UserPermission>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetUserPermissions(userID));
-				HashMap<Long, UserPermission> userPermissions = new HashMap<Long, UserPermission>();
-				for (int i = 0; i<auxPermissions.size(); i++) {
-					userPermissions.put(auxPermissions.get(i).getPermissionID(), auxPermissions.get(i));
-				}
-				String[] permissions = request.getParameterValues("permissions");
-				if (permissions != null) {
-					for (int i = 0; i<permissions.length; i++) {
-						if (userPermissions.containsKey(Long.parseLong(permissions[i]))) {
-							userPermissions.remove(Long.parseLong(permissions[i]));
-						}
-						else {
-							CommandExecutor.getInstance().executeDatabaseCommand(new command.AddUserPermission(userID, Long.parseLong(permissions[i])));
-						}
-					}
-				}
-				Iterator<Long> it = userPermissions.keySet() == null ? new ArrayList<Long>().iterator() : userPermissions.keySet().iterator();
-				while (it.hasNext()) {
-					Long permissionID = it.next();
-					CommandExecutor.getInstance().executeDatabaseCommand(new command.RemoveUserPermission(userID, permissionID));
-				}
-				
-				rd = getServletContext().getRequestDispatcher("/ListUsersServlet");			
-				rd.forward(request, response);
+				response.sendRedirect(request.getContextPath() + "/ListUsersServlet");
 			}			
 		} 
 		catch (Exception e) {

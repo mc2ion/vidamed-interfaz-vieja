@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
 import domain.Specialist;
@@ -71,6 +72,9 @@ public class EditSpecialistServlet extends HttpServlet {
 				rd.forward(request, response);
 			}
 			else {
+				HttpSession session = request.getSession(false);
+				String text_good = "El especialista fue editado exitosamente.";
+				String text_bad = "Se ha presentado un error al editar el especialista. Por favor, intente nuevamente.";
 				String identityCard = request.getParameter("txtCedId") + request.getParameter("txtCedIdNum");
 				String firstName = request.getParameter("txtFirstName");
 				String lastName = request.getParameter("txtLastName");
@@ -79,51 +83,78 @@ public class EditSpecialistServlet extends HttpServlet {
 				String rif = request.getParameter("txtRifNum");
 				String address = request.getParameter("txtAddress");
 				String email = request.getParameter("txtEmail");
+				boolean phoneNumberError = false;
+				boolean unitError = false;
 				
-				CommandExecutor.getInstance().executeDatabaseCommand(new command.EditSpecialist(specialistID, identityCard, firstName, lastName, birthday, gender, rif, address, email));
+				int result = (Integer)CommandExecutor.getInstance().executeDatabaseCommand(new command.EditSpecialist(specialistID, identityCard, firstName, lastName, birthday, gender, rif, address, email));
 
-				for (int i = 0; i<4; i++) {
-					
-					String phoneNumberID = request.getParameter("txtPhoneId" + i);
-					String type = request.getParameter("txtType" + i); 
-					String phoneNumber = request.getParameter("txtPhoneNumber" + i); 
-					if (phoneNumberID == null || phoneNumberID.trim().equals("")) {
-						if (phoneNumber != null && !phoneNumber.trim().equals("")) {
-							CommandExecutor.getInstance().executeDatabaseCommand(new command.AddSpecialistPhoneNumber(specialistID, type, phoneNumber));
-						}
-					}
-					else {
-						if (phoneNumber != null && !phoneNumber.trim().equals("")) {
-							CommandExecutor.getInstance().executeDatabaseCommand(new command.EditSpecialistPhoneNumber(Long.parseLong(phoneNumberID), type, phoneNumber));
+				if (result == 1) {
+					for (int i = 0; i<4; i++) {
+						
+						String phoneNumberID = request.getParameter("txtPhoneId" + i);
+						String type = request.getParameter("txtType" + i); 
+						String phoneNumber = request.getParameter("txtPhoneNumber" + i); 
+						if (phoneNumberID == null || phoneNumberID.trim().equals("")) {
+							if (phoneNumber != null && !phoneNumber.trim().equals("")) {
+								Long pnID = (Long)CommandExecutor.getInstance().executeDatabaseCommand(new command.AddSpecialistPhoneNumber(specialistID, type, phoneNumber));
+								if (pnID == null && !phoneNumberError) {
+									phoneNumberError = true;
+									text_good += " Se ha presentado un error al editar uno o más números telefónicos del especialista. Por favor, intente nuevamente.";
+								}
+							}
 						}
 						else {
-							CommandExecutor.getInstance().executeDatabaseCommand(new command.RemoveSpecialistPhoneNumber(Long.parseLong(phoneNumberID)));
+							if (phoneNumber != null && !phoneNumber.trim().equals("")) {
+								Long pnID = (Long)CommandExecutor.getInstance().executeDatabaseCommand(new command.EditSpecialistPhoneNumber(Long.parseLong(phoneNumberID), type, phoneNumber));
+								if (pnID == null && !phoneNumberError) {
+									phoneNumberError = true;
+									text_good += " Se ha presentado un error al editar uno o más números telefónicos del especialista. Por favor, intente nuevamente.";
+								}
+							}
+							else {
+								int resp = (Integer)CommandExecutor.getInstance().executeDatabaseCommand(new command.RemoveSpecialistPhoneNumber(Long.parseLong(phoneNumberID)));
+								if (resp == 0 && !phoneNumberError) {
+									phoneNumberError = true;
+									text_good += " Se ha presentado un error al editar uno o más números telefónicos del especialista. Por favor, intente nuevamente.";
+								}
+							}
 						}
 					}
+					
+					ArrayList<SpecialistUnit> auxUnits = (ArrayList<SpecialistUnit>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetSpecialistUnits(specialistID));
+					HashMap<Long, SpecialistUnit> specialistUnits = new HashMap<Long, SpecialistUnit>();
+					for (int i = 0; i<auxUnits.size(); i++) {
+						specialistUnits.put(auxUnits.get(i).getUnitID(), auxUnits.get(i));
+					}
+					String[] units = request.getParameterValues("my-select[]");
+					for (int i = 0; i<units.length; i++) {
+						if (specialistUnits.containsKey(Long.parseLong(units[i]))) {
+							specialistUnits.remove(Long.parseLong(units[i]));
+						}
+						else {
+							int resp = (Integer)CommandExecutor.getInstance().executeDatabaseCommand(new command.AddSpecialistUnit(specialistID, Long.parseLong(units[i])));
+							if (resp == 0 && !unitError) {
+								unitError = true;
+								text_good += " Se ha presentado un error al editar una o más unidades del especialista. Por favor, intente nuevamente.";
+							}
+						}
+					}
+					Iterator<Long> it = specialistUnits.keySet().iterator();
+					while (it.hasNext()) {
+						Long unitID = it.next();
+						int resp = (Integer)CommandExecutor.getInstance().executeDatabaseCommand(new command.RemoveSpecialistUnit(specialistID, unitID));
+						if (resp == 0 && !unitError) {
+							unitError = true;
+							text_good += " Se ha presentado un error al editar una o más unidades del especialista. Por favor, intente nuevamente.";
+						}
+					}
+					session.setAttribute("info",text_good);
+				}
+				else {
+					session.setAttribute("info",text_bad);
 				}
 				
-				ArrayList<SpecialistUnit> auxUnits = (ArrayList<SpecialistUnit>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetSpecialistUnits(specialistID));
-				HashMap<Long, SpecialistUnit> specialistUnits = new HashMap<Long, SpecialistUnit>();
-				for (int i = 0; i<auxUnits.size(); i++) {
-					specialistUnits.put(auxUnits.get(i).getUnitID(), auxUnits.get(i));
-				}
-				String[] units = request.getParameterValues("my-select[]");
-				for (int i = 0; i<units.length; i++) {
-					if (specialistUnits.containsKey(Long.parseLong(units[i]))) {
-						specialistUnits.remove(Long.parseLong(units[i]));
-					}
-					else {
-						CommandExecutor.getInstance().executeDatabaseCommand(new command.AddSpecialistUnit(specialistID, Long.parseLong(units[i])));
-					}
-				}
-				Iterator<Long> it = specialistUnits.keySet().iterator();
-				while (it.hasNext()) {
-					Long unitID = it.next();
-					CommandExecutor.getInstance().executeDatabaseCommand(new command.RemoveSpecialistUnit(specialistID, unitID));
-				}
-				
-				rd = getServletContext().getRequestDispatcher("/ListSpecialistsServlet");			
-				rd.forward(request, response);
+				response.sendRedirect(request.getContextPath() + "/ListSpecialistsServlet");
 			}			
 		} 
 		catch (Exception e) {

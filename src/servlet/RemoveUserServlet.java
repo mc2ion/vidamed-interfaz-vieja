@@ -2,12 +2,12 @@ package servlet;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
 
@@ -42,10 +42,20 @@ public class RemoveUserServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		try {
+			HttpSession session = request.getSession(false);
 			Long userID = Long.parseLong(request.getParameter("userID"));
-			CommandExecutor.getInstance().executeDatabaseCommand(new command.RemoveUser(userID));
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/ListUsersServlet");
-			rd.forward(request, response);
+			int result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.RemoveUser(userID));
+			
+			String text_good = "El usuario fue eliminado exitosamente";
+			String text_bad = "Se ha presentado un error al eliminar el usuario. Por favor, intente nuevamente.";
+			if (result == 1) {
+				session.setAttribute("info",text_good);
+			}
+			else {
+				session.setAttribute("info",text_bad);
+			}
+			
+			response.sendRedirect(request.getContextPath() + "/ListUsersServlet");
 		}
 		catch (Exception e) {
 			throw new ServletException(e);

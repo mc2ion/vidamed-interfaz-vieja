@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
 import domain.Unit;
@@ -54,6 +55,9 @@ public class CreateSpecialistServlet extends HttpServlet {
 				rd.forward(request, response);
 			}
 			else {
+				HttpSession session = request.getSession(false);
+				String text_good = "El especialista fue creado exitosamente.";
+				String text_bad = "Se ha presentado un error al crear el especialista. Por favor, intente nuevamente.";
 				String identityCard = request.getParameter("txtCedId") + request.getParameter("txtCedIdNum");
 				String firstName = request.getParameter("txtFirstName");
 				String lastName = request.getParameter("txtLastName");
@@ -62,24 +66,39 @@ public class CreateSpecialistServlet extends HttpServlet {
 				String rif = request.getParameter("txtRifNum");
 				String address = request.getParameter("txtAddress");
 				String email = request.getParameter("txtEmail");
+				boolean phoneNumberError = false;
+				boolean unitError = false;
 				
 				Long specialistID = (Long) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddSpecialist(identityCard, firstName, lastName, birthday, gender, rif, address, email));
 				
-				for (int i = 0; i<4; i++) {
-					String type = request.getParameter("txtType" + i); 
-					String phoneNumber = request.getParameter("txtPhoneNumber" + i); 
-					if (phoneNumber != null && !phoneNumber.trim().equals("")) {
-						CommandExecutor.getInstance().executeDatabaseCommand(new command.AddSpecialistPhoneNumber(specialistID, type, phoneNumber));
+				if (specialistID != null) {
+					for (int i = 0; i<4; i++) {
+						String type = request.getParameter("txtType" + i); 
+						String phoneNumber = request.getParameter("txtPhoneNumber" + i); 
+						if (phoneNumber != null && !phoneNumber.trim().equals("")) {
+							Long phoneNumberID = (Long) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddSpecialistPhoneNumber(specialistID, type, phoneNumber));
+							if (phoneNumberID == null && !phoneNumberError) {
+								phoneNumberError = true;
+								text_good += " Se ha presentado un error al asociar uno o más números telefónicos al especialista. Por favor, intente nuevamente.";
+							}
+						}
 					}
+
+					String[] units = request.getParameterValues("my-select[]");
+					for (int i = 0; i<units.length; i++) {
+						int result = (Integer)CommandExecutor.getInstance().executeDatabaseCommand(new command.AddSpecialistUnit(specialistID, Long.parseLong(units[i])));
+						if (result == 0 && !unitError) {
+							unitError = true;
+							text_good += " Se ha presentado un error al asociar uno o más unidades al especialista. Por favor, intente nuevamente.";
+						}
+					}
+					session.setAttribute("info",text_good);
+				}
+				else {
+					session.setAttribute("info",text_bad);
 				}
 				
-				String[] units = request.getParameterValues("my-select[]");
-				for (int i = 0; i<units.length; i++) {
-					CommandExecutor.getInstance().executeDatabaseCommand(new command.AddSpecialistUnit(specialistID, Long.parseLong(units[i])));
-				}
-				
-				rd = getServletContext().getRequestDispatcher("/ListSpecialistsServlet");			
-				rd.forward(request, response);
+				response.sendRedirect(request.getContextPath() + "/ListSpecialistsServlet");
 			}			
 		} 
 		catch (Exception e) {

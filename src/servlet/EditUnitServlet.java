@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
 import domain.Unit;
@@ -53,12 +54,21 @@ public class EditUnitServlet extends HttpServlet {
 				rd.forward(request, response);
 			}
 			else {
+				HttpSession session = request.getSession(false);
+				String text_good = "La unidad fue editada exitosamente.";
+				String text_bad = "Se ha presentado un error al editar la unidad. Por favor, intente nuevamente.";
 				Long unitID = Long.parseLong(request.getParameter("unitID"));
 				String name = request.getParameter("txtName");
 				String description = request.getParameter("txtDescription");
-				CommandExecutor.getInstance().executeDatabaseCommand(new command.EditUnit(unitID, name, description));
-				rd = getServletContext().getRequestDispatcher("/ListUnitsServlet");			
-				rd.forward(request, response);
+				int result = (Integer)CommandExecutor.getInstance().executeDatabaseCommand(new command.EditUnit(unitID, name, description));
+				if (result == 1) {
+					session.setAttribute("info",text_good);
+				}
+				else {
+					session.setAttribute("info",text_bad);
+				}
+				
+				response.sendRedirect(request.getContextPath() + "/ListUnitsServlet");
 			}
 		}
 		catch (Exception e) {

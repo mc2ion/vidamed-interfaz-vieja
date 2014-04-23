@@ -25,6 +25,10 @@ public class EditCashBox implements DatabaseCommand {
 			ps = conn.prepareStatement("exec dbo.EditCashBox '" + name + "', '" + description + "', " + cashBoxID);
 			ps.execute();
 		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
 		finally {
 			ps.close();
 		}		

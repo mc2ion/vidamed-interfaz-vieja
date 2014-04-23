@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import sun.misc.BASE64Encoder;
 import command.CommandExecutor;
@@ -54,13 +55,22 @@ public class EditUserPasswordServlet extends HttpServlet {
 				rd.forward(request, response);
 			}
 			else {
+				HttpSession session = request.getSession(false);
+				String text_good = "La contraseña fue cambiada exitosamente.";
+				String text_bad = "Se ha presentado un error al cambiar la contraseña. Por favor, intente nuevamente.";
 				Long userID = Long.parseLong(request.getParameter("userID"));
 				String password = request.getParameter("txtPassword");
 				String encryptPassword = getEncryptPassword(password);
 				
-				CommandExecutor.getInstance().executeDatabaseCommand(new command.EditUserPassword(userID, encryptPassword));
-				RequestDispatcher rd = getServletContext().getRequestDispatcher("/ListUsersServlet");			
-				rd.forward(request, response);
+				int result = (Integer)CommandExecutor.getInstance().executeDatabaseCommand(new command.EditUserPassword(userID, encryptPassword));
+				if (result == 1) {
+					session.setAttribute("info",text_good);
+				}
+				else {
+					session.setAttribute("info",text_bad);
+				}
+				
+				response.sendRedirect(request.getContextPath() + "/ListUsersServlet");
 			}
 			
 		}

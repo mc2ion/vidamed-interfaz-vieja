@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
 
@@ -43,27 +44,36 @@ public class CreateCashBoxServlet extends HttpServlet {
 
 		try {
 			String action = request.getParameter("sbmtButton");
-			RequestDispatcher rd;
 			if (action == null || action.trim().equals("")) {				
-				rd = getServletContext().getRequestDispatcher("/createCashBox.jsp");
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/createCashBox.jsp");
 				rd.forward(request, response);
 			}
 			else {
+				HttpSession session = request.getSession(false);
+				String text_good = "La caja fue creada exitosamente.";
+				String text_bad = "Se ha presentado un error al crear la caja. Por favor, intente nuevamente.";
 				String name = request.getParameter("txtName");
 				String description = request.getParameter("txtDescription");
 				Long cashBoxID = (Long)CommandExecutor.getInstance().executeDatabaseCommand(new command.AddCashBox(name, description));
-				
-				for (int i = 0; i<4; i++) {
-					String nameSP = request.getParameter("txtNameSP" + i);
-					String commission = request.getParameter("txtCommission" + i); 
-					String islrPercentage = request.getParameter("txtIslrPercentage" + i); 
-					if (commission != null && !commission.trim().equals("") && islrPercentage != null && !islrPercentage.trim().equals("")) {
-						CommandExecutor.getInstance().executeDatabaseCommand(new command.AddCashBoxSalePoint(cashBoxID, nameSP, Double.parseDouble(commission), Double.parseDouble(islrPercentage)));
+				if (cashBoxID != null) {					
+					for (int i = 0; i<4; i++) {
+						String nameSP = request.getParameter("txtNameSP" + i);
+						String commission = request.getParameter("txtCommission" + i); 
+						String islrPercentage = request.getParameter("txtIslrPercentage" + i); 
+						if (commission != null && !commission.trim().equals("") && islrPercentage != null && !islrPercentage.trim().equals("")) {
+							Long salePointID = (Long)CommandExecutor.getInstance().executeDatabaseCommand(new command.AddCashBoxSalePoint(cashBoxID, nameSP, Double.parseDouble(commission), Double.parseDouble(islrPercentage)));
+							if (salePointID == null) {
+								text_good = "La caja fue creada exitosamente. Se ha presentado un error al crear uno o más puntos de venta. Por favor, intente nuevamente.";
+							}
+						}
 					}
+					session.setAttribute("info",text_good);
+				}
+				else {
+					session.setAttribute("info",text_bad);
 				}
 				
-				rd = getServletContext().getRequestDispatcher("/ListCashBoxesServlet");
-				rd.forward(request, response);
+				response.sendRedirect(request.getContextPath() + "/ListCashBoxesServlet");
 			}
 		}
 		catch (Exception e) {

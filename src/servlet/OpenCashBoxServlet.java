@@ -5,12 +5,12 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import sun.misc.BASE64Encoder;
 
@@ -48,6 +48,9 @@ public class OpenCashBoxServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		try {
+			HttpSession session = request.getSession(false);
+			String text_good = "La caja fue abierta exitosamente.";
+			String text_bad = "Se ha presentado un error al abrir la caja. Por favor, intente nuevamente.";
 			String password = request.getParameter("password");
 			Long userID = Long.parseLong(request.getParameter("userID"));
 			String encryptPassword = getEncryptPassword(password);
@@ -55,13 +58,20 @@ public class OpenCashBoxServlet extends HttpServlet {
 			if (user.getPassword().equals(encryptPassword)) {
 				Long cashBoxID = Long.parseLong(request.getParameter("cashBoxID"));
 				Double initialAmount = Double.parseDouble(request.getParameter("initialAmount"));
-				CommandExecutor.getInstance().executeDatabaseCommand(new command.OpenCashBox(cashBoxID, userID, initialAmount));
+				int result = (Integer)CommandExecutor.getInstance().executeDatabaseCommand(new command.OpenCashBox(cashBoxID, userID, initialAmount));
+				if (result == 1) {
+					session.setAttribute("info",text_good);
+				}
+				else {
+					session.setAttribute("info",text_bad);
+				}
 			}
 			else {
-				request.setAttribute("error", "La clave introducida no es correcta.");
+				text_bad = "La clave introducida no es correcta.";
+				session.setAttribute("info", text_bad);
 			}
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/ListCashBoxesServlet");	
-			rd.forward(request, response);			
+			
+			response.sendRedirect(request.getContextPath() + "/ListCashBoxesServlet");	
 		}
 		catch (Exception e) {
 			throw new ServletException(e);

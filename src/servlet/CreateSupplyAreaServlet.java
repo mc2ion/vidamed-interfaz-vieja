@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
 
@@ -49,12 +50,21 @@ public class CreateSupplyAreaServlet extends HttpServlet {
 				rd.forward(request, response);
 			}
 			else {
+				HttpSession session = request.getSession(false);
+				String text_good = "El área de insumos fue creado exitosamente.";
+				String text_bad = "Se ha presentado un error al crear el área de insumos. Por favor, intente nuevamente.";
 				String name = request.getParameter("txtName");
 				String description = request.getParameter("txtDescription");
 				description = description == null ? "" : description;
-				CommandExecutor.getInstance().executeDatabaseCommand(new command.AddSupplyArea(name, description));
-				rd = getServletContext().getRequestDispatcher("/ListSupplyAreasServlet");
-				rd.forward(request, response);
+				Long supplyAreaID = (Long)CommandExecutor.getInstance().executeDatabaseCommand(new command.AddSupplyArea(name, description));
+				if (supplyAreaID != null) {
+					session.setAttribute("info",text_good);
+				}
+				else {
+					session.setAttribute("info",text_bad);
+				}
+				
+				response.sendRedirect(request.getContextPath() + "/ListSupplyAreasServlet");	
 			}
 		}
 		catch (Exception e) {

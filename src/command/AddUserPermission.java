@@ -23,6 +23,10 @@ public class AddUserPermission implements DatabaseCommand {
 			ps = conn.prepareStatement("exec dbo.AddUserPermission " + userID + ", " + permissionID);
 			ps.execute();
 		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
 		finally {
 			ps.close();
 		}		

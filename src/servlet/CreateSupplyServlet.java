@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
 import domain.SupplyForm;
@@ -56,6 +57,9 @@ public class CreateSupplyServlet extends HttpServlet {
 				rd.forward(request, response);
 			}
 			else {
+				HttpSession session = request.getSession(false);
+				String text_good = "El insumo fue creado exitosamente.";
+				String text_bad = "Se ha presentado un error al crear el insumo. Por favor, intente nuevamente.";
 				Long supplyAreaID = Long.parseLong(request.getParameter("supplyAreaID"));
 				String name = request.getParameter("txtName");
 				int type = Integer.parseInt(request.getParameter("txtType"));
@@ -73,10 +77,15 @@ public class CreateSupplyServlet extends HttpServlet {
 				String regulated = request.getParameter("isRegulated");
 				int isRegulated = regulated != null && regulated.equals("true") ? 1 : 0;
 				
-				CommandExecutor.getInstance().executeDatabaseCommand(new command.AddSupply(supplyAreaID, name, type, description, activeComponent, manufacturer, formID, amount, unitPrice, isRegulated));
+				Long supplyID = (Long)CommandExecutor.getInstance().executeDatabaseCommand(new command.AddSupply(supplyAreaID, name, type, description, activeComponent, manufacturer, formID, amount, unitPrice, isRegulated));
+				if (supplyID != null) {
+					session.setAttribute("info",text_good);
+				}
+				else {
+					session.setAttribute("info",text_bad);
+				}
 				
-				rd = getServletContext().getRequestDispatcher("/ListSuppliesServlet?supplyAreaID=" + supplyAreaID);			
-				rd.forward(request, response);
+				response.sendRedirect(request.getContextPath() + "/ListSuppliesServlet?supplyAreaID=" + supplyAreaID);
 			}			
 		} 
 		catch (Exception e) {

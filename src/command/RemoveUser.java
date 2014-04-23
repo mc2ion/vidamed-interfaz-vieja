@@ -21,6 +21,10 @@ public class RemoveUser implements DatabaseCommand {
 			ps = conn.prepareStatement("exec dbo.RemoveUser " + userID);
 			ps.execute();
 		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
 		finally {
 			ps.close();
 		}		

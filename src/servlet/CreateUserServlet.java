@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import sun.misc.BASE64Encoder;
 import command.CommandExecutor;
@@ -69,6 +70,9 @@ public class CreateUserServlet extends HttpServlet {
 				rd.forward(request, response);
 			}
 			else {
+				HttpSession session = request.getSession(false);
+				String text_good = "El usuario fue creado exitosamente.";
+				String text_bad = "Se ha presentado un error al crear el usuario. Por favor, intente nuevamente.";
 				String identityCard = request.getParameter("txtCedId") + request.getParameter("txtCedIdNum");
 				String firstName = request.getParameter("txtFirstName");
 				String lastName = request.getParameter("txtLastName");
@@ -83,26 +87,40 @@ public class CreateUserServlet extends HttpServlet {
 				String userName = request.getParameter("txtUserName");
 				String password = request.getParameter("txtPassword");
 				String encryptPassword = getEncryptPassword(password);
-				
+				boolean phoneNumberError = false;
+				boolean permissionError = false;
 				
 				Long userID = (Long) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddUser(identityCard, firstName, lastName, birthday, gender, address, email, userUnitID, startDate, position, salary, userName, encryptPassword));
-				
-				for (int i = 0; i<4; i++) {
-					String type = request.getParameter("txtType" + i); 
-					String phoneNumber = request.getParameter("txtPhoneNumber" + i); 
-					if (phoneNumber != null && !phoneNumber.trim().equals("")) {
-						CommandExecutor.getInstance().executeDatabaseCommand(new command.AddUserPhoneNumber(userID, type, phoneNumber));
+				if (userID != null) {
+					for (int i = 0; i<4; i++) {
+						String type = request.getParameter("txtType" + i); 
+						String phoneNumber = request.getParameter("txtPhoneNumber" + i); 
+						if (phoneNumber != null && !phoneNumber.trim().equals("")) {
+							Long phoneNumberID = (Long)CommandExecutor.getInstance().executeDatabaseCommand(new command.AddUserPhoneNumber(userID, type, phoneNumber));
+							if (phoneNumberID == null && !phoneNumberError) {
+								phoneNumberError = true;
+								text_good += " Se ha presentado un error al asociar uno o más números telefónicos al usuario. Por favor, intente nuevamente.";
+							}
+						}
 					}
+
+					String[] permissions = request.getParameterValues("permissions");
+					if (permissions != null) {
+						for (int i = 0; i<permissions.length; i++) {
+							int result = (Integer)CommandExecutor.getInstance().executeDatabaseCommand(new command.AddUserPermission(userID, Long.parseLong(permissions[i])));
+							if (result == 0 && !permissionError) {
+								permissionError = true;
+								text_good += " Se ha presentado un error al asociar uno o más permisos al usuario. Por favor, intente nuevamente.";
+							}
+						}
+					}
+					session.setAttribute("info",text_good);
+				}
+				else {
+					session.setAttribute("info",text_bad);
 				}
 				
-				String[] permissions = request.getParameterValues("permissions");
-				if (permissions != null) {
-					for (int i = 0; i<permissions.length; i++) {
-						CommandExecutor.getInstance().executeDatabaseCommand(new command.AddUserPermission(userID, Long.parseLong(permissions[i])));
-					}
-				}
-				rd = getServletContext().getRequestDispatcher("/ListUsersServlet");			
-				rd.forward(request, response);
+				response.sendRedirect(request.getContextPath() + "/ListUsersServlet");
 			}			
 		} 
 		catch (Exception e) {

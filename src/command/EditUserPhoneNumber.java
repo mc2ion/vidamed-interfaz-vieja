@@ -25,6 +25,10 @@ public class EditUserPhoneNumber implements DatabaseCommand {
 					+ phoneNumberID);
 			ps.execute();
 		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 		finally {
 			ps.close();
 		}		

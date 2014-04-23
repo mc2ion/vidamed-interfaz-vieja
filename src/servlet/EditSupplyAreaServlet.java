@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
 import domain.SupplyArea;
@@ -53,12 +54,21 @@ public class EditSupplyAreaServlet extends HttpServlet {
 				rd.forward(request, response);
 			}
 			else {
+				HttpSession session = request.getSession(false);
+				String text_good = "El área de insumos fue editado exitosamente.";
+				String text_bad = "Se ha presentado un error al editar el área de insumos. Por favor, intente nuevamente.";
 				Long supplyAreaID = Long.parseLong(request.getParameter("supplyAreaID"));
 				String name = request.getParameter("txtName");
 				String description = request.getParameter("txtDescription");
-				CommandExecutor.getInstance().executeDatabaseCommand(new command.EditSupplyArea(supplyAreaID, name, description));
-				rd = getServletContext().getRequestDispatcher("/ListSupplyAreasServlet");			
-				rd.forward(request, response);
+				int result = (Integer)CommandExecutor.getInstance().executeDatabaseCommand(new command.EditSupplyArea(supplyAreaID, name, description));
+				if (result == 1) {
+					session.setAttribute("info",text_good);
+				}
+				else {
+					session.setAttribute("info",text_bad);
+				}
+				
+				response.sendRedirect(request.getContextPath() + "/ListSupplyAreasServlet");
 			}
 		}
 		catch (Exception e) {

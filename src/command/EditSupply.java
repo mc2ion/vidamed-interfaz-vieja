@@ -41,6 +41,10 @@ public class EditSupply implements DatabaseCommand {
 						amount + ", " + unitPrice + ", " + isRegulated + ", " + supplyID);
 			ps.execute();
 		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
 		finally {
 			ps.close();
 		}		

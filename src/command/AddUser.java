@@ -55,6 +55,10 @@ public class AddUser implements DatabaseCommand {
 				userID = rs.getLong(1);
 			}
 		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 		finally {
 			rs.close();
 			ps.close();

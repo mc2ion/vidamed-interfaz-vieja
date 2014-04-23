@@ -14,6 +14,13 @@
 	ArrayList<Specialist> specialists = (ArrayList<Specialist>)request.getAttribute("specialists");
 	@SuppressWarnings("unchecked")
 	HashMap<Long, ArrayList<Unit>> specialistUnits = (HashMap<Long, ArrayList<Unit>>)request.getAttribute("specialistUnits");
+	
+	String info_text = "";
+	String info = (String) session.getAttribute("info");
+	if (info != null ){
+		info_text = info;
+	}
+	session.removeAttribute("info");
 %>
 <!DOCTYPE HTML>
 <html>
@@ -95,7 +102,8 @@
         </div>        
 		<jsp:include page="./menu.jsp" />
 		<div id="content">  
-			<h2>Especialistas:</h2>
+			<h2>Especialistas:</h2><br/>
+			<div class="info-text"><%= info_text %></div>
 			<div id="dt_example">
 					<div id="container">
 						<div id="demo">

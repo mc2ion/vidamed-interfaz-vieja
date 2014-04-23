@@ -25,6 +25,10 @@ public class OpenCashBox implements DatabaseCommand {
 			ps = conn.prepareStatement("exec dbo.OpenCashBox " + userID + ", " + initialAmount + ", " + cashBoxID);
 			ps.execute();
 		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
 		finally {
 			ps.close();
 		}		

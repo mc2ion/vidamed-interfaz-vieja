@@ -10,6 +10,13 @@
 <%
 	@SuppressWarnings("unchecked")
 	ArrayList<SupplyArea> supplyAreas = (ArrayList<SupplyArea>)request.getAttribute("supplyAreas");
+
+	String info_text = "";
+	String info = (String) session.getAttribute("info");
+	if (info != null ){
+		info_text = info;
+	}
+	session.removeAttribute("info");
 %>
 <!DOCTYPE HTML>
 <html>
@@ -89,7 +96,8 @@
         </div>        
 		<jsp:include page="./menu.jsp" />
 		<div id="content">  
-			<h2>Áreas de Insumos:</h2>
+			<h2>Áreas de Insumos:</h2><br/>
+			<div class="info-text"><%= info_text %></div>
 			<div id="dt_example">
 					<div id="container">
 						<div id="demo">

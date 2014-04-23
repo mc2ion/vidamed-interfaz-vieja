@@ -21,6 +21,10 @@ public class RemoveSpecialistPhoneNumber implements DatabaseCommand {
 			ps = conn.prepareStatement("exec dbo.RemoveSpecialistPhoneNumber " + phoneNumberID);
 			ps.execute();
 		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
 		finally {
 			ps.close();
 		}		

@@ -23,6 +23,10 @@ public class RemoveSpecialistUnit implements DatabaseCommand {
 			ps = conn.prepareStatement("exec dbo.RemoveSpecialistUnit " + specialistID + ", " + unitID);
 			ps.execute();
 		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
 		finally {
 			ps.close();
 		}		
