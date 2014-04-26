@@ -14,7 +14,7 @@
 	ArrayList<Specialist> specialists = (ArrayList<Specialist>)request.getAttribute("specialists");
 	@SuppressWarnings("unchecked")
 	HashMap<Long, ArrayList<Unit>> specialistUnits = (HashMap<Long, ArrayList<Unit>>)request.getAttribute("specialistUnits");
-
+	
 	String info_text = "";
 	String info = (String) session.getAttribute("info");
 	if (info != null ){
@@ -60,17 +60,17 @@
 	</script>
 	<script type="text/javascript">
 	var idSpecialist;
-
+			
 	$(function() {
 		$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x" });		
 	});
-
+	
 	function loadVars(var1, var2) {
 		idSpecialist = var1;
 		$('.cliente').text(var2);
-
+		
 	};
-
+	
 	function setV(f){
 		f.elements['specialistID'].value = idSpecialist;
 		return true;
@@ -93,7 +93,7 @@
          	 </ul>
          </nav>        
 		<div id="menu">
-
+			
 			<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 			<ul>
             	<li class="menuitem"><a href="CreateSpecialistServlet">Crear Especialista</a></li>

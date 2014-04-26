@@ -8,7 +8,7 @@
 		name = user.getFirstName() ;
 	@SuppressWarnings("unchecked")
 	ArrayList<CashBox> cashBoxes = (ArrayList<CashBox>)request.getAttribute("cashBoxes");
-
+	
 	String info_text = "";
 	String info = (String) session.getAttribute("info");
 	if (info != null ){
@@ -55,18 +55,18 @@
 	<script type="text/javascript">
 	var idCashBox;
 	var amountTotal;
-
+			
 	$(function() {
 		$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x" });		
 	});
-
+	
 	function loadVars(var1, var2, var3) {
 		idCashBox = var1;
 		amountTotal = var3;
 		$('.caja').text(var2);
 		$('.totalAmount').text(var3);
 	};
-
+	
 	function setV(f){
 		f.elements['cashBoxID'].value = idCashBox;
 		f.elements['totalAmount'].value = amountTotal;
@@ -187,8 +187,8 @@
 		 		</form>
 			</div>
 		</div>
-
-
+				
+		
 		<div id="closeCashW">
 			<div id="signup-ct">
 				<h3 id="see_id" class="sprited" > Cerrar Caja</h3>
@@ -229,6 +229,6 @@
 		 		</form>
 			</div>
 		</div>
-
+		
 	</body>
 </html>
