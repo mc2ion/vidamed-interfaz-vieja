@@ -13,13 +13,6 @@
 	ArrayList<User> users = (ArrayList<User>)request.getAttribute("users");
 	@SuppressWarnings("unchecked")
 	HashMap<Long, String> userUnits = (HashMap<Long, String>)request.getAttribute("userUnits");
-	
-	String info_text = "";
-	String info = (String) session.getAttribute("info");
-	if (info != null ){
-		info_text = info;
-	}
-	session.removeAttribute("info");
 %>
 <!DOCTYPE HTML>
 <html>
@@ -102,8 +95,7 @@
         </div>        
 		 <jsp:include page="./menu.jsp" />
 		<div id="content">  
-			<h2>Usuarios:</h2><br/>
-			<div class="info-text"><%= info_text %></div>
+			<h2>Usuarios:</h2>
 			<div id="dt_example">
 					<div id="container">
 						<div id="demo">

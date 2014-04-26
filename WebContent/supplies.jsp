@@ -11,7 +11,7 @@
 	@SuppressWarnings("unchecked")
 	ArrayList<Supply> supplies = (ArrayList<Supply>)request.getAttribute("supplies");
 	Long supplyAreaID = (Long) request.getAttribute("supplyAreaID");
-	
+
 	String info_text = "";
 	String info = (String) session.getAttribute("info");
 	if (info != null ){
@@ -56,17 +56,17 @@
 	</script>
 	<script type="text/javascript">
 	var idSupply;
-			
+
 	$(function() {
 		$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x" });		
 	});
-	
+
 	function loadVars(var1, var2) {
 		idSupply = var1;
 		$('.cliente').text(var2);
-		
+
 	};
-	
+
 	function setV(f){
 		f.elements['supplyID'].value = idSupply;
 		return true;
@@ -89,7 +89,7 @@
          	 </ul>
          </nav>        
 		<div id="menu">
-			
+
 			<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 			<ul>
             	<li class="menuitem"><a href="ListSupplyAreasServlet">Ver Áreas Insumos</a></li>

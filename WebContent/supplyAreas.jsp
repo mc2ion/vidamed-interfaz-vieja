@@ -54,17 +54,17 @@
 	</script>
 	<script type="text/javascript">
 	var idSupplyArea;
-			
+
 	$(function() {
 		$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x" });		
 	});
-	
+
 	function loadVars(var1, var2) {
 		idSupplyArea = var1;
 		$('.cliente').text(var2);
-		
+
 	};
-	
+
 	function setV(f){
 		f.elements['supplyAreaID'].value = idSupplyArea;
 		return true;
@@ -87,7 +87,7 @@
          	 </ul>
          </nav>        
 		<div id="menu">
-			
+
 			<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 			<ul>
             	<li class="menuitem"><a href="CreateSupplyAreaServlet">Crear Área Insumos</a></li>
