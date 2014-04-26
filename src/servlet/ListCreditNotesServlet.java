@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import command.CommandExecutor;
+import domain.PendingCreditNotes;
 
 
 /**
@@ -39,8 +41,17 @@ public class ListCreditNotesServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/pendingCreditNotes.jsp");
-		rd.forward(request, response);
+		try {
+			@SuppressWarnings("unchecked")
+			ArrayList<PendingCreditNotes> creditNotes = (ArrayList<PendingCreditNotes>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPendingCreditNotes());
+			request.setAttribute("creditNotes", creditNotes);
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/pendingCreditNotes.jsp");
+			rd.forward(request, response);
+		} 
+		catch (Exception e) {
+			throw new ServletException(e);
+		}
+		
 	}
 	
 	/**

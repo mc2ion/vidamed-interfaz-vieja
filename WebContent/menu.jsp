@@ -15,7 +15,13 @@
 		   <li><a href='ListUsersServlet'><span>Usuarios</span></a></li>
 		   <li><a href='ListProtocolsServlet'><span>Protocolos</span></a></li>
 		   <li><a href='ListXRayReportsServlet'><span>Rayos X</span></a></li>
-		   <li><a href='ListSupplyAreasServlet'><span>Farmacia</span></a></li>
+		   <li class='has-sub'>
+			<a href='#'><span>Farmacia</span></a>
+		      <ul>
+		         <li class='first'><a href='ListSupplyAreasServlet'><span>Administrar</span></a></li>
+		         <li class='last'><a href='ListSupplyServlet'><span>Ver Pacientes</span></a></li>
+		      </ul>
+		   </li>
 		   <li><a href='ListUnitsServlet'><span>Unidades</span></a></li>
 		   <li><a href='ListSpecialistsServlet'><span>Especialistas</span></a></li>
 		   <li><a href='ListPaymentResponsiblesServlet'><span>Responsables de Pago</span></a></li>

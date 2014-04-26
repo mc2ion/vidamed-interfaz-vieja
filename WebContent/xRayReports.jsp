@@ -112,7 +112,7 @@
 										<td><%= patName %></td>
 										<td><%= admi.getReasonName() %></td>
 										<td>
-											<a href="ListPatientSuppliesServlet?id=<%= admi.getAdmissionID() %>&servId=1" style="color: transparent" >
+											<a href="ListPatientServicesServlet?id=<%= admi.getAdmissionID() %>&servId=4&name=<%= patName %>" style="color: transparent" >
 												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Agregar Suministro" />
 											</a>
 											<br>

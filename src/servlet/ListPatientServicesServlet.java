@@ -11,14 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import command.CommandExecutor;
-import domain.PatientSupply;
+import domain.PatientService;
 
 
 /**
- * Servlet implementation class ListPatientSuppliesServlet
+ * Servlet implementation class ListPatientServicesServlet
  */
-@WebServlet(description = "servlet to generate reports", urlPatterns = { "/ListPatientSuppliesServlet" })
-public class ListPatientSuppliesServlet extends HttpServlet {
+@WebServlet(description = "servlet to generate reports", urlPatterns = { "/ListPatientServicesServlet" })
+public class ListPatientServicesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	public void init() throws ServletException {
@@ -33,7 +33,7 @@ public class ListPatientSuppliesServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ListPatientSuppliesServlet() {
+    public ListPatientServicesServlet() {
         super();
     }
 
@@ -44,13 +44,26 @@ public class ListPatientSuppliesServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			Long id = Long.parseLong(request.getParameter("id"));
+			Long servId = Long.parseLong(request.getParameter("servId"));
+			String function = "";
+			if (servId == 1)
+				function = "ListBloodBankServlet";
+			else if (servId == 2)
+				function = "ListEcoServlet";
+			else if (servId == 3)
+				function = "ListLabServlet";
+			else if (servId == 4)
+				function = "ListXRayReportsServlet";
+			
 			String name = request.getParameter("name");
-			ArrayList<PatientSupply> supplies = (ArrayList<PatientSupply>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPatientSuppliesByAdmission(id));
+			ArrayList<PatientService> supplies = (ArrayList<PatientService>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPatientServicesByAdmission(id, servId));
 			request.setAttribute("patName", name);
+			request.setAttribute("function", function);
 			request.setAttribute("supplies", supplies);
+			request.setAttribute("servId", String.valueOf(servId));
 			request.setAttribute("adminId", String.valueOf(id));
 			
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/patientSupplies.jsp");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/patientServices.jsp");
 			rd.forward(request, response);
 		} 
 		catch (Exception e) {

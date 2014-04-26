@@ -1,9 +1,15 @@
+<%@page import="domain.PendingCreditNotes"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="domain.User"%>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
 	if (user != null)
 		name = user.getFirstName() ;
+	
+	@SuppressWarnings("unchecked")
+	ArrayList<PendingCreditNotes> cnList = (ArrayList<PendingCreditNotes>)request.getAttribute("creditNotes");
+
 %>
 <!DOCTYPE HTML>
 <html>
@@ -100,49 +106,28 @@
 										<th>Acciones</th>
 									</tr>
 								</thead>
-								<tbody>			
+								<tbody>		
+									<% for (int i = 0 ; i < cnList.size(); i++){ 
+										PendingCreditNotes cn = cnList.get(i);
+										String pName = cn.getPatient().getFirstName() + " " + cn.getPatient().getLastName();
+										String eName = cn.getSpecialist().getFirstName()  + " " + cn.getSpecialist().getLastName();
+										String rName = cn.getPaymentResposible().getName();
+									%>	
 									<tr class="gradeA">
-										<td>1001</td>
-										<td>Ana Rojas</td>
-										<td>Beatriz Perez</td>
-										<td>Multinacional de Seguros</td>
-										<td>Bs. 20501</td>
+										<td><%= cn.getCreditNoteID() %></td>
+										<td><%= pName %></td>
+										<td><%= eName %></td>
+										<td><%= rName %></td>
+										<td><%= cn.getTotal() %></td>
 										<td>
 											<a id="go" rel="leanModal" href="#printUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1001,'1001');" >
+												onclick="return loadVars(<%= cn.getCreditNoteID() %>,'1001');" >
 												<img alt="logo" src="./images/print.png"  height="16" width="16" title="Imprimir"/>
 											</a>  
 											<br>
 										</td>
 									</tr>
-									<tr class="gradeA">
-										<td>1002</td>
-										<td>Luis Mujica</td>
-										<td>Maritza Chacón</td>
-										<td>La Previsora</td>
-										<td>Bs. 12345</td>
-										<td>
-											<a id="go" rel="leanModal" href="#printUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1001,'1001');" >
-												<img alt="logo" src="./images/print.png"  height="16" width="16" title="Imprimir"/>
-											</a> 
-											<br>
-										</td>
-									</tr>
-									<tr class="gradeA">
-										<td>1003</td>
-										<td>Miguel Álvarez</td>
-										<td>Aura Guillén</td>
-										<td>Seguros Caroní</td>
-										<td>Bs. 19283</td>
-										<td>
-											<a id="go" rel="leanModal" href="#printUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1001,'1001');" >
-												<img alt="logo" src="./images/print.png"  height="16" width="16" title="Imprimir"/>
-											</a> 
-											<br>
-										</td>
-									</tr>
+									<% } %>
 								</tbody>
 							</table>
 						</div>

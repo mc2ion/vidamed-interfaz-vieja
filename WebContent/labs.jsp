@@ -110,10 +110,9 @@
 										<td><%= patName %></td>
 										<td><%= admi.getReasonName() %></td>
 										<td>
-											<a href="" style="color: transparent" >
-												<img alt="logo" src="./images/add.png"  height="16" width="16" title="Agregar Suministro" />
+											<a href="ListPatientServicesServlet?id=<%= admi.getAdmissionID() %>&servId=3&name=<%= patName %>" style="color: transparent" >
+												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Agregar Suministro" />
 											</a>
-											<br>
 										</td>
 									</tr>
 									<% } %>

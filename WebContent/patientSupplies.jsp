@@ -1,4 +1,4 @@
-<%@page import="domain.PendingAdmissionDischarges"%>
+<%@page import="domain.PatientSupply"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="domain.User"%>
 <%
@@ -7,21 +7,23 @@
 	if (user != null)
 		name = user.getFirstName() ;
 	
-
 	@SuppressWarnings("unchecked")
-	ArrayList<PendingAdmissionDischarges> admiList = (ArrayList<PendingAdmissionDischarges>)request.getAttribute("admissions");
+	ArrayList<PatientSupply> supplies = (ArrayList<PatientSupply>) request.getAttribute("supplies");
 	
-	String result = (String) session.getAttribute("info");
-	String text = "";
-	if (result != null)
-		text = result;
+	String patName = (String) request.getAttribute("patName");
+	String adminId 	= (String) request.getAttribute("adminId");
+	
+	String text_result = (String) session.getAttribute("text");
+	if (text_result == null)
+		text_result = "";
+	session.removeAttribute("text");
 %>
 <!DOCTYPE HTML>
 <html>
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-	<title>Altas Admisión Pendientes</title>
+	<title>Suministros Paciente</title>
 	<script type="text/javascript" src="./js/jquery.js"></script>
 	<script type="text/javascript" src="./js/jquery.dataTables.js"></script>
 	<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
@@ -33,7 +35,6 @@
 			"sScrollY": "250px",
 			"bPaginate": false,
 			"aoColumns": [
-				null,
 				null,
 				null,
 				null,
@@ -55,86 +56,86 @@
 	</script>
 	<script type="text/javascript">
 	var idUser;
-			
+	var v3, v4;
+	
 	$(function() {
 		$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x" });		
 	});
 	
-	function loadVars(var1, var2) {
+	function loadVars(var1, var2, var3, var4) {
 		idUser = var1;
 		$('.cliente').text(var2);
-		
+		v3 = var3;
+		v4 = var4;
 	};
 	
 	function setV(f){
 		f.elements['userId'].value = idUser;
+		f.elements['id'].value = v3;
+		f.elements['name'].value = v4;
 		return true;
 	}
-	
-	
 	</script>
 </head>
 <body>
 	<div id="container">
 		<div id="header">
         	<img alt="logo" src="./images/logo.png"/>
-        </div>    
-          <nav>
+        </div>         
+      	<nav>
          	<ul>
-         		<li><a href="#">Bienvenido, <%= name %></a></li>
+         		<li><a href="#">Bienvenido, <%=name%></a></li>
                 <li><a href="ListAdmissionDischargesServlet">Altas Admisión<span class="badge yellow">3</span></a></li>
 		 		<li><a href="ListCreditNotesServlet">Prefacturas por Generar<span class="badge blue">3</span></a></li><li><a href="ListCreditNotesReviewServlet">Prefacturas por Revisar<span class="badge green">3</span></a></li><li><a href="ListInvoicesServlet">Facturas por Generar<span class="badge red">3</span></a></li>
 		     	<li><a href="ListRequestsServlet">Descuentos<span class="badge yellow">2</span></a></li>
 		     	<li><a href="ListPharmacyDischargesServlet">Altas Farmacia<span class="badge blue">3</span></a></li>
 		     	<li><a href="ListBillingsServlet">Pagos Pendientes<span class="badge green">6</span></a></li>
          	 </ul>
-         </nav>       
-         <div id="menu">
+         </nav>        
+		<div id="menu">
+			
 			<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 	    	<ul>
-            	<li class="menuitem"><a href="ListAdmissionsServlet">Ver Admisiones</a></li>
+            	<li class="menuitem"><a href="ListSupplyServlet">Ver Pacientes</a></li>
+            	<li class="menuitem"><a href="AddPatientSupplyServlet?id=<%=adminId%>&name=<%=patName%>">Agregar Suministros</a></li>
             </ul>
-            <div class="menuitemSalir"><a href="LogoutServlet">Salir</a></div>	
+			<div class="menuitemSalir"><a href="LogoutServlet">Salir</a></div>	
         </div>        
 		<jsp:include page="./menu.jsp" />
 		<div id="content">  
-			<h2>Altas Admisión Pendientes:</h2><br/>
-			<div class="info-text"><%= text %></div>
+			<h2>Suministros <%=patName%>:</h2><br/>
+			<div class="info-text"><%=text_result%></div>
 			<div id="dt_example">
 					<div id="container">
 						<div id="demo">
 							<table class="display" id="example">
 								<thead>
 									<tr>
-										<th>ID</th>
-										<th>Paciente</th>
-										<th>Médico Tratante</th>
-										<th>Fecha Ingreso</th>
-										<th>Fecha Egreso</th>
+										<th>Id</th>
+										<th>Suministro</th>
+										<th>Cantidad</th>
+										<th>Total</th>
 										<th>Acciones</th>
 									</tr>
 								</thead>
 								<tbody>		
-									<% for (int i=0; i< admiList.size(); i++){
-										PendingAdmissionDischarges ad = admiList.get(i);
-										String pName = ad.getPatient().getFirstName() + " " + ad.getPatient().getLastName();
-										String eName = ad.getSpecialist().getFirstName()+ " " + ad.getSpecialist().getLastName();
-										
-										%>	
+									<%
+										for (int i=0; i< supplies.size(); i++){
+										PatientSupply s = supplies.get(i);
+									%>	
 									<tr class="gradeA">
-										<td><%= ad.getAdmissionID() %></td>
-										<td><%= pName %></td>
-										<td><%= eName %></td>
-										<td><%= ad.getAdmissionDate() %></td>
-										<td><%= ad.getDischargeDate() %></td>
+										<td><%= s.getPatientSupplyID() %></td>
+										<td><%= s.getSupplyName() %></td>
+										<td><%= s.getAmount() %></td>
+										<td><%= s.getTotal() %></td>
 										<td>
-											<a href="EditAdmissionEstimationServlet" style="color: transparent" >
-												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
+											<a href="EditPatientSupplyServlet?id=<%=adminId%>&name=<%=patName%>&spId=<%= s.getPatientSupplyID() %>" style="color: transparent" >
+												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
 											</a>
-											<a id="go" rel="leanModal" href="#dischargeUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(<%= ad.getAdmissionID() %>,'<%= pName %>');" >
-												<img alt="logo" src="./images/check.png"  height="16" width="16" title="Dar de Alta" />
-											</a>
+											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
+												onclick="return loadVars(<%= s.getPatientSupplyID() %>,'<%= s.getSupplyName() %>',<%= adminId %>, '<%= patName %>');" >
+												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
+											</a> 
 											<br>
 										</td>
 									</tr>
@@ -147,24 +148,26 @@
 				<div class="spacer"></div>
         	</div>
        	</div>
-		<div id="dischargeUser">
+		<div id="deleteUser">
 			<div id="signup-ct">
-				<h3 id="see_id" class="sprited" > Alta de Admisión</h3>
+				<h3 id="see_id" class="sprited" > Eliminar Servicio</h3>
 				<br><br>
-				<span>¿Está seguro que desea darle el alta de admisión a <span class="cliente"></span>? </span> <br><br>
-				<span style="color: red; font-size: small; font-style: italic;">
-					Recuerde que debe verificar los servicios de Rayos X, Laboratorio y Servicios Médicos del paciente antes de darle de alta.
-				</span> <br><br>
+				<span>¿Está seguro que desea eliminar el suministro <span class="cliente"></span>? </span> <br><br>
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="SetAdmissionDischargeServlet" method="post"  onsubmit="return setV(this)">
+				<form action="RemovePatientSupplyServlet" method="post"  onsubmit="return setV(this)">
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+					<input type="hidden" id="id" class="good_input" name="id"  value=""/>
+					<input type="hidden" id="name" class="good_input" name="name"  value=""/>
+					
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
 					</div>
 		 		</form>
 			</div>
 		</div>
+		
+		
 	</body>
 </html>

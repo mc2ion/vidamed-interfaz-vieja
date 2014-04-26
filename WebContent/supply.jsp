@@ -1,27 +1,21 @@
-<%@page import="domain.PendingAdmissionDischarges"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="domain.User"%>
+<%@page import="domain.Admission"%>
+<%@ page import="domain.User" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.HashMap" %>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
 	if (user != null)
 		name = user.getFirstName() ;
-	
-
 	@SuppressWarnings("unchecked")
-	ArrayList<PendingAdmissionDischarges> admiList = (ArrayList<PendingAdmissionDischarges>)request.getAttribute("admissions");
-	
-	String result = (String) session.getAttribute("info");
-	String text = "";
-	if (result != null)
-		text = result;
+	ArrayList<Admission> admiList = (ArrayList<Admission>)request.getAttribute("admissions");
 %>
 <!DOCTYPE HTML>
 <html>
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-	<title>Altas Admisión Pendientes</title>
+	<title>Farmacia Pacientes:</title>
 	<script type="text/javascript" src="./js/jquery.js"></script>
 	<script type="text/javascript" src="./js/jquery.dataTables.js"></script>
 	<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
@@ -33,8 +27,6 @@
 			"sScrollY": "250px",
 			"bPaginate": false,
 			"aoColumns": [
-				null,
-				null,
 				null,
 				null,
 				null,
@@ -70,16 +62,14 @@
 		f.elements['userId'].value = idUser;
 		return true;
 	}
-	
-	
 	</script>
 </head>
 <body>
 	<div id="container">
 		<div id="header">
         	<img alt="logo" src="./images/logo.png"/>
-        </div>    
-          <nav>
+        </div>         
+      	<nav>
          	<ul>
          		<li><a href="#">Bienvenido, <%= name %></a></li>
                 <li><a href="ListAdmissionDischargesServlet">Altas Admisión<span class="badge yellow">3</span></a></li>
@@ -88,18 +78,15 @@
 		     	<li><a href="ListPharmacyDischargesServlet">Altas Farmacia<span class="badge blue">3</span></a></li>
 		     	<li><a href="ListBillingsServlet">Pagos Pendientes<span class="badge green">6</span></a></li>
          	 </ul>
-         </nav>       
-         <div id="menu">
+         </nav>        
+		<div id="menu">
+			
 			<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
-	    	<ul>
-            	<li class="menuitem"><a href="ListAdmissionsServlet">Ver Admisiones</a></li>
-            </ul>
-            <div class="menuitemSalir"><a href="LogoutServlet">Salir</a></div>	
+			<div class="menuitemSalir"><a href="LogoutServlet">Salir</a></div>	
         </div>        
-		<jsp:include page="./menu.jsp" />
+		 <jsp:include page="./menu.jsp" />
 		<div id="content">  
-			<h2>Altas Admisión Pendientes:</h2><br/>
-			<div class="info-text"><%= text %></div>
+			<h2>Farmacia Pacientes: </h2>
 			<div id="dt_example">
 					<div id="container">
 						<div id="demo">
@@ -108,34 +95,23 @@
 									<tr>
 										<th>ID</th>
 										<th>Paciente</th>
-										<th>Médico Tratante</th>
-										<th>Fecha Ingreso</th>
-										<th>Fecha Egreso</th>
+										<th>Estado</th>
 										<th>Acciones</th>
 									</tr>
 								</thead>
-								<tbody>		
-									<% for (int i=0; i< admiList.size(); i++){
-										PendingAdmissionDischarges ad = admiList.get(i);
-										String pName = ad.getPatient().getFirstName() + " " + ad.getPatient().getLastName();
-										String eName = ad.getSpecialist().getFirstName()+ " " + ad.getSpecialist().getLastName();
-										
-										%>	
+								<tbody>			
+									<% for (int i = 0; i < admiList.size(); i++){ 
+										Admission admi = admiList.get(i);
+										String patName = admi.getFirstName() + " " + admi.getLastName();
+									%>
 									<tr class="gradeA">
-										<td><%= ad.getAdmissionID() %></td>
-										<td><%= pName %></td>
-										<td><%= eName %></td>
-										<td><%= ad.getAdmissionDate() %></td>
-										<td><%= ad.getDischargeDate() %></td>
+										<td><%= admi.getAdmissionID() %></td>
+										<td><%= patName %></td>
+										<td><%= admi.getReasonName() %></td>
 										<td>
-											<a href="EditAdmissionEstimationServlet" style="color: transparent" >
-												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
+											<a href="ListPatientSuppliesServlet?id=<%= admi.getAdmissionID() %>&name=<%= patName %>" style="color: transparent" >
+												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Insumos" />
 											</a>
-											<a id="go" rel="leanModal" href="#dischargeUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(<%= ad.getAdmissionID() %>,'<%= pName %>');" >
-												<img alt="logo" src="./images/check.png"  height="16" width="16" title="Dar de Alta" />
-											</a>
-											<br>
 										</td>
 									</tr>
 									<% } %>
@@ -145,20 +121,17 @@
 					</div>
 				</div>
 				<div class="spacer"></div>
-        	</div>
        	</div>
-		<div id="dischargeUser">
+		</div>
+		<div id="deleteUser">
 			<div id="signup-ct">
-				<h3 id="see_id" class="sprited" > Alta de Admisión</h3>
+				<h3 id="see_id" class="sprited" > Eliminar Protocolo</h3>
 				<br><br>
-				<span>¿Está seguro que desea darle el alta de admisión a <span class="cliente"></span>? </span> <br><br>
-				<span style="color: red; font-size: small; font-style: italic;">
-					Recuerde que debe verificar los servicios de Rayos X, Laboratorio y Servicios Médicos del paciente antes de darle de alta.
-				</span> <br><br>
+				<span>¿Está seguro que desea eliminar el protocolo '<span class="cliente"></span>' y su información asociada? </span> <br><br>
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="SetAdmissionDischargeServlet" method="post"  onsubmit="return setV(this)">
+				<form action="ListAdmissionsServlet" method="post"  onsubmit="return setV(this)">
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />

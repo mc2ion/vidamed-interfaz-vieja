@@ -4,41 +4,37 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import domain.PatientService;
 
-public class GetPatientServicesByAdmission implements DatabaseCommand {
+public class GetPatientService implements DatabaseCommand {
 	
-	private Long id;
-	private Long servId;
+	private Long servicePatientId;
 	
 	
-	public GetPatientServicesByAdmission(Long id, Long servId){
-		this.id = id;
-		this.servId = servId;
+	public GetPatientService(Long servicePatientId){
+		this.servicePatientId = servicePatientId;
 	}
 	
 	@Override
 	public Object executeDatabaseOperation(Connection conn) throws SQLException {
 		
-		ArrayList<PatientService> supplies = new ArrayList<PatientService>();
+		PatientService pSupply = new PatientService();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
 		try {
-			ps = conn.prepareStatement("exec dbo.GetPatientServicesByAdmission " + id + " , " + servId);
+			ps = conn.prepareStatement("exec dbo.GetPatientService " + servicePatientId);
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				PatientService pSupply = new PatientService();
-				pSupply.setAdmissionID(rs.getLong(1));
-				pSupply.setServicePatientID(rs.getLong(2));
+				pSupply.setServicePatientID(rs.getLong(1));
+				pSupply.setAdmissionID(rs.getLong(2));
 				pSupply.setServiceID(rs.getLong(3));
 				pSupply.setServiceName(rs.getString(4));
 				pSupply.setServicePrice(rs.getString(5));
 				pSupply.setAssociatedFile(rs.getString(6));
-				supplies.add(pSupply);
+				
 			}
 		}
 		finally {
@@ -46,7 +42,7 @@ public class GetPatientServicesByAdmission implements DatabaseCommand {
 			ps.close();
 		}		
 		
-		return supplies;
+		return pSupply;
 	}
 
 }

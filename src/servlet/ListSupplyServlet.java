@@ -11,14 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import command.CommandExecutor;
-import domain.PendingAdmissionDischarges;
+import domain.Admission;
 
 
 /**
- * Servlet implementation class ListAdmissionDischargesServlet
+ * Servlet implementation class ListSupplyServlet
  */
-@WebServlet(description = "servlet to generate reports", urlPatterns = { "/ListAdmissionDischargesServlet" })
-public class ListAdmissionDischargesServlet extends HttpServlet {
+@WebServlet(description = "servlet to generate reports", urlPatterns = { "/ListSupplyServlet" })
+public class ListSupplyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	public void init() throws ServletException {
@@ -33,7 +33,7 @@ public class ListAdmissionDischargesServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ListAdmissionDischargesServlet() {
+    public ListSupplyServlet() {
         super();
     }
 
@@ -43,9 +43,9 @@ public class ListAdmissionDischargesServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			@SuppressWarnings("unchecked")
-			ArrayList<PendingAdmissionDischarges> admissions = (ArrayList<PendingAdmissionDischarges>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPendingAdmissionDischarges());
+			ArrayList<Admission> admissions = (ArrayList<Admission>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetAcceptedAdmissions());
 			request.setAttribute("admissions", admissions);
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/pendingAdmissionDischarges.jsp");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/supply.jsp");
 			rd.forward(request, response);
 		} 
 		catch (Exception e) {

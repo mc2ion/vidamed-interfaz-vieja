@@ -1,24 +1,23 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
-import domain.PendingAdmissionDischarges;
+
 
 
 /**
- * Servlet implementation class ListAdmissionDischargesServlet
+ * Servlet implementation class SetAdmissionDischargeServlet
  */
-@WebServlet(description = "servlet to generate reports", urlPatterns = { "/ListAdmissionDischargesServlet" })
-public class ListAdmissionDischargesServlet extends HttpServlet {
+@WebServlet(description = "servlet to log in users", urlPatterns = { "/SetAdmissionDischargeServlet" })
+public class SetAdmissionDischargeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	public void init() throws ServletException {
@@ -33,7 +32,7 @@ public class ListAdmissionDischargesServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ListAdmissionDischargesServlet() {
+    public SetAdmissionDischargeServlet() {
         super();
     }
 
@@ -41,22 +40,26 @@ public class ListAdmissionDischargesServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			@SuppressWarnings("unchecked")
-			ArrayList<PendingAdmissionDischarges> admissions = (ArrayList<PendingAdmissionDischarges>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPendingAdmissionDischarges());
-			request.setAttribute("admissions", admissions);
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/pendingAdmissionDischarges.jsp");
-			rd.forward(request, response);
-		} 
-		catch (Exception e) {
-			throw new ServletException(e);
-		}
+		doPost(request, response);
 	}
-	
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		try {
+			HttpSession session = request.getSession(false);
+			Long admissionID = Long.parseLong(request.getParameter("userId"));
+			Integer result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.SetAdmissionDischarge(admissionID));
+			String text = "Se ha dado dado de alta exitosamente.";
+			if (result == 0)
+				text = "Hubo un error al dar de alta. Por favor, intente nuevamente.";
+			session.setAttribute("info",text);
+			
+			response.sendRedirect(request.getContextPath() + "/ListAdmissionDischargesServlet");
+		}
+		catch (Exception e) {
+			throw new ServletException(e);
+		}
 	}
 }

@@ -1,9 +1,19 @@
+<%@page import="domain.PendingPharmacyDischarges"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="domain.User"%>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
 	if (user != null)
 		name = user.getFirstName() ;
+	
+	@SuppressWarnings("unchecked")
+	ArrayList<PendingPharmacyDischarges> pdList = (ArrayList<PendingPharmacyDischarges>)request.getAttribute("phDisc");
+	
+	String result = (String) session.getAttribute("info");
+	String text = "";
+	if (result != null)
+		text = result;
 %>
 <!DOCTYPE HTML>
 <html>
@@ -52,7 +62,6 @@
 	function loadVars(var1, var2) {
 		idUser = var1;
 		$('.cliente').text(var2);
-		
 	};
 	
 	function setV(f){
@@ -85,7 +94,8 @@
         </div>        
 		 <jsp:include page="./menu.jsp" />
 		<div id="content">  
-			<h2>Altas Farmacia Pendientes:</h2>
+			<h2>Altas Farmacia Pendientes:</h2><br/>
+			<div class="info-text"><%= text %></div>
 			<div id="dt_example">
 					<div id="container">
 						<div id="demo">
@@ -101,57 +111,29 @@
 									</tr>
 								</thead>
 								<tbody>			
+									<% for (int i=0; i< pdList.size(); i++){ 
+										PendingPharmacyDischarges pd = pdList.get(i);
+										String pName = pd.getPatient().getFirstName() + " " + pd.getPatient().getLastName();
+										String eName = pd.getSpecialist().getFirstName() + " " + pd.getSpecialist().getLastName();
+									%>
 									<tr class="gradeA">
-										<td>1001</td>
-										<td>Ana Rojas</td>
-										<td>Ricardo López</td>
-										<td>01/10/2013 09:00 pm</td>
-										<td>02/10/2013 12:00 pm</td>
+										<td><%= pd.getAdmissionID() %></td>
+										<td><%= pName %></td>
+										<td><%= eName %></td>
+										<td><%= pd.getAdmissionDate() %></td>
+										<td><%= pd.getDischargeDate() %></td>
 										<td>
 											<a href="EditPharmacyEstimationServlet" style="color: transparent" >
 												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 											</a>
 											<a id="go" rel="leanModal" href="#dischargeUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1001,'Ana Rojas');" >
+												onclick="return loadVars(<%= pd.getAdmissionID() %>,'<%= pName %>');" >
 												<img alt="logo" src="./images/check.png"  height="16" width="16" title="Dar de Alta" />
 											</a>
 											<br>
 										</td>
 									</tr>
-									<tr class="gradeA">
-										<td>1002</td>
-										<td>Luis Mujica</td>
-										<td>José Herrera</td>
-										<td>02/10/2013 09:00 am</td>
-										<td>02/10/2013 01:35 pm</td>
-										<td>
-											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
-											</a>
-											<a id="go" rel="leanModal" href="#dischargeUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1002,'Luis Mujica');" >
-												<img alt="logo" src="./images/check.png"  height="16" width="16" title="Dar de Alta" />
-											</a>
-											<br>
-										</td>
-									</tr>
-									<tr class="gradeA">
-										<td>1003</td>
-										<td>Miguel Álvarez</td>
-										<td>Ana Rodriguez</td>
-										<td>02/10/2013 09:10 am</td>
-										<td>02/10/2013 11:13 am</td>
-										<td>
-											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
-											</a>
-											<a id="go" rel="leanModal" href="#dischargeUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1003,'Miguel Álvarez');" >
-												<img alt="logo" src="./images/check.png"  height="16" width="16" title="Dar de Alta" />
-											</a>
-											<br>
-										</td>
-									</tr>
+									<% } %>
 								</tbody>
 							</table>
 						</div>
@@ -168,7 +150,7 @@
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="ListPharmacyDischargesServlet" method="post"  onsubmit="return setV(this)">
+				<form action="SetPharmacyDischargeServlet" method="post"  onsubmit="return setV(this)">
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />

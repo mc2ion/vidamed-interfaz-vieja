@@ -3,11 +3,13 @@ package domain;
 public class PatientSupply {
 	
 	private Long admissionID;
-	private Long servicePatientID;
-	private Long serviceID;
-	private String serviceName;
-	private String servicePrice;
-	private String associatedFile;
+	private Long patientSupplyID;
+	private Long supplyID;
+	private String supplyName;
+	private String supplyForm;
+	private String amount;
+	private String unitPrice;
+	private String total;
 	
 	public Long getAdmissionID() {
 		return admissionID;
@@ -17,43 +19,59 @@ public class PatientSupply {
 		this.admissionID = admissionID;
 	}
 	
-	public Long getServicePatientID() {
-		return servicePatientID;
+	public Long getPatientSupplyID() {
+		return patientSupplyID;
 	}
 	
-	public void setServicePatientID(Long servicePatientID) {
-		this.servicePatientID = servicePatientID;
+	public void setPatientSupplyID(Long patientSupplyID) {
+		this.patientSupplyID = patientSupplyID;
 	}
 	
-	public Long getServiceID() {
-		return serviceID;
+	public Long getSupplyID() {
+		return supplyID;
 	}
 	
-	public void setServiceID(Long serviceID) {
-		this.serviceID = serviceID;
+	public void setSupplyID(Long supplyID) {
+		this.supplyID = supplyID;
 	}
 	
-	public String getServiceName() {
-		return serviceName;
+	public String getSupplyName() {
+		return supplyName;
 	}
 	
-	public void setServiceName(String serviceName) {
-		this.serviceName = serviceName;
+	public void setSupplyName(String supplyName) {
+		this.supplyName = supplyName;
 	}
 	
-	public String getServicePrice() {
-		return servicePrice;
+	public String getSupplyForm() {
+		return supplyForm;
 	}
 	
-	public void setServicePrice(String servicePrice) {
-		this.servicePrice = servicePrice;
+	public void setSupplyForm(String supplyForm) {
+		this.supplyForm = supplyForm;
 	}
 	
-	public String getActiveComponent() {
-		return associatedFile;
+	public String getAmount() {
+		return amount;
 	}
 
-	public void setAssociatedFile(String associatedFile) {
-		this.associatedFile = associatedFile;
+	public void setAmount(String amount) {
+		this.amount = amount;
+	}
+	
+	public String getUnitPrice() {
+		return unitPrice;
+	}
+
+	public void setUnitPrice(String unitPrice) {
+		this.unitPrice = unitPrice;
+	}
+	
+	public String getTotal() {
+		return total;
+	}
+
+	public void setTotal(String total) {
+		this.total = total;
 	}
 }
