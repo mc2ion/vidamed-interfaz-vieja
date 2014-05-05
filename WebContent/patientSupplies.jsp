@@ -82,16 +82,7 @@
 		<div id="header">
         	<img alt="logo" src="./images/logo.png"/>
         </div>         
-      	<nav>
-         	<ul>
-         		<li><a href="#">Bienvenido, <%=name%></a></li>
-                <li><a href="ListAdmissionDischargesServlet">Altas Admisión<span class="badge yellow">3</span></a></li>
-		 		<li><a href="ListCreditNotesServlet">Prefacturas por Generar<span class="badge blue">3</span></a></li><li><a href="ListCreditNotesReviewServlet">Prefacturas por Revisar<span class="badge green">3</span></a></li><li><a href="ListInvoicesServlet">Facturas por Generar<span class="badge red">3</span></a></li>
-		     	<li><a href="ListRequestsServlet">Descuentos<span class="badge yellow">2</span></a></li>
-		     	<li><a href="ListPharmacyDischargesServlet">Altas Farmacia<span class="badge blue">3</span></a></li>
-		     	<li><a href="ListBillingsServlet">Pagos Pendientes<span class="badge green">6</span></a></li>
-         	 </ul>
-         </nav>        
+      	<jsp:include page="./upperMenu.jsp" />        
 		<div id="menu">
 			
 			<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
