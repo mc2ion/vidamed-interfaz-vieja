@@ -14,10 +14,10 @@ import command.CommandExecutor;
 
 
 /**
- * Servlet implementation class ApplyDiscountServlet
+ * Servlet implementation class ForwardCreditNoteServlet
  */
-@WebServlet(description = "servlet to log in users", urlPatterns = { "/ApplyDiscountServlet" })
-public class ApplyDiscountServlet extends HttpServlet {
+@WebServlet(description = "servlet to log in users", urlPatterns = { "/ForwardCreditNoteServlet" })
+public class ForwardCreditNoteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	public void init() throws ServletException {
@@ -32,7 +32,7 @@ public class ApplyDiscountServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ApplyDiscountServlet() {
+    public ForwardCreditNoteServlet() {
         super();
     }
 
@@ -49,19 +49,15 @@ public class ApplyDiscountServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			Long 	id 				= Long.valueOf(request.getParameter("userId"));
-			String 	type 			= request.getParameter("type");
-			String 	amount 			= request.getParameter("amount");
-			String 	justification 	= request.getParameter("justification");
-			
+		
 			HttpSession session = request.getSession(false);
 			
-			System.out.println(" " + id + " " + type + " " + amount + " " + justification);
 			
-			int result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.ApplyDiscount(id, type, amount, justification));
+			int result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.ForwardCreditNote(id));
 			if (result == 1)
-				session.setAttribute("info", "El descuento fue aceptado exitosamente!.");
+				session.setAttribute("info", "La prefactura fue reenviada exitosamente!.");
 			else
-				session.setAttribute("info", "Hubo un error al aceptar el descuento. Por favor, intente nuevamente.");
+				session.setAttribute("info", "Hubo un error al reenviar la prefactura. Por favor, intente nuevamente.");
 
 			response.sendRedirect(request.getContextPath() + "/ListCreditNotesReviewServlet");
 			

@@ -83,10 +83,7 @@
         <jsp:include page="./upperMenu.jsp" />          
         <div id="menu">
 			<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
-	    	<ul>
-            	<li class="menuitem"><a href="ListAdmissionsServlet">Ver Admisiones</a></li>
-            </ul>
-            <div class="menuitemSalir"><a href="LogoutServlet">Salir</a></div>	
+	    	<div class="menuitemSalir"><a href="LogoutServlet">Salir</a></div>	
         </div>        
 		 <jsp:include page="./menu.jsp" />
 		<div id="content">  
@@ -132,11 +129,11 @@
 												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Aplicar Descuento" />			
 											</a>
 											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1001,'Ana Rojas');" >
+												onclick="return loadVars(<%= p.getCreditNoteID() %>,'<%= pName %>');" >
 												<img alt="logo" src="./images/refresh.png"  height="16" width="16" title="Reenviar Prefactura" />
 											</a>
 											<a id="go" rel="leanModal" href="#generateInvoice" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1001,'Ana Rojas');" >
+												onclick="return loadVars(<%= p.getCreditNoteID() %>,'<%= pName %>');" >
 												<img alt="logo" src="./images/check.png" height="16" width="16" title="Generar Factura"/>
 											</a> 
 											<br>
@@ -159,7 +156,7 @@
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="ListCreditNotesReviewServlet" method="post"  onsubmit="return setV(this)">
+				<form action="ForwardCreditNoteServlet" method="post"  onsubmit="return setV(this)">
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
@@ -175,8 +172,10 @@
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="ListCreditNotesReviewServlet" method="post"  onsubmit="return setV(this)">
+				<form action="CreateBillServlet" method="post"  onsubmit="return setV(this)">
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+					<input type="hidden" id="userReviewId" class="good_input" name="userReviewId"  value="<%= user.getUserID() %>"/>
+					
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
 					</div>

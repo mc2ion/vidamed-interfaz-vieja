@@ -1,7 +1,9 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import command.CommandExecutor;
+import domain.BedLocation;
 
 
 
@@ -42,12 +45,24 @@ public class SearchBedsServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		RequestDispatcher rd;
-		String function = request.getParameter("function");
-		if (function != null)
-			rd = getServletContext().getRequestDispatcher("/searchBed.jsp?function=" + function);	
-		else
-			rd = getServletContext().getRequestDispatcher("/searchBed.jsp");	
-		rd.forward(request, response);
+		String function 	= request.getParameter("function");
+		String admissionId 	= request.getParameter("id");
+		System.out.println("ad " + admissionId);
+		try {
+			@SuppressWarnings("unchecked")
+			ArrayList<BedLocation> lList = (ArrayList<BedLocation>) CommandExecutor.getInstance().executeDatabaseCommand(new command.SearchLocations());
+			request.setAttribute("locations", lList);
+			request.setAttribute("admissionId", admissionId);
+			if (function != null)
+				rd = getServletContext().getRequestDispatcher("/searchBed.jsp?function=" + function);	
+			else
+				rd = getServletContext().getRequestDispatcher("/searchBed.jsp");	
+			rd.forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
 	}
 
 	/**
@@ -55,6 +70,20 @@ public class SearchBedsServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		doGet(request, response);
+		Long bedId 	 	 = Long.valueOf(request.getParameter("bed"));
+		Long admissionId = Long.valueOf(request.getParameter("admissionId"));
+		
+		try {
+			Integer result  = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.EditLocation(admissionId, bedId));
+			System.out.println("result " + result);
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//doGet(request, response);
 	}
 }

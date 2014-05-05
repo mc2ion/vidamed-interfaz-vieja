@@ -1,9 +1,11 @@
 <%@page import="domain.User"%>
+<%@page import="domain.Emergency"%>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
 	if (user != null)
 		name = user.getFirstName() ;
+	Emergency emergency = (Emergency) request.getAttribute("emergency");
 %>
 <!DOCTYPE HTML>
 <html>
@@ -90,16 +92,16 @@
 					    <li><a href="#tabs-2">Protocolos</a></li>
 			  		</ul>
   					<div id="tabs-1">
-  						<br>
-					    <div class="leftColum"><b>Cédula:</b></div> V-12345678<br><br>
-					    <div class="leftColum"><b> Nombre:</b></div> Ana Rojas<br><br>
-					    <div class="leftColum"><b>Fecha de Ingreso:</b></div> 20/06/2013 07:35 AM<br><br>
-					    <fieldset>
+  						<fieldset>
+					    <br>
+					    <label>Cédula:</label><%= emergency.getPatient().getIdentityCard() %><br><br>
+					   	<label>Nombre:</label><%= emergency.getPatient().getFirstName() + " " + emergency.getPatient().getLastName() %><br><br>
+					    <label>Fecha de Ingreso:</label><%= emergency.getAdmissionDate() %><br><br>
 					   <label> Ubicación:  </label>
 						<input type="text" name="ubication" id="ubication" value="UCI" readonly><br><br>
 						 
 						<label> Cama:</label>  <input type="text" name="bedId" id="bedId" value="Cama 1" readonly>
-						    <a href="SearchBedsServlet?function=editEmergency" style="color: #f7941e; font-weight: bold;">
+						    <a href="SearchBedsServlet?function=editEmergency&id=<%=emergency.getId() %>" style="color: #f7941e; font-weight: bold;">
 								<input type="button"id="bedUbication" value="Cambiar" >
 							</a>
 					    </fieldset>
