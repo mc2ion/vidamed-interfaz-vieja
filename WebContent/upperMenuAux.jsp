@@ -23,13 +23,13 @@
 			<nav>
          		<ul>
          			<li><a href="#">Bienvenido, <%= userName %></a></li>
-                	<li><a href="ListAdmissionDischargesServlet">Altas Admisión<span class="badge yellow"><%= countPAD %></span></a></li>
-		 			<li><a href="ListCreditNotesServlet">Prefacturas por Generar<span class="badge blue"><%= countPCN %></span></a></li>
-		 			<li><a href="ListCreditNotesReviewServlet">Prefacturas por Revisar<span class="badge green"><%= countPCNR %></span></a></li>
-		 			<li><a href="ListInvoicesServlet">Facturas por Generar<span class="badge red"><%= countPB %></span></a></li>
-		     		<li><a href="ListRequestsServlet">Descuentos<span class="badge yellow">2</span></a></li>
-		     		<li><a href="ListPharmacyDischargesServlet">Altas Farmacia<span class="badge blue"><%= countPPD %></span></a></li>
-		     		<li><a href="ListBillingsServlet">Pagos Pendientes<span class="badge green">6</span></a></li>
+                	<li><a href="ListAdmissionDischargesServlet" target="_parent">Altas Admisión<span class="badge yellow"><%= countPAD %></span></a></li>
+		 			<li><a href="ListCreditNotesServlet" target="_parent">Prefacturas por Generar<span class="badge blue"><%= countPCN %></span></a></li>
+		 			<li><a href="ListCreditNotesReviewServlet" target="_parent">Prefacturas por Revisar<span class="badge green"><%= countPCNR %></span></a></li>
+		 			<li><a href="ListInvoicesServlet" target="_parent">Facturas por Generar<span class="badge red"><%= countPB %></span></a></li>
+		     		<li><a href="ListRequestsServlet" target="_parent">Descuentos<span class="badge yellow">2</span></a></li>
+		     		<li><a href="ListPharmacyDischargesServlet" target="_parent">Altas Farmacia<span class="badge blue"><%= countPPD %></span></a></li>
+		     		<li><a href="ListBillingsServlet" target="_parent">Pagos Pendientes<span class="badge green">6</span></a></li>
         		</ul>
         	</nav>
     	</div>
