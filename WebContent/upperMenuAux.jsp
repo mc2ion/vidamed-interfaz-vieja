@@ -20,6 +20,9 @@
 	</head>
 	<body>
 		<div id="container">
+			<div id="header">
+	        	<img alt="logo" src="./images/logo.png"/>
+	        </div>   
 			<nav>
          		<ul>
          			<li><a href="#">Bienvenido, <%= userName %></a></li>

@@ -30,6 +30,7 @@
 		   <li><a href='ListBillingsServlet'><span>Facturación</span></a></li>
 		   <li><a href='ListBloodBankServlet'><span>Banco de Sangre</span></a></li>
 		   <li><a href='ListEcoServlet'><span>Ecosonograf&iacute;a</span></a></li>
-		   <li class='last'><a href='ListLabServlet'><span>Laboratorio</span></a></li>
+		   <li><a href='ListLabServlet'><span>Laboratorio</span></a></li>
+		   <li class='last'><a href='ListInterServlet'><span>Interconsultas</span></a></li>
 		</ul>
 </div>   
