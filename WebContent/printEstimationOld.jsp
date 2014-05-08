@@ -46,7 +46,7 @@
 </head>
 	<body id="especial">
 		<div id="printHeader">
-        	<img alt="logo" src="./images/logo.png"/>
+        	
         </div>  
 		
 		<br>

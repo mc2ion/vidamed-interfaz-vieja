@@ -80,7 +80,7 @@
 	<body>
 		<div id="container">
 			<div id="header">
-	        	<img alt="logo" src="./images/logo.png"/>
+	        	
 	        </div>         
         	<jsp:include page="./upperMenu.jsp" />        
 			<div id="menu">

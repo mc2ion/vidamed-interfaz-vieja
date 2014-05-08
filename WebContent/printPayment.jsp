@@ -46,7 +46,7 @@
 </head>
 	<body id="especial">
 		<div id="printHeader">
-        	<img alt="logo" src="./images/logo.png"/>
+        	
         </div>  
 		<br>
 		<div id="title" style="font-size:16px; font-weight: bold; text-align:right;"> Fecha: 23/06/2013 </div>

@@ -1,29 +1,21 @@
-<%@page import="domain.User"%>
+<%@page import="domain.Admission"%>
+<%@ page import="domain.User" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.HashMap" %>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
 	if (user != null)
 		name = user.getFirstName() ;
-%>
-<%@ page import="domain.Unit" %>
-<%@ page import="java.util.ArrayList" %>
-<%
 	@SuppressWarnings("unchecked")
-	ArrayList<Unit> units = (ArrayList<Unit>)request.getAttribute("units");
-
-	String info_text = "";
-	String info = (String) session.getAttribute("info");
-	if (info != null ){
-		info_text = info;
-	}
-	session.removeAttribute("info");
+	ArrayList<Admission> admiList = (ArrayList<Admission>)request.getAttribute("admissions");
 %>
 <!DOCTYPE HTML>
 <html>
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-	<title>Unidades</title>
+	<title>Interconsultas</title>
 	<script type="text/javascript" src="./js/jquery.js"></script>
 	<script type="text/javascript" src="./js/jquery.dataTables.js"></script>
 	<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
@@ -37,6 +29,7 @@
 			"aoColumns": [
 				null,
 				null,
+				null,
 				{ "bSearchable": false, "asSorting": false, "sWidth": "18%" }
 			],
 			"oLanguage": {
@@ -45,7 +38,7 @@
 	            "sInfo": "Mostrando _START_ a _END_ de _TOTAL_ registros",
 	            "sInfoEmpty": "Mostrando 0 a 0 de 0 registros",
 	            "sInfoFiltered": "(filtrando de _MAX_ registros totales)",
-	            "sEmptyTable": "No hay unidades disponibles",
+	            "sEmptyTable": "No hay datos disponibles en la tabla",
 	            "sLoadingRecords": "Por favor, espere - cargando...",
 	            "sSearch": "Buscar:"
         	}
@@ -53,20 +46,20 @@
 	} );
 	</script>
 	<script type="text/javascript">
-	var idUnit;
+	var idUser;
 			
 	$(function() {
 		$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x" });		
 	});
 	
 	function loadVars(var1, var2) {
-		idUnit = var1;
+		idUser = var1;
 		$('.cliente').text(var2);
 		
 	};
 	
 	function setV(f){
-		f.elements['unitID'].value = idUnit;
+		f.elements['userId'].value = idUser;
 		return true;
 	}
 	</script>
@@ -80,15 +73,11 @@
 		<div id="menu">
 			
 			<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
-			<ul>
-            	<li class="menuitem"><a href="CreateUnitServlet">Crear Unidad</a></li>
-            </ul>
-	    	<div class="menuitemSalir"><a href="LogoutServlet">Salir</a></div>	
+			<div class="menuitemSalir"><a href="LogoutServlet">Salir</a></div>	
         </div>        
-		<jsp:include page="./menu.jsp" />
+		 <jsp:include page="./menu.jsp" />
 		<div id="content">  
-			<h2>Unidades:</h2><br/>
-			<div class="info-text"><%= info_text %></div>
+			<h2>Interconsultas</h2>
 			<div id="dt_example">
 					<div id="container">
 						<div id="demo">
@@ -96,29 +85,27 @@
 								<thead>
 									<tr>
 										<th>ID</th>
-										<th>Nombre</th>
+										<th>Paciente</th>
+										<th>Estado</th>
 										<th>Acciones</th>
 									</tr>
 								</thead>
-								<tbody>
-								<% 	for (int i = 0; i<units.size(); i++) { 
-								   		Unit u = units.get(i);
-								%>										
+								<tbody>			
+									<% for (int i = 0; i < admiList.size(); i++){ 
+										Admission admi = admiList.get(i);
+										String patName = admi.getFirstName() + " " + admi.getLastName();
+									%>
 									<tr class="gradeA">
-										<td><%= u.getUnitID() %></td>
-										<td><%= u.getName() %></td>
+										<td><%= admi.getAdmissionID() %></td>
+										<td><%= patName %></td>
+										<td><%= admi.getReasonName() %></td>
 										<td>
-											<a href="EditUnitServlet?unitID=<%= u.getUnitID() %>" style="color: transparent" >
-												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
+											<a href="ListPatientMedicalAdvicesByAdmissionServlet?id=<%= admi.getAdmissionID() %>&name=<%= patName %>" style="color: transparent" >
+												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Consulta" />
 											</a>
-											<a id="go" rel="leanModal" href="#deleteUnit" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(<%= u.getUnitID() %>,'<%= u.getName() %>');" >
-												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-											</a> 
-											<br>
 										</td>
 									</tr>
-								<% 	} %>
+									<% } %>
 								</tbody>
 							</table>
 						</div>
@@ -126,22 +113,6 @@
 				</div>
 				<div class="spacer"></div>
        	</div>
-		</div>
-		<div id="deleteUnit">
-			<div id="signup-ct">
-				<h3 id="see_id" class="sprited" > Eliminar Unidad</h3>
-				<br><br>
-				<span>¿Está seguro que desea eliminar la unidad '<span class="cliente"></span>' y su información asociada? </span> <br><br>
-				<div id="signup-header">
-					<a class="close_x" id="close_x"  href="#"></a>
-				</div>
-				<form action="RemoveUnitServlet" method="post"  onsubmit="return setV(this)">
-					<input type="hidden" id="unitID" class="good_input" name="unitID"  value=""/>
-					<div class="btn-fld">
-						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
-					</div>
-		 		</form>
-			</div>
 		</div>
 	</body>
 </html>

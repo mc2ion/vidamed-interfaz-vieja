@@ -38,6 +38,7 @@
 				null,
 				null,
 				null,
+				null,
 				{ "bSearchable": false, "asSorting": false, "sWidth": "18%" }
 			],
 			"oLanguage": {
@@ -55,26 +56,23 @@
 	</script>
 	<script type="text/javascript">
 	var idUser;
-	var v3, v4, v5;
+	var v2, v3;
 			
 	$(function() {
 		$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x" });		
 	});
 	
-	function loadVars(var1, var2, var3, var4, var5) {
+	function loadVars(var1, var2, var3) {
 		idUser = var1;
-		$('.cliente').text(var2);
+		$('.cliente').text(var1);
+		v2 = var2;
 		v3 = var3;
-		v4 = var4;
-		v5 = var5;
-		
 	};
 	
 	function setV(f){
 		f.elements['userId'].value = idUser;
-		f.elements['id'].value = v3;
-		f.elements['servId'].value = v4;
-		f.elements['name'].value = v5;
+		f.elements['id'].value = v2;
+		f.elements['name'].value = v3;
 		return true;
 	}
 	</script>
@@ -82,15 +80,15 @@
 <body>
 	<div id="container">
 		<div id="header">
-        	<img alt="logo" src="./images/logo.png"/>
+        	
         </div>         
       	<jsp:include page="./upperMenu.jsp" />        
 		<div id="menu">
 			
 			<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 	    	<ul>
-            	<li class="menuitem"><a href="#">Ver Pacientes</a></li>
-            	<li class="menuitem"><a href="#">Agregar Consulta</a></li>
+            	<li class="menuitem"><a href="/ListInterServlet">Ver Pacientes</a></li>
+            	<li class="menuitem"><a href="/AddPatientServiceServlet?id=<%=adminId%>&name=<%=patName%>">Agregar Consulta</a></li>
             </ul>
 			<div class="menuitemSalir"><a href="LogoutServlet">Salir</a></div>	
         </div>        
@@ -106,7 +104,8 @@
 									<tr>
 										<th>Id</th>
 										<th>Unidad</th>
-										<th>Precio</th>
+										<th>Especialista</th>
+										<th>Honorario</th>
 										<th>Acciones</th>
 									</tr>
 								</thead>
@@ -114,17 +113,19 @@
 									<%
 												for (int i=0; i< supplies.size(); i++){
 													PatientMedicalAdvice s = supplies.get(i);
+													String spName = s.getSpecialist().getFirstName() + " " +  s.getSpecialist().getLastName();
 											%>	
 									<tr class="gradeA">
 										<td><%= s.getPatientMedicalAdviceID() %></td>
 										<td><%= s.getUnitName() %></td>
+										<td><%= spName %></td>
 										<td><%= s.getMedicalFeed() %></td>
 										<td>
 											<a href="#" style="color: transparent" >
 												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
 											</a>
 											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars('','', '', '', '');" >
+												onclick="return loadVars(<%= s.getPatientMedicalAdviceID() %>,'<%= adminId %>', '<%= patName %>');" >
 												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
 											</a> 
 											<br>
@@ -141,16 +142,15 @@
        	</div>
 		<div id="deleteUser">
 			<div id="signup-ct">
-				<h3 id="see_id" class="sprited" > Eliminar Servicio</h3>
+				<h3 id="see_id" class="sprited" > Eliminar Consulta</h3>
 				<br><br>
-				<span>¿Está seguro que desea eliminar el servicio <span class="cliente"></span>? </span> <br><br>
+				<span>¿Está seguro que desea eliminar la consulta #<span class="cliente"></span>? </span> <br><br>
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="RemovePatientServiceServlet" method="post"  onsubmit="return setV(this)">
+				<form action="RemovePatientMedicalAdviceServlet" method="post"  onsubmit="return setV(this)">
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
 					<input type="hidden" id="id" class="good_input" name="id"  value=""/>
-					<input type="hidden" id="servId" class="good_input" name="servId"  value=""/>
 					<input type="hidden" id="name" class="good_input" name="name"  value=""/>
 					
 					<div class="btn-fld">
