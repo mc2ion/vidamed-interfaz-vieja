@@ -1,9 +1,13 @@
+<%@page import="domain.PendingPromptPayment"%>
 <%@page import="domain.User"%>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
 	if (user != null)
 		name = user.getFirstName() ;
+	
+	PendingPromptPayment pp = (PendingPromptPayment)request.getAttribute("pp");
+	
 %>
 <!DOCTYPE HTML>
 <html>
@@ -32,14 +36,19 @@
 	        	<h2>Detalle conciliación:</h2>   
 	        	<br>
 				<p>
-			   	<b>Especialista:</b> Juan Pérez<br><br>
-			    <b>N° de factura:</b> F-24410<br><br>
-			    <b>Fecha de la factura:</b> 05/10/2013<br><br>
-			    <b>Monto total:</b> Bs. 6000,00<br><br>
-			    <b>Monto deducido por pronto pago:</b> Bs. 1000,00<br><br>
-			    <b>Monto a pagar:</b> Bs. 5000,00<br><br>
-			    <b>Cargo desempeñado:</b> Cirujano Ayudante<br><br>
-			    <b>Estatus del pago:</b> Sin realizar<br><br>
+				<%
+					String eName  = pp.getSpecialist().getFirstName() + " " + pp.getSpecialist().getLastName();
+					String status = "Cobrado";
+					if (pp.getBillWasPaid() == 0)
+						status = "Pendiente";
+				%>
+			   	<b>Especialista:</b> <%= eName %><br><br>
+			    <b>N° de factura:</b> <%= pp.getBillID() %><br><br>
+			    <b>Fecha de la factura:</b> <%= pp.getBillDate() %><br><br>
+			    <b>Monto total:</b> Bs. <%= pp.getTotalAmount() %><br><br>
+			    <b>Monto deducido por pronto pago:</b> Bs. <%= pp.getDiscountedAmount() %><br><br>
+			    <b>Monto a pagar:</b> Bs. <%= pp.getAmount() %><br><br>
+			    <b>Estatus del pago:</b> <%= status %><br><br>
 			    <br><br>
 			    </p>
 				<div id="botonera" >

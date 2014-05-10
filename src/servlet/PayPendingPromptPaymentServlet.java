@@ -14,10 +14,10 @@ import command.CommandExecutor;
 
 
 /**
- * Servlet implementation class MoveToPromptPaymentServlet
+ * Servlet implementation class PayPendingPromptPaymentServlet
  */
-@WebServlet(description = "servlet to remove admission", urlPatterns = { "/MoveToPromptPaymentServlet" })
-public class MoveToPromptPaymentServlet extends HttpServlet {
+@WebServlet(description = "servlet to remove admission", urlPatterns = { "/PayPendingPromptPaymentServlet" })
+public class PayPendingPromptPaymentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	public void init() throws ServletException {
@@ -32,7 +32,7 @@ public class MoveToPromptPaymentServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MoveToPromptPaymentServlet() {
+    public PayPendingPromptPaymentServlet() {
         super();
     }
 
@@ -49,16 +49,14 @@ public class MoveToPromptPaymentServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		try {
-			Long userID	 	 = Long.parseLong(request.getParameter("userId"));
-			Long variableID	 = Long.parseLong(request.getParameter("variableId"));
-			System.out.println(userID + " " + variableID);
-			int result	 = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.MoveToPromptPayment(userID, variableID));
+			Long userID	 = Long.parseLong(request.getParameter("userId"));
+			int result	 = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.PayMedicalFee(userID));
 			if (result == 1)
-				session.setAttribute("text", "La factura fue movida a pronto pago exitosamente.");
+				session.setAttribute("text", "Se registró el pago exitosamente.");
 			else
-				session.setAttribute("text","Hubo un problema al mover la factura a pronto pago. Por favor, intente más tarde");
+				session.setAttribute("text","Hubo un problema el registrar el pago. Por favor, intente más tarde");
 			
-			response.sendRedirect("./ListBillingsHServlet");
+			response.sendRedirect("./ListBillingsPPServlet");
 		}
 		catch (Exception e) {
 			throw new ServletException(e);
