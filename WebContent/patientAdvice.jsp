@@ -87,8 +87,8 @@
 			
 			<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 	    	<ul>
-            	<li class="menuitem"><a href="/ListInterServlet">Ver Pacientes</a></li>
-            	<li class="menuitem"><a href="/AddPatientServiceServlet?id=<%=adminId%>&name=<%=patName%>">Agregar Consulta</a></li>
+            	<li class="menuitem"><a href="ListInterServlet">Ver Pacientes</a></li>
+            	<li class="menuitem"><a href="AddPatientMedicalAdviceServlet?id=<%=adminId%>&name=<%=patName%>">Agregar Consulta</a></li>
             </ul>
 			<div class="menuitemSalir"><a href="LogoutServlet">Salir</a></div>	
         </div>        
@@ -121,7 +121,7 @@
 										<td><%= spName %></td>
 										<td><%= s.getMedicalFeed() %></td>
 										<td>
-											<a href="#" style="color: transparent" >
+											<a href="EditPatientMedicalAdviceServlet?id=<%=adminId%>&name=<%=patName%>&pmId=<%= s.getPatientMedicalAdviceID() %>" style="color: transparent" >
 												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
 											</a>
 											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 

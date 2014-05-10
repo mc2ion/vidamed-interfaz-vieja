@@ -6,6 +6,11 @@
 	if (user != null)
 		name = user.getFirstName() ;
 	Emergency emergency = (Emergency) request.getAttribute("emergency");
+	
+	String text_result = (String) session.getAttribute("text");
+	if (text_result == null)
+		text_result = "";
+	session.removeAttribute("text");
 %>
 <!DOCTYPE HTML>
 <html>
@@ -86,6 +91,7 @@
         	<div id="content" style="position:absolute;">	
 	        	<h2>Editar Emergencia:</h2>
 				<br>
+				<div class="info-text"><%= text_result %></div>
 				<div id="tabs">
 					<ul>
 					    <li><a href="#tabs-1">Paciente</a></li>
@@ -98,10 +104,10 @@
 					   	<label>Nombre:</label><%= emergency.getPatient().getFirstName() + " " + emergency.getPatient().getLastName() %><br><br>
 					    <label>Fecha de Ingreso:</label><%= emergency.getAdmissionDate() %><br><br>
 					   <label> Ubicación:  </label>
-						<input type="text" name="ubication" id="ubication" value="UCI" readonly><br><br>
+						<input type="text" name="ubication" id="ubication" value="<%= emergency.getLocation().getName() %>" readonly><br><br>
 						 
-						<label> Cama:</label>  <input type="text" name="bedId" id="bedId" value="Cama 1" readonly>
-						    <a href="SearchBedsServlet?function=editEmergency&id=<%=emergency.getId() %>" style="color: #f7941e; font-weight: bold;">
+						<label> Cama:</label>  <input type="text" name="bedId" id="bedId" value="<%= emergency.getBed().getName() %>" readonly>
+						    <a href="SearchBedsServlet?function=editEmergency&id=<%=emergency.getId() %>&bN=<%=emergency.getBed().getName() %>&lN=<%=emergency.getLocation().getName() %>" style="color: #f7941e; font-weight: bold;">
 								<input type="button"id="bedUbication" value="Cambiar" >
 							</a>
 					    </fieldset>
@@ -111,7 +117,7 @@
 											<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
 								</div>	
 								<div id="botonV" style="display: inline;">
-										<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
+										<a href="ListEmergenciesServlet"  class="button" >Regresar</a>
 								</div>	
 							</form>
 						</div>

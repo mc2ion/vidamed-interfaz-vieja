@@ -2,23 +2,22 @@ package servlet;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
-import domain.Hospitalization;
 
 
 
 /**
- * Servlet implementation class EditHospitalizationServlet
+ * Servlet implementation class PayPendingMedicalFeeServlet
  */
-@WebServlet(description = "servlet to log in users", urlPatterns = { "/EditHospitalizationServlet" })
-public class EditHospitalizationServlet extends HttpServlet {
+@WebServlet(description = "servlet to remove admission", urlPatterns = { "/PayPendingMedicalFeeServlet" })
+public class PayPendingMedicalFeeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	public void init() throws ServletException {
@@ -33,7 +32,7 @@ public class EditHospitalizationServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EditHospitalizationServlet() {
+    public PayPendingMedicalFeeServlet() {
         super();
     }
 
@@ -41,27 +40,26 @@ public class EditHospitalizationServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		Long id = Long.valueOf(request.getParameter("id"));
-		RequestDispatcher rd;
-		try {
-			Hospitalization hospitalization = (Hospitalization) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetHospitalization(id));
-			request.setAttribute("hospitalization", hospitalization);
-			rd = getServletContext().getRequestDispatcher("/editHospitalization.jsp");			
-			rd.forward(request, response);
-		} 
-		catch (Exception e) {
-			throw new ServletException(e);
-		}
-		
-		
+		doPost(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		doGet(request, response);
+		HttpSession session = request.getSession(false);
+		try {
+			Long userID	 = Long.parseLong(request.getParameter("userId"));
+			int result	 = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.PayMedicalFee(userID));
+			if (result == 1)
+				session.setAttribute("text", "Se registró el pago exitosamente.");
+			else
+				session.setAttribute("text","Hubo un problema el registrar el pago. Por favor, intente más tarde");
+			
+			response.sendRedirect("./ListBillingsHServlet");
+		}
+		catch (Exception e) {
+			throw new ServletException(e);
+		}
 	}
 }

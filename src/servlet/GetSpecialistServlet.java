@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import command.CommandExecutor;
-import domain.Bed;
+import domain.Specialist;
 
 /**
- * Servlet implementation class GetBedsServlet
+ * Servlet implementation class GetSpecialistServlet
  */
-@WebServlet(description = "servlet to edit x-ray reports", urlPatterns = { "/GetBedsServlet" })
-public class GetBedsServlet extends HttpServlet {
+@WebServlet(description = "servlet to edit x-ray reports", urlPatterns = { "/GetSpecialistServlet" })
+public class GetSpecialistServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -33,7 +33,7 @@ public class GetBedsServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetBedsServlet() {
+    public GetSpecialistServlet() {
         super();
     }
 
@@ -45,20 +45,14 @@ public class GetBedsServlet extends HttpServlet {
 		 response.setContentType("text/html;charset=UTF-8");
 	        PrintWriter out = response.getWriter();
 	        try {
-	        	Long locationId = Long.valueOf(request.getParameter("locationId"));
-	            
+	            Long unit = Long.valueOf(request.getParameter("unit"));
 	            @SuppressWarnings("unchecked")
-				ArrayList<Bed> beds = (ArrayList<Bed>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetBeds(locationId));
-	            
-	            String options = "";
-				if (beds != null && beds.size() > 0){
-					options += "<option value=\"-\" selected>Seleccionar</option>";
-					for (int i = 0; i < beds.size(); i++){
-						options += "<option value="+ beds.get(i).getId()+">" + beds.get(i).getName() + "</option>";
-					}
-				}else
-					options  = "<option value=\"-\">No hay camas disponibles</option>";
-				
+				ArrayList<Specialist> specialists = (ArrayList<Specialist>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetSpecialistsByUnit(unit));
+				String options = "<option value=\"-\">Seleccionar</option>";
+				for (int i = 0; i < specialists.size(); i++){
+	            	String name = specialists.get(i).getFirstName() + " "+specialists.get(i).getLastName() ;
+					options += "<option value="+ specialists.get(i).getId()+">" + name + "</option>";
+				}
 	            out.print(options);
 	        }  catch (Exception ex) {
 	            out.print("Error getting product name..." + ex.toString());

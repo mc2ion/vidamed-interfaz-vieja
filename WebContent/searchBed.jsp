@@ -11,7 +11,12 @@
 	@SuppressWarnings("unchecked")
 	ArrayList<BedLocation> locations = (ArrayList<BedLocation>) request.getAttribute("locations");
 	
-	String admissionId = (String) request.getAttribute("admissionId");
+	String admissionId 	= (String) request.getAttribute("admissionId");
+	String bedName 		= (String) request.getAttribute("bedName");
+	String locName 		= (String) request.getAttribute("locName");
+	String function		= (String) request.getAttribute("function");
+	
+	
 %>
 <!DOCTYPE HTML>
 <html>
@@ -110,9 +115,11 @@
 		<div id="content">  
 			<form action="SearchBedsServlet" method="post">
 			<input type="hidden" name="admissionId" value="<%= admissionId %>">
-				
+			<input type="hidden" name="function" value="<%= function %>">
+			
 			<h2>Escoger ubicación de cama:</h2><br>
-			<p>Por favor seleccione la ubicación de la cama que desea:</p><br>
+			<div style="color:red">IMPORTANTE: Al hacer click en "Aceptar" cambiará definitivamente la ubicación del paciente.</div><br/><br/>
+			<p>Por favor seleccione la ubicación de la cama que desea:</p><br/>
 			<fieldset>
 				<label>Ubicación:  </label> 
 				<select id="bedLocationId" name="bedLocationId" class="target">
@@ -120,7 +127,7 @@
 					<% for (int i=0; i< locations.size(); i++){
 						BedLocation l = locations.get(i);
 					%>
-						<option value="<%= l.getId() %>" ><%= l.getName() %></option>
+						<option value="<%= l.getId() %>"><%= l.getName() %></option>
 					<% } %>
 				</select><br/><br/>
 				<p style="display: none;" id="beds">
@@ -131,12 +138,14 @@
 				</p>  
 				</fieldset>
 				<div id="botonReg" style="position: absolute; margin-top: 40px; margin-left: 320px;">
-					<input type="submit" class="button" value="Aceptar" />
-					<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />
+					<input type="submit" class="button" id="" value="Aceptar" />
+					<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
 				</div>
 		
 			</form>
 			<div class="spacer"></div>
+        	<div style="color gray; font-style: italic;">** El paciente se encuentra actualmente en <%= locName %> <%= bedName %>.</div>	<br/>
+			
         	</div>
        	</div>
 		

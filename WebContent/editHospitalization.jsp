@@ -1,9 +1,17 @@
+<%@page import="domain.Hospitalization"%>
 <%@page import="domain.User"%>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
 	if (user != null)
 		name = user.getFirstName() ;
+	
+	Hospitalization h = (Hospitalization) request.getAttribute("hospitalization");
+	
+	String text_result = (String) session.getAttribute("text");
+	if (text_result == null)
+		text_result = "";
+	session.removeAttribute("text");
 %>
 <!DOCTYPE HTML>
 <html>
@@ -64,27 +72,31 @@
 					</ul>
   					<div id="tabs-1">
   						<div id="hosp">
-  							<p><b>Cédula:</b> <span style="margin-left:115px;">V-12345678</span>  </p>
-  							<p><b>Nombre:</b> <span style="margin-left:107px;"> Ana Rojas</span> </p>
-							<p><b>Fecha de Ingreso:  </b> <span style="margin-left:48px;">20/06/2013 07:35 AM  <br></span> </p>
+  							<%
+  								String patientName  = h.getPatient().getFirstName() + " " + h.getPatient().getLastName();
+  								String eName 		= h.getSpecialist().getFirstName() + " " + h.getSpecialist().getLastName();
+  							%>
+  							<p><b>Cédula:</b> <span style="margin-left:115px;"><%= h.getPatient().getIdentityCard() %></span>  </p>
+  							<p><b>Nombre:</b> <span style="margin-left:107px;"><%= patientName %></span> </p>
+							<p><b>Fecha de Ingreso:  </b> <span style="margin-left:48px;"><%= h.getAdmissionDate() %> <br></span> </p>
 							</div>
 							<fieldset>
 								<label>Unidad: </label>
-							   <input type="text" name="departament" id="departament" value="Cirugía" readonly>
+							   <input type="text" name="departament" id="departament" value="<%= h.getUnit().getName() %>" readonly>
 							    <br><br>
-							   <label>Médico Tratante: </label> <input type="text" name="doctorName" id="doctorName" value="Ricardo García" readonly>
+							   <label>Médico Tratante: </label> <input type="text" name="doctorName" id="doctorName" value="<%= eName %>" readonly>
 							    <a href="SearchDoctorServlet?function=editHospitalization" style="color: #f7941e; font-weight: bold;">
 									<input type="button"id="doctorId" value="Cambiar" >
 								</a> <br><br>
 								<label> Ubicación:  </label>
-								<input type="text" name="ubication" id="ubication" value="UCI" readonly><br><br>
+								<input type="text" name="ubication" id="ubication" value="<%= h.getLocation().getName() %>" readonly><br><br>
 								 
-								<label> Cama:</label>  <input type="text" name="bedId" id="bedId" value="Cama 1" readonly>
-								    <a href="SearchBedsServlet?function=editHospitalization" style="color: #f7941e; font-weight: bold;">
+								<label> Cama:</label>  <input type="text" name="bedId" id="bedId" value="<%= h.getBed().getName() %>" readonly>
+								    <a href="SearchBedsServlet?function=editHospitalization&id=<%= h.getId() %>" style="color: #f7941e; font-weight: bold;">
 										<input type="button"id="bedUbication" value="Cambiar" >
 									</a> <br><br>
 								
-								 <label> Responsable del Pago:</label>  <input type="text" name="insuranceName" id="insuranceName" value="La Previsora" readonly>
+								 <label> Responsable del Pago:</label>  <input type="text" name="insuranceName" id="insuranceName" value="<%= h.getResponsible().getName() %>" readonly>
 								    <a href="SearchInsuranceServlet?function=editHospitalization" style="color: #f7941e; font-weight: bold;">
 										<input type="button"id="paymentResp" value="Cambiar" >
 									</a> 
@@ -95,7 +107,7 @@
 											<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
 								</div>	
 								<div id="botonV" style="display: inline;">
-										<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
+										<a href="ListEmergenciesServlet"  class="button" >Regresar</a>
 								</div>	
 							</form>
 						</div>

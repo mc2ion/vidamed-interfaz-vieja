@@ -1,4 +1,6 @@
-<%@page import="domain.Service"%>
+<%@page import="domain.Unit"%>
+<%@page import="sun.management.counter.Units"%>
+<%@page import="domain.SupplyArea"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="domain.User"%>
 <%
@@ -9,11 +11,11 @@
 	
 
 	@SuppressWarnings("unchecked")
-	ArrayList<Service> services = (ArrayList<Service>)request.getAttribute("services");
+	ArrayList<Unit> sArea = (ArrayList<Unit>)request.getAttribute("units");
 		
-	String servId 	= (String) request.getAttribute("servId");
 	String adminId 	= (String) request.getAttribute("adminId");
 	String patName 	= (String) request.getAttribute("name");
+	
 	
 %>
 <!DOCTYPE HTML>
@@ -21,7 +23,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-		<title>Agregar servicio</title>
+		<title>Agregar Consulta</title>
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css" />
 		<link href="./css/multi-select.css" media="screen" rel="stylesheet" type="text/css">
 	  	<script src="./js/jquery-1.9.1.min.js"></script>
@@ -31,18 +33,23 @@
 		<script>
 		$( document ).ready(function() {
 			$( ".target" ).change(function() {
-				if ($(this).val() != "-"){
-					$('.file-div').show();
+				index = $(this).val();
+				if (index != "-"){
+					$('.sum-div').show();
+					$.ajax({
+						type: "GET",
+						url: "GetSpecialistServlet",
+						data: {unit: index },
+						success: function(data){
+							$("#state").html(data)
+						}
+					});
+				}else{
+					$('.sum-div').hide();
 				}
-				else{
-					$('.file-div').hide();
-				}
-				
-			  
 			});
-		});	
+		});
 		</script>
-
 	</head>
 	<body>
 		<div id="container">
@@ -56,30 +63,35 @@
         	</div>        
 			 <jsp:include page="./menu.jsp" />
         	<div id="content" style="position:absolute;">	
-	        	<h2>Agregar Servicio:</h2> <br><br>
-	        	<p>Escoja el servicio que desee agregar</p><br>
-	        	<form action="AddPatientServiceServlet" method="post" enctype="multipart/form-data" >
+	        	<h2>Agregar Consulta:</h2> <br><br>
+	        	<p>Por favor, escoga la unidad correspondiente y el médico correspondiente.</p><br>
+	        	<form action="AddPatientMedicalAdviceServlet" method="post" >
 				<input type="hidden" name="admissionId" value="<%= adminId %>"/>
-				<input type="hidden" name="servId" value="<%= servId %>"/>
 				<input type="hidden" name="name" value="<%= patName %>"/>
 				<fieldset>
-	        		<label>Servicio: </label>
-					<select name="service" class="target">	
+	        		<label>Unidad: </label>
+					<select name="unitId" id="unitId" class="target">	
 						<option value="-"> Seleccionar </option>
-						<% for (int i = 0; i < services.size(); i++){ 
+						<% for (int i = 0; i < sArea.size(); i++){ 
 						%>
-							<option value="<%= services.get(i).getServiceID() %>"><%= services.get(i).getName() %></option>
+							<option value="<%= sArea.get(i).getUnitID() %>"><%= sArea.get(i).getName() %></option>
 						<% } %>
-					</select><br/><br/>
-					<div class="file-div" style="display:none">
-						<label>Cargar archivo:</label>
-						<input type="file" name="file"/>
-					</div>
+					</select>
+					<br/><br/>
+					<p style="display: none;" class="sum-div">
+						<label for="pname">Especialista:</label>
+						<select name="state" id="state">
+							<option value="-">Seleccionar</option>
+						</select><br/><br/>
+						<label>Honorario Médico:</label>
+						<input type="text" name="amount" style="width:60px;"/>
+					</p>   
+					
 				</fieldset>
 				<br/>
 				 <div id="botonera" style="margin-top: -3px;">
 					<div id="botonP">
-							<input type="submit"  class="button"  name="sbmtButton" value="Aceptar" />
+							<input type="submit"  class="button"  name="sbmtButton" value="Agregar" />
 							<input type="button" style="margin-left: 15px;" class="button" value="Cancelar" onClick="javascript:history.back();" />		
 					</div>	
 				</div>

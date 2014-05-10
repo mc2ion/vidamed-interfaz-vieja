@@ -7,6 +7,10 @@
 		name = user.getFirstName() ;
 	
 	MedicalTreatment med = (MedicalTreatment) request.getAttribute("medical");
+	String text_result = (String) session.getAttribute("text");
+	if (text_result == null)
+		text_result = "";
+	session.removeAttribute("text");
 %>
 <!DOCTYPE HTML>
 <html>
@@ -40,6 +44,7 @@
         	<div id="content" style="position:absolute;">	
 	        	<h2>Ver Tratamiento M&eacute;dico:</h2>
 				<br>
+				<div class="info-text"><%= text_result %></div>
 				<div id="tabs">
 					<ul>
 					    <li><a href="#tabs-1">Paciente</a></li>
@@ -50,10 +55,10 @@
 					   	<div class="leftColumS"><b>Nombre:</b></div><%= med.getPatient().getFirstName() + " " + med.getPatient().getLastName() %><br>
 					    <div class="leftColumS"><b>Fecha de Ingreso:</b></div><%= med.getAdmissionDate() %><br>
 					    <div class="leftColumS"><b>Ubicación:</b></div>
-					    <input type="text" name="ubication" id="ubication" value=" <%= med.getLocation().getName() %>" readonly><br>
+					    <input type="text" name="ubication" id="ubication" value="<%= med.getLocation().getName() %>" readonly><br>
 					    <div class="leftColumS"><b>Cama:</b></div> 
 					    <input type="text" name="bedId" id="bedId" value="<%= med.getBed().getName() %>" readonly>
-					    <a href="SearchBedsServlet?function=editMedicalTreatment" style="color: #f7941e; font-weight: bold;">
+					    <a href="SearchBedsServlet?function=editMedicalTreatment&id=<%= med.getId() %>&bN=<%= med.getBed().getName() %>&lN=<%= med.getLocation().getName()%>" style="color: #f7941e; font-weight: bold;">
 							<input type="button"id="bedUbication"  style="margin-top: -25px;" value="Cambiar" >
 						</a> <br><br>
 					</div>

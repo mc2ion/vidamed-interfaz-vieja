@@ -199,18 +199,20 @@
 			<div id="signup-ct">
 				<h3 id="see_id" class="sprited" > Hospitalizar</h3>
 				<br><br>
-				<span>¿Qué acción desea realizar sobre los gastos del paciente <span class="cliente"></span>? </span> <br><br>
-				<form id="gastos" style="text-align: center">
-					<select>
-						<option value="-">Seleccionar</option>
-						<option value="F">Generar una factura</option>
-						<option value="T">Trasladar los gastos actuales</option>
-					</select>
-				</form>
-				<div id="signup-header">
+				<form action="HospitalizePatientServlet" method="post"  onsubmit="return setV(this)">
+				<input type="hidden" id="userID" class="good_input" name="userID"  value=""/>
+					
+					<span>¿Qué acción desea realizar sobre los gastos del paciente <span class="cliente"></span>? </span> <br><br>
+					<div style="text-align:center;">
+						<select id="gastos" name="gastos">
+							<option value="-">Seleccionar</option>
+							<option value="F">Generar una factura</option>
+							<option value="T">Trasladar los gastos actuales</option>
+						</select>
+					</div>
+					<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
-				</div>
-				<form action="ListEmergenciesServlet" method="post"  onsubmit="return setV(this)">
+					</div>
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />

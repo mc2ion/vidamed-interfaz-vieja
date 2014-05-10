@@ -22,12 +22,20 @@
 		         <li class='last'><a href='ListSupplyServlet'><span>Ver Pacientes</span></a></li>
 		      </ul>
 		   </li>
+		   <li class='has-sub'>
+			<a href='#'><span>Facturación</span></a>
+		      <ul>
+		         <li class='first'><a href='ListBillingsHServlet'><span>Honorarios Médicos</span></a></li>
+		         <li><a href='ListBillingsRPServlet'><span>Relación de Pago</span></a></li>
+		         <li><a href='ListBillingsNServlet'><span>Generar Nómina</span></a></li>
+		         <li class='last'><a href='ListBillingsPPServlet'><span>Pronto Pago</span></a></li>
+		      </ul>
+		   </li>
 		   <li><a href='ListUnitsServlet'><span>Unidades</span></a></li>
 		   <li><a href='ListSpecialistsServlet'><span>Especialistas</span></a></li>
 		   <li><a href='ListPaymentResponsiblesServlet'><span>Responsables de Pago</span></a></li>
 		   <li><a href='ListCashBoxesServlet'><span>Cajas</span></a></li>
 		   <li><a href='ListAccountsServlet'><span>Cuentas Pendientes</span></a></li>
-		   <li><a href='ListBillingsServlet'><span>Facturación</span></a></li>
 		   <li><a href='ListBloodBankServlet'><span>Banco de Sangre</span></a></li>
 		   <li><a href='ListEcoServlet'><span>Ecosonograf&iacute;a</span></a></li>
 		   <li><a href='ListLabServlet'><span>Laboratorio</span></a></li>
