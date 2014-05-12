@@ -37,7 +37,7 @@
 				<form action="CreateUnitServlet">
 				<fieldset>
 					<label for="name">Nombre:</label>
-					<input type="text" name="txtName" id="txtName" maxlength="50" size="5"/> <br><br>
+					<input type="text" name="txtName" id="txtName" maxlength="50" size="5" title="Debe colocar el nombre de la unidad." required /> <br><br>
 					<label for="name">Descripción:</label>
 					<textarea name="txtDescription" id="txtDescription" rows="3" cols="50"></textarea> <br><br>
 				</fieldset>

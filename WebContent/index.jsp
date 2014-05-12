@@ -25,11 +25,11 @@
 	                                <h1> </h1> 
 	                                <p> 
 	                                    <label for="username" class="uname" data-icon="u" > Nombre de usuario </label>
-	                                    <input id="username" name="username" required="required" type="text" placeholder="MiNombreUsuario"/>
+	                                    <input id="username" name="username" type="text" placeholder="MiNombreUsuario" title="Debe colocar el Nombre de Usuario" required/>
 	                                </p>
 	                                <p> 
 	                                    <label for="password" class="youpasswd" data-icon="p"> Tu contrase&ntilde;a </label>
-	                                    <input id="password" name="password" required="required" type="password" placeholder="Ej. X8df!90EO" /> 
+	                                    <input id="password" name="password" type="password" placeholder="Ej. X8df!90EO" title="Debe colocar la contraseña" required /> 
 	                                </p>
 									 <div class="buttonCenter">
 										<input type="submit" name="sbmtButton" class="button" value="Acceder" />

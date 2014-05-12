@@ -43,7 +43,7 @@ public class CreateCashBoxServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		try {
-			String action = request.getParameter("sbmtButton");
+			String action = request.getParameter("txtName");
 			if (action == null || action.trim().equals("")) {				
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/createCashBox.jsp");
 				rd.forward(request, response);

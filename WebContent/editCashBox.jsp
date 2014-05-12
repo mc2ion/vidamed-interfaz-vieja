@@ -70,6 +70,45 @@ ArrayList<CashBoxSalePoint> cbSalePoints = (ArrayList<CashBoxSalePoint>)request.
 				});
 			});
 		</script>
+		<script>
+			$(function() {    
+            	$('#sbmtButton').click(function(event) { 
+            		var error = false;
+            		var patternDouble = new RegExp('^[0-9]+(\.[0-9]+)?$');
+            		if ($('#txtName').val() == '') {
+            			error = true;
+            			alert("Debe colocar el nombre de la caja.");
+            		}
+            		for (var i = 0; i<4; i++) {
+            			if ($('#txtNameSP' + i).val() != '' || $('#txtCommission'+ i).val() != '' || $('#txtIslrPercentage' + i).val() != '') {
+            				if ($('#txtNameSP' + i).val() == '') {
+            					error = true;
+            					alert("Debe colocar el nombre del punto de venta.");
+            				}
+            				else if ($('#txtCommission'+ i).val() == '') {
+            					error = true;
+            					alert("Debe colocar el porcentaje de comisión del punto de venta.");
+            				}
+            				else if ($('#txtIslrPercentage' + i).val() == '') {
+            					error = true;
+            					alert("Debe colocar el porcentaje de ISLR del punto de venta.");
+            				}
+            				else if (!$('#txtCommission'+ i).val().match(patternDouble)) {
+            					error = true;
+            					alert("El porcentaje de comisión debe ser un valor numérico. Ejemplo: 12.00");
+            				}
+            				else if (!$('#txtIslrPercentage'+ i).val().match(patternDouble)) {
+            					error = true;
+            					alert("El porcentaje de ISLR debe ser un valor numérico. Ejemplo: 12.00");
+            				}
+            			}
+            		}
+            		if (!Boolean(error)) {
+            			$('#form1').submit();
+            		}
+            	});
+			});
+        </script>
 	</head>
 	<body>
 		<div id="container">
@@ -89,7 +128,7 @@ ArrayList<CashBoxSalePoint> cbSalePoints = (ArrayList<CashBoxSalePoint>)request.
         	<div id="content" style="position:absolute;">	
 	        	<h2>Editar Caja:</h2>
 				<br>
-				<form action="EditCashBoxServlet">
+				<form id="form1" action="EditCashBoxServlet">
 					<input type="hidden" id="cashBoxID" name="cashBoxID" value="<%= cb.getCashBoxID() %>" />
 					<fieldset>
 						<label for="name">Nombre:</label>
@@ -130,7 +169,7 @@ ArrayList<CashBoxSalePoint> cbSalePoints = (ArrayList<CashBoxSalePoint>)request.
 					</fieldset>
 					<div id="botonera">
 						<div id="botonP" style="display: inline; margin-right: 30px;">
-							<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
+							<input type="button"  class="button" id="sbmtButton"  name="sbmtButton" value="Modificar" />
 						</div>	
 						<div id="botonV" style="display: inline;">
 							<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		

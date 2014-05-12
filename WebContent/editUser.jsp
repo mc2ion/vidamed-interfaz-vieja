@@ -155,16 +155,16 @@
 									<option value="V-" <%= ci[0].equals("V") ? "selected" : "" %>>V</option>
 									<option value="E-" <%= ci[0].equals("E") ? "selected" : "" %>>E</option>
 								</select>
-								<input type="text" name="txtCedIdNum" id="txtCedIdNum" maxlength="50" size="18" value="<%= ci[1] %>" /> <br><br>
+								<input type="number" maxlength="8" name="txtCedIdNum" id="txtCedIdNum" maxlength="50" size="18" value="<%= ci[1] %>" title="Debe colocar la cédula del usuario. Colocar sólo números. No colocar puntos ni espacios en blanco." required /> <br><br>
 								<label for="name">Nombre:</label>
-								<input type="text" name="txtFirstName" id="txtFirstName" maxlength="50" size="5" value="<%= user.getFirstName() %>"/> <br><br>
+								<input type="text" name="txtFirstName" id="txtFirstName" maxlength="50" size="5" value="<%= user.getFirstName() %>" title="Debe colocar el nombre del usuario." required /> <br><br>
 								<label for="name">Apellido:</label>
-								<input type="text" name="txtLastName" id="txtLastName" maxlength="50" size="5" value="<%= user.getLastName() %>"/> <br><br>
+								<input type="text" name="txtLastName" id="txtLastName" maxlength="50" size="5" value="<%= user.getLastName() %>" title="Debe colocar el apellido del usuario." required /> <br><br>
 								<label for="name">Fecha de Nacimiento:</label>
-								<input type="text" name="txtDateIni" id="txtDateIni" maxlength="50" size="10" value="<%= user.getBirthday() %>" /><br><br>
+								<input type="text" pattern="[0-3]?[0-9]/[0-1]?[0-9]/[0-9]{4}" title="Debe colocar la fecha de nacimiento del usuario. Colocar fecha en formato DD/MM/YYYY" name="txtDateIni" id="txtDateIni" maxlength="50" size="10" value="<%= user.getBirthday() %>" required /><br><br>
 								<label for="name">Sexo:</label>
-								<select name="txtGen" id="txtGen">	
-									<option value="-" <%= user.getGender().equals("-") ? "selected" : "" %>>Seleccionar</option>
+								<select name="txtGen" id="txtGen" title="Debe seleccionar el sexo del usuario." required >	
+									<option value="" <%= user.getGender().equals("") ? "selected" : "" %>>Seleccionar</option>
 									<option value="F" <%= user.getGender().equals("F") ? "selected" : "" %>>Femenino</option>
 									<option value="M" <%= user.getGender().equals("M") ? "selected" : "" %>>Masculino</option>
 								</select><br><br>
@@ -181,9 +181,9 @@
 			  			<div id="tabs-2">
 							<fieldset>
 								<label for="name">Dirección:</label>
-								<textarea name="txtAddress" id="txtAddress" rows="2" cols="50"><%= user.getAddress() %></textarea> <br><br>
+								<textarea name="txtAddress" id="txtAddress" rows="2" cols="50" title="Debe colocar la dirección del usuario." required ><%= user.getAddress() %></textarea> <br><br>
 								<label for="name">Correo Electrónico:</label>
-								<input type="text" name="txtEmail" id="txtEmail" maxlength="50" size="5" value="<%= user.getEmail() %>"/> <br><br>
+								<input type="email" name="txtEmail" id="txtEmail" maxlength="50" size="36" value="<%= user.getEmail() %>" title="Debe colocar el correo electrónico del usuario." required /> <br><br>
 								<label for="name">Teléfono:</label>
 								<% for (int i = 0; i<userPhoneNumbers.size(); i++) {
 										UserPhoneNumber upn = userPhoneNumbers.get(i);
@@ -195,12 +195,13 @@
 										<option value="P" <%= upn.getType().equals("P") ? "selected" : "" %>>Particular</option>
 										<option value="T" <%= upn.getType().equals("T") ? "selected" : "" %>>Trabajo</option>
 									</select>
-						  	 		<input type="text" id="txtPhoneNumber<%= i %>" name="txtPhoneNumber<%= i %>" value="<%= upn.getPhoneNumber() %>" style="width: 135px;">
 						  	 		<% if (i == 0) { %>
-						  	 		<img alt="logo" src="./images/add.png"  id="addPhone" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Agregar otro telefono" />
+						  	 			<input type="text" pattern="\d{10}\d*" maxlength="15" id="txtPhoneNumber<%= i %>" name="txtPhoneNumber<%= i %>" value="<%= upn.getPhoneNumber() %>" style="width: 135px;" title="Debe colocar al menos un número telefónico del usuario. Colocar sólo números. No colocar puntos, ni guiones ni espacios en blanco." required >
+						  	 			<img alt="logo" src="./images/add.png"  id="addPhone" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Agregar otro telefono" />
 						  	 		<% }
 						  	 		   else { %>
-						  	 		<img alt="logo" src="./images/close.png"  id="deletePhone<%= i %>" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Agregar otro telefono" />
+						  	 		   	<input type="text" pattern="\d{10}\d*" maxlength="15" id="txtPhoneNumber<%= i %>" name="txtPhoneNumber<%= i %>" value="<%= upn.getPhoneNumber() %>" style="width: 135px;">
+						  	 			<img alt="logo" src="./images/close.png"  id="deletePhone<%= i %>" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Eliminar telefono" title="Debe colocar sólo números. No colocar puntos, ni guiones ni espacios en blanco." />
 									<% } %>
 									<br /><br />
 								</div>
@@ -214,7 +215,7 @@
 										<option value="P">Particular</option>
 										<option value="T">Trabajo</option>
 									</select>
-						  	 		<input type="text" id="txtPhoneNumber<%= j %>" name="txtPhoneNumber<%= j %>" value="" style="width: 135px;">
+						  	 		<input type="text" pattern="\d{10}\d*" maxlength="15" id="txtPhoneNumber<%= j %>" name="txtPhoneNumber<%= j %>" value="" style="width: 135px;" title="Debe colocar al menos un número telefónico del usuario. Colocar sólo números. No colocar puntos, ni guiones ni espacios en blanco." required >
 						  	 		<img alt="logo" src="./images/add.png"  id="addPhone" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Agregar otro telefono" />
 									<br /><br />
 								</div>
@@ -227,8 +228,8 @@
 										<option value="P">Particular</option>
 										<option value="T">Trabajo</option>
 									</select>
-						  	 		<input type="text" id="txtPhoneNumber<%= j %>" name="txtPhoneNumber<%= j %>" value="" style="width: 135px;">
-						  	 		<img alt="logo" src="./images/close.png"  id="deletePhone<%= j %>" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Agregar otro telefono" />
+						  	 		<input type="text" pattern="\d{10}\d*" maxlength="15" id="txtPhoneNumber<%= j %>" name="txtPhoneNumber<%= j %>" value="" style="width: 135px;" title="Debe colocar sólo números. No colocar puntos, ni guiones ni espacios en blanco." >
+						  	 		<img alt="logo" src="./images/close.png"  id="deletePhone<%= j %>" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Eliminar telefono" />
 									<br /><br />
 								</div>
 								<% }
@@ -246,8 +247,8 @@
 			  			<div id="tabs-3">
 			  				<fieldset>
 								<label for="name">Unidad:</label>
-								<select name="txtUnitId" id="txtUnitId">	
-									<option value="-">Seleccionar</option>
+								<select name="txtUnitId" id="txtUnitId" title="Debe seleccionar la unidad en la que se desempeña el usuario." required >	
+									<option value="">Seleccionar</option>
 									<% while (it.hasNext()) {
 											Long unitID = it.next();
 											String unitName = userUnits.get(unitID);
@@ -256,13 +257,13 @@
 									<% } %>
 								</select><br><br>
 								<label for="name">Fecha de Ingreso:</label>
-								<input type="text" name="txtDateIni2" id="txtDateIni2" maxlength="50" size="10" value="<%= user.getStartDate() %>" /><br><br>
+								<input type="text" pattern="[0-3]?[0-9]/[0-1]?[0-9]/[0-9]{4}" name="txtDateIni2" id="txtDateIni2" maxlength="50" size="10" value="<%= user.getStartDate() %>" title="Debe seleccionar la fecha de ingreso del usuario. Colocar fecha en formato DD/MM/YYYY" required /><br><br>
 								<label for="name">Cargo:</label>
-								<input type="text" name="txtPosition" id="txtPosition" maxlength="50" size="5" value="<%= user.getPosition() %>"/> <br><br>
+								<input type="text" name="txtPosition" id="txtPosition" maxlength="50" size="5" value="<%= user.getPosition() %>" title="Debe colocar el cargo en el cual se desempeña el usuario." required /> <br><br>
 								<label for="name">Salario:</label>
-								<input type="number" min="1" name="txtSalary" id="txtSalary" maxlength="6" size="6" value="<%= user.getSalary() %>" /> <br><br>
+								<input type="number" min="1" name="txtSalary" id="txtSalary" maxlength="6" size="6" value="<%= user.getSalary() %>" title="Debe colocar el salario del usuario." required /> <br><br>
 								<label for="name">Usuario:</label>
-								<input type="text" name="txtUserName" id="txtUserName" maxlength="50" size="5" value="<%= user.getUserName() %>"/> <br><br>
+								<input type="text" name="txtUserName" id="txtUserName" maxlength="50" size="5" value="<%= user.getUserName() %>" title="Debe colocar un ID de usuario." required /> <br><br>
 							</fieldset>		
 							<div id="botonera">
 								<div id="botonP" style="display: inline; margin-right: 30px;">

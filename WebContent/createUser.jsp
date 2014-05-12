@@ -159,16 +159,16 @@ HashMap<Long, ArrayList<Permission>> permissions = (HashMap<Long, ArrayList<Perm
 									<option value="V-">V</option>
 									<option value="E-">E</option>
 								</select>
-								<input type="text" name="txtCedIdNum" id="txtCedIdNum" maxlength="50" size="18" /> <br><br>
+								<input type="number" maxlength="8" name="txtCedIdNum" id="txtCedIdNum" size="18" title="Debe colocar la cédula del usuario. Colocar sólo números. No colocar puntos ni espacios en blanco." required /> <br><br>
 								<label for="name">Nombre:</label>
-								<input type="text" name="txtFirstName" id="txtFirstName" maxlength="50" size="5"/> <br><br>
+								<input type="text" name="txtFirstName" id="txtFirstName" maxlength="50" size="5" title="Debe colocar el nombre del usuario." required /> <br><br>
 								<label for="name">Apellido:</label>
-								<input type="text" name="txtLastName" id="txtLastName" maxlength="50" size="5"/> <br><br>
+								<input type="text" name="txtLastName" id="txtLastName" maxlength="50" size="5" title="Debe colocar el apellido del usuario." required /> <br><br>
 								<label for="name">Fecha de Nacimiento:</label>
-								<input type="text" name="txtDateIni" id="txtDateIni" maxlength="50" size="10" /><br><br>
+								<input type="text" pattern="[0-3]?[0-9]/[0-1]?[0-9]/[0-9]{4}" title="Debe colocar la fecha de nacimiento del usuario. Colocar fecha en formato DD/MM/YYYY" name="txtDateIni" id="txtDateIni" maxlength="50" size="10" required /><br><br>
 								<label for="name">Sexo:</label>
-								<select name="txtGen" id="txtGen">	
-									<option value="-" selected="selected">Seleccionar</option>
+								<select name="txtGen" id="txtGen" title="Debe seleccionar el sexo del usuario." required>	
+									<option value="" selected>Seleccionar</option>
 									<option value="F">Femenino</option>
 									<option value="M" >Masculino</option>
 								</select><br><br>
@@ -185,9 +185,9 @@ HashMap<Long, ArrayList<Permission>> permissions = (HashMap<Long, ArrayList<Perm
 			  			<div id="tabs-2">
 							<fieldset>
 							<label for="name">Dirección:</label>
-								<textarea name="txtAddress" id="txtAddress" rows="2" cols="50"></textarea> <br><br>
+								<textarea name="txtAddress" id="txtAddress" rows="2" cols="50" title="Debe colocar la dirección del usuario." required ></textarea> <br><br>
 								<label for="name">Correo Electrónico:</label>
-								<input type="text" name="txtEmail" id="txtEmail" maxlength="50" size="5"/> <br><br>
+								<input type="email" name="txtEmail" id="txtEmail" maxlength="50" size="35" title="Debe colocar el correo electrónico del usuario." required/> <br><br>
 								<label for="name">Teléfono:</label>
 								<div >
 									<select id="txtType0" name="txtType0">
@@ -195,7 +195,7 @@ HashMap<Long, ArrayList<Permission>> permissions = (HashMap<Long, ArrayList<Perm
 										<option value="P" >Particular</option>
 										<option value="T" >Trabajo</option>
 									</select>
-						  	 		<input type="text" id="txtPhoneNumber0" name="txtPhoneNumber0" value="" style="width: 135px;">
+						  	 		<input type="text" pattern="\d{10}\d*" maxlength="15" id="txtPhoneNumber0" maxlength="15" name="txtPhoneNumber0" value="" style="width: 135px;" title="Debe colocar al menos un número telefónico del usuario. Colocar sólo números. No colocar puntos, ni guiones ni espacios en blanco." required>
 						  	 		<img alt="logo" src="./images/add.png"  id="addPhone" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Agregar otro telefono" />
 									<br /><br />
 								</div>
@@ -205,8 +205,8 @@ HashMap<Long, ArrayList<Permission>> permissions = (HashMap<Long, ArrayList<Perm
 										<option value="P" >Particular</option>
 										<option value="T" >Trabajo</option>
 									</select>
-									<input type="text" id="txtPhoneNumber1" name="txtPhoneNumber1" value="" style="width: 135px;">
-									<img alt="logo" src="./images/close.png"  id="deletePhone1" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Agregar otro telefono" />
+									<input type="text" pattern="\d{10}\d*" maxlength="15" id="txtPhoneNumber0" maxlength="15" id="txtPhoneNumber1" name="txtPhoneNumber1" value="" style="width: 135px;" title="Debe colocar sólo números. No colocar puntos, ni guiones ni espacios en blanco." >
+									<img alt="logo" src="./images/close.png"  id="deletePhone1" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Eliminar telefono" />
 						 			<br /><br />
 						 		</div>
 								<div id="otherPhone2" style="display:none;">
@@ -215,8 +215,8 @@ HashMap<Long, ArrayList<Permission>> permissions = (HashMap<Long, ArrayList<Perm
 										<option value="P" >Particular</option>
 										<option value="T" >Trabajo</option>
 									</select>
-									<input type="text" id="txtPhoneNumber2" name="txtPhoneNumber2" value="" style="width: 135px;">
-									<img alt="logo" src="./images/close.png"  id="deletePhone2" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Agregar otro telefono" />
+									<input type="text" pattern="\d{10}\d*" maxlength="15" id="txtPhoneNumber0" maxlength="15" id="txtPhoneNumber2" name="txtPhoneNumber2" value="" style="width: 135px;" title="Debe colocar sólo números. No colocar puntos, ni guiones ni espacios en blanco." >
+									<img alt="logo" src="./images/close.png"  id="deletePhone2" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Eliminar telefono" />
 						  	 		<br /><br />
 						  	 	</div>
 							 	<div id="otherPhone3" style="display:none;">
@@ -225,8 +225,8 @@ HashMap<Long, ArrayList<Permission>> permissions = (HashMap<Long, ArrayList<Perm
 										<option value="P" >Particular</option>
 										<option value="T" >Trabajo</option>
 									</select>
-							  	 	<input type="text" id="txtPhoneNumber3" name="txtPhoneNumber3" value="" style="width: 135px;">
-							  	 	<img alt="logo" src="./images/close.png"  id="deletePhone3" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Agregar otro telefono" />
+							  	 	<input type="text" pattern="\d{10}\d*" maxlength="15" id="txtPhoneNumber0" maxlength="15" id="txtPhoneNumber3" name="txtPhoneNumber3" value="" style="width: 135px;" title="Debe colocar sólo números. No colocar puntos, ni guiones ni espacios en blanco." >
+							  	 	<img alt="logo" src="./images/close.png"  id="deletePhone3" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Eliminar telefono" />
 						  	 	</div>
 							</fieldset>		
 							<div id="botonera">
@@ -241,8 +241,8 @@ HashMap<Long, ArrayList<Permission>> permissions = (HashMap<Long, ArrayList<Perm
 			  			<div id="tabs-3">
 			  				<fieldset>
 								<label for="name">Unidad:</label>
-								<select name="txtUnitId" id="txtUnitId">	
-									<option value="-" selected="selected">Seleccionar</option>
+								<select name="txtUnitId" id="txtUnitId" title="Debe seleccionar la unidad en la que se desempeña el usuario." required>	
+									<option value="" selected>Seleccionar</option>
 									<% while (it.hasNext()) {
 											Long unitID = it.next();
 											String unitName = userUnits.get(unitID);
@@ -251,17 +251,17 @@ HashMap<Long, ArrayList<Permission>> permissions = (HashMap<Long, ArrayList<Perm
 									<% } %>
 								</select><br><br>
 								<label for="name">Fecha de Ingreso:</label>
-								<input type="text" name="txtDateIni2" id="txtDateIni2" maxlength="50" size="10" /><br><br>
+								<input type="text" pattern="[0-3]?[0-9]/[0-1]?[0-9]/[0-9]{4}" name="txtDateIni2" id="txtDateIni2" maxlength="50" size="10" title="Debe seleccionar la fecha de ingreso del usuario. Colocar fecha en formato DD/MM/YYYY" required /><br><br>
 								<label for="name">Cargo:</label>
-								<input type="text" name="txtPosition" id="txtPosition" maxlength="50" size="5"/> <br><br>
+								<input type="text" name="txtPosition" id="txtPosition" maxlength="50" size="5" title="Debe colocar el cargo en el cual se desempeña el usuario." required /> <br><br>
 								<label for="name">Salario:</label>
-								<input type="number" min="1" name="txtSalary" id="txtSalary" maxlength="6" size="6" /> <br><br>
+								<input type="number" min="1" name="txtSalary" id="txtSalary" maxlength="6" size="6" title="Debe colocar el salario del usuario." required /> <br><br>
 								<label for="name">Usuario:</label>
-								<input type="text" name="txtUserName" id="txtUserName" maxlength="50" size="5"/> <br><br>
+								<input type="text" name="txtUserName" id="txtUserName" maxlength="50" size="5" title="Debe colocar un ID de usuario." required /> <br><br>
 								<label for="name">Contraseña:</label>
-								<input type="password" name="txtPassword" id="txtPassword" maxlength="50"/> <br><br>
+								<input type="password" name="txtPassword" id="txtPassword" maxlength="50" title="Debe colocar la contraseña del usuario." required /> <br><br>
 								<label for="name">Repetir Contraseña:</label>
-								<input type="password" name="txtPassword2" id="txtPassword2" maxlength="50"/> <br><br>
+								<input type="password" name="txtPassword2" id="txtPassword2" maxlength="50" title="Debe reescribir la contraseña del usuario." required /> <br><br>
 							</fieldset>		
 							<div id="botonera">
 								<div id="botonP" style="display: inline; margin-right: 30px;">

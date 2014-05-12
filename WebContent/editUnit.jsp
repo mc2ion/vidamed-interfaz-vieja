@@ -43,7 +43,7 @@ Unit unit = (Unit)request.getAttribute("unit");
 					<input type="hidden" name="unitID" value="<%= unit.getUnitID() %>" />
 					<fieldset>
 						<label for="name">Nombre:</label>
-						<input type="text" name="txtName" id="txtName" maxlength="50" size="5" value="<%= unit.getName() %>"/> <br><br>
+						<input type="text" name="txtName" id="txtName" maxlength="50" size="5" value="<%= unit.getName() %>" title="Debe colocar el nombre de la unidad." required /> <br><br>
 						<label for="name">Descripción:</label>
 						<textarea name="txtDescription" id="txtDescription" rows="3" cols="50"><%= unit.getDescription() %></textarea> <br><br>
 					</fieldset>

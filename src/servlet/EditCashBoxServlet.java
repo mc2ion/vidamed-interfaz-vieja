@@ -47,7 +47,7 @@ public class EditCashBoxServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		try {
-			String action = request.getParameter("sbmtButton");
+			String action = request.getParameter("txtName");
 			Long cashBoxID = Long.parseLong(request.getParameter("cashBoxID"));
 			RequestDispatcher rd;
 			if (action == null || action.trim().equals("")) {
