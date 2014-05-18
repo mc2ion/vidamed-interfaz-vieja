@@ -46,36 +46,35 @@ public class CreateCashBoxServlet extends HttpServlet {
 		User userE = (User)session.getAttribute("user");
 		if(userE != null){
 			try {
-				String action = request.getParameter("sbmtButton");
-				if (action == null || action.trim().equals("")) {				
-					RequestDispatcher rd = getServletContext().getRequestDispatcher("/createCashBox.jsp");
-					rd.forward(request, response);
-				}
-				else {
-					String text_good = "La caja fue creada exitosamente.";
-					String text_bad = "Se ha presentado un error al crear la caja. Por favor, intente nuevamente.";
-					String name = request.getParameter("txtName");
-					String description = request.getParameter("txtDescription");
-					Long cashBoxID = (Long)CommandExecutor.getInstance().executeDatabaseCommand(new command.AddCashBox(name, description));
-					if (cashBoxID != null) {					
-						for (int i = 0; i<4; i++) {
-							String nameSP = request.getParameter("txtNameSP" + i);
-							String commission = request.getParameter("txtCommission" + i); 
-							String islrPercentage = request.getParameter("txtIslrPercentage" + i); 
-							if (commission != null && !commission.trim().equals("") && islrPercentage != null && !islrPercentage.trim().equals("")) {
-								Long salePointID = (Long)CommandExecutor.getInstance().executeDatabaseCommand(new command.AddCashBoxSalePoint(cashBoxID, nameSP, Double.parseDouble(commission), Double.parseDouble(islrPercentage)));
-								if (salePointID == null) {
-									text_good = "La caja fue creada exitosamente. Se ha presentado un error al crear uno o más puntos de venta. Por favor, intente nuevamente.";
-								}
+			String action = request.getParameter("txtName");
+			if (action == null || action.trim().equals("")) {				
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/createCashBox.jsp");
+				rd.forward(request, response);
+			}
+			else {
+				String text_good = "La caja fue creada exitosamente.";
+				String text_bad = "Se ha presentado un error al crear la caja. Por favor, intente nuevamente.";
+				String name = request.getParameter("txtName");
+				String description = request.getParameter("txtDescription");
+				Long cashBoxID = (Long)CommandExecutor.getInstance().executeDatabaseCommand(new command.AddCashBox(name, description));
+				if (cashBoxID != null) {					
+					for (int i = 0; i<4; i++) {
+						String nameSP = request.getParameter("txtNameSP" + i);
+						String commission = request.getParameter("txtCommission" + i); 
+						String islrPercentage = request.getParameter("txtIslrPercentage" + i); 
+						if (commission != null && !commission.trim().equals("") && islrPercentage != null && !islrPercentage.trim().equals("")) {
+							Long salePointID = (Long)CommandExecutor.getInstance().executeDatabaseCommand(new command.AddCashBoxSalePoint(cashBoxID, nameSP, Double.parseDouble(commission), Double.parseDouble(islrPercentage)));
+							if (salePointID == null) {
+								text_good = "La caja fue creada exitosamente. Se ha presentado un error al crear uno o más puntos de venta. Por favor, intente nuevamente.";
 							}
 						}
 						session.setAttribute("info",text_good);
 					}
-					else {
+				}
+				else {
 						session.setAttribute("info",text_bad);
-					}
-					
-					response.sendRedirect(request.getContextPath() + "/ListCashBoxesServlet");
+				}
+				response.sendRedirect(request.getContextPath() + "/ListCashBoxesServlet");
 				}
 			}
 			catch (Exception e) {

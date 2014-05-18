@@ -61,6 +61,45 @@
 				});
 			});
 		</script>
+		<script>
+			$(function() {    
+            	$('#sbmtButton').click(function(event) { 
+            		var error = false;
+            		var patternDouble = new RegExp('^[0-9]+(\.[0-9]+)?$');
+            		if ($('#txtName').val() == '') {
+            			error = true;
+            			alert("Debe colocar el nombre de la caja.");
+            		}
+            		for (var i = 0; i<4; i++) {
+            			if ($('#txtNameSP' + i).val() != '' || $('#txtCommission'+ i).val() != '' || $('#txtIslrPercentage' + i).val() != '') {
+            				if ($('#txtNameSP' + i).val() == '') {
+            					error = true;
+            					alert("Debe colocar el nombre del punto de venta.");
+            				}
+            				else if ($('#txtCommission'+ i).val() == '') {
+            					error = true;
+            					alert("Debe colocar el porcentaje de comisión del punto de venta.");
+            				}
+            				else if ($('#txtIslrPercentage' + i).val() == '') {
+            					error = true;
+            					alert("Debe colocar el porcentaje de ISLR del punto de venta.");
+            				}
+            				else if (!$('#txtCommission'+ i).val().match(patternDouble)) {
+            					error = true;
+            					alert("El porcentaje de comisión debe ser un valor numérico. Ejemplo: 12.00");
+            				}
+            				else if (!$('#txtIslrPercentage'+ i).val().match(patternDouble)) {
+            					error = true;
+            					alert("El porcentaje de ISLR debe ser un valor numérico. Ejemplo: 12.00");
+            				}
+            			}
+            		}
+            		if (!Boolean(error)) {
+            			$('#form1').submit();
+            		}
+            	});
+			});
+        </script>
 	</head>
 	<body>
 		<div id="container">
@@ -79,21 +118,21 @@
         	<div id="content" style="position:absolute;">	
 	        	<h2>Crear Caja:</h2>
 				<br>
-				<form action="CreateCashBoxServlet">
+				<form id="form1" action="CreateCashBoxServlet">
 					<fieldset>
 						<label for="name">Nombre:</label>
-						<input type="text" name="txtName" id="txtName" maxlength="50" size="5"/> <br><br>
+						<input type="text" name="txtName" id="txtName" maxlength="50" size="5" title="Debe colocar el nombre de la caja" required /> <br><br>
 						<label for="name">Descripción:</label>
 						<textarea name="txtDescription" id="txtDescription" rows="3" cols="50"></textarea> <br><br>
 						<label for="name">Punto de Venta:</label>
 						<div >
-				  	 		<input type="text" id="txtNameSP0" name="txtNameSP0" value="" style="width: 135px;"> % Comisión: <input type="text" id="txtCommission0" name="txtCommission0" value="" style="width: 135px;"> % ISLR: <input type="text" id="txtIslrPercentage0" name="txtIslrPercentage0" value="" style="width: 135px;"> 
+				  	 		<input type="text" id="txtNameSP0" name="txtNameSP0" maxlength="50" value="" style="width: 135px;"> % Comisión: <input type="text" id="txtCommission0" name="txtCommission0" value="" style="width: 135px;"> % ISLR: <input type="text" id="txtIslrPercentage0" name="txtIslrPercentage0" value="" style="width: 135px;"> 
 				  	 		<img alt="logo" src="./images/add.png"  id="addSellPoint" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Agregar otro punto" />
 							<br /><br />
 						</div>
 						<% 	for (int i = 1; i<4; i++) { %>
 								<div id="otherSellPoint<%= i %>" style="display:none;">
-									<input type="text" id="txtNameSP<%= i %>" name="txtNameSP<%= i %>" value="" style="width: 135px;"> % Comisión: <input type="text" id="txtCommission<%= i %>" name="txtCommission<%= i %>" value="" style="width: 135px;"> % ISLR: <input type="text" id="txtIslrPercentage<%= i %>" name="txtIslrPercentage<%= i %>" value="" style="width: 135px;"> 
+									<input type="text" id="txtNameSP<%= i %>" name="txtNameSP<%= i %>" maxlength="50" value="" style="width: 135px;"> % Comisión: <input type="text" id="txtCommission<%= i %>" name="txtCommission<%= i %>" value="" style="width: 135px;"> % ISLR: <input type="text" id="txtIslrPercentage<%= i %>" name="txtIslrPercentage<%= i %>" value="" style="width: 135px;"> 
 									<img alt="logo" src="./images/close.png"  id="deleteSellPoint<%= i %>" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Eliminar punto" />
 				 					<br /><br />
 				 				</div>
@@ -101,7 +140,7 @@
 					</fieldset>
 					<div id="botonera">
 						<div id="botonP" style="display: inline; margin-right: 30px;">
-							<input type="submit"  class="button"  name="sbmtButton" value="Agregar" />
+							<input type="button" class="button" id="sbmtButton" name="sbmtButton" value="Agregar" />
 						</div>	
 						<div id="botonV" style="display: inline;">
 							<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
