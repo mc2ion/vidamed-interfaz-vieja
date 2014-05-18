@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
+import domain.User;
 
 
 
@@ -41,26 +42,37 @@ public class RefreshUpperMenuServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		try {
-			HttpSession session = request.getSession(false);
-			int countPAD = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.CountPendingAdmissionDischarges());
-			int countPCN = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.CountPendingCreditNotes());	
-			int countPCNR = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.CountPendingCreditNotesReviews());	
-			int countPB = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.CountPendingBills());	
-			int countPPD = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.CountPendingPharmacyDischarges());	
-			session.setAttribute("countPAD", countPAD);
-			session.setAttribute("countPCN", countPCN);
-			session.setAttribute("countPCNR", countPCNR);
-			session.setAttribute("countPB", countPB);
-			session.setAttribute("countPPD", countPPD);
-			
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/upperMenuAux.jsp");
+		HttpSession session = request.getSession();
+		User userE = (User)session.getAttribute("user");
+		if(userE != null){
+			try {
+				int countPAD = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.CountPendingAdmissionDischarges());
+				int countPCN = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.CountPendingCreditNotes());	
+				int countPCNR = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.CountPendingCreditNotesReviews());	
+				int countPB = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.CountPendingBills());	
+				int countPPD = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.CountPendingPharmacyDischarges());	
+				int countPED = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.CountPendingEstimationDiscounts());	
+				int countPPP = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.CountPendingPayments());	
+				
+				session.setAttribute("countPAD", countPAD);
+				session.setAttribute("countPCN", countPCN);
+				session.setAttribute("countPCNR", countPCNR);
+				session.setAttribute("countPB", countPB);
+				session.setAttribute("countPPD", countPPD);
+				session.setAttribute("countPED", countPED);
+				session.setAttribute("countPPP", countPPP);
+				
+				
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/upperMenuAux.jsp");
+				rd.forward(request, response);
+			}
+			catch (Exception e) {
+				throw new ServletException(e);
+			}
+		} else {
+			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 			rd.forward(request, response);
-		}
-		catch (Exception e) {
-			throw new ServletException(e);
-		}
+		}	
 	}
 
 	/**

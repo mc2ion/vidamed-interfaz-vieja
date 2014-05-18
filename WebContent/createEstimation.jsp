@@ -73,13 +73,7 @@
 				$("#departament").val("Alergogía");
 			}
 			
-			$('#titular').change(function() {
-		        if(!$(this).is(":checked")) {
-		            $("#div-3").show();
-		        }else
-					 $("#div-3").hide();
-		               
-		    });
+			
 			
 		});
 		</script>
@@ -122,25 +116,14 @@
 					    <input type="text" name="departament" id="departament" value="" readonly>
 					    <br><br>
 					   <label>Médico Tratante: </label> <input type="text" name="doctorName" id="doctorName" readonly>
-					    <a href="SearchDoctorServlet?function=createEstimation" style="color: #f7941e; font-weight: bold;">
-							<input type="button"id="doctorId" value="Escoger" >
+					    <a href="SearchDoctorServlet?function=createEstimation" style="color: #f7941e; font-weight: bold; ">
+							<input type="button"id="doctorId" value="Escoger" style="top: 120px;">
 						</a> <br><br>
 						<label> Responsable del Pago:</label>  <input type="text" name="insuranceName" id="insuranceName" readonly>
-					    <a href="SearchInsuranceServlet?function=createEstimation" style="color: #f7941e; font-weight: bold;">
+					    <a href="SearchInsuranceServlet?function=createEstimation" style="color: #f7941e; font-weight: bold; ">
 							<input type="button"id="paymentResp" value="Escoger" >
-						</a> <br><br>
-						<input type="checkbox" id="aval" value="1" /> &iquest; El paciente tiene carta aval?<br><br>
-						<input type="checkbox" id="titular" value="1" checked /> &iquest; Es el paciente el titular del seguro?<br><br>
-						<div id="div-3" style="display: none;">
-							Datos del titular:<br><br>
-							<label> Cédula Titular: </label> 
-							<select id="cedula">
-								<option value="V-">V</option>
-								<option value="E-">E</option>
-							</select><input type="text" name="cedula" id="cedula" value="" style="width: 227px;"><br><br>
-							<label> Nombre Titular: </label>
-							<input type="text" name="name" id="name" value=""><br><br>
-						</div>
+						</a> 
+						<img alt="logo" src="./images/add.png"  id="addPhone" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Agregar otro responsable" /><br><br>
 					    </fieldset>
 					 	<br>
 					</div>

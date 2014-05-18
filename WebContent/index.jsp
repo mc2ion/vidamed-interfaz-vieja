@@ -1,3 +1,10 @@
+<%
+
+String info = (String) request.getAttribute("time_out");
+if (info == null)
+	info = "";
+
+%>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -20,6 +27,7 @@
 							<%
 							}
 							%>
+							<div class="login-error"><%= info %></div>
 	                        <div id="login" class="animate form">
 	                            <form  action="/vidamed/UserLoginServlet" method="post" > 
 	                                <h1> </h1> 

@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import sun.misc.BASE64Encoder;
-
 import command.CommandExecutor;
 import domain.User;
 
@@ -46,37 +46,41 @@ public class OpenCashBoxServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		try {
-			HttpSession session = request.getSession(false);
-			String text_good = "La caja fue abierta exitosamente.";
-			String text_bad = "Se ha presentado un error al abrir la caja. Por favor, intente nuevamente.";
-			String password = request.getParameter("password");
-			Long userID = Long.parseLong(request.getParameter("userID"));
-			String encryptPassword = getEncryptPassword(password);
-			User user = (User) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetUserCurrentPassword(userID));
-			if (user.getPassword().equals(encryptPassword)) {
-				Long cashBoxID = Long.parseLong(request.getParameter("cashBoxID"));
-				Double initialAmount = Double.parseDouble(request.getParameter("initialAmount"));
-				int result = (Integer)CommandExecutor.getInstance().executeDatabaseCommand(new command.OpenCashBox(cashBoxID, userID, initialAmount));
-				if (result == 1) {
-					session.setAttribute("info",text_good);
+		HttpSession session = request.getSession();
+		User userE = (User)session.getAttribute("user");
+		if(userE != null){
+			try {
+				String text_good = "La caja fue abierta exitosamente.";
+				String text_bad = "Se ha presentado un error al abrir la caja. Por favor, intente nuevamente.";
+				String password = request.getParameter("password");
+				Long userID = Long.parseLong(request.getParameter("userID"));
+				String encryptPassword = getEncryptPassword(password);
+				User user = (User) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetUserCurrentPassword(userID));
+				if (user.getPassword().equals(encryptPassword)) {
+					Long cashBoxID = Long.parseLong(request.getParameter("cashBoxID"));
+					Double initialAmount = Double.parseDouble(request.getParameter("initialAmount"));
+					int result = (Integer)CommandExecutor.getInstance().executeDatabaseCommand(new command.OpenCashBox(cashBoxID, userID, initialAmount));
+					if (result == 1) {
+						session.setAttribute("info",text_good);
+					}
+					else {
+						session.setAttribute("info",text_bad);
+					}
 				}
 				else {
-					session.setAttribute("info",text_bad);
+					text_bad = "La clave introducida no es correcta.";
+					session.setAttribute("info", text_bad);
 				}
+				
+				response.sendRedirect(request.getContextPath() + "/ListCashBoxesServlet");	
 			}
-			else {
-				text_bad = "La clave introducida no es correcta.";
-				session.setAttribute("info", text_bad);
+			catch (Exception e) {
+				throw new ServletException(e);
 			}
-			
-			response.sendRedirect(request.getContextPath() + "/ListCashBoxesServlet");	
-		}
-		catch (Exception e) {
-			throw new ServletException(e);
-		}
-		
+		} else {
+			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+			rd.forward(request, response);
+		}	
 	}
 
 	/**

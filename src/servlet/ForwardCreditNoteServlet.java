@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
+import domain.User;
 
 
 
@@ -47,12 +49,12 @@ public class ForwardCreditNoteServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		User userE = (User)session.getAttribute("user");
+		if(userE != null){
 		try {
 			Long 	id 				= Long.valueOf(request.getParameter("userId"));
 		
-			HttpSession session = request.getSession(false);
-			
-			
 			int result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.ForwardCreditNote(id));
 			if (result == 1)
 				session.setAttribute("info", "La prefactura fue reenviada exitosamente!.");
@@ -65,5 +67,9 @@ public class ForwardCreditNoteServlet extends HttpServlet {
 		catch (Exception e) {
 			throw new ServletException(e);
 		}
+		} else {
+			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+			rd.forward(request, response);
+		}	
 	}
 }

@@ -1,9 +1,20 @@
+<%@page import="domain.PendingBills"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="domain.User"%>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
 	if (user != null)
 		name = user.getFirstName() ;
+	
+	@SuppressWarnings("unchecked")
+	ArrayList<PendingBills> bills = (ArrayList<PendingBills>) request.getAttribute("bills");;
+	
+	String result = (String) session.getAttribute("info");
+	String text = "";
+	if (result != null)
+		text = result;
+	session.removeAttribute("info");
 %>
 <!DOCTYPE HTML>
 <html>
@@ -92,12 +103,19 @@
 									</tr>
 								</thead>
 								<tbody>			
+									<% for (int i = 0; i < bills.size(); i++){
+										PendingBills b = bills.get(i);	
+										String pName = b.getPatient().getFirstName() + " " + b.getPatient().getLastName();
+										String eName = b.getSpecialist().getFirstName() + " " +  b.getSpecialist().getLastName();
+										
+										
+									%>
 									<tr class="gradeA">
-										<td>1001</td>
-										<td>Ana Rojas</td>
-										<td>Beatriz Perez</td>
-										<td>Multinacional de Seguros</td>
-										<td>Bs. 20501</td>
+										<td><%= b.getBillID() %></td>
+										<td><%= pName %></td>
+										<td><%= eName %></td>
+										<td><%= b.getPaymentResposible().getName() %></td>
+										<td>Bs. <%= b.getTotal() %></td>
 										<td>
 											<a id="go" rel="leanModal" href="#printUser" style="color: #f7941e; font-weight: bold;" 
 												onclick="return loadVars(1001,'1001');" >
@@ -106,34 +124,7 @@
 											<br>
 										</td>
 									</tr>
-									<tr class="gradeA">
-										<td>1002</td>
-										<td>Luis Mujica</td>
-										<td>Maritza Chacón</td>
-										<td>La Previsora</td>
-										<td>Bs. 12345</td>
-										<td>
-											<a id="go" rel="leanModal" href="#printUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1001,'1001');" >
-												<img alt="logo" src="./images/print.png"  height="16" width="16" title="Imprimir"/>
-											</a> 
-											<br>
-										</td>
-									</tr>
-									<tr class="gradeA">
-										<td>1003</td>
-										<td>Miguel Álvarez</td>
-										<td>Aura Guillén</td>
-										<td>Seguros Caroní</td>
-										<td>Bs. 19283</td>
-										<td>
-											<a id="go" rel="leanModal" href="#printUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1001,'1001');" >
-												<img alt="logo" src="./images/print.png"  height="16" width="16" title="Imprimir"/>
-											</a> 
-											<br>
-										</td>
-									</tr>
+									<% } %>
 								</tbody>
 							</table>
 						</div>

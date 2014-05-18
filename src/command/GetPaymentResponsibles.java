@@ -29,6 +29,9 @@ public class GetPaymentResponsibles implements DatabaseCommand {
 				resp.setName(rs.getString(2));
 				resp.setBussinessRuleId(rs.getLong(3));
 				resp.setRuleName(rs.getString(4));
+				resp.setAddress(rs.getString(5));
+				resp.setPhone(rs.getString(6));
+				
 				resposibles.add(resp);
 			}
 		}

@@ -32,10 +32,7 @@ public class SearchNumEstimation implements DatabaseCommand {
 			patient.setIdentityCard(rs.getString(3));
 			patient.setFirstName(rs.getString(4));
 			patient.setLastName(rs.getString(5));
-			patient.setPaymentResponsibleId(rs.getLong(6));
-			patient.setResponsibleName(rs.getString(7));
 		}
-		
 		rs.close();
 		sta.close();
 		

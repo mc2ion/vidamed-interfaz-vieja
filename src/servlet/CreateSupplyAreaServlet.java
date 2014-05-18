@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
+import domain.User;
 
 
 
@@ -41,35 +42,40 @@ public class CreateSupplyAreaServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		try {
-			String action = request.getParameter("sbmtButton");
-			RequestDispatcher rd;
-			if (action == null || action.trim().equals("")) {				
-				rd = getServletContext().getRequestDispatcher("/createSupplyArea.jsp");
-				rd.forward(request, response);
-			}
-			else {
-				HttpSession session = request.getSession(false);
-				String text_good = "El área de insumos fue creado exitosamente.";
-				String text_bad = "Se ha presentado un error al crear el área de insumos. Por favor, intente nuevamente.";
-				String name = request.getParameter("txtName");
-				String description = request.getParameter("txtDescription");
-				description = description == null ? "" : description;
-				Long supplyAreaID = (Long)CommandExecutor.getInstance().executeDatabaseCommand(new command.AddSupplyArea(name, description));
-				if (supplyAreaID != null) {
-					session.setAttribute("info",text_good);
+		HttpSession session = request.getSession();
+		User userE = (User)session.getAttribute("user");
+		if(userE != null){
+			try {
+				String action = request.getParameter("sbmtButton");
+				RequestDispatcher rd;
+				if (action == null || action.trim().equals("")) {				
+					rd = getServletContext().getRequestDispatcher("/createSupplyArea.jsp");
+					rd.forward(request, response);
 				}
 				else {
-					session.setAttribute("info",text_bad);
+					String text_good = "El área de insumos fue creado exitosamente.";
+					String text_bad = "Se ha presentado un error al crear el área de insumos. Por favor, intente nuevamente.";
+					String name = request.getParameter("txtName");
+					String description = request.getParameter("txtDescription");
+					description = description == null ? "" : description;
+					Long supplyAreaID = (Long)CommandExecutor.getInstance().executeDatabaseCommand(new command.AddSupplyArea(name, description));
+					if (supplyAreaID != null) {
+						session.setAttribute("info",text_good);
+					}
+					else {
+						session.setAttribute("info",text_bad);
+					}
+					
+					response.sendRedirect(request.getContextPath() + "/ListSupplyAreasServlet");	
 				}
-				
-				response.sendRedirect(request.getContextPath() + "/ListSupplyAreasServlet");	
 			}
-		}
-		catch (Exception e) {
-			throw new ServletException(e);
-		}
+			catch (Exception e) {
+				throw new ServletException(e);
+			}
+		} else {
+			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+			rd.forward(request, response);
+		}	
 	}
 
 	/**

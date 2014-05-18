@@ -61,6 +61,8 @@
 		f.elements['userId'].value = idUser;
 		return true;
 	}
+	
+	
 	</script>
 </head>
 <body>

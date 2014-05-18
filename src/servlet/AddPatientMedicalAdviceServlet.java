@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
 import domain.Unit;
+import domain.User;
 
 /**
  * Servlet implementation class AddPatientMedicalAdviceServlet
@@ -42,24 +43,31 @@ public class AddPatientMedicalAdviceServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher rd;
-		try {
-			String id = request.getParameter("id");
-			String name   = request.getParameter("name");
+		HttpSession session = request.getSession();
+		User userE = (User)session.getAttribute("user");
+		if(userE != null){
+			try {
+				String id = request.getParameter("id");
+				String name   = request.getParameter("name");
+				
+				request.setAttribute("adminId", id);
+				request.setAttribute("name", name);
+				
+				@SuppressWarnings("unchecked")
+				ArrayList<Unit> units = (ArrayList<Unit>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetUnits());
 			
-			request.setAttribute("adminId", id);
-			request.setAttribute("name", name);
+				request.setAttribute("units", units);
+				
+				rd = getServletContext().getRequestDispatcher("/addPatientAdvice.jsp");			
+				rd.forward(request, response);
 			
-			@SuppressWarnings("unchecked")
-			ArrayList<Unit> units = (ArrayList<Unit>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetUnits());
-		
-			request.setAttribute("units", units);
-			
-			rd = getServletContext().getRequestDispatcher("/addPatientAdvice.jsp");			
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			rd = getServletContext().getRequestDispatcher("/index.jsp");
 			rd.forward(request, response);
-		
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 
@@ -67,28 +75,31 @@ public class AddPatientMedicalAdviceServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession();
+		User userE = (User)session.getAttribute("user");
+		if(userE != null){
 		
-		try{
-			String admin 		= request.getParameter("admissionId");
-			String name 		= request.getParameter("name");
-			String unitId		= request.getParameter("unitId");
-			String specialist   = request.getParameter("state");
-			String amount 		= request.getParameter("amount");
-			
-			Integer result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddPatientMedicalAdvice(Long.valueOf(admin), Long.valueOf(unitId), Long.valueOf(specialist), amount));
-			
-			String text = "La consulta fue agregada exitosamente";
-			if (result == 0)
-				text =	"Hubo un problema al agregar la consulta. Por favor, intente nuevamente.";
-			
-			session.setAttribute("text", text);
-			response.sendRedirect(request.getContextPath() + "/ListPatientMedicalAdvicesByAdmissionServlet?id=" + admin + "&name=" + name);
+			try{
+				String admin 		= request.getParameter("admissionId");
+				String name 		= request.getParameter("name");
+				String unitId		= request.getParameter("unitId");
+				String specialist   = request.getParameter("state");
+				String amount 		= request.getParameter("amount");
+				
+				Integer result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddPatientMedicalAdvice(Long.valueOf(admin), Long.valueOf(unitId), Long.valueOf(specialist), amount));
+				
+				String text = "La consulta fue agregada exitosamente";
+				if (result == 0)
+					text =	"Hubo un problema al agregar la consulta. Por favor, intente nuevamente.";
+				
+				session.setAttribute("text", text);
+				response.sendRedirect(request.getContextPath() + "/ListPatientMedicalAdvicesByAdmissionServlet?id=" + admin + "&name=" + name);
+		
+			}catch(Exception e){}
 	
-		}catch(Exception e){
-			
-			
-		}
-		
+			}else {
+				request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+				rd.forward(request, response);
+			}
 	}
 }

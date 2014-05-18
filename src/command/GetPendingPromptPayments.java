@@ -27,15 +27,15 @@ public class GetPendingPromptPayments implements DatabaseCommand {
 				PendingPromptPayment u = new PendingPromptPayment();
 				u.setMedicalFeeID(rs.getLong(1));
 				u.setBillID(rs.getLong(2));
+				u.setBillWasPaid(rs.getInt(3));
 				
 				Specialist e = new Specialist();
-				e.setId(rs.getLong(3));
-				e.setFirstName(rs.getString(4));
-				e.setLastName(rs.getString(5));
+				e.setId(rs.getLong(4));
+				e.setFirstName(rs.getString(5));
+				e.setLastName(rs.getString(6));
 				u.setSpecialist(e);
 				
-				u.setAmount(rs.getString(6));
-				u.setBillWasPaid(rs.getInt(7));
+				u.setAmount(rs.getString(7));
 				
 				admissions.add(u);
 			}

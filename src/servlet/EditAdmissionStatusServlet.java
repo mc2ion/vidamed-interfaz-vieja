@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
+import domain.User;
 
 
 
@@ -47,19 +50,25 @@ public class EditAdmissionStatusServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
-		try{
-			Long id 		= Long.valueOf(request.getParameter("userID"));
-			Long status  	= Long.valueOf(request.getParameter("status"));
-			int result 		= (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.EditAdmissionStatus(status, id));
-			if (result == 1)
-				session.setAttribute("info","El estado de la admisión fue editada exitosamente");
-			else
-				session.setAttribute("info","Se ha presentado un error al editar el estado de la admisión. Por favor, intente nuevamente.");
-			response.sendRedirect(request.getContextPath() + "/ListAdmissionsServlet");
-		}catch(Exception e){
-			System.out.print("error " + e.getMessage());
-		}
+		HttpSession session = request.getSession();
+		User userE = (User)session.getAttribute("user");
+		if(userE != null){
+			try{
+				Long id 		= Long.valueOf(request.getParameter("userID"));
+				Long status  	= Long.valueOf(request.getParameter("status"));
+				int result 		= (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.EditAdmissionStatus(status, id));
+				if (result == 1)
+					session.setAttribute("info","El estado de la admisión fue editada exitosamente");
+				else
+					session.setAttribute("info","Se ha presentado un error al editar el estado de la admisión. Por favor, intente nuevamente.");
+				response.sendRedirect(request.getContextPath() + "/ListAdmissionsServlet");
+			}catch(Exception e){
+				System.out.print("error " + e.getMessage());
+			}
+		} else {
+			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+			rd.forward(request, response);
+		}	
 		
 	}
 }

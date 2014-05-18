@@ -1,9 +1,19 @@
+<%@page import="domain.PaymentResponsible"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="domain.User"%>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
 	if (user != null)
 		name = user.getFirstName() ;
+	
+	@SuppressWarnings("unchecked")
+	ArrayList<PaymentResponsible> resp = (ArrayList<PaymentResponsible>)request.getAttribute("responsibles");
+
+	
+	String id 		 = (String) request.getAttribute("id");
+	String function	 = (String) request.getAttribute("function");
+	
 %>
 <!DOCTYPE>
 <html>
@@ -14,85 +24,15 @@
 	<script type="text/javascript" src="./js/jquery.js"></script>
 	<script type="text/javascript" src="./js/jquery.dataTables.js"></script>
 	<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
-	<script type="text/javascript" charset="utf-8">
-	$(document).ready(function() {
-		var oTable = $('#example').dataTable( {
-			"iDisplayLength": 7,
-			"bLengthChange": false,
-			"sScrollY": "250px",
-			"bPaginate": false,
-			"aoColumns": [
-				{ "bSearchable": false, "asSorting": false, "sWidth": "10%"  },
-				null,
-				null,
-				null,
-				null
-			],
-			"oLanguage": {
-	            "sLengthMenu": "Mostrar _MENU_ registros",
-	            "sZeroRecords": "No hay ningún registro que coincida con su búsqueda",
-	            "sInfo": "Mostrando _START_ a _END_ de _TOTAL_ registros",
-	            "sInfoEmpty": "Mostrando 0 a 0 de 0 registros",
-	            "sInfoFiltered": "(filtrando de _MAX_ registros totales)",
-	            "sEmptyTable": "No hay datos disponibles en la tabla",
-	            "sLoadingRecords": "Por favor, espere - cargando...",
-	            "sSearch": "Buscar:"
-        	}
-		} );
-		
-		oTable.fnSort( [ [1,'asc'] ] );
-	} );
-	</script>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			
-			function getUrlVars() {
-			    var vars = {};
-			    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-			        vars[key] = value;
-			    });
-			    return vars;
-			}
-
-			var first = getUrlVars()["function"];
-			first = first.replace(/\+/g, ' ');
-			if (first != null){
-				if (first.indexOf("CreditNote") > 0){
-					$("#admission").attr('class', 'active');
-					if (first == "editCreditNoteEstimation")
-						$("#form").attr('action', 'EditCreditNoteEstimationServlet');
-				}
-				else if (first.indexOf("Admission") > 0){
-					$("#admission").attr('class', 'active');
-					if (first == "editAdmissionEstimation")
-						$("#form").attr('action', 'EditAdmissionEstimationServlet');
-				}
-				else if (first.indexOf("Pharmacy") > 0){
-					$("#supplyAreas").attr('class', 'active');
-					if (first == "editPharmacyEstimation")
-						$("#form").attr('action', 'EditPharmacyEstimationServlet');
-				}
-				else if (first.indexOf("Estimation") > 0){
-					$("#estimation").attr('class', 'active');
-					if (first == "editEstimation"){
-						$("#form").attr('action', 'EditEstimationServlet');
-					}
-					else if (first == "createEstimation")
-						$("#form").attr('action', 'CreateEstimationServlet');
-				}
-				else if (first.indexOf("Hospitalization") > 0){
-					$("#hospitalization").attr('class', 'active');
-					if (first == "editHospitalization")
-						$("#form").attr('action', 'EditHospitalizationServlet');
-					
-				}
-				else if (first.indexOf("Patient") > 0){
-					$("#admission").attr('class', 'active');
-					if (first == "admitPatient")
-						$("#form").attr('action', 'AdmitPatientServlet');
-					
-				}
-			}
+			$('#titular').change(function() {
+		        if(!$(this).is(":checked")) {
+		            $("#div-3").show();
+		        }else
+					 $("#div-3").hide();
+		               
+		    });
 				
 		});
 		
@@ -130,58 +70,41 @@
 		<jsp:include page="./menu.jsp" />
 		<div id="content">  
 			<h2>Escoger responsable del pago:</h2><br>
-			<p> Por favor seleccione el responsable de pago en la columna izquierda de la tabla y luego haga clic en "Seleccionar" </p>
-			<form action="" method="get" id="form" style="display: inline;">
-	
-			<div id="dt_example">
+			<p> Por favor seleccione el responsable de pago y agregue la información solicitada</p><br/><br/>
+			<form action="SearchInsuranceServlet" method="post" id="form" style="display: inline;">
+			<input type="hidden" name="id" 		 value="<%= id %>"/>
+			<input type="hidden" name="function" value="<%= function %>"/>
+			<div >
 					<div id="container">
-					
-						<div id="demo">
-							<table class="display" id="example">
-								<thead>
-									<tr>
-										<th>Escoger</th>
-										<th>ID</th>
-										<th>Nombre</th>
-										<th>Dirección</th>
-										<th>Teléfono</th>
-										
-									</tr>
-								</thead>
-								<tbody>			
-									<tr class="gradeA">
-										<td>
-											<input type="checkbox" name="insurance" value="Pago en Efectivo"><br>
-										</td>
-										<td>1</td>
-										<td>Pago en Efectivo</td>
-										<td>N/A</td>
-										<td>N/A</td>
-									</tr>
-									<tr class="gradeA">
-										<td>
-											<input type="checkbox" name="insurance" value="La Previsora"><br>
-										</td>
-										<td>2</td>
-										<td>La Previsora</td>
-										<td>Plaza Venezuela. Dirección: Av. Francisco Solano con Av. Las Acacias, Torre La Previsora, PB, Plaza Venezuela, Caracas</td>
-										<td>0212-7935632</td>
-									</tr>
-									<tr class="gradeA">
-										<td>
-											<input type="checkbox" name="insurance" value="Multinacional de Seguros C.A"><br>
-										</td>
-										<td>3</td>
-										<td>Multinacional de Seguros, C.A</td>
-										<td>Avenida Blandín con Mohedano, Torre Multinacional de Seguros, La Castellana, Caracas</td>
-										<td>0212-6203200</td>
-									</tr>
-								</tbody>
-							</table>
+					<fieldset>
+						<label>Responsable de Pago: </label>
+						<select name="paymentId">
+						<option value="-">Seleccionar</option>
+						<% for (int i = 0; i < resp.size(); i++){
+							PaymentResponsible p = resp.get(i);
+							String info = p.getName();
+							if (p.getAddress() != null)
+								info += p.getAddress();
+						%>
+							<option value="<%= p.getId()%>" > <%= info %></option>
+						<% } %>
+						</select><br><br>
+						<label> </label><label style="font-weight: normal; width: auto"><input type="checkbox" id="aval" name="aval" value="1" /> &iquest; El paciente tiene carta aval?</label><br><br>
+						<label> </label><label style="font-weight: normal; width: auto"><input type="checkbox" id="titular" name="titular" value="1" checked /> &iquest; Es el paciente el titular del seguro?</label><br><br>
+						<div id="div-3" style="display: none;">
+							<h2>Datos del titular:</h2><br><br>
+							<label> Cédula Titular: </label> 
+							<select name="cedId" id="cedula">
+								<option value="V-">V</option>
+								<option value="E-">E</option>
+							</select><input type="text" name="cedula" id="cedula" value="" style="width: 194px; margin-left: 3px;"><br><br>
+							<label> Nombre Titular: </label>
+							<input type="text" name="name" id="name" value="" style="width: 234px;"><br><br>
 						</div>
-					</div><br>
-					
-					<div id="botonera" style="margin-top: -10px;">
+					</fieldset>
+					</div>
+						
+					<div id="botonera">
 						<div id="botonP" style="display: inline; margin-right: 30px;">
 									<input type="submit"  class="button"  name="sbmtButton" value="Seleccionar" />
 						</div>	
@@ -189,9 +112,9 @@
 								<input type="submit" class="button" value="Regresar" />		
 						</div>	
 					</div>
-				</div>
-				</form>
-				<div class="spacer"></div>
+			</div>
+			</form>
+			<div class="spacer"></div>
         	</div>
        	</div>
 		

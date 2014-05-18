@@ -9,9 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
 import domain.SupplyArea;
+import domain.User;
 
 
 /**
@@ -42,17 +44,23 @@ public class ListSupplyAreasServlet extends HttpServlet {
 	 */
 	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		try {
-			ArrayList<SupplyArea> supplyAreas = (ArrayList<SupplyArea>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetSupplyAreas());
-			request.setAttribute("supplyAreas", supplyAreas);
-		
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/supplyAreas.jsp");
+		HttpSession session = request.getSession();
+		User userE = (User)session.getAttribute("user");
+		if(userE != null){
+			try {
+				ArrayList<SupplyArea> supplyAreas = (ArrayList<SupplyArea>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetSupplyAreas());
+				request.setAttribute("supplyAreas", supplyAreas);
+			
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/supplyAreas.jsp");
+				rd.forward(request, response);
+			}
+			catch (Exception e) {
+				throw new ServletException(e);
+			}
+		} else {
+			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 			rd.forward(request, response);
-		}
-		catch (Exception e) {
-			throw new ServletException(e);
-		}
+		}	
 	}
 	
 	/**

@@ -9,10 +9,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
 import domain.DischargeType;
 import domain.Hospitalization;
+import domain.User;
 
 
 /**
@@ -42,19 +44,27 @@ public class ListHospitalizationsServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd;
-		try{
-			@SuppressWarnings("unchecked")
-			ArrayList<Hospitalization> hosp = (ArrayList<Hospitalization>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetHospitalizations());
-			request.setAttribute("hospitalizations", hosp);
-			@SuppressWarnings("unchecked")
-			ArrayList<DischargeType> disc = (ArrayList<DischargeType>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetDischargeTypes());
-			request.setAttribute("discharges", disc);
-			rd = getServletContext().getRequestDispatcher("/hospitalization.jsp");
+		HttpSession session = request.getSession();
+		User userE = (User)session.getAttribute("user");
+		if(userE != null){
+		
+			RequestDispatcher rd;
+			try{
+				@SuppressWarnings("unchecked")
+				ArrayList<Hospitalization> hosp = (ArrayList<Hospitalization>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetHospitalizations());
+				request.setAttribute("hospitalizations", hosp);
+				@SuppressWarnings("unchecked")
+				ArrayList<DischargeType> disc = (ArrayList<DischargeType>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetDischargeTypes());
+				request.setAttribute("discharges", disc);
+				rd = getServletContext().getRequestDispatcher("/hospitalization.jsp");
+				rd.forward(request, response);
+			}catch(Exception e){
+				
+			}
+		} else {
+			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 			rd.forward(request, response);
-		}catch(Exception e){
-			
-		}
+		}	
 		
 	}
 	

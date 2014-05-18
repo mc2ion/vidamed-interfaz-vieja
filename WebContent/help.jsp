@@ -16,72 +16,68 @@
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
 		<link rel="stylesheet" href="/resources/demos/style.css" />
-		<script>
-			$(function() {
-				$( "#tabs" ).tabs();
-			});
-		</script>
-		<script type="text/javascript">
-		var idUser;
-				
-		$(function() {
-			$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x" });		
-		});
-		
-		function loadVars(var1, var2) {
-			idUser = var1;
-			$('.cliente').text(var2);
-			
-		};
-		
-		function setV(f){
-			f.elements['userId'].value = idUser;
-			return true;
-		}
-		</script>
-			<script type="text/javascript">
-		$(document).ready(function() {
-			
-			function getUrlVars() {
-			    var vars = {};
-			    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-			        vars[key] = value;
-			    });
-			    return vars;
-			}
-
-			var first = getUrlVars()["function"];
-			if (first != null){
-				first = first.replace(/\+/g, ' ');
-				if (first.indexOf("Admission") > 0){
-					$("#admission").attr('class', 'active');
-					$("#menuInside").hide();
-					$("#botonera").hide();
-					$("#botonera2").show();
-					
-				}
-				else if (first.indexOf("stimations") > 0){
-					$("#estimation").attr('class', 'active');
-				}
-			}
-		});
-		
-		</script>
 	</head>
-	<body>
-		<div id="container">
-			<div id="header">
-	        	
-	        </div>         
-        	<jsp:include page="./upperMenu.jsp" />        
-			<div id="menu">
-				<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
-		    	<div class="menuitemSalir"><a href="LogoutServlet">Salir</a></div>	
-        	</div>        
-			 <jsp:include page="./menu.jsp" />
-        	<div id="content" style="position:absolute;">	
-	        	<h2>Ayuda:</h2>
-			</div>
+	<body style="background: white;">
+		<div class="menu-help">
+			<ul>
+		   <li class='first'><a href='ListEstimationsServlet'><span>Presupuesto</span></a></li>
+		   <li><a href='ListEmergenciesServlet'><span>Emergencia</span></a></li>
+		   <li><a href='ListAdmissionsServlet'><span>Admisi&oacute;n</span></a></li>
+		   <li><a href='ListHospitalizationsServlet'><span>Hospitalizaci&oacute;n</span></a></li>
+		   <li class='has-sub'>
+			<a href='#'><span>Tratamientos M&eacute;dicos</span></a>
+		      <ul>
+		         <li class='first'><a href='ListMedicalTreatmentsAdminServlet'><span>Administrar</span></a></li>
+		         <li class='last'><a href='ListMedicalTreatmentsServlet'><span>Ver Pacientes</span></a></li>
+		      </ul>
+		   </li>
+		   <li><a href='ListUsersServlet'><span>Usuarios</span></a></li>
+		   <li><a href='ListProtocolsServlet'><span>Protocolos</span></a></li>
+		   <li><a href='ListXRayReportsServlet'><span>Rayos X</span></a></li>
+		   <li class='has-sub'>
+			<a href='#'><span>Farmacia</span></a>
+		      <ul>
+		         <li class='first'><a href='ListSupplyAreasServlet'><span>Administrar</span></a></li>
+		         <li class='last'><a href='ListSupplyServlet'><span>Ver Pacientes</span></a></li>
+		      </ul>
+		   </li>
+		   <li class='has-sub'>
+			<a href='#'><span>Facturaci&oacute;n</span></a>
+		      <ul>
+		         <li class='first'><a href='ListBillingsHServlet'><span>Honorarios M&eacute;dicos</span></a></li>
+		         <li><a href='ListBillingsRPServlet'><span>Relaci&oacute;n de Pago</span></a></li>
+		         <li><a href='ListBillingsNServlet'><span>Generar N&oacute;mina</span></a></li>
+		         <li class='last'><a href='ListBillingsPPServlet'><span>Pronto Pago</span></a></li>
+		      </ul>
+		   </li>
+		   <li><a href='ListUnitsServlet'><span>Unidades</span></a></li>
+		   <li><a href='ListSpecialistsServlet'><span>Especialistas</span></a></li>
+		   <li><a href='ListPaymentResponsiblesServlet'><span>Responsables de Pago</span></a></li>
+		   <li><a href='ListCashBoxesServlet'><span>Cajas</span></a></li>
+		   <li><a href='ListAccountsServlet'><span>Cuentas Pendientes</span></a></li>
+		   <li><a href='ListBloodBankServlet'><span>Banco de Sangre</span></a></li>
+		   <li><a href='ListEcoServlet'><span>Ecosonograf&iacute;a</span></a></li>
+		   <li><a href='ListLabServlet'><span>Laboratorio</span></a></li>
+		   <li class='last'><a href='ListInterServlet'><span>Interconsultas</span></a></li>
+		</ul>
 		</div>
+		<iframe class="help" src="./help2.jsp" width="500" height="600"></iframe>
 	</body>
+	<style>
+		.menu-help{
+			width: 213px;
+			background: whitesmoke;
+			margin-left: 0px;
+			margin-top: 0px;
+			height: 100%;
+		}
+		
+		.help{
+			position: absolute;
+			top: 0px;
+			left: 213px;
+			width: 485px;
+			height: 100%;
+		}
+	</style>
 </html>

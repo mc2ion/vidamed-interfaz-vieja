@@ -8,9 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
 import domain.PendingPromptPayment;
+import domain.User;
 
 
 
@@ -41,18 +43,24 @@ public class ShowPromptPaymentServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		try{
-			Long id = Long.valueOf(request.getParameter("id"));
-			PendingPromptPayment pp = (PendingPromptPayment) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPendingPromptPayment(id));
-			
-			request.setAttribute("pp", pp);
-			RequestDispatcher rd;			
-			rd = getServletContext().getRequestDispatcher("/showPromptPayment.jsp");
+		HttpSession session = request.getSession();
+		User userE = (User)session.getAttribute("user");
+		if(userE != null){
+			try{
+				Long id = Long.valueOf(request.getParameter("id"));
+				PendingPromptPayment pp = (PendingPromptPayment) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPendingPromptPayment(id));
+				
+				request.setAttribute("pp", pp);
+				RequestDispatcher rd;			
+				rd = getServletContext().getRequestDispatcher("/showPromptPayment.jsp");
+				rd.forward(request, response);
+			}catch(Exception e){
+				throw new ServletException(e);
+			}
+		} else {
+			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 			rd.forward(request, response);
-		}catch(Exception e){
-			throw new ServletException(e);
-		}
+		}	
 	}
 
 	/**

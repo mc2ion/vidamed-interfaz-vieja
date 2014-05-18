@@ -8,9 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
 import domain.MedicalTreatment;
+import domain.User;
 
 
 
@@ -41,18 +43,24 @@ public class ShowMedicalTreatmentServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		Long id = Long.valueOf(request.getParameter("id"));
-		RequestDispatcher rd;
-		try {
-			MedicalTreatment med = (MedicalTreatment) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetMedicalTreatment(id));
-			request.setAttribute("medical", med);
-			rd = getServletContext().getRequestDispatcher("/showMedicalTreatment.jsp");			
+		HttpSession session = request.getSession();
+		User userE = (User)session.getAttribute("user");
+		if(userE != null){
+			Long id = Long.valueOf(request.getParameter("id"));
+			RequestDispatcher rd;
+			try {
+				MedicalTreatment med = (MedicalTreatment) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetMedicalTreatment(id));
+				request.setAttribute("medical", med);
+				rd = getServletContext().getRequestDispatcher("/showMedicalTreatment.jsp");			
+				rd.forward(request, response);
+			} 
+			catch (Exception e) {
+				throw new ServletException(e);
+			}
+		} else {
+			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 			rd.forward(request, response);
-		} 
-		catch (Exception e) {
-			throw new ServletException(e);
-		}
+		}	
 	}
 
 	/**

@@ -1,4 +1,4 @@
-<div class="ayudaitemHome"><a href="HelpServlet">Ayuda</a></div>	
+<div class="ayudaitemHome" style="cursor:pointer;"><a target="popup" onclick="window.open('./HelpServlet','Ayuda','width=600,height=600')">Ayuda</a></div>	
 <div id='cssmenu'>
 		<ul>
 		   <li class='first'><a href='ListEstimationsServlet'><span>Presupuesto</span></a></li>

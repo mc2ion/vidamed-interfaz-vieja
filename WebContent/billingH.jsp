@@ -156,7 +156,7 @@
 									<td>Bs. <%= pm.getAmount() %></td>
 									<td><%= pm.getBillID() %></td>
 									<td>
-										<a href="ShowMedicalFeedServlet" style="color: transparent" >
+										<a href="ShowMedicalFeedServlet?id=<%= pm.getMedicalFeeID() %>" style="color: transparent" >
 											<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 										</a>
 										<a id="go" rel="leanModal" href="#closeAccount" style="color: #f7941e; font-weight: bold;" 

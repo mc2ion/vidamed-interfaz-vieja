@@ -8,9 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
 import domain.PendingEstimationDiscount;
+import domain.User;
 
 
 
@@ -41,17 +43,24 @@ public class ShowDiscountServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			Long id = Long.parseLong(request.getParameter("discountId"));
-			RequestDispatcher rd;
-			PendingEstimationDiscount discount = (PendingEstimationDiscount) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEstimationDiscount(id));
-			request.setAttribute("discount", discount);
-			rd = getServletContext().getRequestDispatcher("/showDiscount.jsp");			
+		HttpSession session = request.getSession();
+		User userE = (User)session.getAttribute("user");
+		if(userE != null){
+			try {
+				Long id = Long.parseLong(request.getParameter("discountId"));
+				RequestDispatcher rd;
+				PendingEstimationDiscount discount = (PendingEstimationDiscount) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEstimationDiscount(id));
+				request.setAttribute("discount", discount);
+				rd = getServletContext().getRequestDispatcher("/showDiscount.jsp");			
+				rd.forward(request, response);
+			} 
+			catch (Exception e) {
+				throw new ServletException(e);
+			}
+		} else {
+			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 			rd.forward(request, response);
-		} 
-		catch (Exception e) {
-			throw new ServletException(e);
-		}
+		}	
 	}
 
 	/**

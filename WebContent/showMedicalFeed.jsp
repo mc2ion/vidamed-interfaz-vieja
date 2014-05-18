@@ -1,9 +1,13 @@
+<%@page import="domain.PendingMedicalFee"%>
 <%@page import="domain.User"%>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
 	if (user != null)
 		name = user.getFirstName() ;
+	
+
+	PendingMedicalFee pp = (PendingMedicalFee) request.getAttribute("pp");
 %>
 <!DOCTYPE HTML>
 <html>
@@ -32,14 +36,24 @@
 	        	<h2>Detalle Honorario:</h2>   
 	        	<br>
 				<p>
-			   	<b>Especialista:</b> Juan Pérez<br><br>
-			    <b>N° de factura:</b> F-24410<br><br>
-			    <b>Fecha de la factura:</b> 05/10/2013<br><br>
-			    <b>Monto inicial:</b> Bs. 6220,00<br><br>
-			    <b>Deducciones realizadas:</b> Bs. 1220,00<br><br>
-			    <b>Descuentos aplicados:</b> Bs. 0,00<br><br>
-			    <b>Monto a cobrar:</b> Bs. 5000,00<br><br>
-			    <b>Cargo desempeñado:</b> Cirujano Ayudante<br><br>
+				<%
+					String eName  = pp.getSpecialist().getFirstName() + " " + pp.getSpecialist().getLastName();
+					String status = "Cobrado";
+					if (pp.getBillWasPaid() == 0)
+						status = "Pendiente";
+					String statusH = "Cobrado";
+					if (pp.getFeeWasPaid() == 0)
+						statusH = "Pendiente";
+				%>
+			   	<b>Especialista:</b> <%= eName %><br><br>
+			    <b>N° de factura:</b> <%= pp.getBillID() %><br><br>
+			    <b>Monto:</b> Bs. <%= pp.getAmount() %><br><br>
+			    <b>Estatus del pago del seguro:</b> <%= status %><br><br>
+			    <b>Fecha del pago de la factura:</b> <%= pp.getBillDate() %><br><br>
+			    <b>Estatus del pago del honorario:</b> <%= statusH %><br><br>
+			    <% if (pp.getFeeWasPaid() == 1){ %>
+			    	<b>Fecha del pago del honorario:</b> <%= pp.getPaymentDate() %><br><br>
+			    <% } %>
 			    <br><br>
 			    </p>
 				<div id="botonera" >

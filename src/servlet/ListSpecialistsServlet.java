@@ -10,11 +10,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
 import domain.Specialist;
 import domain.SpecialistUnit;
 import domain.Unit;
+import domain.User;
 
 
 /**
@@ -45,32 +47,40 @@ public class ListSpecialistsServlet extends HttpServlet {
 	 */
 	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			ArrayList<Specialist> specialists = (ArrayList<Specialist>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetSpecialists());
-			
-			HashMap<Long, ArrayList<Unit>> specialistUnits = new HashMap<Long, ArrayList<Unit>>();
-			for (int i = 0; i<specialists.size(); i++) {
-				Long specialistID = specialists.get(i).getId();
-				ArrayList<SpecialistUnit> aux = (ArrayList<SpecialistUnit>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetSpecialistUnits(specialistID));
-				ArrayList<Unit> units = new ArrayList<Unit>();
-				for (int j = 0; j<aux.size(); j++) {
-					Long unitID = aux.get(j).getUnitID();
-					Unit u = (Unit) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetUnit(unitID));
-					units.add(u);
+		HttpSession session = request.getSession();
+		User userE = (User)session.getAttribute("user");
+		if(userE != null){
+		
+			try {
+				ArrayList<Specialist> specialists = (ArrayList<Specialist>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetSpecialists());
+				
+				HashMap<Long, ArrayList<Unit>> specialistUnits = new HashMap<Long, ArrayList<Unit>>();
+				for (int i = 0; i<specialists.size(); i++) {
+					Long specialistID = specialists.get(i).getId();
+					ArrayList<SpecialistUnit> aux = (ArrayList<SpecialistUnit>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetSpecialistUnits(specialistID));
+					ArrayList<Unit> units = new ArrayList<Unit>();
+					for (int j = 0; j<aux.size(); j++) {
+						Long unitID = aux.get(j).getUnitID();
+						Unit u = (Unit) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetUnit(unitID));
+						units.add(u);
+					}
+					specialistUnits.put(specialists.get(i).getId(), units);
 				}
-				specialistUnits.put(specialists.get(i).getId(), units);
+				
+				request.setAttribute("specialists", specialists);
+				request.setAttribute("specialistUnits", specialistUnits);
+				
+				RequestDispatcher rd;			
+				rd = getServletContext().getRequestDispatcher("/specialists.jsp");
+				rd.forward(request, response);
+			} 
+			catch (Exception e) {
+				throw new ServletException(e);
 			}
-			
-			request.setAttribute("specialists", specialists);
-			request.setAttribute("specialistUnits", specialistUnits);
-			
-			RequestDispatcher rd;			
-			rd = getServletContext().getRequestDispatcher("/specialists.jsp");
+		} else {
+			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 			rd.forward(request, response);
-		} 
-		catch (Exception e) {
-			throw new ServletException(e);
-		}
+		}	
 	}
 	
 	/**

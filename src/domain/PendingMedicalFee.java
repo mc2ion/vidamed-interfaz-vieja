@@ -6,8 +6,11 @@ public class PendingMedicalFee {
 	private Long medicalFeeId;
 	private Long billId;
 	private int billWasPaid;
+	private String billDate;
 	private Specialist specialist;
 	private String amount;
+	private int feeWasPaid;
+	private String paymentDate;
 	
 	public Long getMedicalFeeID() {
 		return medicalFeeId;
@@ -25,8 +28,12 @@ public class PendingMedicalFee {
 		this.billId = billId;
 	}
 	
-	public Long GetBillID() {
-		return billId;
+	public String getBillDate() {
+		return billDate;
+	}
+	
+	public void setBillDate(String billDate) {
+		this.billDate = billDate;
 	}
 	
 	public void setBillWasPaid(int billWasPaid) {
@@ -53,4 +60,19 @@ public class PendingMedicalFee {
 		return amount;
 	}
 	
+	public void setFeeWasPaid(int feeWasPaid) {
+		this.feeWasPaid = feeWasPaid;
+	}
+	
+	public int getFeeWasPaid() {
+		return feeWasPaid;
+	}
+	
+	public void setPaymentDate(String paymentDate) {
+		this.paymentDate = paymentDate;
+	}
+	
+	public String getPaymentDate() {
+		return paymentDate;
+	}
 }

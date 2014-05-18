@@ -19,6 +19,7 @@ import sun.misc.BASE64Encoder;
 import command.CommandExecutor;
 import domain.Permission;
 import domain.PermissionModule;
+import domain.User;
 
 
 
@@ -50,82 +51,88 @@ public class CreateUserServlet extends HttpServlet {
 	 */
 	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		try {
-			String action = request.getParameter("sbmtButton");
-			RequestDispatcher rd;
-			if (action == null || action.trim().equals("")) {
-				HashMap<Long, String> userUnits = (HashMap<Long, String>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetUserUnits());
-				ArrayList<PermissionModule> permissionModules = (ArrayList<PermissionModule>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPermissionModules());
-				HashMap<Long, ArrayList<Permission>> permissions = new HashMap<Long, ArrayList<Permission>>();
-				for (int i = 0; i< permissionModules.size(); i++) {
-					Long moduleID = permissionModules.get(i).getPermissionModuleID();
-					ArrayList<Permission> ps = (ArrayList<Permission>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPermissions(moduleID));
-					permissions.put(moduleID, ps);
-				}
-				request.setAttribute("userUnits", userUnits);
-				request.setAttribute("permissionModules", permissionModules);
-				request.setAttribute("permissions", permissions);
-				rd = getServletContext().getRequestDispatcher("/createUser.jsp");			
-				rd.forward(request, response);
-			}
-			else {
-				HttpSession session = request.getSession(false);
-				String text_good = "El usuario fue creado exitosamente.";
-				String text_bad = "Se ha presentado un error al crear el usuario. Por favor, intente nuevamente.";
-				String identityCard = request.getParameter("txtCedId") + request.getParameter("txtCedIdNum");
-				String firstName = request.getParameter("txtFirstName");
-				String lastName = request.getParameter("txtLastName");
-				String birthday = request.getParameter("txtDateIni");
-				String gender = request.getParameter("txtGen");
-				String address = request.getParameter("txtAddress");
-				String email = request.getParameter("txtEmail");
-				Long userUnitID = Long.parseLong(request.getParameter("txtUnitId"));
-				String startDate = request.getParameter("txtDateIni2");
-				String position = request.getParameter("txtPosition");
-				Double salary = Double.parseDouble(request.getParameter("txtSalary"));
-				String userName = request.getParameter("txtUserName");
-				String password = request.getParameter("txtPassword");
-				String encryptPassword = getEncryptPassword(password);
-				boolean phoneNumberError = false;
-				boolean permissionError = false;
-				
-				Long userID = (Long) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddUser(identityCard, firstName, lastName, birthday, gender, address, email, userUnitID, startDate, position, salary, userName, encryptPassword));
-				if (userID != null) {
-					for (int i = 0; i<4; i++) {
-						String type = request.getParameter("txtType" + i); 
-						String phoneNumber = request.getParameter("txtPhoneNumber" + i); 
-						if (phoneNumber != null && !phoneNumber.trim().equals("")) {
-							Long phoneNumberID = (Long)CommandExecutor.getInstance().executeDatabaseCommand(new command.AddUserPhoneNumber(userID, type, phoneNumber));
-							if (phoneNumberID == null && !phoneNumberError) {
-								phoneNumberError = true;
-								text_good += " Se ha presentado un error al asociar uno o más números telefónicos al usuario. Por favor, intente nuevamente.";
-							}
-						}
+		HttpSession session = request.getSession();
+		User userE = (User)session.getAttribute("user");
+		if(userE != null){
+		
+			try {
+				String action = request.getParameter("sbmtButton");
+				RequestDispatcher rd;
+				if (action == null || action.trim().equals("")) {
+					HashMap<Long, String> userUnits = (HashMap<Long, String>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetUserUnits());
+					ArrayList<PermissionModule> permissionModules = (ArrayList<PermissionModule>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPermissionModules());
+					HashMap<Long, ArrayList<Permission>> permissions = new HashMap<Long, ArrayList<Permission>>();
+					for (int i = 0; i< permissionModules.size(); i++) {
+						Long moduleID = permissionModules.get(i).getPermissionModuleID();
+						ArrayList<Permission> ps = (ArrayList<Permission>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPermissions(moduleID));
+						permissions.put(moduleID, ps);
 					}
-
-					String[] permissions = request.getParameterValues("permissions");
-					if (permissions != null) {
-						for (int i = 0; i<permissions.length; i++) {
-							int result = (Integer)CommandExecutor.getInstance().executeDatabaseCommand(new command.AddUserPermission(userID, Long.parseLong(permissions[i])));
-							if (result == 0 && !permissionError) {
-								permissionError = true;
-								text_good += " Se ha presentado un error al asociar uno o más permisos al usuario. Por favor, intente nuevamente.";
-							}
-						}
-					}
-					session.setAttribute("info",text_good);
+					request.setAttribute("userUnits", userUnits);
+					request.setAttribute("permissionModules", permissionModules);
+					request.setAttribute("permissions", permissions);
+					rd = getServletContext().getRequestDispatcher("/createUser.jsp");			
+					rd.forward(request, response);
 				}
 				else {
-					session.setAttribute("info",text_bad);
-				}
-				
-				response.sendRedirect(request.getContextPath() + "/ListUsersServlet");
-			}			
-		} 
-		catch (Exception e) {
-			throw new ServletException(e);
-		}
+					String text_good = "El usuario fue creado exitosamente.";
+					String text_bad = "Se ha presentado un error al crear el usuario. Por favor, intente nuevamente.";
+					String identityCard = request.getParameter("txtCedId") + request.getParameter("txtCedIdNum");
+					String firstName = request.getParameter("txtFirstName");
+					String lastName = request.getParameter("txtLastName");
+					String birthday = request.getParameter("txtDateIni");
+					String gender = request.getParameter("txtGen");
+					String address = request.getParameter("txtAddress");
+					String email = request.getParameter("txtEmail");
+					Long userUnitID = Long.parseLong(request.getParameter("txtUnitId"));
+					String startDate = request.getParameter("txtDateIni2");
+					String position = request.getParameter("txtPosition");
+					Double salary = Double.parseDouble(request.getParameter("txtSalary"));
+					String userName = request.getParameter("txtUserName");
+					String password = request.getParameter("txtPassword");
+					String encryptPassword = getEncryptPassword(password);
+					boolean phoneNumberError = false;
+					boolean permissionError = false;
+					
+					Long userID = (Long) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddUser(identityCard, firstName, lastName, birthday, gender, address, email, userUnitID, startDate, position, salary, userName, encryptPassword));
+					if (userID != null) {
+						for (int i = 0; i<4; i++) {
+							String type = request.getParameter("txtType" + i); 
+							String phoneNumber = request.getParameter("txtPhoneNumber" + i); 
+							if (phoneNumber != null && !phoneNumber.trim().equals("")) {
+								Long phoneNumberID = (Long)CommandExecutor.getInstance().executeDatabaseCommand(new command.AddUserPhoneNumber(userID, type, phoneNumber));
+								if (phoneNumberID == null && !phoneNumberError) {
+									phoneNumberError = true;
+									text_good += " Se ha presentado un error al asociar uno o más números telefónicos al usuario. Por favor, intente nuevamente.";
+								}
+							}
+						}
+	
+						String[] permissions = request.getParameterValues("permissions");
+						if (permissions != null) {
+							for (int i = 0; i<permissions.length; i++) {
+								int result = (Integer)CommandExecutor.getInstance().executeDatabaseCommand(new command.AddUserPermission(userID, Long.parseLong(permissions[i])));
+								if (result == 0 && !permissionError) {
+									permissionError = true;
+									text_good += " Se ha presentado un error al asociar uno o más permisos al usuario. Por favor, intente nuevamente.";
+								}
+							}
+						}
+						session.setAttribute("info",text_good);
+					}
+					else {
+						session.setAttribute("info",text_bad);
+					}
+					
+					response.sendRedirect(request.getContextPath() + "/ListUsersServlet");
+				}			
+			} 
+			catch (Exception e) {
+				throw new ServletException(e);
+			}
+		} else {
+			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+			rd.forward(request, response);
+		}	
 	}
 
 	/**

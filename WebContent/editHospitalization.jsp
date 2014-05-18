@@ -1,3 +1,5 @@
+<%@page import="domain.PaymentResponsible"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="domain.Hospitalization"%>
 <%@page import="domain.User"%>
 <%
@@ -12,6 +14,9 @@
 	if (text_result == null)
 		text_result = "";
 	session.removeAttribute("text");
+	
+	@SuppressWarnings("unchecked")
+	ArrayList<PaymentResponsible> a = (ArrayList<PaymentResponsible>) request.getAttribute("paymentR");
 %>
 <!DOCTYPE HTML>
 <html>
@@ -23,10 +28,10 @@
 	  	<script src="./js/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		<script type="text/javascript"  src="./js/jquery.leanModal.min.js"></script>
-		<link rel="stylesheet" href="/resources/demos/style.css" />
 		<script>
 			$(function() {
-				$( "#tabs" ).tabs();
+				$("#tabs").tabs();
+				$("#tabs").tabs({ active: window.location.hash });
 			});
 		</script>
 		<script type="text/javascript">
@@ -65,41 +70,36 @@
         	<div id="content" style="position:absolute;">	
 	        	<h2>Editar Hospitalización:</h2>
 				<br>
+				<div class="info-text"><%= text_result %> </div>
 				<div id="tabs">
 					<ul>
 					    <li><a href="#tabs-1">Paciente</a></li>
-					    <li><a href="#tabs-2">Protocolos</a></li>
+					    <li><a href="#tabs-2">Responsables de Pago</a></li> 
+					    <li><a href="#tabs-3">Protocolos</a></li>
 					</ul>
   					<div id="tabs-1">
-  						<div id="hosp">
-  							<%
-  								String patientName  = h.getPatient().getFirstName() + " " + h.getPatient().getLastName();
-  								String eName 		= h.getSpecialist().getFirstName() + " " + h.getSpecialist().getLastName();
-  							%>
-  							<p><b>Cédula:</b> <span style="margin-left:115px;"><%= h.getPatient().getIdentityCard() %></span>  </p>
-  							<p><b>Nombre:</b> <span style="margin-left:107px;"><%= patientName %></span> </p>
-							<p><b>Fecha de Ingreso:  </b> <span style="margin-left:48px;"><%= h.getAdmissionDate() %> <br></span> </p>
-							</div>
-							<fieldset>
-								<label>Unidad: </label>
-							   <input type="text" name="departament" id="departament" value="<%= h.getUnit().getName() %>" readonly>
-							    <br><br>
-							   <label>Médico Tratante: </label> <input type="text" name="doctorName" id="doctorName" value="<%= eName %>" readonly>
-							    <a href="SearchDoctorServlet?function=editHospitalization" style="color: #f7941e; font-weight: bold;">
-									<input type="button"id="doctorId" value="Cambiar" >
-								</a> <br><br>
-								<label> Ubicación:  </label>
-								<input type="text" name="ubication" id="ubication" value="<%= h.getLocation().getName() %>" readonly><br><br>
-								 
-								<label> Cama:</label>  <input type="text" name="bedId" id="bedId" value="<%= h.getBed().getName() %>" readonly>
-								    <a href="SearchBedsServlet?function=editHospitalization&id=<%= h.getId() %>" style="color: #f7941e; font-weight: bold;">
-										<input type="button"id="bedUbication" value="Cambiar" >
-									</a> <br><br>
-								
-								 <label> Responsable del Pago:</label>  <input type="text" name="insuranceName" id="insuranceName" value="<%= h.getResponsible().getName() %>" readonly>
-								    <a href="SearchInsuranceServlet?function=editHospitalization" style="color: #f7941e; font-weight: bold;">
-										<input type="button"id="paymentResp" value="Cambiar" >
-									</a> 
+						<fieldset>
+						<%
+							String patientName  = h.getPatient().getFirstName() + " " + h.getPatient().getLastName();
+							String eName 		= h.getSpecialist().getFirstName() + " " + h.getSpecialist().getLastName();
+						%>
+						<label><b>Cédula:</b></label> <%= h.getPatient().getIdentityCard() %><br/><br/>
+						<label><b>Nombre:</b></label> <%= patientName %><br/><br/>
+						<label><b>Fecha de Ingreso:  </b></label><%= h.getAdmissionDate() %><br/><br/>
+						<label>Unidad: </label>
+						   <input type="text" name="departament" id="departament" value="<%= h.getUnit().getName() %>" readonly>
+							<br><br>
+					   <label>Médico Tratante: </label> <input type="text" name="doctorName" id="doctorName" value="<%= eName %>" readonly>
+						<a href="SearchDoctorServlet?function=editHospitalization&id=<%=h.getId()%>" style="color: #f7941e; font-weight: bold;">
+							<input type="button"id="doctorId" value="Cambiar" >
+						</a> <br><br>
+						<label> Ubicación:  </label>
+						<input type="text" name="ubication" id="ubication" value="<%= h.getLocation().getName() %>" readonly><br><br>
+						 
+						<label> Cama:</label>  <input type="text" name="bedId" id="bedId" value="<%= h.getBed().getName() %>" readonly>
+							<a href="SearchBedsServlet?function=editHospitalization&id=<%= h.getId() %>&bN=<%= h.getBed().getName() %>&lN=<%= h.getLocation().getName()  %>" style="color: #f7941e; font-weight: bold;">
+								<input type="button"id="bedUbication" value="Cambiar" >
+							</a> <br><br>
 						  </fieldset>
 						  <div id="botonera" style="margin-top: -3px;">
 							<form action="#">
@@ -110,9 +110,61 @@
 										<a href="ListEmergenciesServlet"  class="button" >Regresar</a>
 								</div>	
 							</form>
+							<br/>
 						</div>
 					</div>
-  					<div id="tabs-2">
+					<div id="tabs-2">
+						<div style="text-align:right;">
+	  						<a href="SearchInsuranceServlet?function=editHospitalization&id=<%= h.getId() %>" style="color: #006c92; font-weight: bold;">
+								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Responsable
+							</a>						
+  						</div><br/>
+  						<table id="sweetTable" style="margin-bottom: 10px;">
+				   			<tr>
+									<th>Nombre</th>
+									<th>Titular</th>
+									<th>Carta Aval</th>
+									<th>Acción</th>
+								</tr>	
+					   		<% if (a.size() > 0){ 
+					   				for (int i = 0; i < a.size() ; i++){
+					   					PaymentResponsible p = a.get(i);
+					   					int gl = p.getHasGuaranteeLetter();
+					   					String carta = "Si";
+					   					if (gl == 0)
+					   						carta = "No";
+					   					
+					   					int ph = p.getIsPolicyHolder();
+					   					String titular = "Si";
+					   					if (ph == 0)
+					   						titular = "No";
+					   				
+					   		%>
+					   		<tr>
+					   				<td><%= p.getName() %></td>
+					   				<td><%= titular %></td>
+					   				<td><%= carta %></td>
+					   				<td>
+										<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
+											onclick="return loadVars(<%= p.getId() %>,'<%= p.getName()%>');" >
+											<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
+										</a> 
+										<a href="EditEstimationPaymentResponsibleServlet?function=editHospitalization&estimationId=<%= h.getId()%>&pRid=<%= p.getId() %>" style="color: #f7941e; font-weight: bold;" >
+											<img alt="logo" src="./images/edit.png" height="16" width="16" title="Editar"/>
+										</a> 
+									</td>
+					   				
+					   		</tr>
+					   		<%  	}
+					   			}else{ %>
+							<tr>
+					   				<td colspan="4"> No hay responsables de pago asociados </td>
+							</tr>
+					   		<% } %>	
+					   		
+					   	</table>
+					</div>
+  					<div id="tabs-3">
   						<div style="text-align:right;">
 	  						<a href="SearchAdmissionServlet?function=editHospitalization" style="color: #006c92; font-weight: bold;">
 								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Protocolo
@@ -148,6 +200,7 @@
 					   		</tr>
 					   	</table>
 					</div>
+					
   				</div>
 			</div>
 		</div>
@@ -167,6 +220,25 @@
 		 		</form>
 			</div>
 		</div>
+		<div id="deleteUser">
+			<div id="signup-ct">
+				<h3 id="see_id" class="sprited" > Eliminar Responsable de Pago</h3>
+				<br><br>
+				<span>¿Está seguro que desea eliminar el responsable de pago <span class="cliente"></span>? </span> <br><br>
+				<div id="signup-header">
+					<a class="close_x" id="close_x"  href="#"></a>
+				</div>
+				<form action="RemoveEstimationPaymentRespServlet" method="post"  onsubmit="return setV(this)">
+					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+					<input type="hidden" id="function" class="good_input" name="function"  value="editHospitalization"/>
+					<input type="hidden" id="eId" class="good_input" name="eId"  value="<%= h.getId() %>"/>
+					<div class="btn-fld">
+						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
+					</div>
+		 		</form>
+			</div>
+		</div>
+		
 		<div id="deleteService">
 			<div id="signup-ct">
 				<h3 id="see_id" class="sprited" > Eliminar Servicio</h3>

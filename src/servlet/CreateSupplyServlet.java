@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
 import domain.SupplyForm;
+import domain.User;
 
 
 
@@ -44,53 +45,58 @@ public class CreateSupplyServlet extends HttpServlet {
 	 */
 	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		try {
-			String action = request.getParameter("sbmtButton");
-			RequestDispatcher rd;
-			if (action == null || action.trim().equals("")) {
-				ArrayList<SupplyForm> supplyForms = (ArrayList<SupplyForm>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetSupplyForms());
-				Long supplyAreaID = Long.parseLong(request.getParameter("supplyAreaID"));
-				request.setAttribute("supplyForms", supplyForms);
-				request.setAttribute("supplyAreaID", supplyAreaID);
-				rd = getServletContext().getRequestDispatcher("/createSupply.jsp");			
-				rd.forward(request, response);
-			}
-			else {
-				HttpSession session = request.getSession(false);
-				String text_good = "El insumo fue creado exitosamente.";
-				String text_bad = "Se ha presentado un error al crear el insumo. Por favor, intente nuevamente.";
-				Long supplyAreaID = Long.parseLong(request.getParameter("supplyAreaID"));
-				String name = request.getParameter("txtName");
-				int type = Integer.parseInt(request.getParameter("txtType"));
-				String activeComponent = "";
-				String manufacturer = "";
-				Long formID = null;
-				if (type == 1) {
-					activeComponent = request.getParameter("txtActiveComponent");
-					manufacturer = request.getParameter("txtManufacturer");
-					formID = Long.parseLong(request.getParameter("txtForm"));
-				}
-				String description = request.getParameter("txtDescription");				
-				Long amount = Long.parseLong(request.getParameter("txtAmount"));
-				Double unitPrice = Double.parseDouble(request.getParameter("txtUnitPrice"));
-				String regulated = request.getParameter("isRegulated");
-				int isRegulated = regulated != null && regulated.equals("true") ? 1 : 0;
-				
-				Long supplyID = (Long)CommandExecutor.getInstance().executeDatabaseCommand(new command.AddSupply(supplyAreaID, name, type, description, activeComponent, manufacturer, formID, amount, unitPrice, isRegulated));
-				if (supplyID != null) {
-					session.setAttribute("info",text_good);
+		HttpSession session = request.getSession();
+		User userE = (User)session.getAttribute("user");
+		if(userE != null){
+			try {
+				String action = request.getParameter("sbmtButton");
+				RequestDispatcher rd;
+				if (action == null || action.trim().equals("")) {
+					ArrayList<SupplyForm> supplyForms = (ArrayList<SupplyForm>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetSupplyForms());
+					Long supplyAreaID = Long.parseLong(request.getParameter("supplyAreaID"));
+					request.setAttribute("supplyForms", supplyForms);
+					request.setAttribute("supplyAreaID", supplyAreaID);
+					rd = getServletContext().getRequestDispatcher("/createSupply.jsp");			
+					rd.forward(request, response);
 				}
 				else {
-					session.setAttribute("info",text_bad);
-				}
-				
-				response.sendRedirect(request.getContextPath() + "/ListSuppliesServlet?supplyAreaID=" + supplyAreaID);
-			}			
-		} 
-		catch (Exception e) {
-			throw new ServletException(e);
-		}
+					String text_good = "El insumo fue creado exitosamente.";
+					String text_bad = "Se ha presentado un error al crear el insumo. Por favor, intente nuevamente.";
+					Long supplyAreaID = Long.parseLong(request.getParameter("supplyAreaID"));
+					String name = request.getParameter("txtName");
+					int type = Integer.parseInt(request.getParameter("txtType"));
+					String activeComponent = "";
+					String manufacturer = "";
+					Long formID = null;
+					if (type == 1) {
+						activeComponent = request.getParameter("txtActiveComponent");
+						manufacturer = request.getParameter("txtManufacturer");
+						formID = Long.parseLong(request.getParameter("txtForm"));
+					}
+					String description = request.getParameter("txtDescription");				
+					Long amount = Long.parseLong(request.getParameter("txtAmount"));
+					Double unitPrice = Double.parseDouble(request.getParameter("txtUnitPrice"));
+					String regulated = request.getParameter("isRegulated");
+					int isRegulated = regulated != null && regulated.equals("true") ? 1 : 0;
+					
+					Long supplyID = (Long)CommandExecutor.getInstance().executeDatabaseCommand(new command.AddSupply(supplyAreaID, name, type, description, activeComponent, manufacturer, formID, amount, unitPrice, isRegulated));
+					if (supplyID != null) {
+						session.setAttribute("info",text_good);
+					}
+					else {
+						session.setAttribute("info",text_bad);
+					}
+					
+					response.sendRedirect(request.getContextPath() + "/ListSuppliesServlet?supplyAreaID=" + supplyAreaID);
+				}			
+			} 
+			catch (Exception e) {
+				throw new ServletException(e);
+			}
+		} else {
+			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+			rd.forward(request, response);
+		}	
 	}
 
 	/**

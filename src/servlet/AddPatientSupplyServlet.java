@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
 import domain.SupplyArea;
+import domain.User;
 
 /**
  * Servlet implementation class AddPatientSupplyServlet
@@ -42,29 +43,35 @@ public class AddPatientSupplyServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		RequestDispatcher rd;
-		try {
-			String id = request.getParameter("id");
-			//String servId = request.getParameter("servId");
-			String name   = request.getParameter("name");
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("user");
+		if(user != null){RequestDispatcher rd;
+			try {
+				String id = request.getParameter("id");
+				//String servId = request.getParameter("servId");
+				String name   = request.getParameter("name");
+				
+				//request.setAttribute("servId", servId);
+				request.setAttribute("adminId", id);
+				request.setAttribute("name", name);
+				
+				@SuppressWarnings("unchecked")
+				ArrayList<SupplyArea> sArea = (ArrayList<SupplyArea>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetSupplyAreas());
 			
-			//request.setAttribute("servId", servId);
-			request.setAttribute("adminId", id);
-			request.setAttribute("name", name);
+				request.setAttribute("supplyArea", sArea);
+				
+				rd = getServletContext().getRequestDispatcher("/addPatientSupply.jsp");			
+				rd.forward(request, response);
 			
-			@SuppressWarnings("unchecked")
-			ArrayList<SupplyArea> sArea = (ArrayList<SupplyArea>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetSupplyAreas());
-		
-			request.setAttribute("supplyArea", sArea);
-			
-			rd = getServletContext().getRequestDispatcher("/addPatientSupply.jsp");			
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 			rd.forward(request, response);
-		
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-	
+		
 	}
 
 	/**

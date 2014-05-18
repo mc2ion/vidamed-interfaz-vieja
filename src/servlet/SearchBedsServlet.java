@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
 import domain.BedLocation;
+import domain.User;
 
 
 
@@ -44,28 +45,33 @@ public class SearchBedsServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		RequestDispatcher rd;
-		String function 	= request.getParameter("function");
-		String admissionId 	= request.getParameter("id");
-		String bedName 		= request.getParameter("bN");
-		String locationName	= request.getParameter("lN");
-		
-		System.out.println("ad " + admissionId);
-		try {
-			@SuppressWarnings("unchecked")
-			ArrayList<BedLocation> lList = (ArrayList<BedLocation>) CommandExecutor.getInstance().executeDatabaseCommand(new command.SearchLocations());
+		HttpSession session = request.getSession();
+		User userE = (User)session.getAttribute("user");
+		if(userE != null){
+			RequestDispatcher rd;
+			String function 	= request.getParameter("function");
+			String admissionId 	= request.getParameter("id");
+			String bedName 		= request.getParameter("bN");
+			String locationName	= request.getParameter("lN");
 			
-			request.setAttribute("locations", lList);
-			request.setAttribute("admissionId", admissionId);
-			request.setAttribute("bedName", bedName);
-			request.setAttribute("locName", locationName);
-			request.setAttribute("function", function);
-			rd = getServletContext().getRequestDispatcher("/searchBed.jsp");	
+			try {
+				@SuppressWarnings("unchecked")
+				ArrayList<BedLocation> lList = (ArrayList<BedLocation>) CommandExecutor.getInstance().executeDatabaseCommand(new command.SearchLocations());
+				
+				request.setAttribute("locations", lList);
+				request.setAttribute("admissionId", admissionId);
+				request.setAttribute("bedName", bedName);
+				request.setAttribute("locName", locationName);
+				request.setAttribute("function", function);
+				rd = getServletContext().getRequestDispatcher("/searchBed.jsp");	
+				rd.forward(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 			rd.forward(request, response);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		}	
 		
 		
 	}
@@ -74,40 +80,43 @@ public class SearchBedsServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		Long bedId 	 	 = Long.valueOf(request.getParameter("bed"));
-		Long admissionId = Long.valueOf(request.getParameter("admissionId"));
-		String function 	= request.getParameter("function");
-		
-		System.out.println("function" + function);
-		try{
-			Integer result  = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.EditLocation(admissionId, bedId));
-			HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession();
+		User userE = (User)session.getAttribute("user");
+		if(userE != null){
+			Long bedId 	 	 = Long.valueOf(request.getParameter("bed"));
+			Long admissionId = Long.valueOf(request.getParameter("admissionId"));
+			String function 	= request.getParameter("function");
 			
-			String text = "La ubicación del paciente fue actualizada exitosamente.";
-			if (result == 0)
-				text =	"Hubo un problema al actualizar la ubicación del paciente. Por favor, intente nuevamente.";
-			
-			session.setAttribute("text", text);
-			
-			if (function != null){
-				if (function.equals("editMedicalTreatment"))
-					response.sendRedirect(request.getContextPath() + "/EditMedicalTreatmentServlet?id=" + admissionId);
-				else if (function.equals("editEmergency"))
-					response.sendRedirect(request.getContextPath() + "/EditEmergencyServlet?id=" + admissionId);
-				else if (function.equals("editHospitalization"))
-					response.sendRedirect(request.getContextPath() + "/EditHospitalizationServlet?id=" + admissionId);
-					
+			try{
+				Integer result  = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.EditLocation(admissionId, bedId));
+				
+				String text = "La ubicación del paciente fue actualizada exitosamente.";
+				if (result == 0)
+					text =	"Hubo un problema al actualizar la ubicación del paciente. Por favor, intente nuevamente.";
+				
+				session.setAttribute("text", text);
+				
+				if (function != null){
+					if (function.equals("editMedicalTreatment"))
+						response.sendRedirect(request.getContextPath() + "/EditMedicalTreatmentServlet?id=" + admissionId);
+					else if (function.equals("editEmergency"))
+						response.sendRedirect(request.getContextPath() + "/EditEmergencyServlet?id=" + admissionId);
+					else if (function.equals("editHospitalization"))
+						response.sendRedirect(request.getContextPath() + "/EditHospitalizationServlet?id=" + admissionId);
+						
+				}
+				
+			} catch (NamingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			
-		} catch (NamingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		} else {
+			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+			rd.forward(request, response);
+		}	
 		//doGet(request, response);
 	}
 }

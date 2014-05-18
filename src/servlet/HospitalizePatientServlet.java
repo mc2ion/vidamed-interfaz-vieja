@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
+import domain.User;
 
 
 
@@ -47,21 +49,27 @@ public class HospitalizePatientServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
-		try {
-			Long userID	 = Long.parseLong(request.getParameter("userID"));
-			//String gastos	= request.getParameter("gastos");
-			//Falta hacer los traslados de gastos
-			
-				int result	 = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.HospitalizePatient(userID));
-			if (result == 1)
-				session.setAttribute("info","El cliente fue hospitalizado exitosamente.");
-			else
-				session.setAttribute("info","Hubo un problema al hospitalizar al paciente. Por favor, intente nuevamente.");
-			response.sendRedirect("./ListEmergenciesServlet");
-		}
-		catch (Exception e) {
-			throw new ServletException(e);
-		}
+		HttpSession session = request.getSession();
+		User userE = (User)session.getAttribute("user");
+		if(userE != null){
+			try {
+				Long userID	 = Long.parseLong(request.getParameter("userID"));
+				//String gastos	= request.getParameter("gastos");
+				//Falta hacer los traslados de gastos
+				
+					int result	 = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.HospitalizePatient(userID));
+				if (result == 1)
+					session.setAttribute("info","El cliente fue hospitalizado exitosamente.");
+				else
+					session.setAttribute("info","Hubo un problema al hospitalizar al paciente. Por favor, intente nuevamente.");
+				response.sendRedirect("./ListEmergenciesServlet");
+			}
+			catch (Exception e) {
+				throw new ServletException(e);
+			}
+		} else {
+			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+			rd.forward(request, response);
+		}	
 	}
 }
