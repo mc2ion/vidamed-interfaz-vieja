@@ -56,7 +56,7 @@ public class CreateUserServlet extends HttpServlet {
 		if(userE != null){
 		
 			try {
-				String action = request.getParameter("sbmtButton");
+				String action = request.getParameter("txtFirstName");
 				RequestDispatcher rd;
 				if (action == null || action.trim().equals("")) {
 					HashMap<Long, String> userUnits = (HashMap<Long, String>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetUserUnits());

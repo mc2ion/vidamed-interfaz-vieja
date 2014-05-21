@@ -126,6 +126,155 @@ HashMap<Long, ArrayList<Permission>> permissions = (HashMap<Long, ArrayList<Perm
 		    });
 		  });
 		  </script>	
+		  <script>
+			$(function() {    
+            	$('#sbmtButton').click(function(event) { 
+            		var patternNumber = new RegExp('^\\d+$');
+            		var patternDouble = new RegExp('^[0-9]+(\.[0-9]+)?$');
+            		var patternEmail = new RegExp('^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$');
+            		var patternDate = new RegExp('^[0-3]?[0-9]/[0-1]?[0-9]/[0-9]{4}$');
+            		var patternPhoneNumber = new RegExp('^\\d{10}\\d*$');
+            		if ($('#txtCedIdNum').val() == '') {
+            			 $("#tabs").tabs( "option", "active", 0);
+            			alert("El campo 'Cedula' no puede ser dejado en blanco");
+            			return;
+            		}
+            		else if(!$('#txtCedIdNum').val().match(patternNumber)) {
+            			$("#tabs").tabs( "option", "active", 0);
+            			alert("El campo 'Cedula' sólo debe contener números sin puntos ni espacios en blanco");
+            			return;
+            		}
+            		else if ($('#txtFirstName').val() == '') {
+            			$("#tabs").tabs( "option", "active", 0);
+            			alert("El campo 'Nombre' no puede ser dejado en blanco");
+            			return;
+            		}
+            		else if ($('#txtLastName').val() == '') {
+            			$("#tabs").tabs( "option", "active", 0);
+            			alert("El campo 'Apellido' no puede ser dejado en blanco");
+            			return;
+            		}
+            		else if ($('#txtDateIni').val() == '') {
+            			$("#tabs").tabs( "option", "active", 0);
+            			alert("El campo 'Fecha de Nacimiento' no puede ser dejado en blanco");
+            			return;
+            		}
+            		else if (!$('#txtDateIni').val().match(patternDate)) {
+            			$("#tabs").tabs( "option", "active", 0);
+            			alert("El campo 'Fecha de Nacimiento' debe tener el formato DD/MM/YYYY");
+            			return;
+            		}
+            		else if ($('#txtGen').val() == '') {
+            			$("#tabs").tabs( "option", "active", 0);
+            			alert("Debe seleccionar un valor para el campo 'Sexo'");
+            			return;
+            		}
+            		else if ($('#txtAddress').val() == '') {
+            			$("#tabs").tabs( "option", "active", 1);
+            			alert("El campo 'Direccion' no puede ser dejado en blanco");
+            			return;
+            		}
+            		else if ($('#txtEmail').val() == '') {
+            			$("#tabs").tabs( "option", "active", 1);
+            			alert("El campo 'Correo Electrónico' no puede ser dejado en blanco");
+            			return;
+            		}
+            		else if (!$('#txtEmail').val().match(patternEmail)) {
+            			$("#tabs").tabs( "option", "active", 1);
+            			alert("El formato del Correo Electrónico colocado es inválido");
+            			return;
+            		}
+            		else if ($('#txtPhoneNumber0').val() == '') {
+            			$("#tabs").tabs( "option", "active", 1);
+            			alert("Debe colocar al menos un número telefónico");
+            			return;
+            		}
+            		else if (!$('#txtPhoneNumber0').val().match(patternPhoneNumber)) {
+            			$("#tabs").tabs( "option", "active", 1);
+            			alert("El campo de 'Teléfono' debe contener sólo números sin puntos, ni guiones ni espacios en blanco. Coloque el código de ciudad.");
+            			return;
+            		}
+            		else if ($('#txtPhoneNumber1').val() != '' && !$('#txtPhoneNumber1').val().match(patternPhoneNumber)) {
+            			$("#tabs").tabs( "option", "active", 1);
+            			alert("El campo de 'Teléfono' debe contener sólo números sin puntos, ni guiones ni espacios en blanco. Coloque el código de ciudad.");
+            			return;
+            		}
+            		else if ($('#txtPhoneNumber2').val() != '' && !$('#txtPhoneNumber2').val().match(patternPhoneNumber)) {
+            			$("#tabs").tabs( "option", "active", 1);
+            			alert("El campo de 'Teléfono' debe contener sólo números sin puntos, ni guiones ni espacios en blanco. Coloque el código de ciudad.");
+            			return;
+            		}
+            		else if ($('#txtPhoneNumber3').val() != '' && !$('#txtPhoneNumber3').val().match(patternPhoneNumber)) {
+            			$("#tabs").tabs( "option", "active", 1);
+            			alert("El campo de 'Teléfono' debe contener sólo números sin puntos, ni guiones ni espacios en blanco. Coloque el código de ciudad.");
+            			return;
+            		}
+            		else if ($('#txtUnitId').val() == '') {
+            			$("#tabs").tabs( "option", "active", 2);
+            			alert("Debe seleccionar un valor para el campo 'Unidad'");
+            			return;
+            		}
+            		else if ($('#txtDateIni2').val() == '') {
+            			$("#tabs").tabs( "option", "active", 2);
+            			alert("El campo 'Fecha de Ingreso' no puede ser dejado en blanco");
+            			return;
+            		}
+            		else if (!$('#txtDateIni2').val().match(patternDate)) {
+            			$("#tabs").tabs( "option", "active", 2);
+            			alert("El campo 'Fecha de Ingreso' debe tener el formato DD/MM/YYYY");
+            			return;
+            		}
+            		else if ($('#txtPosition').val() == '') {
+            			$("#tabs").tabs( "option", "active", 2);
+            			alert("El campo 'Cargo' no puede ser dejado en blanco");
+            			return;
+            		}
+            		else if ($('#txtSalary').val() == '') {
+            			$("#tabs").tabs( "option", "active", 2);
+            			alert("El campo 'Salario' no puede ser dejado en blanco");
+            			return;
+            		}
+            		else if (!$('#txtSalary').val().match(patternDouble)) {
+            			$("#tabs").tabs( "option", "active", 2);
+            			alert("El valor del campo 'Salario' debe ser numérico");
+            			return;
+            		}
+            		else if ($('#txtUserName').val() == '') {
+            			$("#tabs").tabs( "option", "active", 2);
+            			alert("El campo 'Usuario' no puede ser dejado en blanco");
+            			return;
+            		}
+            		else if ($('#txtUserName').val().length < 5) {
+            			$("#tabs").tabs( "option", "active", 2);
+            			alert("El campo 'Usuario' debe contener al menos 5 caracteres");
+            			return;
+            		}
+            		else if ($('#txtPassword').val() == '') {
+            			$("#tabs").tabs( "option", "active", 2);
+            			alert("El campo 'Contraseña' no puede ser dejado en blanco");
+            			return;
+            		}
+            		else if ($('#txtPassword').val().length < 4) {
+            			$("#tabs").tabs( "option", "active", 2);
+            			alert("El campo 'Contraseña' debe contener al menos 4 caracteres");
+            			return;
+            		}
+            		else if ($('#txtPassword2').val() == '') {
+            			$("#tabs").tabs( "option", "active", 2);
+            			alert("Debe confirmar la contraseña colocada");
+            			return;
+            		}
+            		else if ($('#txtPassword').val() != $('#txtPassword2').val()) {
+            			$("#tabs").tabs( "option", "active", 2);
+            			alert("Las contraseñas no coinciden. Verificar nuevamente");
+            			return;
+            		}
+            		else {
+            			$('#form1').submit();
+            		}
+            	});
+			});
+        </script>
 	</head>
 	<body>
 		<div id="container">
@@ -151,7 +300,7 @@ HashMap<Long, ArrayList<Permission>> permissions = (HashMap<Long, ArrayList<Perm
 					    <li><a href="#tabs-3">Datos Usuario</a></li>
 					    <li><a href="#tabs-4">Permisología</a></li>
 			  		</ul>
-			  		<form action="CreateUserServlet">
+			  		<form id="form1" name="form1" action="CreateUserServlet">
 			  			<div id="tabs-1">
 							<fieldset>
 								<label for="name">Cédula de Identidad:</label>
@@ -159,35 +308,28 @@ HashMap<Long, ArrayList<Permission>> permissions = (HashMap<Long, ArrayList<Perm
 									<option value="V-">V</option>
 									<option value="E-">E</option>
 								</select>
-								<input type="number" maxlength="8" name="txtCedIdNum" id="txtCedIdNum" size="18" title="Debe colocar la cédula del usuario. Colocar sólo números. No colocar puntos ni espacios en blanco." required /> <br><br>
+								<input type="number" maxlength="8" name="txtCedIdNum" id="txtCedIdNum" size="18" required /> <br><br>
 								<label for="name">Nombre:</label>
-								<input type="text" name="txtFirstName" id="txtFirstName" maxlength="50" size="5" title="Debe colocar el nombre del usuario." required /> <br><br>
+								<input type="text" name="txtFirstName" id="txtFirstName" maxlength="50" size="5" required /> <br><br>
 								<label for="name">Apellido:</label>
-								<input type="text" name="txtLastName" id="txtLastName" maxlength="50" size="5" title="Debe colocar el apellido del usuario." required /> <br><br>
+								<input type="text" name="txtLastName" id="txtLastName" maxlength="50" size="5" required /> <br><br>
 								<label for="name">Fecha de Nacimiento:</label>
-								<input type="text" pattern="[0-3]?[0-9]/[0-1]?[0-9]/[0-9]{4}" title="Debe colocar la fecha de nacimiento del usuario. Colocar fecha en formato DD/MM/YYYY" name="txtDateIni" id="txtDateIni" maxlength="50" size="10" required /><br><br>
+								<input type="text" pattern="[0-3]?[0-9]/[0-1]?[0-9]/[0-9]{4}" name="txtDateIni" id="txtDateIni" maxlength="50" size="10" required /><br><br>
 								<label for="name">Sexo:</label>
-								<select name="txtGen" id="txtGen" title="Debe seleccionar el sexo del usuario." required>	
+								<select name="txtGen" id="txtGen" required>	
 									<option value="" selected>Seleccionar</option>
 									<option value="F">Femenino</option>
 									<option value="M" >Masculino</option>
 								</select><br><br>
 							</fieldset>						
-							<div id="botonera">							
-								<div id="botonP" style="display: inline; margin-right: 30px;">
-									<input type="submit"  class="button"  name="sbmtButton" value="Agregar" />
-								</div>	
-								<div id="botonV" style="display: inline;">
-									<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
-								</div>
-							</div><br>
+							<br>
 			  			</div>
 			  			<div id="tabs-2">
 							<fieldset>
 							<label for="name">Dirección:</label>
-								<textarea name="txtAddress" id="txtAddress" rows="2" cols="50" title="Debe colocar la dirección del usuario." required ></textarea> <br><br>
+								<textarea name="txtAddress" id="txtAddress" rows="2" cols="50" required ></textarea> <br><br>
 								<label for="name">Correo Electrónico:</label>
-								<input type="email" name="txtEmail" id="txtEmail" maxlength="50" size="35" title="Debe colocar el correo electrónico del usuario." required/> <br><br>
+								<input type="email" name="txtEmail" id="txtEmail" maxlength="50" size="35" required/> <br><br>
 								<label for="name">Teléfono:</label>
 								<div >
 									<select id="txtType0" name="txtType0">
@@ -195,7 +337,7 @@ HashMap<Long, ArrayList<Permission>> permissions = (HashMap<Long, ArrayList<Perm
 										<option value="P" >Particular</option>
 										<option value="T" >Trabajo</option>
 									</select>
-						  	 		<input type="text" pattern="\d{10}\d*" maxlength="15" id="txtPhoneNumber0" maxlength="15" name="txtPhoneNumber0" value="" style="width: 135px;" title="Debe colocar al menos un número telefónico del usuario. Colocar sólo números. No colocar puntos, ni guiones ni espacios en blanco." required>
+						  	 		<input type="text" pattern="\d{10}\d*" maxlength="15" id="txtPhoneNumber0" name="txtPhoneNumber0" value="" style="width: 135px;" required>
 						  	 		<img alt="logo" src="./images/add.png"  id="addPhone" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Agregar otro telefono" />
 									<br /><br />
 								</div>
@@ -205,7 +347,7 @@ HashMap<Long, ArrayList<Permission>> permissions = (HashMap<Long, ArrayList<Perm
 										<option value="P" >Particular</option>
 										<option value="T" >Trabajo</option>
 									</select>
-									<input type="text" pattern="\d{10}\d*" maxlength="15" id="txtPhoneNumber0" maxlength="15" id="txtPhoneNumber1" name="txtPhoneNumber1" value="" style="width: 135px;" title="Debe colocar sólo números. No colocar puntos, ni guiones ni espacios en blanco." >
+									<input type="text" pattern="\d{10}\d*" maxlength="15" id="txtPhoneNumber1" name="txtPhoneNumber1" value="" style="width: 135px;" >
 									<img alt="logo" src="./images/close.png"  id="deletePhone1" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Eliminar telefono" />
 						 			<br /><br />
 						 		</div>
@@ -215,7 +357,7 @@ HashMap<Long, ArrayList<Permission>> permissions = (HashMap<Long, ArrayList<Perm
 										<option value="P" >Particular</option>
 										<option value="T" >Trabajo</option>
 									</select>
-									<input type="text" pattern="\d{10}\d*" maxlength="15" id="txtPhoneNumber0" maxlength="15" id="txtPhoneNumber2" name="txtPhoneNumber2" value="" style="width: 135px;" title="Debe colocar sólo números. No colocar puntos, ni guiones ni espacios en blanco." >
+									<input type="text" pattern="\d{10}\d*" maxlength="15" id="txtPhoneNumber2" name="txtPhoneNumber2" value="" style="width: 135px;" >
 									<img alt="logo" src="./images/close.png"  id="deletePhone2" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Eliminar telefono" />
 						  	 		<br /><br />
 						  	 	</div>
@@ -225,23 +367,16 @@ HashMap<Long, ArrayList<Permission>> permissions = (HashMap<Long, ArrayList<Perm
 										<option value="P" >Particular</option>
 										<option value="T" >Trabajo</option>
 									</select>
-							  	 	<input type="text" pattern="\d{10}\d*" maxlength="15" id="txtPhoneNumber0" maxlength="15" id="txtPhoneNumber3" name="txtPhoneNumber3" value="" style="width: 135px;" title="Debe colocar sólo números. No colocar puntos, ni guiones ni espacios en blanco." >
+							  	 	<input type="text" pattern="\d{10}\d*" maxlength="15" id="txtPhoneNumber3" name="txtPhoneNumber3" value="" style="width: 135px;" >
 							  	 	<img alt="logo" src="./images/close.png"  id="deletePhone3" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Eliminar telefono" />
 						  	 	</div>
 							</fieldset>		
-							<div id="botonera">
-								<div id="botonP" style="display: inline; margin-right: 30px;">
-									<input type="submit"  class="button"  name="sbmtButton" value="Agregar" />
-								</div>	
-								<div id="botonV" style="display: inline;">
-									<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
-								</div>	
-							</div><br>
+							<br>
 			  			</div>			  		
 			  			<div id="tabs-3">
 			  				<fieldset>
 								<label for="name">Unidad:</label>
-								<select name="txtUnitId" id="txtUnitId" title="Debe seleccionar la unidad en la que se desempeña el usuario." required>	
+								<select name="txtUnitId" id="txtUnitId" required>	
 									<option value="" selected>Seleccionar</option>
 									<% while (it.hasNext()) {
 											Long unitID = it.next();
@@ -251,26 +386,19 @@ HashMap<Long, ArrayList<Permission>> permissions = (HashMap<Long, ArrayList<Perm
 									<% } %>
 								</select><br><br>
 								<label for="name">Fecha de Ingreso:</label>
-								<input type="text" pattern="[0-3]?[0-9]/[0-1]?[0-9]/[0-9]{4}" name="txtDateIni2" id="txtDateIni2" maxlength="50" size="10" title="Debe seleccionar la fecha de ingreso del usuario. Colocar fecha en formato DD/MM/YYYY" required /><br><br>
+								<input type="text" pattern="[0-3]?[0-9]/[0-1]?[0-9]/[0-9]{4}" name="txtDateIni2" id="txtDateIni2" maxlength="50" size="10" required /><br><br>
 								<label for="name">Cargo:</label>
-								<input type="text" name="txtPosition" id="txtPosition" maxlength="50" size="5" title="Debe colocar el cargo en el cual se desempeña el usuario." required /> <br><br>
+								<input type="text" name="txtPosition" id="txtPosition" maxlength="50" size="5" required /> <br><br>
 								<label for="name">Salario:</label>
-								<input type="number" min="1" name="txtSalary" id="txtSalary" maxlength="6" size="6" title="Debe colocar el salario del usuario." required /> <br><br>
+								<input type="text" min="1" name="txtSalary" id="txtSalary" maxlength="6" size="6" required /> <br><br>
 								<label for="name">Usuario:</label>
-								<input type="text" name="txtUserName" id="txtUserName" maxlength="50" size="5" title="Debe colocar un ID de usuario." required /> <br><br>
+								<input type="text" name="txtUserName" id="txtUserName" maxlength="50" size="5" required /> <br><br>
 								<label for="name">Contraseña:</label>
-								<input type="password" name="txtPassword" id="txtPassword" maxlength="50" title="Debe colocar la contraseña del usuario." required /> <br><br>
+								<input type="password" name="txtPassword" id="txtPassword" maxlength="50" required /> <br><br>
 								<label for="name">Repetir Contraseña:</label>
-								<input type="password" name="txtPassword2" id="txtPassword2" maxlength="50" title="Debe reescribir la contraseña del usuario." required /> <br><br>
+								<input type="password" name="txtPassword2" id="txtPassword2" maxlength="50" required /> <br><br>
 							</fieldset>		
-							<div id="botonera">
-								<div id="botonP" style="display: inline; margin-right: 30px;">
-									<input type="submit"  class="button"  name="sbmtButton" value="Agregar" />
-								</div>	
-								<div id="botonV" style="display: inline;">
-									<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
-								</div>
-							</div><br>
+							<br>
 			  			</div>			  		
 			  			<div id="tabs-4">
 			  				<div id="accordion">
@@ -295,17 +423,18 @@ HashMap<Long, ArrayList<Permission>> permissions = (HashMap<Long, ArrayList<Perm
 				  						</div>
 				  				<% } %>
 				  			</div>
-			  				<div id="botonera">
-								<div id="botonP" style="display: inline; margin-right: 30px;">
-									<input type="submit"  class="button"  name="sbmtButton" value="Agregar" />
+			  				<br>
+			  			</div>
+					</form>	
+			  	</div>
+				<div id="botonera">
+							<div id="botonP" style="display: inline; margin-right: 30px;">
+									<input type="button" class="button" id="sbmtButton" name="sbmtButton" value="Agregar" />
 								</div>	
 								<div id="botonV" style="display: inline;">
 									<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
-								</div>
-							</div><br>
-			  			</div>
-			  		</form>	
-			  	</div>
+							</div>	
+						</div>
 			</div>
 		</div>
 	</body>

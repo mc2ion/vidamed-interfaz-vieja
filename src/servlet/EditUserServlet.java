@@ -54,7 +54,7 @@ public class EditUserServlet extends HttpServlet {
 		User userE = (User)session.getAttribute("user");
 		if(userE != null){
 			try {
-				String action = request.getParameter("sbmtButton");
+				String action = request.getParameter("txtFirstName");
 				Long userID = Long.parseLong(request.getParameter("userID"));
 				RequestDispatcher rd;
 				if (action == null || action.trim().equals("")) {
