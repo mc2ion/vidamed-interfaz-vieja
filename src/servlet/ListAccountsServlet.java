@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
+import domain.PendingAccounts;
 import domain.User;
 
 
@@ -44,8 +46,17 @@ public class ListAccountsServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
 		if(userE != null){
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/accounts.jsp");
-			rd.forward(request, response);
+			try {
+				@SuppressWarnings("unchecked")
+				ArrayList<PendingAccounts> p = (ArrayList<PendingAccounts>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPendingAccounts());
+				request.setAttribute("pAccounts", p);
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/accounts.jsp");
+				rd.forward(request, response);
+			} 
+			catch (Exception e) {
+				throw new ServletException(e);
+			}
+			
 		} else {
 			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 			rd.forward(request, response);

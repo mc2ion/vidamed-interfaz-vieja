@@ -20,48 +20,30 @@
 	<body style="background: white;">
 		<div class="menu-help">
 			<ul>
-		   <li class='first'><a href='ListEstimationsServlet'><span>Presupuesto</span></a></li>
-		   <li><a href='ListEmergenciesServlet'><span>Emergencia</span></a></li>
-		   <li><a href='ListAdmissionsServlet'><span>Admisi&oacute;n</span></a></li>
-		   <li><a href='ListHospitalizationsServlet'><span>Hospitalizaci&oacute;n</span></a></li>
-		   <li class='has-sub'>
-			<a href='#'><span>Tratamientos M&eacute;dicos</span></a>
-		      <ul>
-		         <li class='first'><a href='ListMedicalTreatmentsAdminServlet'><span>Administrar</span></a></li>
-		         <li class='last'><a href='ListMedicalTreatmentsServlet'><span>Ver Pacientes</span></a></li>
-		      </ul>
-		   </li>
-		   <li><a href='ListUsersServlet'><span>Usuarios</span></a></li>
-		   <li><a href='ListProtocolsServlet'><span>Protocolos</span></a></li>
-		   <li><a href='ListXRayReportsServlet'><span>Rayos X</span></a></li>
-		   <li class='has-sub'>
-			<a href='#'><span>Farmacia</span></a>
-		      <ul>
-		         <li class='first'><a href='ListSupplyAreasServlet'><span>Administrar</span></a></li>
-		         <li class='last'><a href='ListSupplyServlet'><span>Ver Pacientes</span></a></li>
-		      </ul>
-		   </li>
-		   <li class='has-sub'>
-			<a href='#'><span>Facturaci&oacute;n</span></a>
-		      <ul>
-		         <li class='first'><a href='ListBillingsHServlet'><span>Honorarios M&eacute;dicos</span></a></li>
-		         <li><a href='ListBillingsRPServlet'><span>Relaci&oacute;n de Pago</span></a></li>
-		         <li><a href='ListBillingsNServlet'><span>Generar N&oacute;mina</span></a></li>
-		         <li class='last'><a href='ListBillingsPPServlet'><span>Pronto Pago</span></a></li>
-		      </ul>
-		   </li>
-		   <li><a href='ListUnitsServlet'><span>Unidades</span></a></li>
-		   <li><a href='ListSpecialistsServlet'><span>Especialistas</span></a></li>
-		   <li><a href='ListPaymentResponsiblesServlet'><span>Responsables de Pago</span></a></li>
-		   <li><a href='ListCashBoxesServlet'><span>Cajas</span></a></li>
-		   <li><a href='ListAccountsServlet'><span>Cuentas Pendientes</span></a></li>
-		   <li><a href='ListBloodBankServlet'><span>Banco de Sangre</span></a></li>
-		   <li><a href='ListEcoServlet'><span>Ecosonograf&iacute;a</span></a></li>
-		   <li><a href='ListLabServlet'><span>Laboratorio</span></a></li>
-		   <li class='last'><a href='ListInterServlet'><span>Interconsultas</span></a></li>
+		   <li class='first'><a href='help_estimation.jsp' target="main"><span>Presupuesto</span></a></li>
+		   <li><a href='help_emergency.jsp' target="main"><span>Emergencia</span></a></li>
+		   <li><a href='help_admission.jsp' target="main"><span>Admisi&oacute;n</span></a></li>
+		   <li><a href='help_hospitalization.jsp' target="main"><span>Hospitalizaci&oacute;n</span></a></li>
+		   <li><a href='help_medicalTreatment.jsp' target="main"><span>Tratamientos M&eacute;dicos</span></a></li>
+		   <li><a href='help_users.jsp' target="main"><span>Usuarios</span></a></li>
+		   <li><a href='help_protocol.jsp' target="main"><span>Protocolos</span></a></li>
+		   <li><a href='help_rayX.jsp' target="main"><span>Rayos X</span></a></li>
+		   <li><a href='help_pharmacy.jsp' target="main"><span>Farmacia</span></a></li>
+		   <li><a href='help_HM.jsp' target="main"><span>Honorarios M&eacute;dicos</span></a></li>
+		   <li><a href='help_RP.jsp' target="main"><span>Relaci&oacute;n de Pago</span></a></li>
+		   <li><a href='help_GN.jsp' target="main"><span>Generar N&oacute;mina</span></a></li>
+		   <li><a href='help_PP.jsp' target="main"><span>Pronto Pago</span></a></li>
+		   <li><a href='help_units.jsp' target="main"><span>Unidades</span></a></li>
+		   <li><a href='help_spec.jsp' target="main"><span>Especialistas</span></a></li>
+		   <li><a href='help_paymentR.jsp' target="main"><span>Responsables de Pago</span></a></li>
+		   <li><a href='help_cashBox.jsp' target="main"><span>Cajas</span></a></li>
+		   <li><a href='help_account.jsp' target="main"><span>Cuentas Pendientes</span></a></li>
+		   <li><a href='help_bloodB.jsp' target="main"><span>Banco de Sangre</span></a></li>
+		   <li><a href='help_eco.jsp' target="main"><span>Ecosonograf&iacute;a</span></a></li>
+		   <li><a href='help_lab.jsp' target="main"><span>Laboratorio</span></a></li>
 		</ul>
 		</div>
-		<iframe class="help" src="./help2.jsp" width="500" height="600"></iframe>
+		<iframe class="help"  name="main" id="main"  src="./helpIni.jsp" style="width:700px; height:600px;"></iframe>
 	</body>
 	<style>
 		.menu-help{

@@ -51,6 +51,7 @@ public class AddUser implements DatabaseCommand {
 						address + "', '" + email + "', " + userUnitID + ", '" + startDate + "', '" +
 						position + "', " + salary + ", '" + username + "', '" + password + "'");
 			rs = ps.executeQuery();
+			System.out.println("rs " + rs.getInt(1));
 			if (rs.next()) {
 				userID = rs.getLong(1);
 			}

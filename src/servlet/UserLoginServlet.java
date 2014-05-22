@@ -83,7 +83,7 @@ public class UserLoginServlet extends HttpServlet {
 				rd = getServletContext().getRequestDispatcher("/mainMenu.jsp");			
 				rd.forward(request, response);
 			} else {
-				request.setAttribute("error", "La información de nombre de usuario o contraseña introducida no es correcta.");
+				request.setAttribute("error", "La información de nombre de usuario y/o contraseña introducida no es correcta o el usuario no existe.");
 				rd = getServletContext().getRequestDispatcher("/index.jsp");			
 				rd.forward(request, response);
 			}
