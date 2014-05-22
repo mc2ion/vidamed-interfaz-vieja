@@ -77,6 +77,9 @@ public class EditSpecialistServlet extends HttpServlet {
 				else {
 					String text_good = "El especialista fue editado exitosamente.";
 					String text_bad = "Se ha presentado un error al editar el especialista. Por favor, intente nuevamente.";
+					String text_ident = "No se ha podido editar al especialista porque la cédula introducida ya está registrada.";
+					String text_user = "No se ha podido editar al especialista  porque el rif introducido ya está registrado.";
+				
 					String identityCard = request.getParameter("txtCedId") + request.getParameter("txtCedIdNum");
 					String firstName = request.getParameter("txtFirstName");
 					String lastName = request.getParameter("txtLastName");
@@ -89,8 +92,11 @@ public class EditSpecialistServlet extends HttpServlet {
 					boolean unitError = false;
 					
 					int result = (Integer)CommandExecutor.getInstance().executeDatabaseCommand(new command.EditSpecialist(specialistID, identityCard, firstName, lastName, birthday, gender, rif, address, email));
-	
-					if (result == 1) {
+					if (result == -1)
+						session.setAttribute("info",text_ident);
+					else if (result == -2)
+						session.setAttribute("info",text_user);
+					else if (result != -3 ) {
 						for (int i = 0; i<4; i++) {
 							
 							String phoneNumberID = request.getParameter("txtPhoneId" + i);

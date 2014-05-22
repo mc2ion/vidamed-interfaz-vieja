@@ -86,6 +86,9 @@ public class EditUserServlet extends HttpServlet {
 				else {
 					String text_good = "El usuario fue editado exitosamente.";
 					String text_bad = "Se ha presentado un error al editar el usuario. Por favor, intente nuevamente.";
+					String text_ident = "No se ha podido editar al usuario porque la cédula introducida ya está registrada.";
+					String text_user = "No se ha podido editar al usuario  porque el nombre de usuario escogido ya existe. Por favor, intente nuevamente con un nuevo usuario.";
+				
 					String identityCard = request.getParameter("txtCedId") + request.getParameter("txtCedIdNum");
 					String firstName = request.getParameter("txtFirstName");
 					String lastName = request.getParameter("txtLastName");
@@ -102,7 +105,11 @@ public class EditUserServlet extends HttpServlet {
 					boolean permissionError = false;
 					
 					int result = (Integer)CommandExecutor.getInstance().executeDatabaseCommand(new command.EditUser(userID, identityCard, firstName, lastName, birthday, gender, address, email, userUnitID, startDate, position, salary, userName));
-					if (result == 1) {
+					if (result == -1)
+						session.setAttribute("info",text_ident);
+					else if (result == -2)
+						session.setAttribute("info",text_user);
+					else if (result != -3) {
 						for (int i = 0; i<4; i++) {					
 							String phoneNumberID = request.getParameter("txtPhoneId" + i);
 							String type = request.getParameter("txtType" + i); 

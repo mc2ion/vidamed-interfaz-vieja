@@ -76,6 +76,9 @@ public class CreateUserServlet extends HttpServlet {
 				else {
 					String text_good = "El usuario fue creado exitosamente.";
 					String text_bad = "Se ha presentado un error al crear el usuario. Por favor, intente nuevamente.";
+					String text_ident = "La cédula introducida ya está registrada.";
+					String text_user = "El nombre de usuario escogido ya existe. Por favor, intente nuevamente con un nuevo usuario.";
+					
 					String identityCard = request.getParameter("txtCedId") + request.getParameter("txtCedIdNum");
 					String firstName = request.getParameter("txtFirstName");
 					String lastName = request.getParameter("txtLastName");
@@ -94,7 +97,11 @@ public class CreateUserServlet extends HttpServlet {
 					boolean permissionError = false;
 					
 					Long userID = (Long) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddUser(identityCard, firstName, lastName, birthday, gender, address, email, userUnitID, startDate, position, salary, userName, encryptPassword));
-					if (userID != null) {
+					if (userID == -1)
+						session.setAttribute("info",text_ident);
+					else if (userID == -2)
+						session.setAttribute("info",text_user);
+					else if (userID != null) {
 						for (int i = 0; i<4; i++) {
 							String type = request.getParameter("txtType" + i); 
 							String phoneNumber = request.getParameter("txtPhoneNumber" + i); 

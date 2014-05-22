@@ -60,6 +60,9 @@ public class CreateSpecialistServlet extends HttpServlet {
 				else {
 					String text_good = "El especialista fue creado exitosamente.";
 					String text_bad = "Se ha presentado un error al crear el especialista. Por favor, intente nuevamente.";
+					String text_ident = "No se ha podido crear al especialista porque la cédula introducida ya está registrada.";
+					String text_user = "No se ha podido crear al especialista  porque el rif introducido ya está registrado.";
+				
 					String identityCard = request.getParameter("txtCedId") + request.getParameter("txtCedIdNum");
 					String firstName = request.getParameter("txtFirstName");
 					String lastName = request.getParameter("txtLastName");
@@ -73,7 +76,11 @@ public class CreateSpecialistServlet extends HttpServlet {
 					
 					Long specialistID = (Long) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddSpecialist(identityCard, firstName, lastName, birthday, gender, rif, address, email));
 					
-					if (specialistID != null) {
+					if (specialistID == -1)
+						session.setAttribute("info",text_ident);
+					else if (specialistID == -2)
+						session.setAttribute("info",text_user);
+					else if (specialistID != null) {
 						for (int i = 0; i<4; i++) {
 							String type = request.getParameter("txtType" + i); 
 							String phoneNumber = request.getParameter("txtPhoneNumber" + i); 

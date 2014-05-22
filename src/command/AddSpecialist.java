@@ -1,5 +1,6 @@
 package command;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -41,11 +42,24 @@ public class AddSpecialist implements DatabaseCommand {
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				specialistID = rs.getLong(1);
+			}else{
+				CallableStatement cstmt = conn.prepareCall("{? = call dbo.AddSpecialist(?,?,?,?,?,?,?,?)}");
+			      cstmt.registerOutParameter(1, java.sql.Types.VARCHAR);
+			      cstmt.setString(2, identityCard);
+			      cstmt.setString(3, firstName);
+			      cstmt.setString(4, lastName);
+			      cstmt.setString(5, birthday);
+			      cstmt.setString(6, gender);
+			      cstmt.setString(7, rif);
+			      cstmt.setString(8, address);
+			      cstmt.setString(9, email);
+			      cstmt.execute();
+			      return cstmt.getLong(1);
 			}
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			return null;
+			return (long) -3;
 		}
 		finally {
 			rs.close();

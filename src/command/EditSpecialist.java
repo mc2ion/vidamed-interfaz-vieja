@@ -1,7 +1,7 @@
 package command;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class EditSpecialist implements DatabaseCommand {
@@ -32,22 +32,32 @@ public class EditSpecialist implements DatabaseCommand {
 	@Override
 	public Object executeDatabaseOperation(Connection conn) throws SQLException {
 		
-		PreparedStatement ps = null;
+		CallableStatement cstmt = null;
 		try {
-			ps = conn.prepareStatement("exec dbo.EditSpecialist '" + identityCard + "', '" + firstName + "', '" +
-						lastName + "', '" + birthday + "', '" + gender + "', '" + rif + "', '" + address + "', '" + 
-						email + "', " + specialistID);
-			ps.execute();
+			  cstmt = conn.prepareCall("{? = call dbo.EditSpecialist(?,?,?,?,?,?,?,?,?)}");
+		      cstmt.registerOutParameter(1, java.sql.Types.VARCHAR);
+		      cstmt.setString(2, identityCard);
+		      cstmt.setString(3, firstName);
+		      cstmt.setString(4, lastName);
+		      cstmt.setString(5, birthday);
+		      cstmt.setString(6, gender);
+		      cstmt.setString(7, rif);
+		      cstmt.setString(8, address);
+		      cstmt.setString(9, email);
+		      cstmt.setLong(10, specialistID);
+		      
+		      cstmt.execute();
+		      System.out.println("id " +  cstmt.getInt(1) );
+		      return cstmt.getInt(1);
+		      
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			return 0;
+			return -3;
 		}
 		finally {
-			ps.close();
+			cstmt.close();
 		}		
-		
-		return 1;
 	}
 
 }
