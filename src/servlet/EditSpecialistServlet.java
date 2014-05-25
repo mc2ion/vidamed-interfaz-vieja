@@ -54,7 +54,7 @@ public class EditSpecialistServlet extends HttpServlet {
 		User userE = (User)session.getAttribute("user");
 		if(userE != null){
 			try {
-				String action = request.getParameter("sbmtButton");
+				String action = request.getParameter("txtFirstName");
 				Long specialistID = Long.parseLong(request.getParameter("specialistID"));
 				RequestDispatcher rd;
 				if (action == null || action.trim().equals("")) {

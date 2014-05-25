@@ -43,7 +43,7 @@ SupplyArea sa = (SupplyArea)request.getAttribute("supplyArea");
 					<input type="hidden" id="supplyAreaID" name="supplyAreaID" value="<%= sa.getSupplyAreaID() %>" />
 					<fieldset>
 						<label for="name">Nombre:</label>
-						<input type="text" name="txtName" id="txtName" maxlength="50" size="5" value="<%= sa.getName() %>"/> <br><br>
+						<input type="text" name="txtName" id="txtName" maxlength="50" size="5" value="<%= sa.getName() %>" title="El campo 'Nombre' no puede ser dejado en blanco" required /> <br><br>
 						<label for="name">Descripción:</label>
 						<textarea name="txtDescription" id="txtDescription" rows="3" cols="50"><%= sa.getDescription() %></textarea> <br><br>
 					</fieldset>

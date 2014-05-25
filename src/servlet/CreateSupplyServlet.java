@@ -49,7 +49,7 @@ public class CreateSupplyServlet extends HttpServlet {
 		User userE = (User)session.getAttribute("user");
 		if(userE != null){
 			try {
-				String action = request.getParameter("sbmtButton");
+				String action = request.getParameter("txtName");
 				RequestDispatcher rd;
 				if (action == null || action.trim().equals("")) {
 					ArrayList<SupplyForm> supplyForms = (ArrayList<SupplyForm>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetSupplyForms());

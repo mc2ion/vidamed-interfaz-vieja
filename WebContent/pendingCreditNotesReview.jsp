@@ -194,9 +194,9 @@
 								<option value="P">%</option>
 								<option value="M">Bs.</option>
 							</select>
-							<input type="text" name="amount" size='10'/>
+							<input type="text" pattern="^[0-9]+(\.[0-9]+)?$" name="amount" size='10' required title="Este campo es numerico y no puede ser dejado en blanco"/>
 						<br>
-						<div class="leftColum"><b>Justicación:</b></div><textarea name="justification" style="width: 138px;"></textarea><br>
+						<div class="leftColum"><b>Justicación:</b></div><textarea name="justification" style="width: 138px;" required title="El campo 'Justificación' no puede ser dejado en blanco"></textarea><br>
 					</div>
 					<div id="signup-header">
 						<a class="close_x" id="close_x_aux"  href="#"></a>
