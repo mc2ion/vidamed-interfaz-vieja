@@ -56,7 +56,7 @@ public class EditSpecialistServlet extends HttpServlet {
 		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.specialists);
 		if(userE != null && perm ){
 			try {
-				String action = request.getParameter("sbmtButton");
+				String action = request.getParameter("txtFirstName");
 				Long specialistID = Long.parseLong(request.getParameter("specialistID"));
 				RequestDispatcher rd;
 				if (action == null || action.trim().equals("")) {

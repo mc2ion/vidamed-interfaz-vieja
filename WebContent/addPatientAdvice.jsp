@@ -34,7 +34,7 @@
 		$( document ).ready(function() {
 			$( ".target" ).change(function() {
 				index = $(this).val();
-				if (index != "-"){
+				if (index != ""){
 					$('.sum-div').show();
 					$.ajax({
 						type: "GET",
@@ -70,8 +70,8 @@
 				<input type="hidden" name="name" value="<%= patName %>"/>
 				<fieldset>
 	        		<label>Unidad: </label>
-					<select name="unitId" id="unitId" class="target">	
-						<option value="-"> Seleccionar </option>
+					<select name="unitId" id="unitId" class="target" required title="Debe seleccionar un valor en el campo 'Unidad'">	
+						<option value=""> Seleccionar </option>
 						<% for (int i = 0; i < sArea.size(); i++){ 
 						%>
 							<option value="<%= sArea.get(i).getUnitID() %>"><%= sArea.get(i).getName() %></option>
@@ -80,11 +80,11 @@
 					<br/><br/>
 					<p style="display: none;" class="sum-div">
 						<label for="pname">Especialista:</label>
-						<select name="state" id="state">
-							<option value="-">Seleccionar</option>
+						<select name="state" id="state" required title="Debe seleccionar un valor en el campo 'Especialista'">
+							<option value="">Seleccionar</option>
 						</select><br/><br/>
 						<label>Honorario Médico:</label>
-						<input type="text" name="amount" style="width:60px;"/>
+						<input type="text" pattern="^[0-9]+(\.[0-9]+)?$" name="amount" style="width:60px;" required title="El campo 'Honorario Médico' debe ser numérico y no puede ser dejado en blanco" />
 					</p>   
 					
 				</fieldset>

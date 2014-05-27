@@ -51,7 +51,7 @@ public class CreateSpecialistServlet extends HttpServlet {
 		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.specialists);
 		if(userE != null && perm ){
 			try {
-				String action = request.getParameter("sbmtButton");
+				String action = request.getParameter("txtFirstName");
 				RequestDispatcher rd;
 				if (action == null || action.trim().equals("")) {
 					ArrayList<Unit> units = (ArrayList<Unit>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetUnits());

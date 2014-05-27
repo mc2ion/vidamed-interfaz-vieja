@@ -68,8 +68,8 @@
 				<input type="hidden" name="name" value="<%= patName %>"/>
 				<fieldset>
 	        		<label>Área del suministro: </label>
-					<select name="supplyArea" id="supplyArea" class="target">	
-						<option value="-"> Seleccionar </option>
+					<select name="supplyArea" id="supplyArea" class="target" required title="Debe seleccionar un valor en el campo 'Área del Suministro'">	
+						<option value=""> Seleccionar </option>
 						<% for (int i = 0; i < sArea.size(); i++){ 
 						%>
 							<option value="<%= sArea.get(i).getSupplyAreaID() %>"><%= sArea.get(i).getName() %></option>
@@ -78,11 +78,11 @@
 					<br/><br/>
 					<p style="display: none;" class="sum-div">
 						<label for="pname">Suministro:</label>
-						<select name="state" id="state">
-							<option value="-">Seleccionar</option>
+						<select name="state" id="state" required title="Debe seleccionar un valor en el campo 'Suministro'">
+							<option value="">Seleccionar</option>
 						</select><br/><br/>
 						<label>Cantidad:</label>
-						<input type="text" name="amount" style="width:60px;"/>
+						<input type="number" name="amount" style="width:60px;" required title="El campo 'cantidad' debe ser numérico y no puede ser dejado en blanco" />
 					</p>   
 					
 				</fieldset>

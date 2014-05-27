@@ -69,6 +69,66 @@
 		}
 		
 		</script>
+		<script>
+			$(function() {    
+            	$('#sbmtButton').click(function(event) { 
+            		var patternDouble = new RegExp('^[0-9]+(\.[0-9]+)?$');
+            		if ($('#txtName').val() == '') {
+            			alert("El campo 'Nombre' no puede ser dejado en blanco");
+            			return;
+            		}
+            		else if ($('#selBusinessRule').val() == '0') {
+            			alert("Debe seleccionar un valor en el campo 'Regla de Negocio'");
+            			return;
+            		}
+            		else if ($('#selBusinessRule').val() == '1' && $('#selBusinessModel').val() == '0') {
+            			alert("El campo 'Modelo de Negocio' no puede ser dejado en blanco");
+            			return;
+            		}
+            		else if ($('#selBusinessRule').val() == '1' && $('#selBusinessModel').val() == '2' && $('#txtPrice2').val() == '') {
+            			alert("El campo 'Porcentaje de Descuento' no puede ser dejado en blanco");
+            			return;
+            		}
+            		else if ($('#selBusinessRule').val() == '1' && $('#selBusinessModel').val() == '2' && !$('#txtPrice2').val().match(patternDouble)) {
+            			alert("El campo 'Porcentaje de Descuento' debe ser un campo numérico");
+            			return;
+            		}
+            		else if ($('#selBusinessRule').val() == '1' && $('#selBusinessModel').val() == '3' && $('#txtPrice3').val() == '') {
+            			alert("El campo 'Porcentaje de Aumento' no puede ser dejado en blanco");
+            			return;
+            		}
+            		else if ($('#selBusinessRule').val() == '1' && $('#selBusinessModel').val() == '3' && !$('#txtPrice3').val().match(patternDouble)) {
+            			alert("El campo 'Porcentaje de Aumento' debe ser un campo numérico");
+            			return;
+            		}
+            		else if ($('#selBusinessRule').val() == '2') {
+            			<% for (int j = 0; j < micros.size(); j++){	%>	
+            				if ($('#selBusinessModel<%= j + 1%>').val() == '0') {
+                    			alert("El campo 'Modelo de Negocio' no puede ser dejado en blanco");
+                    			return;
+                    		}
+            				else if ($('#selBusinessModel<%= j + 1%>').val() == '2' && $('#txtPrice2<%= j + 1%>').val() == '') {
+                				alert("El campo 'Porcentaje de Descuento' no puede ser dejado en blanco");
+                				return;
+                			}
+                			else if ($('#selBusinessModel<%= j + 1%>').val() == '2' && !$('#txtPrice2<%= j + 1%>').val().match(patternDouble)) {
+                				alert("El campo 'Porcentaje de Descuento' debe ser un campo numérico");
+                				return;
+                			}
+                			else if ($('#selBusinessModel<%= j + 1%>').val() == '3' && $('#txtPrice3<%= j + 1%>').val() == '') {
+                				alert("El campo 'Porcentaje de Aumento' no puede ser dejado en blanco");
+                				return;
+                			}
+                			else if ($('#selBusinessModel<%= j + 1%>').val() == '3' && !$('#txtPrice3<%= j + 1%>').val().match(patternDouble)) {
+                				alert("El campo 'Porcentaje de Aumento' debe ser un campo numérico");
+                				return;
+                			}
+            			<% } %>
+            		}
+            		$('#form1').submit();
+            	});
+			});
+        </script>
 	</head>
 	<body>
 		<div id="container">
@@ -95,7 +155,7 @@
 				%>
 				
 				
-				<form action="CreatePaymentResponsibleServlet" method="post" novalidate>
+				<form id="form1" name="form1" action="CreatePaymentResponsibleServlet" method="post" novalidate>
 	  				<fieldset>
 					<label for="name">Nombre:</label>
 					<input type="text" name="txtName" id="txtName" maxlength="50" size="5" /> <br><br>
@@ -123,11 +183,11 @@
 						</select> <br><br>
 						<div id="genDesc1" style="display:none;">
 							<label for="name">Porcentaje de Descuento:</label>
-							<input type="number" min="1" name="txtPrice2" id="txtPrice2" maxlength="3" size="3" /> <br><br>
+							<input type="text" min="1" name="txtPrice2" id="txtPrice2" maxlength="3" size="3" /> <br><br>
 						</div>
 						<div id="genAum1" style="display:none;">
 							<label for="name">Porcentaje de Aumento:</label>
-							<input type="number" min="1" name="txtPrice3" id="txtPrice3" maxlength="3" size="3" /> <br><br>
+							<input type="text" min="1" name="txtPrice3" id="txtPrice3" maxlength="3" size="3" /> <br><br>
 						</div>
 					</div>
 					<div id="espModel" style="display:none;">
@@ -149,11 +209,11 @@
 							</select> <br><br>
 							<div id="genDesc<%= j+2 %>" style="display:none;">
 							<label for="name">Porcentaje de Descuento:</label>
-							<input type="number" min="1" name="txtPrice2<%= j+1 %>" id="txtPrice2<%= j+1 %>" maxlength="3" size="3" /><br><br>
+							<input type="text" min="1" name="txtPrice2<%= j+1 %>" id="txtPrice2<%= j+1 %>" maxlength="3" size="3" /><br><br>
 							</div>
 							<div id="genAum<%= j+2 %>" style="display:none;">
 							<label for="name">Porcentaje de Aumento:</label>
-							<input type="number" min="1" name="txtPrice3<%= j+1 %>" id="txtPrice3<%= j+1 %>" maxlength="3" size="3" /> <br><br>
+							<input type="text" min="1" name="txtPrice3<%= j+1 %>" id="txtPrice3<%= j+1 %>" maxlength="3" size="3" /> <br><br>
 							</div>
 						<%
 						}
@@ -162,10 +222,10 @@
 				</fieldset>
 				<div id="botonera">
 						<div id="botonP" style="display: inline; margin-right: 30px;">
-									<input type="submit"  class="button"  name="sbmtButton" value="Crear" />
+							<input type="button" class="button" id="sbmtButton" name="sbmtButton" value="Crear" />
 						</div>	
 						<div id="botonV" style="display: inline;">
-								<a href="ListPaymentResponsiblesServlet" class="button">Regresar</a>	
+							<a href="ListPaymentResponsiblesServlet" class="button">Regresar</a>	
 						</div>	
 					
 				</div><br>

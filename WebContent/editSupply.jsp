@@ -36,6 +36,53 @@ Supply supply = (Supply) request.getAttribute("supply");
 			}
 		}
 		</script>	
+		<script>
+			$(function() {    
+            	$('#sbmtButton').click(function(event) { 
+            		var patternNumber = new RegExp('^\\d+$');
+            		var patternDouble = new RegExp('^[0-9]+(\.[0-9]+)?$');
+            		if ($('#txtName').val() == '') {
+            			alert("El campo 'Nombre' no puede ser dejado en blanco");
+            			return;
+            		}
+            		else if ($('#txtType').val() == '0') {
+            			alert("Debe seleccionar un valor en el campo 'Tipo'");
+            			return;
+            		}
+            		else if ($('#txtType').val() == '1' && $('#txtActiveComponent').val() == '') {
+            			alert("El campo 'Componente Activo' no puede ser dejado en blanco");
+            			return;
+            		}
+            		else if ($('#txtType').val() == '1' && $('#txtManufacturer').val() == '') {
+            			alert("El campo 'Fabricante' no puede ser dejado en blanco");
+            			return;
+            		}
+            		else if ($('#txtType').val() == '1' && $('#txtForm').val() == '0') {
+            			alert("Debe seleccionar un valor para el campo 'Presentación'");
+            			return;
+            		}
+            		else if ($('#txtAmount').val() == '') {
+            			alert("El campo 'Cantidad' no puede ser dejado en blanco");
+            			return;
+            		}
+            		else if (!$('#txtAmount').val().match(patternNumber)) {
+            			alert("El valor del campo 'Cantidad' debe ser numérico. No colocar puntos ni espacios en blanco.");
+            			return;
+            		}
+            		else if ($('#txtUnitPrice').val() == '') {
+            			alert("El campo 'Precio Unitario' no puede ser dejado en blanco");
+            			return;
+            		}
+            		else if (!$('#txtUnitPrice').val().match(patternDouble)) {
+            			alert("El campo 'Precio Unitario' debe ser numérico");
+            			return;
+            		}
+            		else {
+            			$('#form1').submit();
+            		}
+            	});
+			});
+        </script>
 	</head>
 	<body>
 		<div id="container">
@@ -56,7 +103,7 @@ Supply supply = (Supply) request.getAttribute("supply");
         	<div id="content" style="position:absolute;">	
 	        	<h2>Editar Insumo:</h2>
 				<br>
-				<form action="EditSupplyServlet">
+				<form id="form1" name="form1" action="EditSupplyServlet">
 					<input type="hidden" id="supplyID" name="supplyID" value="<%= supply.getSupplyID() %>" />
 					<input type="hidden" id="supplyAreaID" name="supplyAreaID" value="<%= supply.getSupplyAreaID() %>" />
 					<fieldset>
@@ -94,7 +141,7 @@ Supply supply = (Supply) request.getAttribute("supply");
 					</fieldset>
 					<div id="botonera">
 						<div id="botonP" style="display: inline; margin-right: 30px;">
-							<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
+							<input type="button" class="button" id="sbmtButton" name="sbmtButton" value="Modificar" />
 						</div>	
 						<div id="botonV" style="display: inline;">
 							<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		

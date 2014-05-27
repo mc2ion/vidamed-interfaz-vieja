@@ -64,8 +64,8 @@
 				<input type="hidden" name="name" value="<%= patName %>"/>
 				<fieldset>
 	        		<label>Servicio: </label>
-					<select name="service" class="target">	
-						<option value="-"> Seleccionar </option>
+					<select name="service" class="target" required title="Debe seleccionar un valor para el campo 'Servicio'">	
+						<option value=""> Seleccionar </option>
 						<% for (int i = 0; i < services.size(); i++){ 
 						%>
 							<option value="<%= services.get(i).getServiceID() %>"><%= services.get(i).getName() %></option>

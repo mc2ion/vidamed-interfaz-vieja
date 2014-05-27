@@ -52,7 +52,7 @@ public class EditSupplyServlet extends HttpServlet {
 		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.pharmacyAdmin);
 		if(userE != null && perm ){
 			try {
-				String action = request.getParameter("sbmtButton");
+				String action = request.getParameter("txtName");
 				RequestDispatcher rd;
 				if (action == null || action.trim().equals("")) {
 					Long supplyID = Long.parseLong(request.getParameter("supplyID"));

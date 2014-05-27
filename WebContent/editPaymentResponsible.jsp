@@ -71,6 +71,66 @@
 		}
 		
 		</script>
+		<script>
+			$(function() {    
+            	$('#sbmtButton').click(function(event) { 
+            		var patternDouble = new RegExp('^[0-9]+(\.[0-9]+)?$');
+            		if ($('#txtName').val() == '') {
+            			alert("El campo 'Nombre' no puede ser dejado en blanco");
+            			return;
+            		}
+            		else if ($('#selBusinessRule').val() == '0') {
+            			alert("Debe seleccionar un valor en el campo 'Regla de Negocio'");
+            			return;
+            		}
+            		else if ($('#selBusinessRule').val() == '1' && $('#selBusinessModel').val() == '0') {
+            			alert("El campo 'Modelo de Negocio' no puede ser dejado en blanco");
+            			return;
+            		}
+            		else if ($('#selBusinessRule').val() == '1' && $('#selBusinessModel').val() == '2' && $('#txtPrice2').val() == '') {
+            			alert("El campo 'Porcentaje de Descuento' no puede ser dejado en blanco");
+            			return;
+            		}
+            		else if ($('#selBusinessRule').val() == '1' && $('#selBusinessModel').val() == '2' && !$('#txtPrice2').val().match(patternDouble)) {
+            			alert("El campo 'Porcentaje de Descuento' debe ser un campo numérico");
+            			return;
+            		}
+            		else if ($('#selBusinessRule').val() == '1' && $('#selBusinessModel').val() == '3' && $('#txtPrice3').val() == '') {
+            			alert("El campo 'Porcentaje de Aumento' no puede ser dejado en blanco");
+            			return;
+            		}
+            		else if ($('#selBusinessRule').val() == '1' && $('#selBusinessModel').val() == '3' && !$('#txtPrice3').val().match(patternDouble)) {
+            			alert("El campo 'Porcentaje de Aumento' debe ser un campo numérico");
+            			return;
+            		}
+            		else if ($('#selBusinessRule').val() == '2') {
+            			<% for (int j = 0; j < micros.size(); j++){	%>	
+            				if ($('#selBusinessModel<%= j + 1%>').val() == '0') {
+                    			alert("El campo 'Modelo de Negocio' no puede ser dejado en blanco");
+                    			return;
+                    		}
+            				else if ($('#selBusinessModel<%= j + 1%>').val() == '2' && $('#txtPrice2<%= j + 1%>').val() == '') {
+                				alert("El campo 'Porcentaje de Descuento' no puede ser dejado en blanco");
+                				return;
+                			}
+                			else if ($('#selBusinessModel<%= j + 1%>').val() == '2' && !$('#txtPrice2<%= j + 1%>').val().match(patternDouble)) {
+                				alert("El campo 'Porcentaje de Descuento' debe ser un campo numérico");
+                				return;
+                			}
+                			else if ($('#selBusinessModel<%= j + 1%>').val() == '3' && $('#txtPrice3<%= j + 1%>').val() == '') {
+                				alert("El campo 'Porcentaje de Aumento' no puede ser dejado en blanco");
+                				return;
+                			}
+                			else if ($('#selBusinessModel<%= j + 1%>').val() == '3' && !$('#txtPrice3<%= j + 1%>').val().match(patternDouble)) {
+                				alert("El campo 'Porcentaje de Aumento' debe ser un campo numérico");
+                				return;
+                			}
+            			<% } %>
+            		}
+            		$('#form1').submit();
+            	});
+			});
+        </script>
 	</head>
 	<body>
 		<div id="container">
@@ -98,7 +158,7 @@
 				%>
 				
 				
-				<form action="EditPaymentResponsibleServlet" method="post" novalidate>
+				<form id="form1" name="form1" action="EditPaymentResponsibleServlet" method="post" novalidate>
 	  				<input type="hidden" id="rId" name="rId" value="<%= responsible.getId() %>" /> 
 	  				<input type="hidden" id="rName" name="rName" value="<%= responsible.getName() %>" /> 
 	  				<input type="hidden" id="rbrId" name="rbrId" value="<%= responsible.getBussinessRuleId() %>" /> 
@@ -228,7 +288,7 @@
 				</fieldset>
 				<div id="botonera">
 						<div id="botonP" style="display: inline; margin-right: 30px;">
-									<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
+									<input type="button" class="button" id="sbmtButton" name="sbmtButton" value="Modificar" />
 						</div>	
 						<div id="botonV" style="display: inline;">
 								<a href="ListPaymentResponsiblesServlet" class="button">Regresar</a>	

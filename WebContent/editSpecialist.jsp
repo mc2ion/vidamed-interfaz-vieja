@@ -136,6 +136,109 @@ String[] ci = spec.getIdentityCard().split("-");
 				});
 			} );
 		</script>
+		<script>
+			$(function() {    
+            	$('#sbmtButton').click(function(event) { 
+            		var patternNumber = new RegExp('^\\d+$');
+            		var patternEmail = new RegExp('^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$');
+            		var patternDate = new RegExp('^[0-3]?[0-9]/[0-1]?[0-9]/[0-9]{4}$');
+            		var patternPhoneNumber = new RegExp('^\\d{10}\\d*$');
+            		if ($('#txtCedIdNum').val() == '') {
+            			 $("#tabs").tabs( "option", "active", 0);
+            			alert("El campo 'Cedula' no puede ser dejado en blanco");
+            			return;
+            		}
+            		else if(!$('#txtCedIdNum').val().match(patternNumber)) {
+            			$("#tabs").tabs( "option", "active", 0);
+            			alert("El campo 'Cedula' sólo debe contener números sin puntos ni espacios en blanco");
+            			return;
+            		}
+            		else if ($('#txtFirstName').val() == '') {
+            			$("#tabs").tabs( "option", "active", 0);
+            			alert("El campo 'Nombre' no puede ser dejado en blanco");
+            			return;
+            		}
+            		else if ($('#txtLastName').val() == '') {
+            			$("#tabs").tabs( "option", "active", 0);
+            			alert("El campo 'Apellido' no puede ser dejado en blanco");
+            			return;
+            		}
+            		else if ($('#txtDateIni').val() == '') {
+            			$("#tabs").tabs( "option", "active", 0);
+            			alert("El campo 'Fecha de Nacimiento' no puede ser dejado en blanco");
+            			return;
+            		}
+            		else if (!$('#txtDateIni').val().match(patternDate)) {
+            			$("#tabs").tabs( "option", "active", 0);
+            			alert("El campo 'Fecha de Nacimiento' debe tener el formato DD/MM/YYYY");
+            			return;
+            		}
+            		else if ($('#txtGen').val() == '') {
+            			$("#tabs").tabs( "option", "active", 0);
+            			alert("Debe seleccionar un valor para el campo 'Sexo'");
+            			return;
+            		}
+            		else if ($('#txtRifNum').val() == '') {
+           			 	$("#tabs").tabs( "option", "active", 0);
+           				alert("El campo 'RIF' no puede ser dejado en blanco");
+           				return;
+           			}
+           			else if(!$('#txtRifNum').val().match(patternNumber)) {
+           				$("#tabs").tabs( "option", "active", 0);
+           				alert("El campo 'RIF' sólo debe contener números sin puntos ni espacios en blanco");
+           				return;
+           			}
+            		else if ($('#txtAddress').val() == '') {
+            			$("#tabs").tabs( "option", "active", 1);
+            			alert("El campo 'Direccion' no puede ser dejado en blanco");
+            			return;
+            		}
+            		else if ($('#txtEmail').val() == '') {
+            			$("#tabs").tabs( "option", "active", 1);
+            			alert("El campo 'Correo Electrónico' no puede ser dejado en blanco");
+            			return;
+            		}
+            		else if (!$('#txtEmail').val().match(patternEmail)) {
+            			$("#tabs").tabs( "option", "active", 1);
+            			alert("El formato del Correo Electrónico colocado es inválido");
+            			return;
+            		}
+            		else if ($('#txtPhoneNumber0').val() == '') {
+            			$("#tabs").tabs( "option", "active", 1);
+            			alert("Debe colocar al menos un número telefónico");
+            			return;
+            		}
+            		else if (!$('#txtPhoneNumber0').val().match(patternPhoneNumber)) {
+            			$("#tabs").tabs( "option", "active", 1);
+            			alert("El campo de 'Teléfono' debe contener sólo números sin puntos, ni guiones ni espacios en blanco. Coloque el código de ciudad.");
+            			return;
+            		}
+            		else if ($('#txtPhoneNumber1').val() != '' && !$('#txtPhoneNumber1').val().match(patternPhoneNumber)) {
+            			$("#tabs").tabs( "option", "active", 1);
+            			alert("El campo de 'Teléfono' debe contener sólo números sin puntos, ni guiones ni espacios en blanco. Coloque el código de ciudad.");
+            			return;
+            		}
+            		else if ($('#txtPhoneNumber2').val() != '' && !$('#txtPhoneNumber2').val().match(patternPhoneNumber)) {
+            			$("#tabs").tabs( "option", "active", 1);
+            			alert("El campo de 'Teléfono' debe contener sólo números sin puntos, ni guiones ni espacios en blanco. Coloque el código de ciudad.");
+            			return;
+            		}
+            		else if ($('#txtPhoneNumber3').val() != '' && !$('#txtPhoneNumber3').val().match(patternPhoneNumber)) {
+            			$("#tabs").tabs( "option", "active", 1);
+            			alert("El campo de 'Teléfono' debe contener sólo números sin puntos, ni guiones ni espacios en blanco. Coloque el código de ciudad.");
+            			return;
+            		}
+            		else if (!$('#my-select').val()) {
+            			$("#tabs").tabs( "option", "active", 2);
+            			alert("Debe seleccionar al menos un valor para el campo 'Unidad'");
+            			return;
+            		}
+            		else {
+            			$('#form1').submit();
+            		}
+            	});
+			});
+        </script>
 	</head>
 	<body>
 		<div id="container">
@@ -161,7 +264,7 @@ String[] ci = spec.getIdentityCard().split("-");
 					    <li><a href="#tabs-2">Datos Contacto</a></li>
 					    <li><a href="#tabs-3">Unidad</a></li>
 			  		</ul>
-			  		<form action="EditSpecialistServlet">
+			  		<form id="form1" name="form1" action="EditSpecialistServlet">
 			  			<input type="hidden" id="specialistID" name="specialistID" value="<%= spec.getId() %>" /> 
 			  			<div id="tabs-1">
 							<fieldset>
@@ -179,21 +282,14 @@ String[] ci = spec.getIdentityCard().split("-");
 								<input type="text" name="txtDateIni" id="txtDateIni" maxlength="50" size="10" value="<%= spec.getBirthdate() %>"/> <br><br>
 								<label for="name">Sexo:</label>
 								<select name="txtGen" id="txtGen">	
-									<option value="-" <%= spec.getSex().equals("-") ? "selected" : "" %>>Seleccionar</option>
+									<option value="" <%= spec.getSex().equals("-") ? "selected" : "" %>>Seleccionar</option>
 									<option value="F" <%= spec.getSex().equals("F") ? "selected" : "" %>>Femenino</option>
 									<option value="M" <%= spec.getSex().equals("M") ? "selected" : "" %>>Masculino</option>
 								</select><br><br>
 								<label for="name">RIF:</label>
 								<input type="text" name="txtRifNum" id="txtRifNum" maxlength="50" size="18" value="<%= spec.getRif() %>" /> <br><br>
 							</fieldset>						
-							<div id="botonera">							
-								<div id="botonP" style="display: inline; margin-right: 30px;">
-									<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
-								</div>	
-								<div id="botonV" style="display: inline;">
-									<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
-								</div>
-							</div><br>
+							<br>
 			  			</div>
 			  			<div id="tabs-2">
 							<fieldset>
@@ -251,14 +347,7 @@ String[] ci = spec.getIdentityCard().split("-");
 								<% }
 								} %>
 							</fieldset>		
-							<div id="botonera">
-								<div id="botonP" style="display: inline; margin-right: 30px;">
-									<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
-								</div>	
-								<div id="botonV" style="display: inline;">
-									<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
-								</div>
-							</div><br>
+							<br>
 			  			</div>			  		
 			  			<div id="tabs-3">
 			  				<fieldset>
@@ -275,17 +364,18 @@ String[] ci = spec.getIdentityCard().split("-");
 						    	<script src="./js/jquery.multi-select.js" type="text/javascript"></script>		
 						    	</div>		
 							</fieldset>		
-							<div id="botonera">
+							<br>
+			  			</div>
+			  		</form>
+			  	</div>
+			  	<div id="botonera">
 								<div id="botonP" style="display: inline; margin-right: 30px;">
-									<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
+									<input type="button" class="button" id="sbmtButton" name="sbmtButton" value="Modificar" />
 								</div>	
 								<div id="botonV" style="display: inline;">
 									<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
 								</div>
-							</div><br>
-			  			</div>
-			  		</form>
-			  	</div>
+							</div>
 			</div>
 		</div>
 	</body>

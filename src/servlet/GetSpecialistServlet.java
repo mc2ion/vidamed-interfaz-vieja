@@ -50,13 +50,13 @@ public class GetSpecialistServlet extends HttpServlet {
 				ArrayList<Specialist> specialists = (ArrayList<Specialist>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetSpecialistsByUnit(unit));
 	            String options = "";
 	            if (specialists.size() > 0){
-					options = "<option value=\"-\">Seleccionar</option>";
+					options = "<option value=\"\">Seleccionar</option>";
 					for (int i = 0; i < specialists.size(); i++){
 		            	String name = specialists.get(i).getFirstName() + " "+specialists.get(i).getLastName() ;
 						options += "<option value="+ specialists.get(i).getId()+">" + name + "</option>";
 					}
 				}else
-					options = "<option value=\"-\">No hay especialistas </div>";
+					options = "<option value=\"\">No hay especialistas </div>";
 				
 	            out.print(options);
 	        }  catch (Exception ex) {
