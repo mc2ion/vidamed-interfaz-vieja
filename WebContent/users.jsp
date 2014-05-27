@@ -1,3 +1,4 @@
+<%@page import="domain.PermissionsList"%>
 <%@page import="domain.User"%>
 <%
 	User user = (User) session.getAttribute("user");
@@ -20,6 +21,24 @@
 		info_text = info;
 	}
 	session.removeAttribute("info");
+	
+	/* boolean editP =  PermissionsList.hasPermission(request, PermissionsList.editUser);
+	String styleE = "";
+	if (editP == false)
+		styleE = "display:none;";
+		
+	boolean editC =  PermissionsList.hasPermission(request, PermissionsList.changePassword);
+	String styleCP = "";
+	if (editC == false)
+		styleCP = "display:none;";
+		
+	boolean remove =  PermissionsList.hasPermission(request, PermissionsList.deleteUser);
+	String styleR = "";
+	if (remove == false)
+		styleR = "display:none;"; */
+		
+		
+		
 %>
 <!DOCTYPE HTML>
 <html>
@@ -85,11 +104,11 @@
       	<jsp:include page="./upperMenu.jsp" />        
 		<div id="menu">
 			
-			<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
-	    	<ul>
+			<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>
+			<ul>
             	<li class="menuitem"><a href="CreateUserServlet">Crear Usuario</a></li>
             </ul>
-			<div class="menuitemSalir"><a href="LogoutServlet">Salir</a></div>	
+            <div class="menuitemSalir"><a href="LogoutServlet">Salir</a></div>	
         </div>        
 		 <jsp:include page="./menu.jsp" />
 		<div id="content">  
@@ -121,10 +140,10 @@
 												<td><%= u.getLastName() %></td>
 												<td><%= unitName == null ? "" : unitName %></td>
 												<td>
-													<a href="EditUserServlet?userID=<%= u.getUserID() %>" style="color: transparent" >
+													<a href="EditUserServlet?userID=<%= u.getUserID() %>" style="color: transparent;" >
 														<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
 													</a>
-													<a href="EditUserPasswordServlet?userID=<%= u.getUserID() %>" style="color: transparent" >
+													<a href="EditUserPasswordServlet?userID=<%= u.getUserID() %>" style="color: transparent;" >
 														<img alt="logo" src="./images/editPassword2.png"  height="16" width="16" title="Contraseña"/>
 													</a>
 													<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 

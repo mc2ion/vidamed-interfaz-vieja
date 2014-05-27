@@ -1,3 +1,4 @@
+<%@page import="domain.PermissionsList"%>
 <%@page import="domain.User"%>
 <%
 	User user2 = (User) session.getAttribute("user");
@@ -29,42 +30,50 @@
 			<nav>
          		<ul>
          			<li><a href="#">Bienvenido, <%= userName %></a></li>
-                	<li><a href="ListAdmissionDischargesServlet" target="_parent">Altas Admisión
-                	<% if (countPAD != 0){ %>
-                	<span class="badge yellow"><%= countPAD %></span>
-		 			<% } %>
-                	</a></li>
-                	<li><a href="ListCreditNotesServlet" target="_parent">Prefacturas por Generar
-                	<% if (countPCN != 0){ %>
-                	<span class="badge blue"><%= countPCN %></span>
-		 			<% } %>
-                	</a></li>
-                	<li><a href="ListCreditNotesReviewServlet" target="_parent">Prefacturas por Revisar
-		 			<% if (countPCNR != 0){ %>
-                	<span class="badge green"><%= countPCNR %></span>
-		 			<% } %>
-                	</a></li>
-                	<li><a href="ListInvoicesServlet" target="_parent">Facturas por Generar
-		 			<% if (countPB != 0){ %>
-                	<span class="badge red"><%= countPB %></span>
-		     		<% } %>
-                	</a></li>
-                	<li><a href="ListRequestsServlet" target="_parent">Descuentos
-		     		<% if (countPED != 0){ %>
-                	<span class="badge yellow"><%= countPED %></span>
-		     		<% } %>
-                	</a></li>
-                	<li><a href="ListPharmacyDischargesServlet" target="_parent">Altas Farmacia
-		     		<% if (countPPD != 0){ %>
-                	<span class="badge blue"><%= countPPD %></span>
-		     		<% } %>
-		     		</a></li>
-		     		
-                	<li><a href="ListPendingPaymentsServlet" target="_parent">Pagos Pendientes
-		     		<% if (countPPP != 0){ %>
-                	<span class="badge green"><%= countPPP %></span>
-                	<% } %>
-                	</a></li>
+         			<% if (PermissionsList.hasPermission(request, PermissionsList.admissionDischarge)){ %>
+	                	<li><a href="ListAdmissionDischargesServlet" target="_parent">Altas Admisión
+	                	<% if (countPAD != 0){ %>
+	                	<span class="badge yellow"><%= countPAD %></span>
+			 			<% } %>
+	                	</a></li>
+                	<% }if (PermissionsList.hasPermission(request, PermissionsList.creditNotes)){  %>
+	                	<li><a href="ListCreditNotesServlet" target="_parent">Prefacturas por Generar
+	                	<% if (countPCN != 0){ %>
+	                	<span class="badge blue"><%= countPCN %></span>
+			 			<% } %>
+	                	</a></li>
+	                <% }if (PermissionsList.hasPermission(request, PermissionsList.creditNotesReview)){ %>
+	                	<li><a href="ListCreditNotesReviewServlet" target="_parent">Prefacturas por Revisar
+			 			<% if (countPCNR != 0){ %>
+	                	<span class="badge green"><%= countPCNR %></span>
+			 			<% } %>
+	                	</a></li>
+	                <% }if (PermissionsList.hasPermission(request, PermissionsList.invoices)){ %>
+	                	<li><a href="ListInvoicesServlet" target="_parent">Facturas por Generar
+			 			<% if (countPB != 0){ %>
+	                	<span class="badge red"><%= countPB %></span>
+			     		<% } %>
+	                	</a></li>
+	                <% }if (PermissionsList.hasPermission(request, PermissionsList.discounts)){ %>
+	                	<li><a href="ListRequestsServlet" target="_parent">Descuentos
+			     		<% if (countPED != 0){ %>
+	                	<span class="badge yellow"><%= countPED %></span>
+			     		<% } %>
+	                	</a></li>
+	                <% } if (PermissionsList.hasPermission(request, PermissionsList.pharmacyDischarges)){ %>
+                		<li><a href="ListPharmacyDischargesServlet" target="_parent">Altas Farmacia
+			     		<% if (countPPD != 0){ %>
+	                	<span class="badge blue"><%= countPPD %></span>
+			     		<% } %>
+			     		</a></li>
+			     	<% } if (PermissionsList.hasPermission(request, PermissionsList.pendingPayments)){ %>
+		     			<li><a href="ListPendingPaymentsServlet" target="_parent">Pagos Pendientes
+			     		<% if (countPPP != 0){ %>
+	                	<span class="badge green"><%= countPPP %></span>
+	                	<% } %>
+	                	</a></li>
+	                	<% } %>
+	                
         		</ul>
         	</nav>
     	</div>

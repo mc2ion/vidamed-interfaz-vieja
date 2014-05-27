@@ -15,6 +15,7 @@ import command.CommandExecutor;
 import domain.BussinessMicro;
 import domain.BussinessModels;
 import domain.BussinessRules;
+import domain.PermissionsList;
 import domain.ResponsibleRule;
 import domain.User;
 
@@ -54,7 +55,8 @@ public class CreatePaymentResponsibleServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
-		if(userE != null){
+		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.paymentResponsible);
+		if(userE != null && perm ){
 			try {
 				RequestDispatcher rd;
 				
@@ -83,8 +85,13 @@ public class CreatePaymentResponsibleServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		} else {
-			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
-			rd.forward(request, response);
+			if (userE == null){
+				request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+				rd.forward(request, response);
+			}else{
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/sectionDenied.jsp");
+				rd.forward(request, response);
+			}
 		}	
 	}
 
@@ -94,7 +101,8 @@ public class CreatePaymentResponsibleServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
-		if(userE != null){
+		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.paymentResponsible);
+		if(userE != null && perm ){
 			String name = request.getParameter("txtName");
 			Long selBusinessRule = Long.parseLong(request.getParameter("selBusinessRule"));
 			Long selBusinessModel = null, selBusinessModelH = null, selBusinessModelG = null, selBusinessModelS = null, selBusinessModelM = null;
@@ -198,8 +206,13 @@ public class CreatePaymentResponsibleServlet extends HttpServlet {
 				
 			}
 		} else {
-			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
-			rd.forward(request, response);
+			if (userE == null){
+				request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+				rd.forward(request, response);
+			}else{
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/sectionDenied.jsp");
+				rd.forward(request, response);
+			}
 		}	
 	}
 }

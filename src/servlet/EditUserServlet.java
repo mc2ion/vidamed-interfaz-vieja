@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import command.CommandExecutor;
 import domain.Permission;
 import domain.PermissionModule;
+import domain.PermissionsList;
 import domain.User;
 import domain.UserPermission;
 import domain.UserPhoneNumber;
@@ -52,7 +53,8 @@ public class EditUserServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
-		if(userE != null){
+		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.users);
+		if(userE != null && perm){
 			try {
 				String action = request.getParameter("txtFirstName");
 				Long userID = Long.parseLong(request.getParameter("userID"));
@@ -62,6 +64,7 @@ public class EditUserServlet extends HttpServlet {
 					ArrayList<UserPermission> auxPermissions = (ArrayList<UserPermission>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetUserPermissions(userID));
 					HashMap<Long, UserPermission> userPermissions = new HashMap<Long, UserPermission>();
 					for (int i = 0; i<auxPermissions.size(); i++) {
+						System.out.println(auxPermissions.get(i).getPermissionID() + " " + auxPermissions.get(i));
 						userPermissions.put(auxPermissions.get(i).getPermissionID(), auxPermissions.get(i));
 					}
 					HashMap<Long, String> userUnits = (HashMap<Long, String>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetUserUnits());;
@@ -183,8 +186,14 @@ public class EditUserServlet extends HttpServlet {
 				throw new ServletException(e);
 			}
 		} else {
-			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
-			rd.forward(request, response);
+			if (userE == null){
+				request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+				rd.forward(request, response);
+			}else{
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/sectionDenied.jsp");
+				rd.forward(request, response);
+				
+			}
 		}	
 	}
 

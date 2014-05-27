@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
+import domain.PermissionsList;
 import domain.Unit;
 import domain.User;
 
@@ -45,7 +46,8 @@ public class AddPatientMedicalAdviceServlet extends HttpServlet {
 		RequestDispatcher rd;
 		HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
-		if(userE != null){
+		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.interc);
+		if(userE != null && perm ){
 			try {
 				String id = request.getParameter("id");
 				String name   = request.getParameter("name");
@@ -66,8 +68,13 @@ public class AddPatientMedicalAdviceServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		} else {
-			rd = getServletContext().getRequestDispatcher("/index.jsp");
-			rd.forward(request, response);
+			if (userE == null){
+				request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); rd = getServletContext().getRequestDispatcher("/index.jsp");
+				rd.forward(request, response);
+			}else{
+				rd = getServletContext().getRequestDispatcher("/sectionDenied.jsp");
+				rd.forward(request, response);
+			}
 		}
 	}
 
@@ -77,8 +84,9 @@ public class AddPatientMedicalAdviceServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
-		if(userE != null){
-		
+		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.interc);
+		RequestDispatcher rd;
+		if(userE != null && perm ){
 			try{
 				String admin 		= request.getParameter("admissionId");
 				String name 		= request.getParameter("name");
@@ -98,8 +106,13 @@ public class AddPatientMedicalAdviceServlet extends HttpServlet {
 			}catch(Exception e){}
 	
 			}else {
-				request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
-				rd.forward(request, response);
+				if (userE == null){
+					request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); rd = getServletContext().getRequestDispatcher("/index.jsp");
+					rd.forward(request, response);
+				}else{
+					rd = getServletContext().getRequestDispatcher("/sectionDenied.jsp");
+					rd.forward(request, response);
+				}
 			}
 	}
 }

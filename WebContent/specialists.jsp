@@ -89,7 +89,7 @@
 			<ul>
             	<li class="menuitem"><a href="CreateSpecialistServlet">Crear Especialista</a></li>
             </ul>
-	    	<div class="menuitemSalir"><a href="LogoutServlet">Salir</a></div>	
+            <div class="menuitemSalir"><a href="LogoutServlet">Salir</a></div>	
         </div>        
 		<jsp:include page="./menu.jsp" />
 		<div id="content">  
@@ -124,7 +124,7 @@
 												<td><%= spec.getLastName() %></td>
 												<td><%= unitNames %></td>
 												<td>
-													<a href="EditSpecialistServlet?specialistID=<%= spec.getId() %>" style="color: transparent" >
+													<a href="EditSpecialistServlet?specialistID=<%= spec.getId() %>" style="color: transparent;" >
 														<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
 													</a>
 													<a id="go" rel="leanModal" href="#deleteSpecialist" style="color: #f7941e; font-weight: bold;" 

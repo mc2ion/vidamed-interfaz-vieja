@@ -12,6 +12,7 @@ public class PaymentResponsible {
 	private ArrayList<ResponsibleRule> rrList;
 	private String address;
 	private String phoneNumber;
+	private String contactName;
 	private int hasGuaranteeLetter;
 	private int isPolicyHolder;
 	private String policyHolderName;
@@ -120,6 +121,14 @@ public class PaymentResponsible {
 	
 	public double getTotal(){
 		return total;
+	}
+	
+	public void setContactName(String contactName){
+		this.contactName = contactName;
+	}
+	
+	public String getContactName(){
+		return contactName;
 	}
 	
 }

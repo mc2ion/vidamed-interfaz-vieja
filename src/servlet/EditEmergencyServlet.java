@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
 import domain.Emergency;
+import domain.PermissionsList;
 import domain.User;
 
 
@@ -45,7 +46,8 @@ public class EditEmergencyServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
-		if(userE != null){
+		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.emergency);
+		if(userE != null && perm ){
 			Long id = Long.valueOf(request.getParameter("id"));
 			RequestDispatcher rd;
 			try {
@@ -58,8 +60,13 @@ public class EditEmergencyServlet extends HttpServlet {
 				throw new ServletException(e);
 			}
 		} else {
-			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
-			rd.forward(request, response);
+			if (userE == null){
+				request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+				rd.forward(request, response);
+			}else{
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/sectionDenied.jsp");
+				rd.forward(request, response);
+			}
 		}	
 	}
 

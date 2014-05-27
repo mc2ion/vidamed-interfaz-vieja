@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
+import domain.PermissionsList;
 import domain.User;
 
 
@@ -46,7 +47,9 @@ public class ListUsersServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
-		if(userE != null){
+		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.users);
+		
+		if(userE != null && perm){
 			try {
 				ArrayList<User> users = (ArrayList<User>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetUsers());
 				HashMap<Long, String> userUnits = (HashMap<Long, String>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetUserUnits());
@@ -59,10 +62,14 @@ public class ListUsersServlet extends HttpServlet {
 			catch (Exception e) {
 				throw new ServletException(e);
 			}
-		} else {
+		}else if (userE == null){
 			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 			rd.forward(request, response);
-		}	
+		}else{
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/sectionDenied.jsp");
+			rd.forward(request, response);
+			
+		}
 	}
 	
 	/**

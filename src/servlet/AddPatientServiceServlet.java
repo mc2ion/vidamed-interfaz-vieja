@@ -17,11 +17,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
+import domain.PermissionsList;
 import domain.Service;
 import domain.User;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
 
 
 
@@ -62,7 +64,12 @@ public class AddPatientServiceServlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
-		if(userE != null){
+		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.bloodBank);
+		boolean perm2  = PermissionsList.hasPermission(request, PermissionsList.eco);
+		boolean perm3  = PermissionsList.hasPermission(request, PermissionsList.lab);
+		boolean perm4  = PermissionsList.hasPermission(request, PermissionsList.rayX);
+		
+		if(userE != null && (perm || perm2 || perm3 || perm4) ){
 			RequestDispatcher rd;
 		
 			try {
@@ -87,8 +94,13 @@ public class AddPatientServiceServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}else {
+			if (userE == null){
 				request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 				rd.forward(request, response);
+			}else{
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/sectionDenied.jsp");
+				rd.forward(request, response);
+			}
 		}
 	
 	}

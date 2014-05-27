@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
 import domain.PaymentResponsible;
+import domain.PermissionsList;
 import domain.User;
 
 
@@ -47,7 +48,8 @@ public class ListPaymentResponsiblesServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
-		if(userE != null){
+		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.paymentResponsible);
+		if(userE != null && perm ){
 			RequestDispatcher rd;
 			
 			ArrayList<PaymentResponsible> responsibles;
@@ -64,8 +66,13 @@ public class ListPaymentResponsiblesServlet extends HttpServlet {
 				rd.forward(request, response);
 			}
 		} else {
-			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
-			rd.forward(request, response);
+			if (userE == null){
+				request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+				rd.forward(request, response);
+			}else{
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/sectionDenied.jsp");
+				rd.forward(request, response);
+			}
 		}	
 	}
 	

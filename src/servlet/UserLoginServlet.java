@@ -79,7 +79,6 @@ public class UserLoginServlet extends HttpServlet {
 				HttpSession session = request.getSession(true);
 				session.setAttribute("user", user);
 				session.setAttribute("userPermissions", userPermissions);
-				System.out.println("user" + user);
 				rd = getServletContext().getRequestDispatcher("/mainMenu.jsp");			
 				rd.forward(request, response);
 			} else {

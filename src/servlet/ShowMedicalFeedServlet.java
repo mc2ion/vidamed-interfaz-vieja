@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
 import domain.PendingMedicalFee;
+import domain.PermissionsList;
 import domain.User;
 
 /**
@@ -43,7 +44,10 @@ public class ShowMedicalFeedServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
-		if(userE != null){
+		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.billsRP);
+		boolean perm2  = PermissionsList.hasPermission(request, PermissionsList.billsH);
+		
+		if(userE != null && (perm || perm2)){
 			try{
 				Long id = Long.valueOf(request.getParameter("id"));
 				PendingMedicalFee pp = (PendingMedicalFee) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPendingMedicalFee(id));
@@ -55,8 +59,13 @@ public class ShowMedicalFeedServlet extends HttpServlet {
 				throw new ServletException(e);
 			}
 		} else {
-			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
-			rd.forward(request, response);
+			if (userE == null){
+				request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+				rd.forward(request, response);
+			}else{
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/sectionDenied.jsp");
+				rd.forward(request, response);
+			}
 		}	
 	}
 

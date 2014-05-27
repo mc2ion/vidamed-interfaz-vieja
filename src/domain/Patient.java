@@ -7,6 +7,7 @@ public class Patient {
 	private String firstName;
 	private String lastName;
 	private String identityCard;
+	private String gender;
 	private long numEstimation;
 	private long estimationPaymentResponsibleId;
 	private String estimationResponsibleName;
@@ -74,6 +75,14 @@ public class Patient {
 
 	public String getResponsibleName() {
 		return estimationResponsibleName;
+	}
+	
+	public String getGender() {
+		return gender;
+	}
+	
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 	
 }

@@ -14,10 +14,12 @@ import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
 import domain.PatientService;
+import domain.PermissionsList;
 import domain.User;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
 
 
 
@@ -59,7 +61,13 @@ public class EditPatientServiceServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
-		if(userE != null){
+		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.bloodBank);
+		boolean perm2  = PermissionsList.hasPermission(request, PermissionsList.eco);
+		boolean perm3  = PermissionsList.hasPermission(request, PermissionsList.lab);
+		boolean perm4  = PermissionsList.hasPermission(request, PermissionsList.rayX);
+		
+		if(userE != null && (perm || perm2 || perm3 || perm4) ){
+		
 			RequestDispatcher rd;
 			try {
 				String id				= request.getParameter("id");
@@ -82,8 +90,13 @@ public class EditPatientServiceServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		} else {
-			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
-			rd.forward(request, response);
+			if (userE == null){
+				request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+				rd.forward(request, response);
+			}else{
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/sectionDenied.jsp");
+				rd.forward(request, response);
+			}
 		}	
 	
 	}
@@ -96,7 +109,13 @@ public class EditPatientServiceServlet extends HttpServlet {
 		Properties propertiesFile = new Properties();
 		HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
-		if(userE != null){
+		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.bloodBank);
+		boolean perm2  = PermissionsList.hasPermission(request, PermissionsList.eco);
+		boolean perm3  = PermissionsList.hasPermission(request, PermissionsList.lab);
+		boolean perm4  = PermissionsList.hasPermission(request, PermissionsList.rayX);
+		
+		if(userE != null && (perm || perm2 || perm3 || perm4) ){
+		
 			try{			
 				propertiesFile.load( new FileInputStream( getServletContext().getInitParameter("properties") ) );
 				MultipartRequest multipart = new MultipartRequest(request, propertiesFile.getProperty("filesDirectory"), 4*1024*1024, new DefaultFileRenamePolicy());
@@ -156,8 +175,13 @@ public class EditPatientServiceServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		} else {
-			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
-			rd.forward(request, response);
+			if (userE == null){
+				request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+				rd.forward(request, response);
+			}else{
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/sectionDenied.jsp");
+				rd.forward(request, response);
+			}
 		}	
 	}
 }

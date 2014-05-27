@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
+import domain.PermissionsList;
 import domain.SupplyArea;
 import domain.User;
 
@@ -44,8 +45,10 @@ public class AddPatientSupplyServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
-		User user = (User)session.getAttribute("user");
-		if(user != null){RequestDispatcher rd;
+		User userE = (User)session.getAttribute("user");
+		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.pharmacyPatients);
+		if(userE != null && perm ){
+			RequestDispatcher rd;
 			try {
 				String id = request.getParameter("id");
 				//String servId = request.getParameter("servId");
@@ -68,8 +71,13 @@ public class AddPatientSupplyServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		} else {
-			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
-			rd.forward(request, response);
+			if (userE == null){
+				request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+				rd.forward(request, response);
+			}else{
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/sectionDenied.jsp");
+				rd.forward(request, response);
+			}
 		}
 		
 	}
@@ -78,26 +86,37 @@ public class AddPatientSupplyServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession();
+		User userE = (User)session.getAttribute("user");
+		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.pharmacyPatients);
+		if(userE != null && perm ){
+			try{
+				String admin = request.getParameter("admissionId");
+				String name  = request.getParameter("name");
+				String supply  = request.getParameter("state");
+				String amount  = request.getParameter("amount");
+				
+				Integer result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddPatientSupply(Long.valueOf(admin), Long.valueOf(supply), amount));
+				
+				String text = "El suministro fue agregado exitosamente";
+				if (result == 0)
+					text =	"Hubo un problema al agregar el suministro. Por favor, intente nuevamente.";
+				
+				session.setAttribute("text", text);
+				response.sendRedirect(request.getContextPath() + "/ListPatientSuppliesServlet?id=" + admin + "&name=" + name);
 		
-		try{
-			String admin = request.getParameter("admissionId");
-			String name  = request.getParameter("name");
-			String supply  = request.getParameter("state");
-			String amount  = request.getParameter("amount");
-			
-			Integer result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddPatientSupply(Long.valueOf(admin), Long.valueOf(supply), amount));
-			
-			String text = "El servicio fue agregado exitosamente";
-			if (result == 0)
-				text =	"Hubo un problema al agregar al servicio. Por favor, intente nuevamente.";
-			
-			session.setAttribute("text", text);
-			response.sendRedirect(request.getContextPath() + "/ListPatientSuppliesServlet?id=" + admin + "&name=" + name);
-	
-		}catch(Exception e){
-			
-			
-		}
+			}catch(Exception e){
+				
+				
+			}
+		}else {
+			if (userE == null){
+				request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+				rd.forward(request, response);
+			}else{
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/sectionDenied.jsp");
+				rd.forward(request, response);
+			}
+		}	
 	}
 }

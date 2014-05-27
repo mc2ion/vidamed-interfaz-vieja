@@ -22,7 +22,6 @@ Long supplyAreaID = (Long) request.getAttribute("supplyAreaID");
 	  	<script src="./js/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
-		<link rel="stylesheet" href="/resources/demos/style.css" />	
 		<script>	
 		function displayMedicineFields(combo) {
 			sel = combo.options[combo.selectedIndex].value;

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import command.CommandExecutor;
 import domain.DischargeType;
 import domain.Emergency;
+import domain.PermissionsList;
 import domain.User;
 
 
@@ -46,7 +47,8 @@ public class ListEmergenciesServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
-		if(userE != null){
+		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.emergency);
+		if(userE != null && perm ){
 			try{
 				@SuppressWarnings("unchecked")
 				ArrayList<Emergency> emergencies = (ArrayList<Emergency>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEmergencies());
@@ -60,8 +62,13 @@ public class ListEmergenciesServlet extends HttpServlet {
 				
 			}
 		} else {
-			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
-			rd.forward(request, response);
+			if (userE == null){
+				request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+				rd.forward(request, response);
+			}else{
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/sectionDenied.jsp");
+				rd.forward(request, response);
+			}
 		}	
 	}
 	

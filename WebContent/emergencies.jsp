@@ -120,10 +120,10 @@
 										<td><%= emergency.getBed().getName() %></td>
 										<td><%= emergency.getAdmissionDate() %></td>
 										<td>
-											<a href="ShowEmergencyServlet?id=<%= emergency.getId() %>" style="color: transparent" >
+											<a href="ShowEmergencyServlet?id=<%= emergency.getId() %>" style="color: transparent;" >
 												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 											</a>
-											<a href="EditEmergencyServlet?id=<%= emergency.getId() %>" style="color: transparent" >
+											<a href="EditEmergencyServlet?id=<%= emergency.getId() %>" style="color: transparent;" >
 												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
 											</a>
 											<a id="go" rel="leanModal" href="#dischargeUser" style="color: #f7941e; font-weight: bold;" 
@@ -138,7 +138,7 @@
 												onclick="return loadVars(<%= emergency.getId() %>,'<%= patName %>');" >
 												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
 											</a> 
-											<a href="PrintStatementServlet?id=<%= emergency.getId() %>" style="color: transparent" >
+											<a href="PrintStatementServlet?id=<%= emergency.getId() %>" style="color: transparent;" >
 												<img alt="logo" src="./images/movements.png"  height="16" width="16" title="Corte de Cuenta" />
 											</a>
 											<br>

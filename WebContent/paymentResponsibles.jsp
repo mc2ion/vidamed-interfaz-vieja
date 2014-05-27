@@ -73,11 +73,11 @@
       	<jsp:include page="./upperMenu.jsp" />        
 		<div id="menu">
 			
-			<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
-	    	<ul>
+			<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>
+			<ul>
             	<li class="menuitem"><a href="CreatePaymentResponsibleServlet">Crear Responsable</a></li>
             </ul>
-			<div class="menuitemSalir"><a href="LogoutServlet">Salir</a></div>	
+            <div class="menuitemSalir"><a href="LogoutServlet">Salir</a></div>	
         </div>        
 		<jsp:include page="./menu.jsp" />
 		<div id="content">  
@@ -106,7 +106,7 @@
 										<td><%= responsible.getName() %></td>
 										<td><%= responsible.getRuleName() %></td>
 										<td>
-											<a href="EditPaymentResponsibleServlet?rId=<%=responsible.getId() %>" style="color: transparent" >
+											<a href="EditPaymentResponsibleServlet?rId=<%=responsible.getId() %>" style="color: transparent;" >
 												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
 											</a>
 											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 

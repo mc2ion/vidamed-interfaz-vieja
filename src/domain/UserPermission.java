@@ -1,6 +1,13 @@
 package domain;
 
-public class UserPermission {
+import java.io.Serializable;
+
+public class UserPermission implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	private Long userID;
 	private Long permissionID;

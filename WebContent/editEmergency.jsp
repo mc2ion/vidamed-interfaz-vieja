@@ -111,16 +111,6 @@
 								<input type="button"id="bedUbication" value="Cambiar" >
 							</a>
 					    </fieldset>
-					    <div id="botonera">
-							<form action="#">
-								<div id="botonP" style="display: inline; margin-right: 30px;">
-											<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
-								</div>	
-								<div id="botonV" style="display: inline;">
-										<a href="ListEmergenciesServlet"  class="button" >Regresar</a>
-								</div>	
-							</form>
-						</div>
 					   <br>
   					</div>
   					<div id="tabs-2">

@@ -16,6 +16,7 @@ import domain.BussinessMicro;
 import domain.BussinessModels;
 import domain.BussinessRules;
 import domain.PaymentResponsible;
+import domain.PermissionsList;
 import domain.User;
 
 
@@ -55,7 +56,8 @@ public class EditPaymentResponsibleServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
-		if(userE != null){
+		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.paymentResponsible);
+		if(userE != null && perm ){
 			String idS = request.getParameter("rId");
 			Long id = (long) 0;
 			if (idS== null){
@@ -102,8 +104,13 @@ public class EditPaymentResponsibleServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		} else {
-			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
-			rd.forward(request, response);
+			if (userE == null){
+				request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+				rd.forward(request, response);
+			}else{
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/sectionDenied.jsp");
+				rd.forward(request, response);
+			}
 		}	
 			
 	}
@@ -114,7 +121,8 @@ public class EditPaymentResponsibleServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
-		if(userE != null){
+		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.paymentResponsible);
+		if(userE != null && perm ){
 			Long id = Long.parseLong(request.getParameter("rId"));
 			String name = request.getParameter("txtName");
 			String oldName = request.getParameter("rName");
@@ -206,8 +214,13 @@ public class EditPaymentResponsibleServlet extends HttpServlet {
 				
 			}
 		} else {
-			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
-			rd.forward(request, response);
+			if (userE == null){
+				request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+				rd.forward(request, response);
+			}else{
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/sectionDenied.jsp");
+				rd.forward(request, response);
+			}
 		}		
 		
 	}

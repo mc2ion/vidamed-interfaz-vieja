@@ -1,4 +1,5 @@
 <%@page import="domain.User"%>
+
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
@@ -83,7 +84,7 @@
 			<ul>
             	<li class="menuitem"><a href="CreateUnitServlet">Crear Unidad</a></li>
             </ul>
-	    	<div class="menuitemSalir"><a href="LogoutServlet">Salir</a></div>	
+            <div class="menuitemSalir"><a href="LogoutServlet">Salir</a></div>	
         </div>        
 		<jsp:include page="./menu.jsp" />
 		<div id="content">  
@@ -108,7 +109,7 @@
 										<td><%= u.getUnitID() %></td>
 										<td><%= u.getName() %></td>
 										<td>
-											<a href="EditUnitServlet?unitID=<%= u.getUnitID() %>" style="color: transparent" >
+											<a href="EditUnitServlet?unitID=<%= u.getUnitID() %>" style="color: transparent;" >
 												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
 											</a>
 											<a id="go" rel="leanModal" href="#deleteUnit" style="color: #f7941e; font-weight: bold;" 

@@ -274,6 +274,15 @@ HashMap<Long, ArrayList<Permission>> permissions = (HashMap<Long, ArrayList<Perm
             		}
             	});
 			});
+			
+			function checkAll(bx) {
+				  var cbs = document.getElementsByTagName('input');
+				  for(var i=0; i < cbs.length; i++) {
+					if(cbs[i].type == 'checkbox') {
+					  cbs[i].checked = bx.checked;
+					}
+				  }
+			}
         </script>
 	</head>
 	<body>
@@ -401,28 +410,30 @@ HashMap<Long, ArrayList<Permission>> permissions = (HashMap<Long, ArrayList<Perm
 							<br>
 			  			</div>			  		
 			  			<div id="tabs-4">
-			  				<div id="accordion">
-			  					<% for (int i = 0; i<permissionModules.size(); i++) {
+							<div style="float: right">
+								<input type="checkbox" onclick="checkAll(this)"> Seleccionar Todo
+							</div>
+			  				<div>
+								<% for (int i = 0; i<permissionModules.size(); i++) {
 			  							PermissionModule pm = permissionModules.get(i);
 			  							ArrayList<Permission> ps = permissions.get(pm.getPermissionModuleID());
 			  					%>
-			  							<h3><%= pm.getName() %></h3>
-				  						<div>
-				    						<table class="table-simple">
-				    							<tr>
-				    								<% for (int j = 0; j<ps.size(); j++ ) {
-				    									Permission p = ps.get(j);
-				    									if (j % 4 == 0 && j != 0) {
-				    								%>	
-				    										</tr><tr>
-				    								<%  } %>			    					
-				    										<td><input type="checkbox" id="permissions" name="permissions" value="<%= p.getPermissionID() %>"><%= p.getName() %></td>
-				    								<% } %>
-				    							</tr>
-				    						</table>
-				  						</div>
-				  				<% } %>
-				  			</div>
+			  							<h2 style="font-size:14px;"><%= pm.getName() %>:</h2>
+										<table style="margin: 7px 0px; ">
+											<tr>
+											<% for (int j = 0; j<ps.size(); j++ ) {
+											Permission p = ps.get(j);
+												if (j % 4 == 0 && j != 0) {
+											%>	
+											</tr>
+											<tr>
+											<%  } %>			    					
+											<td style="padding: 5px;"><input type="checkbox" name="permissions" value="<%= p.getPermissionID() %>"><%= p.getName() %></td>
+											<% } %>
+											</tr>
+										</table>
+				    			<% } %>
+							</div>
 			  				<br>
 			  			</div>
 					</form>	

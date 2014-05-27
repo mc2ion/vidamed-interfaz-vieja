@@ -15,6 +15,7 @@
 		info_text = info;
 	}
 	session.removeAttribute("info");
+	
 %>
 <!DOCTYPE HTML>
 <html>
@@ -81,11 +82,11 @@
         </div>         
     	<jsp:include page="./upperMenu.jsp" />        
 		<div id="menu">
-					<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
+			<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 			<ul>
             	<li class="menuitem"><a href="CreateCashBoxServlet">Crear Caja</a></li>
             </ul>
-	    	<div class="menuitemSalir"><a href="LogoutServlet">Salir</a></div>	
+            <div class="menuitemSalir"><a href="LogoutServlet">Salir</a></div>	
         </div>        
 			 <jsp:include page="./menu.jsp" />
 		<div id="content">  
@@ -127,15 +128,15 @@
 																onclick="return loadVars(<%= cb.getCashBoxID() %>,'<%= cb.getName() %>', '<%= cb.getTotalAmount() %>');" >
 																<img alt="logo" src="./images/close.png"  height="16" width="16" title="Cerrar Caja" />
 															</a>
-															<a href="CreatePaymentServlet?cashBoxID=<%= cb.getCashBoxID() %>" style="color: transparent" >
+															<a href="CreatePaymentServlet?cashBoxID=<%= cb.getCashBoxID() %>" style="color: transparent;" >
 																<img alt="logo" src="./images/movements.png"  height="16" width="16" title="Registrar Pago" />
 															</a>
 													<% 	} %>											
-													<a href="ShowCashBoxServlet?cashBoxID=<%= cb.getCashBoxID() %>" style="color: transparent" >
+													<a href="ShowCashBoxServlet?cashBoxID=<%= cb.getCashBoxID() %>" style="color: transparent;" >
 														<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 													</a>
 													<% 	if (cb.getCashBoxID() != 1) { %>
-															<a href="EditCashBoxServlet?cashBoxID=<%= cb.getCashBoxID() %>" style="color: transparent" >
+															<a href="EditCashBoxServlet?cashBoxID=<%= cb.getCashBoxID() %>" style="color: transparent;" >
 																<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar Caja" />
 															</a>
 															<a id="go" rel="leanModal" href="#deleteCash" style="color: #f7941e; font-weight: bold;" 

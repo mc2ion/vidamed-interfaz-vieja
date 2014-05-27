@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
 import domain.MedicalFee;
+import domain.PermissionsList;
 import domain.User;
 
 
@@ -46,8 +47,10 @@ public class ListBillingsRPServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
-		if(userE != null){
-	    	try {
+		
+		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.billsRP);
+		if(userE != null && perm ){
+			try {
 				
 				ArrayList<MedicalFee> pp = (ArrayList<MedicalFee>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetMedicalFees());
 				request.setAttribute("pp", pp);
@@ -59,8 +62,13 @@ public class ListBillingsRPServlet extends HttpServlet {
 				throw new ServletException(e);
 			}
 		} else {
-			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
-			rd.forward(request, response);
+			if (userE == null){
+				request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+				rd.forward(request, response);
+			}else{
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/sectionDenied.jsp");
+				rd.forward(request, response);
+			}
 		}	
 	}
 	
@@ -69,30 +77,44 @@ public class ListBillingsRPServlet extends HttpServlet {
 	 */
     @SuppressWarnings("unchecked")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String dateIni 	  = request.getParameter("txtDateIni");
-		String dateEnd 	  = request.getParameter("txtDateEnd");
-		String name  	  = request.getParameter("eName");
-		String lastName   = request.getParameter("eLastname");
-		String amount 	  = request.getParameter("amount");
+    	HttpSession session = request.getSession();
+		User userE = (User)session.getAttribute("user");
 		
-		try {
+		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.billsRP);
+		if(userE != null && perm ){
+    	
+	    	String dateIni 	  = request.getParameter("txtDateIni");
+			String dateEnd 	  = request.getParameter("txtDateEnd");
+			String name  	  = request.getParameter("eName");
+			String lastName   = request.getParameter("eLastname");
+			String amount 	  = request.getParameter("amount");
 			
-			ArrayList<MedicalFee> pp = (ArrayList<MedicalFee>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetMedicalFees(dateIni, dateEnd, name, lastName, amount));
-			request.setAttribute("pp", pp);
-			RequestDispatcher rd;			
-			request.setAttribute("dateIni", dateIni);
-			request.setAttribute("dateEnd", dateEnd);
-			request.setAttribute("name", name);
-			request.setAttribute("amount", amount);
-			request.setAttribute("lastname", lastName);
-			
-			
-			rd = getServletContext().getRequestDispatcher("/billingRP.jsp");
-			rd.forward(request, response);
-		} 
-		catch (Exception e) {
-			throw new ServletException(e);
-		}
-		
+			try {
+				
+				ArrayList<MedicalFee> pp = (ArrayList<MedicalFee>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetMedicalFees(dateIni, dateEnd, name, lastName, amount));
+				request.setAttribute("pp", pp);
+				RequestDispatcher rd;			
+				request.setAttribute("dateIni", dateIni);
+				request.setAttribute("dateEnd", dateEnd);
+				request.setAttribute("name", name);
+				request.setAttribute("amount", amount);
+				request.setAttribute("lastname", lastName);
+				
+				
+				rd = getServletContext().getRequestDispatcher("/billingRP.jsp");
+				rd.forward(request, response);
+			} 
+			catch (Exception e) {
+				throw new ServletException(e);
+			}
+		} else {
+			if (userE == null){
+				request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+				rd.forward(request, response);
+			}else{
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/sectionDenied.jsp");
+				rd.forward(request, response);
+			}
+		}	
 	}
 }
