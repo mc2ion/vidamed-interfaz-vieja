@@ -9,6 +9,8 @@ public class MedicalFee {
 	private String amount;
 	private int isPromptPayment;
 	private String promptAmount;
+	private PendingBills bill;
+	private int wasPaid;
 	
 	public Long getMedicalFeeID() {
 		return medicalFeeId;
@@ -57,4 +59,22 @@ public class MedicalFee {
 	public String getPromptAmount(){
 		return promptAmount;
 	}
+	
+	public void setBill(PendingBills bill){
+		this.bill = bill;
+	}
+	
+	public PendingBills getBill(){
+		return bill;
+	}
+	
+	public int getWasPaid() {
+		return wasPaid;
+	}
+	
+	public void setWasPaid(int wasPaid) {
+		this.wasPaid = wasPaid;
+	}
+	
+	
 }

@@ -4,12 +4,14 @@ public class Supply {
 	
 	private Long supplyID;
 	private Long supplyAreaID;
+	private String supplyAreaName;
 	private String name;
 	private Integer type;
 	private String description;
 	private String activeComponent;
 	private String manufacturer;
 	private Long supplyFormID;
+	private String supplyFormName;
 	private Long amount;
 	private Double unitPrice;
 	private Integer isRegulated;
@@ -28,6 +30,15 @@ public class Supply {
 	
 	public void setSupplyAreaID(Long supplyAreaID) {
 		this.supplyAreaID = supplyAreaID;
+	}
+	
+	
+	public String getSupplyAreaName() {
+		return supplyAreaName;
+	}
+	
+	public void setSupplyAreaName(String supplyAreaName) {
+		this.supplyAreaName = supplyAreaName;
 	}
 	
 	public String getName() {
@@ -76,6 +87,14 @@ public class Supply {
 
 	public void setSupplyFormID(Long supplyFormID) {
 		this.supplyFormID = supplyFormID;
+	}
+	
+	public String getSupplyFormName() {
+		return supplyFormName;
+	}
+
+	public void setSupplyFormName(String supplyFormName) {
+		this.supplyFormName = supplyFormName;
 	}
 
 	public Long getAmount() {

@@ -1,6 +1,7 @@
 <%@page import="domain.UserReport"%>
 <%@page import="domain.Admission"%>
 <%@ page import="domain.User" %>
+<%@ page import="domain.UserUnit" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.HashMap" %>
 <%
@@ -16,6 +17,9 @@
 	
 	@SuppressWarnings("unchecked")
 	ArrayList<UserReport> mfList = (ArrayList<UserReport>)request.getAttribute("pp");
+	
+	@SuppressWarnings("unchecked")
+	ArrayList<UserUnit> a = (ArrayList<UserUnit>)request.getAttribute("a");
 	
 	String dateIni = (String) request.getAttribute("dateIni");
 	String dateEnd = (String)request.getAttribute("dateEnd");
@@ -84,17 +88,27 @@
         </div>        
 		 <jsp:include page="./menu.jsp" />
 		<div id="content">  
-			<h2>Reportes</h2>
+			<h2>Reportes Usuarios</h2>
 			<div id="dt_example">
 					<div id="container">
 						<form action="ListReportsServlet" method="post">
 								<h3 style="display:inline;">Escoga el módulo del cual quiere obtener un reporte:</h3>
 								<select name="modId">
-								    <option value="0">Seleccionar</option>
+								  	<option value="0">Seleccionar</option>
 									<option value="1" selected>Usuarios</option>
 									<option value="2" >Especialistas</option>
 									<option value="3" >Responsables de Pago</option>
-									<option value="4" >Farmacia</option>
+									<option value="4" >Farmacia - Admin</option>
+									<option value="5" >Farmacia - Pacientes</option>
+									<option value="6" >Banco de Sangre</option>
+									<option value="7" >Ecosonografía</option>
+									<option value="8" >Rayos X</option>
+									<option value="9" >Laboratorio</option>
+									<option value="10" >Interconsultas</option>
+									<option value="11" >Descuentos</option>
+									<option value="12" >Facturas</option>
+									<option value="13" >Admisión</option>
+									<option value="14" >Honorarios Médicos</option>
 								</select>
 								<input type="submit" value="Buscar"/>
 						</form><br/><br/>
@@ -118,7 +132,19 @@
 										<option value="M" <%= (gender != null && gender.equals("M")) ? "selected" : "" %>>M</option>
 									</select>
 									</td>
-									<td><b>Id Unidad:</b></td><td>  <input type="text" name="unitId" size="20" value="<%= (unitId != null) ? unitId : "" %>"></td>
+									<td><b>Unidad:</b></td>
+									
+									<td>  
+									<select name="unitId" style="width: 135px;">
+										<option value="-">Todos</option>
+										<%
+											for (int  i = 0; i < a.size(); i++){
+												UserUnit u = a.get(i);
+										%>
+										<option value="<%= u.getUserUnitID() %>" <%= (String.valueOf(u.getUserUnitID()).equals(unitId)) ? "selected" : "" %> ><%= u.getName() %></option>
+										<% } %>
+									</select>
+									</td>
 								</tr>
 							</table>	
 							<input type="submit" class="buttonGreen lessPadding"   style="float: right; margin-right:40px; margin-top: 5px;" value="Buscar">
@@ -135,6 +161,7 @@
 											<th>Sexo</th>
 											<th>Id Unidad</th>
 											<th>Unidad</th>
+											<th>Salario</th>
 										</tr>
 									</thead>
 									<tbody>	
@@ -148,12 +175,13 @@
 											<td><%= u.getIdentityCard() %></td>
 											<td><%= u.getGender() %></td>
 											<td><%= u.getUserUnitID() %></td>
-											<td><%= u.getUnitName() %></td>
+											<td><%= (u.getUnitName() != null) ? u.getUnitName(): "-" %></td>
+											<td><%= (u.getSalary() != null) ? u.getSalary(): "-" %></td>
 										</tr>
 									<% 		}
 										}else{									
 									%>
-										<tr><td colspan="5" style="text-align: center;">No hay datos disponibles</td></tr>
+										<tr><td colspan="7" style="text-align: center;">No hay datos disponibles</td></tr>
 									
 									<% } %>	
 									</tbody>

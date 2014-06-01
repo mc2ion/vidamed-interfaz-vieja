@@ -93,15 +93,21 @@
 						<form action="ListReportsServlet" method="post">
 								<h3 style="display:inline;">Escoga el módulo del cual quiere obtener un reporte:</h3>
 								<select name="modId">
-								  <option value="0">Seleccionar</option>
-									<option value="1">Usuarios</option>
-									<option value="2">Especialistas</option>
-									<option value="3">Responsables de Pago</option>
-									<option value="4">Farmacia - Admin</option>
-									<option value="5">Farmacia - Pacientes</option>
+								   <option value="0">Seleccionar</option>
+									<option value="1" >Usuarios</option>
+									<option value="2" >Especialistas</option>
+									<option value="3" >Responsables de Pago</option>
+									<option value="4" >Farmacia - Admin</option>
+									<option value="5" >Farmacia - Pacientes</option>
 									<option value="6" selected>Banco de Sangre</option>
-									<option value="7"> Ecosonografía</option>
-									<option value="8">Rayos X</option>
+									<option value="7" >Ecosonografía</option>
+									<option value="8" >Rayos X</option>
+									<option value="9" >Laboratorio</option>
+									<option value="10" >Interconsultas</option>
+									<option value="11" >Descuentos</option>
+									<option value="12" >Facturas</option>
+									<option value="13" >Admisión</option>
+									<option value="14" >Honorarios Médicos</option>
 								</select>
 								<input type="submit" value="Buscar"/>
 						</form><br/><br/>

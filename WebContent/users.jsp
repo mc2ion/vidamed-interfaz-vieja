@@ -86,8 +86,8 @@
 	
 	function loadVars(var1, var2) {
 		idUser = var1;
-		$('.cliente').text(var2);
-		
+		$('.cliente').text(var1);
+		$('.namecliente').text(var2);
 	};
 	
 	function setV(f){
@@ -147,7 +147,7 @@
 														<img alt="logo" src="./images/editPassword2.png"  height="16" width="16" title="Contraseña"/>
 													</a>
 													<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-														onclick="return loadVars(<%= u.getUserID() %>,'<%= u.getUserID() %>');" >
+														onclick="return loadVars(<%= u.getUserID() %>,'<%= u.getUserName() %>');" >
 														<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
 													</a> 
 													<br>
@@ -166,7 +166,7 @@
 			<div id="signup-ct">
 				<h3 id="see_id" class="sprited" > Eliminar Usuario</h3>
 				<br><br>
-				<span>¿Está seguro que desea eliminar el usuario n° <span class="cliente"></span>? </span> <br><br>
+				<span>¿Está seguro que desea eliminar el usuario n° <span class="cliente"></span>: <span class="namecliente"></span> ? </span> <br><br>
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>

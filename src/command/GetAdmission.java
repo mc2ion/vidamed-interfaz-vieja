@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import domain.Admission;
 
@@ -23,12 +27,17 @@ public class GetAdmission implements DatabaseCommand {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
+		DateFormat fromFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		fromFormat.setLenient(false);
+		DateFormat toFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		toFormat.setLenient(false);
+	
+		
 		try {
 			ps = conn.prepareStatement("exec dbo.GetAdmission " + id);
 			rs = ps.executeQuery();
 
 			if (rs.next()) {
-				System.out.println("a" +rs.getLong(1) );
 				u.setAdmissionID(rs.getLong(1));
 				u.setEstimationID(rs.getLong(2));
 				u.setPatientID(rs.getLong(3));
@@ -43,7 +52,20 @@ public class GetAdmission implements DatabaseCommand {
 				u.setStatusName(rs.getString(12));
 				u.setReasonID(rs.getLong(13));
 				u.setReasonName(rs.getString(14));
-				u.setAdmissionDate(rs.getString(15));
+				
+				
+				String dateStr = rs.getString(15);
+				Date date;
+				try {
+					if (dateStr != null){
+						date = fromFormat.parse(dateStr);
+						u.setAdmissionDate(toFormat.format(date));
+					}
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+				
+				//u.setAdmissionDate(rs.getString(15));
 			}
 		}
 		finally {

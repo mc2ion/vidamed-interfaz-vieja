@@ -97,7 +97,7 @@
 									<input type="submit"  class="button"  name="sbmtButton" value="Imprimir" />
 						</div>	
 						<div id="botonV" style="display: inline;">
-								<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
+								<a href="./ListMedicalTreatmentsServlet" class="button">Regresar</a>	
 						</div>	
 					</form>
 				</div><br>

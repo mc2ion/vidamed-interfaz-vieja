@@ -55,6 +55,7 @@
 	
 	function loadVars(var1, var2) {
 		rId = var1;
+		$('.ids').text(var1);
 		$('.cliente').text(var2);
 		
 	};
@@ -130,7 +131,7 @@
 			<div id="signup-ct">
 				<h3 id="see_id" class="sprited" > Eliminar Responsable</h3>
 				<br><br>
-				<span>¿Está seguro que desea eliminar el responsable de pago "<span class="cliente"></span>"? </span> <br><br>
+				<span>¿Está seguro que desea eliminar el responsable de pago #<span class="ids"></span> "<span class="cliente"></span>"? </span> <br><br>
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>

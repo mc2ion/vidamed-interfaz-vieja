@@ -4,11 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import domain.Patient;
 import domain.PatientServiceReport;
@@ -96,7 +93,7 @@ public class GetPatientServiceReport implements DatabaseCommand {
 				u.setAssociatedFile(rs.getString(14));
 				u.setPrice(rs.getString(15));
 				
-				DateFormat fromFormat = new SimpleDateFormat("yyyy-MM-dd");
+				/*DateFormat fromFormat = new SimpleDateFormat("yyyy-MM-dd");
 				fromFormat.setLenient(false);
 				
 				DateFormat toFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -110,7 +107,9 @@ public class GetPatientServiceReport implements DatabaseCommand {
 					u.setServiceDate(toFormat.format(date));
 				} catch (ParseException e1) {
 					e1.printStackTrace();
-				}
+				}*/
+				
+				u.setServiceDate(rs.getString(16));
 				
 				
 				p.add(u);

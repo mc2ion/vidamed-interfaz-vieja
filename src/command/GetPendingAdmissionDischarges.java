@@ -4,7 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import domain.Patient;
 import domain.PendingAdmissionDischarges;
@@ -20,6 +24,12 @@ public class GetPendingAdmissionDischarges implements DatabaseCommand {
 		ArrayList<PendingAdmissionDischarges> admissions = new ArrayList<PendingAdmissionDischarges>();;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		
+		DateFormat fromFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		fromFormat.setLenient(false);
+		
+		DateFormat toFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		toFormat.setLenient(false);
 		
 		try {
 			ps = conn.prepareStatement("exec dbo.GetPendingAdmissionDischarges");
@@ -42,8 +52,23 @@ public class GetPendingAdmissionDischarges implements DatabaseCommand {
 				e.setLastName(rs.getString(8));
 				u.setSpecialist(e);
 				
-				u.setAdmissionDate(rs.getString(9));
-				u.setDischargeDate(rs.getString(10));
+				String dateStr = rs.getString(9);
+				Date date;
+				try {
+					date = fromFormat.parse(dateStr);
+					u.setAdmissionDate(toFormat.format(date));
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+					
+				dateStr = rs.getString(10);
+				try {
+					date = fromFormat.parse(dateStr);
+					u.setDischargeDate(toFormat.format(date));
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+				
 				
 				admissions.add(u);
 			}

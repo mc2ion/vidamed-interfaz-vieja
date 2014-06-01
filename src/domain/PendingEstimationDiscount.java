@@ -9,10 +9,15 @@ public class PendingEstimationDiscount {
 	private String type;
 	private String amount;
 	private String total;
-	private long estimationID;
+	private Long estimationID;
+	private Long patientID;
+	private String identityCard;
 	private String justification;
 	private String requestDate;
-	
+	private String gender;
+	private int isAdult;
+	private int isApproved;
+	private String reviewDate;
 	
 	public Long getDiscountID() {
 		return discountID;
@@ -86,6 +91,56 @@ public class PendingEstimationDiscount {
 	
 	public void setRequestDate(String requestDate) {
 		this.requestDate = requestDate;
+	}
+	
+	
+	public int getIsAdult() {
+		return isAdult;
+	}
+	
+	public void setIsAdult(int isAdult) {
+		this.isAdult = isAdult;
+	}
+	
+	public String getGender() {
+		return gender;
+	}
+	
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	
+	public String getIdentityCard() {
+		return identityCard;
+	}
+	
+	public void setIdentityCard(String identityCard) {
+		this.identityCard = identityCard;
+	}
+	
+	public Long getPatientID() {
+		return patientID;
+	}
+	
+	public void setPatientID(Long patientID) {
+		this.patientID = patientID;
+	}
+	
+	public int getIsApproved() {
+		return isApproved;
+	}
+	
+	public void setIsApproved(int isApproved) {
+		this.isApproved = isApproved;
+	}
+	
+	
+	public String getReviewDate() {
+		return reviewDate;
+	}
+	
+	public void setReviewDate(String reviewDate) {
+		this.reviewDate = reviewDate;
 	}
 	
 	

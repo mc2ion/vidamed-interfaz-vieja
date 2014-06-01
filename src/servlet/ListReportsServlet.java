@@ -69,7 +69,6 @@ public class ListReportsServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String modId = request.getParameter("modId");
-		System.out.println("modId " + modId);
 		request.setAttribute("modId", modId);
 		
 		if (modId.equals("1")){
@@ -81,10 +80,10 @@ public class ListReportsServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/ListPaymentResponsibleReportsServlet");
 		}
 		else if (modId.equals("4")){
-			//response.sendRedirect(request.getContextPath() + "/ListPaymentResponsibleReportsServlet");
+			response.sendRedirect(request.getContextPath() + "/ListSupplyReportsServlet");
 		}
 		else if (modId.equals("5")){
-			//response.sendRedirect(request.getContextPath() + "/ListPaymentResponsibleReportsServlet");
+			response.sendRedirect(request.getContextPath() + "/ListPatientSupplyReportsServlet");
 		}
 		else if (modId.equals("6")){
 			response.sendRedirect(request.getContextPath() + "/ListBloodBankReportsServlet");
@@ -98,6 +97,23 @@ public class ListReportsServlet extends HttpServlet {
 		else if (modId.equals("9")){
 			response.sendRedirect(request.getContextPath() + "/ListLabReportsServlet");
 		}	
+		else if (modId.equals("10")){
+			response.sendRedirect(request.getContextPath() + "/ListPatientMedicalAdviceReportsServlet");
+		}
+		else if (modId.equals("11")){
+			response.sendRedirect(request.getContextPath() + "/ListEstimationDiscountReportServlet");
+		}
+		else if (modId.equals("12")){
+			response.sendRedirect(request.getContextPath() + "/ListBillReportServlet");
+		}
+		else if (modId.equals("13")){
+			response.sendRedirect(request.getContextPath() + "/ListAdmissionReportServlet");
+		}
+		else if (modId.equals("14")){
+			response.sendRedirect(request.getContextPath() + "/ListMedicalFeeReportServlet");
+		}
+		
+		
 		
 		else{
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/reports.jsp");

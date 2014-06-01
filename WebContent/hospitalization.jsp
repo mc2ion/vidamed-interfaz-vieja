@@ -67,7 +67,7 @@
 	function loadVars(var1, var2) {
 		idUser = var1;
 		$('.cliente').text(var2);
-		
+		$('.idf').text(var1);
 	};
 	
 	function setV(f){
@@ -151,7 +151,7 @@
 			<div id="signup-ct">
 				<h3 id="see_id" class="sprited" > Eliminar Hospitalización</h3>
 				<br><br>
-				<span>¿Está seguro que desea eliminar del sistema la hospitalización de <span class="cliente"></span>? </span> <br><br>
+				<span>¿Está seguro que desea eliminar del sistema la hospitalización #<span class="idf"></span>  de <span class="cliente"></span>? </span> <br><br>
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
@@ -177,6 +177,7 @@
 					<input type="hidden" id="function" class="good_input" name="function"  value="hospitalization"/>
 					Indique Razón: 
 					<select name="dischargeID">
+						<option value="-">Seleccionar</option>
 						<% for (int i=0; i< disc.size(); i++){ 
 							DischargeType dType = disc.get(i);
 						%>

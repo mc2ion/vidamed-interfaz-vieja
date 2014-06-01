@@ -74,9 +74,9 @@
 		<div id="menu">
 			
 			<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
-			<ul>
+			<!-- <ul>
             	<li class="menuitem"><a href="CreateXRayReportFormServlet">Cargar Informe</a></li>
-            </ul>
+            </ul> -->
 	    	<div class="menuitemSalir"><a href="LogoutServlet">Salir</a></div>	
         </div>        
 		<jsp:include page="./menu.jsp" />

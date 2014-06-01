@@ -69,7 +69,7 @@
 	function loadVars(var1, var2) {
 		idUser = var1;
 		$('.cliente').text(var2);
-		
+		$('.idf').text(var1);
 	};
 	
 	function setV(f){
@@ -157,7 +157,7 @@
 			<div id="signup-ct">
 				<h3 id="see_id" class="sprited" > Eliminar Emergencia</h3>
 				<br><br>
-				<span>¿Está seguro que desea eliminar del sistema la emergencia de <span class="cliente"></span>? </span> <br><br>
+				<span>¿Está seguro que desea eliminar del sistema la emergencia #<span class="idf"></span> de <span class="cliente"></span>? </span> <br><br>
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>

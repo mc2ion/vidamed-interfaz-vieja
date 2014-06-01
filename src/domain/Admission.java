@@ -18,6 +18,9 @@ public class Admission {
 	private long reasonID;
 	private String reasonName;
 	private String admissionDate;
+	private Long dischargeTypeId;
+	private String dischargeName;
+	private String dischargeDate;
 	
 	
 	public Long getAdmissionID() {
@@ -140,5 +143,30 @@ public class Admission {
 	public void setAdmissionDate(String admissionDate) {
 		this.admissionDate = admissionDate;
 	}
+	
+	public Long getDischargeTypeID() {
+		return dischargeTypeId;
+	}
+	
+	public void setDischargeTypeID(Long dischargeTypeId) {
+		this.dischargeTypeId = dischargeTypeId;
+	}
+	
+	public String getDischargeName() {
+		return dischargeName;
+	}
+	
+	public void setDischargeName(String dischargeName) {
+		this.dischargeName = dischargeName;
+	}
+	
+	public String getDischargeDate() {
+		return dischargeDate;
+	}
+	
+	public void setDischargeDate(String dischargeDate) {
+		this.dischargeDate = dischargeDate;
+	}
+	
 	
 }

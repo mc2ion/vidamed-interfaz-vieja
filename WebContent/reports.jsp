@@ -53,6 +53,11 @@
 									<option value="7" <%= (modSelect == 7 ? "selected" : "") %>>Ecosonografía</option>
 									<option value="8" <%= (modSelect == 8 ? "selected" : "") %>>Rayos X</option>
 									<option value="9" <%= (modSelect == 9 ? "selected" : "") %>>Laboratorio</option>
+									<option value="10" <%= (modSelect == 10 ? "selected" : "") %>>Interconsultas</option>
+									<option value="11" <%= (modSelect == 11 ? "selected" : "") %>>Descuentos</option>
+									<option value="12" <%= (modSelect == 12 ? "selected" : "") %>>Facturas</option>
+									<option value="13" <%= (modSelect == 13 ? "selected" : "") %>>Admisión</option>
+									<option value="14" <%= (modSelect == 14 ? "selected" : "") %>>Honorarios Médicos</option>
 								</select>
 								<input type="submit" value="Buscar"/>
 							</form>

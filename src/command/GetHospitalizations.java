@@ -4,7 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import domain.Bed;
 import domain.Hospitalization;
@@ -47,7 +51,23 @@ public class GetHospitalizations implements DatabaseCommand {
 				l.setId(rs.getInt(9));
 				l.setName(rs.getString(10));
 				u.setLocation(l);
-				u.setAdmissionDate(rs.getString(11));
+				
+				DateFormat fromFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				fromFormat.setLenient(false);
+				DateFormat toFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+				toFormat.setLenient(false);
+				
+				String dateStr = rs.getString(11);
+				Date date;
+				try {
+					if (dateStr != null){
+						date = fromFormat.parse(dateStr);
+						u.setAdmissionDate(toFormat.format(date));
+					}
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+				
 				
 				hosp.add(u);
 			}

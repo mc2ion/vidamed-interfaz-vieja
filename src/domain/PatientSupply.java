@@ -4,12 +4,16 @@ public class PatientSupply {
 	
 	private Long admissionID;
 	private Long patientSupplyID;
+	private Long estimationID;
+	private Patient patient;
 	private Long supplyID;
+	private Supply supply;
 	private String supplyName;
 	private String supplyForm;
 	private String amount;
 	private String unitPrice;
 	private String total;
+	private String supplyDate;
 	
 	public Long getAdmissionID() {
 		return admissionID;
@@ -33,6 +37,30 @@ public class PatientSupply {
 	
 	public void setSupplyID(Long supplyID) {
 		this.supplyID = supplyID;
+	}
+	
+	public Long getEstimationID() {
+		return estimationID;
+	}
+	
+	public void setEstimationID(Long estimationID) {
+		this.estimationID = estimationID;
+	}
+	
+	public Patient getPatient() {
+		return patient;
+	}
+	
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+	
+	public Supply getSupply() {
+		return supply;
+	}
+	
+	public void setSupply(Supply supply) {
+		this.supply = supply;
 	}
 	
 	public String getSupplyName() {
@@ -73,5 +101,13 @@ public class PatientSupply {
 
 	public void setTotal(String total) {
 		this.total = total;
+	}
+	
+	public String getSupplyDate() {
+		return supplyDate;
+	}
+
+	public void setSupplyDate(String supplyDate) {
+		this.supplyDate = supplyDate;
 	}
 }

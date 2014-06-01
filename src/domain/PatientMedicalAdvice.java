@@ -3,12 +3,14 @@ package domain;
 public class PatientMedicalAdvice {
 	
 	private Long admissionID;
+	private Long estimationID;
 	private Long patientMedicalAdviceID;
 	private Long unitID;
 	private String unitName;
 	private Specialist specialist;
 	private double medicalFeed;
 	private String medicalAdviceDate;
+	private Patient patient;
 	
 	public Long getAdmissionID() {
 		return admissionID;
@@ -17,6 +19,15 @@ public class PatientMedicalAdvice {
 	public void setAdmissionID(Long admissionID) {
 		this.admissionID = admissionID;
 	}
+	
+	public Long getEstimationID() {
+		return estimationID;
+	}
+	
+	public void setEstimationID(Long estimationID) {
+		this.estimationID = estimationID;
+	}
+	
 	
 	public Long getPatientMedicalAdviceID() {
 		return patientMedicalAdviceID;
@@ -64,5 +75,13 @@ public class PatientMedicalAdvice {
 	
 	public void setMedicalAdviceDate(String medicalAdviceDate) {
 		this.medicalAdviceDate = medicalAdviceDate;
+	}
+	
+	public Patient getPatient() {
+		return patient;
+	}
+	
+	public void setPatient(Patient patient) {
+		this.patient = patient;
 	}
 }

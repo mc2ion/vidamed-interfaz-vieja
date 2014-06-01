@@ -48,7 +48,7 @@
 	        		<label>Suministro: </label>
 					<span><%= pSupply.getSupplyName() %></span><br/><br/>
 					<label>Presentación: </label>
-					<span><%= pSupply.getSupplyForm() %></span><br/><br/>
+					<span><%= (pSupply.getSupplyForm() != null) ? pSupply.getSupplyForm(): "-" %></span><br/><br/>
 					<label>Cantidad: </label>
 					<input type="text" value="<%= pSupply.getAmount()%>" name="amount" style="width:60px;" required title="El campo 'Cantidad' debe ser numérico y no puede ser dejado en blanco" /><br/><br/>
 					

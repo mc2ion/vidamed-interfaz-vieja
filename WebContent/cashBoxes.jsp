@@ -91,7 +91,7 @@
 			 <jsp:include page="./menu.jsp" />
 		<div id="content">  
 			<h2>Cajas:</h2>
-			<div id="printCashBox"><a href="SearchCashBoxFormServlet" id="printCashBoxText" >Imprimir cierre de cajas</a></div>
+			<div id="printCashBox"><a href="SearchCashBoxFormServlet" id="printCashBoxText" >Imprimir cierre de cajas</a></div><br/>
 			<div class="info-text"><%= info_text %></div>
 			<div id="dt_example">
 					<div id="container">
@@ -191,7 +191,7 @@
 					<div class="text">
 						<div class="leftColum"><b>Caja:</b></div><span class="caja"></span> <br>
 						<div class="leftColum"><b>Status:</b></div>Abierta<br>
-						<div class="leftColum"><b>Clave:</b></div><input type="text" id="password" name="password" /><br>
+						<div class="leftColum"><b>Clave:</b></div><input type="password" id="password" name="password" /><br>
 						<div class="leftColum"><b>Monto:</b></div><span class="totalAmount"></span><br><br>
 						<span>¿Está seguro que desea cerrar la caja</span>  <span class="caja"></span>?  
 					</div>

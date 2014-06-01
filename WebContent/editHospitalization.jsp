@@ -107,7 +107,7 @@
 											<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
 								</div>	
 								<div id="botonV" style="display: inline;">
-										<a href="ListEmergenciesServlet"  class="button" >Regresar</a>
+										<a href="./ListHospitalizationsServlet"  class="button" >Regresar</a>
 								</div>	
 							</form>
 							<br/>
