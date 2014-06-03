@@ -11,6 +11,13 @@
 	ArrayList<PendingAccounts> pList = (ArrayList<PendingAccounts>)request.getAttribute("pAccounts");
 	
 	
+	String info_text = "";
+	String info = (String) session.getAttribute("info");
+	if (info != null ){
+		info_text = info;
+	}
+	session.removeAttribute("info");
+	
 %>
 <!DOCTYPE HTML>
 <html>
@@ -74,13 +81,13 @@
         	}
 		} );*/
 		
-		$('#example2').dataTable( {
+		oTable = $('#example2').dataTable( {
 			"iDisplayLength": 7,
 			"bLengthChange": false,
 			"sScrollY": "250px",
 			"bPaginate": false,
 			"aoColumns": [
-				null,
+				{"asSorting": false},
 				null,
 				null,
 				null,
@@ -97,7 +104,9 @@
 	            "sLoadingRecords": "Por favor, espere - cargando...",
 	            "sSearch": "Buscar:"
         	}
+			
 		} ); 
+		oTable.fnSort( [ [1,'desc'] ] );
 	} );
 	</script>
 	</head>
@@ -109,15 +118,12 @@
         	<jsp:include page="./upperMenu.jsp" />        
 			<div id="menu">
 				<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
-		    	<ul>
-	            	<li class="menuitem"><a href="ListBanksServlet">Ver cajas</a></li>
-	            </ul>
-				<div class="menuitemSalir"><a href="LogoutServlet">Salir</a></div>	
+		    	<div class="menuitemSalir"><a href="LogoutServlet">Salir</a></div>	
         	</div>        
 			<jsp:include page="./menu.jsp" />
         	<div id="content" style="position:absolute;">	
-	        	<h2>Cuentas pendientes:</h2>
-				<br>
+	        	<h2>Cuentas pendientes:</h2><br/>
+			<div class="info-text"><%= info_text %></div>
 				<!--<div id="tabs">
 					<ul>
 					    <li><a href="#tabs-1">Por cobrar</a></li>-->

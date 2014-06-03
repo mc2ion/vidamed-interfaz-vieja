@@ -4,6 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import domain.PendingPromptPayment;
 import domain.Specialist;
 
@@ -26,11 +31,27 @@ public class GetPendingPromptPayment implements DatabaseCommand {
 			rs = ps.executeQuery();
 			
 			if (rs.next()) {
-				System.out.println('a');
 				u.setMedicalFeeID(rs.getLong(1));
 				u.setBillID(rs.getLong(2));
 				u.setBillWasPaid(rs.getInt(3));
-				u.setBillDate(rs.getString(4));
+				
+				DateFormat fromFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				fromFormat.setLenient(false);
+				DateFormat toFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+				toFormat.setLenient(false);
+			
+				String dateStr = rs.getString(4);
+				Date date;
+				try {
+					if (dateStr != null){
+						date = fromFormat.parse(dateStr);
+						u.setBillDate(toFormat.format(date));
+					}
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+				
+				
 				
 				Specialist e = new Specialist();
 				e.setId(rs.getLong(5));

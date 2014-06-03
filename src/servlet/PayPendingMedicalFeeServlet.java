@@ -53,14 +53,17 @@ public class PayPendingMedicalFeeServlet extends HttpServlet {
 		User userE = (User)session.getAttribute("user");
 		if(userE != null){
 			try {
-				Long userID	 = Long.parseLong(request.getParameter("userId"));
+				Long userID	 	= Long.parseLong(request.getParameter("userId"));
+				String function = request.getParameter("function");
 				int result	 = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.PayMedicalFee(userID));
 				if (result == 1)
 					session.setAttribute("text", "Se registró el pago exitosamente.");
 				else
 					session.setAttribute("text","Hubo un problema el registrar el pago. Por favor, intente más tarde");
-				
-				response.sendRedirect("./ListBillingsHServlet");
+				if (function != null && function.equals("pendingPayments"))
+					response.sendRedirect("./ListPendingPaymentsServlet");
+				else
+					response.sendRedirect("./ListBillingsHServlet");
 			}
 			catch (Exception e) {
 				throw new ServletException(e);

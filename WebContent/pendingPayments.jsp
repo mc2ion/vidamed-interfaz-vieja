@@ -193,29 +193,13 @@
 				</div>
 				<form action="PayPendingMedicalFeeServlet" method="post" onsubmit="return setV(this)" >
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+					<input type="hidden" id="function" class="good_input" name="function"  value="pendingPayments"/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
 					</div>
 		 		</form>
 			</div>
 		</div>
-		
-		<div id="payment">
-			<div id="signup-ct">
-				<h3 id="see_id" class="sprited" > Mover a Pronto Pago</h3>
-				<br><br>
-				<span>¿Está seguro que desea mover el pago #<span class="fId"></span> del doctor <span class="name"></span> a pronto pago? </span> <br><br>
-				<div id="signup-header">
-					<a class="close_x" id="close_x"  href="#"></a>
-				</div>
-				<form action="MoveToPromptPaymentServlet" method="post" onsubmit="return setV(this)" >
-				    <input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
-					<input type="hidden" id="variableId" class="good_input" name="variableId"  value="1"/>
-					<div class="btn-fld">
-						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
-					</div>
-		 		</form>
-			</div>
-		</div>
+
 	</body>
 </html>

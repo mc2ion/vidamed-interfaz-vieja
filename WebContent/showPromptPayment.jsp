@@ -26,8 +26,7 @@
 			<div id="menu">
 				<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>
 				<ul>
-					<li class="menuitem"><a href="ListBanksServlet">Ver Cajas</a></li>
-            		<li class="menuitem"><a href="CreateCashBoxServlet">Crear Caja</a></li>
+					<li class="menuitem"><a href="ListBillingsPPServlet">Listado Pronto Pago</a></li>
             	</ul>	
 		    	<div class="menuitemSalir"><a href="LogoutServlet">Salir</a></div>	
         	</div>        

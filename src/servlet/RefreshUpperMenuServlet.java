@@ -54,6 +54,8 @@ public class RefreshUpperMenuServlet extends HttpServlet {
 				int countPED = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.CountPendingEstimationDiscounts());	
 				int countPPP = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.CountPendingPayments());	
 				
+				System.out.println("a" + countPPP);
+				
 				session.setAttribute("countPAD", countPAD);
 				session.setAttribute("countPCN", countPCN);
 				session.setAttribute("countPCNR", countPCNR);
