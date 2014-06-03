@@ -10,6 +10,12 @@
 	@SuppressWarnings("unchecked")
 	ArrayList<PendingCreditNotes> cnList = (ArrayList<PendingCreditNotes>)request.getAttribute("creditNotes");
 
+	String result = (String) session.getAttribute("info");
+	String text = "";
+	if (result != null)
+		text = result;
+	session.removeAttribute("info");
+	
 %>
 <!DOCTYPE HTML>
 <html>
@@ -61,7 +67,7 @@
 	function loadVars(var1, var2) {
 		idUser = var1;
 		$('.cliente').text(var2);
-		
+		$('.pid').text(var1);
 	};
 	
 	function setV(f){
@@ -115,6 +121,10 @@
 												onclick="return loadVars(<%= cn.getCreditNoteID() %>,'1001');" >
 												<img alt="logo" src="./images/print.png"  height="16" width="16" title="Imprimir"/>
 											</a>  
+											<a id="go" rel="leanModal" href="#discount" style="color: #f7941e; font-weight: bold;" 
+												onclick="return loadVars(<%= cn.getCreditNoteID() %>, '<%= pName  %>');" >
+												<img alt="logo" src="./images/check.png"  height="16" width="16" title="Generada"/>
+											</a>  
 											<br>
 										</td>
 									</tr>
@@ -141,6 +151,23 @@
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
 					</div>
 		 		</form>
+			</div>
+		</div>
+		<div id="discount">
+			<div id="signup-ct">
+				<h3 id="see_id" class="sprited" > Generada</h3><br><br>
+				<span>¿Está seguro que la prefactura n° <span class="pid"></span> del cliente <span class="cliente"></span> está generada (fue impresa)?</span> <br><br>
+				<div id="signup-header">
+					<a class="close_x" id="close_x"  href="#"></a>
+				</div>
+				<form action="GenerateCreditNoteServlet" method="post"  onsubmit="return setV(this)">
+					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+					<input type="hidden" id="id" class="good_input" name="id"  value="<%= user.getUserID() %>"/>
+					<div class="btn-fld">
+						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
+					</div>
+		 		</form>
+				
 			</div>
 		</div>
 	</body>

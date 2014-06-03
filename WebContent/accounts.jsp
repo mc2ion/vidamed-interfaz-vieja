@@ -84,6 +84,7 @@
 				null,
 				null,
 				null,
+				null,
 				{ "bSearchable": false, "asSorting": false, "sWidth": "18%" }
 			],
 			"oLanguage": {
@@ -128,6 +129,7 @@
   						<table class="display" id="example2">
 								<thead>
 									<tr>
+										<th>Seleccionar</th>
 										<th>No. de Factura</th>
 										<th>Fecha Emisión</th>
 										<th>Seguro</th>
@@ -140,6 +142,8 @@
 										PendingAccounts p = pList.get(i);
 									%>	
 									<tr class="gradeA">
+										<td><input type="checkbox" name="selFact" value="1"></td>
+										
 										<td><%= p.getBillID() %></td>
 										<td><%= p.getGenerationDate() %></td>
 										<td><%= p.getPaymentResposible().getName() %></td>
@@ -152,10 +156,6 @@
 											<a href="ShowCashServlet" style="color: transparent" >
 												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 											</a>
-											<a id="go" rel="leanModal" href="#deteleCash" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1001,'Ana Rojas');" >
-												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-											</a> 
 											<br>
 										</td>
 									</tr>

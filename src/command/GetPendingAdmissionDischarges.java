@@ -69,7 +69,7 @@ public class GetPendingAdmissionDischarges implements DatabaseCommand {
 					e1.printStackTrace();
 				}
 				
-				
+				System.out.println("a");
 				admissions.add(u);
 			}
 		}
