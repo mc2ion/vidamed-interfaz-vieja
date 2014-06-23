@@ -3,49 +3,16 @@
 	<head>
 	</head>
 	<body style="background: white;">
-		<h2>Usuarios</h2><br/>
+		<h2>Pronto Pago</h2><br/>
 		<div>
-			<div class="title">¿Cómo agregar un nuevo usuario?</div>
-			Dirígase a la sección "Usuarios" ubicado en el menú lateral izquierdo. Haga clic en la opción del menú superior "Crear Usuario". Introduzca todos los datos solicitados en cada una de las secciones: <br/> 
-			Datos Personales, Datos Contacto, Datos Usuario, Permisos. <br/> 
-			Una vez ingresado todos los datos solicitados haga clic en "Agregar".<br/> 
+			<div class="title">¿Cómo listar las facturas de pronto pago?</div>
+			Diríjase a la sección "Facturación" ubicado en el menú lateral izquierdo y seleccione la opción "Pronto Pago". <br/> 
 			
-			El usuario será creado.
+			Aparecerá una lista con todas las facturas de pronto pago registradas. 
 			
-			<div class="title">¿Cómo eliminar un usuario?</div>
-			Dirígase a la sección "Usuarios" ubicado en el menú lateral izquierdo. Haga clic en la opción del menú superior "Crear Usuario". Introduzca todos los datos solicitados en cada una de las secciones: <br/> 
-			Datos Personales, Datos Contacto, Datos Usuario, Permisos. <br/> 
-			Una vez ingresado todos los datos solicitados haga clic en "Agregar".<br/> 
-			
-			El usuario será creado.
-			
-			<div class="title">¿Cómo cambiar la contraseña de un usuario?</div>
-			Dirígase a la sección "Usuarios" ubicado en el menú lateral izquierdo. Haga clic en la opción del menú superior "Crear Usuario". Introduzca todos los datos solicitados en cada una de las secciones: <br/> 
-			Datos Personales, Datos Contacto, Datos Usuario, Permisos. <br/> 
-			Una vez ingresado todos los datos solicitados haga clic en "Agregar".<br/> 
-			
-			El usuario será creado.
-			
-			<div class="title">¿Cómo editar un usuario?</div>
-			Dirígase a la sección "Usuarios" ubicado en el menú lateral izquierdo. Haga clic en la opción del menú superior "Crear Usuario". Introduzca todos los datos solicitados en cada una de las secciones: <br/> 
-			Datos Personales, Datos Contacto, Datos Usuario, Permisos. <br/> 
-			Una vez ingresado todos los datos solicitados haga clic en "Agregar".<br/> 
-			
-			El usuario será creado.
-			
-			<div class="title">¿Cómo listas todos los usuario registrados?</div>
-			Dirígase a la sección "Usuarios" ubicado en el menú lateral izquierdo. Haga clic en la opción del menú superior "Crear Usuario". Introduzca todos los datos solicitados en cada una de las secciones: <br/> 
-			Datos Personales, Datos Contacto, Datos Usuario, Permisos. <br/> 
-			Una vez ingresado todos los datos solicitados haga clic en "Agregar".<br/> 
-			
-			El usuario será creado.
-			
-			<div class="title">¿Cómo buscar un usuario?</div>
-			Dirígase a la sección "Usuarios" ubicado en el menú lateral izquierdo. Haga clic en la opción del menú superior "Crear Usuario". Introduzca todos los datos solicitados en cada una de las secciones: <br/> 
-			Datos Personales, Datos Contacto, Datos Usuario, Permisos. <br/> 
-			Una vez ingresado todos los datos solicitados haga clic en "Agregar".<br/> 
-			
-			El usuario será creado.
+			<div class="title">¿Cómo buscar una factura de pronto pago?</div>
+			Diríjase a la sección "Facturación" ubicado en el menú lateral izquierdo y seleccione la opción "Pronto Pago". Aparecerá una lista con todas las facturas de pronto pago registradas. En la parte superior de la lista de facturas, se encuentra el campo para realizar la búsqueda. Escriba en el recuadro la búsqueda que desee realizar. <br/> 
+			A medida que vaya escribiendo, el sistema irá filtrando los resultados que superen la búsqueda realizada. <br/> <br/> 
 			
 			
 		</div>
