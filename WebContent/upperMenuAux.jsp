@@ -17,6 +17,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<meta http-equiv="refresh" content="600">
 		<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
 		<script type="text/javascript" src="./js/jquery.js"></script>
 		<script type="text/javascript" src="./js/jquery.dataTables.js"></script>

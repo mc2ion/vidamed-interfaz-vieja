@@ -42,6 +42,7 @@ public class RefreshUpperMenuServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//System.out.println("Refrescando menú");
 		HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
 		if(userE != null){
