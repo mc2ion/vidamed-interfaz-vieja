@@ -14,6 +14,11 @@
 			Diríjase a la sección "Facturación" ubicado en el menú lateral izquierdo y seleccione la opción "Pronto Pago". Aparecerá una lista con todas las facturas de pronto pago registradas. En la parte superior de la lista de facturas, se encuentra el campo para realizar la búsqueda. Escriba en el recuadro la búsqueda que desee realizar. <br/> 
 			A medida que vaya escribiendo, el sistema irá filtrando los resultados que superen la búsqueda realizada. <br/> <br/> 
 			
+			<div class="title">¿Cómo colocar como cobrada una factura de pronto pago?</div>
+			Diríjase a la sección "Facturación" ubicado en el menú lateral izquierdo y seleccione la opción "Pronto Pago". Aparecerá una lista con todas las facturas de pronto pago registradas. Ubique la factura que desee marcar como cobrada y haga clic en la opción de "Visto Bueno" ubicada en la columna de Acciones. <br/> 
+			Verifique la factura que se va a marcar como cobrada en la ventana de confirmación y haga clic en "Aceptar".<br/>
+			
+			La factura será marcada como cobrada.
 			
 		</div>
 		
