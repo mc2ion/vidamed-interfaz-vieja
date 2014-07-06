@@ -47,7 +47,6 @@ public class EditSpecialist implements DatabaseCommand {
 		      cstmt.setLong(10, specialistID);
 		      
 		      cstmt.execute();
-		      System.out.println("id " +  cstmt.getInt(1) );
 		      return cstmt.getInt(1);
 		      
 		}

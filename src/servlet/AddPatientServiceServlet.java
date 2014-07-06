@@ -156,7 +156,6 @@ public class AddPatientServiceServlet extends HttpServlet {
 					text =	"Hubo un problema al agregar al servicio. Por favor, intente nuevamente.";
 				
 				session.setAttribute("text", text);
-				System.out.println("/ListPatientServicesServlet?id=" + admisId + "&servId=" + sId + "&name=" + name);
 				response.sendRedirect(request.getContextPath() + "/ListPatientServicesServlet?id=" + admisId + "&servId=" + sId + "&name=" + name);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

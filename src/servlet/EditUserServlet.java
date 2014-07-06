@@ -64,7 +64,6 @@ public class EditUserServlet extends HttpServlet {
 					ArrayList<UserPermission> auxPermissions = (ArrayList<UserPermission>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetUserPermissions(userID));
 					HashMap<Long, UserPermission> userPermissions = new HashMap<Long, UserPermission>();
 					for (int i = 0; i<auxPermissions.size(); i++) {
-						System.out.println(auxPermissions.get(i).getPermissionID() + " " + auxPermissions.get(i));
 						userPermissions.put(auxPermissions.get(i).getPermissionID(), auxPermissions.get(i));
 					}
 					HashMap<Long, String> userUnits = (HashMap<Long, String>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetUserUnits());;

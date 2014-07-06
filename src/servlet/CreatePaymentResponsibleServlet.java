@@ -119,7 +119,6 @@ public class CreatePaymentResponsibleServlet extends HttpServlet {
 					CommandExecutor.getInstance().executeDatabaseCommand(new command.CreatePaymentResponsible(name, selBusinessRule, selBusinessModel, txtPrice));
 					response.sendRedirect(request.getContextPath() + "/ListPaymentResponsiblesServlet");
 				} catch (Exception e) {
-					System.out.println("error");
 					e.printStackTrace();
 				}
 			}
@@ -144,7 +143,6 @@ public class CreatePaymentResponsibleServlet extends HttpServlet {
 				selBusinessModelS = Long.parseLong(request.getParameter("selBusinessModel" + SM));
 				selBusinessModelM = Long.parseLong(request.getParameter("selBusinessModel" + HM));
 				
-				System.out.println(selBusinessModelH + " " + selBusinessModelG + " " + selBusinessModelS + " " + selBusinessModelM );
 				ArrayList<ResponsibleRule> rrList = new ArrayList<ResponsibleRule>();
 				
 				ResponsibleRule h = new ResponsibleRule();
@@ -158,7 +156,7 @@ public class CreatePaymentResponsibleServlet extends HttpServlet {
 				if (selBusinessModelH > 1){
 					txtPriceH = Double.valueOf(request.getParameter("txtPrice" + selBusinessModelH + H));
 					h.setPercentage(txtPriceH);
-					System.out.println(txtPriceH);
+					
 				}	
 				rrList.add(h);
 				
@@ -168,7 +166,7 @@ public class CreatePaymentResponsibleServlet extends HttpServlet {
 				if (selBusinessModelG > 1){
 					txtPriceG = Double.valueOf(request.getParameter("txtPrice" + selBusinessModelG + GQ));
 					g.setPercentage(txtPriceG);
-					System.out.println(txtPriceG);
+					
 						
 				}
 				rrList.add(g);
@@ -178,7 +176,7 @@ public class CreatePaymentResponsibleServlet extends HttpServlet {
 				if (selBusinessModelS > 1){
 					txtPriceS = Double.valueOf(request.getParameter("txtPrice" + selBusinessModelS + SM));
 					s.setPercentage(txtPriceS);
-					System.out.println(txtPriceS);
+					
 				}
 				rrList.add(s);
 				
@@ -188,7 +186,6 @@ public class CreatePaymentResponsibleServlet extends HttpServlet {
 				if (selBusinessModelM > 1){
 					txtPriceM = Double.valueOf(request.getParameter("txtPrice" + selBusinessModelM + HM ));
 					m.setPercentage(txtPriceM);
-					System.out.println(txtPriceM);
 				}
 				rrList.add(m);
 				
@@ -200,7 +197,6 @@ public class CreatePaymentResponsibleServlet extends HttpServlet {
 					//request.setAttribute("info", "Sus cambios fueron realizados exitosamente.");
 					//doGet(request, response);
 				} catch (Exception e) {
-					System.out.println("error");
 					e.printStackTrace();
 				}
 				

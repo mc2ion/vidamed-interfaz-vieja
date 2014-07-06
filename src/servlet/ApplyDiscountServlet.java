@@ -58,8 +58,6 @@ public class ApplyDiscountServlet extends HttpServlet {
 				String 	amount 			= request.getParameter("amount");
 				String 	justification 	= request.getParameter("justification");
 				
-				System.out.println(" " + id + " " + type + " " + amount + " " + justification);
-				
 				int result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.ApplyDiscount(id, type, amount, justification));
 				if (result == 1)
 					session.setAttribute("info", "El descuento fue aceptado exitosamente!.");

@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,13 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
-import domain.PatientSupply;
+import domain.BedLocation;
 import domain.User;
+
+
+
 /**
- * Servlet implementation class EditPatientSupplyServlet
+ * Servlet implementation class SearchAdmissionBedsServlet
  */
-@WebServlet(description = "servlet to log in users", urlPatterns = { "/EditPatientSupplyServlet" })
-public class EditPatientSupplyServlet extends HttpServlet {
+@WebServlet(description = "servlet to log in users", urlPatterns = { "/SearchAdmissionBedsServlet" })
+public class SearchAdmissionBedsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	public void init() throws ServletException {
@@ -32,7 +36,7 @@ public class EditPatientSupplyServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EditPatientSupplyServlet() {
+    public SearchAdmissionBedsServlet() {
         super();
     }
 
@@ -45,28 +49,28 @@ public class EditPatientSupplyServlet extends HttpServlet {
 		if(userE != null){
 			RequestDispatcher rd;
 			try {
-				String id				= request.getParameter("id");
-				String name   			= request.getParameter("name");
-				String supplyPatientId	= request.getParameter("spId");
 				
-				request.setAttribute("adminId", id);
-				request.setAttribute("name", name);
+				String id 					= request.getParameter("id");
+				String bedId				= request.getParameter("bId");
 				
-				PatientSupply pSupply = (PatientSupply) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPatientSupply(Long.valueOf(supplyPatientId)));
-			
-				request.setAttribute("pSupply", pSupply);
-				rd = getServletContext().getRequestDispatcher("/editPatientSupply.jsp");			
+				@SuppressWarnings("unchecked")
+				ArrayList<BedLocation> lList = (ArrayList<BedLocation>) CommandExecutor.getInstance().executeDatabaseCommand(new command.SearchLocations());
+				
+				request.setAttribute("txtCedNumber", id);
+				request.setAttribute("locations", lList);
+				request.setAttribute("bedId", bedId);
+				
+				rd = getServletContext().getRequestDispatcher("/searchAdmissionBed.jsp");	
 				rd.forward(request, response);
-			
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} else {
 			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 			rd.forward(request, response);
 		}	
-	
+		
+		
 	}
 
 	/**
@@ -76,27 +80,30 @@ public class EditPatientSupplyServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
 		if(userE != null){
-
+			String bedId 	 	 	= request.getParameter("bed");
+			//String txtCedNumber 	= request.getParameter("txtCedNumber");
+			String oldBedId			= request.getParameter("bedId");
 			try{
-				String admin = request.getParameter("admissionId");
-				String name  = request.getParameter("name");
-				String spId  = request.getParameter("spId");
-				String amount  = request.getParameter("amount");
-				Integer result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.EditPatientSupply(Long.valueOf(spId), amount));
+				request.setAttribute("bedId", bedId);
+				/* Si oldBedId es diferente de nulo, colocar como desocupada esa cama */
+				if (oldBedId != null && !oldBedId.equals("null")){
+					Long id = Long.valueOf(oldBedId);
+					CommandExecutor.getInstance().executeDatabaseCommand(new command.SetBedOccupation(id, 0));
+				}
 				
-				String text = "El suministro fue editado exitosamente";
-				if (result == 0)
-					text =	"Hubo un problema al editar el suministro. Por favor, intente nuevamente.";
+				request.setAttribute("function", "searchBed");
 				
-				session.setAttribute("text", text);
-				response.sendRedirect(request.getContextPath() + "/ListPatientSuppliesServlet?id=" + admin + "&name=" + name);
-		
-			}catch(Exception e){
-				System.out.println("error" + e.getMessage());
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/AdmitPatientServlet");
+				rd.forward(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		} else {
-			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); 
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 			rd.forward(request, response);
 		}	
+		//doGet(request, response);
 	}
 }

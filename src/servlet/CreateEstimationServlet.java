@@ -52,8 +52,6 @@ public class CreateEstimationServlet extends HttpServlet {
 			String txtName = request.getParameter("txtName");
 			String txtLastName = request.getParameter("txtLastName");
 			
-			System.out.println("get " + function + " " + patientID + " " + txtCedNumber + " " + txtName + " " + txtLastName );
-			
 			request.setAttribute("txtCedNumber", txtCedNumber);
 			request.setAttribute("patientID", patientID);
 			request.setAttribute("txtName", txtName);
@@ -81,7 +79,6 @@ public class CreateEstimationServlet extends HttpServlet {
 			String txtName = request.getParameter("txtName");
 			String txtLastName = request.getParameter("txtLastName");
 			
-			System.out.println(function + " " + patientID + " " + txtCedNumber + " " + txtName + " " + txtLastName );
 			if (function.equals("estimationForm")){
 				doGet(request, response);
 			}

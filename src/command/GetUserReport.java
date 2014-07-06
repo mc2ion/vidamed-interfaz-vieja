@@ -48,14 +48,9 @@ public class GetUserReport implements DatabaseCommand {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			System.out.println("b " + identityCard + ","  + gender + "," + unitId + "," + from + "," + to + "," + username);
-			
 			ps = conn.prepareStatement("exec dbo.GetUserReport " + identityCard + ","  + gender + "," + unitId + "," + from + "," + to + "," + username );
 			rs = ps.executeQuery();
 			
-			System.out.println("c");
-			
-
 			while (rs.next()) {
 				UserReport u = new UserReport();
 				u.setUserID(rs.getLong(1));

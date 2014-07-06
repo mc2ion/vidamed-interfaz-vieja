@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
+import domain.CashBox;
 import domain.PermissionsList;
 import domain.User;
 
@@ -46,10 +47,18 @@ public class ShowCashBoxServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
 		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.cashBoxes);
+		String  id 	  = request.getParameter("cashBoxID");
 		if(userE != null && perm ){
-			RequestDispatcher rd;
-			rd = getServletContext().getRequestDispatcher("/showCashBox.jsp");			
-			rd.forward(request, response);
+			try {
+				CashBox cb = (CashBox) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetCashBox(Long.valueOf(id)));
+				request.setAttribute("cashBox", cb);
+				RequestDispatcher rd;
+				rd = getServletContext().getRequestDispatcher("/showCashBox.jsp");			
+				rd.forward(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 		} else {
 			if (userE == null){
 				request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");

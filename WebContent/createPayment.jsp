@@ -1,9 +1,44 @@
+<%@page import="domain.CashBoxSalePoint"%>
+<%@page import="domain.PaymentResponsible"%>
+<%@page import="domain.Bank"%>
+<%@page import="domain.PaymentMethod"%>
+<%@page import="domain.PaymentTypes"%>
+<%@page import="domain.Admission"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="domain.User"%>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
 	if (user != null)
 		name = user.getFirstName() ;
+		
+	String id = request.getParameter("cashBoxID");
+	
+	String cedId 	= request.getParameter("cedId");
+	String cedNumber = request.getParameter("cedNumber");
+	String search   = request.getParameter("search");
+	
+	@SuppressWarnings("unchecked")
+	ArrayList<Admission> cb = (ArrayList<Admission>) request.getAttribute("cb");
+	
+	@SuppressWarnings("unchecked")
+	ArrayList<PaymentTypes> pt = (ArrayList<PaymentTypes>) request.getAttribute("pt");
+	
+	@SuppressWarnings("unchecked")
+	ArrayList<PaymentMethod> pm = (ArrayList<PaymentMethod>) request.getAttribute("pm");
+	
+	@SuppressWarnings("unchecked")
+	ArrayList<Bank> b = (ArrayList<Bank>) request.getAttribute("b");
+	
+	@SuppressWarnings("unchecked")
+	ArrayList<PaymentResponsible> pr = (ArrayList<PaymentResponsible>) request.getAttribute("pr");
+	
+	@SuppressWarnings("unchecked")
+	ArrayList<CashBoxSalePoint> sp = (ArrayList<CashBoxSalePoint>) request.getAttribute("sp");
+	
+	@SuppressWarnings("unchecked")
+	ArrayList<Admission> a = (ArrayList<Admission>) request.getAttribute("cb");
+	
 %>
 <!DOCTYPE HTML>
 <html>
@@ -14,8 +49,8 @@
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css" />
 	  	<script src="./js/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
-		<link rel="stylesheet" href="/resources/demos/style.css" />		
+		<script type="text/javascript" src="./js/jquery.js"></script>
+		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>	
 		<script>
 		function findPatient(){
 			div1 = document.getElementById('patient');
@@ -29,24 +64,25 @@
 			sellPoint = document.getElementById('sellPoint');
 			insurance = document.getElementById('insurance');
 			pass = document.getElementById('aval');
-			if(sel == 1 || sel == 0){
+			if(sel == 2 || sel == 0){
 				bank.style.display = "none";
 				check.style.display = "none";
 				sellPoint.style.display = "none";
 				insurance.style.display = "none";
-			} else if(sel == 2 || sel == 3){
+				pass.style.display = "none";
+			} else if(sel == 4 || sel == 5){
 				bank.style.display = "block";
 				check.style.display = "none";
 				sellPoint.style.display = "block";
 				insurance.style.display = "none";
 				pass.style.display = "none";
-			} else if(sel == 4){
+			} else if(sel == 1){
 				bank.style.display = "block";
 				check.style.display = "block";
 				sellPoint.style.display = "none";
 				insurance.style.display = "none";
 				pass.style.display = "none";
-			} else if(sel == 5){
+			} else if(sel == 3){
 				bank.style.display = "none";
 				check.style.display = "none";
 				sellPoint.style.display = "none";
@@ -72,7 +108,7 @@
 			<div id="menu">
 				<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 		    	<ul>
-	            	<li class="menuitem"><a href="ListBanksServlet">Ver Cajas</a></li>
+	            	<li class="menuitem"><a href="ListCashBoxesServlet">Ver Cajas</a></li>
             		<li class="menuitem"><a href="CreateCashBoxServlet">Crear Caja</a></li>
 	            </ul>
 				<div class="menuitemSalir"><a href="LogoutServlet">Salir</a></div>	
@@ -81,94 +117,148 @@
         	<div id="content" style="position:absolute;">	
 	        	<h2>Registrar Pago:</h2>
 				<br>
+				<% if (search == null){ %>
 				<fieldset>
-					<label for="name">Cédula Paciente:</label>
-					<select id="cedId" name="cedId">
-						<option value="V-" >V</option>
-						<option value="E-" >E</option>
-					</select> &nbsp;<input id="cedNumber" type="text" style="width: 135px;">
-		        	<a id="go" rel="leanModal"  href="#" style="color: #f7941e; font-weight: bold;">
-						<img alt="logo" src="./images/detail.png" onclick="findPatient();"  height="16" width="16" title="Buscar Paciente" />
-					</a><br><br>
-					<div id="patient" style="display:none;">
-						<label for="name">N° de Presupuesto:</label>
-						<input type="text" value="1001" style="width: 135px;"> <br><br>
-						<label for="name">Responsable de Pago:</label>
-						<select>
-							<option value="0">Seleccionar</option>
-							<option value="5">Particular</option>
-							<option value="4">Mapfre La Seguridad</option>
-							<option value="3">Seguros La Previsora</option>
-						</select> <br><br>
+					<form action="CreatePaymentServlet" method="get">
+						<input type="hidden" name="cashBoxID" value="<%= id %>"/>
+						<label for="name">Cédula Paciente:</label>
+						<select id="cedId" name="cedId">
+							<option value="V-" >V</option>
+							<option value="E-" >E</option>
+						</select> &nbsp;<input name="cedNumber" type="text" style="width: 135px;">
+						<input type="submit" name="search" value="Buscar" /><br><br>
+					</form>
+		      </fieldset>
+			  <% }else{ %>
+					<fieldset>
+						<form action="CreatePaymentServlet" method="get">
+							<input type="hidden" name="cashBoxID" value="<%= id %>"/>
+							<label for="name">Cédula Paciente:</label>
+							<select id="cedId" name="cedId">
+								<option value="V-" <%= (cedId.equals("V-")) ? "selected" : "" %> >V</option>
+								<option value="E-" <%= (cedId.equals("E-")) ? "selected" : "" %> >E</option>
+							</select> &nbsp;<input name="cedNumber" type="text" value="<%= cedNumber %>" style="width: 135px;">
+							<input type="submit" name="search" value="Buscar" /><br><br>
+						</form>
+					</fieldset>
+					<form action="CreatePaymentServlet" method="post">
+					<input type="hidden" name="cashBoxID" value="<%= id %>"/>
+					<%
+					if (a.size() > 0 ){
+					%>
+					<div>
+						<h3> Seleccione la admisión correspondiente:</h3><br/>
+						<table class="display" id="example">
+							<thead>
+								<tr>
+									<th></th>
+									<th>Admisión</th>
+									<th>Adulto</th>
+									<th>Cédula</th>
+									<th>Nombre</th>
+									<th>Fecha Admisión</th>
+									<th>Total</th>
+									<th>Total Pagado</th>
+								</tr>
+							</thead>
+							<tbody>	
+								<% 	for (int i = 0; i< a.size(); i++) {
+										Admission e = a.get(i);
+										String n = e.getFirstName() + " " + e.getLastName();
+								%>		
+									<tr class="gradeA">
+										<td><input type="radio" name="adId" value="<%= e.getAdmissionID()%>" /></td>
+										<td><%= e.getAdmissionID() %></td>
+										<td><%= (e.getIsAdult() == 1) ? "Si" : "No" %></td>
+										<td><%= e.getIdentityCard() %></td>
+										<td><%= n %></td>
+										<td><%= e.getAdmissionDate() %></td>
+										<td><%= e.getTotal() %></td>
+										<td><%= e.getTotalPaid() %></td>
+									</tr>
+								<% } %>
+							</tbody>
+						</table><br/>
+						<fieldset>
+							<div id="patient">
+								<label for="name">Tipo:</label>
+								<select style="width:111px;" name="paymentType">
+									<option value="0">Seleccionar</option>
+									<% for (int i=0; i< pt.size(); i++){ 
+										PaymentTypes pte = pt.get(i); 
+									%>
+									<option value="<%=pte.getId() %>"><%= pte.getName() %></option>
+									<% } %>
+								</select> <br><br>
+								<label for="name">Forma:</label>
+								<select onchange="displayPaymentFields(this);" name="paymentMethod">
+									<option value="0">Seleccionar</option>
+									<% for (int i=0; i< pm.size(); i++){ 
+										PaymentMethod pme = pm.get(i); 
+									%>
+									<option value="<%=pme.getId() %>"><%= pme.getName() %></option>
+									<% } %>
+								</select> <br><br>
+								<div id="aval" style="display:none;">
+									<label for="name">Clave:</label>
+									<input type="text" name="pass" id="pass" style="width: 135px;"><br><br>
+								</div>
+								<div id="bank" style="display:none;">
+									<label for="name">Banco:</label>
+									<select name="bank">
+										<option value="0">Seleccionar</option>
+										<% for (int i=0; i< b.size(); i++){ 
+											Bank be = b.get(i); 
+										%>
+										<option value="<%= be.getId() %>"><%= be.getName() %></option>
+										<% } %>
+									</select> <br><br>
+								</div>
+								<div id="check" style="display:none;">
+									<label for="name">N° de Cheque:</label>
+									<input type="text" name="check" style="width: 135px;"> <br><br>
+								</div>
+								<div id="sellPoint" style="display:none;">
+									<label for="name">Punto de Venta:</label>
+									<select name="salesPoint">
+										<option value="0" >Seleccionar</option>
+										<% for (int i=0; i< sp.size(); i++){ 
+											CashBoxSalePoint spe = sp.get(i); 
+										%>
+										<option value="<%= spe.getCashBoxID() %>"><%= spe.getName() %></option>
+										<% } %>
+									</select> <br><br>
+									<label for="name">N° de Aprobación:</label>
+									<input type="text" name="aprob" style="width: 135px;"> <br><br>
+								</div>
+								<div id="insurance" style="display:none;">
+									<label for="name">Compañía de Seguro:</label>
+									<select name="insurance">
+										<option value="0">Seleccionar</option>
+										<% for (int i=0; i< pr.size(); i++){ 
+											PaymentResponsible pre = pr.get(i); 
+										%>
+										<option value="<%= pre.getId() %>"><%= pre.getName() %></option>
+										<% } %>
+									</select> <br><br>
+								</div>
+								<label for="name">Monto:</label>
+								<input type="text" name="amount" style="width: 135px;"> <br><br>
+							</div>
+						</fieldset>
 					</div>
-					<label for="name">Tipo:</label>
-					<select style="width:111px;">
-						<option value="0">Seleccionar</option>
-						<option value="1">Abono</option>
-						<option value="2">Pago</option>
-						<option value="3">Reintegro</option>
-					</select> <br><br>
-					<label for="name">Forma:</label>
-					<select onchange="displayPaymentFields(this);">
-						<option value="0">Seleccionar</option>
-						<option value="4">Cheque</option>
-						<option value="1">Efectivo</option>
-						<option value="5">Orden Pago</option>
-						<option value="3">Tarjeta Crédito</option>
-						<option value="2">Tarjeta Débito</option>
-						<option value="6">Carta Aval</option>
-					</select> <br><br>
-					<div id="aval" style="display:none;">
-						<label for="name">Clave:</label>
-						<input type="text" id="pass" style="width: 135px;"><br><br>
-					</div>
-					<div id="bank" style="display:none;">
-						<label for="name">Banco:</label>
-						<select>
-							<option value="0">Seleccionar</option>
-							<option value="5">Banco Bicentenario</option>
-							<option value="4">Banco Mercantil</option>
-							<option value="3">Banco Provincial</option>
-							<option value="1">Banco Venezuela</option>
-							<option value="2">Banesco</option>
-						</select> <br><br>
-					</div>
-					<div id="check" style="display:none;">
-						<label for="name">N° de Cheque:</label>
-						<input type="text" value="" style="width: 135px;"> <br><br>
-					</div>
-					<div id="sellPoint" style="display:none;">
-						<label for="name">Punto de Venta:</label>
-						<select>
-							<option value="0">Seleccionar</option>
-							<option value="5">Banesco</option>
-							<option value="4">Banco Mercantil</option>
-							<option value="3">Banco Activo</option>
-						</select> <br><br>
-						<label for="name">N° de Aprobación:</label>
-						<input type="text" value="" style="width: 135px;"> <br><br>
-					</div>
-					<div id="insurance" style="display:none;">
-						<label for="name">Compañía de Seguro:</label>
-						<select>
-							<option value="0">Seleccionar</option>
-							<option value="5">Mapfre La Seguridad</option>
-							<option value="4">Mercantil Seguros</option>
-							<option value="3">Banesco Seguros</option>
-						</select> <br><br>
-					</div>
-					<label for="name">Monto:</label>
-					<input type="text" value="" style="width: 135px;"> <br><br>
-				</fieldset>
+					<%}else{ %>
+						<br/><h3> No hay admisiones que coincidan con la cédula introducida </h3><br/><br/><br/>
+					<% } %>
+					</form>
+			  <% } %>
 				<div id="botonera">
-					<form action="ListBanksServlet">
 						<div id="botonP" style="display: inline; margin-right: 30px;">
 									<input type="submit"  class="button"  name="sbmtButton" value="Agregar" />
 						</div>	
 						<div id="botonV" style="display: inline;">
-								<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
+							<a href="/ListCashBoxesServlet" class="button" > Regresar </a>
 						</div>	
-					</form>
 				</div><br>
 			</div>
 		</div>

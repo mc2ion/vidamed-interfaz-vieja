@@ -1,4 +1,9 @@
-<%@page import="com.sun.xml.internal.ws.org.objectweb.asm.Label"%>
+<%@page import="domain.Admission"%>
+<%@page import="domain.BedLocation"%>
+<%@page import="domain.PaymentResponsible"%>
+<%@page import="domain.Bed"%>
+<%@page import="domain.AdmissionReasons"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="domain.User"%>
 <%
 	User user = (User) session.getAttribute("user");
@@ -6,10 +11,20 @@
 	if (user != null)
 		name = user.getFirstName() ;
 	
-	String patientName 	= (String) request.getAttribute("txtFirstName");
-	String lastName 	= (String) request.getAttribute("txtLastName");
-	String identityCard = (String) request.getAttribute("identityCard");
+	String identityCard = (String) request.getAttribute("txtCedNumber");
+	User pat 			= (User) session.getAttribute(identityCard);
 	
+	@SuppressWarnings("unchecked")
+	ArrayList<AdmissionReasons> ar = (ArrayList<AdmissionReasons>) request.getAttribute("ar");
+	
+	@SuppressWarnings("unchecked")
+	ArrayList<PaymentResponsible> pr = (ArrayList<PaymentResponsible>) request.getAttribute("pr");
+	
+	@SuppressWarnings("unchecked")
+	ArrayList<BedLocation> locations = (ArrayList<BedLocation>) request.getAttribute("locations");
+	
+	@SuppressWarnings("unchecked")
+	ArrayList<Admission> admissions = (ArrayList<Admission>) request.getAttribute("admissions");
 	
 %>
 <!DOCTYPE HTML>
@@ -52,41 +67,40 @@
 		</script>
 		<script type="text/javascript">
 		$(document).ready(function() {
-			
-			function getUrlVars() {
-			    var vars = {};
-			    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-			        vars[key] = value;
-			    });
-			    return vars;
-			}
-
-			var first = getUrlVars()["insurance"];
-			var bed = getUrlVars()["bed"];
-			var ubication = getUrlVars()["bedLocationId"];
-			var estimationId = getUrlVars()["id"];
-		
-			if (estimationId != null)
-				$("#estimationId").val("154600");
-			
-			if (first != null){
-				first = first.replace(/\+/g, ' ');
-				$("#insuranceName").val(first);
-			}
-			
-			if (bed != null){
-				bed = bed.replace(/\+/g, ' ');
-				$("#bedId").val(bed);
-			}
-			
-			if (ubication != null){
-				ubication = ubication.replace(/\+/g, ' ');
-				$("#ubication").val(ubication);
-			}
-			
+			$( ".target" ).change(function() {
+				index = $(this).val();
+				if (index != "-"){
+					$.ajax({
+						type: "GET",
+						url: "GetBedsServlet",
+						data: {locationId: index },
+						success: function(data){
+							$("#bed").html(data)
+						}
+					});
+					$('#beds').show();
+				}else{
+					$('#beds').hide();
+				}
+			});			
 		});
-		</script>
-		
+		function occupiedBed(){
+			bedId = $("#bed").val();
+			$.ajax({
+				type: "GET",
+				url: "SetBedOccupationServlet",
+				data: {bedId: bedId },
+				success: function(data){
+					if (data == "-1"){
+						$("#error-bed").show();
+						return false;
+					}
+					$("#bForm").submit();
+				}
+			});
+			
+		}
+	</script>
 	</head>
 	<body>
 		<div id="container">
@@ -113,32 +127,65 @@
 						 <form action="#">
 						 	<fieldset>
 							   <b>Cédula:</b> <span style="margin-left: 155px;"><%= identityCard %></span><br/><br/>
-							   <b>Nombre: </b><span style="margin-left: 150px;"><%= patientName + " " + lastName %></span><br><br/>
-							   <label> Responsable del Pago:</label>  <input type="text" name="insuranceName" id="insuranceName" value="" readonly>
-							    <a href="SearchInsuranceServlet?function=admitPatient" style="color: #f7941e; font-weight: bold;">
-									<input type="button"id="paymentResp" value="Cambiar" >
-								</a> 
+							   <b>Nombre: </b><span style="margin-left: 150px;"><%= pat.getFirstName() + " " + pat.getLastName() %></span><br><br/>
+							   <label> Responsable del Pago:</label> 
+							   <select name="paymentResponsible">
+							   <% if (pr != null){ %>
+							   		<option value="-">Seleccionar</option>
+							   <% 
+								   for (int i=0 ; i < pr.size(); i++){ 
+							   			PaymentResponsible p = pr.get(i);
+							   %>
+							   		<option value="<%= p.getId() %>"> <%= p.getName() %></option>
+							   <% 	}
+								  }else{ %>
+									  <option value="-"> No hay responsables de pago disponibles</option>
+								<%  } 
+								%>
+							   </select>
 								<br><br>
-					
 							   <label> Motivo de la admisión:</label>
 							   <select name="reasonAdmission" id="reasonAdmission" >
-							   		<option value="h">Hospitalizaci&oacute;n</option>  
-							   		<option value="e">Emergencia</option> 
-							   		<option value="t">Tratamiento M&eacute;dico</option>   
-							   </select><br/><br/>							    
-							    <label> Ubicación:  </label>
-								<input type="text" name="ubication" id="ubication" readonly><br><br>
-								 
-								<label> Cama:</label>  <input type="text" name="bedId" id="bedId"  readonly>
-							    <a href="SearchBedsServlet?function=admitPatient" style="color: #f7941e; font-weight: bold;">
-									<input type="button"id="bedUbication" value="Cambiar" >
-								</a> <br><br>
-						   
-							   <label> Número de presupuesto:</label> 
-							   	<input type="text" name="estimationId" id="estimationId" value="">
-							    <a href="SearchEstimationServlet" style="color: #f7941e; font-weight: bold;" >
-									<input type="button" value="Buscar" >
-								</a>
+							   		<option value="0">Seleccionar</option>  
+							   		<% if (ar != null){
+							   			for (int i=0; i< ar.size(); i++){ %>
+							   		<option value="<%= ar.get(i).getId()%>"><%= ar.get(i).getName() %></option>  
+							   		<% }} %>
+							   </select><br/><br/>			
+							   <label>Ubicación:  </label> 
+								<select id="bedLocationId" name="bedLocationId" class="target">
+									<option value="-" >Seleccionar</option>
+									<% for (int i=0; i< locations.size(); i++){
+										BedLocation l = locations.get(i);
+									%>
+										<option value="<%= l.getId() %>"><%= l.getName() %></option>
+									<% } %>
+								</select><br/><br/>
+								<p style="display: none;" id="beds">
+								<label for="pname">Cama:</label>
+									<select name="bed" id="bed">
+										<option value="-">Seleccionar</option>
+									</select><br/><br/>
+								</p>  
+								<p style="display: none; color: red;" id="error-bed">
+									Disculpe, la cama que escogió ya fue seleccionada por otro usuario. Por favor, elija una cama diferente.
+								</p> 
+							   
+						   	   <label> Número de presupuesto:</label> 
+							   <% if (admissions != null){ %>
+									<select name="pres">
+										<option value="-">Seleccionar</option>
+							   <% 
+								   for (int i=0 ; i < admissions.size(); i++){ 
+							   			Admission a = admissions.get(i);
+							   %>
+										<option value="<%= a.getEstimationID() %>"> <%= a.getAdmissionID() %> -  <%= a.getTotal() %></option>
+							   <% 	} %>
+							   </select>
+								<%  }else{ %>
+									  <span> El paciente no tiene presupuestos asociados.</span>
+								<%  } 
+								%>
 								<a href="CreateEstimationServlet" style="color: #f7941e; font-weight: bold;" >
 									<input type="button" value="Crear" >
 								</a>

@@ -66,10 +66,6 @@ public class GetPatientServiceReport implements DatabaseCommand {
 			
 			rs = ps.executeQuery();
 			
-			System.out.println("c dbo.GetPatientServiceReport " + serviceTypeId + ","  + admissionId + "," + estimationId + "," + identityCard + "," 
-									  + gender + "," + isAdult + "," + serviceId + "," + from + "," + to);
-			
-
 			while (rs.next()) {
 				PatientServiceReport u = new PatientServiceReport();
 				u.setServicePatientID(rs.getLong(1));
@@ -103,7 +99,6 @@ public class GetPatientServiceReport implements DatabaseCommand {
 				Date date;
 				try {
 					date = fromFormat.parse(dateStr);
-					System.out.println(toFormat.format(date));
 					u.setServiceDate(toFormat.format(date));
 				} catch (ParseException e1) {
 					e1.printStackTrace();

@@ -11,17 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
-import domain.Emergency;
 import domain.PermissionsList;
 import domain.User;
 
-
-
 /**
- * Servlet implementation class EditEmergencyServlet
+ * Servlet implementation class RemoveProtocolervlet
  */
-@WebServlet(description = "servlet to log in users", urlPatterns = { "/EditEmergencyServlet" })
-public class EditEmergencyServlet extends HttpServlet {
+@WebServlet(description = "servlet to log in users", urlPatterns = { "/RemoveProtocolServlet" })
+public class RemoveProtocolServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	public void init() throws ServletException {
@@ -36,7 +33,7 @@ public class EditEmergencyServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EditEmergencyServlet() {
+    public RemoveProtocolServlet() {
         super();
     }
 
@@ -46,16 +43,23 @@ public class EditEmergencyServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
-		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.emergency);
-		if(userE != null && perm ){
+		
+		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.protocols);
+		if(userE != null && perm){
 			try {
-				Long id = Long.valueOf(request.getParameter("id"));
-				RequestDispatcher rd;
-				Emergency emergency = (Emergency) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEmergency(id));
-				request.setAttribute("emergency", emergency);
-				rd = getServletContext().getRequestDispatcher("/editEmergency.jsp");			
-				rd.forward(request, response);
-			} 
+				Long id = Long.parseLong(request.getParameter("userId"));
+				int result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.RemoveProtocol(id));
+				String text_good = "El protocolo fue eliminado exitosamente";
+				String text_bad = "Se ha presentado un error al eliminar el protocolo. Por favor, intente nuevamente.";
+				if (result == 1) {
+					session.setAttribute("info",text_good);
+				}
+				else {
+					session.setAttribute("info",text_bad);
+				}
+				
+				response.sendRedirect(request.getContextPath() + "/ListProtocolsServlet");
+			}
 			catch (Exception e) {
 				throw new ServletException(e);
 			}
@@ -67,14 +71,14 @@ public class EditEmergencyServlet extends HttpServlet {
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/sectionDenied.jsp");
 				rd.forward(request, response);
 			}
-		}	
+		}		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//System.out.println("a");
-		//doGet(request, response);
+		
+		doGet(request, response);
 	}
 }

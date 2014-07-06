@@ -94,8 +94,6 @@ public class ListEstimationDiscountReportServlet extends HttpServlet {
 			if (!a.equals("-"))
 				isAdult = a;
 			
-			System.out.println("isAdult " + isAdult);
-			
 			String t 	  	  	= request.getParameter("type");
 			String type = null;
 			if (!t.equals("-"))

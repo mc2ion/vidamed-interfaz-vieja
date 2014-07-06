@@ -40,7 +40,6 @@ public class GetPaymentResponsible implements DatabaseCommand {
 				ArrayList<ResponsibleRule> rrList = new ArrayList<ResponsibleRule>();
 				while (rsAux.next()) {
 					ResponsibleRule rr = new ResponsibleRule();
-					System.out.println("micros " + rsAux.getLong(1) + " " + rsAux.getLong(2)  + " " + rsAux.getLong(3) + " " + rsAux.getLong(4));
 					rr.setPaymentResponsableId(rsAux.getLong(1));
 					rr.setBussinesRuleMicroId(rsAux.getLong(2));
 					rr.setBussinessModelId(rsAux.getLong(3));

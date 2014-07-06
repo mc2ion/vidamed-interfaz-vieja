@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
+import domain.Admission;
+import domain.AdmissionReasons;
+import domain.Bed;
+import domain.BedLocation;
+import domain.PaymentResponsible;
 import domain.User;
 
 
@@ -42,23 +48,98 @@ public class AdmitPatientServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		User user = (User)session.getAttribute("user");
-		if(user != null){
-			RequestDispatcher rd;
-			rd = getServletContext().getRequestDispatcher("/admitPatient.jsp");			
-			rd.forward(request, response);
-		} else {
-			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
-			rd.forward(request, response);
-		}
+		doPost(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@SuppressWarnings("unchecked")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		doGet(request, response);
+		HttpSession session = request.getSession();
+		User userE = (User)session.getAttribute("user");
+		if(userE != null){
+			String admitPatientForm = request.getParameter("function");
+			if (admitPatientForm == null)
+				admitPatientForm = (String)  request.getAttribute("function");
+			
+			try {
+				if (admitPatientForm != null && admitPatientForm.equals("admitPatientForm")){
+					String txtCedNumber 	= request.getParameter("txtCedNumber");
+					String txtName 			= request.getParameter("txtName");
+					String txtLastName 		= request.getParameter("txtLastName");
+					
+					ArrayList<AdmissionReasons> ar = (ArrayList<AdmissionReasons>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetAdmissionReasons());
+					request.setAttribute("ar", ar);
+					
+					// Lista de responsable de pagos
+					ArrayList<PaymentResponsible> pr = (ArrayList<PaymentResponsible>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPaymentResponsibles());
+					request.setAttribute("pr", pr);
+					
+					
+					//Lista de camas
+					ArrayList<BedLocation> lList = (ArrayList<BedLocation>) CommandExecutor.getInstance().executeDatabaseCommand(new command.SearchLocations());
+					request.setAttribute("locations", lList);
+					
+					
+					//Presupuestos por paciente
+					
+					User pat = new User();
+					pat.setFirstName(txtName);
+					pat.setLastName(txtLastName);
+					pat.setIdentityCard(txtCedNumber);
+					session.setAttribute(txtCedNumber, pat);
+					request.setAttribute("txtCedNumber", txtCedNumber);
+					
+					RequestDispatcher rd;
+					rd = getServletContext().getRequestDispatcher("/admitPatient.jsp");			
+					rd.forward(request, response);
+				}else {
+				
+				String patientID 		= request.getParameter("patientID");
+				String txtCedNumber 	= request.getParameter("txtCedNumber");
+				String txtName 			= request.getParameter("txtName");
+				String txtLastName 		= request.getParameter("txtLastName");
+				String estimationId 	= request.getParameter("estimationId");
+				String responsableId 	= request.getParameter("responsableId");
+				String responsableName 	= request.getParameter("responsableName"); 
+				
+				
+					
+					
+						/*String txtCedNumber 	= request.getParameter("txtCedNumber");
+					
+					String bedId 	 	 	= (String)request.getAttribute("bedId");
+					
+					Bed b = (Bed) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetBed(bedId));
+					request.setAttribute("bed", b);
+					
+					ArrayList<AdmissionReasons> ar = (ArrayList<AdmissionReasons>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetAdmissionReasons());
+					request.setAttribute("ar", ar);
+					
+					request.setAttribute("txtCedNumber", txtCedNumber);
+					
+					RequestDispatcher rd;
+					rd = getServletContext().getRequestDispatcher("/admitPatient.jsp");			
+					rd.forward(request, response);*/
+					
+			}
+		}catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			
+			
+		}else {
+			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); 
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+			rd.forward(request, response);
+		}	
+		
+
+		
+		
+		//doGet(request, response);
 	}
 }

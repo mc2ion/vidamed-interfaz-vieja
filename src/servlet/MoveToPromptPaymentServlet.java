@@ -55,7 +55,7 @@ public class MoveToPromptPaymentServlet extends HttpServlet {
 			try {
 				Long userID	 	 = Long.parseLong(request.getParameter("userId"));
 				Long variableID	 = Long.parseLong(request.getParameter("variableId"));
-				System.out.println(userID + " " + variableID);
+				
 				int result	 = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.MoveToPromptPayment(userID, variableID));
 				if (result == 1)
 					session.setAttribute("text", "La factura fue movida a pronto pago exitosamente.");

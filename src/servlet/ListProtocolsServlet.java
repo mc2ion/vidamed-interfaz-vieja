@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
 import domain.PermissionsList;
+import domain.Protocol;
 import domain.User;
 
 
@@ -41,13 +43,21 @@ public class ListProtocolsServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    @SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
 		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.protocols);
 		if(userE != null && perm ){
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/protocols.jsp");
-			rd.forward(request, response);
+			try {
+				ArrayList<Protocol> pp = (ArrayList<Protocol>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetProtocols());
+				request.setAttribute("pp", pp);
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/protocols.jsp");
+				rd.forward(request, response);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		} else {
 			if (userE == null){
 				request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");

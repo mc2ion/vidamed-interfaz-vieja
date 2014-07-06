@@ -47,7 +47,6 @@ public class RemovePaymentResponsibleServlet extends HttpServlet {
 		if(userE != null){
 			try {
 				Long rId = Long.parseLong(request.getParameter("rId"));
-				System.out.println("id " + rId );
 				Integer result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.RemovePaymentResposible(rId));
 				request.setAttribute("result", result);
 				response.sendRedirect(request.getContextPath() + "/ListPaymentResponsiblesServlet");

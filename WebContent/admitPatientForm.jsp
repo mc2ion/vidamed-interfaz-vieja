@@ -25,14 +25,6 @@
 				
 		$(function() {
 			$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x" });	
-			
-			/*Simular que un cliente existe o no.. si se coloca un numero de cedula se pone a ver el form, y se quita el leanModal*/
-			$('#cedNumber').on('input', function() {
-			    $("#go").hide();
-			    $("#form").show();
-			    $('#form').css({'display':'inline'});
-			    
-			});
 		});
 		
 		function loadVars(var1, var2) {
@@ -177,7 +169,7 @@
 						<div id="botonV" style="display: inline; margin-left: 20px;">
 							<a id="go" rel="leanModal" href="#deleteVitalSign" style="display: none;"></a> 
 							<input type="button" class="button" id="submit" value="Buscar" />
-							<input type="submit" id="submit-form" value="" style="display:none;" />
+							<input type="submit" id="submit-form" name="admitPatientForm" value="" style="display:none;" />
 						</div>							
 					</div>	
 				</form>

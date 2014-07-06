@@ -21,6 +21,10 @@ public class Admission {
 	private Long dischargeTypeId;
 	private String dischargeName;
 	private String dischargeDate;
+	private int wasDischarge;
+	private int wasPaid;
+	private String total;
+	private String totalPaid;
 	
 	
 	public Long getAdmissionID() {
@@ -168,5 +172,36 @@ public class Admission {
 		this.dischargeDate = dischargeDate;
 	}
 	
+	public int getWasDischarge() {
+		return wasDischarge;
+	}
 	
+	public void setWasDischarge(int wasDischarge) {
+		this.wasDischarge = wasDischarge;
+	}
+	
+	public int getWasPaid() {
+		return wasPaid;
+	}
+	
+	public void setWasPaid(int wasPaid) {
+		this.wasPaid = wasPaid;
+	}
+	
+	public String getTotal() {
+		return total;
+	}
+	
+	public void setTotal(String total) {
+		this.total = total;
+	}
+	
+	public String getTotalPaid() {
+		return totalPaid;
+	}
+	
+	public void setTotalPaid(String totalPaid) {
+		this.totalPaid = totalPaid;
+	}
+		
 }

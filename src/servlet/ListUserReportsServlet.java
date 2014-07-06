@@ -102,10 +102,6 @@ public class ListUserReportsServlet extends HttpServlet {
 			if (!g.equals("-"))
 				gender = g;
 			
-			System.out.println(gender);
-			
-			
-			
 			try {
 				
 				@SuppressWarnings("unchecked")
