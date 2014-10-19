@@ -6,51 +6,28 @@ public class Bed {
 	private String name;
 	private long locationId;
 	private int isOccuped;
+	private String locationName;
 	
-	/**
-	 * 
-	 * @param id
-	 */
 	public void setId(long id) {        
 		this.id = id;
 	}
 	
-	/**
-	 * 
-	 * @return
-	 */
 	public long getId() {
 		return id;
 	}
 	
-	/**
-	 * 
-	 * @param name
-	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 	
-	/**
-	 * 
-	 * @return
-	 */
 	public String getName() {
 		return name;
 	}
 
-	/**
-	 * 
-	 * @param locationId
-	 */
 	public void setLocationId(long locationId) {
 		this.locationId = locationId;
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
 	public long getLocationId() {
 		return locationId;
 	}
@@ -61,5 +38,13 @@ public class Bed {
 
 	public int isOccuped() {
 		return isOccuped;
+	}
+	
+	public void setLocationName(String locationName) {
+		this.locationName = locationName;
+	}
+	
+	public String getLocationName() {
+		return locationName;
 	}
 }

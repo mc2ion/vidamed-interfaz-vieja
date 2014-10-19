@@ -18,7 +18,7 @@ import domain.User;
 
 
 /**
- * Servlet implementation class ListBanksServlet
+ * Servlet implementation class ListCashBoxesServlet
  */
 @WebServlet(description = "servlet to generate reports", urlPatterns = { "/ListCashBoxesServlet" })
 public class ListCashBoxesServlet extends HttpServlet {
@@ -53,7 +53,6 @@ public class ListCashBoxesServlet extends HttpServlet {
 			try {
 				ArrayList<CashBox> cashBoxes = (ArrayList<CashBox>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetCashBoxes());
 				request.setAttribute("cashBoxes", cashBoxes);
-				System.out.println(cashBoxes.size());
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/cashBoxes.jsp");			
 				rd.forward(request, response);
 			} 

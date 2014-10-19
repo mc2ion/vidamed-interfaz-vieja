@@ -54,7 +54,6 @@ public class RemoveEstimationPaymentRespServlet extends HttpServlet {
 		User userE = (User)session.getAttribute("user");
 		if(userE != null){
 			try {
-				System.out.println("a");
 				Long rId = Long.parseLong(request.getParameter("userId"));
 				Long eId = Long.parseLong(request.getParameter("eId"));
 				String function = request.getParameter("function");

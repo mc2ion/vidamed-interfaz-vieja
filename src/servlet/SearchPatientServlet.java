@@ -53,7 +53,6 @@ public class SearchPatientServlet extends HttpServlet {
 			String cedNum 		= request.getParameter("txtCedIdNum"); 
 			String identityCard = cedType + cedNum;
 			String estimationNumber = request.getParameter("estimation");
-			System.out.println("a " + estimationNumber);
 			
 			// Si tengo el numero de presupuesto busco por el.
 			if (estimationNumber != null && estimationNumber != ""){

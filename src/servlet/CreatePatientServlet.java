@@ -88,8 +88,6 @@ public class CreatePatientServlet extends HttpServlet {
 					String email 		 = request.getParameter("txtEmail");
 					String function  	 = request.getParameter("function");
 					
-					//System.out.println("ced " + identityCard + " "+ firstName + " " + lastName + " " + birthday + " " + gender + " " +  address + " " + email + " " + function );
-					
 					Long userID = (Long) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddPatient(identityCard, isAdult, firstName, lastName, birthday, gender, address, email));
 					
 					for (int i = 0; i < 2; i++) {
@@ -100,7 +98,6 @@ public class CreatePatientServlet extends HttpServlet {
 						}
 					}
 					// Ir a la seccion de la cual venia el usuario y pasar la informacion del usuario
-					System.out.println("func a" + function);
 					if (function.equals("estimation")){
 						request.setAttribute("txtCedNumber", identityCard);
 						request.setAttribute("txtName", firstName);

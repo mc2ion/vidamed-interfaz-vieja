@@ -82,8 +82,6 @@ public class EditPatientSupplyServlet extends HttpServlet {
 				String name  = request.getParameter("name");
 				String spId  = request.getParameter("spId");
 				String amount  = request.getParameter("amount");
-				System.out.println("a" + admin + name + spId + amount);
-				
 				Integer result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.EditPatientSupply(Long.valueOf(spId), amount));
 				
 				String text = "El suministro fue editado exitosamente";

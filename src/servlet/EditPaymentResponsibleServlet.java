@@ -144,13 +144,11 @@ public class EditPaymentResponsibleServlet extends HttpServlet {
 					request.setAttribute("info", "Sus cambios fueron realizados exitosamente.");
 					doGet(request, response);
 				} catch (Exception e) {
-					System.out.println("error");
 					e.printStackTrace();
 				}
 			}
 			/* Caso por micro*/
 			else{
-				System.out.println("oldName " + oldName);
 				// Modifico el payment si cambio el nombre  o la regla de negocio
 				if (!oldName.equals(name) || businessRuleIdOld != selBusinessRule){
 					try {
@@ -159,7 +157,6 @@ public class EditPaymentResponsibleServlet extends HttpServlet {
 						request.setAttribute("info", "Sus cambios fueron realizados exitosamente.");
 						doGet(request, response);
 					} catch (Exception e) {
-						System.out.println("error");
 						e.printStackTrace();
 					}
 					
@@ -170,35 +167,24 @@ public class EditPaymentResponsibleServlet extends HttpServlet {
 				selBusinessModelS = Long.parseLong(request.getParameter("selBusinessModel" + SM));
 				selBusinessModelM = Long.parseLong(request.getParameter("selBusinessModel" + HM));
 				
-				System.out.println(selBusinessModelH + " " + selBusinessModelG + " " + selBusinessModelS + " " + selBusinessModelM );
-				
 				/* Caso en el que hay baremos con descuento */
 				if (selBusinessModelH > 1){
 					txtPriceH = Double.valueOf(request.getParameter("txtPrice" + selBusinessModelH + H));
-					System.out.println(txtPriceH);
-						
 				}	
 				if (selBusinessModelG > 1){
 					txtPriceG = Double.valueOf(request.getParameter("txtPrice" + selBusinessModelG + GQ));
-					System.out.println(txtPriceG);
-						
 				}
 				
 				if (selBusinessModelS > 1){
 					txtPriceS = Double.valueOf(request.getParameter("txtPrice" + selBusinessModelS + SM));
-					System.out.println(txtPriceS);
-						
 				}
 				
 				if (selBusinessModelM > 1){
 					txtPriceM = Double.valueOf(request.getParameter("txtPrice" + selBusinessModelM + HM ));
-					System.out.println(txtPriceM);
-						
 				}
 				
 				/* Edito cada una de los micros */
 				try {
-					//System.out.println("micros " + id + " " + H + " " + selBusinessModelH + " " + txtPriceH);
 					CommandExecutor.getInstance().executeDatabaseCommand(new command.EditPaymentResponsible(id, (long) H, selBusinessModelH, txtPriceH));
 					CommandExecutor.getInstance().executeDatabaseCommand(new command.EditPaymentResponsible(id, (long) GQ, selBusinessModelG, txtPriceG));
 					CommandExecutor.getInstance().executeDatabaseCommand(new command.EditPaymentResponsible(id, (long) SM, selBusinessModelS, txtPriceS));
@@ -208,7 +194,6 @@ public class EditPaymentResponsibleServlet extends HttpServlet {
 					request.setAttribute("info", "Sus cambios fueron realizados exitosamente.");
 					doGet(request, response);
 				} catch (Exception e) {
-					System.out.println("error");
 					e.printStackTrace();
 				}
 				

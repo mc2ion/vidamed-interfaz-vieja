@@ -1,9 +1,15 @@
+<%@page import="domain.Protocol"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="domain.User"%>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
 	if (user != null)
 		name = user.getFirstName() ;
+	
+	@SuppressWarnings("unchecked")
+	ArrayList<Protocol> pp = (ArrayList<Protocol>) request.getAttribute("pp");
+
 %>
 <!DOCTYPE HTML>
 <html>
@@ -88,52 +94,26 @@
 										<th>Acciones</th>
 									</tr>
 								</thead>
-								<tbody>			
+								<tbody>		
+									<% for (int i=0; i< pp.size(); i++){
+										Protocol p = pp.get(i);
+									%>	
 									<tr class="gradeA">
-										<td>1001</td>
-										<td>Frenuloplastia</td>
-										<td>Cirugía se realiza de forma ambulatoria con anestesia local y tiene una duración de 15 minutos.</td>
+										<td><%= p.getProtocolID() %></td>
+										<td><%= p.getName() %></td>
+										<td><%= (p.getDescription() != null) ? p.getDescription() : "-" %></td>
 										<td>
-											<a href="EditProtocolServlet" style="color: transparent" >
+											<a href="EditProtocolServlet?id=<%= p.getProtocolID() %>" style="color: transparent" >
 												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
 											</a>
 											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1001,'Frenuloplastia');" >
+												onclick="return loadVars(<%= p.getProtocolID() %>,'<%= p.getName() %>');" >
 												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
 											</a> 
 											<br>
 										</td>
 									</tr>
-									<tr class="gradeA">
-										<td>1002</td>
-										<td>Colocación de protesis peneana</td>
-										<td>El implante de prótesis de pene constituye un tratamiento eficaz para la disfunción eréctil.</td>
-										<td>
-											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
-											</a>
-											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1002,'Tratamiento Médico');" >
-												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-											</a> 
-											<br>
-										</td>
-									</tr>
-									<tr class="gradeA">
-										<td>1003</td>
-										<td>Emergencia</td>
-										<td>Emergencia</td>
-										<td>
-											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
-											</a>
-											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1003,'Emergencia');" >
-												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-											</a> 
-											<br>
-										</td>
-									</tr>
+									<% } %>
 								</tbody>
 							</table>
 						</div>
@@ -150,7 +130,7 @@
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="ListAdmissionsServlet" method="post"  onsubmit="return setV(this)">
+				<form action="RemoveProtocolServlet" method="post"  onsubmit="return setV(this)">
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />

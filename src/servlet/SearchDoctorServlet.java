@@ -84,7 +84,7 @@ public class SearchDoctorServlet extends HttpServlet {
 			Long admissionId 	 = Long.valueOf(request.getParameter("adminId"));
 			Long unitId 	 	 = Long.valueOf(request.getParameter("unitId"));
 			String function 	 = request.getParameter("function");
-			System.out.println("function" + function);
+			
 			
 			Integer result;
 			try {

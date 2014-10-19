@@ -119,7 +119,6 @@ public class ListSupplyReportsServlet extends HttpServlet {
 			if (!regulated.equals("-"))
 					isRegulated = regulated;
 			
-			System.out.println("a" + senior);
 			try {
 				
 				@SuppressWarnings("unchecked")

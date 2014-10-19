@@ -62,6 +62,18 @@ body {
 	background: radial-gradient(ellipse at center,  rgba(242,245,246,1) 1%,rgba(153, 190, 211, 1)100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f5f6', endColorstr='#bbbbbb',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
+
+.bodyAux{
+	margin: 0;
+	padding: 0;
+	text-align: left;
+	font: 12px Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	color: #061C37;
+	height:100%;
+	text-align:center;
+	background: #ffffff; 
+}
 *
 {
   margin: 0 auto 0 auto;

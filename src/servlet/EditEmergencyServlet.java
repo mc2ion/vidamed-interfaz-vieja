@@ -48,9 +48,9 @@ public class EditEmergencyServlet extends HttpServlet {
 		User userE = (User)session.getAttribute("user");
 		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.emergency);
 		if(userE != null && perm ){
-			Long id = Long.valueOf(request.getParameter("id"));
-			RequestDispatcher rd;
 			try {
+				Long id = Long.valueOf(request.getParameter("id"));
+				RequestDispatcher rd;
 				Emergency emergency = (Emergency) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEmergency(id));
 				request.setAttribute("emergency", emergency);
 				rd = getServletContext().getRequestDispatcher("/editEmergency.jsp");			

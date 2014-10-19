@@ -87,7 +87,6 @@ public class EditEstimationPaymentResponsibleServlet extends HttpServlet {
 			String cedula	 	= request.getParameter("cedula");
 			String name		 	= request.getParameter("name");
 			
-			System.out.println(function + " " + id + " " + insurance + " " + aval + " " + isTitular + " " + cedId + " " +cedula + " " + name );
 			//Add Payment responsible
 			
 			String identityCard = "";

@@ -11,6 +11,8 @@ public class CashBox {
 	private Double chargedAmount;
 	private Double paidAmount;
 	private Double totalAmount;
+	private String openingDate;
+	private User user;
 	
 	public Long getCashBoxID() {
 		return cashBoxID;
@@ -82,6 +84,22 @@ public class CashBox {
 
 	public void setTotalAmount(Double totalAmount) {
 		this.totalAmount = totalAmount;
+	}
+	
+	public User getUser() {
+		return user;
+	}
+	
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	public String getOpeningDate() {
+		return openingDate;
+	}
+
+	public void setOpeningDate(String openingDate) {
+		this.openingDate = openingDate;
 	}
 
 }

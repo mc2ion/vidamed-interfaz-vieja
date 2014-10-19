@@ -20,7 +20,6 @@ public class SearchNumEstimation implements DatabaseCommand {
 		PreparedStatement sta = null;
 		Patient patient = null;
 		
-		System.out.println("a " + estimationNumber );
 		sta = conn.prepareStatement("exec dbo.SearchEstimation '" + estimationNumber + "'");
 		
 		ResultSet rs = sta.executeQuery();

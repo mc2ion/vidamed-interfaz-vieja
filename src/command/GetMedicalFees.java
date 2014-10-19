@@ -47,7 +47,7 @@ public class GetMedicalFees implements DatabaseCommand {
 			
 			Date date = fromFormat.parse(to);
 			this.to   		= "'" + toFormat.format(date) + "'";
-			System.out.println("tp " + to);
+			
 		}
 			
 		if (firstname != null && firstname != "")
@@ -85,7 +85,6 @@ public class GetMedicalFees implements DatabaseCommand {
 				Date date;
 				try {
 					date = fromFormat.parse(dateStr);
-					System.out.println(toFormat.format(date));
 					u.setPaymentDate(toFormat.format(date));
 				} catch (ParseException e1) {
 					e1.printStackTrace();

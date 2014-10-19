@@ -21,8 +21,6 @@ public class MoveToPromptPayment implements DatabaseCommand {
 		PreparedStatement ps = null;
 		
 		try {
-			System.out.println(medicalFeeId + " " + variableId);
-			
 			ps = conn.prepareStatement("exec dbo.MoveToPromptPayment " + variableId + "," + medicalFeeId) ;
 			ps.execute();
 		}
