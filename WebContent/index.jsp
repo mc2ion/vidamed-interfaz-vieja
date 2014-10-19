@@ -16,8 +16,8 @@ if (info == null)
 <body >
 	<div id="containerIni">
 		<div id="header">
-			
-        </div>  
+        	<img alt="logo" src="./images/logo.png">
+        </div>
         <div id="menu"> </div>            
        			 <div id="wrapper">
        			 			<% String error = (String) request.getAttribute("error");
