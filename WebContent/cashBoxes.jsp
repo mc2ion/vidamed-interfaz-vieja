@@ -166,7 +166,7 @@
 					<div class="text">
 						<div class="leftColum"><b>Caja:</b></div><span class="caja"></span> <br>
 						<div class="leftColum"><b>Status:</b></div>Cerrada<br>
-						<div class="leftColum"><b>Clave:</b></div><input type="password" id="password" name="password" /><br>
+						<div class="leftColum"><b>Clave de Usuario:</b></div><input type="password" id="password" name="password" /><br>
 						<div class="leftColum"><b>Monto:</b></div><input type="text" pattern="^[0-9]+(\.[0-9]+)?$" title="Debes colocar el monto inicial para abrir la caja. EL monto inicial debe ser un valor numérico. Ejemplo: 1200.50" id="initialAmount" name="initialAmount" /><br><br>
 						<span>¿Está seguro que desea abrir la caja</span>  <span class="caja"></span>?  
 					</div>
@@ -191,7 +191,7 @@
 					<div class="text">
 						<div class="leftColum"><b>Caja:</b></div><span class="caja"></span> <br>
 						<div class="leftColum"><b>Status:</b></div>Abierta<br>
-						<div class="leftColum"><b>Clave:</b></div><input type="password" id="password" name="password" /><br>
+						<div class="leftColum"><b>Clave de Usuario:</b></div><input type="password" id="password" name="password" /><br>
 						<div class="leftColum"><b>Monto:</b></div><span class="totalAmount"></span><br><br>
 						<span>¿Está seguro que desea cerrar la caja</span>  <span class="caja"></span>?  
 					</div>

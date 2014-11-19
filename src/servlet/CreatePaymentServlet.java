@@ -3,7 +3,6 @@ package servlet;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -141,8 +140,12 @@ public class CreatePaymentServlet extends HttpServlet {
 			try {
 				int result =  (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new AddCashBoxPayment(Long.valueOf(paymentType), Long.valueOf(paymentMethod), amount, Long.valueOf(cashBoxId),
 								Long.valueOf(userE.getUserID()), Long.valueOf(adId), Long.valueOf(bank), number, Long.valueOf(insurance), Long.valueOf(salesPoint)));
-			
-				System.out.println(result);
+				
+				String msg =  "Su pago fue registrado exitosamente.";
+				if (result != 1)
+						msg = "Ocurrió un error al registrar su pago. Por favor, intente nuevamente.";
+				session.setAttribute("info", msg);
+				response.sendRedirect(request.getContextPath() + "/ListCashBoxesServlet");
 			}catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

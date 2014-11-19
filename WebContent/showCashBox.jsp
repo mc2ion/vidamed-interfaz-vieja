@@ -47,7 +47,7 @@
 	        	<br>
 				<p>
 			   	<b>Caja:</b> <%= cb.getName() %><br><br>
-			    <b>Fecha Apertura:</b> <%= cb.getOpeningDate() %><br><br>
+			    <b>Fecha Apertura:</b> <%= (cb.getOpeningDate()== null)? "-" : cb.getOpeningDate() %><br><br>
 			    <b>Cajero:</b> <%= cb.getUser().getFirstName() + " " + cb.getUser().getLastName() %><br><br>
 			    <b>Monto Inicio:</b>  Bs. <%= cb.getInitialAmount() %><br><br>
 			    <b>Monto Cobrado:</b> Bs. <%= cb.getChargedAmount() %><br><br>

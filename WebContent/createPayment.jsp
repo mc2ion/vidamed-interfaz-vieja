@@ -247,19 +247,24 @@
 							</div>
 						</fieldset>
 					</div>
+					<div id="botonera">
+							<div id="botonP" style="display: inline; margin-right: 30px;">
+										<input type="submit"  class="button"  name="sbmtButton" value="Agregar" />
+							</div>	
+							<div id="botonV" style="display: inline;">
+								<a href="./ListCashBoxesServlet" class="button" > Regresar </a>
+							</div>	
+					</div><br>
 					<%}else{ %>
 						<br/><h3> No hay admisiones que coincidan con la cédula introducida </h3><br/><br/><br/>
+						<div id="botonera">
+							<div id="botonV" style="display: inline;">
+								<a href="./ListCashBoxesServlet" class="button" > Regresar </a>
+							</div>	
+						</div><br>
 					<% } %>
 					</form>
 			  <% } %>
-				<div id="botonera">
-						<div id="botonP" style="display: inline; margin-right: 30px;">
-									<input type="submit"  class="button"  name="sbmtButton" value="Agregar" />
-						</div>	
-						<div id="botonV" style="display: inline;">
-							<a href="/ListCashBoxesServlet" class="button" > Regresar </a>
-						</div>	
-				</div><br>
 			</div>
 		</div>
 	</body>
