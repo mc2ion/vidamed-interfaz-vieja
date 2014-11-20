@@ -153,11 +153,6 @@ ArrayList<Unit> units = (ArrayList<Unit>)request.getAttribute("units");
             			alert("El campo 'Apellido' no puede ser dejado en blanco");
             			return;
             		}
-            		else if ($('#txtDateIni').val() == '') {
-            			$("#tabs").tabs( "option", "active", 0);
-            			alert("El campo 'Fecha de Nacimiento' no puede ser dejado en blanco");
-            			return;
-            		}
             		else if (!$('#txtDateIni').val().match(patternDate)) {
             			$("#tabs").tabs( "option", "active", 0);
             			alert("El campo 'Fecha de Nacimiento' debe tener el formato DD/MM/YYYY");
@@ -175,7 +170,7 @@ ArrayList<Unit> units = (ArrayList<Unit>)request.getAttribute("units");
            			}
            			else if(!$('#txtRifNum').val().match(patternNumber)) {
            				$("#tabs").tabs( "option", "active", 0);
-           				alert("El campo 'RIF' sólo debe contener números sin puntos ni espacios en blanco");
+           				alert("El campo 'RIF' sólo debe contener números, sin letras, ni puntos, ni espacios en blanco");
            				return;
            			}
             		else if ($('#txtAddress').val() == '') {

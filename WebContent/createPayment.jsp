@@ -98,6 +98,115 @@
 			}
 		}
 		</script>
+		<script>
+			$(function() {    
+            	$('#sbmtButton').click(function(event) { 
+            		var patternNumber = new RegExp('^\\d+$');
+            		var patternDouble = new RegExp('^[0-9]+(\.[0-9]+)?$');
+            		if ($('#adId').val() == null || $('#adId').val() == '') {
+            			alert("Debe seleccionar una 'Admisión' para poder agregar el pago");
+            			return;
+            		}
+            		else if($('#paymentType').val() == '0') {
+            			alert("Debe seleccionar un valor para el campo 'Tipo'");
+            			return;
+            		}
+            		else if ($('#paymentMethod').val() == '0') {
+            			alert("Debe seleccionar un valor para el campo 'Forma'");
+            			return;
+            		}
+            		else if ($('#paymentMethod').val() == '1') {
+            			if ($('#bankId').val() == '0') {
+            				alert("Debe seleccionar un valor para el campo 'Banco'");
+                			return;
+            			}
+            			else if ($('#checkId').val() == '') {
+            				alert("El campo 'N° de Cheque' no puede ser dejado en blanco");
+                			return;
+            			}
+            			else if (!$('#checkId').val().match(patternNumber)) {
+            				alert("El campo 'N° de Cheque' sólo debe contener números, sin letras, ni puntos, ni espacios en blanco");
+                			return;
+            			}
+            			else if ($('#amount').val() == '') {
+            				alert("El campo 'Monto' no puede ser dejado en blanco");
+                			return;
+            			}
+            			else if (!$('#amount').val().match(patternDouble)) {
+            				alert("El campo 'Monto' debe ser un valor numérico. Ejemplo: 1234.56");
+                			return;
+            			}
+            		}
+            		else if ($('#paymentMethod').val() == '2') {
+            			if ($('#amount').val() == '') {
+            				alert("El campo 'Monto' no puede ser dejado en blanco");
+                			return;
+            			}
+            			else if (!$('#amount').val().match(patternDouble)) {
+            				alert("El campo 'Monto' debe ser un valor numérico. Ejemplo: 1234.56");
+                			return;
+            			}
+            		}
+            		else if ($('#paymentMethod').val() == '3') {
+            			if ($('#insuranceId').val() == '0') {
+            				alert("Debe seleccionar un valor para el campo 'Compañía de Seguro'");
+                			return;
+            			}
+            			else if ($('#amount').val() == '') {
+            				alert("El campo 'Monto' no puede ser dejado en blanco");
+                			return;
+            			}
+            			else if (!$('#amount').val().match(patternDouble)) {
+            				alert("El campo 'Monto' debe ser un valor numérico. Ejemplo: 1234.56");
+                			return;
+            			}
+            		}
+            		else if ($('#paymentMethod').val() == '4' || $('#paymentMethod').val() == '5') {
+            			if ($('#bankId').val() == '0') {
+            				alert("Debe seleccionar un valor para el campo 'Banco'");
+                			return;
+            			}
+            			else if ($('#salesPoint').val() == '0') {
+            				alert("Debe seleccionar un valor para el campo 'Punto de Venta'");
+                			return;
+            			}
+            			else if ($('#aprob').val() == '') {
+            				alert("El campo 'N° de Aprobación' no puede ser dejado en blanco");
+                			return;
+            			}
+            			else if (!$('#aprob').val().match(patternNumber)) {
+            				alert("El campo 'N° de Aprobación' sólo debe contener números, sin letras, ni puntos, ni espacios en blanco");
+                			return;
+            			}
+            			else if ($('#amount').val() == '') {
+            				alert("El campo 'Monto' no puede ser dejado en blanco");
+                			return;
+            			}
+            			else if (!$('#amount').val().match(patternDouble)) {
+            				alert("El campo 'Monto' debe ser un valor numérico. Ejemplo: 1234.56");
+                			return;
+            			}
+            		}
+            		else if ($('#paymentMethod').val() == '6') {
+            			if ($('#pass').val() == '') {
+            				alert("El campo 'Clave' no puede ser dejado en blanco");
+                			return;
+            			}
+            			else if ($('#amount').val() == '') {
+            				alert("El campo 'Monto' no puede ser dejado en blanco");
+                			return;
+            			}
+            			else if (!$('#amount').val().match(patternDouble)) {
+            				alert("El campo 'Monto' debe ser un valor numérico. Ejemplo: 1234.56");
+                			return;
+            			}
+            		}
+            		else {
+            			$('#form1').submit();
+            		}
+            	});
+			});
+        </script>
 	</head>
 	<body>
 		<div id="container">
@@ -141,7 +250,7 @@
 							<input type="submit" name="search" value="Buscar" /><br><br>
 						</form>
 					</fieldset>
-					<form action="CreatePaymentServlet" method="post">
+					<form name="form1" id="form1" action="CreatePaymentServlet" method="post">
 					<input type="hidden" name="cashBoxID" value="<%= id %>"/>
 					<%
 					if (a.size() > 0 ){
@@ -167,7 +276,7 @@
 										String n = e.getFirstName() + " " + e.getLastName();
 								%>		
 									<tr class="gradeA">
-										<td><input type="radio" name="adId" value="<%= e.getAdmissionID()%>" /></td>
+										<td><input type="radio" name="adId" id="adId" value="<%= e.getAdmissionID()%>" /></td>
 										<td><%= e.getAdmissionID() %></td>
 										<td><%= (e.getIsAdult() == 1) ? "Si" : "No" %></td>
 										<td><%= e.getIdentityCard() %></td>
@@ -182,7 +291,7 @@
 						<fieldset>
 							<div id="patient">
 								<label for="name">Tipo:</label>
-								<select style="width:111px;" name="paymentType">
+								<select style="width:111px;" name="paymentType" id="paymentType">
 									<option value="0">Seleccionar</option>
 									<% for (int i=0; i< pt.size(); i++){ 
 										PaymentTypes pte = pt.get(i); 
@@ -191,7 +300,7 @@
 									<% } %>
 								</select> <br><br>
 								<label for="name">Forma:</label>
-								<select onchange="displayPaymentFields(this);" name="paymentMethod">
+								<select onchange="displayPaymentFields(this);" name="paymentMethod" id="paymentMethod">
 									<option value="0">Seleccionar</option>
 									<% for (int i=0; i< pm.size(); i++){ 
 										PaymentMethod pme = pm.get(i); 
@@ -205,7 +314,7 @@
 								</div>
 								<div id="bank" style="display:none;">
 									<label for="name">Banco:</label>
-									<select name="bank">
+									<select name="bank" id="bankId">
 										<option value="0">Seleccionar</option>
 										<% for (int i=0; i< b.size(); i++){ 
 											Bank be = b.get(i); 
@@ -216,11 +325,11 @@
 								</div>
 								<div id="check" style="display:none;">
 									<label for="name">N° de Cheque:</label>
-									<input type="text" name="check" style="width: 135px;"> <br><br>
+									<input type="text" name="check" id="checkId" style="width: 135px;"> <br><br>
 								</div>
 								<div id="sellPoint" style="display:none;">
 									<label for="name">Punto de Venta:</label>
-									<select name="salesPoint">
+									<select name="salesPoint" id="salesPoint">
 										<option value="0" >Seleccionar</option>
 										<% for (int i=0; i< sp.size(); i++){ 
 											CashBoxSalePoint spe = sp.get(i); 
@@ -229,11 +338,11 @@
 										<% } %>
 									</select> <br><br>
 									<label for="name">N° de Aprobación:</label>
-									<input type="text" name="aprob" style="width: 135px;"> <br><br>
+									<input type="text" name="aprob" id="aprob" style="width: 135px;"> <br><br>
 								</div>
 								<div id="insurance" style="display:none;">
 									<label for="name">Compañía de Seguro:</label>
-									<select name="insurance">
+									<select name="insurance" id="insuranceId">
 										<option value="0">Seleccionar</option>
 										<% for (int i=0; i< pr.size(); i++){ 
 											PaymentResponsible pre = pr.get(i); 
@@ -243,13 +352,13 @@
 									</select> <br><br>
 								</div>
 								<label for="name">Monto:</label>
-								<input type="text" name="amount" style="width: 135px;"> <br><br>
+								<input type="text" name="amount" id="amount" style="width: 135px;"> <br><br>
 							</div>
 						</fieldset>
 					</div>
 					<div id="botonera">
 							<div id="botonP" style="display: inline; margin-right: 30px;">
-										<input type="submit"  class="button"  name="sbmtButton" value="Agregar" />
+										<input type="button" class="button" id="sbmtButton" name="sbmtButton" value="Agregar" />
 							</div>	
 							<div id="botonV" style="display: inline;">
 								<a href="./ListCashBoxesServlet" class="button" > Regresar </a>
