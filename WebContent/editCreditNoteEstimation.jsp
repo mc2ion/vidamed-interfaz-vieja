@@ -55,7 +55,7 @@
             	<li class="menuitem"><a href="ListAdmissionsServlet">Ver Admisiones</a></li>
             	<li class="menuitem"><a href="ListAdmissionsServlet">Ver Prefacturas</a></li>
             </ul>
-            <div class="menuitemSalir"><a href="LogoutServlet">Salir</a></div>	
+            <div class="menuitemSalir"><a href="LogoutServlet"><%= name %> (Salir)</a></div>	
         </div>        
 		 <jsp:include page="./menu.jsp" />
 		<div id="content" style="position:absolute;"> 

@@ -236,7 +236,7 @@ ArrayList<Unit> units = (ArrayList<Unit>)request.getAttribute("units");
 		    	<ul>
 	            	<li class="menuitem"><a href="ListSpecialistsServlet">Ver Especialistas</a></li>
 	            </ul>
-				<div class="menuitemSalir"><a href="LogoutServlet">Salir</a></div>	
+				<div class="menuitemSalir"><a href="LogoutServlet"><%= name %> (Salir)</a></div>	
         	</div>        
 			<jsp:include page="./menu.jsp" />
         	<div id="content" style="position:absolute;">	
@@ -298,7 +298,7 @@ ArrayList<Unit> units = (ArrayList<Unit>)request.getAttribute("units");
 										<option value="T" >Trabajo</option>
 									</select>
 									<input type="text" id="txtPhoneNumber1" name="txtPhoneNumber1" value="" style="width: 135px;">
-									<img alt="logo" src="./images/close.png"  id="deletePhone" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Agregar otro telefono" />
+									<img alt="logo" src="./images/close.png"  id="deletePhone1" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Agregar otro telefono" />
 						 			<br /><br />
 						 		</div>
 								<div id="otherPhone2" style="display:none;">

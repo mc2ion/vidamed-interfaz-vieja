@@ -14,7 +14,6 @@
 	  	<script src="./js/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
-		<link rel="stylesheet" href="/resources/demos/style.css" />		
 		<script>
 		$(function() {
 				$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x" });
@@ -37,7 +36,7 @@
 				});
 				
 				$("#deleteSellPoint1").click(function() {
-					  $("#otherSellPoin1t").hide();
+					  $("#otherSellPoint1").hide();
 					  $("#addSellPoint").show();
 					  $("#txtNameSP1").val("");
 					  $("#txtCommission1").val("");
@@ -112,7 +111,7 @@
 		    	<ul>
 	            	<li class="menuitem"><a href="ListCashBoxesServlet">Ver Cajas</a></li>
 	            </ul>
-				<div class="menuitemSalir"><a href="LogoutServlet">Salir</a></div>	
+				<div class="menuitemSalir"><a href="LogoutServlet"><%= name %> (Salir)</a></div>	
         	</div>        
 				 <jsp:include page="./menu.jsp" />
         	<div id="content" style="position:absolute;">	

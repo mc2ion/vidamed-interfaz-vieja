@@ -30,7 +30,6 @@
 	        </div>   
 			<nav>
          		<ul>
-         			<li><a href="#">Bienvenido, <%= userName %></a></li>
          			<% if (PermissionsList.hasPermission(request, PermissionsList.admissionDischarge)){ %>
 	                	<li><a href="ListAdmissionDischargesServlet" target="_parent">Altas Admisión
 	                	<% if (countPAD != 0){ %>

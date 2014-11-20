@@ -96,7 +96,7 @@
             	<li class="menuitem"><a href="<%=function%>">Ver Pacientes</a></li>
             	<li class="menuitem"><a href="AddPatientServiceServlet?id=<%=adminId%>&servId=<%=servId%>&name=<%=patName%>">Agregar Servicio</a></li>
             </ul>
-			<div class="menuitemSalir"><a href="LogoutServlet">Salir</a></div>	
+			<div class="menuitemSalir"><a href="LogoutServlet"><%= name %> (Salir)</a></div>	
         </div>        
 		<jsp:include page="./menu.jsp" />
 		<div id="content">  

@@ -94,7 +94,7 @@ Long supplyAreaID = (Long) request.getAttribute("supplyAreaID");
 	            	<li class="menuitem"><a href="ListSupplyAreasServlet" >Ver Áreas Insumos</a></li>
 	            	<li class="menuitem"><a href="ListSuppliesServlet?supplyAreaID=<%= supplyAreaID %>" style="margin-left:10px;">Ver Insumos</a></li>
 	            </ul>
-				<div class="menuitemSalir"><a href="LogoutServlet">Salir</a></div>	
+				<div class="menuitemSalir"><a href="LogoutServlet"><%= name %> (Salir)</a></div>	
         	</div>        
 			<jsp:include page="./menu.jsp" />
         	<div id="content" style="position:absolute;">	

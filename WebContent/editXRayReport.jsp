@@ -45,7 +45,7 @@
             	<li class="menuitem"><a href="CreateXRayReportServlet">Cargar Informe</a></li>
             	<li class="menuitem"><a href="ListXRayReportsServlet">Ver Informes</a></li>
             </ul>
-	    	<div class="menuitemSalir"><a href="LogoutServlet">Salir</a></div>	
+	    	<div class="menuitemSalir"><a href="LogoutServlet"><%= name %> (Salir)</a></div>	
         </div>        
 		 <jsp:include page="./menu.jsp" />
 		<div id="content">  
