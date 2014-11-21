@@ -78,7 +78,7 @@
 				<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 		    	<ul id="menuInside">
 	            	<li class="menuitem"><a href="ListEstimationsServlet">Ver Presupuestos</a></li>
-	            	<li class="menuitem"><a href="CreateEstimationServlet">Crear Presupuesto</a></li>
+	            	<li class="menuitem"><a href="CreateEstimationFormServlet">Crear Presupuesto</a></li>
 	            </ul>
 				<div class="menuitemSalir"><a href="LogoutServlet"><%= name %> (Salir)</a></div>	
         	</div>        
