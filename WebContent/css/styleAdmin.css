@@ -129,6 +129,7 @@ color: #0098b6;
 	width:100%;
 	background: #5CBEFF;
 	padding-bottom: 20px;
+	min-width: 1200px;
 }
 
 #header img
@@ -193,6 +194,7 @@ color:#67A0F5;
 	background: linear-gradient(top, #0b37ba 0%, #08298a 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@top-color', endColorstr='@bottom-color', GradientType=0);
 	/* border-bottom: 2px solid rgb(0, 7, 19); */
+	min-width: 1200px;
 }
 
 #leftmenu
@@ -2713,4 +2715,5 @@ iframe{
 	top: -3px;
 	height: 75px;
 	border: none;
+	min-width: 1195px;
 }
