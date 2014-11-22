@@ -103,10 +103,10 @@
             	$('#sbmtButton').click(function(event) { 
             		var patternNumber = new RegExp('^\\d+$');
             		var patternDouble = new RegExp('^[0-9]+(\.[0-9]+)?$');
-            		if ($('#adId').val() == null || $('#adId').val() == '') {
-            			alert("Debe seleccionar una 'Admisión' para poder agregar el pago");
+					if ( $('input[name=adId]:checked').length == 0){
+						alert("Debe seleccionar una 'Admisión' para poder agregar el pago");
             			return;
-            		}
+					}
             		else if($('#paymentType').val() == '0') {
             			alert("Debe seleccionar un valor para el campo 'Tipo'");
             			return;
@@ -201,9 +201,7 @@
                 			return;
             			}
             		}
-            		else {
-            			$('#form1').submit();
-            		}
+            		$('#form1').submit();
             	});
 			});
         </script>
@@ -276,7 +274,7 @@
 										String n = e.getFirstName() + " " + e.getLastName();
 								%>		
 									<tr class="gradeA">
-										<td><input type="radio" name="adId" id="adId" value="<%= e.getAdmissionID()%>" /></td>
+										<td><input type="radio" name="adId" value="<%= e.getAdmissionID()%>" /></td>
 										<td><%= e.getAdmissionID() %></td>
 										<td><%= (e.getIsAdult() == 1) ? "Si" : "No" %></td>
 										<td><%= e.getIdentityCard() %></td>
