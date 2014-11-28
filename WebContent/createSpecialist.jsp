@@ -130,6 +130,7 @@ ArrayList<Unit> units = (ArrayList<Unit>)request.getAttribute("units");
 			$(function() {    
             	$('#sbmtButton').click(function(event) { 
             		var patternNumber = new RegExp('^\\d+$');
+            		var rifNumber = new RegExp('^(v|V|e|E|j|J)?\\d+$');
             		var patternEmail = new RegExp('^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$');
             		var patternDate = new RegExp('^[0-3]?[0-9]/[0-1]?[0-9]/[0-9]{4}$');
             		var patternPhoneNumber = new RegExp('^\\d{10}\\d*$');
@@ -168,7 +169,7 @@ ArrayList<Unit> units = (ArrayList<Unit>)request.getAttribute("units");
            				alert("El campo 'RIF' no puede ser dejado en blanco");
            				return;
            			}
-           			else if(!$('#txtRifNum').val().match(patternNumber)) {
+           			else if(!$('#txtRifNum').val().match(rifNumber)) {
            				$("#tabs").tabs( "option", "active", 0);
            				alert("El campo 'RIF' sólo debe contener números, sin letras, ni puntos, ni espacios en blanco");
            				return;
