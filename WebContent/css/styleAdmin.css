@@ -2036,9 +2036,9 @@ input.search-input{
 #SignupForm legend { font-size:18px; margin:0px; padding:10px 0px; color:#0098b6; font-weight:bold;}
 #SignupForm label { 
   float:left;
-  width: 20%;
+  /* width: 20%; */
   margin-right:0.5em;
-  padding-top:0.2em;
+  /* padding-top:0.2em; */
   /* text-align:right; */
   font-weight:bold;
   margin-left: 26px;

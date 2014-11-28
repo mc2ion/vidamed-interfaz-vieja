@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
+import domain.AnesthesiaType;
+import domain.PermissionsList;
 import domain.User;
 
 
@@ -44,10 +47,26 @@ public class CreateProtocolServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
-		if(userE != null){
-			RequestDispatcher rd;
-			rd = getServletContext().getRequestDispatcher("/createProtocol.jsp");			
-			rd.forward(request, response);
+		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.paymentResponsible);		
+		
+		if(userE != null && perm ){
+			
+			try {				
+				RequestDispatcher rd;
+				
+				//Obtener anesthesia type
+				@SuppressWarnings("unchecked")
+				ArrayList<AnesthesiaType> a = (ArrayList<AnesthesiaType>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetAnesthesiaTypes());
+				
+				request.setAttribute("anesthesiaTypes", a);
+
+				rd = getServletContext().getRequestDispatcher("/createProtocol.jsp");			
+				rd.forward(request, response);
+			}catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		} else {
 			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 			rd.forward(request, response);

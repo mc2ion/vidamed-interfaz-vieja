@@ -1,5 +1,10 @@
 <%@page import="domain.User"%>
+<%@page import="domain.AnesthesiaType"%>
+<%@page import="java.util.ArrayList"%>
+
 <%
+	@SuppressWarnings("unchecked")
+	ArrayList<AnesthesiaType> anesthesia = (ArrayList<AnesthesiaType>) request.getAttribute("anesthesiaTypes");
 	User user = (User) session.getAttribute("user");
 	String name = "";
 	if (user != null)
@@ -42,10 +47,10 @@
         	<div id="content" style="position:absolute;">	
 		       	<form id="SignupForm" action="ListAdmissionsServlet">
 		        	<fieldset id="field1">
-			            <legend>Información Básica</legend>
+			            <legend>Informaci&oacute;n B&aacute;sica</legend>
 			           <label for="name">Nombre:</label>
 						<input type="text" name="txtName" id="txtName" maxlength="50" size="5"/> <br><br>
-						<label for="name">Descripción:</label>
+						<label for="name">Descripci&oacute;n:</label>
 						<textarea name="txtDescription" id="txtDescription" rows="3" cols="50"></textarea> <br><br>
 						<label for="name">Parecido A:</label>
 						<input type="button" name="txtSimilar" id="txtSimilar" value="Escoger"/> <br><br>
@@ -53,13 +58,25 @@
 						<select id="typeOfProtocol">
 							<option value="A">Ambulatorio</option>
 							<option value="H">No Ambulatorio</option>
-						</select><br><br><br>
+						</select> <br><br>
 						<label> Sexo asociado al protocolo:</label>
 						<select id="gender">
 							<option value="G">General</option>
 							<option value="F">Femenino</option>
 							<option value="M">Masculino</option>
-						</select>
+						</select> <br><br>
+						<label> Hora de Quir&oacute;fano:</label>
+						<input type="number" name="txtORHours" id="txtORHours" step="0.5" min="1" /> <br><br>
+						<label> D&iacute;as de Habitaci&oacute;n:</label>
+						<input type="number" name="txtDays" id="txtDays" step="1" min="1" /> <br><br>
+						<label> Tipo de Anestesia:</label>
+						<select id="anesthesia">
+						<%
+						for(AnesthesiaType a : anesthesia){
+						%>
+							<option value="<%= a.getAnesthesiaTypeId() %>"><%= a.getName() %></option>
+						<%}%>
+						</select> <br><br>
 			        </fieldset>
 			        <fieldset id="field2">
 			            <legend>Hospitalización</legend>
