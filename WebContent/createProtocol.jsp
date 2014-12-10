@@ -9,6 +9,10 @@
 	String name = "";
 	if (user != null)
 		name = user.getFirstName() ;
+	String msg = (String) session.getAttribute("info");
+	if (msg == null ){ msg = "";}
+	session.removeAttribute("info");
+	
 %>
 <!DOCTYPE HTML>
 <html>
@@ -20,9 +24,16 @@
 		<script src="./js/jquery-1.9.1.min.js"></script>
 	    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
-		<link rel="stylesheet" href="/resources/demos/style.css" />	
 		<script type="text/javascript" src="./js/functions.js"></script>
-		
+		<script>
+			$(document).on('change','#typeOfProtocol',function(){
+				if ($('#typeOfProtocol').val() == "H"){
+					$("#days").show();
+				}else{
+					$("#days").hide();
+				}
+			});
+		</script>
 	</head>
 	<body>
 		<div id="container">
@@ -39,32 +50,35 @@
         	</div>        
 			<jsp:include page="./menu.jsp" />
         	<div id="content" style="position:absolute;">	
-		       	<form id="SignupForm" action="ListAdmissionsServlet">
+		       	<form id="SignupForm" action="CreateProtocolServlet" method="post">
+		       		<div class="info-text"><%= msg %></div>
 		        	<fieldset id="field1">
 			            <legend>Informaci&oacute;n B&aacute;sica</legend>
-			           <label for="name">Nombre:</label>
-						<input type="text" name="txtName" id="txtName" maxlength="50" size="5"/> <br><br>
+			            <label for="name">Nombre:</label>
+						<input type="text" name="txtName" id="txtName" maxlength="50" size="5"/> <br style="clear:both;">
 						<label for="name">Descripci&oacute;n:</label>
-						<textarea name="txtDescription" id="txtDescription" rows="3" cols="50"></textarea> <br><br>
+						<textarea name="txtDescription" id="txtDescription" rows="3" cols="50"></textarea> <br style="clear:both;"><br/>
 						<label for="name">Parecido A:</label>
-						<input type="button" name="txtSimilar" id="txtSimilar" value="Escoger"/> <br><br>
+						<input type="button" name="txtSimilar" id="txtSimilar" value="Escoger"/> <br style="clear:both;">
 						<label for="name">Tipo de Protocolo:</label>
-						<select id="typeOfProtocol">
+						<select name="typeOfProtocol" id="typeOfProtocol" class="typeOfProtocol">
 							<option value="A">Ambulatorio</option>
 							<option value="H">No Ambulatorio</option>
-						</select> <br><br>
+						</select> <br style="clear:both;">
 						<label> Sexo asociado al protocolo:</label>
-						<select id="gender">
+						<select name="gender" id="gender">
 							<option value="G">General</option>
 							<option value="F">Femenino</option>
 							<option value="M">Masculino</option>
-						</select> <br><br>
+						</select> <br style="clear:both;">
 						<label> Hora de Quir&oacute;fano:</label>
-						<input type="number" name="txtORHours" id="txtORHours" step="0.5" min="1" /> <br><br>
-						<label> D&iacute;as de Habitaci&oacute;n:</label>
-						<input type="number" name="txtDays" id="txtDays" step="1" min="1" /> <br><br>
+						<input type="number" name="txtORHours" id="txtORHours" step="0.5" min="1" /> <br style="clear:both;">
+						<div id="days" style="display:none;">
+							<label> D&iacute;as de Habitaci&oacute;n:</label>
+							<input type="number" name="txtDays" id="txtDays" step="1" min="1" /> <br style="clear:both;">
+						</div>
 						<label> Tipo de Anestesia:</label>
-						<select id="anesthesia">
+						<select name="anesthesia" id="anesthesia">
 						<%
 						for(AnesthesiaType a : anesthesia){
 						%>
@@ -73,7 +87,7 @@
 						</select> <br><br>
 			        </fieldset>
 			        <p>
-			            <input id="SaveAccount" type="submit" class="button next" value="Crear Protocolo" />
+			            <input id="SaveAccount" type="submit" class="button next" value="Continuar" />
 			        </p>
 			        </form>
 				</div>

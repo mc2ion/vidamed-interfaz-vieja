@@ -2036,12 +2036,9 @@ input.search-input{
 #SignupForm legend { font-size:18px; margin:0px; padding:10px 0px; color:#0098b6; font-weight:bold;}
 #SignupForm label { 
   float:left;
-  /* width: 20%; */
   margin-right:0.5em;
-  /* padding-top:0.2em; */
-  /* text-align:right; */
   font-weight:bold;
-  margin-left: 26px;
+  margin-left: 5px;
 }
 .prev, .next { background-color:#0098b6; padding:5px 10px; color:#fff; text-decoration:none;}
 .prev:hover, .next:hover { background-color:#0098b6; text-decoration:none;}
@@ -2398,6 +2395,24 @@ input.search-input{
 	text-shadow:1px 1px 0px #810e05;
 	padding: 8px;
 }
+
+.button-gray {
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+	background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+	background-color:#ededed;
+	text-indent:0;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	font-family:arial;
+	font-style:normal;
+	padding: 8px;
+	text-decoration:none;
+	text-align:center;
+}
 .buttonRed:hover {
 	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #c62d1f), color-stop(1, #f24537) );
 	background:-moz-linear-gradient( center top, #c62d1f 5%, #f24537 100% );
@@ -2495,7 +2510,7 @@ input.search-input{
 	font-style:italic;
 	text-decoration:none;
 	text-align:center;
-	text-shadow:1px 1px 0px #cd8a15;
+	text-shadow: none;
 }
 .next:hover {
 	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #d29105), color-stop(1, #f6b33d) );
@@ -2709,7 +2724,6 @@ nav .badge.blue {
 	margin-bottom: 16px;
 }
 
-
 iframe{
 	position: absolute;
 	top: -3px;
@@ -2717,3 +2731,5 @@ iframe{
 	border: none;
 	min-width: 1195px;
 }
+
+.table-simple td{ padding: 4px 0px;}

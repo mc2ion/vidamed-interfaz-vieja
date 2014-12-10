@@ -12,17 +12,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
-import domain.AnesthesiaType;
+import domain.BussinessMicro;
 import domain.PermissionsList;
+import domain.ProtocolScale;
 import domain.User;
 
 
 
 /**
- * Servlet implementation class CreateProtocolServlet
+ * Servlet implementation class CreateMicroProtocolServlet
  */
-@WebServlet(description = "servlet to log in users", urlPatterns = { "/CreateProtocolServlet" })
-public class CreateProtocolServlet extends HttpServlet {
+@WebServlet(description = "servlet to log in users", urlPatterns = { "/CreateMicroProtocolServlet" })
+public class CreateMicroProtocolServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	public void init() throws ServletException {
@@ -37,7 +38,7 @@ public class CreateProtocolServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CreateProtocolServlet() {
+    public CreateMicroProtocolServlet() {
         super();
     }
 
@@ -50,17 +51,20 @@ public class CreateProtocolServlet extends HttpServlet {
 		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.protocols);		
 		
 		if(userE != null && perm ){
-			
-			try {				
-				RequestDispatcher rd;
+			try {	
+				String  id =  request.getParameter("id");
 				
-				//Obtener anesthesia type
+				//Get protocol 
 				@SuppressWarnings("unchecked")
-				ArrayList<AnesthesiaType> a = (ArrayList<AnesthesiaType>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetAnesthesiaTypes());
+				ArrayList<ProtocolScale> pp = (ArrayList<ProtocolScale>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetProtocolScale(id));
+				request.setAttribute("ps", pp);
 				
-				request.setAttribute("anesthesiaTypes", a);
-
-				rd = getServletContext().getRequestDispatcher("/createProtocol.jsp");			
+				@SuppressWarnings("unchecked")
+				ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetBussinessMicros());
+				request.setAttribute("bm", bm);
+				
+				RequestDispatcher rd;			
+				rd = getServletContext().getRequestDispatcher("/createMicros_Protocol.jsp");
 				rd.forward(request, response);
 			}catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -90,19 +94,17 @@ public class CreateProtocolServlet extends HttpServlet {
 			protocolID = (Long)CommandExecutor.getInstance().executeDatabaseCommand(new command.AddProtocol(params[0], params[1], params[3],
 					params[4], params[5], params[6], params[7]));
 			String text_good = "";
-			System.out.println(protocolID);
 			if (protocolID == null) {
-				text_good += " Se ha presentado un error al crear el protocolo. Por favor, intente nuevamente.";
+				text_good += " Se ha presentado un error al asociar uno o más números telefónicos al usuario. Por favor, intente nuevamente.";
 				session.setAttribute("info",text_good);
 				response.sendRedirect(request.getContextPath() + "/CreateProtocolServlet");
-				return;
-			}else{
-				response.sendRedirect(request.getContextPath() + "/CreateMicroProtocolServlet?id=" + protocolID);
-				return;
-			}
+			}else
+				response.sendRedirect(request.getContextPath() + "/CreateMicroProtocolServlet");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		doGet(request, response);
 	}
 }

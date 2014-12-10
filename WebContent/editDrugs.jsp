@@ -1,5 +1,6 @@
 <%@page import="domain.User"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="domain.ProtocolSupplies"%>
 <%@page import="domain.Supply"%>
 <%
 	User user = (User) session.getAttribute("user");
@@ -9,6 +10,8 @@
 	
 	@SuppressWarnings("unchecked")
 	ArrayList<Supply> sp = (ArrayList<Supply>)request.getAttribute("sp");
+	@SuppressWarnings("unchecked")
+	ArrayList<ProtocolSupplies> sps = (ArrayList<ProtocolSupplies>)request.getAttribute("sps");
 %>
 <!DOCTYPE HTML>
 <html>
@@ -25,7 +28,8 @@
 		<script>
 			var colArray = new Array()    ;
 			var idArray  = new Array()    ;
-			var count 	 = 0;
+			var count 	 = <%= sps.size() %>;
+			var deleted  = new Array()    ;
 			<% for (int k=0; k < sp.size(); k++) { %>
 				colArray[<%= k %>] = "<%= sp.get(k).getName() %>"; 
 				idArray[<%= k %>] = "<%= sp.get(k).getSupplyID() %>"; 
@@ -44,10 +48,10 @@
 		    	<div class="menuitemSalir"><a href="LogoutServlet"><%= name %> (Salir)</a></div>	
         	</div>        
 			 <jsp:include page="./menu.jsp" />
-			<form action="AddDrugsServlet" method="post">
+			<form action="EditDrugsServlet" id="form" method="post">
 			<input type="hidden" name="protocolID" value='<%= (String) request.getParameter("protocolID") %>' />
 			<input type="hidden" name="scaleID" value='<%= (String) request.getParameter("id") %>' />
-			<input type="hidden" name="count" id='countrows' value='0' />
+			<input type="hidden" name="count" id='countrows' value='<%= sps.size()%>' />
 			
 			<div id="content" style="position:absolute;">	
 	        	<h2>Fármacos en Habitación</h2> <br><br>
@@ -58,16 +62,26 @@
 	        		<input type="button" value="Eliminar Registro" class="buttonGray" onclick="deleteRowChild('sweetTable', colArray, idArray)">
 	        	</p> 
 			
-				<table id="sweetTable" style="visibility:hidden" >
-				<tr>
-					 <th style="width: 40%; text-align:center">Nombre</th>
-					 <th style="width: 20%; text-align:center">Cantidad</th>
-					 <th style="width: 20%; text-align:center">Seleccione para Eliminar</th>
-				</tr>         
-				</table><br>
+				<table id="sweetTable" style="visibility: visible;">
+					<tbody>
+						<tr>
+							 <th style="width: 40%; text-align:center">Nombre</th>
+							 <th style="width: 20%; text-align:center">Cantidad</th>
+							 <th style="width: 20%; text-align:center">Seleccione para Eliminar</th>
+						</tr>      
+						<% for (int i=0; i < sps.size(); i++) { %>
+						<tr>
+							<td><%= sp.get(i).getName()%><input type='hidden' name="supply<%= i + 1%>-old" value="<%=sp.get(i).getSupplyID()%>" ><span style='display:none' class='idsp'><%= sps.get(i).getSupplyID() %></span></td>
+							<td style="text-align: center;"><input name="amount<%= i+1 %>-old" size="4" type="text" value="<%= sps.get(i).getTotal() %>"></td>
+							<td style="text-align: center;"><input type="checkbox"></td>
+						</tr>
+						<% } %>
+						</tbody>
+				</table>
+				<br>
 				 <div id="botonera" style="margin-top: -3px;">
-						<div id="botonP" style="display: none; margin-right: 30px;">
-									<input type="submit"  class="button"  name="sbmtButton" value="Aceptar" />
+						<div id="botonP" style="display: inline; margin-right: 30px;">
+									<input type="submit"  class="button"  name="sbmtButton" value="Guardar" />
 						</div>	
 						<div id="botonV" style="display: inline;">
 								<input type="button" class="button" value="Cancelar" onClick="javascript:history.back();" />		
