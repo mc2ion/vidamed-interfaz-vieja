@@ -2,6 +2,8 @@ package servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -87,7 +89,9 @@ public class EditDrugsServlet extends HttpServlet {
 		String scaleID = (String) request.getParameter("scaleID");
 		String count = (String) request.getParameter("count");
 		String[] deleted = (String[]) request.getParameterValues("deleted");
+		String actives = (String) request.getParameter("actives");
 		
+		List<String> actStr = Arrays.asList(actives.split(","));
 		try{
 			if (deleted != null){
 				for (int i = 0; i < deleted.length; i++){
@@ -97,14 +101,19 @@ public class EditDrugsServlet extends HttpServlet {
 			}
 			
 			for (int i = 1 ; i <= Integer.valueOf(count) ; i++){
-				String select = request.getParameter("supply" + i + "-old");
-				String amount = request.getParameter("amount" + i + "-old");
+				String index = actStr.get(i-1);
+				String select = request.getParameter("supply" + index + "-old");
+				String amount = request.getParameter("amount" + index + "-old");
+				//System.out.println(select + " " + amount );	
 					if (select != null){
 						Long id = (Long) CommandExecutor.getInstance().executeDatabaseCommand(new command.EditProtocolSupply(amount, protocolID, scaleID, select));
 						System.out.println(id + " " );	
-					}else{
-						select = request.getParameter("supply" + i );
-						amount = request.getParameter("amount" + i );
+					}else{ 
+						System.out.println(index);	
+						select = request.getParameter("supply" + index );
+						amount = request.getParameter("amount" + index );
+						System.out.println(select + " " + amount );	
+				
 						Long id = (Long) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddProtocolSupply(amount, protocolID, scaleID, select));
 						System.out.println(id + " " );	
 					}

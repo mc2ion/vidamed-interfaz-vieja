@@ -1,8 +1,12 @@
 function addRowForChild(tableId, colArray, idArray) {
 	count++;
+	iaux++;
+	
+	ies.push(iaux);
+	
 	document.getElementById('countrows').value = count;
-	
-	
+	//alert(ies);
+	document.getElementById('activeies').value = ies;
 	var tblObj = document.getElementById(tableId);
 	var tblObjBotonera = document.getElementById('botonP');
 	var no_of_rows = tblObj.rows.length;
@@ -10,7 +14,7 @@ function addRowForChild(tableId, colArray, idArray) {
 	// to make visible of the header row of the table , if the table has atleast one row
 	if(no_of_rows==1){
 		tblObj.style.visibility="visible";
-		tblObjBotonera.style.display="inline";
+		//tblObjBotonera.style.display="inline";
 	}
 	// to insert one row of the table
 		var row_in_table = tblObj.insertRow(no_of_rows);
@@ -18,7 +22,7 @@ function addRowForChild(tableId, colArray, idArray) {
 	//to insert the second column (for textbox to accept name)
 	var column2 = row_in_table.insertCell(0);
 	var element2 = document.createElement("select");
-	element2.setAttribute("name", "supply"+count); //to set name of the text box
+	element2.setAttribute("name", "supply"+iaux); //to set name of the text box
 	element2.style.width="100%";
 	var option = document.createElement("option");
 	element2.options[0] = new Option("Seleccionar", "-");
@@ -32,7 +36,7 @@ function addRowForChild(tableId, colArray, idArray) {
 	 //to insert the second column
 	var column3 = row_in_table.insertCell(1);
 	var element3 = document.createElement("input");
-	element3.setAttribute("name", "amount"+count);
+	element3.setAttribute("name", "amount"+iaux);
 	element3.setAttribute("size", "4");
 	column3.style.textAlign='center';
 	element3.type = "text";
@@ -64,14 +68,23 @@ function deleteRowChild(tableId, colArray, idArray) {
 		var chkbox = row_in_table.cells[2].childNodes[0];
 		if( chkbox !=null &&  chkbox.checked==true) {
 			tblObj.deleteRow(i);
+			var nm = row_in_table.cells[0].childNodes[0].getAttribute('name');
+			nm = nm.substring(6);
+			var indx = ies.indexOf(parseInt(nm));
+			ies.splice(indx,1);
 			no_of_rows--;
 			i--;
 			count--;
-			var id = row_in_table.cells[0].childNodes[2].innerHTML;
+			
+			document.getElementById('activeies').value = ies;
+			document.getElementById('countrows').value = count;
+			
+			var id = row_in_table.cells[0].childNodes[3].innerHTML;
 			var input = document.createElement("input");
 			input.setAttribute("type", "hidden");
 			input.setAttribute("name", "deleted");
 			input.setAttribute("value", id);
+			
 			//append to form element that you want .
 			document.getElementById("form").appendChild(input);
 			//deleted.push(id);
@@ -80,7 +93,7 @@ function deleteRowChild(tableId, colArray, idArray) {
 			// to hide the table heading , if there is no row
 			if(no_of_rows<=1){ 
 				tblObj.style.visibility="hidden";
-			tblObjBotonera.style.display='none';
+			    //tblObjBotonera.style.display='none';
 	            	
 			}
 		}

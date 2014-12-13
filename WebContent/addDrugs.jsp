@@ -24,8 +24,10 @@
 		<script type="text/javascript" src="./js/functions.js"></script>
 		<script>
 			var colArray = new Array()    ;
-			var idArray  = new Array()    ;
+			var idArray  = new Array()    
+			var ies  	 = new Array()    ;
 			var count 	 = 0;
+			var iaux 	 = 0;
 			<% for (int k=0; k < sp.size(); k++) { %>
 				colArray[<%= k %>] = "<%= sp.get(k).getName() %>"; 
 				idArray[<%= k %>] = "<%= sp.get(k).getSupplyID() %>"; 
@@ -48,6 +50,7 @@
 			<input type="hidden" name="protocolID" value='<%= (String) request.getParameter("protocolID") %>' />
 			<input type="hidden" name="scaleID" value='<%= (String) request.getParameter("id") %>' />
 			<input type="hidden" name="count" id='countrows' value='0' />
+			<input type="hidden" name="actives[]" id='activeies' value='' />
 			
 			<div id="content" style="position:absolute;">	
 	        	<h2>Fármacos en Habitación</h2> <br><br>
@@ -66,7 +69,7 @@
 				</tr>         
 				</table><br>
 				 <div id="botonera" style="margin-top: -3px;">
-						<div id="botonP" style="display: none; margin-right: 30px;">
+						<div id="botonP" style="display: inline; margin-right: 30px;">
 									<input type="submit"  class="button"  name="sbmtButton" value="Aceptar" />
 						</div>	
 						<div id="botonV" style="display: inline;">

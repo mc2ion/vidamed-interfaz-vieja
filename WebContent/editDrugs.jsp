@@ -30,10 +30,11 @@
 			var idArray  = new Array()    ;
 			var count 	 = <%= sps.size() %>;
 			var deleted  = new Array()    ;
+			var ies      = new Array();
+			var iaux 	 = count;
 			<% for (int k=0; k < sp.size(); k++) { %>
 				colArray[<%= k %>] = "<%= sp.get(k).getName() %>"; 
 				idArray[<%= k %>] = "<%= sp.get(k).getSupplyID() %>"; 
-				
 			<% } %>
 		</script>
 	</head>
@@ -52,6 +53,7 @@
 			<input type="hidden" name="protocolID" value='<%= (String) request.getParameter("protocolID") %>' />
 			<input type="hidden" name="scaleID" value='<%= (String) request.getParameter("id") %>' />
 			<input type="hidden" name="count" id='countrows' value='<%= sps.size()%>' />
+			<input type="hidden" name="actives" id='activeies' value='' />
 			
 			<div id="content" style="position:absolute;">	
 	        	<h2>Fármacos en Habitación</h2> <br><br>
@@ -70,12 +72,19 @@
 							 <th style="width: 20%; text-align:center">Seleccione para Eliminar</th>
 						</tr>      
 						<% for (int i=0; i < sps.size(); i++) { %>
+						<script>
+							ies[<%= i  %>] = <%= i + 1 %>;
+						</script>
 						<tr>
-							<td><%= sp.get(i).getName()%><input type='hidden' name="supply<%= i + 1%>-old" value="<%=sp.get(i).getSupplyID()%>" ><span style='display:none' class='idsp'><%= sps.get(i).getSupplyID() %></span></td>
+							<td><input type="text" readonly name="supply<%= i+1%>" value="<%= sp.get(i).getName()%>" style="width:100%; border:none;">
+							<input type='hidden' name="supply<%= i + 1%>-old" value="<%=sp.get(i).getSupplyID()%>" ><span style='display:none' class='idsp'><%= sps.get(i).getSupplyID() %></span></td>
 							<td style="text-align: center;"><input name="amount<%= i+1 %>-old" size="4" type="text" value="<%= sps.get(i).getTotal() %>"></td>
 							<td style="text-align: center;"><input type="checkbox"></td>
 						</tr>
 						<% } %>
+						<script>
+							document.getElementById('activeies').value = ies;
+						</script>
 						</tbody>
 				</table>
 				<br>
