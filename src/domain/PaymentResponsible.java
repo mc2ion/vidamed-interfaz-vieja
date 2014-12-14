@@ -13,6 +13,7 @@ public class PaymentResponsible {
 	private String address;
 	private String phoneNumber;
 	private String contactName;
+	private String rif;
 	private int hasGuaranteeLetter;
 	private int isPolicyHolder;
 	private String policyHolderName;
@@ -129,6 +130,14 @@ public class PaymentResponsible {
 	
 	public String getContactName(){
 		return contactName;
+	}
+
+	public String getRif() {
+		return rif;
+	}
+
+	public void setRif(String rif) {
+		this.rif = rif;
 	}
 	
 }

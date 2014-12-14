@@ -104,6 +104,10 @@ public class CreatePaymentResponsibleServlet extends HttpServlet {
 		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.paymentResponsible);
 		if(userE != null && perm ){
 			String name = request.getParameter("txtName");
+			String contactName = request.getParameter("txtNameContact");
+			String rif = request.getParameter("txtRif");
+			String address = request.getParameter("txtAddress");
+			String phoneNumber = request.getParameter("txtPhoneNumber");
 			Long selBusinessRule = Long.parseLong(request.getParameter("selBusinessRule"));
 			Long selBusinessModel = null, selBusinessModelH = null, selBusinessModelG = null, selBusinessModelS = null, selBusinessModelM = null;
 			double txtPrice = 0, txtPriceH = 0, txtPriceG = 0, txtPriceS = 0, txtPriceM = 0;
@@ -116,7 +120,7 @@ public class CreatePaymentResponsibleServlet extends HttpServlet {
 				}	
 				
 				try {
-					CommandExecutor.getInstance().executeDatabaseCommand(new command.CreatePaymentResponsible(name, selBusinessRule, selBusinessModel, txtPrice));
+					CommandExecutor.getInstance().executeDatabaseCommand(new command.CreatePaymentResponsible(name, contactName, rif, address, phoneNumber, selBusinessRule, selBusinessModel, txtPrice));
 					response.sendRedirect(request.getContextPath() + "/ListPaymentResponsiblesServlet");
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -192,7 +196,7 @@ public class CreatePaymentResponsibleServlet extends HttpServlet {
 				/* Edito cada una de los micros */
 				try {
 					//System.out.println("micros " + id + " " + H + " " + selBusinessModelH + " " + txtPriceH);
-					CommandExecutor.getInstance().executeDatabaseCommand(new command.CreatePaymentResponsible(name, selBusinessRule, rrList));
+					CommandExecutor.getInstance().executeDatabaseCommand(new command.CreatePaymentResponsible(name, contactName, rif, address, phoneNumber, selBusinessRule, rrList));
 					response.sendRedirect(request.getContextPath() + "/ListPaymentResponsiblesServlet");
 					//request.setAttribute("info", "Sus cambios fueron realizados exitosamente.");
 					//doGet(request, response);

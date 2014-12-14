@@ -32,6 +32,10 @@ public class GetPaymentResponsible implements DatabaseCommand {
 				resp.setId(rs.getLong(1));
 				resp.setName(rs.getString(2));
 				resp.setBussinessRuleId(rs.getLong(3));
+				resp.setAddress(rs.getString(4));
+				resp.setPhone(rs.getString(5));
+				resp.setContactName(rs.getString(6));
+				resp.setRif(rs.getString(7));
 				
 				//Get  responsible-rule
 				PreparedStatement psAux = conn.prepareStatement("exec dbo.GetPaymentResponsibleRule " + rId);

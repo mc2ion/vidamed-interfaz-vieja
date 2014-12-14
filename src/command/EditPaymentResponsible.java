@@ -12,21 +12,33 @@ public class EditPaymentResponsible implements DatabaseCommand {
 	private Long selBusinessModel;
 	private double txtPrice;
 	private String type = "General";
+	private String contactName;
+	private String rif;
+	private String phoneNumber;
+	private String address;
 	
-	public EditPaymentResponsible(Long id, String name, Long selBusinessRule, Long selBusinessModel, double txtPrice){
+	public EditPaymentResponsible(Long id, String name, Long selBusinessRule, Long selBusinessModel, double txtPrice, String contactName, String rif, String address, String phoneNumber){
 		this.id = id;
 		this.name = name;
 		this.selBusinessRule = selBusinessRule;
 		this.selBusinessModel = selBusinessModel;
 		this.txtPrice = txtPrice;
 		this.type = "General";
+		this.contactName = contactName;
+		this.rif = rif;
+		this.phoneNumber = phoneNumber;
+		this.address = address;
 	}
 	
-	public EditPaymentResponsible(Long id, String name, Long selBusinessRule){
+	public EditPaymentResponsible(Long id, String name, Long selBusinessRule, String contactName, String rif, String address, String phoneNumber){
 		this.id = id;
 		this.name = name;
 		this.selBusinessRule = selBusinessRule;
 		this.type = "name";
+		this.contactName = contactName;
+		this.rif = rif;
+		this.phoneNumber = phoneNumber;
+		this.address = address;
 	}
 	
 	public EditPaymentResponsible(Long id, Long selBusinessRule, Long selBusinessModel, double txtPrice){
@@ -44,11 +56,13 @@ public class EditPaymentResponsible implements DatabaseCommand {
 		try {
 			if (type.equals("General")){
 				ps = conn.prepareStatement("exec dbo.EditPaymentResponsibleWithGeneralRules '" + name + "', '" + selBusinessRule + "', '" +
-							id + "', '" + selBusinessModel + "', '" + txtPrice + "'");
+							address + "', '" + phoneNumber + "', '" + contactName + "', '" + rif + "', '" + id + "', '" + selBusinessModel +
+							"', '" + txtPrice + "'");
 				ps.execute();
 			}else{
 				if (type.equals("name")){
-					ps = conn.prepareStatement("exec dbo.EditPaymentResponsible '" + name + "', '" + selBusinessRule + "', '" + id + "'");
+					ps = conn.prepareStatement("exec dbo.EditPaymentResponsible '" + name + "', '" + selBusinessRule + "', '" + address + "', '" +
+							phoneNumber + "', '" + contactName + "', '" + rif + "', '" + id + "'");
 					ps.execute();
 					
 				}else{

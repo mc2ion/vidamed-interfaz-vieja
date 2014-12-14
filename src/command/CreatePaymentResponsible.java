@@ -10,22 +10,34 @@ import domain.ResponsibleRule;
 public class CreatePaymentResponsible implements DatabaseCommand {
 	
 	private String name;
+	private String contactName;
+	private String rif;
+	private String address;
+	private String phoneNumber;
 	private Long selBusinessRule;
 	private Long selBusinessModel;
 	private double txtPrice;
 	private String type = "General";
 	private ArrayList<ResponsibleRule> rrList = new ArrayList<ResponsibleRule>();
 	
-	public CreatePaymentResponsible(String name, Long selBusinessRule, Long selBusinessModel, double txtPrice){
+	public CreatePaymentResponsible(String name, String contactName, String rif, String address, String phoneNumber, Long selBusinessRule, Long selBusinessModel, double txtPrice){
 		this.name = name;
+		this.contactName = contactName;
+		this.rif = rif;
+		this.address = address;
+		this.phoneNumber = phoneNumber;
 		this.selBusinessRule = selBusinessRule;
 		this.selBusinessModel = selBusinessModel;
 		this.txtPrice = txtPrice;
 		this.type = "General";
 	}
 	
-	public CreatePaymentResponsible(String name, Long selBusinessRule, ArrayList<ResponsibleRule> rrList){
+	public CreatePaymentResponsible(String name, String contactName, String rif, String address, String phoneNumber, Long selBusinessRule, ArrayList<ResponsibleRule> rrList){
 		this.name = name;
+		this.contactName = contactName;
+		this.rif = rif;
+		this.address = address;
+		this.phoneNumber = phoneNumber;
 		this.selBusinessRule = selBusinessRule;
 		this.rrList = rrList;
 		this.type = "name";
@@ -41,13 +53,15 @@ public class CreatePaymentResponsible implements DatabaseCommand {
 		try {
 			if (type.equals("General")){
 				ps = conn.prepareStatement("exec dbo.AddPaymentResponsibleWithGeneralRules '" + name + "', '" + selBusinessRule + "', '" +
-							+ selBusinessModel + "', '" + txtPrice + "', '" + id + "'");
+							address + "', '" + phoneNumber + "', '" + contactName + "', '" + rif + "', '" + selBusinessModel + "', '" + 
+							txtPrice + "', '" + id + "'");
 				rs = ps.executeQuery();
 				if (rs.next()) {
 					paymentId = rs.getLong(1);
 				}
 			}else{
-				ps = conn.prepareStatement("exec dbo.AddPaymentResponsible  '" + name + "', '" + selBusinessRule + "'");
+				ps = conn.prepareStatement("exec dbo.AddPaymentResponsible  '" + name + "', '" + selBusinessRule + "', '" + address + "', '" +
+							phoneNumber + "', '" + contactName + "', '" + rif + "'");
 				rs = ps.executeQuery();
 				if (rs.next()) {
 					paymentId = rs.getLong(1);

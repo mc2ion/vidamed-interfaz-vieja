@@ -75,6 +75,8 @@
 			$(function() {    
             	$('#sbmtButton').click(function(event) { 
             		var patternDouble = new RegExp('^[0-9]+(\.[0-9]+)?$');
+            		var rifNumber = new RegExp('^(v|V|e|E|j|J)?\\d+$');
+            		var patternPhoneNumber = new RegExp('^\\d{10}\\d*$');
             		if ($('#txtName').val() == '') {
             			alert("El campo 'Nombre' no puede ser dejado en blanco");
             			return;
@@ -127,6 +129,14 @@
                 			}
             			<% } %>
             		}
+            		else if($('#txtRifNum').val() != '' && !$('#txtRifNum').val().match(rifNumber)) {
+           				alert("El campo 'RIF' sólo debe contener números, sin letras, ni puntos, ni espacios en blanco");
+           				return;
+           			}
+            		else if($('#txtPhoneNumber').val() != '' && !$('#txtPhoneNumber').val().match(patternPhoneNumber)) {
+            			alert("El campo de 'Teléfono' debe contener sólo números sin puntos, ni guiones ni espacios en blanco. Coloque el código de ciudad.");
+           				return;
+           			}
             		$('#form1').submit();
             	});
 			});
@@ -166,6 +176,14 @@
 			  		<fieldset>
 					<label for="name">Nombre:</label>
 					<input type="text" name="txtName" id="txtName" maxlength="50" size="5" value="<%= responsible.getName() %>"/> <br><br>
+					<label for="name">Nombre de Contacto:</label>
+					<input type="text" name="txtNameContact" id="txtNameContact" maxlength="50" size="5" value="<%= responsible.getContactName() %>" /> <br><br>
+					<label for="name">RIF:</label>
+					<input type="text" name="txtRif" id="txtRif" maxlength="20" size="5" value="<%= responsible.getRif() %>" /> <br><br>
+					<label for="name">Dirección:</label>
+					<textarea name="txtAddress" id="txtAddress" rows="2" cols="50"><%= responsible.getAddress() %></textarea> <br><br>
+					<label for="name">Teléfono:</label>
+					<input type="text" maxlength="15" id="txtPhoneNumber" name="txtPhoneNumber" value="<%= responsible.getPhone() %>" style="width: 135px;"><br /><br />
 					<label for="name">Regla de Negocio:</label>
 					<select name="selBusinessRule" id="selBusinessRule" onchange="displayDiv(this);">
 						<option value="0">Seleccionar</option>

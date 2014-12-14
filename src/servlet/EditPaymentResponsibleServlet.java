@@ -128,6 +128,10 @@ public class EditPaymentResponsibleServlet extends HttpServlet {
 			String oldName = request.getParameter("rName");
 			Long businessRuleIdOld = Long.parseLong(request.getParameter("rbrId"));
 			Long selBusinessRule = Long.parseLong(request.getParameter("selBusinessRule"));
+			String contactName = request.getParameter("txtNameContact");
+			String rif = request.getParameter("txtRif");
+			String address = request.getParameter("txtAddress");
+			String phoneNumber = request.getParameter("txtPhoneNumber");
 			Long selBusinessModel = null, selBusinessModelH = null, selBusinessModelG = null, selBusinessModelS = null, selBusinessModelM = null;
 			double txtPrice = 0, txtPriceH = 0, txtPriceG = 0, txtPriceS = 0, txtPriceM = 0;
 			/* Caso General */
@@ -139,7 +143,7 @@ public class EditPaymentResponsibleServlet extends HttpServlet {
 				}	
 				
 				try {
-					CommandExecutor.getInstance().executeDatabaseCommand(new command.EditPaymentResponsible(id, name, selBusinessRule, selBusinessModel, txtPrice));
+					CommandExecutor.getInstance().executeDatabaseCommand(new command.EditPaymentResponsible(id, name, selBusinessRule, selBusinessModel, txtPrice, contactName, rif, address, phoneNumber));
 					request.setAttribute("rId", id);
 					request.setAttribute("info", "Sus cambios fueron realizados exitosamente.");
 					doGet(request, response);
@@ -152,7 +156,7 @@ public class EditPaymentResponsibleServlet extends HttpServlet {
 				// Modifico el payment si cambio el nombre  o la regla de negocio
 				if (!oldName.equals(name) || businessRuleIdOld != selBusinessRule){
 					try {
-						CommandExecutor.getInstance().executeDatabaseCommand(new command.EditPaymentResponsible(id, name, selBusinessRule));
+						CommandExecutor.getInstance().executeDatabaseCommand(new command.EditPaymentResponsible(id, name, selBusinessRule, contactName, rif, address, phoneNumber));
 						request.setAttribute("rId", id);
 						request.setAttribute("info", "Sus cambios fueron realizados exitosamente.");
 						doGet(request, response);
