@@ -76,8 +76,8 @@
 							ies[<%= i  %>] = <%= i + 1 %>;
 						</script>
 						<tr>
-							<td><input type="text" readonly name="supply<%= i+1%>" value="<%= sp.get(i).getName()%>" style="width:100%; border:none;">
-							<input type='hidden' name="supply<%= i + 1%>-old" value="<%=sp.get(i).getSupplyID()%>" ><span style='display:none' class='idsp'><%= sps.get(i).getSupplyID() %></span></td>
+							<td><input type="text" readonly name="supply<%= i+1%>" value="<%= sps.get(i).getName()%>" style="width:100%; border:none;">
+							<input type='hidden' name="supply<%= i + 1%>-old" value="<%=sps.get(i).getSupplyID()%>" ><span style='display:none' class='idsp'><%= sps.get(i).getSupplyID() %></span></td>
 							<td style="text-align: center;"><input name="amount<%= i+1 %>-old" size="4" type="text" value="<%= sps.get(i).getTotal() %>"></td>
 							<td style="text-align: center;"><input type="checkbox"></td>
 						</tr>

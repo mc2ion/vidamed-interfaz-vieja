@@ -59,7 +59,8 @@
 						<label for="name">Descripci&oacute;n:</label>
 						<textarea name="txtDescription" id="txtDescription" rows="3" cols="50"></textarea> <br style="clear:both;"><br/>
 						<label for="name">Parecido A:</label>
-						<input type="button" name="txtSimilar" id="txtSimilar" value="Escoger"/> <br style="clear:both;">
+						<a href="./ChooseProtocolServlet" style="text-decoration:underline;">(Escoger)</a>
+						<br style="clear:both;">
 						<label for="name">Tipo de Protocolo:</label>
 						<select name="typeOfProtocol" id="typeOfProtocol" class="typeOfProtocol">
 							<option value="A">Ambulatorio</option>

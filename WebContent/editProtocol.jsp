@@ -58,8 +58,6 @@
 						<input type="text" name="txtName" id="txtName" maxlength="50" size="5" value="<%= p.getName()%>"/> <br style="clear:both;">
 						<label for="name">Descripci&oacute;n:</label>
 						<textarea name="txtDescription" id="txtDescription" rows="3" cols="50"><%= p.getDescription()%></textarea> <br style="clear:both;"><br/>
-						<label for="name">Parecido A:</label>
-						<input type="button" name="txtSimilar" id="txtSimilar" value="Escoger"/> <br style="clear:both;">
 						<label for="name">Tipo de Protocolo:</label>
 						<select name="typeOfProtocol" id="typeOfProtocol" class="typeOfProtocol">
 							<option value="A" <%=  (p.getType().equals("A")) ? "selected": "" %>>Ambulatorio</option>

@@ -79,14 +79,16 @@ function deleteRowChild(tableId, colArray, idArray) {
 			document.getElementById('activeies').value = ies;
 			document.getElementById('countrows').value = count;
 			
-			var id = row_in_table.cells[0].childNodes[3].innerHTML;
-			var input = document.createElement("input");
-			input.setAttribute("type", "hidden");
-			input.setAttribute("name", "deleted");
-			input.setAttribute("value", id);
-			
-			//append to form element that you want .
-			document.getElementById("form").appendChild(input);
+			if (row_in_table.cells[0].childNodes[3] != null){
+				var id = row_in_table.cells[0].childNodes[3].innerHTML;
+				var input = document.createElement("input");
+				input.setAttribute("type", "hidden");
+				input.setAttribute("name", "deleted");
+				input.setAttribute("value", id);
+				
+				//append to form element that you want .
+				document.getElementById("form").appendChild(input);
+			}
 			//deleted.push(id);
 			document.getElementById('countrows').value = count;
 			console.log(count);
