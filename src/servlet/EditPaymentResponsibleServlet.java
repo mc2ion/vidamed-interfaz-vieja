@@ -128,10 +128,10 @@ public class EditPaymentResponsibleServlet extends HttpServlet {
 			String oldName = request.getParameter("rName");
 			Long businessRuleIdOld = Long.parseLong(request.getParameter("rbrId"));
 			Long selBusinessRule = Long.parseLong(request.getParameter("selBusinessRule"));
-			String contactName = request.getParameter("txtNameContact");
-			String rif = request.getParameter("txtRif");
-			String address = request.getParameter("txtAddress");
-			String phoneNumber = request.getParameter("txtPhoneNumber");
+			String contactName = request.getParameter("txtNameContact") == null ? "" : request.getParameter("txtNameContact");
+			String rif = request.getParameter("txtRif") == null ? "" : request.getParameter("txtRif");;
+			String address = request.getParameter("txtAddress") == null ? "" : request.getParameter("txtAddress");
+			String phoneNumber = request.getParameter("txtPhoneNumber") == null ? "" : request.getParameter("txtPhoneNumber");
 			Long selBusinessModel = null, selBusinessModelH = null, selBusinessModelG = null, selBusinessModelS = null, selBusinessModelM = null;
 			double txtPrice = 0, txtPriceH = 0, txtPriceG = 0, txtPriceS = 0, txtPriceM = 0;
 			/* Caso General */

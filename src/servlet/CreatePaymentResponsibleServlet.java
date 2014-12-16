@@ -104,10 +104,10 @@ public class CreatePaymentResponsibleServlet extends HttpServlet {
 		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.paymentResponsible);
 		if(userE != null && perm ){
 			String name = request.getParameter("txtName");
-			String contactName = request.getParameter("txtNameContact");
-			String rif = request.getParameter("txtRif");
-			String address = request.getParameter("txtAddress");
-			String phoneNumber = request.getParameter("txtPhoneNumber");
+			String contactName = request.getParameter("txtNameContact") == null ? "" : request.getParameter("txtNameContact");
+			String rif = request.getParameter("txtRif") == null ? "" : request.getParameter("txtRif");;
+			String address = request.getParameter("txtAddress") == null ? "" : request.getParameter("txtAddress");
+			String phoneNumber = request.getParameter("txtPhoneNumber") == null ? "" : request.getParameter("txtPhoneNumber");
 			Long selBusinessRule = Long.parseLong(request.getParameter("selBusinessRule"));
 			Long selBusinessModel = null, selBusinessModelH = null, selBusinessModelG = null, selBusinessModelS = null, selBusinessModelM = null;
 			double txtPrice = 0, txtPriceH = 0, txtPriceG = 0, txtPriceS = 0, txtPriceM = 0;
