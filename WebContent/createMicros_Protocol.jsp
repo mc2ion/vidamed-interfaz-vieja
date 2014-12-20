@@ -43,7 +43,6 @@ String id = (String) request.getParameter("id");
         	</div>        
 			<jsp:include page="./menu.jsp" />
         	<div id="content" style="position:absolute;">	
-		       	<form id="SignupForm" action="ListAdmissionsServlet">
 		       		<%
 		       			for (int i = 0; i < bm.size(); i++){ 
 		       				BussinessMicro b = bm.get(i);
@@ -122,7 +121,6 @@ String id = (String) request.getParameter("id");
 			            <a href="./ListProtocolsServlet" class="button">Aceptar</a> ó
 			            <a href="./AddServiceProtocolServlet?id=<%= id %>"  class="button" style="margin-left: 5px;">Agregar Servicios Adicionales</a>
 			        </p>
-			        </form>
 				</div>
 			</div>
 	</body>

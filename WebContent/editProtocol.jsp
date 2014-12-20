@@ -15,7 +15,10 @@
 	session.removeAttribute("info");
 	
 	Protocol p = (Protocol) request.getAttribute("protocol");
-	
+	if (request.getParameter("type") != null && request.getParameter("type").equals("d")){
+		p.setName("");
+		p.setDescription("");
+	}
 %>
 <!DOCTYPE HTML>
 <html>
@@ -51,6 +54,8 @@
         	<div id="content" style="position:absolute;">	
 		       	<form id="SignupForm" action="EditProtocolServlet" method="post">
 		       	<input type="hidden" name="protocolID" value="<%= p.getProtocolID() %>" />
+				<input type="hidden" name="type" value="<%= request.getParameter("type") %>" />
+				
 		       		<div class="info-text"><%= msg %></div>
 		        	<fieldset id="field1">
 			            <legend>Informaci&oacute;n B&aacute;sica</legend>
@@ -70,7 +75,7 @@
 							<option value="M" <%=  (p.getGender().equals("M")) ? "selected": "" %>>Masculino</option>
 						</select> <br style="clear:both;">
 						<label> Hora de Quir&oacute;fano:</label>
-						<input type="number" name="txtORHours" id="txtORHours" step="0.5" min="1" value="<%= p.getOrHours() %>" /> <br style="clear:both;">
+						<input type="number" name="txtORHours" id="txtORHours" step="0.5" min="1" value="<%= p.getOrHours() %>" /> <br style="clear:both;"><br>
 						<div id="days" style="display:none;">
 							<label> D&iacute;as de Habitaci&oacute;n:</label>
 							<input type="number" name="txtDays" id="txtDays" step="1" min="1" value="<%= (Double.valueOf(p.getRoomDays()) > 0) ? p.getRoomDays() : "1" %>" /> <br style="clear:both;">
@@ -80,7 +85,7 @@
 						<%
 						for(AnesthesiaType a : anesthesia){
 						%>
-							<option value="<%= a.getAnesthesiaTypeId() %>" <%= (p.getAnesthesiaID() == String.valueOf(a.getAnesthesiaTypeId())) ? "selected": "" %>><%= a.getName() %></option>
+							<option value="<%= a.getAnesthesiaTypeId() %>" <%= (p.getAnesthesiaID().equals(String.valueOf(a.getAnesthesiaTypeId()))) ? "selected": "" %>><%= a.getName() %></option>
 						<%}%>
 						</select> <br><br>
 			        </fieldset>
