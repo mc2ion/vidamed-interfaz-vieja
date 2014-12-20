@@ -53,12 +53,12 @@ public class CreateMicroProtocolServlet extends HttpServlet {
 		if(userE != null && perm ){
 			try {	
 				String  id =  request.getParameter("id");
-				
 				//Get protocol 
 				@SuppressWarnings("unchecked")
 				ArrayList<ProtocolScale> pp = (ArrayList<ProtocolScale>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetProtocolScale(id));
 				request.setAttribute("ps", pp);
 				
+
 				@SuppressWarnings("unchecked")
 				ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetBussinessMicros());
 				request.setAttribute("bm", bm);

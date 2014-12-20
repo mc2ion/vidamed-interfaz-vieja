@@ -23,9 +23,8 @@ public class DuplicateProtocol implements DatabaseCommand {
 		try {
 			ps = conn.prepareStatement("exec dbo.DuplicateProtocol " + protocolID);
 			rs = ps.executeQuery();
-
 			if (rs.next()) {
-				protocolId  = rs.getString(1);
+				protocolId = rs.getString(1);
 			}
 		}
 		finally {

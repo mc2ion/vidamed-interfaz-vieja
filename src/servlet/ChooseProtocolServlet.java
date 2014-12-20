@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
-import command.DuplicateProtocol;
 import domain.PermissionsList;
 import domain.Protocol;
 import domain.User;
@@ -80,9 +79,9 @@ public class ChooseProtocolServlet extends HttpServlet {
 		if(userE != null && perm ){
 			try {
 				String id = request.getParameter("protocol");
-				String newProtocolId = (String) CommandExecutor.getInstance().executeDatabaseCommand(new command.DuplicateProtocol(id));
-				response.sendRedirect(request.getContextPath() + "/EditProtocolServlet?id="+ newProtocolId);
 				System.out.println(id);
+				response.sendRedirect(request.getContextPath() + "/EditProtocolServlet?id="+ id + "&type=d");
+				return;
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

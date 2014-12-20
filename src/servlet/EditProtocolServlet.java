@@ -90,11 +90,25 @@ public class EditProtocolServlet extends HttpServlet {
 		}
 		
 		String protocolID = request.getParameter("protocolID");
+		String type = request.getParameter("type");
+		System.out.println(protocolID);
+		Long newProtocol = null;
 		try {
-			CommandExecutor.getInstance().executeDatabaseCommand(new command.EditProtocol(params[0], params[1], params[3],
-					params[4], params[5], params[6], params[7], protocolID));
 			String text_good = "";
-			System.out.println(protocolID);
+			if (type != null && type.equals("d")){
+				newProtocol = (Long) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddProtocol(params[0], params[1], params[3],
+						params[4], params[5], params[6], params[7]));
+				//Duplicates supplies and services
+				CommandExecutor.getInstance().executeDatabaseCommand(new command.DuplicateProtocolMandatoryScale(protocolID, newProtocol));
+				CommandExecutor.getInstance().executeDatabaseCommand(new command.DuplicateProtocolSupplies(protocolID, newProtocol));
+				protocolID = String.valueOf(newProtocol);
+				
+			}else{
+				CommandExecutor.getInstance().executeDatabaseCommand(new command.EditProtocol(params[0], params[1], params[3],
+						params[4], params[5], params[6], params[7], protocolID));
+			}
+			System.out.println(newProtocol);
+			
 			if (protocolID == null) {
 				text_good += " Se ha presentado un error al editar el protocolo. Por favor, intente nuevamente.";
 				session.setAttribute("info",text_good);
