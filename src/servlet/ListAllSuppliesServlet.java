@@ -20,7 +20,7 @@ import domain.User;
 /**
  * Servlet implementation class ListSupplyServlet
  */
-@WebServlet(description = "servlet to generate reports", urlPatterns = { "/ListSupplyServlet" })
+@WebServlet(description = "servlet to generate reports", urlPatterns = { "/ListAllSuppliesServlet" })
 public class ListAllSuppliesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
