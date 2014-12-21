@@ -94,6 +94,12 @@ public class AddServiceProtocolServlet extends HttpServlet {
 		if(userE != null && perm ){
 			try{
 				String protocolID = request.getParameter("protocolID");
+				
+				//Remove all services
+				CommandExecutor.getInstance().executeDatabaseCommand(new command.RemoveProtocolMandatoryScale(protocolID));
+				
+				
+				//Then add them
 				String[] services = request.getParameterValues("my-select[]");
 				if (services != null){
 					for (int i = 0; i< services.length; i++) {

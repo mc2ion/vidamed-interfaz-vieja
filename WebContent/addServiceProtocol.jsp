@@ -111,7 +111,14 @@
 			</div>		
 						    	
 			 <% } %>
-			 <input type="submit" value="Agregar"/>
+			 <div id="botonera" style="margin-top: 20px;">
+						<div id="botonP" style="display: inline; margin-right: 30px;">
+									<input type="submit"  class="button"  name="sbmtButton" value="Aceptar" />
+						</div>	
+						<div id="botonV" style="display: inline;">
+								<input type="button" class="button" value="Cancelar" onClick="javascript:history.back();" />		
+						</div>	
+				</div>
 			 </form>
 			 </div>
 		</div>
