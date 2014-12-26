@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.json.JSONArray;
 
 import command.CommandExecutor;
 import domain.Patient;
@@ -76,19 +80,18 @@ public class SearchPatientServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 			}else{
-				Patient p = null;
-				try {
-					p = (Patient) CommandExecutor.getInstance().executeDatabaseCommand(new command.SearchPatient(identityCard, patientType));
-					
-					if (p == null){
+					try {
+						@SuppressWarnings("unchecked")
+						ArrayList<Patient> p = (ArrayList<Patient>) CommandExecutor.getInstance().executeDatabaseCommand(new command.SearchPatient(identityCard, patientType));
+					if (p == null || p.size() == 0){
 						response.setContentType("text/plain");  
 						response.setCharacterEncoding("UTF-8"); 
 						response.getWriter().write("not found"); 
 					}else{
 						response.setContentType("text/plain");  
 						response.setCharacterEncoding("UTF-8"); 
-						String patient = p.getPatientID() + "/" + p.getIdentityCard() + "/" + p.getFirstName() + "/" + p.getLastName();
-						response.getWriter().write(patient); 
+						String json = (new JSONArray(p)).toString();
+						response.getWriter().write(json); 
 					}
 					
 				} catch (Exception e) {

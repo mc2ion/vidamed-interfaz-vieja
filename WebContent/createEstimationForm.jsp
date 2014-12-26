@@ -21,7 +21,7 @@
 		</script>
 		<script type="text/javascript">
 		var idUser;
-				
+		
 		$(function() {
 			$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x" });	
 			
@@ -33,6 +33,26 @@
 				});
 		});
 		
+		var obj ;
+			
+				
+		function getValues() {
+			id = $('input[type="radio"]:checked').val();
+			$.each(obj, function(i, v) {
+				if (v.patientID == id) {
+					var patientId = v.patientID;
+					var ced 	  = v.identityCard;
+					var name 	  = v.firstName;
+					var lastname  = v.lastName;
+					$("#patientID").val(patientId);
+					$("#txtCedNumber").val(ced);
+					$("#txtName").val(name);
+					$("#txtLastName").val(lastname);
+					$("#submit-form").click();
+				}
+			});
+		};
+		
 		$(document).ready(function() {
 			$( ".target" ).change(function() {
 			  if( $(this).find(":selected").text() == "Pediátrico"){
@@ -41,8 +61,13 @@
 				$("#info-title").text("Cédula de identidad del paciente:");
 				
 			});
-			
-			
+			$('#txtCedIdNum').keypress(function (e) {
+				e.preventDefault();
+				if (e.which == 13) {
+				 $('#submit').click();
+			   }
+			});
+		
 			// AJAX
 	        $('#submit').click(function(event) {  
 	        	ShowProgressAnimation();
@@ -61,20 +86,36 @@
 							$("#txtCedIdNumHidden").val(txtCedIdNum);
 							$("#txtPatientTypeHidden").val(patientType);
 							$("#go").click();
+							alert('a');
 						}
 						//Cliente encontrado
 						else{
-							var split = responseText.split('/');
-							var patientId = split[0];
-							var ced = split[1];
-							var name = split[2];
-							var lastname = split[3];
-							$("#patientID").val(patientId);
-							$("#txtCedNumber").val(ced);
-							$("#txtName").val(name);
-							$("#txtLastName").val(lastname);
-							// Submit form
-							$("#submit-form").click();
+							var json = JSON.stringify(eval("(" + responseText + ")"));
+							obj = JSON.parse(json);
+							if (obj.length == 1){
+								var patientId = obj[0].patientID;
+								var ced 	  = obj[0].identityCard;
+								var name 	  = obj[0].firstName;
+								var lastname  = obj[0].lastName;
+								$("#patientID").val(patientId);
+								$("#txtCedNumber").val(ced);
+								$("#txtName").val(name);
+								$("#txtLastName").val(lastname);
+								$("#submit-form").click();
+							}
+							else{
+								text = "<h2>Escoja el paciente:</h2><br/>";
+								text += "<form id='ptsub'><table class='sweetTable'><tr><td>Id</td><td>Nombre Paciente</td><td style='width:12%;'>Seleccionar</td></tr>";
+								var textAux = "";
+								$.each(obj, function(i, item) {
+									textAux = textAux + "<tr><td>" + obj[i].patientID + "</td><td><span class='pname'>" + obj[i].firstName + " " + obj[i].lastName + "</span></td><td style='text-align:center;'><input name='id' class='pt' type='radio' value='"+obj[i].patientID +"'/></td></tr>";
+									/*alert(obj[i].firstName);*/
+								});
+								text += textAux;
+								text += "</table><input type='button' onclick='getValues();' value='Escoger' style='float:right; margin-top:10px;'></form>";
+								form = $(text);
+								$('.patients').append(form);
+							}
 						}
 					})
 				}, 1000 );
@@ -136,10 +177,11 @@
 							<option value="V-" >V</option>
 							<option value="E-" >E</option>
 						</select> 
-						<input id="txtCedIdNum" name="txtCedIdNum" type="text">
+						<input id="txtCedIdNum" name="txtCedIdNum" type="text" >
 						<input type="button" id="submit" value="Buscar" />
 						<input type="submit" id="submit-form" value="" style="display:none;" />
 					</fieldset>
+					<div class='patients'></div>
 					<div id="botonera" style="width:100px; margin-top: 200px;">
 						<a id="go" rel="leanModal" href="#deleteVitalSign" style="display: none;"></a> 
 						<div id="botonV" style="display: inline;">
@@ -147,6 +189,7 @@
 						</div>		
 					</div>	
 				</form>
+				
 			</div>
 		</div>
 		<div id="progress" style="text-align: center; display: none;">

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import domain.Patient;
 
@@ -21,8 +22,7 @@ public class SearchPatient implements DatabaseCommand {
 	public Object executeDatabaseOperation(Connection conn) throws SQLException {
 		
 		PreparedStatement sta = null;
-		Patient patient = null;
-		
+		ArrayList<Patient> patients = new ArrayList<Patient>();
 		// 1 - adulto. 0 - pediatrico
 		if (type.equals("1"))
 			sta = conn.prepareStatement("exec dbo.SearchAdultPatient '" + ced + "'");
@@ -31,19 +31,20 @@ public class SearchPatient implements DatabaseCommand {
 		
 		ResultSet rs = sta.executeQuery();
 		
-		if (rs.next()) {
-			patient = new Patient();
+		while (rs.next()) {
+			Patient patient = new Patient();
 			patient.setPatientID(rs.getLong(1));
 			patient.setIsAdult(rs.getInt(2));
 			patient.setIdentityCard(rs.getString(3));
 			patient.setFirstName(rs.getString(4));
 			patient.setLastName(rs.getString(5));
+			patients.add(patient);
 		}
 		
 		rs.close();
 		sta.close();
 		
-		return patient;
+		return patients;
 	}
 
 }
