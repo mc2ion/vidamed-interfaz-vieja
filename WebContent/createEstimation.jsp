@@ -1,8 +1,21 @@
+<%@page import="domain.ClinicType"%>
+<%@page import="domain.Unit"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="domain.PaymentResponsible"%>
 <%
 	String txtCedNumber = (String) request.getAttribute("txtCedNumber");
 	String patientID 	= (String) request.getAttribute("patientID" );
 	String txtName 		= (String) request.getAttribute("txtName");
 	String txtLastName 	= (String) request.getAttribute("txtLastName");
+						
+	@SuppressWarnings("unchecked")
+	ArrayList<Unit> sArea = (ArrayList<Unit>)request.getAttribute("units");
+	@SuppressWarnings("unchecked")
+	ArrayList<PaymentResponsible> resp = (ArrayList<PaymentResponsible>)request.getAttribute("responsibles");
+	
+	@SuppressWarnings("unchecked")
+	ArrayList<ClinicType> ct = (ArrayList<ClinicType>)request.getAttribute("clinic");
+
 %>
 <%@page import="domain.User"%>
 <%
@@ -46,7 +59,6 @@
 		}
 		
 		$(document).ready(function() {
-			
 			function getUrlVars() {
 			    var vars = {};
 			    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
@@ -54,11 +66,9 @@
 			    });
 			    return vars;
 			}
-
 			var first = getUrlVars()["insurance"];
 			var doctor = getUrlVars()["doctor"];
 			var departmentId = getUrlVars()["department"];
-			
 			if (first != null){
 				first = first.replace(/\+/g, ' ');
 				$("#insuranceName").val(first);
@@ -72,9 +82,32 @@
 			if (departmentId != null){
 				$("#departament").val("Alergogía");
 			}
+		});
+		</script>
+		<script>
+		$( document ).ready(function() {
+			$( ".target" ).change(function() {
+				index = $(this).val();
+				if (index != "-"){
+					$('.sum-div').show();
+					$.ajax({
+						type: "GET",
+						url: "GetSpecialistServlet",
+						data: {unit: index },
+						success: function(data){
+							$("#state").html(data)
+						}
+					});
+				}
+			});
 			
-			
-			
+			$('#titular').change(function() {
+		        if(!$(this).is(":checked")) {
+		            $("#div-3").show();
+		        }else
+					 $("#div-3").hide();
+		               
+		    });
 		});
 		</script>
 	</head>
@@ -96,141 +129,79 @@
         	<div id="content" style="position:absolute;">	
 	        	<h2>Crear Presupuesto:</h2>
 				<br>
-				<a id="go" rel="leanModal" href="#discount" style="color: #f7941e; font-weight: bold;" onclick="return loadVars(1003,'1003');" >
-					<input type="button" class="buttonGray lessPadding" value="Solicitar Descuento" style="position: absolute;top: 20px;right: 30px;"/>			
-				</a>
-				
-				<div id="tabs">
-					<ul>
-					    <li><a href="#tabs-1">Paciente</a></li>
-					    <li><a href="#tabs-2">Protocolos</a></li>
-					</ul>
-  					<div id="tabs-1">
+				<div>
+					<form action="CreateEstimationServlet" method="post">
+					<input type="hidden" name="patientid" value="<%= patientID %>"/>
+					<h3 style='border-bottom: 1px solid; padding-bottom:5px;'>Información Básica</h3>
+					<div>
   						<br>
-					    <p>
-					    <b> Cédula: </b> <%= txtCedNumber %>
-					    <b style="margin-left: 60px;"> Nombre: </b> <%= txtName + " " + txtLastName %><br><br>
-					    </p>
 					    <fieldset>
-					  	<label> Unidad: </label>
-					    <input type="text" name="departament" id="departament" value="" readonly>
-					    <br><br>
-					   <label>Médico Tratante: </label> <input type="text" name="doctorName" id="doctorName" readonly>
-					    <a href="SearchDoctorServlet?function=createEstimation" style="color: #f7941e; font-weight: bold; ">
-							<input type="button"id="doctorId" value="Escoger" style="top: 120px;">
-						</a> <br><br>
-						<label> Responsable del Pago:</label>  <input type="text" name="insuranceName" id="insuranceName" readonly>
-					    <a href="SearchInsuranceServlet?function=createEstimation" style="color: #f7941e; font-weight: bold; ">
-							<input type="button"id="paymentResp" value="Escoger" >
-						</a> 
-						<img alt="logo" src="./images/add.png"  id="addPhone" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Agregar otro responsable" /><br><br>
-					    </fieldset>
+					  	<label> Cédula Paciente: </label> 
+						<input type="text" name="identityCard" class="hidden" value="<%= txtCedNumber %>" readonly /><br><br>
+					    <label> Nombre Paciente: </label> 
+						<input type="text" name="name" class="hidden" value="<%= txtName + " " + txtLastName %>" readonly /><br><br>
+					    <label>Unidad del Especialista: </label>
+						<select name="unitId" id="unitId" class="target">	
+							<option value="-"> Seleccionar </option>
+							<% for (int i = 0; i < sArea.size(); i++){ 
+							%>
+								<option value="<%= sArea.get(i).getUnitID() %>"><%= sArea.get(i).getName() %></option>
+							<% } %>
+						</select><br/><br/>
+						<p class="sum-div">
+							<label for="pname">Médico Tratante:</label>
+							<select name="specialist" id="state">
+								<option value="-">Seleccionar</option>
+							</select><br/><br/>
+						</p>   
+						<label>Tipo de Clínica: </label>
+						<select name="clinicType" id="clinicType">	
+							<option value="-"> Seleccionar </option>
+							<% for (int i = 0; i < ct.size(); i++){ 
+							%>
+								<option value="<%= ct.get(i).getClinicTypeID() %>"><%= ct.get(i).getName() %></option>
+							<% } %>
+						</select><br/><br/>
+						<label>Responsable de Pago: </label>
+						<select name="paymentId">
+						<option value="-">Seleccionar</option>
+						<% for (int i = 0; i < resp.size(); i++){
+							PaymentResponsible p = resp.get(i);
+							String info = p.getName();
+							if (p.getAddress() != null)
+								info += p.getAddress();
+						%>
+							<option value="<%= p.getId()%>" > <%= info %></option>
+						<% } %>
+						</select><br><br>
+						<label> </label>
+						<label style="font-weight: normal; width: auto"><input type="checkbox" id="aval" name="aval" value="1" /> &iquest; El paciente tiene carta aval?</label><br><br>
+						<label> </label>
+						<label style="font-weight: normal; width: auto"><input type="checkbox" id="titular" name="titular" value="1" checked /> &iquest; Es el paciente el titular del seguro?</label><br><br>
+						<div id="div-3" style="display: none;">
+							<h2>Datos del titular:</h2><br><br>
+							<label> Cédula Titular: </label> 
+							<select name="cedIdTitular" id="cedula">
+								<option value="V-">V</option>
+								<option value="E-">E</option>
+							</select><input type="text" name="cedulaTitular" id="cedula" value="" style="width: 194px; margin-left: 3px;"><br><br>
+							<label> Nombre Titular: </label>
+							<input type="text" name="nameTitular" id="name" value="" style="width: 234px;"><br><br>
+						</div>
+						</fieldset>
 					 	<br>
 					</div>
-  					<div id="tabs-2">
-  						<div style="text-align:right;">
-	  						<a href="SearchProtocolsServlet?function=createEstimation" style="color: #006c92; font-weight: bold;">
-								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Protocolo
-							</a>						
-  						</div>
-  						<br>
-  						<br>
-  						<table id="sweetTable">
-							<tbody>
-								<tr>
-									<th>Nombre</th>
-									<th>Precio</th>
-									<th>Acción</th>
-								</tr>			
-								<tr>
-									<td id="columna a cambiars" colspan="3" style="text-align: center;">El paciente aún no tiene ningún protócolo asignado</td>
-								</tr>				
-								
-							</tbody>
-						</table>
-						<br>
-					</div>
-				</div><BR><BR>
-  				
-				  <div id="botonera" style="margin-top: -20px;">
-					<form action="ListEstimationsServlet">
+					<div id="botonera" style="margin-top: -20px;">
 						<div id="botonP" style="display: inline; margin-right: 30px;">
 									<input type="submit"  class="button"  name="sbmtButton" value="Crear" />
 						</div>	
 						<div id="botonV" style="display: inline;">
 								<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
 						</div>	
-					</form>
-				</div>
-				
-			</div>
-		</div>
-		<div id="deleteProtocol">
-			<div id="signup-ct">
-				<h3 id="see_id" class="sprited" > Eliminar Protocolo</h3>
-				<br><br>
-				<span>¿Está seguro que desea eliminar el protocolo '<span class="cliente"></span>'? </span> <br><br>
-				<div id="signup-header">
-					<a class="close_x" id="close_x"  href="#"></a>
-				</div>
-				<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
-				<div class="btn-fld">
-					<input type="submit" class="buttonPopUpClose"   name="sbmtButton" value="Aceptar"  />
-				</div>
-			</div>
-		</div>
-		<div id="deleteService">
-			<div id="signup-ct">
-				<h3 id="see_id" class="sprited" > Eliminar Servicio</h3>
-				<br><br>
-				<span>¿Está seguro que desea eliminar el servicio '<span class="cliente"></span>'? </span> <br><br>
-				<div id="signup-header">
-					<a class="close_x" id="close_x"  href="#"></a>
-				</div>
-				<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
-				<div class="btn-fld">
-					<input type="submit" class="buttonPopUpClose"  name="sbmtButton" value="Aceptar"  />
-				</div>
-			</div>
-		</div>
-		
-		<div id="payment-resp">
-			<div id="a">
-				<h3 id="see_id" class="sprited" > Escoger responsable de pago</h3>
-				<br><br>
-				<span>¿Está seguro que desea eliminar el servicio '<span class="cliente"></span>'? </span> <br><br>
-				<div id="signup-header">
-					<a class="close_x" id="close_x"  href="#"></a>
-				</div>
-				<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
-				<div class="btn-fld">
-					<input type="submit" class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
-				</div>
-			</div>
-		</div>
-		<div id="discount">
-			<div id="signup-ct">
-				<h3 id="see_id" class="sprited" > Solicitar Descuento</h3><br><br>
-				Por favor, indique la siguiente información.
-				<div class="text">
-					<div class="leftColum"><b>Descuento:</b></div>
-						<select>
-							<option value="P">%</option>
-							<option value="Monto">Bs.</option>
-						</select>
-						<input type="text" size='10'/>
-					<br>
-					<div class="leftColum"><b>Justicación:</b></div><textarea style="width: 138px;"></textarea><br>
-				</div>
-				<div id="signup-header">
-					<a class="close_x" id="close_x_aux"  href="#"></a>
-				</div>
-				<form action="CreateEstimationServlet" method="post"  onsubmit="return setV(this)">
-					<div class="btn-fld">
-						<input type="submit"  class="buttonPopUpAux"  name="sbmtButton" value="Solicitar"  />
 					</div>
-		 		</form>
+				</form>
 			</div>
+		</div>
 		</div>
 	</body>
 </html>

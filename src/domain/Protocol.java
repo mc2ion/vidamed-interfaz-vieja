@@ -10,7 +10,9 @@ public class Protocol {
 	private String orHours;
 	private String roomDays;
 	private String anesthesiaID;
-	
+	private String diag;
+	private String total;
+	private String totalP;
 	
 	
 	public Long getProtocolID() {
@@ -75,5 +77,29 @@ public class Protocol {
 
 	public String getAnesthesiaID() {
 		return anesthesiaID;
+	}
+	
+	public void setDiagnosis(String diag) {
+		this.diag = diag;
+	}
+
+	public String getDiagnosis() {
+		return diag;
+	}
+	
+	public void setTotal(String total) {
+		this.total = total;
+	}
+
+	public String getTotal() {
+		return total;
+	}
+
+	public void setTotalWithPercentage(String totalP) {
+		this.totalP = totalP;
+	}
+	
+	public String getTotalWithPercentage() {
+		return totalP;
 	}
 }

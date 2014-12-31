@@ -1,9 +1,20 @@
+<%@page import="domain.Protocol"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="domain.Estimation"%>
 <%@page import="domain.User"%>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
 	if (user != null)
 		name = user.getFirstName() ;
+	
+	Estimation est = (Estimation) request.getAttribute("est");
+	
+	@SuppressWarnings("unchecked")
+	ArrayList<Protocol> lp = (ArrayList<Protocol>) request.getAttribute("lp");
+	
+	String estimationID = request.getParameter("id");
 %>
 <!DOCTYPE HTML>
 <html>
@@ -15,7 +26,6 @@
 	  	<script src="./js/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
-		<link rel="stylesheet" href="/resources/demos/style.css" />
 		<script>
 			$(function() {
 				$( "#tabs" ).tabs();
@@ -92,15 +102,24 @@
 					    <li><a href="#tabs-2">Protocolos</a></li>
 					</ul>
   					<div id="tabs-1">
-  						<br>
-					    <p>
-					    Cédula: V-12345678<br><br>
-					    Nombre: Ana Rojas<br><br>
-					    Médico Tratante: Ricardo García<br><br>
-					    Unidad: Cirugía<br><br>
-					    Responsable del Pago: La Previsora<br><br>
-					    </p>
-  					</div>
+  					    <table class="table-simple">
+					    	<tr><td><b>Cédula:</b> <td><%= est.getIdentityCard() %></td></tr>
+					    	<tr><td><b> Nombre del Paciente:</b> <td><%= est.getFirstName() + " " + est.getLastName()%></td></tr>
+					    	<tr><td><b> Médico Tratante: </b> <td><%= est.getSpecialistName() %></td></tr>
+					    	<tr><td><b> Responsable del Pago:</b><td><%= est.getResponsibleName() %></td></tr>
+						   <% if (est.getPolicyHolderID() != null){ %>
+						  	 <tr><td><b> Cédula Titular del seguro:</b><td><%= est.getPolicyHolderID() %></td></tr>
+						  	 <tr><td><b> Nombre Titular del seguro:</b><td><%= est.getPolicyHolderName() %></td></tr>
+						   <% } %>
+						   <%
+						   double amount = Double.parseDouble(est.getTotal());
+						   DecimalFormat formatter = new DecimalFormat("#,###.00");
+						   String number = formatter.format(amount) ;
+						   %>
+							<tr><td><b>Total: Bs.</b></td><td><%= number %></td>
+						   <tr><td><b>Fecha Creación</b></td><td><%= est.getEditionDate() %></td>
+					   </table>
+					</div>
   					<div id="tabs-2">
   						<br>
 					   	<table id="sweetTable" style="margin-bottom: 10px;">
@@ -109,39 +128,17 @@
 					   			<td>Precio</td>
 					   			<td>Acción</td>
 					   		</tr>
+					   		<% for (int i=0; i <lp.size(); i++){ %>
 							<tr>
-					   			<td>Colocación de prótesis peneana</td>
-					   			<td>Bs. 14321,00</td>
+					   			<td><%= lp.get(i).getName() %></td>
+					   			<td>Bs. <%= lp.get(i).getTotalWithPercentage() %></td>
 					   			<td>
-									<a href="ShowProtocolEstimationDetailServlet" style="color: transparent" >
+									<a href="ShowProtocolEstimationDetailServlet?protocolID=<%= lp.get(i).getProtocolID() %>&estimationID=<%= estimationID %>&n=<%= lp.get(i).getName() %>" style="color: transparent" >
 												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 									</a>
 								</td>
 					   		</tr>
-					   		<tr>
-					   			<td>Apendicectomía</td>
-					   			<td>Bs. 7680,00</td>
-					   			<td>
-									<a href="ShowProtocolEstimationDetailServlet" style="color: transparent" >
-												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
-									</a>
-								</td>
-					   		</tr>
-							<tr style="background: rgb(196, 196, 196);">
-					   			<td >Sub-total:</td>
-					   			<td>Bs. 22001</td>
-								<td></td>
-							</tr>
-					   		<tr style="background: rgb(196, 196, 196);">
-					   			<td >Descuento aplicado:</td>
-					   			<td>Bs. 1500</td>
-								<td></td>
-							</tr>
-					   		<tr style="background: rgb(136, 162, 190);">
-					   			<td >Total</td>
-					   			<td>Bs.20501 </td>
-								<td></td>
-							</tr>
+					   		<% } %>
 					   	</table>
 					</div>
   				</div>

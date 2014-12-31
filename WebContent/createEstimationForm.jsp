@@ -62,9 +62,9 @@
 				
 			});
 			$('#txtCedIdNum').keypress(function (e) {
-				e.preventDefault();
 				if (e.which == 13) {
 				 $('#submit').click();
+				 e.preventDefault();
 			   }
 			});
 		
@@ -86,7 +86,6 @@
 							$("#txtCedIdNumHidden").val(txtCedIdNum);
 							$("#txtPatientTypeHidden").val(patientType);
 							$("#go").click();
-							alert('a');
 						}
 						//Cliente encontrado
 						else{
@@ -165,7 +164,7 @@
 					<input type="hidden" id="txtCedNumber" name="txtCedNumber" value=""/>
 					<input type="hidden" id="txtName" name="txtName" value=""/>
 					<input type="hidden" id="txtLastName" name="txtLastName" value=""/>
-					<input type="hidden" id="function" name="function" value="estimationForm"/>
+					<input type="hidden" id="function" name="function" value="estimation"/>
 					<fieldset class="bigger">
 						<label>Escoja el tipo de paciente:</label>
 						<select name="patientType" class="target" id="target">

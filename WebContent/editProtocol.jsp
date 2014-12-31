@@ -85,7 +85,7 @@
 						<%
 						for(AnesthesiaType a : anesthesia){
 						%>
-							<option value="<%= a.getAnesthesiaTypeId() %>" <%= (p.getAnesthesiaID().equals(String.valueOf(a.getAnesthesiaTypeId()))) ? "selected": "" %>><%= a.getName() %></option>
+							<option value="<%= a.getAnesthesiaTypeId() %>" <%= (p.getAnesthesiaID() != null && p.getAnesthesiaID().equals(String.valueOf(a.getAnesthesiaTypeId()))) ? "selected": "" %>><%= a.getName() %></option>
 						<%}%>
 						</select> <br><br>
 			        </fieldset>

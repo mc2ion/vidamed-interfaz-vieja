@@ -1,9 +1,23 @@
+<%@page import="domain.Estimation"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="domain.User"%>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
 	if (user != null)
 		name = user.getFirstName() ;
+	
+	@SuppressWarnings("unchecked")
+	ArrayList<Estimation> est = (ArrayList<Estimation>) request.getAttribute("est");
+	
+	String info_text = "";
+
+	String info = (String) session.getAttribute("info");
+	if (info != null ){
+		info_text = info;
+	}
+	session.removeAttribute("info");
+	
 %>
 <!DOCTYPE HTML>
 <html>
@@ -52,6 +66,7 @@
 	
 	function loadVars(var1, var2) {
 		idUser = var1;
+		$('.num').text(var1);
 		$('.cliente').text(var2);
 		
 	};
@@ -79,6 +94,8 @@
 		<jsp:include page="./menu.jsp" />
 		<div id="content">  
 			<h2>Presupuestos:</h2>
+			<div class="info-text"><%= info_text %></div>
+			
 			<div id="dt_example">
 					<div id="container">
 						<div id="demo">
@@ -89,97 +106,45 @@
 										<th>Paciente</th>
 										<th>Tipo</th>
 										<th>Descuento</th>
-										<th>Protocolo</th>
+										<th>Total</th>
 										<th>Fecha</th>
 										<th>Acciones</th>
 									</tr>
 								</thead>
-								<tbody>			
+								<tbody>
+									<% for (int i=0; i< est.size(); i++){
+										Estimation p = est.get(i);
+									%>	
 									<tr class="gradeA">
-										<td>1001</td>
-										<td>Ana Rojas</td>
-										<td>Adulto</td>
-										<td>Aprobado</td>
-										<td>Histerectomía</td>
-										<td>17/06/2013</td>
+										<td><%= p.getId() %></td>
+										<td><%= p.getFirstName() + " " + p.getLastName() %></td>
+										<td><%= (p.getIsAdult() != null && p.getIsAdult().equals("1")) ? "Adulto" : "Pediátrico" %></td>
+										<td><%= p.getDiscount() %></td>
+										<td><%= p.getTotal() %></td>
+										<td><%= p.getEditionDate() %></td>
 										<td>
-											<a href="ShowEstimationServlet?function=estimations" style="color: transparent" >
+											<a href="ShowEstimationServlet?function=estimations&id=<%= p.getId() %>" style="color: transparent" >
 												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 											</a>
 											<a id="go" rel="leanModal" href="#printUser" style="color: #f7941e; font-weight: bold;" 
 												onclick="return loadVars(1001,'1001');" >
 												<img alt="logo" src="./images/print.png"  height="16" width="16" title="Imprimir"/>
 											</a> 
-											<a href="EditEstimationServlet" style="color: transparent" >
+											<a href="EditEstimationServlet?id=<%= p.getId() %>" style="color: transparent" >
 												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
 											</a>
 											<a id="go" rel="leanModal" href="#refreshUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1001,'1001');" >
+												onclick="return loadVars('<%= p.getId() %>','<%= p.getFirstName() + " " + p.getLastName() %>');" >
 												<img alt="logo" src="./images/refresh.png"  height="16" width="16" title="Actualizar"/>
 											</a> 
 											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1001,'1001');" >
+												onclick="return loadVars('<%= p.getId() %>','<%= p.getFirstName() + " " + p.getLastName() %>');" >
 												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
 											</a> 
 											<br>
 										</td>
 									</tr>
-									<tr class="gradeA">
-										<td>1002</td>
-										<td>Luis Mujica</td>
-										<td>Adulto</td>
-										<td>No Aplica</td>
-										<td>Colecistectomía</td>
-										<td>17/06/2013</td>
-										<td>
-											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
-											</a>
-											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/print.png"  height="16" width="16" title="Imprimir" />
-											</a>
-											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
-											</a>
-											<a id="go" rel="leanModal" href="#refreshUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1002,'1002');" >
-												<img alt="logo" src="./images/refresh.png"  height="16" width="16" title="Actualizar"/>
-											</a> 
-											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1002,'1002');" >
-												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-											</a> 
-											<br>
-										</td>
-									</tr>
-									<tr class="gradeA">
-										<td>1003</td>
-										<td>Miguel Álvarez</td>
-										<td>Pedi&aacute;trico</td>
-										<td>En Espera</td>
-										<td>Apendicectomía</td>
-										<td>17/06/2013</td>
-										<td>
-											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
-											</a>
-											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/print.png"  height="16" width="16" title="Imprimir" />
-											</a>
-											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
-											</a>
-											<a id="go" rel="leanModal" href="#refreshUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1003,'1003');" >
-												<img alt="logo" src="./images/refresh.png"  height="16" width="16" title="Actualizar"/>
-											</a> 
-											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1003,'1003');" >
-												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-											</a> 
-											<br>
-										</td>
-									</tr>
+									<% } %>
 								</tbody>
 							</table>
 						</div>
@@ -214,11 +179,11 @@
 			<div id="signup-ct">
 				<h3 id="see_id" class="sprited" > Eliminar Presupuesto</h3>
 				<br><br>
-				<span>¿Está seguro que desea eliminar el presupuesto n° <span class="cliente"></span>? </span> <br><br>
+				<span>¿Está seguro que desea eliminar el presupuesto n° <span class="num"></span> del cliente <span class="cliente"></span>? </span> <br><br>
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="ListEstimationsServlet" method="post"  onsubmit="return setV(this)">
+				<form action="RemoveEstimationServlet" method="post"  onsubmit="return setV(this)">
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />

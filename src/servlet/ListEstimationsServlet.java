@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
+import domain.Estimation;
 import domain.PermissionsList;
 import domain.User;
 
@@ -46,8 +48,18 @@ public class ListEstimationsServlet extends HttpServlet {
 		User userE = (User)session.getAttribute("user");
 		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.estimation);
 		if(userE != null && perm){
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/estimations.jsp");
-			rd.forward(request, response);
+			
+			try {
+				@SuppressWarnings("unchecked")
+				ArrayList<Estimation> est = (ArrayList<Estimation>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEstimations());
+				request.setAttribute("est",est);
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/estimations.jsp");
+				rd.forward(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		} else if (userE == null) {
 			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 			rd.forward(request, response);

@@ -1,16 +1,28 @@
+<%@page import="domain.BussinessMicro"%>
+<%@page import="domain.ProtocolScale"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="domain.User"%>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
 	if (user != null)
 		name = user.getFirstName() ;
+	
+	@SuppressWarnings("unchecked")
+	ArrayList<ProtocolScale> ps = (ArrayList<ProtocolScale>)request.getAttribute("est");
+	
+	@SuppressWarnings("unchecked")
+	ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>)request.getAttribute("bm");
+	String id = (String) request.getParameter("id");
+	
+	String nameProtocol = request.getParameter("n");
 %>
 <!DOCTYPE HTML>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-		<title>Crear Movimiento</title>
+		<title>Detalle protocolo - presupuesto</title>
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css" />
 	  	<script src="./js/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
@@ -37,148 +49,42 @@
         	</div>        
 			<jsp:include page="./menu.jsp" />
         	<div id="content" style="position:absolute;">	
-	        	<h2>Colocación de prótesis peneana:</h2>
-				<br>
-				<div id="accordion">
-				  <h3>Hospitalización</h3>
-				  <div>
+        		<h3 style="color:#006C92;">Detalle protocolo "<%= nameProtocol %>" en presupuesto n° <%= request.getParameter("estimationID") %>:</h3>
+				<%
+		       			for (int i = 0; i < bm.size(); i++){ 
+		       				BussinessMicro b = bm.get(i);
+		       	%>
+				    <br/><br/><h3 style="margin-bottom:7px;"><%= b.getName() %></h3>
+					<div>
 				    <table class="table-simple">
-				    	<tr>
-				    		<td>Habitación</td>
-				    		<td>Bs. 2270</td>
-				    	</tr>
-				    	<tr>
-				    		<td>Médico Residente</td>
-				    		<td>Bs. 2270</td>
-				    	</tr>
-				    	<tr>
-				    		<td>Teléfono</td>
-				    		<td>Bs. 2270</td>
-				    	</tr>
-				    	<tr>
-				    		<td>Televisión</td>
-				    		<td>Bs. 2270</td>
-				    	</tr>
-				    	<tr>
-				    		<td>Acompañante</td>
-				    		<td>Bs. 2270</td>
-				    	</tr>
-				    	<tr>
-				    		<td>Kit Paciente</td>
-				    		<td>Bs. 2270</td>
-				    	</tr>
-				    	<tr>
-				    		<td>Servicio de Asistencia Permanente</td>
-				    		<td>Bs. 2270</td>
-				    	</tr>
-				    	<tr>
-				    		<td>Servicio de Alimentación</td>
-				    		<td>Bs. 2270</td>
-				    	</tr>
-				    	<tr>
-				    		<td>Servicios Farmacéuticos Quirúrgicos</td>
-				    		<td>Bs. 2270</td>
-				    	</tr>
-				    	<tr>
-				    		<td>Fármacos en Habitación</td>
-				    		<td>Bs. 2270</td>
-				    	</tr>
-				    	<tr>
-				    		<td>Material Médico Quirúrgico en Habitación</td>
-				    		<td>Bs. 2270</td>
-				    	</tr>
-				    	
+				    	<%
+							for (int j = 0; j < ps.size(); j++){ 
+								ProtocolScale p = ps.get(j);
+								if (p.getBussinessRuleMicroID() == b.getId()){
+						%>
+						<% if (p.getTotal() != null) { %>
+						<tr id="tr<%=j%>" >
+				    			<td class='lft'  style="vertical-align:top;"><%= p.getName()%></td>
+								<td> Bs. <%= p.getTotal()%></td>
+						</tr>
+						<% } %>
+						<% }
+						}
+						%>
 				    </table>
-				  </div>
-				  <h3>Gastos en Quirófano</h3>
-				  <div>
-				    <table class="table-simple">
-				    	<tr>
-				    		<td>Quirófano</td>
-				    		<td>Bs. 2270</td>
-				    	</tr>
-				    	<tr>
-				    		<td>Sala de Recuperación</td>
-				    		<td>Bs. 2270</td>
-				    	</tr>
-				    	<tr>
-				    		<td>Monitoreo</td>
-				    		<td>Bs. 2270</td>
-				    	</tr>
-				    	<tr>
-				    		<td>Gases, anestésicos y medicamentos</td>
-				    		<td>Bs. 2270</td>
-				    	</tr>
-				    	<tr>
-				    		<td>Material Médico Quirúrgico</td>
-				    		<td>Bs. 2270</td>
-				    	</tr>
-				    </table>
-				  </div>
-				  <h3>Servicios Médicos</h3>
-				  <div>
-				    <table class="table-simple">
-				    	<tr>
-				    		<td>Banco de Sangre (Tipiaje)</td>
-				    		<td>Bs. 2270</td>
-				    	</tr>
-				    	<tr>
-				    		<td>Electrocardiograma</td>
-				    		<td>Bs. 2270</td>
-				    	</tr>
-				    	<tr>
-				    		<td>Evaluación cardiovascular, pre-operatoria</td>
-				    		<td>Bs. 2270</td>
-				    	</tr>
-				    	<tr>
-				    		<td>Laboratorio Clínico</td>
-				    		<td>Bs. 2270</td>
-				    	</tr>
-				    	<tr>
-				    		<td>Rayos X</td>
-				    		<td>Bs. 2270</td>
-				    	</tr>
-				    </table>
-				  </div>
-				  <h3>Honorarios Profesionales</h3>
-				  <div>
-				  	<table class="table-simple">
-				    	<tr>
-				    		<td>Cirujano Principal - Dr. Ricardo Perez</td>
-				    		<td>Bs. 2270</td>
-				    	</tr>
-				    	<tr>
-				    		<td>Cirujano Ayudante I - Dra. Ana Rojas </td>
-				    		<td>Bs. 2270</td>
-				    	</tr>
-				    	<tr>
-				    		<td>Cirujano Ayudante II  - Dra. Luisa Mendez </td>
-				    		<td>Bs. 2270</td>
-				    	</tr>
-				    	<tr>
-				    		<td>Anestesiólogo - Pedro Rojas</td>
-				    		<td>Bs. 2270</td>
-				    	</tr>
-				    	<tr>
-				    		<td>Instrumentista - Luis Gonzalez </td>
-				    		<td>Bs. 2270</td>
-				    	</tr>
-				    	<tr>
-				    		<td>Enfermera Circulante - Maria Cruz</td>
-				    		<td>Bs. 2270</td>
-				    	</tr>
-				    	<tr>
-				    		<td>Consulta Pre-anestésica</td>
-				    		<td>Bs. 2270</td>
-				    	</tr>
-				    </table>
-				  </div>
-				</div>
+					</div>
+				  <% } %>
 				<div id="botonera2"  style="width: 120px;">
 					<input type="button"  class="button"  name="sbmtButton" value="Regresar" onclick="history.go(-1);" />
 				</div><br>
-				 
 			</div>
 		</div>
 	</body>
+	<style>
+		.table-simple td {
+			padding: 7px 0px;
+			border-bottom: 1px dotted rgb(231, 231, 231);
+		}
+		td.lft{width:80%;}
+	</style>
 </html>

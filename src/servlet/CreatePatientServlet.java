@@ -78,7 +78,6 @@ public class CreatePatientServlet extends HttpServlet {
 					if (isAdultS != null){
 						isAdult = Integer.valueOf(isAdultS);
 					}
-					
 					String identityCard = request.getParameter("txtCedId") + request.getParameter("txtCedIdNum");
 					String firstName	 = request.getParameter("txtFirstName");
 					String lastName 	 = request.getParameter("txtLastName");
@@ -86,10 +85,9 @@ public class CreatePatientServlet extends HttpServlet {
 					String gender 		 = request.getParameter("txtGen");
 					String address 		 = request.getParameter("txtAddress");
 					String email 		 = request.getParameter("txtEmail");
-					String function  	 = request.getParameter("function");
+					String function	 	 = request.getParameter("function");
 					
 					Long userID = (Long) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddPatient(identityCard, isAdult, firstName, lastName, birthday, gender, address, email));
-					
 					for (int i = 0; i < 2; i++) {
 						String type = request.getParameter("txtType" + i); 
 						String phoneNumber = request.getParameter("txtPhoneNumber" + i); 
@@ -98,26 +96,30 @@ public class CreatePatientServlet extends HttpServlet {
 						}
 					}
 					// Ir a la seccion de la cual venia el usuario y pasar la informacion del usuario
+					System.out.println(function);
 					if (function.equals("estimation")){
+						System.out.println("aqui");
 						request.setAttribute("txtCedNumber", identityCard);
 						request.setAttribute("txtName", firstName);
 						request.setAttribute("txtLastName", lastName);
-						rd = getServletContext().getRequestDispatcher("/CreateEstimationServlet");			
-						rd.forward(request, response);
-					}else if(function.equals("admision")){
+						request.setAttribute("patientID", String.valueOf(userID));
+						request.setAttribute("function", function);
+						RequestDispatcher rd2 = getServletContext().getRequestDispatcher("/CreateEstimationServlet");
+						rd2.forward(request,response);
+					}/*else if(function.equals("admision")){
 						request.setAttribute("identityCard", identityCard);
 						request.setAttribute("txtFirstName", firstName);
 						request.setAttribute("txtLastName", lastName);
 						rd = getServletContext().getRequestDispatcher("/AdmitPatientServlet");			
 						rd.forward(request, response);
-					}
-						
+					}*/
 				}
 			}catch(Exception e ){
 				System.out.print(e.getMessage());
 			}
 		} else {
-			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); 
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 			rd.forward(request, response);
 		}	
 	}
