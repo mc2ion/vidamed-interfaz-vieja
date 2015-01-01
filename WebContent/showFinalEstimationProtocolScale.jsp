@@ -49,11 +49,7 @@
         	</div>           
 			<jsp:include page="./menu.jsp" />
         	<div id="content" style="position:absolute;">	
-				<form action="CreateFinalEstimationProtocolServlet" method="post">
-				<input type="hidden" name="estimationid" value="<%= estimationID %>"/>
-				<input type="hidden" name="protocolid" value="<%= protocolID %>"/>
-				
-        			<%
+					<%
 		       			for (int i = 0; i < bm.size(); i++){ 
 		       				BussinessMicro b = bm.get(i);
 		       		%>
@@ -75,12 +71,17 @@
 						
 						</table>
 					<% } %>
-			    	<p style="width:100%; text-align:center; margin-top:20px;">
-			            <input type="submit" value="Finalizar"/>
-						<input type="submit" value="Agregar otro protocolo"/>
-						
-			        </p>
-			</form>
+			    	<div style="width:100%; text-align:center; margin-top:20px;">
+			            <form action="CreateFinalEstimationProtocolServlet" method="post">
+							<input type="hidden" name="estimationid" value="<%= estimationID %>"/>
+							<input type="submit" value="Finalizar"/>
+						</form>
+						<form action="CreateFinalEstimationProtocolServlet" method="get">
+							<input type="hidden" name="estimationid" value="<%= estimationID %>"/>
+							<input type="submit" value="Agregar otro protocolo"/>
+						</form>
+			        </div>
+			
        	</div>
 		</div>
 	</body>
