@@ -26,7 +26,7 @@ public class GetEstimationProtocolScale implements DatabaseCommand {
 		ResultSet rs = null;
 		List<ProtocolScale> list = new ArrayList<ProtocolScale>();
 		try {
-			ps = conn.prepareStatement("exec dbo.GetEstimationProtocolScale '" + estimationid + "', '" + protocolid + "'");
+			ps = conn.prepareStatement("exec dbo.GetFinalEstimationProtocolScale '" + estimationid + "', '" + protocolid + "'");
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
