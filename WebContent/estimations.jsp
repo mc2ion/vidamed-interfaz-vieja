@@ -137,6 +137,10 @@
 												onclick="return loadVars('<%= p.getId() %>','<%= p.getFirstName() + " " + p.getLastName() %>');" >
 												<img alt="logo" src="./images/refresh.png"  height="16" width="16" title="Actualizar"/>
 											</a> 
+											<a id="go" rel="leanModal" href="#discount" style="color: #f7941e; font-weight: bold;" 
+												onclick="return loadVars('<%= p.getId() %>','<%= p.getFirstName() + " " + p.getLastName() %>');" >
+												<img alt="logo" src="./images/refresh.png"  height="16" width="16" title="Actualizar"/>
+											</a> 
 											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
 												onclick="return loadVars('<%= p.getId() %>','<%= p.getFirstName() + " " + p.getLastName() %>');" >
 												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
@@ -191,6 +195,30 @@
 		 		</form>
 			</div>
 		</div>
+		<div id="discount">
+			<div id="signup-ct">
+				<h3 id="see_id" class="sprited" > Solicitar Descuento</h3><br><br>
+				Por favor, indique la siguiente información.
+				<div class="text">
+					<div class="leftColum"><b>Descuento:</b></div>
+						<select>
+							<option value="P">%</option>
+							<option value="Monto">Bs.</option>
+						</select>
+						<input type="text" size='10'/>
+					<br>
+					<div class="leftColum"><b>Justicación:</b></div><textarea style="width: 138px;"></textarea><br>
+				</div>
+				<div id="signup-header">
+					<a class="close_x" id="close_x_aux"  href="#"></a>
+				</div>
+				<form action="CreateEstimationServlet" method="post"  onsubmit="return setV(this)">
+					<div class="btn-fld">
+						<input type="submit"  class="buttonPopUpAux"  name="sbmtButton" value="Solicitar"  />
+					</div>
+		 		</form>
+			</div>
+		</div>
 		<div id="refreshUser">
 			<div id="signup-ct">
 				<h3 id="see_id" class="sprited" > Actualizar Presupuesto</h3>
@@ -199,7 +227,7 @@
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="ListEstimations" method="post"  onsubmit="return setV(this)">
+				<form action="UpdateEstimationServlet" method="post"  onsubmit="return setV(this)">
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />

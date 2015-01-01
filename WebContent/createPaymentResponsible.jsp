@@ -127,7 +127,7 @@
                 			}
             			<% } %>
             		}
-            		else if($('#txtRifNum').val() != '' && !$('#txtRifNum').val().match(rifNumber)) {
+            		else if($('#txtRif').val() != '' && !$('#txtRif').val().match(rifNumber)) {
            				alert("El campo 'RIF' sólo debe contener números, sin letras, ni puntos, ni espacios en blanco");
            				return;
            			}

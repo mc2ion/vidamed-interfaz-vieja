@@ -40,24 +40,6 @@
 			});
 		</script>
 		<script type="text/javascript">
-		var idUser;
-				
-		$(function() {
-			$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x, .buttonPopUpClose " });	
-			
-		});
-		
-		function loadVars(var1, var2) {
-			idUser = var1;
-			$('.cliente').text(var2);
-			
-		};
-		
-		function setV(f){
-			f.elements['userId'].value = idUser;
-			return true;
-		}
-		
 		$(document).ready(function() {
 			function getUrlVars() {
 			    var vars = {};
@@ -169,7 +151,7 @@
 							PaymentResponsible p = resp.get(i);
 							String info = p.getName();
 							if (p.getAddress() != null)
-								info += p.getAddress();
+								info += " | " + p.getAddress();
 						%>
 							<option value="<%= p.getId()%>" > <%= info %></option>
 						<% } %>

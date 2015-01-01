@@ -151,9 +151,10 @@
 									%>
 								</tbody>
 							</table>
+							<br><br><br>
 				<% } %>
 				<div class="addp">
-				<br><br><br>
+				
 				<div>
 					<form action="CreateEstimationProtocolServlet" method="get">
 					<input type="hidden" name="estimationID" value="<%= estimationID %>"/>
