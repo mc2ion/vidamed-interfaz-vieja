@@ -62,7 +62,7 @@
 							%>
 								<tr id="tr<%=j%>" >
 									<td class='lft'  style="vertical-align:top;"><%= p.getName()%></td>
-									<td><% if (p.getCost() != null) { %> Bs. <%= p.getCost()%><% } %></td>
+									<td><% if (p.getTotal() != null) { %> Bs. <%= p.getTotal()%><% } %></td>
 								</tr>
 								<%
 								}
