@@ -56,7 +56,7 @@ public class ShowProtocolEstimationDetailServlet extends HttpServlet {
 			
 			ArrayList<ProtocolScale> est;
 			try {
-				est = (ArrayList<ProtocolScale>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEstimationProtocolScale(estimationID, protocolID));
+				est = (ArrayList<ProtocolScale>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetFinalEstimationProtocolScale(estimationID, protocolID));
 				request.setAttribute("est",est);
 				
 				ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetBussinessMicros());

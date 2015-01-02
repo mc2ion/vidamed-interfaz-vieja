@@ -34,8 +34,11 @@ public class GetFinalEstimationProtocolScale implements DatabaseCommand {
 				u.setProtocolScaleID(rs.getLong(1));
 				u.setName(rs.getString(2));
 				u.setBussinessRuleMicroID(rs.getLong(3));
-				u.setGeneratedCostTypeID(rs.getLong(4));
-				u.setCost(rs.getString(5));
+				u.setIsMandatory(rs.getLong(4));
+				u.setGeneratedCostTypeID(rs.getLong(5));
+				u.setGeneratedCostTypeName(rs.getString(6));
+				u.setCost(rs.getString(7));
+				u.setTotal(rs.getString(8));
 				list.add(u);
 			}
 		}
