@@ -16,7 +16,6 @@ public class AddEstimation implements DatabaseCommand {
 	private String policyholderidentitycard;
 	private String policyholdername;
 	private String clinictypeid;
-	private String diagnosis;
 	
 	public AddEstimation(String patientid, String unitid, String specialistid, String paymentresponsibleid, String hasguaranteeletter, 
 			String ispolicyholder, String policyholderidentitycard, String policyholdername, String clinictypeid) {
@@ -32,8 +31,6 @@ public class AddEstimation implements DatabaseCommand {
 		this.policyholdername 		    = policyholdername;
 		this.clinictypeid 			    = clinictypeid;	
 		
-		System.out.println(this.patientid + " " + this.unitid + " "+ this.specialistid + " "+ this.paymentresponsibleid + " "+ this.hasguaranteeletter + " "+ 
-						this.ispolicyholder + " " + this.policyholderidentitycard + " " + this.policyholdername + " "+ this.clinictypeid + " " + this.diagnosis);
 		
 	}
 	
@@ -44,9 +41,14 @@ public class AddEstimation implements DatabaseCommand {
 		ResultSet rs = null;
 		Long estimationID = null;
 		try {
-			ps = conn.prepareStatement("exec dbo.AddEstimation '" + patientid + "', '" + unitid + "', '" + 
+			if (policyholderidentitycard == null){
+				ps = conn.prepareStatement("exec dbo.AddEstimation '" + patientid + "', '" + unitid + "', '" + 
+						specialistid + "', '" + paymentresponsibleid + "', '" + hasguaranteeletter + "', '" + ispolicyholder + "', '" + clinictypeid+ "'");
+			}else{
+				ps = conn.prepareStatement("exec dbo.AddEstimation '" + patientid + "', '" + unitid + "', '" + 
 						specialistid + "', '" + paymentresponsibleid + "', '" + hasguaranteeletter + "', '" + ispolicyholder + "', '" + 
 						policyholderidentitycard + "', '"+ policyholdername + "','"+clinictypeid+ "'");
+			}
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				estimationID = rs.getLong(1);

@@ -1,3 +1,27 @@
+<%@page import="domain.Protocol"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="domain.Estimation"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.text.DateFormat"%>
+<%
+@SuppressWarnings("unchecked")
+Estimation e = (Estimation) request.getAttribute("est");
+
+String est = (String) request.getAttribute("estimationID");
+
+DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+DateFormat hourFormat = new SimpleDateFormat("hh:mm:ss a");
+Date date = new Date();
+String dateTxt = dateFormat.format(date);
+String hour    = hourFormat.format(date);
+
+
+@SuppressWarnings("unchecked")
+ArrayList<Protocol> pList = (ArrayList<Protocol>) request.getAttribute("plist");
+			
+
+%>
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -139,24 +163,33 @@
 		<div class="wrapper">
 		<div id="printHeader" class="header">
 			<div style="width:50%;float:left;">HOSPITALIZACIÓN VIDAMED</div>
-			<div style="width:50%;float:left;text-align:right;">Fecha: 17/07/2013</div>       	
+			<div style="width:50%;float:left;text-align:right;"><b>Fecha: </b> <%= dateTxt %></div>           	
         </div><br>
-		<div style="text-align:right;width:100%;font-size:11px;">Hora: 11:28:31 a.m.</div> <br>
-		<div id="title" style="font-size:14px; font-weight: bold;text-align:center;"> PRESUPUESTO # 201345032 </div>
-		<hr />
+		<div style="text-align:right;width:100%;font-size:11px;"><b>Hora: </b><%= hour %></div> <br>
+		<div id="title" style="font-size:14px; font-weight: bold;text-align:center;"> PRESUPUESTO # <%= est %> </div>
 		<div class="header">
-			<div style="width:50%;float:left;">Nombre del Paciente: Gipsy Altuve</div>
-			<div style="width:50%;float:left;text-align:right;">Cédula de Identidad: 13.463.499</div>       	
+		<% 
+			String name 	= e.getFirstName() + " " + e.getLastName();
+			String cedula 	= e.getIdentityCard();
+		%>
+		<div><b>Nombre del Paciente: </b> <%= e.getFirstName() + " " + e.getLastName() %></div><br/>
+		<div><b>Cédula de Identidad: </b> <%= e.getIdentityCard() %></div>       	
+     	</div><br>
+		<div class="header">
+			<% 
+				if (e.getPolicyHolderName() != null ) { 
+					name   =  e.getPolicyHolderName();
+					cedula =  e.getPolicyHolderID();
+				}
+			%>
+			<div><b>Asegurado Principal:</b> <%= name %></div><br/>
+			<div><b>Cédula de Asegurado:</b> <%= cedula %></div>         	
         </div><br>
 		<div class="header">
-			<div style="width:50%;float:left;">Asegurado Principal:</div>
-			<div style="width:50%;float:left;text-align:right;">Cédula de Asegurado:</div>       	
-        </div><br>
-		<div class="header">
-			Médico Tratante: Minaret Sandrea     	
+			<b>Médico Tratante: </b><%= e.getSpecialistName() %>    	
         </div>
 		<div class="header">
-			Responsable de Pago: Seguros Federal C.A.     	
+			<b>Responsable de Pago: </b><%= e.getResponsibleName() %>     	
         </div><br>
         <table id="sweetTable">
 			<tbody>
@@ -164,11 +197,14 @@
 					<th style="width:8%">Número</th>
 					<th style="width:15%">Diagnóstico</th>
 					<th style="width:77%">Protocolo</th>
-				</tr>				
+				</tr>	
+				<% for (int i = 0; i < pList.size(); i++){ 
+					Protocol p = pList.get(i);
+				%>			
 				<tr>
-					<td>001</td>
-					<td>Rinopatía Obstructiva</td>
-					<td>Cirugía Funcional Endonasal<br>
+					<td><%= p.getProtocolID() %></td>
+					<td><%= p.getDiagnosis() %></td>
+					<td><%= p.getName() %><br>
 					<table id="invisibleTable">
 			<tbody>
 				<tr>
@@ -340,185 +376,11 @@
 			</tbody>
 			</table>
 					</td>
-				</tr>					
-				<tr>
-					<td>002</td>
-					<td>Amigdalitis Crónica</td>
-					<td>Amigdalectomía o Tonsilectomía<br>
-					<table id="invisibleTable">
-			<tbody>
-				<tr>
-					<th colspan="2">Hospitalización</th>
-					<th style="width:20%;text-align:right;">Precio Bs.F.</th>
-				</tr>				
-				<tr>
-					<td style="width:50%">Habitación</td>
-					<td style="width:30%">Ambulatorio</td>
-					<td style="width:20%;text-align:right;">1.135,20</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Médico Residente</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">220,00</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Servicios de Asistencia Permanente</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">154,69</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Servicios de Alimentación</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">260,00</td>
-				</tr>								
-				<tr>
-					<td style="width:50%">Servicios Farmacéuticos Ambulatorios</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">35,20</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Fármacos en Habitación</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">650,32</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Material Médico Quirúrgico en Habitación</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">587,34</td>
-				</tr>
-				<tr id="totalTr">
-					<td colspan="2">*** SUB-TOTAL ***</td>
-					<td style="width:20%;text-align:right;">3.042,75</td>
-				</tr>
-				<tr>
-					<th colspan="2">Gastos en Quirófano</th>
-					<th style="width:20%;text-align:right;">Precio Bs.F.</th>
-				</tr>				
-				<tr>
-					<td style="width:50%">Quirófano</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">4.875,00</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Sala de Recuperación</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">450,00</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Monitoreo</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">1.950,00</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Gases, Anestésicos y Medicamentos</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">4.593,91</td>
-				</tr>								
-				<tr>
-					<td style="width:50%">Material Médico Quirúrgico</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">5852,03</td>
-				</tr>
-				<tr id="totalTr">
-					<td colspan="2">*** SUB-TOTAL ***</td>
-					<td style="width:20%;text-align:right;">17.720,34</td>
-				</tr>
-				<tr>
-					<th colspan="2">Servicios Médicos</th>
-					<th style="width:20%;text-align:right;">Precio Bs.F.</th>
-				</tr>				
-				<tr>
-					<td style="width:50%">Banco de Sangre (Tipiaje)</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">591,25</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Electrocardiograma Reposo</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">402,50</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Evaluación Cardiovascular Pre-Operatoria</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">812,50</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Laboratorio Clínico</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">552,00</td>
-				</tr>								
-				<tr>
-					<td style="width:50%">Rayos X</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">601,90</td>
-				</tr>
-				<tr id="totalTr">
-					<td colspan="2">*** SUB-TOTAL ***</td>
-					<td style="width:20%;text-align:right;">2.960,15</td>
-				</tr>
-				<tr>
-					<th colspan="2">Honorarios Profesionales</th>
-					<th style="width:20%;text-align:right;">Precio Bs.F.</th>
-				</tr>				
-				<tr>
-					<td style="width:50%">Cirujano Principal</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">3.300,00</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Cirujano Ayudante I</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">1.320,00</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Anestesiólogo</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">1.320,00</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Instrumentista</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">224,20</td>
-				</tr>								
-				<tr>
-					<td style="width:50%">Enfermera Circulante</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">56,63</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Instrumental Especial</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">2.000,00</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Equipo Endoscopio</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">2.500,00</td>
-				</tr>								
-				<tr>
-					<td style="width:50%">Material Especial</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">2.500,00</td>
-				</tr>								
-				<tr>
-					<td style="width:50%">Consulta Pre-Anestésica</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">308,00</td>
-				</tr>
-				<tr id="totalTr">
-					<td colspan="2">*** SUB-TOTAL ***</td>
-					<td style="width:20%;text-align:right;">13.528,83</td>
-				</tr>
-				<tr>
-					<th colspan="2">*** TOTAL PROTOCOLO ***</th>
-					<th style="width:20%;text-align:right;">37.252,07</th>
-				</tr>
-			</tbody>
-			</table></td>
-				</tr>
+				</tr>	
+			<% } %>				
 				<tr id="totalTr2">
 					<td colspan="2">*** SUB-TOTAL GENERAL ***</td>
-					<td style="width:20%;text-align:right;">74.504,14</td>
+					<td style="width:20%;text-align:right;"><%= e.getTotal() %></td>
 				</tr>
 				<tr id="totalTr">
 					<td colspan="2">I.V.A.</td>
@@ -530,7 +392,7 @@
 				</tr>
 				<tr id="totalTr">
 					<td colspan="2">*** TOTAL GENERAL ***</td>
-					<td style="width:20%;text-align:right;">64.504,14</td>
+					<td style="width:20%;text-align:right;"><%= e.getTotal() %></td>
 				</tr>
 			</tbody>
 		</table>		

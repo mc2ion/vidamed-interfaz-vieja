@@ -127,7 +127,7 @@
 												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 											</a>
 											<a id="go" rel="leanModal" href="#printUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1001,'1001');" >
+												onclick="return loadVars('<%= p.getId() %>','<%= p.getFirstName() + " " + p.getLastName() %>');" >
 												<img alt="logo" src="./images/print.png"  height="16" width="16" title="Imprimir"/>
 											</a> 
 											<a href="EditEstimationServlet?id=<%= p.getId() %>" style="color: transparent" >
@@ -137,10 +137,12 @@
 												onclick="return loadVars('<%= p.getId() %>','<%= p.getFirstName() + " " + p.getLastName() %>');" >
 												<img alt="logo" src="./images/refresh.png"  height="16" width="16" title="Actualizar"/>
 											</a> 
+											<% if (!p.getDiscount().equals("pending")){ %>
 											<a id="go" rel="leanModal" href="#discount" style="color: #f7941e; font-weight: bold;" 
 												onclick="return loadVars('<%= p.getId() %>','<%= p.getFirstName() + " " + p.getLastName() %>');" >
-												<img alt="logo" src="./images/refresh.png"  height="16" width="16" title="Actualizar"/>
+												<img alt="logo" src="./images/movements.png"  height="16" width="16" title="Solicitar Descuento"/>
 											</a> 
+											<% } %>
 											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
 												onclick="return loadVars('<%= p.getId() %>','<%= p.getFirstName() + " " + p.getLastName() %>');" >
 												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
@@ -165,13 +167,13 @@
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="PrintEstimation3Servlet" method="post"  onsubmit="return setV(this)">
+				<form action="PrintEstimationCompatServlet" method="post"  onsubmit="return setV(this)">
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete2"  name="sbmtButton" value="Compacto"  />
 					</div>
 		 		</form>
-				<form action="PrintEstimationServlet" method="post"  onsubmit="return setV(this)">
+				<form action="PrintEstimationDetailServlet" method="post"  onsubmit="return setV(this)">
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete3"  name="sbmtButton" value="Detallado"  />
@@ -199,20 +201,21 @@
 			<div id="signup-ct">
 				<h3 id="see_id" class="sprited" > Solicitar Descuento</h3><br><br>
 				Por favor, indique la siguiente información.
-				<div class="text">
+				<form action="AskForEstimationDiscount" method="post"  onsubmit="return setV(this)">
+					<div class="text">
 					<div class="leftColum"><b>Descuento:</b></div>
-						<select>
+						<select name="typeDiscount">
 							<option value="P">%</option>
 							<option value="Monto">Bs.</option>
 						</select>
-						<input type="text" size='10'/>
+						<input type="text" size='10' name="amount"/>
 					<br>
-					<div class="leftColum"><b>Justicación:</b></div><textarea style="width: 138px;"></textarea><br>
-				</div>
-				<div id="signup-header">
+					<div class="leftColum"><b>Justicación:</b></div><textarea style="width: 138px;" name="justify"></textarea><br>
+					</div>
+					<div id="signup-header">
 					<a class="close_x" id="close_x_aux"  href="#"></a>
-				</div>
-				<form action="CreateEstimationServlet" method="post"  onsubmit="return setV(this)">
+					</div>
+					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpAux"  name="sbmtButton" value="Solicitar"  />
 					</div>

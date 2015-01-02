@@ -1,3 +1,29 @@
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="domain.Estimation"%>
+<%@page import="domain.Protocol"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.text.DateFormat"%>
+<%
+@SuppressWarnings("unchecked")
+Estimation e = (Estimation) request.getAttribute("est");
+
+String est = (String) request.getAttribute("estimationID");
+
+DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+DateFormat hourFormat = new SimpleDateFormat("hh:mm:ss a");
+Date date = new Date();
+String dateTxt = dateFormat.format(date);
+String hour    = hourFormat.format(date);
+			
+@SuppressWarnings("unchecked")
+ArrayList<Protocol> lList = (ArrayList<Protocol>) request.getAttribute("estList");
+		
+@SuppressWarnings("unchecked")
+ArrayList<Protocol> pList = (ArrayList<Protocol>) request.getAttribute("plist");
+
+%>
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -47,7 +73,7 @@
 		
 		.header {
 			width: 100%;
-			font-size: 10px;
+			font-size: 11px;
 		}
 		
 		.header div {
@@ -144,24 +170,34 @@
 		<div class="wrapper">
 		<div id="printHeader" class="header">
 			<div style="width:50%;float:left;">HOSPITALIZACIÓN VIDAMED</div>
-			<div style="width:50%;float:left;text-align:right;">Fecha: 17/07/2013</div>       	
+			<div style="width:50%;float:left;text-align:right;"><b>Fecha: </b> <%= dateTxt %></div>       	
         </div><br>
-		<div style="text-align:right;width:100%;font-size:11px;">Hora: 11:28:31 a.m.</div> <br>
-		<div id="title" style="font-size:14px; font-weight: bold;text-align:center;"> PRESUPUESTO # 201345032 </div>
-		<hr />
+		<div style="text-align:right;width:100%;font-size:11px;"><b>Hora: </b><%= hour %></div> <br>
+		<div id="title" style="font-size:14px; font-weight: bold;text-align:center;"> PRESUPUESTO # <%= est %> </div>
+		<br />
 		<div class="header">
-			<div style="width:50%;float:left;">Nombre del Paciente: Gipsy Altuve</div>
-			<div style="width:50%;float:left;text-align:right;">Cédula de Identidad: 13.463.499</div>       	
+			<% 
+				String name 	= e.getFirstName() + " " + e.getLastName();
+				String cedula 	= e.getIdentityCard();
+			%>
+			<div><b>Nombre del Paciente: </b> <%= e.getFirstName() + " " + e.getLastName() %></div><br/>
+			<div><b>Cédula de Identidad: </b> <%= e.getIdentityCard() %></div>       	
         </div><br>
 		<div class="header">
-			<div style="width:50%;float:left;">Asegurado Principal:</div>
-			<div style="width:50%;float:left;text-align:right;">Cédula de Asegurado:</div>       	
-        </div><br>
+			<% 
+				if (e.getPolicyHolderName() != null ) { 
+					name   =  e.getPolicyHolderName();
+					cedula =  e.getPolicyHolderID();
+				}
+			%>
+			<div><b>Asegurado Principal:</b> <%= name %></div><br/>
+			<div><b>Cédula de Asegurado:</b> <%= cedula %></div>   
+	    </div><br>
 		<div class="header">
-			Médico Tratante: Minaret Sandrea     	
+			<b>Médico Tratante: </b><%= e.getSpecialistName() %>    	
         </div>
 		<div class="header">
-			Responsable de Pago: Seguros Federal C.A.     	
+			<b>Responsable de Pago: </b><%= e.getResponsibleName() %>     	
         </div><br>
         <table id="sweetTable">
 			<tbody>
@@ -169,78 +205,56 @@
 					<th style="width:8%">Número</th>
 					<th style="width:15%">Diagnóstico</th>
 					<th style="width:77%">Protocolo</th>
-				</tr>				
+				</tr>	
+				<% for (int i = 0; i < pList.size(); i++ ){	
+					Protocol p = pList.get(i);
+				%>			
 				<tr>
-					<td>001</td>
-					<td>Rinopatía Obstructiva</td>
+					<td><%= p.getProtocolID() %></td>
+					<td><%= p.getDiagnosis() %></td>
 					<td>
 					<table id="invisibleTable">
-			<tbody>
-				<tr>
-					<th colspan="2">Cirugía Funcional Endonasal</th>
-					<th style="width:20%;text-align:right;">Precio Bs.F.</th>
-				</tr>
-				<tr>
-					<td colspan="2">Hospitalización</td>
-					<td style="width:20%;text-align:right;">3.042,75</td>
-				</tr>
-				<tr>
-					<td colspan="2">Gastos en Quirófano</td>
-					<td style="width:20%;text-align:right;">17.720,34</td>
-				</tr>
-				<tr>
-					<td colspan="2">Servicios Médicos</td>
-					<td style="width:20%;text-align:right;">2.960,15</td>
-				</tr>
-				<tr>
-					<td colspan="2">Honorarios Profesionales</td>
-					<td style="width:20%;text-align:right;">13.528,83</td>
-				</tr>
-				<tr id="totalTr3">
-					<td colspan="2">*** TOTAL PROTOCOLO ***</td>
-					<td style="width:20%;text-align:right;">37.252,07</td>
-				</tr>
-			</tbody>
+						<tbody>
+						<tr>
+							<th colspan="2"><%= p.getName() %></th>
+							<th style="width:20%;text-align:right;">Precio Bs.F.</th>
+						</tr>
+						<% for (int j = 0; j < lList.size(); j++){
+							if (p.getProtocolID() == lList.get(j).getProtocolID()){
+							%>
+						<tr>
+							<td colspan="2"><%= lList.get(j).getBussinessRuleMicroName() %></td>
+							<% 
+							  double amount = Double.parseDouble(lList.get(j).getCost());
+							  DecimalFormat formatter = new DecimalFormat("#,###.##");
+							  String number = formatter.format(amount) ;
+							%> 
+							<td style="width:20%;text-align:right;"><%= number %></td>
+						</tr>
+						<% } 
+						} %>
+						<tr id="totalTr3">
+							<td colspan="2">*** TOTAL PROTOCOLO ***</td>
+							<% 
+							  double amount = Double.parseDouble(lList.get(i).getTotal());
+							  DecimalFormat formatter = new DecimalFormat("#,###.##");
+							  String number = formatter.format(amount) ;
+							%> 
+							<td style="width:20%;text-align:right;"><%=  number %></td>
+						</tr>
+				</tbody>
 			</table>
 					</td>
 				</tr>					
-				<tr>
-					<td>002</td>
-					<td>Amigdalitis Crónica</td>
-					<td>
-					<table id="invisibleTable">
-			<tbody>
-				<tr>
-					<th colspan="2">Amigdalectomía o Tonsilectomía</th>
-					<th style="width:20%;text-align:right;">Precio Bs.F.</th>
-				</tr>
-				<tr>
-					<td colspan="2">Hospitalización</td>
-					<td style="width:20%;text-align:right;">3.042,75</td>
-				</tr>				
-				<tr>
-				<tr>
-					<td colspan="2">Gastos en Quirófano</td>
-					<td style="width:20%;text-align:right;">17.720,34</td>
-				</tr>
-				<tr>
-					<td colspan="2">Servicios Médicos</td>
-					<td style="width:20%;text-align:right;">2.960,15</td>
-				</tr>
-				<tr>
-					<td colspan="2">Honorarios Profesionales</td>
-					<td style="width:20%;text-align:right;">13.528,83</td>
-				</tr>
-				<tr id="totalTr3">
-					<td colspan="2">*** TOTAL PROTOCOLO ***</td>
-					<td style="width:20%;text-align:right;">37.252,07</td>
-				</tr>
-			</tbody>
-			</table></td>
-				</tr>
+				<% } %>
 				<tr id="totalTr2">
 					<td colspan="2">*** SUB-TOTAL ***</td>
-					<td style="width:20%;text-align:right;">74.504,14</td>
+					<% 
+						  double amount = Double.parseDouble(e.getTotal());
+						  DecimalFormat formatter = new DecimalFormat("#,###.##");
+						  String number = formatter.format(amount) ;
+					%> 
+					<td style="width:20%;text-align:right;"><%= number %></td>
 				</tr>
 				<tr id="totalTr">
 					<td colspan="2">I.V.A.</td>
@@ -252,7 +266,7 @@
 				</tr>
 				<tr id="totalTr">
 					<td colspan="2">*** TOTAL GENERAL ***</td>
-					<td style="width:20%;text-align:right;">64.504,14</td>
+					<td style="width:20%;text-align:right;"><%= number %></td>
 				</tr>
 			</tbody>
 		</table>		

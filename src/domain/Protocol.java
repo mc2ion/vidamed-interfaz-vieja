@@ -13,7 +13,9 @@ public class Protocol {
 	private String diag;
 	private String total;
 	private String totalP;
-	
+	private String bussinessRuleMicroName;
+	private String cost;
+	private String estCost;
 	
 	public Long getProtocolID() {
 		return protocolID;
@@ -23,6 +25,14 @@ public class Protocol {
 		this.protocolID = protocolID;
 	}
 
+	public void setBussinessRuleMicroName(String bussinessRuleMicroName) {
+		this.bussinessRuleMicroName = bussinessRuleMicroName;
+	}
+
+	public String getBussinessRuleMicroName() {
+		return bussinessRuleMicroName;
+	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -30,6 +40,25 @@ public class Protocol {
 	public String getName() {
 		return name;
 	}
+	
+	public void setCost(String cost) {
+		this.cost = cost;
+	}
+
+	public String getCost() {
+		return cost;
+	}
+	
+	public void setEstimationCost(String estCost) {
+		this.estCost = estCost;
+	}
+
+	public String getEstimationCost() {
+		return estCost;
+	}
+	
+	
+	
 
 	public void setType(String type) {
 		this.type = type;
@@ -84,7 +113,8 @@ public class Protocol {
 	}
 
 	public String getDiagnosis() {
-		return diag;
+		if (diag != null) return diag;
+		else return "";
 	}
 	
 	public void setTotal(String total) {
