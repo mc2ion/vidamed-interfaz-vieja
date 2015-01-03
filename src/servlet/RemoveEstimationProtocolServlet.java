@@ -60,14 +60,13 @@ public class RemoveEstimationProtocolServlet extends HttpServlet {
 				String estimationId = request.getParameter("estimationId");
 				String protocolId 	= request.getParameter("protocolId");
 				
-				System.out.println(estimationId + " "+ protocolId);
-				
 				int result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.RemoveEstimationProtocol(estimationId, protocolId));
 				
 				String text_good = "El protocolo fue eliminado exitosamente";
 				String text_bad = "Se ha presentado un error al eliminar el protocolo. Por favor, intente nuevamente.";
 				if (result == 1) {
 					request.setAttribute("info",text_good);
+					CommandExecutor.getInstance().executeDatabaseCommand(new command.GenerateEstimationRates(estimationId));
 				}
 				else {
 					request.setAttribute("info",text_bad);

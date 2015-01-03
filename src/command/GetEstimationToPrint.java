@@ -36,6 +36,9 @@ public class GetEstimationToPrint implements DatabaseCommand {
 				u.setPolicyHolderName(rs.getString(10));
 				u.setTotal(rs.getString(11));
 				u.setEditionDate(rs.getString(12));
+				u.setCreationUser(rs.getString(14) + " " +  rs.getString(15));
+				u.setEditionUser(rs.getString(17) + " " +  rs.getString(18));
+				u.setTotalWithDiscount(rs.getString(19));
 			}
 		}
 		finally {

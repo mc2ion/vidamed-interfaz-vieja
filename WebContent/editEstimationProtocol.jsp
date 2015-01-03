@@ -25,7 +25,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-		<title>Crear Presupuesto</title>
+		<title>Editar Presupuesto</title>
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css" />
 	  	<script src="./js/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
@@ -111,6 +111,7 @@
 			
 			$(".addpb").click(function() {
 				$(".addp").show();
+				$(this).hide();
 			});
 		});
 		</script>
@@ -130,8 +131,9 @@
 				<div class="menuitemSalir"><a href="LogoutServlet"><%= name %> (Salir)</a></div>	
         	</div>           
 			<jsp:include page="./menu.jsp" />
-        	<div id="content" style="position:absolute;">	
-	        	<h2>Protocolos asociados al presupuesto:</h2><br/>
+			<div id="content" style="position:absolute;">	
+	    	<% if (lp != null && lp.size() > 0){ %>
+            	<h2>Protocolos asociados al presupuesto:</h2><br/>
 	        	<table class="display" id="example">
 								<thead>
 									<tr>
@@ -143,8 +145,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									<% if (lp != null) {
-										for (int i=0; i< lp.size(); i++){
+									<% for (int i=0; i< lp.size(); i++){
 										Protocol p = lp.get(i);
 									%>	
 									<tr class="gradeA">
@@ -153,7 +154,7 @@
 										<td><%= (p.getDiagnosis() != null)? p.getDiagnosis() : "-"  %></td>
 										<td><%= p.getTotal() %></td>
 										<td>
-											<a href="EditEstimationServlet?id=<%= p.getProtocolID() %>" style="color: transparent" >
+											<a href="EditEstimationProtocolServlet?estimationID=<%= estimationID %>&protocolID=<%= p.getProtocolID() %>" style="color: transparent" >
 												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
 											</a>
 											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
@@ -164,20 +165,28 @@
 										</td>
 									</tr>
 									<% }
-									}
 									%>
 								</tbody>
 							</table>
+						<div>
+							<form action="CreateFinalEstimationProtocolServlet" method="post" style="float: right; margin-top:15px;">
+								<input type="hidden" name="estimationid" value="<%= estimationID %>"/>
+								<input type="submit" class="button" value="Finalizar"/>
+							</form>
+						</div>	
+						
 				<br>
-				<div>
-					<form action="./ListEstimationsServlet" method="post">
-					<input type="submit" class="button" value="Aceptar" onClick="javascript:history.back();" />		
-					</form>
-					</div>	
-					<input type="button" class="button" value="Agregar protocolo" style="float:right;" class="addpb" />
-					<div style="clear:both"></div>
-					<div class="addp" style="display:none;">
-					<form action="CreateEstimationProtocolServlet" method="get">
+				<% } %>
+					<% 
+						String style = "block";
+						if (lp != null && lp.size() > 0) {
+							style = "none";
+						%>
+						<input type="button" class="buttonGray addpb" value="Agregar protocolo" style="float:left;" />
+						<div style="clear:both"></div>
+					<% } %>
+					<div class="addp" style="display:<%= style%>;">
+					<form action="EditEstimationProtocolAddServlet" method="get">
 					<input type="hidden" name="estimationID" value="<%= estimationID %>"/>
 					<h3 style='border-bottom: 1px solid; padding-bottom:5px;'>Agregar un nuevo protocolo</h3><br/>
 					<p> Seleccione el protocolo asociado al presupuesto:</p><br/>
@@ -187,9 +196,19 @@
 							<select name="protocoloID">	
 								<option value="-"> Seleccionar </option>
 								<% for (int i = 0; i < pt.size(); i++){ 
+										boolean found = false; 
+										if (lp != null){ 
+											for (int j = 0; j < lp.size(); j++){
+											Protocol p = lp.get(j);
+											if (p.getProtocolID() ==  pt.get(i).getProtocolID()){ found = true;}
+											}
+										}
+										if (found == false){
 								%>
 									<option value="<%= pt.get(i).getProtocolID() %>"><%= pt.get(i).getName() %></option>
-								<% } %>
+								<% }
+								} 
+							%>
 							</select><br/><br/>
 							<label>Diágnostico:</label>
 							<textarea name="diagnosis" style="width:425px; height:90px;"></textarea>
@@ -198,9 +217,6 @@
 					<div id="botonera">
 						<div id="botonP" style="display: inline; margin-right: 30px;">
 									<input type="submit"  class="button"  name="sbmtButton" value="Agregar" />
-						</div>	
-						<div id="botonV" style="display: inline;">
-								<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
 						</div>	
 					</div>
 				</form>

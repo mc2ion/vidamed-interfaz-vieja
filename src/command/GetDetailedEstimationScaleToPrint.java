@@ -29,13 +29,14 @@ public class GetDetailedEstimationScaleToPrint implements DatabaseCommand {
 			while (rs.next()) {
 				Protocol u = new Protocol();
 				u.setProtocolID(rs.getLong(1));
-				u.setDiagnosis(rs.getString(2));
-				u.setName(rs.getString(3));
-				u.setTotal(rs.getString(4));
-				u.setTotalWithPercentage(rs.getString(5));
+				u.setName(rs.getString(2));
+				u.setDiagnosis(rs.getString(3));
+				u.setProtocolScaleID(rs.getLong(4));
+				u.setProtocolScaleName(rs.getString(5));
 				u.setBussinessRuleMicroName(rs.getString(6));
-				u.setCost(rs.getString(7));
-				u.setEstimationCost(rs.getString(8));
+				u.setGeneratedCostTypeID(rs.getLong(7));
+				u.setCost(rs.getString(8));
+				u.setEstimationCost(rs.getString(9));
 				list.add(u);
 			}
 		}

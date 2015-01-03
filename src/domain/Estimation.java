@@ -22,6 +22,9 @@ public class Estimation {
 	private String discount;
 	private String total;
 	private String editionDate;
+	private String creationUser;
+	private String editionUser;
+	private String totalWithDiscount;
 	
 	public void setIsPolicyHolder(int isPolicyHolder) {
 		this.isPolicyHolder = isPolicyHolder;
@@ -184,5 +187,29 @@ public class Estimation {
 
 	public String getEditionDate() {
 		return editionDate;
+	}
+	
+	public void setCreationUser(String creationUser) {
+		this.creationUser = creationUser;
+	}
+
+	public String getCreationUser() {
+		return creationUser;
+	}
+	
+	public void setEditionUser(String editionUser) {
+		this.editionUser = editionUser;
+	}
+
+	public String getEditionUser() {
+		return editionUser;
+	}
+	
+	public void setTotalWithDiscount(String totalWithDiscount) {
+		this.totalWithDiscount = totalWithDiscount;
+	}
+
+	public String getTotalWithDiscount() {
+		return totalWithDiscount;
 	}
 }

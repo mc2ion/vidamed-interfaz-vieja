@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="domain.Protocol"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -379,20 +380,35 @@ ArrayList<Protocol> pList = (ArrayList<Protocol>) request.getAttribute("plist");
 				</tr>	
 			<% } %>				
 				<tr id="totalTr2">
+					<% 
+						  double amount = Double.parseDouble(e.getTotal());
+						  DecimalFormat formatter = new DecimalFormat("#,###.##");
+						  String number = formatter.format(amount) ;
+					%> 
 					<td colspan="2">*** SUB-TOTAL GENERAL ***</td>
-					<td style="width:20%;text-align:right;"><%= e.getTotal() %></td>
+					<td style="width:20%;text-align:right;"><%= number %></td>
 				</tr>
 				<tr id="totalTr">
 					<td colspan="2">I.V.A.</td>
 					<td style="width:20%;text-align:right;">0,00</td>
 				</tr>
+				<% 
+					String total = number;	
+					if (e.getTotalWithDiscount() != null) { 
+						double a = Double.valueOf(e.getTotal());
+						double b = Double.valueOf(e.getTotalWithDiscount());
+						double disc  = a - b;
+						String discF = formatter.format(disc);
+						total = e.getTotalWithDiscount() ;
+				%>
 				<tr id="totalTr2">
 					<td colspan="2">*** DESCUENTO ***</td>
-					<td style="width:20%;text-align:right;">10.000,00</td>
+					<td style="width:20%;text-align:right;"><%= discF %></td>
 				</tr>
+				<% } %>
 				<tr id="totalTr">
 					<td colspan="2">*** TOTAL GENERAL ***</td>
-					<td style="width:20%;text-align:right;"><%= e.getTotal() %></td>
+					<td style="width:20%;text-align:right;"><%= total %></td>
 				</tr>
 			</tbody>
 		</table>		
@@ -402,8 +418,10 @@ ArrayList<Protocol> pList = (ArrayList<Protocol>) request.getAttribute("plist");
 		<div style="text-align:center;font-weight:bold;font-size:11px;">CENTRO MÉDICO QUIRÚRGICO VIDAMED		
 		<br>Departamento Administrativo</div>		
 		<br>
-		<div style="text-align:left;font-size:10px;">Elaborado Por: Elizabeth Hernandez</div>
-		<div style="text-align:left;font-size:10px;">Modificado Por: Elizabeth Hernandez</div>
+		<div style="text-align:left;font-size:10px;"><b>Elaborado Por:</b> <%= e.getCreationUser() %></div>
+		<% if (e.getEditionUser() != null){ %>
+		<div style="text-align:left;font-size:10px;"><b>Modificado Por:</b> <%= e.getEditionUser() %></div>
+		<% } %>
 		<br>	
 		<div id="botonera">
 				<form onsubmit="printPageContentB();">

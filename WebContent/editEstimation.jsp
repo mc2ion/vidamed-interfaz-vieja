@@ -115,14 +115,7 @@
 								<option value="-">Seleccionar</option>
 							</select><br/><br/>
 						</p>   
-						<label>Tipo de Clínica: </label>
-						<select name="clinicType" id="clinicType">	
-							<option value="-"> Seleccionar </option>
-							<% for (int i = 0; i < ct.size(); i++){ 
-							%>
-								<option value="<%= ct.get(i).getClinicTypeID() %>" <%= (est.getClinicTypeID() == ct.get(i).getClinicTypeID()) ? "selected": "" %>><%= ct.get(i).getName() %></option>
-							<% } %>
-						</select><br/><br/>
+						<input type="text" style="display:none" name="clinicType" value="<%= est.getClinicTypeID() %>" />
 						<label>Responsable de Pago: </label>
 						<select name="paymentId">
 						<option value="-">Seleccionar</option>
@@ -130,7 +123,7 @@
 							PaymentResponsible p = resp.get(i);
 							String info = p.getName();
 							if (p.getAddress() != null)
-								info += p.getAddress();
+								info += " | " + p.getAddress();
 						%>
 							<option value="<%= p.getId()%>" <%= (est.getPaymentResponsibleId() == p.getId()) ? "selected": "" %> > <%= info %></option>
 						<% } %>
@@ -139,23 +132,38 @@
 						<label style="font-weight: normal; width: auto"><input type="checkbox" id="aval" name="aval" value="1" <%= (est.getHasGuaranteeLetter() == 1) ? "checked": "" %> /> &iquest; El paciente tiene carta aval?</label><br><br>
 						<label> </label>
 						<label style="font-weight: normal; width: auto"><input type="checkbox" id="titular" name="titular" value="1" <%= (est.getIsPolicyHolder() == 1) ? "checked": "" %>  /> &iquest; Es el paciente el titular del seguro?</label><br><br>
-						<div id="div-3" style="display: none;">
+						<% String display = "none"; if (est.getIsPolicyHolder() == 0)  display = "block"; %>
+						<div id="div-3" style="display: <%= display %>;">
 							<h2>Datos del titular:</h2><br><br>
 							<label> Cédula Titular: </label> 
+							<%
+								String cedula  = est.getPolicyHolderIdentityCard();
+								String pref = "";
+								String c 	= "";
+								if (cedula != null){
+									String split[] = cedula.split("-");
+									pref    = split[0];
+									c 	   = split[1];
+								}
+							%>
 							<select name="cedIdTitular" id="cedula">
-								<option value="V-">V</option>
-								<option value="E-">E</option>
-							</select><input type="text" name="cedulaTitular" id="cedula" value="" style="width: 194px; margin-left: 3px;"><br><br>
+								<option value="V-" <%= (pref.equals("V")? "selected" : "") %>>V</option>
+								<option value="E-" <%= (pref.equals("E")? "selected" : "") %>>E</option>
+							</select>
+							<input type="text" name="cedulaTitular" id="cedula" style="width: 194px; margin-left: 3px;" value="<%= c %>"><br><br>
 							<label> Nombre Titular: </label>
-							<input type="text" name="nameTitular" id="name" value="" style="width: 234px;"><br><br>
+							<input type="text" name="nameTitular" id="name" value="<%= est.getPolicyHolderName() %>" style="width: 234px;"><br><br>
 						</div>
 						</fieldset>
 					 	<br>
 					    
 					</div>
-					<div id="botonera" style="margin-top: -20px;">
-						<div id="botonP" style="display: inline; margin-right: 30px;">
-									<input type="submit"  class="button"  name="sbmtButton" value="Editar" />
+					<div id="botonera" style="margin-top: -20px; width:400px;">
+						<div id="botonP" style="display: inline; margin-right: 10px;">
+									<input type="submit"  class="button"  name="sbmtButton" value="Editar y Salir" />
+						</div>
+						<div id="botonP" style="display: inline; margin-right: 10px;">
+									<input type="submit"  class="button"  name="sbmtButton" value="Editar Protocolos" />
 						</div>	
 						<div id="botonV" style="display: inline;">
 								<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
@@ -164,6 +172,6 @@
 				</form>
 			</div>
 		</div>
-		
+		</div>
 	</body>
 </html>

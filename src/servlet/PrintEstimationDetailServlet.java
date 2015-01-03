@@ -62,9 +62,9 @@ public class PrintEstimationDetailServlet extends HttpServlet {
 				ArrayList<Protocol> plist = (ArrayList<Protocol>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEstimationProtocols(estimationID));
 				request.setAttribute("plist", plist);
 				
-				/*@SuppressWarnings("unchecked")
-				ArrayList<Protocol> pDetail = (ArrayList<Protocol>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetCompactEstimationScaleToPrint(estimationID));
-				request.setAttribute("estList", pDetail);*/
+				@SuppressWarnings("unchecked")
+				ArrayList<Protocol> pDetail = (ArrayList<Protocol>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetDetailedEstimationScaleToPrint(estimationID));
+				request.setAttribute("estList", pDetail);
 				
 				
 				RequestDispatcher rd;

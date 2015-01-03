@@ -72,11 +72,11 @@
 						</table>
 					<% } %>
 			    	<div style="width:100%; text-align:center; margin-top:20px;">
-			            <form action="CreateFinalEstimationProtocolServlet" method="post" style="display: inline-block; margin-right: 20px;">
+			            <form action="EditFinalEstimationProtocolServlet" method="post" style="display: inline-block; margin-right: 20px;">
 							<input type="hidden" name="estimationid" value="<%= estimationID %>"/>
 							<input type="submit" class="button" value="Finalizar"/>
 						</form>
-						<form action="CreateFinalEstimationProtocolServlet" method="get" style="display: inline-block;">
+						<form action="EditFinalEstimationProtocolServlet" method="get" style="display: inline-block;">
 							<input type="hidden" class="button" name="estimationid" value="<%= estimationID %>"/>
 							<input type="submit" class="button" value="Agregar otro protocolo"/>
 						</form>

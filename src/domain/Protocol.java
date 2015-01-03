@@ -3,6 +3,7 @@ package domain;
 public class Protocol {
 
 	private Long protocolID;
+	private Long protocolScaleID;
 	private String name;
 	private String description;
 	private String type;
@@ -16,6 +17,8 @@ public class Protocol {
 	private String bussinessRuleMicroName;
 	private String cost;
 	private String estCost;
+	private String protocolScaleName;
+	private Long generatedCostTypeID;
 	
 	public Long getProtocolID() {
 		return protocolID;
@@ -131,5 +134,29 @@ public class Protocol {
 	
 	public String getTotalWithPercentage() {
 		return totalP;
+	}
+	
+	public void setProtocolScaleID(long protocolScaleID) {
+		this.protocolScaleID = protocolScaleID;
+	}
+	
+	public Long getProtocolScaleID() {
+		return protocolScaleID;
+	}
+
+	public void setProtocolScaleName(String protocolScaleName) {
+		this.protocolScaleName = protocolScaleName;
+	}
+	
+	public String getProtocolScaleName() {
+		return protocolScaleName;
+	}
+
+	public void setGeneratedCostTypeID(Long generatedCostTypeID) {
+		this.generatedCostTypeID = generatedCostTypeID;
+	}
+	
+	public Long getGeneratedCostTypeID() {
+		return generatedCostTypeID;
 	}
 }

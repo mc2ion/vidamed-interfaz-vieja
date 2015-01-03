@@ -113,7 +113,7 @@
 											<option value="-"> Seleccionar </option>
 											<% for (int h = 0; h < sArea.size(); h++){ 
 											%>
-												<option value="<%= sArea.get(h).getUnitID() %>"><%= sArea.get(h).getName() %></option>
+												<option value="<%= sArea.get(h).getUnitID() %>" ><%= sArea.get(h).getName() %></option>
 											<% } %>
 										</select><br/><br/>
 										<p class="sum-div">
@@ -124,7 +124,7 @@
 										</p>  <br/> 
 										<% String cl = "" ; if (p.getProtocolScaleID() != 29) cl = "hidden"; %>
 										<label class="w200">Honorarios: Bs. </label>
-										<input class="<%= cl%> honorarios" type="text" name="hon<%=p.getProtocolScaleID() %>" />
+										<input class="<%= cl%> honorarios" type="text" name="hon<%=p.getProtocolScaleID() %>" value="<%= p.getTotal() %>" />
 										<div style="display:none" class="perc"><%= p.getCost() %></div>
 									</td>
 									<td><input type="hidden" name="ids" value="<%= p.getProtocolScaleID() %>" /></td>
@@ -145,7 +145,7 @@
 						</table>
 					<% } %>
 			    	<p style="width:100%; text-align:center; margin-top:20px;">
-			            <input type="submit" class="button" value="Generar Presupuesto"/>
+			            <input type="submit" class="button" value="Editar Presupuesto"/>
 			        </p>
 			</form>
        	</div>

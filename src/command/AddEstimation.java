@@ -16,9 +16,10 @@ public class AddEstimation implements DatabaseCommand {
 	private String policyholderidentitycard;
 	private String policyholdername;
 	private String clinictypeid;
+	private String userid;
 	
 	public AddEstimation(String patientid, String unitid, String specialistid, String paymentresponsibleid, String hasguaranteeletter, 
-			String ispolicyholder, String policyholderidentitycard, String policyholdername, String clinictypeid) {
+			String ispolicyholder, String policyholderidentitycard, String policyholdername, String clinictypeid, String userId) {
 		this.patientid 				    = patientid;
 		this.unitid 		 		    = unitid;
 		this.specialistid 	 		    = specialistid;
@@ -30,8 +31,7 @@ public class AddEstimation implements DatabaseCommand {
 		this.policyholderidentitycard 	= policyholderidentitycard;
 		this.policyholdername 		    = policyholdername;
 		this.clinictypeid 			    = clinictypeid;	
-		
-		
+		this.userid						= userId;
 	}
 	
 	@Override
@@ -43,11 +43,11 @@ public class AddEstimation implements DatabaseCommand {
 		try {
 			if (policyholderidentitycard == null){
 				ps = conn.prepareStatement("exec dbo.AddEstimation '" + patientid + "', '" + unitid + "', '" + 
-						specialistid + "', '" + paymentresponsibleid + "', '" + hasguaranteeletter + "', '" + ispolicyholder + "', '" + clinictypeid+ "'");
+						specialistid + "', '" + paymentresponsibleid + "', '" + hasguaranteeletter + "', '" + ispolicyholder + "', '" + clinictypeid+ "', '"+ userid + "'");
 			}else{
 				ps = conn.prepareStatement("exec dbo.AddEstimation '" + patientid + "', '" + unitid + "', '" + 
 						specialistid + "', '" + paymentresponsibleid + "', '" + hasguaranteeletter + "', '" + ispolicyholder + "', '" + 
-						policyholderidentitycard + "', '"+ policyholdername + "','"+clinictypeid+ "'");
+						"','"+clinictypeid+ "', '" + userid + "', '" + policyholderidentitycard + "', '"+ policyholdername + "'");
 			}
 			rs = ps.executeQuery();
 			if (rs.next()) {

@@ -151,10 +151,13 @@
 									%>
 								</tbody>
 							</table>
+							<form action="CreateFinalEstimationProtocolServlet" method="post" style="float: right; margin-top:10px;">
+								<input type="hidden" name="estimationid" value="<%= estimationID %>"/>
+								<input type="submit" class="button" value="Finalizar"/>
+							</form>
 							<br><br><br>
 				<% } %>
 				<div class="addp">
-				
 				<div>
 					<form action="CreateEstimationProtocolServlet" method="get">
 					<input type="hidden" name="estimationID" value="<%= estimationID %>"/>
@@ -166,9 +169,20 @@
 							<select name="protocoloID">	
 								<option value="-"> Seleccionar </option>
 								<% for (int i = 0; i < pt.size(); i++){ 
+									boolean found = false; 
+									if (lp != null){ 
+										for (int j = 0; j < lp.size(); j++){
+										Protocol p = lp.get(j);
+										if (p.getProtocolID() ==  pt.get(i).getProtocolID()){ found = true;}
+										}
+									}
+									if (found == false){
 								%>
 									<option value="<%= pt.get(i).getProtocolID() %>"><%= pt.get(i).getName() %></option>
-								<% } %>
+								<%
+								}
+								}
+							%>
 							</select><br/><br/>
 							<label>Diágnostico:</label>
 							<textarea name="diagnosis" style="width:425px; height:90px;"></textarea>
@@ -177,9 +191,6 @@
 					<div id="botonera">
 						<div id="botonP" style="display: inline; margin-right: 30px;">
 									<input type="submit"  class="button"  name="sbmtButton" value="Agregar" />
-						</div>	
-						<div id="botonV" style="display: inline;">
-								<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
 						</div>	
 					</div>
 				</form>

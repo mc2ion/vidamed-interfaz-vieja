@@ -116,7 +116,7 @@
 										Estimation p = est.get(i);
 									%>	
 									<tr class="gradeA">
-										<td><%= p.getId() %></td>
+										<td style="width:5%"><%= p.getId() %></td>
 										<td><%= p.getFirstName() + " " + p.getLastName() %></td>
 										<td><%= (p.getIsAdult() != null && p.getIsAdult().equals("1")) ? "Adulto" : "Pediátrico" %></td>
 										<td><%= p.getDiscount() %></td>
@@ -239,4 +239,8 @@
 			</div>
 		</div>
 	</body>
+	<style>
+	table.display td { padding: 3px 0px;} 
+	.dataTables_scrollHeadInner {width: 790px !important;} 
+	</style>
 </html>

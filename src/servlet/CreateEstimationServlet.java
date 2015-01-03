@@ -112,8 +112,12 @@ public class CreateEstimationServlet extends HttpServlet {
 			if (params.get("cedulaTitular").equals("") ||  params.get("titular")!= null)   pid = null;
 			String name = params.get("nameTitular");
 			if (params.get("nameTitular").equals("")   ||  params.get("titular")!= null)   name = null;
+			if (params.get("titular") != null && params.get("titular").equals("1")){
+				pid = null; 
+				name = null;
+			}
 			try {
-				Long spID = (Long) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddEstimation(params.get("patientid"), params.get("unitId"), params.get("specialist"), params.get("paymentId"), params.get("aval"), params.get("titular"), pid,  name,  params.get("clinicType")));
+				Long spID = (Long) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddEstimation(params.get("patientid"), params.get("unitId"), params.get("specialist"), params.get("paymentId"), params.get("aval"), params.get("titular"), pid,  name,  params.get("clinicType"), String.valueOf(userE.getUserID())));
 				
 				//Leer todos los protocolos
 				@SuppressWarnings("unchecked")

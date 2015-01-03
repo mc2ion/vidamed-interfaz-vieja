@@ -88,7 +88,7 @@
         	</div>           
 			<jsp:include page="./menu.jsp" />
         	<div id="content" style="position:absolute;">	
-				<form action="CreateEstimationProtocolServlet" method="post">
+				<form action="EditEstimationProtocolAddServlet" method="post">
 				<input type="hidden" name="estimationid" value="<%= estimationID %>"/>
 				<input type="hidden" name="protocolid" value="<%= protocolID %>"/>
 				
