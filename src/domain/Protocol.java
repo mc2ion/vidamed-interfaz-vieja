@@ -15,6 +15,7 @@ public class Protocol {
 	private String total;
 	private String totalP;
 	private String bussinessRuleMicroName;
+	private Long bussinessRuleMicroId;
 	private String cost;
 	private String estCost;
 	private String protocolScaleName;
@@ -34,6 +35,14 @@ public class Protocol {
 
 	public String getBussinessRuleMicroName() {
 		return bussinessRuleMicroName;
+	}
+	
+	public void setBussinessRuleMicroID(long bussinessRuleMicroId) {
+		this.bussinessRuleMicroId = bussinessRuleMicroId;
+	}
+
+	public Long getBussinessRuleMicroID() {
+		return bussinessRuleMicroId;
 	}
 	
 	public void setName(String name) {

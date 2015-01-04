@@ -1,3 +1,4 @@
+<%@page import="domain.BussinessMicro"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="domain.Protocol"%>
 <%@page import="java.util.ArrayList"%>
@@ -17,6 +18,8 @@ Date date = new Date();
 String dateTxt = dateFormat.format(date);
 String hour    = hourFormat.format(date);
 
+@SuppressWarnings("unchecked")
+ArrayList<Protocol> lList = (ArrayList<Protocol>) request.getAttribute("estList");
 
 @SuppressWarnings("unchecked")
 ArrayList<Protocol> pList = (ArrayList<Protocol>) request.getAttribute("plist");
@@ -207,173 +210,29 @@ ArrayList<Protocol> pList = (ArrayList<Protocol>) request.getAttribute("plist");
 					<td><%= p.getDiagnosis() %></td>
 					<td><%= p.getName() %><br>
 					<table id="invisibleTable">
-			<tbody>
-				<tr>
-					<th colspan="2">Hospitalización</th>
-					<th style="width:20%;text-align:right;">Precio Bs.F.</th>
-				</tr>				
-				<tr>
-					<td style="width:50%">Habitación</td>
-					<td style="width:30%">Ambulatorio</td>
-					<td style="width:20%;text-align:right;">1.135,20</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Médico Residente</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">220,00</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Servicios de Asistencia Permanente</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">154,69</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Servicios de Alimentación</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">260,00</td>
-				</tr>								
-				<tr>
-					<td style="width:50%">Servicios Farmacéuticos Ambulatorios</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">35,20</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Fármacos en Habitación</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">650,32</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Material Médico Quirúrgico en Habitación</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">587,34</td>
-				</tr>
-				<tr id="totalTr">
-					<td colspan="2">*** SUB-TOTAL ***</td>
-					<td style="width:20%;text-align:right;">3.042,75</td>
-				</tr>
-				<tr>
-					<th colspan="2">Gastos en Quirófano</th>
-					<th style="width:20%;text-align:right;">Precio Bs.F.</th>
-				</tr>				
-				<tr>
-					<td style="width:50%">Quirófano</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">4.875,00</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Sala de Recuperación</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">450,00</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Monitoreo</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">1.950,00</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Gases, Anestésicos y Medicamentos</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">4.593,91</td>
-				</tr>								
-				<tr>
-					<td style="width:50%">Material Médico Quirúrgico</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">5852,03</td>
-				</tr>
-				<tr id="totalTr">
-					<td colspan="2">*** SUB-TOTAL ***</td>
-					<td style="width:20%;text-align:right;">17.720,34</td>
-				</tr>
-				<tr>
-					<th colspan="2">Servicios Médicos</th>
-					<th style="width:20%;text-align:right;">Precio Bs.F.</th>
-				</tr>				
-				<tr>
-					<td style="width:50%">Banco de Sangre (Tipiaje)</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">591,25</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Electrocardiograma Reposo</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">402,50</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Evaluación Cardiovascular Pre-Operatoria</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">812,50</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Laboratorio Clínico</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">552,00</td>
-				</tr>								
-				<tr>
-					<td style="width:50%">Rayos X</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">601,90</td>
-				</tr>
-				<tr id="totalTr">
-					<td colspan="2">*** SUB-TOTAL ***</td>
-					<td style="width:20%;text-align:right;">2.960,15</td>
-				</tr>
-				<tr>
-					<th colspan="2">Honorarios Profesionales</th>
-					<th style="width:20%;text-align:right;">Precio Bs.F.</th>
-				</tr>				
-				<tr>
-					<td style="width:50%">Cirujano Principal</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">3.300,00</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Cirujano Ayudante I</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">1.320,00</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Anestesiólogo</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">1.320,00</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Instrumentista</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">224,20</td>
-				</tr>								
-				<tr>
-					<td style="width:50%">Enfermera Circulante</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">56,63</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Instrumental Especial</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">2.000,00</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Equipo Endoscopio</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">2.500,00</td>
-				</tr>								
-				<tr>
-					<td style="width:50%">Material Especial</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">2.500,00</td>
-				</tr>								
-				<tr>
-					<td style="width:50%">Consulta Pre-Anestésica</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">308,00</td>
-				</tr>
-				<tr id="totalTr">
-					<td colspan="2">*** SUB-TOTAL ***</td>
-					<td style="width:20%;text-align:right;">13.528,83</td>
-				</tr>
-				<tr>
-					<th colspan="2">*** TOTAL PROTOCOLO ***</th>
-					<th style="width:20%;text-align:right;">37.252,07</th>
-				</tr>
+						<tbody>
+					<% for (int j = 0 ; j < lList.size(); j ++){ 
+						Protocol pt = lList.get(j);
+						if (pList.get(i).getProtocolID() == pt.getProtocolID()){
+							
+							Long id = 0L;
+							if (pt.getBussinessRuleMicroID() != id){
+								id = pt.getBussinessRuleMicroID();
+							%>
+								<tr>
+									<th colspan="2"><%= pt.getBussinessRuleMicroName()%></th>
+									<th style="width:20%;text-align:right;">Precio Bs.F.</th>
+								</tr>	
+								
+							<% } %>
+							<tr>
+							<td style="width:50%"><%= pt.getProtocolScaleName() %></td>
+							<td style="width:20%;text-align:right;"><%= pt.getCost()%></td>
+							</tr>
+					<% 
+						}
+					}
+					%>
 			</tbody>
 			</table>
 					</td>

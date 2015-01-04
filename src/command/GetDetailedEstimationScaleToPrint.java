@@ -33,10 +33,11 @@ public class GetDetailedEstimationScaleToPrint implements DatabaseCommand {
 				u.setDiagnosis(rs.getString(3));
 				u.setProtocolScaleID(rs.getLong(4));
 				u.setProtocolScaleName(rs.getString(5));
-				u.setBussinessRuleMicroName(rs.getString(6));
-				u.setGeneratedCostTypeID(rs.getLong(7));
-				u.setCost(rs.getString(8));
-				u.setEstimationCost(rs.getString(9));
+				u.setBussinessRuleMicroID(rs.getLong(6));
+				u.setBussinessRuleMicroName(rs.getString(7));
+				u.setGeneratedCostTypeID(rs.getLong(8));
+				u.setCost(rs.getString(9));
+				u.setEstimationCost(rs.getString(10));
 				list.add(u);
 			}
 		}

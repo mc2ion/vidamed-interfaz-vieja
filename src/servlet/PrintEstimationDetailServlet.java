@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
+import domain.BussinessMicro;
 import domain.Estimation;
 import domain.PermissionsList;
 import domain.Protocol;
@@ -66,6 +67,9 @@ public class PrintEstimationDetailServlet extends HttpServlet {
 				ArrayList<Protocol> pDetail = (ArrayList<Protocol>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetDetailedEstimationScaleToPrint(estimationID));
 				request.setAttribute("estList", pDetail);
 				
+				@SuppressWarnings("unchecked")
+				ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetBussinessMicros());
+				request.setAttribute("bm", bm);
 				
 				RequestDispatcher rd;
 				rd = getServletContext().getRequestDispatcher("/printEstimationDetail.jsp");			
