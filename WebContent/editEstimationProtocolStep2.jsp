@@ -8,7 +8,7 @@
 <%@page import="domain.PaymentResponsible"%>
 <%
 	String estimationID 	= (String) request.getParameter("estimationID" );
-	String protocolID 		= (String) request.getParameter("protocoloID" );
+	String protocolID 		= (String) request.getParameter("protocolID" );
 	
 	@SuppressWarnings("unchecked")
 	ArrayList<ProtocolScale> ps = (ArrayList<ProtocolScale>)request.getAttribute("p");

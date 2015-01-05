@@ -160,5 +160,6 @@
 			border-bottom: 1px dotted rgb(231, 231, 231);
 		}
 		td.lft{width:340px;}
+		.target, #state{width:220px !important;}
 	</style>
 </html>

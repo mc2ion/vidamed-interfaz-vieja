@@ -6,9 +6,9 @@ import java.sql.SQLException;
 
 public class EditEstimationSpecialist implements DatabaseCommand {
 	
-	private Long admissionId;
 	private Long specId;
 	private Long unitId;
+	private Long admissionId;
 	
 	
 	public EditEstimationSpecialist(Long admissionId, Long specId, Long unitId){
