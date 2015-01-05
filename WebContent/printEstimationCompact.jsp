@@ -292,13 +292,13 @@ ArrayList<Protocol> pList = (ArrayList<Protocol>) request.getAttribute("plist");
 		<% } %>
 		<br>	
 		<div id="botonera">
-				<form onsubmit="printPageContentB();">
+				<form onsubmit="printPageContentB();" style="display:inline-block;">
 				<div id="botonP">
 							<input type="submit"  class="button"  name="sbmtButton" value="Imprimir" style="margin-left:30%;" onclick="printPageContentB();unPrintPageContentB();return false" />
 				</div>	
 				</form>
-				<form>
-					<div id="botonV" style="position:relative; margin-left: 450px; top: -20px;">
+				<form style="display:inline-block;">
+					<div id="botonV">
 							<input type="button" class="button" value="Regresar"  onClick="javascript:history.back();" style="margin-left:40%;" />		
 					</div>	
 				</form>

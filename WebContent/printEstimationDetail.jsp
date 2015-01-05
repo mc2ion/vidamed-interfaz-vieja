@@ -211,16 +211,18 @@ ArrayList<Protocol> pList = (ArrayList<Protocol>) request.getAttribute("plist");
 					<td><%= p.getName() %><br>
 					<table id="invisibleTable">
 						<tbody>
-					<% for (int j = 0 ; j < lList.size(); j ++){ 
+					<% 
+						Long id = 0L;
+							
+						for (int j = 0 ; j < lList.size(); j ++){ 
 						Protocol pt = lList.get(j);
 						if (pList.get(i).getProtocolID() == pt.getProtocolID()){
 							
-							Long id = 0L;
 							if (pt.getBussinessRuleMicroID() != id){
 								id = pt.getBussinessRuleMicroID();
 							%>
 								<tr>
-									<th colspan="2"><%= pt.getBussinessRuleMicroName()%></th>
+									<th><%= pt.getBussinessRuleMicroName()%></th>
 									<th style="width:20%;text-align:right;">Precio Bs.F.</th>
 								</tr>	
 								
@@ -283,13 +285,13 @@ ArrayList<Protocol> pList = (ArrayList<Protocol>) request.getAttribute("plist");
 		<% } %>
 		<br>	
 		<div id="botonera">
-				<form onsubmit="printPageContentB();">
+				<form onsubmit="printPageContentB();" style="display:inline-block;">
 				<div id="botonP">
 							<input type="submit"  class="button"  name="sbmtButton" value="Imprimir" style="margin-left:30%;" onclick="printPageContentB();unPrintPageContentB();return false" />
 				</div>	
 				</form>
-				<form>
-					<div id="botonV" style="position:relative; margin-left: 450px; top: -20px;">
+				<form style="display:inline-block;">
+					<div id="botonV">
 							<input type="button" class="button" value="Regresar"  onClick="javascript:history.back();" style="margin-left:40%;" />		
 					</div>	
 				</form>
