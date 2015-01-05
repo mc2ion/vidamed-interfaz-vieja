@@ -42,6 +42,7 @@
 				null,
 				null,
 				null,
+				null,
 				{ "bSearchable": false, "asSorting": false, "sWidth": "18%" }
 			],
 			"oLanguage": {
@@ -107,6 +108,7 @@
 										<th>Tipo</th>
 										<th>Descuento</th>
 										<th>Total</th>
+										<th>Total Con Descuento</th>
 										<th>Fecha</th>
 										<th>Acciones</th>
 									</tr>
@@ -120,7 +122,8 @@
 										<td><%= p.getFirstName() + " " + p.getLastName() %></td>
 										<td><%= (p.getIsAdult() != null && p.getIsAdult().equals("1")) ? "Adulto" : "Pediátrico" %></td>
 										<td><%= p.getDiscount() %></td>
-										<td><%= p.getTotal() %></td>
+										<td><%= (p.getTotal()!= null) ? p.getTotal() : "-" %></td>
+										<td><%= (p.getTotalWithDiscount()!= null) ? p.getTotalWithDiscount() : "No Aplica" %></td>
 										<td><%= p.getEditionDate() %></td>
 										<td>
 											<a href="ShowEstimationServlet?function=estimations&id=<%= p.getId() %>" style="color: transparent" >

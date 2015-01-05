@@ -287,7 +287,8 @@ ArrayList<Protocol> pList = (ArrayList<Protocol>) request.getAttribute("plist");
 		<br>Departamento Administrativo</div>		
 		<br>
 		<div style="text-align:left;font-size:10px;"><b>Elaborado Por:</b> <%= e.getCreationUser() %></div>
-		<% if (e.getEditionUser() != null){ %>
+		<% System.out.println("'"+e.getEditionUser()+"'");
+		if (e.getEditionUser() != null){ %>
 		<div style="text-align:left;font-size:10px;"><b>Modificado Por:</b> <%= e.getEditionUser() %></div>
 		<% } %>
 		<br>	

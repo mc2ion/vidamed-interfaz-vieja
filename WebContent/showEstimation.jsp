@@ -117,8 +117,17 @@
 						   DecimalFormat formatter = new DecimalFormat("#,###.00");
 						   String number = formatter.format(amount) ;
 						   %>
-							<tr><td><b>Total: Bs.</b></td><td><%= number %></td>
-						   <tr><td><b>Fecha Creación</b></td><td><%= est.getEditionDate() %></td>
+							<tr><td><b>Total: Bs.</b></td><td><%= number %></td></tr>
+							<% if(est.getTotalWithDiscount()!= null){
+								double amountWithDisc = Double.parseDouble(est.getTotalWithDiscount());
+								double disc = amount - amountWithDisc;
+								number = formatter.format(disc);
+							%>
+							<tr><td><b>Descuento: Bs.</b></td><td><%= number %></td></tr>
+							<%	number = formatter.format(amountWithDisc); %>
+							<tr><td><b>Total con Descuento: Bs.</b></td><td><%= number %></td></tr>
+							<% } %>
+						   <tr><td><b>Fecha Creación</b></td><td><%= est.getEditionDate() %></td></tr>
 					   </table>
 					</div>
   					<div id="tabs-2">

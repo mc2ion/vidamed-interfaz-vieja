@@ -32,6 +32,7 @@ public class GetEstimations implements DatabaseCommand {
 				u.setDiscount(rs.getString(5));
 				u.setTotal(rs.getString(6));
 				u.setEditionDate(rs.getString(7));
+				u.setTotalWithDiscount(rs.getString(8));
 				p.add(u);
 			}
 		}
