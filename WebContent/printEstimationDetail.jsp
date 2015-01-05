@@ -229,7 +229,7 @@ ArrayList<Protocol> pList = (ArrayList<Protocol>) request.getAttribute("plist");
 							<% } %>
 							<tr>
 							<td style="width:50%"><%= pt.getProtocolScaleName() %></td>
-							<td style="width:20%;text-align:right;"><%= pt.getCost()%></td>
+							<td style="width:20%;text-align:right;"><%= pt.getEstimationCost()%></td>
 							</tr>
 					<% 
 						}

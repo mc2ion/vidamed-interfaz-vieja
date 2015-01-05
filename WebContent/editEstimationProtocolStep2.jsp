@@ -1,3 +1,4 @@
+<%@page import="domain.EstimationSpecialist"%>
 <%@page import="domain.BussinessMicro"%>
 <%@page import="domain.ProtocolScale"%>
 <%@page import="domain.Protocol"%>
@@ -17,6 +18,11 @@
 	
 	@SuppressWarnings("unchecked")
 	ArrayList<Unit> sArea = (ArrayList<Unit>)request.getAttribute("units");
+	
+	@SuppressWarnings("unchecked")
+	ArrayList<EstimationSpecialist> spec = (ArrayList<EstimationSpecialist>) request.getAttribute("spec");
+	
+	
 %>
 <%@page import="domain.User"%>
 <%
@@ -108,12 +114,23 @@
 									%>
 									<td class='lft'  style="vertical-align:top;"><%= p.getName()%></td>
 									<td class='mem'>
+										<% 
+										Long unitID 		= 0L;
+										Long specialistID 	= 0L;
+										for (int l = 0; l < spec.size(); l++){ 
+											EstimationSpecialist e = spec.get(l);
+											if (e.getProtocolScaleID() == p.getProtocolScaleID()){
+												unitID = e.getUnitID();
+												specialistID = e.getSpecialistID();
+											}
+										}
+										%>
 										<label class="w200">Unidad del Especialista: </label>
 										<select name="unitId" id="unitId" class="target">	
 											<option value="-"> Seleccionar </option>
 											<% for (int h = 0; h < sArea.size(); h++){ 
 											%>
-												<option value="<%= sArea.get(h).getUnitID() %>" ><%= sArea.get(h).getName() %></option>
+												<option value="<%= sArea.get(h).getUnitID() %>" <%= (sArea.get(h).getUnitID() == unitID) ? "selected" : "" %>><%= sArea.get(h).getName() %></option>
 											<% } %>
 										</select><br/><br/>
 										<p class="sum-div">

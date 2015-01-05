@@ -225,7 +225,7 @@ ArrayList<Protocol> pList = (ArrayList<Protocol>) request.getAttribute("plist");
 						<tr>
 							<td colspan="2"><%= lList.get(j).getBussinessRuleMicroName() %></td>
 							<% 
-							  double amount = Double.parseDouble(lList.get(j).getCost());
+							  double amount = Double.parseDouble(lList.get(j).getEstimationCost());
 							  DecimalFormat formatter = new DecimalFormat("#,###.##");
 							  String number = formatter.format(amount) ;
 							%> 
@@ -236,7 +236,7 @@ ArrayList<Protocol> pList = (ArrayList<Protocol>) request.getAttribute("plist");
 						<tr id="totalTr3">
 							<td colspan="2">*** TOTAL PROTOCOLO ***</td>
 							<% 
-							  double amount = Double.parseDouble(lList.get(i).getTotal());
+							  double amount = Double.parseDouble(pList.get(i).getTotal());
 							  DecimalFormat formatter = new DecimalFormat("#,###.##");
 							  String number = formatter.format(amount) ;
 							%> 

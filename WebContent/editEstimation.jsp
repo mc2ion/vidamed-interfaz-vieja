@@ -143,7 +143,7 @@
 								if (cedula != null){
 									String split[] = cedula.split("-");
 									pref    = split[0];
-									c 	   = split[1];
+									if (split.length == 2) c 	   = split[1];
 								}
 							%>
 							<select name="cedIdTitular" id="cedula">
@@ -152,7 +152,7 @@
 							</select>
 							<input type="text" name="cedulaTitular" id="cedula" style="width: 194px; margin-left: 3px;" value="<%= c %>"><br><br>
 							<label> Nombre Titular: </label>
-							<input type="text" name="nameTitular" id="name" value="<%= est.getPolicyHolderName() %>" style="width: 234px;"><br><br>
+							<input type="text" name="nameTitular" id="name" value="<%= (est.getPolicyHolderName() != null ) ? est.getPolicyHolderName() : "" %>" style="width: 234px;"><br><br>
 						</div>
 						</fieldset>
 					 	<br>

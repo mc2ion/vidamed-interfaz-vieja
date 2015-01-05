@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
 import domain.BussinessMicro;
+import domain.EstimationSpecialist;
 import domain.PermissionsList;
 import domain.Protocol;
 import domain.ProtocolScale;
@@ -70,6 +71,10 @@ public class EditEstimationProtocolServlet extends HttpServlet {
 				@SuppressWarnings("unchecked")
 				ArrayList<Unit> lList = (ArrayList<Unit>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetUnits());
 				request.setAttribute("units", lList);
+				
+				@SuppressWarnings("unchecked")
+				ArrayList<EstimationSpecialist> spec = (ArrayList<EstimationSpecialist>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEstimationSpecialists(estimationID, protocolID));
+				request.setAttribute("spec", spec);
 				
 				
 				rd = getServletContext().getRequestDispatcher("/editEstimationProtocolStep2.jsp");
