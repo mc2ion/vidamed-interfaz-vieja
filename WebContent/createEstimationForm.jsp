@@ -103,7 +103,7 @@
 								$("#submit-form").click();
 							}
 							else{
-								text = "<h2>Escoja el paciente:</h2><br/>";
+								text = "<h2 style='font-size:18px;'>Escoja el paciente o cree uno nuevo:</h2><br/>";
 								text += "<form id='ptsub'><table class='sweetTable'><tr><td>Id</td><td>Nombre Paciente</td><td style='width:12%;'>Seleccionar</td></tr>";
 								var textAux = "";
 								$.each(obj, function(i, item) {
@@ -112,6 +112,16 @@
 								});
 								text += textAux;
 								text += "</table><input type='button' onclick='getValues();' value='Escoger' style='float:right; margin-top:10px;'></form>";
+								text += "<form action='CreatePatientServlet' method='post' style='float: right;margin-top: 10px;margin-right: 10px;'>";
+								text +=	'<input type="hidden" id="txtCedIdHidden" name="txtCedId" class="good_input" value="'+txtCedId+'">';
+								text +=		'<input type="hidden" id="txtCedIdNumHidden" name="txtCedIdNum" class="good_input" value="'+txtCedIdNum+'">';
+								text +=		'<input type="hidden" id="txtPatientTypeHidden" name="txtPatientType" class="good_input" value="'+patientType+'">';
+								text +=		'<input type="hidden" name="f" class="good_input" value="estimation">';
+								text +=		'<input type="hidden" name="submit" value="find">';
+								text +='<div class="btn-fld">';
+								text +=	'<input type="submit" name="sbmtButton" value="Crear nuevo paciente" style="background: rgb(255, 212, 77);">';
+								text +='</div>';
+								text +='</form>';
 								form = $(text);
 								$('.patients').append(form);
 							}

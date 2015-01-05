@@ -198,7 +198,8 @@
         	</div>        
 			<jsp:include page="./menu.jsp" />
         	<div id="content" style="position:absolute;">	
-	        	<h2>Crear Paciente:</h2>
+	        	<h2>Crear Paciente:</h2> <br/>
+				<p style='font-style: italic'>** Una vez creado el paciente, se continuará con la creación del presupuesto.</p>
 				<br>
 				<form id="form1" name="form1" action="CreatePatientServlet" method="post">
 				<div id="tabs">
