@@ -4,21 +4,18 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class AddEstimationSpecilist implements DatabaseCommand {
+public class EditEstimationProtocolScale implements DatabaseCommand {
 	
 	private String estimationid;
 	private String protocolid;
 	private String protocolscaleid;
-	private String specialistid;
-	private String unitid;
+	private String cost;
 	
-	
-	public AddEstimationSpecilist(String estimationid, String protocolid, String protocolscaleid, String specialistid, String unitid) {
+	public EditEstimationProtocolScale(String estimationid, String protocolid, String protocolscaleid, String cost) {
 		this.estimationid 		= estimationid;
 		this.protocolid 		= protocolid;
 		this.protocolscaleid 	= protocolscaleid;
-		this.specialistid 	 	= specialistid;
-		this.unitid 	 		= unitid;
+		this.cost 	 			= cost;
 	}
 	
 	@Override
@@ -26,14 +23,16 @@ public class AddEstimationSpecilist implements DatabaseCommand {
 		
 		PreparedStatement ps = null;
 		try {
-			ps = conn.prepareStatement("exec dbo.AddEstimationSpecilist '" + estimationid + "', '" + protocolid + "', '" + 
-						protocolscaleid + "', '" + specialistid + "','"+ unitid + "'");
+			ps = conn.prepareStatement("exec dbo.EditEstimationProtocolScale '" + estimationid + "', '" + protocolid + "', '" + 
+						protocolscaleid + "', '" + cost + "'");
+			
+			System.out.println(estimationid + "', '" + protocolid + "', '" + 
+						protocolscaleid + "', '" + cost);
 			ps.executeUpdate();
 		}
 		finally {
 			ps.close();
 		}		
-		
 		return 1;
 	}
 

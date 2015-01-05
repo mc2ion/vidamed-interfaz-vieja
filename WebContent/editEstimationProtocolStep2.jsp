@@ -43,20 +43,33 @@
 		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
 		<script>
 		$( document ).ready(function() {
+			var isNew = 1;
 			$( ".target" ).change(function() {
-				elem = this;
-				index = $(this).val();
+				var elem = this;
+				var index = $(this).val();
 				if (index != "-"){
 					$.ajax({
 						type: "GET",
 						url: "GetSpecialistServlet",
 						data: {unit: index },
 						success: function(data){
-							$(elem).closest("td").find("#state").html(data);
+							$(elem).closest("td").find(".state").html(data);
+							specialist = $(elem).closest(".mem").find(".spID").text();
+							if (isNew == 1) { 
+							$(elem).closest(".mem").find(".state").val(specialist); 
+							count--; 
+							if (count == 0) isNew = 0 }
 						}
 					});
 				}
 			});
+			
+			var count = $(".target").length;
+			$( ".target" ).each(function(ind, el) {
+				$(el).change();
+			});
+			
+			
 			
 			$('#titular').change(function() {
 		        if(!$(this).is(":checked")) {
@@ -94,7 +107,7 @@
         	</div>           
 			<jsp:include page="./menu.jsp" />
         	<div id="content" style="position:absolute;">	
-				<form action="CreateEstimationProtocolServlet" method="post">
+				<form action="EditEstimationProtocolServlet" method="post">
 				<input type="hidden" name="estimationid" value="<%= estimationID %>"/>
 				<input type="hidden" name="protocolid" value="<%= protocolID %>"/>
 				
@@ -126,16 +139,17 @@
 										}
 										%>
 										<label class="w200">Unidad del Especialista: </label>
-										<select name="unitId" id="unitId" class="target">	
+										<select name="unitId<%= p.getProtocolScaleID() %>" id="unitId" class="target">	
 											<option value="-"> Seleccionar </option>
 											<% for (int h = 0; h < sArea.size(); h++){ 
 											%>
 												<option value="<%= sArea.get(h).getUnitID() %>" <%= (sArea.get(h).getUnitID() == unitID) ? "selected" : "" %>><%= sArea.get(h).getName() %></option>
 											<% } %>
 										</select><br/><br/>
+										<div class="spID" style="display:none"><%= specialistID%></div>
 										<p class="sum-div">
 											<label for="pname" class="w200">Médico Tratante:</label>
-											<select name="specialist<%= p.getProtocolScaleID() %>" id="state">
+											<select name="specialist<%= p.getProtocolScaleID() %>" class="state">
 												<option value="-">Seleccionar</option>
 											</select>
 										</p>  <br/> 
@@ -175,5 +189,6 @@
 			border-bottom: 1px dotted rgb(231, 231, 231);
 		}
 		td.lft{width:340px;}
+		.target, .state{width:220px !important;}
 	</style>
 </html>

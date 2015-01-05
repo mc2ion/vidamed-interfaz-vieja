@@ -2,9 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,7 +16,6 @@ import command.CommandExecutor;
 import domain.BussinessMicro;
 import domain.EstimationSpecialist;
 import domain.PermissionsList;
-import domain.Protocol;
 import domain.ProtocolScale;
 import domain.Unit;
 import domain.User;
@@ -97,6 +94,79 @@ public class EditEstimationProtocolServlet extends HttpServlet {
 		User userE = (User)session.getAttribute("user");
 		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.estimation);
 		if(userE != null && perm){
+			//Medicos
+			String[] id = request.getParameterValues("ids");
+			String estimationid = request.getParameter("estimationid");
+			String protocolid   = request.getParameter("protocolid");
+			String honorario    = "";
+			
+			for (int i = 0 ; i < id.length; i++){
+				if (id[i] != null){
+					String specialistid  = request.getParameter("specialist" + id[i]);
+					String scaleId	   = id[i];
+					try {
+						if (id[i] != null && id[i].equals("29")){
+							honorario = request.getParameter("hon" + id[i]);
+							CommandExecutor.getInstance().executeDatabaseCommand(new command.EditEstimationProtocolScale(estimationid, protocolid, scaleId, honorario));
+						}
+						//Agrego el especialista
+						System.out.println("agrego " + specialistid + " b "  + scaleId + " c " + protocolid  + " d " + estimationid  + " e "+ honorario);
+						//CommandExecutor.getInstance().executeDatabaseCommand(new command.EditEstimationSpecilist(estimationid, protocolid, scaleId, specialistid));
+						
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			
+			//Items costo variables
+			String[] variable = request.getParameterValues("variableids");
+			if (variable != null){
+				for (int i = 0 ; i < variable.length; i++){
+				if (variable[i] != null){
+					String scaleId	  = variable[i];
+					String costo	  = request.getParameter("variable" + variable[i]);
+					try {
+						CommandExecutor.getInstance().executeDatabaseCommand(new command.AddEstimationProtocolScale(estimationid, protocolid, scaleId, costo));
+						System.out.println("agrego " + scaleId + " b "  + costo );
+						
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			}
+			
+			//Obtener valores establecidos
+			try {
+				@SuppressWarnings("unchecked")
+				ArrayList<ProtocolScale> ps = (ArrayList<ProtocolScale>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetFinalEstimationProtocolScale(estimationid, protocolid));
+				request.setAttribute("ps", ps);
+				
+				@SuppressWarnings("unchecked")
+				ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetBussinessMicros());
+				request.setAttribute("bm", bm);
+				
+				request.setAttribute("estimationID", estimationid);
+				request.setAttribute("protocolID", protocolid);
+				
+				
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/showFinalEstimationProtocolScale_edit.jsp");			
+				rd.forward(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); 
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+			rd.forward(request, response);
+		}
+		
+		
+		/*HttpSession session = request.getSession();
+		User userE = (User)session.getAttribute("user");
+		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.estimation);
+		if(userE != null && perm){
 				String[] fields = {"estimationid", "patientid", "unitId", "specialist", "clinicType", "paymentId", "aval", "titular", "cedIdTitular", "cedulaTitular", "nameTitular"};
 				Map<String, String> params = new HashMap<String, String>();
 				for(int i=0; i< fields.length; i++ ){
@@ -130,6 +200,6 @@ public class EditEstimationProtocolServlet extends HttpServlet {
 			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); 
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 			rd.forward(request, response);
-		}
+		}*/
 	}
 }

@@ -32,6 +32,8 @@ public class AddEstimation implements DatabaseCommand {
 		this.policyholdername 		    = policyholdername;
 		this.clinictypeid 			    = clinictypeid;	
 		this.userid						= userId;
+		System.out.println("aaa" + this.ispolicyholder);
+		
 	}
 	
 	@Override
@@ -41,15 +43,18 @@ public class AddEstimation implements DatabaseCommand {
 		ResultSet rs = null;
 		Long estimationID = null;
 		try {
+			System.out.println(policyholderidentitycard);
 			if (policyholderidentitycard == null){
 				ps = conn.prepareStatement("exec dbo.AddEstimation '" + patientid + "', '" + unitid + "', '" + 
 						specialistid + "', '" + paymentresponsibleid + "', '" + hasguaranteeletter + "', '" + ispolicyholder + "', '" + clinictypeid+ "', '"+ userid + "'");
+				rs = ps.executeQuery();
 			}else{
 				ps = conn.prepareStatement("exec dbo.AddEstimation '" + patientid + "', '" + unitid + "', '" + 
-						specialistid + "', '" + paymentresponsibleid + "', '" + hasguaranteeletter + "', '" + ispolicyholder + "', '" + 
+						specialistid + "', '" + paymentresponsibleid + "', '" + hasguaranteeletter + "', '" + ispolicyholder  + 
 						"','"+clinictypeid+ "', '" + userid + "', '" + policyholderidentitycard + "', '"+ policyholdername + "'");
+				rs = ps.executeQuery();
+				
 			}
-			rs = ps.executeQuery();
 			if (rs.next()) {
 				estimationID = rs.getLong(1);
 			}
