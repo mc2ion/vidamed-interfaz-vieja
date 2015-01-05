@@ -173,7 +173,7 @@ ArrayList<Protocol> pList = (ArrayList<Protocol>) request.getAttribute("plist");
 			<div style="width:50%;float:left;text-align:right;"><b>Fecha: </b> <%= dateTxt %></div>       	
         </div><br>
 		<div style="text-align:right;width:100%;font-size:11px;"><b>Hora: </b><%= hour %></div> <br>
-		<div id="title" style="font-size:14px; font-weight: bold;text-align:center;"> PRESUPUESTO # <%= est %> </div>
+		<div id="title" style="font-size:14px; font-weight: bold;text-align:center;"> PRESUPUESTO # <%= e.leftPadStringWithChar(est, 9, '0') %> </div>
 		<br />
 		<div class="header">
 			<% 

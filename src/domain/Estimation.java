@@ -230,4 +230,19 @@ public class Estimation {
 	public String getPaymentResponsibleName() {
 		return this.paymentResponsibleName;
 	}
+	
+	public String leftPadStringWithChar(String s, int fixedLength, char c){
+
+	    if(fixedLength < s.length()){
+	        throw new IllegalArgumentException();
+	    }
+
+	    StringBuilder sb = new StringBuilder(s);
+
+	    for(int i = 0; i < fixedLength - s.length(); i++){
+	        sb.insert(0, c);
+	    }
+
+	    return sb.toString();
+	}
 }
