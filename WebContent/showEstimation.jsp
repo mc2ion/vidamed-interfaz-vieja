@@ -96,6 +96,7 @@
         	<div id="content" style="position:absolute;">	
 	        	<h2>Ver Presupuesto:</h2>
 				<br>
+				<div style="min-height:300px;">
 				<div id="tabs">
 					<ul>
 					    <li><a href="#tabs-1">Paciente</a></li>
@@ -142,35 +143,56 @@
 					   	</table>
 					</div>
   				</div>
-				<div id="botonera" >
+				</div>
+				<div id="botonera">
 					<form action="PrintEstimationServlet">
 						<div id="botonP" style="display: inline; margin-right: 30px;">
-									<input type="submit"  class="button"  name="sbmtButton" value="Imprimir" />
+							<a id="go" rel="leanModal" href="#printUser" style="color: #f7941e; font-weight: bold;" 
+												onclick="return loadVars('<%= est.getId() %>','<%= est.getFirstName() + " " + est.getLastName() %>');" >
+								<input type="button"  class="button"  name="sbmtButton" value="Imprimir" />
+							</a> 
 						</div>	
 						<div id="botonV" style="display: inline; margin-right: 30px;">
 								<a id="go" rel="leanModal" href="#refreshUser" style="color: #f7941e; font-weight: bold;" 
-											onclick="return loadVars(1003,'1003');" >
+											onclick="return loadVars('<%= est.getId() %>','<%= est.getFirstName() + " " + est.getLastName() %>');" >
 								<input type="button" class="button" value="Actualizar"  />			
 								</a>
 						</div>	
 					</form>
 				</div><br>
-				<div id="botonera2"  style="display:none; width: 120px;">
-					<input type="button"  class="button"  name="sbmtButton" value="Regresar" onclick="history.go(-1);" />
-				</div><br>
-				
-				
+			</div>
+		</div>
+		<div id="printUser">
+			<div id="signup-ct">
+				<h3 id="see_id" class="sprited" > Imprimir Presupuesto</h3>
+				<br><br>
+				<span>Seleccione en qué formato desea imprimir el presupuesto n° <span class="cliente"></span>: </span> <br><br>
+				<div id="signup-header">
+					<a class="close_x" id="close_x"  href="#"></a>
+				</div>
+				<form action="PrintEstimationCompatServlet" method="post"  onsubmit="return setV(this)">
+					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+					<div class="btn-fld">
+						<input type="submit"  class="buttonPopUpDelete2"  name="sbmtButton" value="Compacto"  />
+					</div>
+		 		</form>
+				<form action="PrintEstimationDetailServlet" method="post"  onsubmit="return setV(this)">
+					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+					<div class="btn-fld">
+						<input type="submit"  class="buttonPopUpDelete3"  name="sbmtButton" value="Detallado"  />
+					</div>
+		 		</form>
 			</div>
 		</div>
 		<div id="refreshUser">
 			<div id="signup-ct">
 				<h3 id="see_id" class="sprited" > Actualizar Presupuesto</h3>
 				<br><br>
-				<span>¿Desea actualizar fecha y costos del presupuesto seleccionado? </span> <br><br>
+				<span>¿Desea actualizar fecha y costos del presupuesto? </span> <br><br>
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="ShowEstimationServlet" method="post"  onsubmit="return setV(this)">
+				<form action="UpdateEstimationServlet" method="post"  onsubmit="return setV(this)">
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
