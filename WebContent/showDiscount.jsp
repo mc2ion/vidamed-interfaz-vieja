@@ -33,7 +33,12 @@
 				<p class="p-align">
 			   	<b>Paciente:</b> <%= discount.getFirstName() + " " + discount.getLastName() %><br><br>
 			    <b>Monto total de la factura:</b>Bs. <%= discount.getTotal() %><br><br>
-			    <b>Descuento Solicitado:</b>Bs. <%= discount.getAmount() %><br><br>
+			    <b>Descuento Solicitado:</b>
+			    <% if (discount.getType().trim().equalsIgnoreCase("P")){ %>
+			    <%= discount.getAmount() %>%<br><br>
+			    <%} else {%>
+			    Bs. <%= discount.getAmount() %><br><br>
+			    <%} %>
 			    <b>Justificación:</b><%= discount.getJustification() %><br><br>
 			    <b>Fecha Solicitud:</b> <%= discount.getRequestDate() %><br><br>
 			    <br><br>

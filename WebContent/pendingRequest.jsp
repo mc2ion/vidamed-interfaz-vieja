@@ -118,7 +118,11 @@
 									<tr class="gradeA">
 										<td><%= id %></td>
 										<td><%= pacName %></td>
-										<td><%= amount %></td>
+										<% if (estimation.getType().trim().equalsIgnoreCase("P")){ %>
+										<td><%= amount %>%</td>
+										<% }else{ %>
+										<td>Bs. <%= amount %></td>
+										<%} %>
 										<td><%= estimation.getEstimationID() %></td>
 										<td><%= estimation.getRequestDate() %></td>
 										<td>
