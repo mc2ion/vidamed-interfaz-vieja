@@ -109,7 +109,7 @@
 									<td class='lft'  style="vertical-align:top;"><%= p.getName()%></td>
 									<td class='mem'>
 										<label class="w200">Unidad del Especialista: </label>
-										<select name="unitId" id="unitId" class="target">	
+										<select name="unitId<%= p.getProtocolScaleID() %>" id="unitId" class="target">	
 											<option value="-"> Seleccionar </option>
 											<% for (int h = 0; h < sArea.size(); h++){ 
 											%>
@@ -129,12 +129,14 @@
 									</td>
 									<td><input type="hidden" name="ids" value="<%= p.getProtocolScaleID() %>" /></td>
 									<% }else{ %>
-										<td class='lft'  style="vertical-align:top;"><%= p.getName()%></td>
 										<% if (p.getTotal() == null && p.getGeneratedCostTypeID() == 10) { %>
+											<td class='lft'  style="vertical-align:top;"><%= p.getName()%></td>
 											<td>Bs. <input type="text" name="variable<%=p.getProtocolScaleID() %>"/>
 											<input type="hidden" name="variableids" value="<%= p.getProtocolScaleID() %>"/></td>									
+										<% }else{ %>
+											<td class='lft'  style="vertical-align:top;"><%= p.getName()%></td>
+											<td><% if (p.getTotal() != null) { %> Bs. <%= p.getTotal()%><% } %></td>
 										<% } %>
-										<td><% if (p.getTotal() != null) { %> Bs. <%= p.getTotal()%><% } %></td>
 									<% } %>
 								</tr>
 								<%
@@ -158,5 +160,6 @@
 			border-bottom: 1px dotted rgb(231, 231, 231);
 		}
 		td.lft{width:340px;}
+		.target, #state{width:220px !important;}
 	</style>
 </html>

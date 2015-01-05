@@ -25,6 +25,8 @@ public class Estimation {
 	private String creationUser;
 	private String editionUser;
 	private String totalWithDiscount;
+	private String clinicName;
+	private String paymentResponsibleName;
 	
 	public void setIsPolicyHolder(int isPolicyHolder) {
 		this.isPolicyHolder = isPolicyHolder;
@@ -211,5 +213,21 @@ public class Estimation {
 
 	public String getTotalWithDiscount() {
 		return totalWithDiscount;
+	}
+
+	public void setClinicName(String clinicName) {
+		this.clinicName = clinicName;
+	}
+	
+	public String getClinicName() {
+		return this.clinicName;
+	}
+	
+	public void setPaymentResponsibleName(String paymentResponsibleName) {
+		this.paymentResponsibleName = paymentResponsibleName;
+	}
+	
+	public String getPaymentResponsibleName() {
+		return this.paymentResponsibleName;
 	}
 }

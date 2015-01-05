@@ -150,8 +150,8 @@
 						<% for (int i = 0; i < resp.size(); i++){
 							PaymentResponsible p = resp.get(i);
 							String info = p.getName();
-							if (p.getAddress() != null)
-								info += " | " + p.getAddress();
+							/* if (p.getAddress() != null)
+								info += " | " + p.getAddress(); */
 						%>
 							<option value="<%= p.getId()%>" > <%= info %></option>
 						<% } %>

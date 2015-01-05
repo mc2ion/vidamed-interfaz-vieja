@@ -39,6 +39,8 @@ public class GetEstimation implements DatabaseCommand {
 				u.setPolicyHolderIdentityCard(rs.getString(11));
 				u.setPolicyHolderName(rs.getString(12));
 				u.setClinicTypeID(rs.getLong(13));
+				u.setClinicName(rs.getString(14));
+				u.setPaymentResponsibleName(rs.getString(15));
 			}
 		}
 		finally {

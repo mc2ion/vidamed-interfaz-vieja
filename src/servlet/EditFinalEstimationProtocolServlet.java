@@ -52,6 +52,10 @@ public class EditFinalEstimationProtocolServlet extends HttpServlet {
 			try {
 				String estimationid = request.getParameter("estimationid");
 				
+				//Setear valores 
+				CommandExecutor.getInstance().executeDatabaseCommand(new command.GenerateEstimationRates(estimationid));
+				
+				
 				//Leer todos los protocolos
 				@SuppressWarnings("unchecked")
 				ArrayList<Protocol> pt = (ArrayList<Protocol>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetProtocols());

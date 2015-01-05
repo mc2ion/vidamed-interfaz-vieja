@@ -152,7 +152,7 @@
 										<td><%= p.getProtocolID() %></td>
 										<td><%= p.getName() %></td>
 										<td><%= (p.getDiagnosis() != null)? p.getDiagnosis() : "-"  %></td>
-										<td><%= p.getTotal() %></td>
+										<td><%= (p.getTotal()!= null)? p.getTotal(): "No calculado aún" %></td>
 										<td>
 											<a href="EditEstimationProtocolServlet?estimationID=<%= estimationID %>&protocolID=<%= p.getProtocolID() %>" style="color: transparent" >
 												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
