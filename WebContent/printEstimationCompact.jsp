@@ -236,7 +236,7 @@ ArrayList<Protocol> pList = (ArrayList<Protocol>) request.getAttribute("plist");
 						<tr id="totalTr3">
 							<td colspan="2">*** TOTAL PROTOCOLO ***</td>
 							<% 
-							  double amount = Double.parseDouble(pList.get(i).getTotal());
+							  double amount = Double.parseDouble(pList.get(i).getTotalWithPercentage());
 							  DecimalFormat formatter = new DecimalFormat("#,###.##");
 							  String number = formatter.format(amount) ;
 							%> 
