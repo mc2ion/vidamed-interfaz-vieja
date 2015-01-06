@@ -14,6 +14,10 @@
 	
 	@SuppressWarnings("unchecked")
 	ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>)request.getAttribute("bm");
+	
+	String function = (String) request.getAttribute("function");
+	System.out.println("showFinal " + function);
+	
 %>
 <%@page import="domain.User"%>
 <%
@@ -74,10 +78,12 @@
 			    	<div style="width:100%; text-align:center; margin-top:20px;">
 			            <form action="CreateFinalEstimationProtocolServlet" method="post" style="display: inline-block; margin-right: 20px;">
 							<input type="hidden" name="estimationid" value="<%= estimationID %>"/>
+							<input type="hidden" name="function" value="<%= function %>"/>
 							<input type="submit" class="button" value="Finalizar"/>
 						</form>
 						<form action="CreateFinalEstimationProtocolServlet" method="get" style="display: inline-block;">
 							<input type="hidden" class="button" name="estimationid" value="<%= estimationID %>"/>
+							<input type="hidden" name="function" value="<%= function %>"/>
 							<input type="submit" class="button" value="Agregar otro protocolo"/>
 						</form>
 			        </div>

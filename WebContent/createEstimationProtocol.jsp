@@ -10,6 +10,10 @@
 	
 	@SuppressWarnings("unchecked")
 	ArrayList<Protocol> lp = (ArrayList<Protocol>) request.getAttribute("lp");
+	
+	
+	String function = (String) request.getAttribute("function");
+	System.out.println(function);
 %>
 <%@page import="domain.User"%>
 <%
@@ -153,6 +157,7 @@
 							</table>
 							<form action="CreateFinalEstimationProtocolServlet" method="post" style="float: right; margin-top:10px;">
 								<input type="hidden" name="estimationid" value="<%= estimationID %>"/>
+								<input type="hidden" name="function" value="<%= function %>"/>
 								<input type="submit" class="button" value="Finalizar"/>
 							</form>
 							<br><br><br>
@@ -161,6 +166,8 @@
 				<div>
 					<form action="CreateEstimationProtocolServlet" method="get">
 					<input type="hidden" name="estimationID" value="<%= estimationID %>"/>
+					<input type="hidden" name="function" value="<%= function %>"/>
+								
 					<h3 style='border-bottom: 1px solid; padding-bottom:5px;'>Agregar Protocolos</h3><br/>
 					<p> Seleccione el protocolo asociado al presupuesto:</p><br/>
 					<div>

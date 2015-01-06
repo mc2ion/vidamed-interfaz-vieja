@@ -75,8 +75,8 @@
 					var txtCedIdNum	= $('#txtCedIdNum').val();
 					var patientType	= $('#target option:selected').val();
 					var txtCedId	= $("#txtCedId option:selected").val();
-	        	
-	        	
+	        		var isAdult     = $("#target option:selected").val();
+					
 					$.get('SearchPatientServlet', {patientType: patientType, txtCedId: txtCedId , txtCedIdNum: txtCedIdNum}, function(responseText) { 
 						$('#progress').dialog('close');
 						//Cliente no encontrado
@@ -91,7 +91,7 @@
 						else{
 							var json = JSON.stringify(eval("(" + responseText + ")"));
 							obj = JSON.parse(json);
-							/*if (obj.length == 1){
+							if (isAdult == 1){
 								var patientId = obj[0].patientID;
 								var ced 	  = obj[0].identityCard;
 								var name 	  = obj[0].firstName;
@@ -102,7 +102,8 @@
 								$("#txtLastName").val(lastname);
 								$("#submit-form").click();
 							}
-							else{*/
+							else{
+								$('.patients').html("");
 								text = "<h2 style='font-size:18px;'>Escoja el paciente o cree uno nuevo:</h2><br/>";
 								text += "<form id='ptsub'><table class='sweetTable'><tr><td>Id</td><td>Nombre Paciente</td><td style='width:12%;'>Seleccionar</td></tr>";
 								var textAux = "";
@@ -124,7 +125,7 @@
 								text +='</form>';
 								form = $(text);
 								$('.patients').append(form);
-							//}
+							}
 						}
 					})
 				}, 1000 );

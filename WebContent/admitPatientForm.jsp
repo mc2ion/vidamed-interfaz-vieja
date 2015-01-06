@@ -54,6 +54,7 @@
 				var txtCedIdNum	= $('#cedNumber').val();
 				var patientType	= $('.target option:selected').val();
 				var txtCedId	= $("#cedId option:selected").val();
+				var isAdult     = $("#isAdult option:selected").val();
 				var numPres		= $('#estimation').val();
 					$.get('SearchPatientServlet', {patientType: patientType, txtCedId: txtCedId , 
 												txtCedIdNum: txtCedIdNum, estimation: numPres}, function(responseText) { 
@@ -68,26 +69,30 @@
 						}
 						//Cliente encontrado o presupuesto encontrado
 						else{
-							var split = responseText.split('/');
-							var patientId = split[0];
-							var ced = split[1];
-							var name = split[2];
-							var lastname = split[3];
-							if (split.length > 4){
-								var estimationId = split[4];
-								var responsableId = split[5];
-								var responsableName = split[6];
+							var json = JSON.stringify(eval("(" + responseText + ")"));
+							obj = JSON.parse(json);
+						
+							if (isAdult){
+								var patientId = obj[0].patientID;
+								var ced 	  = obj[0].identityCard;
+								var name 	  = obj[0].firstName;
+								var lastname  = obj[0].lastName;
+								var split = responseText.split('/');
+								var estimationId = obj[0].estimationID;
+								var responsableId = obj[0].paymentResponsibleId;
+								var responsableName = obj[0].responsibleName;
+								
+								$("#patientID").val(patientId);
+								$("#txtCedNumber").val(ced);
+								$("#txtName").val(name);
+								$("#txtLastName").val(lastname);
+								$("#estimationId").val(estimationId);
+								$("#responsableId").val(responsableId);
+								$("#responsableName").val(responsableName);
+								$("#submit-form").click();
 							}
-							$("#patientID").val(patientId);
-							$("#txtCedNumber").val(ced);
-							$("#txtName").val(name);
-							$("#txtLastName").val(lastname);
-							$("#estimationId").val(estimationId);
-							$("#responsableId").val(responsableId);
-							$("#responsableName").val(responsableName);
-							
 							// Submit form
-							$("#submit-form").click();
+							//
 						}
 					});
 				}, 1000 );
@@ -149,7 +154,7 @@
 				
 					<fieldset class="bigger">
 						<label>Escoja el tipo de paciente:</label>
-						<select class="target">
+						<select class="target" id="isAdult">
 							<option value="1">Adulto</option>
 							<option value="0">Pedi&aacute;trico</option>
 						</select><br><br><br>
@@ -182,7 +187,7 @@
 				<form action="CreatePatientServlet" method="post">
 				<h3 id="see_id" class="sprited" > Paciente Inexistente</h3>
 				<br><br>
-				<span style="font-size: 16px; text-align: center;">El paciente y/o presupuesto indicado no se encuentra registrado en el sistema. ¿Desea agregarlo? </span> <br><br>
+				<span style="font-size: 16px; text-align: center;">El paciente y/o presupuesto indicado no se encuentra registrado en el sistema. ¿Desea agregarlo ahora? </span> <br><br>
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
@@ -190,7 +195,7 @@
 				<input type="hidden" id="txtCedIdNumHidden" 		name="txtCedIdNum"   class="good_input" value=""/>
 				<input type="hidden" id="txtPatientTypeHidden" 		name="txtPatientType"   class="good_input" value=""/>
 				<input type="hidden" id="txtNumEstimationHidden" 	name="txtNumEstimationHidden"   class="good_input" value=""/>
-				<input type="hidden" name="f"  class="good_input"   value="admision"/>
+				<input type="hidden" name="f"  class="good_input"   value="admision" >
 				<input type="hidden" name="submit"  value="find"/>
 				<div class="btn-fld">
 					<input type="submit" class="buttonPopUpClose"  name="sbmtButton" value="Aceptar"  />

@@ -133,7 +133,7 @@
 										<td>
 											<a id="go" rel="leanModal" href="#editStatus" style="color: #f7941e; font-weight: bold;"
 											onclick="return loadVars(<%= id %>,'<%= patient %>');">
-												<img alt="logo" src="./images/edit.png" height="16" width="16" title="Eliminar"/>
+												<img alt="logo" src="./images/edit.png" height="16" width="16" title="Editar"/>
 											</a> 
 											<a href="ShowAdmissionServlet?id=<%= id %>" style="color: transparent" >
 												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />

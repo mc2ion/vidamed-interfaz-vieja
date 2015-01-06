@@ -42,7 +42,15 @@ public class CreatePatientServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+		// Crear presupuesto para el paciente recien creado.
+		String function = (String) request.getAttribute("function");
+		RequestDispatcher rd;
+		if (function.equals("admision")){
+			request.setAttribute("function", "admisionCreate");
+			rd = getServletContext().getRequestDispatcher("/CreateEstimationServlet");			
+			rd.forward(request, response);
+			return;
+		}else doPost(request, response);
 	}
 
 	/**
@@ -56,12 +64,10 @@ public class CreatePatientServlet extends HttpServlet {
 			RequestDispatcher rd;
 			try{
 				if (submit != null && submit.equals("find")){
-					
 					String txtCedId 	= request.getParameter("txtCedId");
 					String txtCedIdNum 	= request.getParameter("txtCedIdNum");
 					String patientType  = request.getParameter("txtPatientType");
 					String function  	= request.getParameter("f");
-					
 					
 					request.setAttribute("cedId", txtCedId);
 					request.setAttribute("cedNum", txtCedIdNum);
@@ -70,8 +76,6 @@ public class CreatePatientServlet extends HttpServlet {
 					
 					rd = getServletContext().getRequestDispatcher("/createPatient.jsp");			
 					rd.forward(request, response);
-					
-					
 				}else{
 					String isAdultS = request.getParameter("isAdult");
 					int isAdult = 0;
@@ -106,13 +110,25 @@ public class CreatePatientServlet extends HttpServlet {
 						request.setAttribute("function", function);
 						RequestDispatcher rd2 = getServletContext().getRequestDispatcher("/CreateEstimationServlet");
 						rd2.forward(request,response);
-					}/*else if(function.equals("admision")){
-						request.setAttribute("identityCard", identityCard);
-						request.setAttribute("txtFirstName", firstName);
+					}else if(function.equals("admision")){
+						// Crear presupuesto para el paciente recien creado.
+						request.setAttribute("txtCedNumber", identityCard);
+						request.setAttribute("txtName", firstName);
 						request.setAttribute("txtLastName", lastName);
-						rd = getServletContext().getRequestDispatcher("/AdmitPatientServlet");			
-						rd.forward(request, response);
-					}*/
+						request.setAttribute("patientID", String.valueOf(userID));
+						request.setAttribute("function", function);
+						
+						
+						User pat = new User();
+						pat.setFirstName(firstName);
+						pat.setLastName(lastName);
+						pat.setIdentityCard(identityCard);
+						session.setAttribute("userInfo", pat);
+						//llamando a doget para que llame al servlet por el get!
+						doGet(request, response);
+						//rd = getServletContext().getRequestDispatcher("/CreateEstimationServlet");			
+						//rd.forward(request, response);
+					}
 				}
 			}catch(Exception e ){
 				System.out.print(e.getMessage());

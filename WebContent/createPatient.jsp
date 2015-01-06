@@ -4,6 +4,8 @@
 	String patientType  = (String) request.getAttribute("patientType");
 	String function	    = (String) request.getAttribute("function");
 	
+	String mensaje = "Una vez creado el paciente, se continuará con la creación del presupuesto.";
+	
 	String cedNumTxt = "";
 	if (cedNum != null)
 		cedNumTxt = cedNum;
@@ -199,9 +201,10 @@
 			<jsp:include page="./menu.jsp" />
         	<div id="content" style="position:absolute;">	
 	        	<h2>Crear Paciente:</h2> <br/>
-				<p style='font-style: italic'>** Una vez creado el paciente, se continuará con la creación del presupuesto.</p>
+				<p style='font-style: italic'>** <%= mensaje %> </p>
 				<br>
 				<form id="form1" name="form1" action="CreatePatientServlet" method="post">
+				<input type="hidden" name="function" value="<%= function %>"/>
 				<div id="tabs">
 					<ul>
 					    <li><a href="#tabs-1">Datos Personales</a></li>

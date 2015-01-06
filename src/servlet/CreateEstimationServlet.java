@@ -50,12 +50,15 @@ public class CreateEstimationServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		System.out.println("a");
 		HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
 		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.estimation);
 		if(userE != null && perm){
 			RequestDispatcher rd;
-			//String function = request.getParameter("function");
+			String function = request.getParameter("function");
+			System.out.println("create estimation servlet " + function);
 			String patientID 	= (String) request.getParameter("patientID");
 			String txtCedNumber = (String) request.getParameter("txtCedNumber");
 			String txtName 		= (String) request.getParameter("txtName");
@@ -79,7 +82,7 @@ public class CreateEstimationServlet extends HttpServlet {
 				@SuppressWarnings("unchecked")
 				ArrayList<ClinicType> clinic = (ArrayList<ClinicType>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetClinicTypes());
 				request.setAttribute("clinic", clinic);
-				
+				request.setAttribute("function", "admisionCreate");
 				rd = getServletContext().getRequestDispatcher("/createEstimation.jsp");			
 				rd.forward(request, response);
 			} catch (Exception e) {
@@ -101,7 +104,12 @@ public class CreateEstimationServlet extends HttpServlet {
 		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.estimation);
 		if(userE != null && perm){
 			String function 	= request.getParameter("function");
-			if (function != null && function.equals("estimation")){ doGet(request, response);}
+			String f 			= (String) request.getAttribute("function");
+			
+			System.out.println("function create estimation servlet " + function);
+			
+			if (function != null && function.equals("estimation")){ doGet(request, response); return;}
+			else if (f != null && f.equals("admisionCreate")) {doGet(request, response); return;}
 			else{
 				String[] fields = {"patientid", "unitId", "specialist", "clinicType", "paymentId", "aval", "titular", "cedIdTitular", "cedulaTitular", "nameTitular"};
 				Map<String, String> params = new HashMap<String, String>();
@@ -129,7 +137,7 @@ public class CreateEstimationServlet extends HttpServlet {
 				ArrayList<Protocol> lp = (ArrayList<Protocol>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEstimationProtocols(String.valueOf(spID)));
 				request.setAttribute("lp", lp);
 			
-				
+				request.setAttribute("function", function);
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/createEstimationProtocol.jsp");			
 				rd.forward(request, response);
 			} catch (Exception e) {

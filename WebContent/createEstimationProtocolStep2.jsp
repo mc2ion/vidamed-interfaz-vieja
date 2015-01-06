@@ -17,6 +17,10 @@
 	
 	@SuppressWarnings("unchecked")
 	ArrayList<Unit> sArea = (ArrayList<Unit>)request.getAttribute("units");
+	
+	String function = (String) request.getAttribute("function");
+	System.out.println(function);
+	
 %>
 <%@page import="domain.User"%>
 <%
@@ -91,6 +95,8 @@
 				<form action="CreateEstimationProtocolServlet" method="post">
 				<input type="hidden" name="estimationid" value="<%= estimationID %>"/>
 				<input type="hidden" name="protocolid" value="<%= protocolID %>"/>
+				<input type="hidden" name="function" value="<%= function %>"/>
+					
 				
         			<%
 		       			for (int i = 0; i < bm.size(); i++){ 

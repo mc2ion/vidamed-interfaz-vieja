@@ -52,7 +52,7 @@ public class CreateEstimationProtocolServlet extends HttpServlet {
 		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.estimation);
 		if(userE != null && perm){
 			RequestDispatcher rd;
-			//String function = request.getParameter("function");
+			String function = request.getParameter("function");
 			String protocolID 	= (String) request.getParameter("protocoloID");
 			String estimationID = (String) request.getParameter("estimationID");
 			String diagnostico  = (String) request.getParameter("diagnosis");
@@ -72,7 +72,7 @@ public class CreateEstimationProtocolServlet extends HttpServlet {
 				ArrayList<Unit> lList = (ArrayList<Unit>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetUnits());
 				request.setAttribute("units", lList);
 				
-				
+				request.setAttribute("function", function);
 				rd = getServletContext().getRequestDispatcher("/createEstimationProtocolStep2.jsp");
 				rd.forward(request, response);
 				
@@ -94,6 +94,9 @@ public class CreateEstimationProtocolServlet extends HttpServlet {
 		User userE = (User)session.getAttribute("user");
 		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.estimation);
 		if(userE != null && perm){
+			
+			String function = request.getParameter("function");
+			
 			//Medicos
 			String[] id = request.getParameterValues("ids");
 			String estimationid = request.getParameter("estimationid");
@@ -159,7 +162,7 @@ public class CreateEstimationProtocolServlet extends HttpServlet {
 				
 				request.setAttribute("estimationID", estimationid);
 				request.setAttribute("protocolID", protocolid);
-				
+				request.setAttribute("function", function);
 				
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/showFinalEstimationProtocolScale.jsp");			
 				rd.forward(request, response);

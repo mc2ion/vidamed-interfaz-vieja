@@ -12,10 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
-import domain.Admission;
 import domain.AdmissionReasons;
-import domain.Bed;
 import domain.BedLocation;
+import domain.Estimation;
 import domain.PaymentResponsible;
 import domain.User;
 
@@ -69,6 +68,9 @@ public class AdmitPatientServlet extends HttpServlet {
 					String txtCedNumber 	= request.getParameter("txtCedNumber");
 					String txtName 			= request.getParameter("txtName");
 					String txtLastName 		= request.getParameter("txtLastName");
+					String patientID 		= request.getParameter("patientID");
+					
+					System.out.println("a " + txtName + " " + txtLastName + " " + txtCedNumber);
 					
 					ArrayList<AdmissionReasons> ar = (ArrayList<AdmissionReasons>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetAdmissionReasons());
 					request.setAttribute("ar", ar);
@@ -84,26 +86,27 @@ public class AdmitPatientServlet extends HttpServlet {
 					
 					
 					//Presupuestos por paciente
+					ArrayList<Estimation> est = (ArrayList<Estimation>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPatientEstimations(Long.valueOf(patientID)));
+					request.setAttribute("est", est);
 					
 					User pat = new User();
 					pat.setFirstName(txtName);
 					pat.setLastName(txtLastName);
 					pat.setIdentityCard(txtCedNumber);
-					session.setAttribute(txtCedNumber, pat);
-					request.setAttribute("txtCedNumber", txtCedNumber);
+					session.setAttribute("pat", pat);
 					
 					RequestDispatcher rd;
 					rd = getServletContext().getRequestDispatcher("/admitPatient.jsp");			
 					rd.forward(request, response);
 				}else {
 				
-				String patientID 		= request.getParameter("patientID");
+				/*String patientID 		= request.getParameter("patientID");
 				String txtCedNumber 	= request.getParameter("txtCedNumber");
 				String txtName 			= request.getParameter("txtName");
 				String txtLastName 		= request.getParameter("txtLastName");
 				String estimationId 	= request.getParameter("estimationId");
 				String responsableId 	= request.getParameter("responsableId");
-				String responsableName 	= request.getParameter("responsableName"); 
+				String responsableName 	= request.getParameter("responsableName"); */
 				
 				
 					

@@ -11,9 +11,9 @@
 	if (user != null)
 		name = user.getFirstName() ;
 	
-	String identityCard = (String) request.getAttribute("txtCedNumber");
-	User pat 			= (User) session.getAttribute(identityCard);
-	
+	//String identityCard = (String) request.getAttribute("txtCedNumber");
+	User pat 			= (User) session.getAttribute("pat");
+	System.out.println(pat.getFirstName());
 	@SuppressWarnings("unchecked")
 	ArrayList<AdmissionReasons> ar = (ArrayList<AdmissionReasons>) request.getAttribute("ar");
 	
@@ -25,6 +25,9 @@
 	
 	@SuppressWarnings("unchecked")
 	ArrayList<Admission> admissions = (ArrayList<Admission>) request.getAttribute("admissions");
+	
+	
+	session.removeAttribute("pat");
 	
 %>
 <!DOCTYPE HTML>
@@ -126,7 +129,7 @@
 				<br>
 						 <form action="#">
 						 	<fieldset>
-							   <b>Cédula:</b> <span style="margin-left: 155px;"><%= identityCard %></span><br/><br/>
+							   <b>Cédula:</b> <span style="margin-left: 155px;"><%= pat.getIdentityCard() %></span><br/><br/>
 							   <b>Nombre: </b><span style="margin-left: 150px;"><%= pat.getFirstName() + " " + pat.getLastName() %></span><br><br/>
 							   <label> Responsable del Pago:</label> 
 							   <select name="paymentResponsible">
@@ -207,7 +210,5 @@
 			</div>
 			
 		</div>
-		
-		
 	</body>
 </html>

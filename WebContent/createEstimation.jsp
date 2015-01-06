@@ -15,6 +15,9 @@
 	
 	@SuppressWarnings("unchecked")
 	ArrayList<ClinicType> ct = (ArrayList<ClinicType>)request.getAttribute("clinic");
+	
+	String function = (String) request.getAttribute("function");
+	System.out.println(function);
 
 %>
 <%@page import="domain.User"%>
@@ -114,6 +117,7 @@
 				<div>
 					<form action="CreateEstimationServlet" method="post">
 					<input type="hidden" name="patientid" value="<%= patientID %>"/>
+					<input type="hidden" name="function" value="<%= function %>"/>
 					<h3 style='border-bottom: 1px solid; padding-bottom:5px;'>Información Básica</h3>
 					<div>
   						<br>

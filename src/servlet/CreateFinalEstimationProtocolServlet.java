@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
+import domain.AdmissionReasons;
+import domain.BedLocation;
+import domain.PaymentResponsible;
 import domain.PermissionsList;
 import domain.Protocol;
 import domain.User;
@@ -51,6 +54,7 @@ public class CreateFinalEstimationProtocolServlet extends HttpServlet {
 		if(userE != null && perm){
 			try {
 				String estimationid = request.getParameter("estimationid");
+				String function = request.getParameter("function");
 				
 				//Leer todos los protocolos
 				@SuppressWarnings("unchecked")
@@ -62,6 +66,7 @@ public class CreateFinalEstimationProtocolServlet extends HttpServlet {
 				ArrayList<Protocol> lp = (ArrayList<Protocol>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEstimationProtocols(String.valueOf(estimationid)));
 				request.setAttribute("lp", lp);
 				
+				request.setAttribute("function", function);
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/createEstimationProtocol.jsp");			
 				rd.forward(request, response);
 				
@@ -80,17 +85,39 @@ public class CreateFinalEstimationProtocolServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
 		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.estimation);
 		if(userE != null && perm){
 			String estimationid = request.getParameter("estimationid");
-			
+			String function = request.getParameter("function");
+			System.out.println("ultimo function " + function);
 			//Obtener valores establecidos
 			try {
 				CommandExecutor.getInstance().executeDatabaseCommand(new command.GenerateEstimationRates(estimationid));
-				response.sendRedirect(request.getContextPath() + "/ListEstimationsServlet");
+				if (function != null && function.equals("admisionCreate")){
+					//Vengo de tratar admitir un paciente que no existia
+					User pat = (User) session.getAttribute("userInfo");
+					session.setAttribute("pat", pat);
+					
+					@SuppressWarnings("unchecked")
+					ArrayList<AdmissionReasons> ar = (ArrayList<AdmissionReasons>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetAdmissionReasons());
+					request.setAttribute("ar", ar);
+					
+					// Lista de responsable de pagos
+					@SuppressWarnings("unchecked")
+					ArrayList<PaymentResponsible> pr = (ArrayList<PaymentResponsible>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPaymentResponsibles());
+					request.setAttribute("pr", pr);
+					
+					
+					//Lista de camas
+					@SuppressWarnings("unchecked")
+					ArrayList<BedLocation> lList = (ArrayList<BedLocation>) CommandExecutor.getInstance().executeDatabaseCommand(new command.SearchLocations());
+					request.setAttribute("locations", lList);
+					
+					RequestDispatcher rd = getServletContext().getRequestDispatcher("/admitPatient.jsp");			
+					rd.forward(request, response);
+				}else response.sendRedirect(request.getContextPath() + "/ListEstimationsServlet");
 				
 			} catch (Exception e) {
 				e.printStackTrace();
