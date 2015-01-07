@@ -14,7 +14,6 @@ import javax.servlet.http.HttpSession;
 import command.CommandExecutor;
 import domain.AdmissionReasons;
 import domain.BedLocation;
-import domain.Estimation;
 import domain.PaymentResponsible;
 import domain.User;
 
@@ -64,12 +63,14 @@ public class AdmitPatientServlet extends HttpServlet {
 				admitPatientForm = (String)  request.getAttribute("function");
 			
 			try {
+				//Simulando doGet
 				if (admitPatientForm != null && admitPatientForm.equals("admitPatientForm")){
 					String txtCedNumber 	= request.getParameter("txtCedNumber");
 					String txtName 			= request.getParameter("txtName");
 					String txtLastName 		= request.getParameter("txtLastName");
-					String patientID 		= request.getParameter("patientID");
-					
+					//String patientID 		= request.getParameter("patientID");
+					String estimationID 	= request.getParameter("estimationId");
+						
 					System.out.println("a " + txtName + " " + txtLastName + " " + txtCedNumber);
 					
 					ArrayList<AdmissionReasons> ar = (ArrayList<AdmissionReasons>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetAdmissionReasons());
@@ -86,8 +87,8 @@ public class AdmitPatientServlet extends HttpServlet {
 					
 					
 					//Presupuestos por paciente
-					ArrayList<Estimation> est = (ArrayList<Estimation>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPatientEstimations(Long.valueOf(patientID)));
-					request.setAttribute("est", est);
+					/*ArrayList<Estimation> est = (ArrayList<Estimation>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPatientEstimations(Long.valueOf(patientID)));
+					request.setAttribute("est", est);*/
 					
 					User pat = new User();
 					pat.setFirstName(txtName);
@@ -95,38 +96,28 @@ public class AdmitPatientServlet extends HttpServlet {
 					pat.setIdentityCard(txtCedNumber);
 					session.setAttribute("pat", pat);
 					
+					System.out.println(estimationID);
+					
+					session.setAttribute("estimationId", estimationID);
 					RequestDispatcher rd;
 					rd = getServletContext().getRequestDispatcher("/admitPatient.jsp");			
 					rd.forward(request, response);
 				}else {
 				
-				/*String patientID 		= request.getParameter("patientID");
-				String txtCedNumber 	= request.getParameter("txtCedNumber");
-				String txtName 			= request.getParameter("txtName");
-				String txtLastName 		= request.getParameter("txtLastName");
-				String estimationId 	= request.getParameter("estimationId");
-				String responsableId 	= request.getParameter("responsableId");
-				String responsableName 	= request.getParameter("responsableName"); */
-				
-				
+					String bed 				= request.getParameter("bed");
+					String reasonAdmission 	= request.getParameter("reasonAdmission");
+					String observations 	= request.getParameter("observations");
+					String estimationID 	= request.getParameter("estimationId");
+					System.out.println("a " + bed + " " + estimationID + " " + reasonAdmission + " " + observations);
 					
 					
-						/*String txtCedNumber 	= request.getParameter("txtCedNumber");
-					
-					String bedId 	 	 	= (String)request.getAttribute("bedId");
-					
-					Bed b = (Bed) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetBed(bedId));
-					request.setAttribute("bed", b);
-					
-					ArrayList<AdmissionReasons> ar = (ArrayList<AdmissionReasons>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetAdmissionReasons());
-					request.setAttribute("ar", ar);
-					
-					request.setAttribute("txtCedNumber", txtCedNumber);
-					
-					RequestDispatcher rd;
-					rd = getServletContext().getRequestDispatcher("/admitPatient.jsp");			
-					rd.forward(request, response);*/
-					
+					Long result = (Long) CommandExecutor.getInstance().executeDatabaseCommand(new command.AdmitPatient(estimationID, bed, observations, reasonAdmission));
+					String text_good = " La admisión se ha creado exitosamente.";
+					if (result == -1 ) {
+						text_good += " Se ha presentado un error al crear la admisión. Por favor, intente nuevamente.";
+					}
+					session.setAttribute("info", text_good);
+					response.sendRedirect(request.getContextPath() + "/ListAdmissionsServlet");
 			}
 		}catch (Exception e) {
 			// TODO Auto-generated catch block

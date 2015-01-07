@@ -62,8 +62,20 @@ public class SearchPatientServlet extends HttpServlet {
 				Patient patient  = null;
 				try {
 					patient = (Patient) CommandExecutor.getInstance().executeDatabaseCommand(new command.SearchNumEstimation(estimationNumber));
-					
+					ArrayList<Patient> p = new ArrayList<Patient>();
+					p.add(patient);
 					if (patient == null){
+						response.setContentType("text/plain");  
+						response.setCharacterEncoding("UTF-8"); 
+						response.getWriter().write("not found"); 
+					}else{
+						response.setContentType("text/plain");  
+						response.setCharacterEncoding("UTF-8"); 
+						String json = (new JSONArray(p)).toString();
+						response.getWriter().write(json); 
+					}
+					
+					/*if (patient == null){
 						response.setContentType("text/plain");  
 						response.setCharacterEncoding("UTF-8"); 
 						response.getWriter().write("not found"); 
@@ -73,7 +85,7 @@ public class SearchPatientServlet extends HttpServlet {
 						String resp = patient.getPatientID() + "/" + patient.getIdentityCard() + "/" + patient.getFirstName() + "/" + patient.getLastName() +
 										  patient.getEstimationID() + "/" + patient.getPaymentResponsibleId() + "/" + patient.getResponsibleName();
 						response.getWriter().write(resp); 
-					}
+					}*/
 					
 				} catch (Exception e) {
 					e.printStackTrace();
