@@ -37,8 +37,8 @@ public class GetFinalEstimationProtocolScale implements DatabaseCommand {
 				u.setIsMandatory(rs.getLong(4));
 				u.setGeneratedCostTypeID(rs.getLong(5));
 				u.setGeneratedCostTypeName(rs.getString(6));
-				u.setCost(rs.getString(7));
-				u.setTotal(rs.getString(8));
+				u.setCost(rs.getString(7), rs.getDouble(7));
+				u.setTotal(rs.getString(8), rs.getDouble(8));
 				list.add(u);
 			}
 		}

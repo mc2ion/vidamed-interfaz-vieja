@@ -30,7 +30,7 @@ public class GetPendingEstimationDiscounts implements DatabaseCommand {
 				u.setFirstName(rs.getString(2));
 				u.setLastName(rs.getString(3));
 				u.setType(rs.getString(4));
-				u.setAmount(rs.getString(5));
+				u.setAmount(rs.getString(5), rs.getDouble(5));
 				u.setEstimationID(rs.getLong(6));
 				u.setRequestDate(rs.getString(7));
 				pending.add(u);

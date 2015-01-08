@@ -153,12 +153,12 @@
             			alert("El campo 'Direccion' no puede ser dejado en blanco");
             			return;
             		}
-            		else if ($('#txtEmail').val() == '') {
+            		/*else if ($('#txtEmail').val() == '') {
             			$("#tabs").tabs( "option", "active", 1);
             			alert("El campo 'Correo Electrónico' no puede ser dejado en blanco");
             			return;
-            		}
-            		else if (!$('#txtEmail').val().match(patternEmail)) {
+            		}*/
+            		else if ($('#txtEmail').val() != '' && !$('#txtEmail').val().match(patternEmail)) {
             			$("#tabs").tabs( "option", "active", 1);
             			alert("El formato del Correo Electrónico colocado es inválido");
             			return;

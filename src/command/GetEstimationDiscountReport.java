@@ -72,7 +72,7 @@ public class GetEstimationDiscountReport implements DatabaseCommand {
 				e.setLastName(rs.getString(6));
 				e.setGender(rs.getString(7));
 				e.setIsAdult(rs.getInt(8));
-				e.setAmount(rs.getString(9));
+				e.setAmount(rs.getString(9), rs.getDouble(9));
 				e.setType(rs.getString(10));
 				e.setJustification(rs.getString(11));
 				e.setRequestDate(rs.getString(12));

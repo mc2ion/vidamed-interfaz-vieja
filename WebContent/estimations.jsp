@@ -136,7 +136,7 @@
 											<a href="EditEstimationServlet?id=<%= p.getId() %>" style="color: transparent" >
 												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
 											</a>
-											<a id="go" rel="leanModal" href="#refreshUser" style="color: #f7941e; font-weight: bold;" 
+											<a id="go" rel="leanModal" href="#refreshEstimation" style="color: #f7941e; font-weight: bold;" 
 												onclick="return loadVars('<%= p.getId() %>','<%= p.getFirstName() + " " + p.getLastName() %>');" >
 												<img alt="logo" src="./images/refresh.png"  height="16" width="16" title="Actualizar"/>
 											</a> 
@@ -225,11 +225,12 @@
 		 		</form>
 			</div>
 		</div>
-		<div id="refreshUser">
+		<div id="refreshEstimation">
 			<div id="signup-ct">
 				<h3 id="see_id" class="sprited" > Actualizar Presupuesto</h3>
 				<br><br>
 				<span>¿Desea actualizar fecha y costos del presupuesto seleccionado? </span> <br><br>
+				<span class="help">Recuerde que una vez actualizado, si este presupuesto posee un descuento aprobado, será enviado nuevamente a verificación para que sea revisado y re-aprobado de acuerdo a los nuevos montos.</span> <br><br>
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>

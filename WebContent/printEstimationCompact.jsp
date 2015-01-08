@@ -173,7 +173,7 @@ ArrayList<Protocol> pList = (ArrayList<Protocol>) request.getAttribute("plist");
 			<div style="width:50%;float:left;text-align:right;"><b>Fecha: </b> <%= dateTxt %></div>       	
         </div><br>
 		<div style="text-align:right;width:100%;font-size:11px;"><b>Hora: </b><%= hour %></div> <br>
-		<div id="title" style="font-size:14px; font-weight: bold;text-align:center;"> PRESUPUESTO # <%= e.leftPadStringWithChar(est, 9, '0') %> </div>
+		<div id="title" style="font-size:14px; font-weight: bold;text-align:center;"> PRESUPUESTO # <%= Estimation.leftPadStringWithChar(est, 9, '0') %> </div>
 		<br />
 		<div class="header">
 			<% 
@@ -225,22 +225,22 @@ ArrayList<Protocol> pList = (ArrayList<Protocol>) request.getAttribute("plist");
 						<tr>
 							<td colspan="2"><%= lList.get(j).getBussinessRuleMicroName() %></td>
 							<% 
-							  double amount = Double.parseDouble(lList.get(j).getEstimationCost());
+							  /*double amount = Double.parseDouble(lList.get(j).getEstimationCost());
 							  DecimalFormat formatter = new DecimalFormat("#,###.##");
-							  String number = formatter.format(amount) ;
+							  String number = formatter.format(amount) ;*/
 							%> 
-							<td style="width:20%;text-align:right;"><%= number %></td>
+							<td style="width:20%;text-align:right;"><%= lList.get(j).getEstimationCost() %></td>
 						</tr>
 						<% } 
 						} %>
 						<tr id="totalTr3">
 							<td colspan="2">*** TOTAL PROTOCOLO ***</td>
 							<% 
-							  double amount = Double.parseDouble(pList.get(i).getTotalWithPercentage());
+							  /*double amount = Double.parseDouble(pList.get(i).getTotalWithPercentage());
 							  DecimalFormat formatter = new DecimalFormat("#,###.##");
-							  String number = formatter.format(amount) ;
+							  String number = formatter.format(amount) ;*/
 							%> 
-							<td style="width:20%;text-align:right;"><%=  number %></td>
+							<td style="width:20%;text-align:right;"><%=  pList.get(i).getTotalWithPercentage() %></td>
 						</tr>
 				</tbody>
 			</table>
@@ -250,23 +250,23 @@ ArrayList<Protocol> pList = (ArrayList<Protocol>) request.getAttribute("plist");
 				<tr id="totalTr2">
 					<td colspan="2">*** SUB-TOTAL ***</td>
 					<% 
-						  double amount = Double.parseDouble(e.getTotal());
+						  /*double amount = Double.parseDouble(e.getTotal());
 						  DecimalFormat formatter = new DecimalFormat("#,###.##");
-						  String number = formatter.format(amount) ;
+						  String number = formatter.format(amount) ;*/
 					%> 
-					<td style="width:20%;text-align:right;"><%= number %></td>
+					<td style="width:20%;text-align:right;"><%= e.getTotal() %></td>
 				</tr>
 				<tr id="totalTr">
 					<td colspan="2">I.V.A.</td>
 					<td style="width:20%;text-align:right;">0,00</td>
 				</tr>
 				<% 
-					String total = number;	
+					String total = e.getTotal();	
 					if (e.getTotalWithDiscount() != null) { 
-						double a = Double.valueOf(e.getTotal());
-						double b = Double.valueOf(e.getTotalWithDiscount());
+						double a = Estimation.format.parse(e.getTotal()).doubleValue();
+						double b = Estimation.format.parse(e.getTotalWithDiscount()).doubleValue();
 						double disc  = a - b;
-						String discF = formatter.format(disc);
+						String discF = Estimation.format.format(disc);
 						total = e.getTotalWithDiscount() ;
 				%>
 				<tr id="totalTr2">

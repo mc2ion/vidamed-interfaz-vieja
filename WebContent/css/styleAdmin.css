@@ -1587,7 +1587,7 @@ div.box {
 
 #deleteUser, #deleteUnit, #deleteSpecialist, #deleteSupplyArea, #deleteSupply, #deleteProduct, #deleteRequest, #refreshUser, #dischargeUser, 
 #hospitalizeUser, #deleteService, #deleteProtocol, #deleteEvaluation, #deleteVitalSign, #deleteCash, #printUser, #closeAccount, #closeAccount2, 
-#discount, #generateInvoice, #editStatus, #payment{
+#discount, #generateInvoice, #editStatus, #payment {
 	position: absolute;
 	text-align: center;
 	width: 295px;
@@ -1615,6 +1615,25 @@ div.box {
 	display: none;
 }
 
+#refreshEstimation {
+	position: absolute;
+	text-align: center;
+	width: 321px;
+	height: 150px;
+	line-height: 1.5em;
+	background: url('../images/dialogo4.png') left top no-repeat;
+	padding: 60px 15px 10px 15px;
+	top: 180px;
+	left: 600px;
+	font: 14px Arial, Helvetica, sans-serif;
+	display: none;
+	border: 1px solid black;
+}
+
+#refreshEstimation a#close_x {
+	top: 8px;
+	right: 8px;
+}
 	
 #payment-resp {
 	position: absolute;
@@ -2735,3 +2754,13 @@ iframe{
 .hidden{background:transparent; border: none;}
 
 .table-simple td{ padding: 4px 0px;}
+
+span.help {
+	font-size: 10px;
+	color: red;
+	font-style: italic;
+}
+
+div#signup-ct {
+	text-align: center;
+}

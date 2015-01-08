@@ -113,19 +113,18 @@
 						  	 <tr><td><b> Nombre Titular del seguro:</b><td><%= est.getPolicyHolderName() %></td></tr>
 						   <% } %>
 						   <%
-						   double amount = Double.parseDouble(est.getTotal());
-						   DecimalFormat formatter = new DecimalFormat("#,###.00");
-						   String number = formatter.format(amount) ;
+						   double amount = Estimation.format.parse(est.getTotal()).doubleValue();
+						   /* DecimalFormat formatter = new DecimalFormat("#,###.00");*/
 						   %>
-							<tr><td><b>Total: Bs.</b></td><td><%= number %></td></tr>
+							<tr><td><b>Total: Bs.</b></td><td><%= est.getTotal() %></td></tr>
 							<% if(est.getTotalWithDiscount()!= null){
-								double amountWithDisc = Double.parseDouble(est.getTotalWithDiscount());
+								double amountWithDisc = Estimation.format.parse(est.getTotalWithDiscount()).doubleValue();
 								double disc = amount - amountWithDisc;
-								number = formatter.format(disc);
+								String number = Estimation.format.format(disc);
 							%>
 							<tr><td><b>Descuento: Bs.</b></td><td><%= number %></td></tr>
-							<%	number = formatter.format(amountWithDisc); %>
-							<tr><td><b>Total con Descuento: Bs.</b></td><td><%= number %></td></tr>
+							<%	//number = formatter.format(amountWithDisc); %>
+							<tr><td><b>Total con Descuento: Bs.</b></td><td><%= est.getTotalWithDiscount() %></td></tr>
 							<% } %>
 						   <tr><td><b>Fecha Creación</b></td><td><%= est.getEditionDate() %></td></tr>
 					   </table>

@@ -31,8 +31,8 @@ public class GetEstimationProtocols implements DatabaseCommand {
 				u.setProtocolID(rs.getLong(2));
 				u.setName(rs.getString(3));
 				u.setDiagnosis(rs.getString(4));
-				u.setTotal(rs.getString(5));
-				u.setTotalWithPercentage(rs.getString(6));
+				u.setTotal(rs.getString(5), rs.getDouble(5));
+				u.setTotalWithPercentage(rs.getString(6), rs.getDouble(6));
 				list.add(u);
 			}
 		}

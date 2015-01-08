@@ -65,16 +65,24 @@ public class ProtocolScale {
 		return cost;
 	}
 	
-	public void setCost(String cost) {
-		this.cost = cost;
+	public void setCost(String str, Double cost) {
+		if(str != null){
+			this.cost = Estimation.format.format(cost);
+		} else {			
+			this.cost = null;
+		}
 	}
 	
 	public String getTotal() {
 		return total;
 	}
 	
-	public void setTotal(String total) {
-		this.total = total;
+	public void setTotal(String str, Double total) {
+		if(str != null){
+			this.total = Estimation.format.format(total);
+		} else {
+			this.total = null;
+		}
 	}
 	
 	public Long getIsSelected() {

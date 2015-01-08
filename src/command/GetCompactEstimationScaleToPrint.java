@@ -31,11 +31,11 @@ public class GetCompactEstimationScaleToPrint implements DatabaseCommand {
 				u.setProtocolID(rs.getLong(1));
 				u.setDiagnosis(rs.getString(2));
 				u.setName(rs.getString(3));
-				u.setTotal(rs.getString(4));
-				u.setTotalWithPercentage(rs.getString(5));
+				u.setTotal(rs.getString(4), rs.getDouble(4));
+				u.setTotalWithPercentage(rs.getString(5), rs.getDouble(5));
 				u.setBussinessRuleMicroName(rs.getString(6));
-				u.setCost(rs.getString(7));
-				u.setEstimationCost(rs.getString(8));
+				u.setCost(rs.getString(7), rs.getDouble(7));
+				u.setEstimationCost(rs.getString(8), rs.getDouble(8));
 				list.add(u);
 			}
 		}

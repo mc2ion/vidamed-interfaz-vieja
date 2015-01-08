@@ -154,7 +154,7 @@
 					</div>
 					<div id="botonera" style="margin-top: -20px; width:400px;">
 						<div id="botonP" style="display: inline; margin-right: 10px;">
-									<input type="submit"  class="button"  name="sbmtButton" value="Editar y Salir" />
+									<input type="submit"  class="button"  name="sbmtButton" value="Guardar y Salir" />
 						</div>
 						<div id="botonP" style="display: inline; margin-right: 10px;">
 									<input type="submit"  class="button"  name="sbmtButton" value="Editar Protocolos" />
@@ -162,6 +162,10 @@
 						<div id="botonV" style="display: inline;">
 								<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
 						</div>	
+					</div>
+					<div>
+						<br/><br/>
+						<span class="help">Recuerde que una vez editado, si este presupuesto posee un descuento aprobado, será enviado nuevamente a verificación para que sea revisado y re-aprobado de acuerdo a los nuevos cambios.</span>
 					</div>
 				</form>
 			</div>

@@ -1,6 +1,12 @@
 package domain;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 public class Estimation {
+	
+	public static Locale spanish = new Locale("es","ES");
+	public static NumberFormat format = NumberFormat.getNumberInstance(spanish);
 	
 	private long id;
 	private long patientId;
@@ -175,8 +181,12 @@ public class Estimation {
 		return discount;
 	}
 	
-	public void setTotal(String total) {
-		this.total = total;
+	public void setTotal(String str, Double total) {
+		if(str!=null){
+			this.total = format.format(total);
+		} else {
+			this.total = null;
+		}
 	}
 
 	public String getTotal() {
@@ -207,8 +217,12 @@ public class Estimation {
 		return editionUser;
 	}
 	
-	public void setTotalWithDiscount(String totalWithDiscount) {
-		this.totalWithDiscount = totalWithDiscount;
+	public void setTotalWithDiscount(String str, Double totalWithDiscount) {
+		if(str!=null){
+			this.totalWithDiscount = format.format(totalWithDiscount);
+		} else {
+			this.totalWithDiscount = null;
+		}
 	}
 
 	public String getTotalWithDiscount() {
@@ -231,7 +245,7 @@ public class Estimation {
 		return this.paymentResponsibleName;
 	}
 	
-	public String leftPadStringWithChar(String s, int fixedLength, char c){
+	public static String leftPadStringWithChar(String s, int fixedLength, char c){
 
 	    if(fixedLength < s.length()){
 	        throw new IllegalArgumentException();

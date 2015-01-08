@@ -53,16 +53,24 @@ public class Protocol {
 		return name;
 	}
 	
-	public void setCost(String cost) {
-		this.cost = cost;
+	public void setCost(String str, Double cost) {
+		if(str!=null){
+			this.cost = Estimation.format.format(cost);
+		} else {
+			this.cost = null;
+		}
 	}
 
 	public String getCost() {
 		return cost;
 	}
 	
-	public void setEstimationCost(String estCost) {
-		this.estCost = estCost;
+	public void setEstimationCost(String str, Double estCost) {
+		if(str!=null){
+			this.estCost = Estimation.format.format(estCost);
+		} else {
+			this.estCost = null;
+		}
 	}
 
 	public String getEstimationCost() {
@@ -129,16 +137,24 @@ public class Protocol {
 		else return "";
 	}
 	
-	public void setTotal(String total) {
-		this.total = total;
+	public void setTotal(String str, Double total) {
+		if(str!=null){			
+			this.total = Estimation.format.format(total);
+		} else {
+			this.total = null;
+		}
 	}
 
 	public String getTotal() {
 		return total;
 	}
 
-	public void setTotalWithPercentage(String totalP) {
-		this.totalP = totalP;
+	public void setTotalWithPercentage(String str, Double totalP) {
+		if(str!=null){	
+			this.totalP = Estimation.format.format(totalP);
+		} else {
+			this.totalP = null;
+		}
 	}
 	
 	public String getTotalWithPercentage() {

@@ -57,16 +57,24 @@ public class PendingEstimationDiscount {
 		return total;
 	}
 	
-	public void setTotal(String total) {
-		this.total = total;
+	public void setTotal(String str, Double total) {
+		if(str != null){			
+			this.total = Estimation.format.format(total);
+		} else {
+			this.total = null;
+		}
 	}
 	
 	public String getAmount() {
 		return amount;
 	}
 	
-	public void setAmount(String amount) {
-		this.amount = amount;
+	public void setAmount(String str, Double amount) {
+		if(str != null){
+			this.amount = Estimation.format.format(amount);
+		} else {			
+			this.amount = null;
+		}
 	}
 
 	public Long getEstimationID() {

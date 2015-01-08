@@ -1,6 +1,7 @@
 <%@page import="domain.User"%>
 <%@page import="domain.PendingEstimationDiscount"%>
 <%@ page import="java.util.ArrayList" %>
+<%@page import="domain.Estimation"%>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
@@ -123,7 +124,7 @@
 										<% }else{ %>
 										<td>Bs. <%= amount %></td>
 										<%} %>
-										<td><%= estimation.getEstimationID() %></td>
+										<td><%= Estimation.leftPadStringWithChar(estimation.getEstimationID().toString(),9,'0') %></td>
 										<td><%= estimation.getRequestDate() %></td>
 										<td>
 											<a href="ShowDiscountServlet?discountId=<%= id %>" style="color: transparent" >

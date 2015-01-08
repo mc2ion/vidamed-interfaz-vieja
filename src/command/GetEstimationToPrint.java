@@ -34,7 +34,7 @@ public class GetEstimationToPrint implements DatabaseCommand {
 				u.setResponsibleName(rs.getString(8));
 				u.setPolicyHolderID(rs.getString(9));
 				u.setPolicyHolderName(rs.getString(10));
-				u.setTotal(rs.getString(11));
+				u.setTotal(rs.getString(11), rs.getDouble(11));
 				u.setEditionDate(rs.getString(12));
 				u.setCreationUser(rs.getString(14) + " " +  rs.getString(15));
 				if((Long)rs.getLong(16)!=0){
@@ -43,7 +43,7 @@ public class GetEstimationToPrint implements DatabaseCommand {
 					u.setEditionUser(null);
 				}
 				
-				u.setTotalWithDiscount(rs.getString(19));
+				u.setTotalWithDiscount(rs.getString(19), rs.getDouble(19));
 			}
 		}
 		finally {

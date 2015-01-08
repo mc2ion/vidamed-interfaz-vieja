@@ -32,8 +32,8 @@ public class GetEstimationDiscount implements DatabaseCommand {
 				u.setFirstName(rs.getString(2));
 				u.setLastName(rs.getString(3));
 				u.setType(rs.getString(4));
-				u.setTotal(rs.getString(5));
-				u.setAmount(rs.getString(6));
+				u.setTotal(rs.getString(5), rs.getDouble(5));
+				u.setAmount(rs.getString(6), rs.getDouble(6));
 				u.setJustification(rs.getString(7));
 				u.setRequestDate(rs.getString(8));
 			}
