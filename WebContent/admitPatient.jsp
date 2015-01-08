@@ -13,7 +13,8 @@
 	
 	//String identityCard = (String) request.getAttribute("txtCedNumber");
 	User pat 			= (User) session.getAttribute("pat");
-	System.out.println(pat.getFirstName());
+	String estimationId = (String) session.getAttribute("estimationId");
+	
 	@SuppressWarnings("unchecked")
 	ArrayList<AdmissionReasons> ar = (ArrayList<AdmissionReasons>) request.getAttribute("ar");
 	
@@ -22,10 +23,6 @@
 	
 	@SuppressWarnings("unchecked")
 	ArrayList<BedLocation> locations = (ArrayList<BedLocation>) request.getAttribute("locations");
-	
-	@SuppressWarnings("unchecked")
-	ArrayList<Admission> admissions = (ArrayList<Admission>) request.getAttribute("admissions");
-	
 	
 	session.removeAttribute("pat");
 	
@@ -127,26 +124,11 @@
         		<div id="admitP">
 	        	<h2>Admitir Paciente:</h2>
 				<br>
-						 <form action="#">
+						 <form action="AdmitPatientServlet" method="post">
+						 <input type="hidden" name="estimationId" value="<%= estimationId %>" />
 						 	<fieldset>
 							   <b>Cédula:</b> <span style="margin-left: 155px;"><%= pat.getIdentityCard() %></span><br/><br/>
 							   <b>Nombre: </b><span style="margin-left: 150px;"><%= pat.getFirstName() + " " + pat.getLastName() %></span><br><br/>
-							   <label> Responsable del Pago:</label> 
-							   <select name="paymentResponsible">
-							   <% if (pr != null){ %>
-							   		<option value="-">Seleccionar</option>
-							   <% 
-								   for (int i=0 ; i < pr.size(); i++){ 
-							   			PaymentResponsible p = pr.get(i);
-							   %>
-							   		<option value="<%= p.getId() %>"> <%= p.getName() %></option>
-							   <% 	}
-								  }else{ %>
-									  <option value="-"> No hay responsables de pago disponibles</option>
-								<%  } 
-								%>
-							   </select>
-								<br><br>
 							   <label> Motivo de la admisión:</label>
 							   <select name="reasonAdmission" id="reasonAdmission" >
 							   		<option value="0">Seleccionar</option>  
@@ -175,37 +157,21 @@
 								</p> 
 							   
 						   	   <label> Número de presupuesto:</label> 
-							   <% if (admissions != null){ %>
-									<select name="pres">
-										<option value="-">Seleccionar</option>
-							   <% 
-								   for (int i=0 ; i < admissions.size(); i++){ 
-							   			Admission a = admissions.get(i);
-							   %>
-										<option value="<%= a.getEstimationID() %>"> <%= a.getAdmissionID() %> -  <%= a.getTotal() %></option>
-							   <% 	} %>
-							   </select>
-								<%  }else{ %>
-									  <span> El paciente no tiene presupuestos asociados.</span>
-								<%  } 
-								%>
-								<a href="CreateEstimationServlet" style="color: #f7941e; font-weight: bold;" >
-									<input type="button" value="Crear" >
-								</a>
-								<br><br>
+							   <%
+								   if (estimationId != null) { %>
+									<input type="text" name="estimationId" readonly class="hidden" value="<%= estimationId %>" />
+								<% } %>
+								<br/><br/>
 								 <label> Observaciones:</label>  
 								 <textarea name="observations" id="observations" ></textarea>
 							   
 								<br><br>
 							</fieldset>
 							<div id="botonV" style="position:relative;">
-									<input type="button"  class="button" id="subAdmit"  name="sbmtButton" value="Aceptar" style="margin-left:30%; margin-top: 5px;"/>
+									<input type="submit"  class="button" id="subAdmit"  name="sbmtButton" value="Aceptar" style="margin-left:30%; margin-top: 5px;"/>
 									<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" style="margin-left:20px;" />		
 							</div>	
 				</form>
-			</div>
-			<div id="message" style="display:none; font-size: 24px; text-align: center; margin-top: 40px;">
-				El paciente ha sido admitido sastifactoriamente. 
 			</div>
 			</div>
 			

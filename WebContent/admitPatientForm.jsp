@@ -73,22 +73,24 @@
 							obj = JSON.parse(json);
 						
 							if (isAdult){
+								var estimationID = obj[0].estimationID;
 								var patientId = obj[0].patientID;
 								var ced 	  = obj[0].identityCard;
 								var name 	  = obj[0].firstName;
 								var lastname  = obj[0].lastName;
-								var split = responseText.split('/');
-								var estimationId = obj[0].estimationID;
+								/*var estimationId = obj[0].estimationID;
 								var responsableId = obj[0].paymentResponsibleId;
-								var responsableName = obj[0].responsibleName;
+								var responsableName = obj[0].responsibleName;*/
 								
 								$("#patientID").val(patientId);
 								$("#txtCedNumber").val(ced);
 								$("#txtName").val(name);
 								$("#txtLastName").val(lastname);
-								$("#estimationId").val(estimationId);
-								$("#responsableId").val(responsableId);
-								$("#responsableName").val(responsableName);
+								$("#estimationId").val(estimationID);
+								
+								//$("#estimationId").val(estimationId);
+								//$("#responsableId").val(responsableId);
+								//$("#responsableName").val(responsableName);
 								$("#submit-form").click();
 							}
 							// Submit form

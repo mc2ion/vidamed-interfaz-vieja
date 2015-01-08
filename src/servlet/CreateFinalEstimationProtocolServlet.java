@@ -99,6 +99,8 @@ public class CreateFinalEstimationProtocolServlet extends HttpServlet {
 					//Vengo de tratar admitir un paciente que no existia
 					User pat = (User) session.getAttribute("userInfo");
 					session.setAttribute("pat", pat);
+					session.setAttribute("estimationId", estimationid);
+					
 					
 					@SuppressWarnings("unchecked")
 					ArrayList<AdmissionReasons> ar = (ArrayList<AdmissionReasons>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetAdmissionReasons());
