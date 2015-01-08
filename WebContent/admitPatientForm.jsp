@@ -58,8 +58,8 @@
 				var numPres		= $('#estimation').val();
 					$.get('SearchPatientServlet', {patientType: patientType, txtCedId: txtCedId , 
 												txtCedIdNum: txtCedIdNum, estimation: numPres}, function(responseText) { 
-						$('#progress').dialog('close');
 						if (responseText == "not found") {
+							$('#progress').dialog('close');
 							//Paso los datos para que no deban escribirlos de nuevo
 							$("#txtCedIdHidden").val(txtCedId);
 							$("#txtCedIdNumHidden").val(txtCedIdNum);
@@ -69,6 +69,7 @@
 						}
 						//Cliente encontrado o presupuesto encontrado
 						else{
+							
 							var json = JSON.stringify(eval("(" + responseText + ")"));
 							obj = JSON.parse(json);
 						
@@ -78,23 +79,16 @@
 								var ced 	  = obj[0].identityCard;
 								var name 	  = obj[0].firstName;
 								var lastname  = obj[0].lastName;
-								/*var estimationId = obj[0].estimationID;
-								var responsableId = obj[0].paymentResponsibleId;
-								var responsableName = obj[0].responsibleName;*/
 								
 								$("#patientID").val(patientId);
 								$("#txtCedNumber").val(ced);
 								$("#txtName").val(name);
 								$("#txtLastName").val(lastname);
 								$("#estimationId").val(estimationID);
-								
-								//$("#estimationId").val(estimationId);
-								//$("#responsableId").val(responsableId);
-								//$("#responsableName").val(responsableName);
+								if (numPres == "") $("#form-create").attr('action', "SearchPatientEstimationsServlet");
+								//alert($("#submit-form").attr('action'));
 								$("#submit-form").click();
 							}
-							// Submit form
-							//
 						}
 					});
 				}, 1000 );

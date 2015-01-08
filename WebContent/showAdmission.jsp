@@ -40,7 +40,8 @@
 				   	<div class="leftColum"><b>Responsable del Pago: </b></div> <%= admission.getResponsibleName() %><br><br>
 				    <div class="leftColum"><b>Motivo de Admisión: </b></div> <%= admission.getReasonName() %><br><br>
 				    <div class="leftColum"><b>N° Presupuesto:  </b></div><%= admission.getEstimationID() %>
-				    <a href="ShowEstimationServlet?function=showAdmission" style="color: transparent" >
+				    <a href="ShowEstimationServlet?function=showAdmission&id=<%= admission.getEstimationID() %>" style=
+					"color: transparent" >
 						<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 					</a><br><br>
 				    <div class="leftColum"><b>Fecha Admisi&oacute;n:  </b></div><%= admission.getAdmissionDate() %><br><br>

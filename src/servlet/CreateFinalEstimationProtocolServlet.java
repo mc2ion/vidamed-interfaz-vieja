@@ -19,8 +19,6 @@ import domain.PermissionsList;
 import domain.Protocol;
 import domain.User;
 
-
-
 /**
  * Servlet implementation class CreateEstimationProtocolServlet
  */
@@ -98,6 +96,7 @@ public class CreateFinalEstimationProtocolServlet extends HttpServlet {
 				if (function != null && function.equals("admisionCreate")){
 					//Vengo de tratar admitir un paciente que no existia
 					User pat = (User) session.getAttribute("userInfo");
+					System.out.println(pat);
 					session.setAttribute("pat", pat);
 					session.setAttribute("estimationId", estimationid);
 					

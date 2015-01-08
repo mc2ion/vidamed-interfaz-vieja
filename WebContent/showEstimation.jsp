@@ -168,6 +168,9 @@
 						</div>	
 					</form>
 				</div><br>
+				<div id="botonera2">
+					<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" style="margin-left:20px;" />	
+				</div><br>
 			</div>
 		</div>
 		<div id="printUser">
