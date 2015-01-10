@@ -152,24 +152,25 @@
 					</div>
   				</div>
 				</div>
-				<div id="botonera">
+				<div id="botonera" style="width:280px;">
 					<form action="PrintEstimationServlet">
-						<div id="botonP" style="display: inline; margin-right: 30px;">
+						<div id="botonP" style="display: inline; margin-right: 10px;">
 							<a id="go" rel="leanModal" href="#printUser" style="color: #f7941e; font-weight: bold;" 
 												onclick="return loadVars('<%= est.getId() %>','<%= est.getFirstName() + " " + est.getLastName() %>');" >
 								<input type="button"  class="button"  name="sbmtButton" value="Imprimir" />
 							</a> 
 						</div>	
-						<div id="botonV" style="display: inline; margin-right: 30px;">
+						<div id="botonV" style="display: inline; margin-right: 10px;">
 								<a id="go" rel="leanModal" href="#refreshUser" style="color: #f7941e; font-weight: bold;" 
 											onclick="return loadVars('<%= est.getId() %>','<%= est.getFirstName() + " " + est.getLastName() %>');" >
 								<input type="button" class="button" value="Actualizar"  />			
 								</a>
 						</div>	
+						<a href="./ListEstimationsServlet" class="button" style="display:inline-block;">Regresar</a>	
 					</form>
 				</div><br>
-				<div id="botonera2">
-					<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" style="margin-left:20px;" />	
+				<div id="botonera2" style="display:none;">
+					<a href="./ListEstimationsServlet" class="button">Regresar</a>	
 				</div><br>
 			</div>
 		</div>

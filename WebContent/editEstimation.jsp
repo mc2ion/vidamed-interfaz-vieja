@@ -160,7 +160,7 @@
 									<input type="submit"  class="button"  name="sbmtButton" value="Editar Protocolos" />
 						</div>	
 						<div id="botonV" style="display: inline;">
-								<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
+								<a href="./ListEstimationsServlet" class="button">Regresar</a>
 						</div>	
 					</div>
 					<div>

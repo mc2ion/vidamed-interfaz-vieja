@@ -118,7 +118,11 @@ public class CreateFinalEstimationProtocolServlet extends HttpServlet {
 					
 					RequestDispatcher rd = getServletContext().getRequestDispatcher("/admitPatient.jsp");			
 					rd.forward(request, response);
-				}else response.sendRedirect(request.getContextPath() + "/ListEstimationsServlet");
+				}else {
+					String text_good = "Cambios realizados exitosamente";
+					session.setAttribute("info",text_good);
+					response.sendRedirect(request.getContextPath() + "/ListEstimationsServlet");
+				}
 				
 			} catch (Exception e) {
 				e.printStackTrace();

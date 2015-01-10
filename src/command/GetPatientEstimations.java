@@ -30,6 +30,14 @@ public class GetPatientEstimations implements DatabaseCommand {
 			while (rs.next()) {
 				Estimation pm = new Estimation();
 				pm.setId(rs.getLong(1));
+				pm.setClinicTypeID(rs.getLong(2));
+				pm.setClinicName(rs.getString(3));
+				pm.setPaymentResponsibleId(rs.getLong(4));
+				pm.setPaymentResponsibleName(rs.getString(5));
+				pm.setSpecialistId(rs.getLong(6));
+				pm.setSpecialistName(rs.getString(7) + " " + rs.getString(8));
+				pm.setTotal(rs.getString(9), rs.getDouble(9));
+				pm.setTotalWithDiscount(rs.getString(10), rs.getDouble(10));
 				pmList.add(pm);
 			}
 		}

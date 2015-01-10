@@ -108,6 +108,10 @@
 								<thead>
 									<tr>
 										<th>ID</th>
+										<th>Tipo Cl&iacute;nica</th>
+										<th>Responsable de Pago</th>
+										<th>Especialista</th>
+										<th>Total</th>
 										<th>Acciones</th>
 									</tr>
 								</thead>
@@ -117,6 +121,10 @@
 									%>	
 									<tr class="gradeA">
 										<td style="width:5%"><%= p.getId() %></td>
+										<td ><%= p.getClinicName() %></td>
+										<td ><%= p.getPaymentResponsibleName() %></td>
+										<td ><%= p.getSpecialistName() %></td>
+										<td ><%= (p.getTotalWithDiscount() != null) ? p.getTotalWithDiscount() : p.getTotal()  %></td>
 										<td><input type="radio" name="estimationID" value="<%= p.getId() %>"/></td>
 									</tr>
 									<% } %>
