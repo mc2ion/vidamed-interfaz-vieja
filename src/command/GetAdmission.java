@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import domain.Admission;
+import domain.Specialist;
 
 public class GetAdmission implements DatabaseCommand {
 	
@@ -53,7 +54,6 @@ public class GetAdmission implements DatabaseCommand {
 				u.setReasonID(rs.getLong(13));
 				u.setReasonName(rs.getString(14));
 				
-				
 				String dateStr = rs.getString(15);
 				Date date;
 				try {
@@ -65,7 +65,13 @@ public class GetAdmission implements DatabaseCommand {
 					e1.printStackTrace();
 				}
 				
-				//u.setAdmissionDate(rs.getString(15));
+				Specialist e = new Specialist();
+				e.setId(rs.getLong(16));
+				e.setFirstName(rs.getString(17));
+				e.setLastName(rs.getString(18));
+				e.setUnit(rs.getLong(19));
+				e.setUnitName(rs.getString(20));
+				u.setSpecialist(e);
 			}
 		}
 		finally {

@@ -50,7 +50,8 @@
 				    <br><br>
 			    </div>
 				<div id="botonera">
-					<form action="PrintAdmissionServlet">
+					<form action="PrintAdmissionServlet" method="get">
+						<input type="hidden" name="admissionID" value="<%= admission.getAdmissionID() %>"/>
 						<div id="botonP" style="display: inline; margin-right: 30px;">
 									<input type="submit"  class="button"  name="sbmtButton" value="Imprimir" />
 						</div>	

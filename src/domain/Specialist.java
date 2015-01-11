@@ -11,6 +11,8 @@ public class Specialist {
 	private String rif;
 	private String address;
 	private String email;
+	private Long unitId;
+	private String unitName;
 	
 	public void setId(Long id) {
 		this.id = id;
@@ -82,6 +84,22 @@ public class Specialist {
 
 	public void setRif(String rif) {
 		this.rif = rif;
+	}
+	
+	public String getUnitName() {
+		return unitName;
+	}
+
+	public void setUnitName(String unitName) {
+		this.unitName = unitName;
+	}
+	
+	public Long getUnit() {
+		return unitId;
+	}
+
+	public void setUnit(Long unitId) {
+		this.unitId = unitId;
 	}
 	
 }

@@ -113,7 +113,7 @@
 										<th>Responsable de Pago</th>
 										<th>Especialista</th>
 										<th>Total</th>
-										<th>Acciones</th>
+										<th>Seleccionar</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -132,10 +132,10 @@
 								</tbody>
 							</table>
 							<% }else{ %>
-							<p style="font-size:14px;">El paciente nombre, cedula no tiene presupuestos asociados.</p>
+							<p style="font-size:14px;">El paciente <%= txtName %> <%= txtLastName %>, <%= txtCedNumber %> no tiene presupuestos asociados.</p>
 							<% } %>
 							<div id="botonV" style="width:100%; text-align:center; margin-top:10px;">
-								<input type="button" class="button" id="submit" value="Seleccionar" />
+								<input type="button" class="button" id="submit" value="Continuar" />
 								<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" style="margin-left:20px;" />	
 								<input type="submit" id="submit-form" name="admitPatientForm" value="" style="display:none;" />
 							</div>

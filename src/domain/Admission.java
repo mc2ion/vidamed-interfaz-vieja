@@ -25,6 +25,7 @@ public class Admission {
 	private int wasPaid;
 	private String total;
 	private String totalPaid;
+	private Specialist spec;
 	
 	
 	public Long getAdmissionID() {
@@ -202,6 +203,14 @@ public class Admission {
 	
 	public void setTotalPaid(String totalPaid) {
 		this.totalPaid = totalPaid;
+	}
+	
+	public Specialist getSpecialist() {
+		return spec;
+	}
+	
+	public void setSpecialist(Specialist spec) {
+		this.spec = spec;
 	}
 		
 }

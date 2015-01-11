@@ -1,9 +1,15 @@
+<%@page import="domain.Specialist"%>
+<%@page import="domain.Admission"%>
+<%
+Admission admission = (Admission) request.getAttribute("admission");
+Specialist e = admission.getSpecialist();
+%>
 <!DOCTYPE HTML>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-		<title>Imprimir Presupuesto</title>	
+		<title>Imprimir Admisión</title>	
 		<script type="text/javascript">
 		
 		function printPageContentB() {
@@ -54,24 +60,21 @@
 		<br>
 		<h3>Datos Paciente</h3>
 		<fieldset>
-			<label for="name" class="etiq"><span id="idCard">Cédula de Identidad: </span></label>V-12345678<br><br>
-			<label for="name" class="etiq"><span id="idCard">Nombre: </span></label>Ana Rojas<br><br>
-			<label for="name" class="etiq"><span id="idCard">Responsable del Pago: </span></label>Multinacional de Seguros, C.A.<br> <br>					
-			<label for="name" class="etiq"><span id="idCard">Motivo de Admisión: </span></label>Dolor abdominal<br><br>
-			<label for="name" class="etiq"><span id="idCard">Ubicación: </span></label>Emergencias<br><br>
+			<label for="name" class="etiq"><span id="idCard">Cédula de Identidad: </span></label><%= admission.getIdentityCard() %><br><br>
+			<label for="name" class="etiq"><span id="idCard">Nombre: </span></label><%= admission.getFirstName() + " " + admission.getLastName()  %><br><br>
+			<label for="name" class="etiq"><span id="idCard">Responsable del Pago: </span></label><%= admission.getResponsibleName()  %><br> <br>					
+			<label for="name" class="etiq"><span id="idCard">Motivo de Admisión: </span></label><%= admission.getObservation()  %><br><br>
+			<label for="name" class="etiq"><span id="idCard">Ubicación: </span></label><%= admission.getReasonName() %><br><br>
 		</fieldset>
 		<br>
 		<br>
 		<div id="title" style="font-size:16px; font-weight: bold; text-align:right;"> Fecha: 17/06/2013 </div>
 		<div id="title" style="font-size:16px; font-weight: bold;"> Presupuesto Asociado n° 1001 </div>
 		<br>
-		
 		<h3>Datos Paciente</h3>
 		<fieldset>
-			<label for="name" class="etiq"><span id="idCard">Cédula de Identidad: </span></label>V-12345678<br><br>
-			<label for="name" class="etiq"><span id="idCard">Nombre: </span></label>Ana Rojas<br><br>				
-			<label for="name" class="etiq"><span id="idCard">Médico Tratante: </span></label>Ricardo García<br><br>
-			<label for="name" class="etiq"><span id="idCard">Unidad: </span></label>Cirugía<br><br>
+			<label for="name" class="etiq"><span id="idCard">Médico Tratante: </span></label><%= e.getFirstName() + " " + e.getLastName() %><br><br>
+			<label for="name" class="etiq"><span id="idCard">Unidad: </span></label><%= e.getUnitName() %><br><br>
 			<label for="name" class="etiq"><span id="idCard">Responsable del Pago: </span></label>Seguros La Previsora<br> <br>
 		</fieldset>
 		<br>
