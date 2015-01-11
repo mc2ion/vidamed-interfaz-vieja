@@ -124,7 +124,7 @@ public class EditEstimationServlet extends HttpServlet {
 					request.setAttribute("lp", lp);
 					
 					RequestDispatcher rd;
-					if (submit.equals("Editar y Salir")){
+					if (submit.equals("Guardar y Salir")){
 						String text_good = "El presupuesto fue editado exitosamente";
 						String text_bad = "Se ha presentado un error al editar el presupuesto. Por favor, intente nuevamente.";
 						if (result == 1) {

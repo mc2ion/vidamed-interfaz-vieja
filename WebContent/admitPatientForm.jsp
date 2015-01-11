@@ -45,8 +45,9 @@
 			  }else
 				$("#info-title").text("Cédula de identidad del paciente:");
 				
-			});
-			
+		});
+		
+		
 			// AJAX
         $('#submit').click(function(event) {  
 			ShowProgressAnimation();
@@ -57,9 +58,11 @@
 				var isAdult     = $("#isAdult option:selected").val();
 				var numPres		= $('#estimation').val();
 					$.get('SearchPatientServlet', {patientType: patientType, txtCedId: txtCedId , 
-												txtCedIdNum: txtCedIdNum, estimation: numPres}, function(responseText) { 
+												txtCedIdNum: txtCedIdNum, estimation: numPres}, function(responseText) {
+						$('#progress').dialog('close');
+														
+						//Cliente no encontrado
 						if (responseText == "not found") {
-							$('#progress').dialog('close');
 							//Paso los datos para que no deban escribirlos de nuevo
 							$("#txtCedIdHidden").val(txtCedId);
 							$("#txtCedIdNumHidden").val(txtCedIdNum);
@@ -73,7 +76,7 @@
 							var json = JSON.stringify(eval("(" + responseText + ")"));
 							obj = JSON.parse(json);
 						
-							if (isAdult){
+							if (isAdult == 1){
 								var estimationID = obj[0].estimationID;
 								var patientId = obj[0].patientID;
 								var ced 	  = obj[0].identityCard;
@@ -88,6 +91,29 @@
 								if (numPres == "") $("#form-create").attr('action', "SearchPatientEstimationsServlet");
 								//alert($("#submit-form").attr('action'));
 								$("#submit-form").click();
+							}else{
+								$('.patients').html("");
+								text = "<h2 style='font-size:18px;'>Escoja el paciente o cree uno nuevo:</h2><br/>";
+								text += "<form id='ptsub'><table class='sweetTable'><tr><td>Id</td><td>Nombre Paciente</td><td style='width:12%;'>Seleccionar</td></tr>";
+								var textAux = "";
+								$.each(obj, function(i, item) {
+									textAux = textAux + "<tr><td>" + obj[i].patientID + "</td><td><span class='pname'>" + obj[i].firstName + " " + obj[i].lastName + "</span></td><td style='text-align:center;'><input name='id' class='pt' type='radio' value='"+obj[i].patientID +"'/></td></tr>";
+									/*alert(obj[i].firstName);*/
+								});
+								text += textAux;
+								text += "</table><input type='button' onclick='getValues();' value='Escoger' style='float:right; margin-top:10px;'></form>";
+								text += "<form action='CreatePatientServlet' method='post' style='float: right;margin-top: 10px;margin-right: 10px;'>";
+								text +=	'<input type="hidden" id="txtCedIdHidden" name="txtCedId" class="good_input" value="'+txtCedId+'">';
+								text +=		'<input type="hidden" id="txtCedIdNumHidden" name="txtCedIdNum" class="good_input" value="'+txtCedIdNum+'">';
+								text +=		'<input type="hidden" id="txtPatientTypeHidden" name="txtPatientType" class="good_input" value="'+patientType+'">';
+								text +=		'<input type="hidden" name="f" class="good_input" value="estimation">';
+								text +=		'<input type="hidden" name="submit" value="find">';
+								text +='<div class="btn-fld">';
+								text +=	'<input type="submit" name="sbmtButton" value="Crear nuevo paciente" style="background: rgb(255, 212, 77);">';
+								text +='</div>';
+								text +='</form>';
+								form = $(text);
+								$('.patients').append(form);
 							}
 						}
 					});
@@ -97,6 +123,24 @@
 			
 		});
 		
+		function getValues() {
+			id = $('input[type="radio"]:checked').val();
+			$.each(obj, function(i, v) {
+				if (v.patientID == id) {
+					var patientId = v.patientID;
+					var ced 	  = v.identityCard;
+					var name 	  = v.firstName;
+					var lastname  = v.lastName;
+					$("#patientID").val(patientId);
+					$("#txtCedNumber").val(ced);
+					$("#txtName").val(name);
+					$("#txtLastName").val(lastname);
+					$("#form-create").attr('action', "SearchPatientEstimationsServlet");
+					$("#submit-form").click();
+				}
+			});
+		};
+			
 		
 	
 	function ShowProgressAnimation() {
@@ -163,6 +207,7 @@
 						<div> &oacute; </div><br/>
 						<label>No. Presupuesto:</label>  <input id="estimation" type="text" style="width: 25%;">
 					</fieldset>
+					<div class='patients'></div>
 					<div id="botonera" style="width:300px; margin-top: 50px;">
 						<div id="botonV" style="display: inline;">
 								<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		

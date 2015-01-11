@@ -82,13 +82,23 @@
 			$( ".honorarios" ).keyup(function() {
 				elem = this;
 				$( ".honorarios" ).each(function( index ) {
-					perc = $(this).closest(".mem").find(".perc").text();
+					perc = $(this).closest(".mem").find(".perc").text().replace(",",'.');
+					perc = parseFloat(perc);
 					vale = $(elem).val();
-					newVal = vale * perc
-				    $(this).val(newVal);
+					newVal = vale * perc;
+					if (isFloat(newVal) || isInt(newVal))$(this).val(newVal);
 				});
 			});
 		});
+		
+		function isFloat(n) {
+			return n === +n && n !== (n|0);
+		}
+		
+		function isInt(n) {
+			return n === +n && n === (n|0);
+		}
+			
 		</script>
 	</head>
 	<body>

@@ -59,8 +59,7 @@ public class AdmitPatientServlet extends HttpServlet {
 		User userE = (User)session.getAttribute("user");
 		if(userE != null){
 			String admitPatientForm = request.getParameter("function");
-			if (admitPatientForm == null)
-				admitPatientForm = (String)  request.getAttribute("function");
+			if (admitPatientForm == null)admitPatientForm = (String)  request.getAttribute("function");
 			
 			try {
 				//Simulando doGet
@@ -109,8 +108,6 @@ public class AdmitPatientServlet extends HttpServlet {
 					String observations 	= request.getParameter("observations");
 					String estimationID 	= request.getParameter("estimationId");
 					System.out.println("a " + bed + " " + estimationID + " " + reasonAdmission + " " + observations);
-					
-					
 					Long result = (Long) CommandExecutor.getInstance().executeDatabaseCommand(new command.AdmitPatient(estimationID, bed, observations, reasonAdmission));
 					String text_good = " La admisión se ha creado exitosamente.";
 					if (result == -1 ) {
@@ -118,6 +115,7 @@ public class AdmitPatientServlet extends HttpServlet {
 					}
 					session.setAttribute("info", text_good);
 					response.sendRedirect(request.getContextPath() + "/ListAdmissionsServlet");
+					return;
 			}
 		}catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -130,10 +128,5 @@ public class AdmitPatientServlet extends HttpServlet {
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 			rd.forward(request, response);
 		}	
-		
-
-		
-		
-		//doGet(request, response);
 	}
 }

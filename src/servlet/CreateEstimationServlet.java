@@ -82,8 +82,8 @@ public class CreateEstimationServlet extends HttpServlet {
 				@SuppressWarnings("unchecked")
 				ArrayList<ClinicType> clinic = (ArrayList<ClinicType>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetClinicTypes());
 				request.setAttribute("clinic", clinic);
-				if (function != "" & function.equals("admision")) request.setAttribute("function", "admisionCreate");
-				//else request.setAttribute("function", function);
+				if (function != "" && function.equals("admision")) request.setAttribute("function", "admisionCreate");
+				else request.setAttribute("function", "estimationCreate");
 				rd = getServletContext().getRequestDispatcher("/createEstimation.jsp");			
 				rd.forward(request, response);
 			} catch (Exception e) {

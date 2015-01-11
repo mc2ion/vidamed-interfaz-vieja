@@ -38,6 +38,7 @@ public class GetPatientEstimations implements DatabaseCommand {
 				pm.setSpecialistName(rs.getString(7) + " " + rs.getString(8));
 				pm.setTotal(rs.getString(9), rs.getDouble(9));
 				pm.setTotalWithDiscount(rs.getString(10), rs.getDouble(10));
+				System.out.println(pm.getClinicName());
 				pmList.add(pm);
 			}
 		}

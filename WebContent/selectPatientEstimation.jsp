@@ -13,6 +13,7 @@
 	String txtName = request.getParameter("txtName");
 	String txtLastName = request.getParameter("txtLastName");
 	
+	@SuppressWarnings("unchecked")
 	ArrayList<Estimation> est = (ArrayList<Estimation>) request.getAttribute("estimations");
 	
 	System.out.println(patientID + " " + txtCedNumber + " " + txtName + " "+ txtLastName);
