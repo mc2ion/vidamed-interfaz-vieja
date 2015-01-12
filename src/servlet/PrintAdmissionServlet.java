@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +13,8 @@ import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
 import domain.Admission;
+import domain.Cost;
+import domain.Protocol;
 import domain.User;
 
 
@@ -48,9 +52,22 @@ public class PrintAdmissionServlet extends HttpServlet {
 		if(userE != null){
 			RequestDispatcher rd;
 			Long admId = (Long) Long.valueOf(request.getParameter("admissionID"));
+			String estId = request.getParameter("estimationID");
 			try {
 				Admission a = (Admission) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetAdmission(admId));
 				request.setAttribute("admission", a);
+				
+				@SuppressWarnings("unchecked")
+				ArrayList<Cost> c = (ArrayList<Cost>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetAdmissionCosts(admId));
+				request.setAttribute("costs", c);
+				
+				@SuppressWarnings("unchecked")
+				ArrayList<Protocol> p = (ArrayList<Protocol>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEstimationProtocols(estId));
+				request.setAttribute("protocols", p);
+							
+				request.setAttribute("admissionID", String.valueOf(admId));
+				request.setAttribute("estimationID", String.valueOf(estId));
+				
 				rd = getServletContext().getRequestDispatcher("/printAdmission.jsp");			
 				rd.forward(request, response);
 			} catch (Exception e) {
