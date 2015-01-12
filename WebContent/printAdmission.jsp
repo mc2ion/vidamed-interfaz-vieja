@@ -1,3 +1,6 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.text.DateFormat"%>
 <%@page import="java.text.NumberFormat"%>
 <%@page import="java.util.Locale"%>
 <%@page import="domain.Protocol"%>
@@ -21,6 +24,12 @@ String estimationID = (String) request.getAttribute("estimationID");
 Locale spanish = new Locale("es","ES");
 NumberFormat format = NumberFormat.getNumberInstance(spanish);
 			
+
+DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+DateFormat hourFormat = new SimpleDateFormat("hh:mm:ss a");
+Date date = new Date();
+String dateTxt = dateFormat.format(date);
+
 			
 %>
 <!DOCTYPE HTML>
@@ -72,7 +81,8 @@ NumberFormat format = NumberFormat.getNumberInstance(spanish);
 	<body id="especial">
 		<div id="printHeader" class="header">
 			<div style="width:50%;float:left;">HOSPITALIZACIÓN VIDAMED</div>
-			<div style="width:50%;float:left;text-align:right;">Fecha: 17/07/2013</div>       	
+			<div style="width:50%;float:left;text-align:right;"><b>Fecha:</b><%= dateTxt %>
+		</div>       	
         </div>  
 		<br><br><br>
 		<div id="title" style="font-size:14px; font-weight: bold;text-align:center;"> ADMISION # <%= admisionID%></div>
