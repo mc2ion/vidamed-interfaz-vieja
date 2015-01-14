@@ -44,6 +44,7 @@
 				null,
 				null,
 				null,
+				null,
 				{ "bSearchable": false, "asSorting": false, "sWidth": "18%" }
 			],
 			"oLanguage": {
@@ -104,6 +105,7 @@
 								<thead>
 									<tr>
 										<th>ID</th>
+										<th>Cédula</th>
 										<th>Paciente</th>
 										<th>Tipo</th>
 										<th>Responsable Pago</th>
@@ -125,6 +127,7 @@
 									%>
 									<tr class="gradeA">
 										<td><%= id %></td>
+										<td><%=  admin.getIdentityCard() %></td>
 										<td><%= patient %></td>
 										<td><%= type %></td>										
 										<td><%= admin.getResponsibleName() %></td>

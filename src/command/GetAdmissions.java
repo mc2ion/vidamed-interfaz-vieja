@@ -36,6 +36,7 @@ public class GetAdmissions implements DatabaseCommand {
 				u.setStatusName(rs.getString(9));
 				u.setReasonID(rs.getLong(10));
 				u.setReasonName(rs.getString(11));
+				u.setIdentityCard(rs.getString(12));
 				admissions.add(u);
 			}
 		}

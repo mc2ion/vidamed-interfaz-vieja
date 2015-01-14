@@ -1,5 +1,6 @@
 package command;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,20 +30,31 @@ public class SearchPatient implements DatabaseCommand {
 		else
 			sta = conn.prepareStatement("exec dbo.SearchPediatricPatient '" + ced + "'");
 		
-		ResultSet rs = sta.executeQuery();
-		
-		while (rs.next()) {
-			Patient patient = new Patient();
-			patient.setPatientID(rs.getLong(1));
-			patient.setIsAdult(rs.getInt(2));
-			patient.setIdentityCard(rs.getString(3));
-			patient.setFirstName(rs.getString(4));
-			patient.setLastName(rs.getString(5));
-			patients.add(patient);
+		try{
+			ResultSet rs = sta.executeQuery();
+			while (rs.next()) {
+					Patient patient = new Patient();
+					patient.setPatientID(rs.getLong(1));
+					patient.setIsAdult(rs.getInt(2));
+					patient.setIdentityCard(rs.getString(3));
+					patient.setFirstName(rs.getString(4));
+					patient.setLastName(rs.getString(5));
+					patients.add(patient);
+			}
+			rs.close();
+			sta.close();
+			
+		}catch(Exception e)
+		{
+			  CallableStatement cstmt = conn.prepareCall("{? = call dbo.SearchAdultPatient(?)}");
+		      cstmt.registerOutParameter(1, java.sql.Types.VARCHAR);
+		      cstmt.setString(2, ced);
+		      cstmt.execute();
+		      Patient patient = new Patient();
+			  patient.setPatientID(cstmt.getLong(1));
+			  patients.add(patient);
+			  sta.close();
 		}
-		
-		rs.close();
-		sta.close();
 		
 		return patients;
 	}

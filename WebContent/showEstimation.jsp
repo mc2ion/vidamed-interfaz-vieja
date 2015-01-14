@@ -113,7 +113,8 @@
 						  	 <tr><td><b> Nombre Titular del seguro:</b><td><%= est.getPolicyHolderName() %></td></tr>
 						   <% } %>
 						   <%
-						   double amount = Estimation.format.parse(est.getTotal()).doubleValue();
+						   double amount = 0.0;
+						   if (est.getTotal() != null) amount = Estimation.format.parse(est.getTotal()).doubleValue();
 						   /* DecimalFormat formatter = new DecimalFormat("#,###.00");*/
 						   %>
 							<tr><td><b>Total: Bs.</b></td><td><%= est.getTotal() %></td></tr>
