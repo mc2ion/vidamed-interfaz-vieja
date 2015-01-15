@@ -53,6 +53,7 @@ public class ShowProtocolEstimationDetailServlet extends HttpServlet {
 		if(userE != null && perm ){
 			String protocolID = request.getParameter("protocolID");
 			String estimationID = request.getParameter("estimationID");
+			String fnc = request.getParameter("fnc");
 			
 			ArrayList<ProtocolScale> est;
 			try {
@@ -63,7 +64,13 @@ public class ShowProtocolEstimationDetailServlet extends HttpServlet {
 				request.setAttribute("bm", bm);
 				
 				RequestDispatcher rd;
-				rd = getServletContext().getRequestDispatcher("/showProtocolEstimationDetail.jsp");			
+				if(fnc != null && fnc.equalsIgnoreCase("emergency")){
+					rd = getServletContext().getRequestDispatcher("/showProtocolEmergencyDetail.jsp");		
+				} if(fnc != null && fnc.equalsIgnoreCase("hospitalization")){
+					rd = getServletContext().getRequestDispatcher("/showProtocolHospitalizationDetail.jsp");	
+				} else {
+					rd = getServletContext().getRequestDispatcher("/showProtocolEstimationDetail.jsp");	
+				}
 				rd.forward(request, response);
 				
 			} catch (Exception e) {

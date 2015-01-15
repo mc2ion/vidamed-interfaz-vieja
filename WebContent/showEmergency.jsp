@@ -1,5 +1,7 @@
 <%@page import="domain.Emergency"%>
+<%@page import="domain.Protocol"%>
 <%@page import="domain.User"%>
+<%@page import="java.util.ArrayList"%>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
@@ -7,6 +9,9 @@
 		name = user.getFirstName() ;
 	
 	Emergency emergency = (Emergency) request.getAttribute("emergency");
+	
+	@SuppressWarnings("unchecked")
+	ArrayList<Protocol> protocols = (ArrayList<Protocol>) request.getAttribute("protocols");
 %>
 <!DOCTYPE HTML>
 <html>
@@ -55,29 +60,31 @@
   				<div id="tabs-2">
   						<br>
 					   	<table id="sweetTable" style="margin-bottom: 10px;">
-					   		<tr style="background: rgb(136, 162, 190);">
-					   			<td>Nombre</td>
-					   			<td>Precio</td>
-					   			<td>Acción</td>
-					   		</tr>
-							<tr>
-					   			<td>Colocación de prótesis peneana</td>
-					   			<td>Bs. 14321,00</td>
-					   			<td>
-									<a href="ShowProtocolEmergencyDetailServlet" style="color: transparent" >
-												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
-									</a>
-								</td>
-					   		</tr>
-					   		<tr>
-					   			<td>Apendicectomía</td>
-					   			<td>Bs. 7680,00</td>
-					   			<td>
-									<a href="ShowProtocolEmergencyDetailServlet" style="color: transparent" >
-												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
-									</a>
-								</td>
-					   		</tr>
+						   	<thead>
+						   		<tr style="background: rgb(136, 162, 190);">
+						   			<th>Nombre</th>
+						   			<th>Total</th>
+						   			<th>Acción</th>
+						   		</tr>
+						   	</thead>
+						   	<tbody>
+						   	<% if (protocols != null) {
+								for (int i=0; i< protocols.size(); i++){
+								Protocol p = protocols.get(i);
+								%>
+								<tr>
+						   			<td><%= p.getName() %></td>
+						   			<td><%= p.getTotalWithPercentage()==null ? p.getTotal() : p.getTotalWithPercentage() %></td>
+						   			<td>
+										<a href="ShowProtocolEstimationDetailServlet?protocolID=<%= p.getProtocolID() %>&estimationID=<%= emergency.getEstimationId() %>&n=<%= p.getName() %>&fnc=emergency" style="color: transparent" >
+													<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
+										</a>
+									</td>
+						   		</tr>
+						   		<% }
+								}
+								%>
+						   	</tbody>
 					   	</table>
 					</div>
   				</div>

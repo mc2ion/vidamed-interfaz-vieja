@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import command.CommandExecutor;
 import domain.Hospitalization;
 import domain.PermissionsList;
+import domain.Protocol;
 import domain.User;
 
 
@@ -52,7 +54,10 @@ public class ShowHospitalizationServlet extends HttpServlet {
 			RequestDispatcher rd;
 			try {
 				Hospitalization hosp = (Hospitalization) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetHospitalization(id));
+				@SuppressWarnings("unchecked")
+				ArrayList<Protocol> protocols = (ArrayList<Protocol>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEstimationProtocols(String.valueOf(hosp.getEstimationId())));
 				request.setAttribute("hospitalization", hosp);
+				request.setAttribute("protocols", protocols);
 				rd = getServletContext().getRequestDispatcher("/showHospitalization.jsp");			
 				rd.forward(request, response);
 			} 
