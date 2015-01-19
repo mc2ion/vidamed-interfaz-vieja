@@ -15,6 +15,7 @@ import command.CommandExecutor;
 import domain.BedLocation;
 import domain.Emergency;
 import domain.PermissionsList;
+import domain.Protocol;
 import domain.User;
 
 
@@ -60,6 +61,10 @@ public class EditEmergencyServlet extends HttpServlet {
 				@SuppressWarnings("unchecked")
 				ArrayList<BedLocation> lList = (ArrayList<BedLocation>) CommandExecutor.getInstance().executeDatabaseCommand(new command.SearchLocations());
 				request.setAttribute("locations", lList);
+				
+				@SuppressWarnings("unchecked")
+				ArrayList<Protocol> protocols = (ArrayList<Protocol>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEstimationProtocols(String.valueOf(emergency.getEstimationId())));
+				request.setAttribute("protocols", protocols);
 				
 				
 				rd = getServletContext().getRequestDispatcher("/editEmergency.jsp");			

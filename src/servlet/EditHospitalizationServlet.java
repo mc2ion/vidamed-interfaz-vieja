@@ -16,6 +16,7 @@ import domain.BedLocation;
 import domain.Hospitalization;
 import domain.PaymentResponsible;
 import domain.PermissionsList;
+import domain.Protocol;
 import domain.Unit;
 import domain.User;
 
@@ -73,7 +74,10 @@ public class EditHospitalizationServlet extends HttpServlet {
 				ArrayList<Unit> lLis = (ArrayList<Unit>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetUnits());
 				request.setAttribute("units", lLis);
 				System.out.println(lLis.size());
-			
+				
+				@SuppressWarnings("unchecked")
+				ArrayList<Protocol> protocols = (ArrayList<Protocol>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEstimationProtocols(String.valueOf(hospitalization.getEstimationId())));
+				request.setAttribute("protocols", protocols);
 				
 				rd = getServletContext().getRequestDispatcher("/editHospitalization.jsp");			
 				rd.forward(request, response);
