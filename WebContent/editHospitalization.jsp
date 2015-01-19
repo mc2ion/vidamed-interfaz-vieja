@@ -1,3 +1,5 @@
+<%@page import="domain.Unit"%>
+<%@page import="domain.BedLocation"%>
 <%@page import="domain.PaymentResponsible"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="domain.Hospitalization"%>
@@ -13,10 +15,20 @@
 	String text_result = (String) session.getAttribute("text");
 	if (text_result == null)
 		text_result = "";
-	session.removeAttribute("text");
+	session.removeAttribute("info");
+	
+	@SuppressWarnings("unchecked")
+	ArrayList<BedLocation> locations = (ArrayList<BedLocation>) request.getAttribute("locations");
 	
 	@SuppressWarnings("unchecked")
 	ArrayList<PaymentResponsible> a = (ArrayList<PaymentResponsible>) request.getAttribute("paymentR");
+	
+
+	@SuppressWarnings("unchecked")
+	ArrayList<Unit> sArea = (ArrayList<Unit>)request.getAttribute("units");
+	
+	System.out.println(h.getUnit().getUnitID());
+	
 %>
 <!DOCTYPE HTML>
 <html>
@@ -52,6 +64,75 @@
 			return true;
 		}
 		</script>
+				<script type="text/javascript">
+		$(document).ready(function() {
+			var isNew  = 1;
+			var isNew2 = 1;
+			
+			$( ".target" ).change(function() {
+			
+				index = $(this).val();
+				if (index != "-"){
+					bid = '<%= h.getBed().getId()%>';
+					lid = '<%= h.getLocation().getId()%>';
+					eid = '<%= h.getId()%>' ;
+					$.ajax({
+						type: "GET",
+						url: "GetBedsServlet",
+						data: {locationId: index, estimationId: eid },
+						success: function(data){
+							$("#bed").html(data);
+							if (isNew == 1 || index == lid) {$("#bed").val(bid); isNew = 0; }
+						}
+					});
+					$('#beds').show();
+				}else{
+					$('#beds').hide();
+				}
+			});	
+			$(".target").change();
+			
+			
+			$( ".target2" ).change(function() {
+				index = $(this).val();
+				if (index != "-"){
+					eid = '<%= h.getSpecialist().getId() %>';
+					uid = '<%= h.getUnit().getUnitID() %>';
+					$('.sum-div').show();
+					$.ajax({
+						type: "GET",
+						url: "GetSpecialistServlet",
+						data: {unit: index },
+						success: function(data){
+							$("#state").html(data);
+							if (isNew2 == 1 || index == uid) {$("#state").val(eid); isNew2 = 0;}
+						}
+					});
+				}
+			});
+			
+			$(".target2").change();
+		});
+
+		
+		
+		function occupiedBed(){
+			bedId = $("#bed").val();
+			$.ajax({
+				type: "GET",
+				url: "SetBedOccupationServlet",
+				data: {bedId: bedId },
+				success: function(data){
+					if (data == "-1"){
+						$("#error-bed").show();
+						return false;
+					}
+					$("#bForm").submit();
+				}
+			});
+			
+		}
+	</script>
 	</head>
 	<body>
 		<div id="container">
@@ -74,11 +155,13 @@
 				<div id="tabs">
 					<ul>
 					    <li><a href="#tabs-1">Paciente</a></li>
-					    <li><a href="#tabs-2">Responsables de Pago</a></li> 
-					    <li><a href="#tabs-3">Protocolos</a></li>
+					    <li><a href="#tabs-2">Protocolos</a></li>
 					</ul>
   					<div id="tabs-1">
-						<fieldset>
+  						<form action="EditHospitalizationServlet" method="post">
+  						<input type="hidden" name="admissionId" value="<%= h.getId() %>"/> 
+					  
+							<fieldset>
 						<%
 							String patientName  = h.getPatient().getFirstName() + " " + h.getPatient().getLastName();
 							String eName 		= h.getSpecialist().getFirstName() + " " + h.getSpecialist().getLastName();
@@ -86,86 +169,53 @@
 						<label><b>Cédula:</b></label> <%= h.getPatient().getIdentityCard() %><br/><br/>
 						<label><b>Nombre:</b></label> <%= patientName %><br/><br/>
 						<label><b>Fecha de Ingreso:  </b></label><%= h.getAdmissionDate() %><br/><br/>
-						<label>Unidad: </label>
-						   <input type="text" name="departament" id="departament" value="<%= h.getUnit().getName() %>" readonly>
-							<br><br>
-					   <label>Médico Tratante: </label> <input type="text" name="doctorName" id="doctorName" value="<%= eName %>" readonly>
-						<a href="SearchDoctorServlet?function=editHospitalization&id=<%=h.getId()%>" style="color: #f7941e; font-weight: bold;">
-							<input type="button"id="doctorId" value="Cambiar" >
-						</a> <br><br>
-						<label> Ubicación:  </label>
-						<input type="text" name="ubication" id="ubication" value="<%= h.getLocation().getName() %>" readonly><br><br>
-						 
-						<label> Cama:</label>  <input type="text" name="bedId" id="bedId" value="<%= h.getBed().getName() %>" readonly>
-							<a href="SearchBedsServlet?function=editHospitalization&id=<%= h.getId() %>&bN=<%= h.getBed().getName() %>&lN=<%= h.getLocation().getName()  %>" style="color: #f7941e; font-weight: bold;">
-								<input type="button"id="bedUbication" value="Cambiar" >
-							</a> <br><br>
-						  </fieldset>
+						<label>Unidad del Especialista: </label>
+						<select name="unitId" id="unitId" class="target2">	
+							<option value="-"> Seleccionar </option>
+							<% for (int i = 0; i < sArea.size(); i++){ 
+							%>
+								<option value="<%= sArea.get(i).getUnitID() %>" <%= (h.getUnit().getUnitID() == sArea.get(i).getUnitID() ) ? "selected" : "" %>><%= sArea.get(i).getName() %></option>
+							<% } %>
+						</select><br/><br/>
+						<p class="sum-div">
+							<label for="pname">Médico Tratante:</label>
+							<select name="specialist" id="state">
+								<option value="-">Seleccionar</option>
+							</select><br/><br/>
+						</p>   
+						<label>Ubicación:  </label> 
+						<select id="bedLocationId" name="bedLocationId" class="target">
+							<option value="-" >Seleccionar</option>
+							<% for (int i=0; i< locations.size(); i++){
+								BedLocation l = locations.get(i);
+							%>
+								<option value="<%= l.getId() %>" <%= (l.getId() == h.getLocation().getId()) ? "selected" : "" %>><%= l.getName() %></option>
+							<% } %>
+						</select><br/><br/>
+						<p style="display: none;" id="beds">
+						<label for="pname">Cama:</label>
+							<select name="bed" id="bed">
+								<option value="-">Seleccionar</option>
+							</select><br/><br/>
+						</p>  
+						<p style="display: none; color: red;" id="error-bed">
+							Disculpe, la cama que escogió ya fue seleccionada por otro usuario. Por favor, elija una cama diferente.
+						</p> 						
+
+						</fieldset>
 						  <div id="botonera" style="margin-top: -3px;">
-							<form action="#">
 								<div id="botonP" style="display: inline; margin-right: 30px;">
 											<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
 								</div>	
 								<div id="botonV" style="display: inline;">
 										<a href="./ListHospitalizationsServlet"  class="button" >Regresar</a>
 								</div>	
-							</form>
 							<br/>
 						</div>
+						</form>
 					</div>
 					<div id="tabs-2">
 						<div style="text-align:right;">
-	  						<a href="SearchInsuranceServlet?function=editHospitalization&id=<%= h.getId() %>" style="color: #006c92; font-weight: bold;">
-								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Responsable
-							</a>						
-  						</div><br/>
-  						<table id="sweetTable" style="margin-bottom: 10px;">
-				   			<tr>
-									<th>Nombre</th>
-									<th>Titular</th>
-									<th>Carta Aval</th>
-									<th>Acción</th>
-								</tr>	
-					   		<% if (a.size() > 0){ 
-					   				for (int i = 0; i < a.size() ; i++){
-					   					PaymentResponsible p = a.get(i);
-					   					int gl = p.getHasGuaranteeLetter();
-					   					String carta = "Si";
-					   					if (gl == 0)
-					   						carta = "No";
-					   					
-					   					int ph = p.getIsPolicyHolder();
-					   					String titular = "Si";
-					   					if (ph == 0)
-					   						titular = "No";
-					   				
-					   		%>
-					   		<tr>
-					   				<td><%= p.getName() %></td>
-					   				<td><%= titular %></td>
-					   				<td><%= carta %></td>
-					   				<td>
-										<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
-											onclick="return loadVars(<%= p.getId() %>,'<%= p.getName()%>');" >
-											<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-										</a> 
-										<a href="EditEstimationPaymentResponsibleServlet?function=editHospitalization&estimationId=<%= h.getId()%>&pRid=<%= p.getId() %>" style="color: #f7941e; font-weight: bold;" >
-											<img alt="logo" src="./images/edit.png" height="16" width="16" title="Editar"/>
-										</a> 
-									</td>
-					   				
-					   		</tr>
-					   		<%  	}
-					   			}else{ %>
-							<tr>
-					   				<td colspan="4"> No hay responsables de pago asociados </td>
-							</tr>
-					   		<% } %>	
-					   		
-					   	</table>
-					</div>
-  					<div id="tabs-3">
-  						<div style="text-align:right;">
 	  						<a href="SearchAdmissionServlet?function=editHospitalization" style="color: #006c92; font-weight: bold;">
 								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Protocolo
 							</a>						
