@@ -77,10 +77,13 @@
 					var txtCedId	= $("#txtCedId option:selected").val();
 	        		var isAdult     = $("#target option:selected").val();
 					
-					$.get('SearchPatientServlet', {patientType: patientType, txtCedId: txtCedId , txtCedIdNum: txtCedIdNum}, function(responseText) { 
+					$.get('SearchPatientServlet', {patientType: patientType, txtCedId: txtCedId , txtCedIdNum: txtCedIdNum}, 
+					function(responseText) { 
 						$('#progress').dialog('close');
 						//Cliente no encontrado
 						if (responseText == "not found") {
+							if (isAdult == 0){ $('.msg').hide(); $('.msg2').show(); }
+						
 							//Paso los datos para que no deban escribirlos de nuevo
 							$("#txtCedIdHidden").val(txtCedId);
 							$("#txtCedIdNumHidden").val(txtCedIdNum);
@@ -91,6 +94,10 @@
 						else{
 							var json = JSON.stringify(eval("(" + responseText + ")"));
 							obj = JSON.parse(json);
+							if (obj[0].patientID == -3){
+								$("#go2").click();
+								return;
+							}
 							if (isAdult == 1){
 								var patientId = obj[0].patientID;
 								var ced 	  = obj[0].identityCard;
@@ -194,6 +201,7 @@
 					<div class='patients'></div>
 					<div id="botonera" style="width:100px; margin-top: 200px;">
 						<a id="go" rel="leanModal" href="#deleteVitalSign" style="display: none;"></a> 
+						<a id="go2" rel="leanModal" href="#printUser" style="display: none;"></a> 
 						<div id="botonV" style="display: inline;">
 								<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
 						</div>		
@@ -206,7 +214,18 @@
 			<img src="./images/loader.gif" style="margin-right: 5px; width: 20px;" /><br/><br/>
 			<span>Por favor, espere...</span>
 		</div>
-		
+		<div id="printUser">
+			<div id="signup-ct">
+				<form action="CreatePatientServlet" method="post">
+				<h3 id="see_id" class="sprited" >Paciente Admitido</h3>
+				<br><br>
+				<span style="font-size: 16px; text-align: center;">Disculpe, no puede continuar debido a que el paciente indicado ya se encuentra admitido en la clínica.</span> <br><br>
+				<div id="signup-header">
+					<a class="close_x" id="close_x"  href="#"></a>
+				</div>
+				</form>
+			</div>
+		</div>
 		
 		
 		<div id="deleteVitalSign">
@@ -214,7 +233,9 @@
 				<form action="CreatePatientServlet" method="post">
 				<h3 id="see_id" class="sprited" > Paciente Inexistente</h3>
 				<br><br>
-				<span style="font-size: 16px; text-align: center;">El paciente indicado no se encuentra registrado en el sistema. ¿Desea agregarlo? </span> <br><br>
+				<span class="msg" style="font-size: 16px; text-align: center;">El paciente y/o presupuesto indicado no se encuentra registrado en el sistema. ¿Desea agregarlo ahora? </span> 
+				<span class="msg2" style="display:none; font-size: 16px; text-align: center;">El paciente indicado no se encuentra registrado en el sistema, o ya está admitido en la clínica. Le recomendamos buscar en el listado, antes de proceder a crearlo.
+				¿Desea crear al paciente ahora? </span>
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
