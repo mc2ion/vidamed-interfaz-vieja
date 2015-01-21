@@ -63,7 +63,7 @@ public class EditEmergencyServlet extends HttpServlet {
 				request.setAttribute("locations", lList);
 				
 				@SuppressWarnings("unchecked")
-				ArrayList<Protocol> protocols = (ArrayList<Protocol>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEstimationProtocols(String.valueOf(emergency.getEstimationId())));
+				ArrayList<Protocol> protocols = (ArrayList<Protocol>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEstimationProtocols(String.valueOf(emergency.getId())));
 				request.setAttribute("protocols", protocols);
 				
 				

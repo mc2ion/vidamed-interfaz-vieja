@@ -16,6 +16,12 @@
 	@SuppressWarnings("unchecked")
 	ArrayList<Protocol> protocols = (ArrayList<Protocol>) request.getAttribute("protocols");
 	
+	String info_text = "";
+	String info = (String) session.getAttribute("info");
+	if (info != null ){
+		info_text = info;
+	}
+	session.removeAttribute("info");
 	
 %>
 <!DOCTYPE HTML>
@@ -46,13 +52,6 @@
 			return true;
 		}
 		</script>
-		<script>
-			$(function() {
-				$( "#tabs" ).tabs();
-				//$("#tabs").tabs("select", window.location.hash);
-			});
-		</script>
-		
 		<script type="text/javascript">
 		$(document).ready(function() {
 			var isNew = 1;
@@ -99,7 +98,13 @@
 			
 		}
 	</script>
-		
+	<script>
+		$(function() {
+			$( "#tabs" ).tabs();
+			$('#tabs').tabs( "option", "active", window.location.hash );
+			//$("#tabs").tabs("select", window.location.hash);
+		});
+	</script>
 	</head>
 	<body>
 		<div id="container">
@@ -118,6 +123,7 @@
         	<div id="content" style="position:absolute;">	
 	        	<h2>Editar Emergencia:</h2>
 				<br>
+				<div class="info-text"><%= info_text %></div>
 				<div id="tabs">
 					<ul>
 					    <li><a href="#tabs-1">Paciente</a></li>
@@ -165,14 +171,15 @@
   					</div>
   					<div id="tabs-2">
   						<div style="text-align:right;">
-	  						<a href="SearchAdmissionServlet?function=editEmergency" style="color: #006c92; font-weight: bold;">
+	  						<a href="AddAdmissionProtocolServlet?function=editEmergency&id=<%= emergency.getId()%>" style="color: #006c92; font-weight: bold;">
 								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Protocolo
 							</a>						
   						</div>
   						<br>
   						<br>
 					   	<table id="sweetTable" style="margin-bottom: 10px;">
-					   		<thead>
+					   		<% if (protocols != null) { %>
+			   				<thead>
 						   		<tr style="background: rgb(136, 162, 190);">
 						   			<th>Nombre</th>
 						   			<th>Total</th>
@@ -180,9 +187,8 @@
 						   		</tr>
 						   	</thead>
 						   	<tbody>
-						   	<% if (protocols != null) {
-								for (int i=0; i< protocols.size(); i++){
-								Protocol p = protocols.get(i);
+						   	<%	for (int i=0; i< protocols.size(); i++){
+									Protocol p = protocols.get(i);
 								%>
 								<tr>
 						   			<td><%= p.getName() %></td>
@@ -193,10 +199,9 @@
 										</a>
 									</td>
 						   		</tr>
-						   		<% }
-								}
-								%>
+						   		<% } %>
 						   	</tbody>
+						   	<% } %>
 					   	</table>
 					</div>
   				</div>

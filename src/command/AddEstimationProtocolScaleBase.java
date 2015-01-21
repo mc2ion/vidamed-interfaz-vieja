@@ -20,14 +20,16 @@ public class AddEstimationProtocolScaleBase implements DatabaseCommand {
 		PreparedStatement ps = null;
 		try {
 			ps = conn.prepareStatement("exec dbo.AddEstimationProtocolScaleBase '" + estimationid + "', '" + protocolid +  "'");
-			
 			System.out.println(estimationid + "', '" + protocolid + "' ");
 			ps.executeUpdate();
+		}
+		catch (Exception e){
+			return 0L;
 		}
 		finally {
 			ps.close();
 		}		
-		return 1;
+		return 1L;
 	}
 
 }
