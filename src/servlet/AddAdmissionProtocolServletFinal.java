@@ -66,7 +66,7 @@ public class AddAdmissionProtocolServletFinal extends HttpServlet {
 				}else {
 					String text_good = "Cambios realizados exitosamente";
 					session.setAttribute("info",text_good);
-					response.sendRedirect(request.getContextPath() + "/ListEstimationsServlet");
+					response.sendRedirect(request.getContextPath() + "/EditHospitalizationServlet?id=" + estimationid + "#tabs-2");
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
