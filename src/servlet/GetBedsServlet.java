@@ -45,10 +45,11 @@ public class GetBedsServlet extends HttpServlet {
 		 response.setContentType("text/html;charset=UTF-8");
 	        PrintWriter out = response.getWriter();
 	        try {
-	        	Long locationId = Long.valueOf(request.getParameter("locationId"));
+	        	Long locationId 	= Long.valueOf(request.getParameter("locationId"));
+	        	String estimationId	= request.getParameter("estimationId");
 	            
 	            @SuppressWarnings("unchecked")
-				ArrayList<Bed> beds = (ArrayList<Bed>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetBeds(locationId));
+				ArrayList<Bed> beds = (ArrayList<Bed>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetBeds(locationId, estimationId));
 	            
 	            String options = "";
 				if (beds != null && beds.size() > 0){

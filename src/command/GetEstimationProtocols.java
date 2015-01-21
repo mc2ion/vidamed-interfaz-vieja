@@ -27,6 +27,7 @@ public class GetEstimationProtocols implements DatabaseCommand {
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
+				System.out.println("aqui estamos");
 				Protocol u = new Protocol();
 				u.setProtocolID(rs.getLong(2));
 				u.setName(rs.getString(3));

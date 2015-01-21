@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,8 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
+import domain.BedLocation;
 import domain.Emergency;
 import domain.PermissionsList;
+import domain.Protocol;
 import domain.User;
 
 
@@ -53,6 +56,17 @@ public class EditEmergencyServlet extends HttpServlet {
 				RequestDispatcher rd;
 				Emergency emergency = (Emergency) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEmergency(id));
 				request.setAttribute("emergency", emergency);
+				
+				//Lista de camas
+				@SuppressWarnings("unchecked")
+				ArrayList<BedLocation> lList = (ArrayList<BedLocation>) CommandExecutor.getInstance().executeDatabaseCommand(new command.SearchLocations());
+				request.setAttribute("locations", lList);
+				
+				@SuppressWarnings("unchecked")
+				ArrayList<Protocol> protocols = (ArrayList<Protocol>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEstimationProtocols(String.valueOf(emergency.getId())));
+				request.setAttribute("protocols", protocols);
+				
+				
 				rd = getServletContext().getRequestDispatcher("/editEmergency.jsp");			
 				rd.forward(request, response);
 			} 
@@ -74,7 +88,33 @@ public class EditEmergencyServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//System.out.println("a");
-		//doGet(request, response);
+		HttpSession session = request.getSession();
+		User userE = (User)session.getAttribute("user");
+		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.emergency);
+		if(userE != null && perm ){
+			try {
+				Long bedId 	 	 = Long.valueOf(request.getParameter("bed"));
+				Long admissionId = Long.valueOf(request.getParameter("admissionId"));
+				
+				Integer result  = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.EditLocation(admissionId, bedId));
+				String text = "La ubicación del paciente fue actualizada exitosamente.";
+				if (result == 0)
+					text =	"Hubo un problema al actualizar la ubicación del paciente. Por favor, intente nuevamente.";
+				
+				session.setAttribute("info", text);
+				response.sendRedirect(request.getContextPath() + "/ListEmergenciesServlet");
+			}catch (Exception e) {
+				throw new ServletException(e);
+			}
+		} else {
+			if (userE == null){
+				request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+				rd.forward(request, response);
+			}else{
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/sectionDenied.jsp");
+				rd.forward(request, response);
+			}
+		}	
+			
 	}
 }

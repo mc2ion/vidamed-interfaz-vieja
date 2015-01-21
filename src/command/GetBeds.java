@@ -11,9 +11,11 @@ import domain.Bed;
 public class GetBeds implements DatabaseCommand {
 	
 	private Long locationID;
+	private Long estimationID;
 	
-	public GetBeds(Long locationID){
-		this.locationID = locationID;
+	public GetBeds(Long locationID, String estimationID){
+		this.locationID   = locationID;
+		if (estimationID != null) this.estimationID = Long.valueOf(estimationID);
 	}
 	
 	@Override
@@ -23,7 +25,11 @@ public class GetBeds implements DatabaseCommand {
 		ResultSet rs = null;
 		ArrayList<Bed> bedList = new ArrayList<Bed>();
 		try {
-			ps = conn.prepareStatement("exec dbo.GetAvailableBedsByLocation " + locationID);
+			if (estimationID != null) 
+				ps = conn.prepareStatement("exec dbo.GetAvailableBedsByLocation " + locationID + "," + estimationID);
+			else
+				ps = conn.prepareStatement("exec dbo.GetAvailableBedsByLocation " + locationID);
+					
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
