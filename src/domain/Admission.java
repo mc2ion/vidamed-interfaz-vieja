@@ -26,7 +26,7 @@ public class Admission {
 	private String total;
 	private String totalPaid;
 	private Specialist spec;
-	
+	private Estimation estimation;
 	
 	public Long getAdmissionID() {
 		return admissionID;
@@ -193,16 +193,24 @@ public class Admission {
 		return total;
 	}
 	
-	public void setTotal(String total) {
-		this.total = total;
+	public void setTotal(String str, Double total) {
+		if(str!=null){
+			this.total = Estimation.format.format(total);
+		} else {
+			this.total = null;
+		}
 	}
 	
 	public String getTotalPaid() {
 		return totalPaid;
 	}
 	
-	public void setTotalPaid(String totalPaid) {
-		this.totalPaid = totalPaid;
+	public void setTotalPaid(String str, Double totalPaid) {
+		if(str!=null){
+			this.totalPaid = Estimation.format.format(totalPaid);
+		} else {
+			this.totalPaid = null;
+		}
 	}
 	
 	public Specialist getSpecialist() {
@@ -211,6 +219,14 @@ public class Admission {
 	
 	public void setSpecialist(Specialist spec) {
 		this.spec = spec;
+	}
+
+	public void setEstimation(Estimation estimation) {
+		this.estimation = estimation;
+	}
+
+	public Estimation getEstimation() {
+		return estimation;
 	}
 		
 }

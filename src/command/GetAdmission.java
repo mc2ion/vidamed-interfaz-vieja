@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import domain.Admission;
+import domain.Estimation;
 import domain.Specialist;
 
 public class GetAdmission implements DatabaseCommand {
@@ -72,6 +73,13 @@ public class GetAdmission implements DatabaseCommand {
 				e.setUnit(rs.getLong(19));
 				e.setUnitName(rs.getString(20));
 				u.setSpecialist(e);
+				u.setTotal(rs.getString(21), rs.getDouble(21));
+				u.setTotalPaid(rs.getString(22), rs.getDouble(22));
+				
+				Estimation est = new Estimation();
+				est.setTotal(rs.getString(23), rs.getDouble(23));
+				est.setTotalWithDiscount(rs.getString(24), rs.getDouble(24));
+				u.setEstimation(est);
 			}
 		}
 		finally {

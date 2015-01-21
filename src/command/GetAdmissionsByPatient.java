@@ -68,8 +68,8 @@ public class GetAdmissionsByPatient implements DatabaseCommand {
 				} catch (ParseException e1) {
 					e1.printStackTrace();
 				}
-				s.setTotal(rs.getString(11));
-				s.setTotalPaid(rs.getString(12));
+				s.setTotal(rs.getString(11), rs.getDouble(11));
+				s.setTotalPaid(rs.getString(12), rs.getDouble(12));
 				s.setWasPaid(rs.getInt(13));
 				
 				p.add(s);

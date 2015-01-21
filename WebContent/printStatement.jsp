@@ -3,6 +3,7 @@
 <%@page import="domain.BussinessMicro"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="domain.Protocol"%>
+<%@page import="domain.Estimation"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="domain.Estimation"%>
@@ -227,104 +228,65 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 		<br>
 		<table id="sweetTable">
 			<tbody>
-			<% for (int i=0; i < bm.size(); i++){ 
-				BussinessMicro b = bm.get(i);
-				boolean entrar = true;
-				for (int j = 0; j < costs.size(); j++){
-					Protocol ct = costs.get(j); 
-					if (ct.getBussinessRuleMicroID() == b.getId()) { 
-						if (entrar){
-							entrar = false;
+			<% 
+			long micro = 1;
+			double subtotal = 0.00;
+			%>
+			<tr>
+				<th ><%= costs.get(0).getBussinessRuleMicroName() %></th>
+				<th style="width:20%;text-align:right;">Precio Bs.F.</th>
+			</tr>
+			<%
+			for (int j = 0; j < costs.size(); j++){
+				Protocol ct = costs.get(j);
+				if(ct.getEstimationCost() != null){
+					if(micro == ct.getBussinessRuleMicroID()){
+						double d = Estimation.format.parse(ct.getEstimationCost()).doubleValue();
+						subtotal = subtotal + d;
 						%>
+						<tr>
+							<td style="width:50%"><%= ct.getProtocolScaleName() %></td>
+							<td style="width:20%;text-align:right;"><%= ct.getEstimationCost() %></td>
+						</tr>		
+					<%
+					} else {
+						%>
+						<tr id="totalTr">
+							<td>*** SUB-TOTAL ***</td>
+							<td style="width:20%;text-align:right;"><%= Estimation.format.format(subtotal) %></td>
+						</tr>
 						<tr>
 							<th ><%= ct.getBussinessRuleMicroName() %></th>
 							<th style="width:20%;text-align:right;">Precio Bs.F.</th>
 						</tr>
-						<% } %>
 						<tr>
 							<td style="width:50%"><%= ct.getProtocolScaleName() %></td>
-							<td style="width:20%;text-align:right;"><%= ct.getCost() %></td>
-						</tr>		
+							<td style="width:20%;text-align:right;"><%= ct.getEstimationCost() %></td>
+						</tr>
 					<%
+						subtotal = Estimation.format.parse(ct.getEstimationCost()).doubleValue();
+						micro = ct.getBussinessRuleMicroID();
 					}
 				}
-			} %>
-				
+			}
+			%>
 				<tr id="totalTr">
 					<td>*** SUB-TOTAL ***</td>
-					<td style="width:20%;text-align:right;">17.720,34</td>
+					<td style="width:20%;text-align:right;"><%= Estimation.format.format(subtotal) %></td>
 				</tr>
-				<tr>
-					<th >Servicios Médicos</th>
-					<th style="width:20%;text-align:right;">Precio Bs.F.</th>
-				</tr>				
-				<tr>
-					<td style="width:50%">Banco de Sangre (Tipiaje)</td>
-					<td style="width:20%;text-align:right;">591,25</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Electrocardiograma Reposo</td>
-					<td style="width:20%;text-align:right;">402,50</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Evaluación Cardiovascular Pre-Operatoria</td>
-					<td style="width:20%;text-align:right;">812,50</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Laboratorio Clínico</td>
-					<td style="width:20%;text-align:right;">552,00</td>
-				</tr>								
-				<tr>
-					<td style="width:50%">Rayos X</td>
-					<td style="width:20%;text-align:right;">601,90</td>
-				</tr>
-				<tr id="totalTr">
-					<td>*** SUB-TOTAL ***</td>
-					<td style="width:20%;text-align:right;">2.960,15</td>
-				</tr>
-				<tr>
-					<th>Honorarios Profesionales</th>
-					<th style="width:20%;text-align:right;">Precio Bs.F.</th>
-				</tr>				
-				<tr>
-					<td style="width:50%">Cirujano Principal</td>
-					<td style="width:20%;text-align:right;">3.300,00</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Cirujano Ayudante I</td>
-					<td style="width:20%;text-align:right;">1.320,00</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Anestesiólogo</td>
-					<td style="width:20%;text-align:right;">1.320,00</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Instrumentista</td>
-					<td style="width:20%;text-align:right;">224,20</td>
-				</tr>								
-				<tr>
-					<td style="width:50%">Enfermera Circulante</td>
-					<td style="width:20%;text-align:right;">56,63</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Instrumental Especial</td>
-					<td style="width:20%;text-align:right;">2.000,00</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Equipo Endoscopio</td>
-					<td style="width:20%;text-align:right;">2.500,00</td>
-				</tr>								
-				<tr id="totalTr">
-					<td>*** SUB-TOTAL ***</td>
-					<td style="width:20%;text-align:right;">13.528,83</td>
-				</tr>
+				<%
+					double d = (e.getEstimation().getTotalWithDiscount()==null) ? 0 : Estimation.format.parse(e.getEstimation().getTotal()).doubleValue() - 
+							Estimation.format.parse(e.getEstimation().getTotalWithDiscount()).doubleValue();
+					double t = (d == 0) ? Estimation.format.parse(e.getTotal()).doubleValue() : Estimation.format.parse(e.getTotal()).doubleValue() + d;
+					double r = Estimation.format.parse(e.getTotal()).doubleValue() - Estimation.format.parse(e.getTotalPaid()).doubleValue();
+				%>
 				<tr id="totalTr2">
 					<td>*** TOTAL ***</td>
-					<td style="width:20%;text-align:right;">37.252,07</td>
+					<td style="width:20%;text-align:right;"><%= Estimation.format.format(t) %></td>
 				</tr>
 				<tr id="totalTr">
 					<td>*** DESCUENTO ***</td>
-					<td style="width:20%;text-align:right;">1.000,00</td>
+					<td style="width:20%;text-align:right;"><%= Estimation.format.format(d) %></td>
 				</tr>
 				<tr id="totalTr2">
 					<td>I.V.A.</td>
@@ -332,7 +294,15 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 				</tr>
 				<tr id="totalTr">
 					<td>*** TOTAL GENERAL ***</td>
-					<td style="width:20%;text-align:right;">36.252,07</td>
+					<td style="width:20%;text-align:right;"><%= e.getTotal() %></td>
+				</tr>
+				<tr id="totalTr2">
+					<td>*** TOTAL PAGADO ***</td>
+					<td style="width:20%;text-align:right;"><%= e.getTotalPaid() %></td>
+				</tr>
+				<tr id="totalTr">
+					<td>*** RESTANTE ***</td>
+					<td style="width:20%;text-align:right;"><%= Estimation.format.format(r) %></td>
 				</tr>
 			</tbody>
 			</table>				
