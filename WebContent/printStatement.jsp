@@ -1,3 +1,42 @@
+<%@page import="domain.Cost"%>
+<%@page import="domain.Admission"%>
+<%@page import="domain.BussinessMicro"%>
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="domain.Protocol"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="domain.Estimation"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.text.DateFormat"%>
+<%
+
+String est = (String) request.getAttribute("estimationID");
+Admission e = (Admission)request.getAttribute("admission");
+
+@SuppressWarnings("unchecked")
+ArrayList<Protocol> protocols = (ArrayList<Protocol>) request.getAttribute("protocols");
+
+@SuppressWarnings("unchecked")
+ArrayList<Protocol> costs = (ArrayList<Protocol>) request.getAttribute("costs");
+
+DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+DateFormat hourFormat = new SimpleDateFormat("hh:mm:ss a");
+Date date = new Date();
+String dateTxt = dateFormat.format(date);
+String hour    = hourFormat.format(date);
+
+String dateE = e.getAdmissionDate()		;
+String[] split = null;
+String de = "";
+if (dateE != ""){
+	split = dateE.split(" ");
+	de 	= split[0];
+}
+@SuppressWarnings("unchecked")
+ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute("bm");
+
+%>
+
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -144,27 +183,27 @@
 		<div class="wrapper">
 		<div id="printHeader" class="header">
 			<div style="width:50%;float:left;">HOSPITALIZACIÓN VIDAMED</div>
-			<div style="width:50%;float:left;text-align:right;">Fecha: 17/07/2013</div>       	
+			<div style="width:50%;float:left;text-align:right;"><b>Fecha: </b> <%= dateTxt %></div>       	
         </div><br>
-		<div style="text-align:right;width:100%;font-size:11px;">Hora: 11:28:31 a.m.</div> <br>
+		<div style="text-align:right;width:100%;font-size:11px;"><b>Hora: </b><%= hour %></div> <br>
 		<div id="title" style="font-size:14px; font-weight: bold;text-align:center;"> CORTE DE CUENTA </div>
 		<hr />
 		<div class="header">
-			<div style="width:50%;float:left;">Nombre del Paciente: Ana Rojas</div>
-			<div style="width:50%;float:left;text-align:right;">Cédula de Identidad: 13.463.499</div>       	
-        </div><br>
+		<% 
+			String name 	= e.getFirstName() + " " + e.getLastName();
+			String cedula 	= e.getIdentityCard();
+		%>
+			<div><b>Nombre del Paciente: </b> <%= name %></div><br/>
+			<div><b>Cédula de Identidad: </b> <%= cedula %></div>
+		</div><br>
 		<div class="header">
-			<div style="width:50%;float:left;">Asegurado Principal:</div>
-			<div style="width:50%;float:left;text-align:right;">Cédula de Asegurado:</div>       	
-        </div><br>
-		<div class="header">
-			Médico Tratante: Minaret Sandrea     	
+			<b>Médico Tratante: </b><%= e.getSpecialist().getFirstName() +  " " + e.getSpecialist().getLastName() %>    	
         </div>
 		<div class="header">
-			Responsable de Pago: Seguros Federal C.A.     	
+			<b>Responsable de Pago: </b><%= e.getResponsibleName() %>     	
         </div><br>
         <div class="header">
-			Estado de cuenta desde el 29/09/2013 hasta el 02/10/2013.     	
+			Estado de cuenta desde el <%= de %> hasta <%= dateTxt %>     	
         </div><br>
         
         <table id="sweetTable">
@@ -174,197 +213,125 @@
 					<th style="width:45%">Diagnóstico</th>
 					<th style="width:45%">Protocolo</th>
 				</tr>				
-				<tr>
-					<td>001</td>
-					<td>Rinopatía Obstructiva</td>
-					<td>Cirugía Funcional Endonasal</td>
-				</tr>					
-				<tr>
-					<td>002</td>
-					<td>Amigdalitis Crónica</td>
-					<td>Amigdalectomía o Tonsilectomía</td>
-				</tr>
+				<% for (int i = 0 ; i < protocols.size(); i++){ 
+					Protocol p = protocols.get(i);
+				%>
+					<tr>
+						<td><%= p.getProtocolID() %></td>
+						<td><%= p.getDiagnosis() %></td>
+						<td><%= p.getName() %></td>
+				<% } %>
+				
 			</tbody>
 		</table>
 		<br>
 		<table id="sweetTable">
 			<tbody>
-				<tr>
-					<th colspan="2">Hospitalización</th>
-					<th style="width:20%;text-align:right;">Precio Bs.F.</th>
-				</tr>				
-				<tr>
-					<td style="width:50%">Habitación</td>
-					<td style="width:30%">Ambulatorio</td>
-					<td style="width:20%;text-align:right;">1.135,20</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Médico Residente</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">220,00</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Servicios de Asistencia Permanente</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">154,69</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Servicios de Alimentación</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">260,00</td>
-				</tr>								
-				<tr>
-					<td style="width:50%">Servicios Farmacéuticos Ambulatorios</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">35,20</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Fármacos en Habitación</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">650,32</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Material Médico Quirúrgico en Habitación</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">587,34</td>
-				</tr>
+			<% for (int i=0; i < bm.size(); i++){ 
+				BussinessMicro b = bm.get(i);
+				boolean entrar = true;
+				for (int j = 0; j < costs.size(); j++){
+					Protocol ct = costs.get(j); 
+					if (ct.getBussinessRuleMicroID() == b.getId()) { 
+						if (entrar){
+							entrar = false;
+						%>
+						<tr>
+							<th ><%= ct.getBussinessRuleMicroName() %></th>
+							<th style="width:20%;text-align:right;">Precio Bs.F.</th>
+						</tr>
+						<% } %>
+						<tr>
+							<td style="width:50%"><%= ct.getProtocolScaleName() %></td>
+							<td style="width:20%;text-align:right;"><%= ct.getCost() %></td>
+						</tr>		
+					<%
+					}
+				}
+			} %>
+				
 				<tr id="totalTr">
-					<td colspan="2">*** SUB-TOTAL ***</td>
-					<td style="width:20%;text-align:right;">3.042,75</td>
-				</tr>
-				<tr>
-					<th colspan="2">Gastos en Quirófano</th>
-					<th style="width:20%;text-align:right;">Precio Bs.F.</th>
-				</tr>				
-				<tr>
-					<td style="width:50%">Quirófano</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">4.875,00</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Sala de Recuperación</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">450,00</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Monitoreo</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">1.950,00</td>
-				</tr>				
-				<tr>
-					<td style="width:50%">Gases, Anestésicos y Medicamentos</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">4.593,91</td>
-				</tr>								
-				<tr>
-					<td style="width:50%">Material Médico Quirúrgico</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">5852,03</td>
-				</tr>
-				<tr id="totalTr">
-					<td colspan="2">*** SUB-TOTAL ***</td>
+					<td>*** SUB-TOTAL ***</td>
 					<td style="width:20%;text-align:right;">17.720,34</td>
 				</tr>
 				<tr>
-					<th colspan="2">Servicios Médicos</th>
+					<th >Servicios Médicos</th>
 					<th style="width:20%;text-align:right;">Precio Bs.F.</th>
 				</tr>				
 				<tr>
 					<td style="width:50%">Banco de Sangre (Tipiaje)</td>
-					<td style="width:30%"></td>
 					<td style="width:20%;text-align:right;">591,25</td>
 				</tr>				
 				<tr>
 					<td style="width:50%">Electrocardiograma Reposo</td>
-					<td style="width:30%"></td>
 					<td style="width:20%;text-align:right;">402,50</td>
 				</tr>				
 				<tr>
 					<td style="width:50%">Evaluación Cardiovascular Pre-Operatoria</td>
-					<td style="width:30%"></td>
 					<td style="width:20%;text-align:right;">812,50</td>
 				</tr>				
 				<tr>
 					<td style="width:50%">Laboratorio Clínico</td>
-					<td style="width:30%"></td>
 					<td style="width:20%;text-align:right;">552,00</td>
 				</tr>								
 				<tr>
 					<td style="width:50%">Rayos X</td>
-					<td style="width:30%"></td>
 					<td style="width:20%;text-align:right;">601,90</td>
 				</tr>
 				<tr id="totalTr">
-					<td colspan="2">*** SUB-TOTAL ***</td>
+					<td>*** SUB-TOTAL ***</td>
 					<td style="width:20%;text-align:right;">2.960,15</td>
 				</tr>
 				<tr>
-					<th colspan="2">Honorarios Profesionales</th>
+					<th>Honorarios Profesionales</th>
 					<th style="width:20%;text-align:right;">Precio Bs.F.</th>
 				</tr>				
 				<tr>
 					<td style="width:50%">Cirujano Principal</td>
-					<td style="width:30%"></td>
 					<td style="width:20%;text-align:right;">3.300,00</td>
 				</tr>				
 				<tr>
 					<td style="width:50%">Cirujano Ayudante I</td>
-					<td style="width:30%"></td>
 					<td style="width:20%;text-align:right;">1.320,00</td>
 				</tr>				
 				<tr>
 					<td style="width:50%">Anestesiólogo</td>
-					<td style="width:30%"></td>
 					<td style="width:20%;text-align:right;">1.320,00</td>
 				</tr>				
 				<tr>
 					<td style="width:50%">Instrumentista</td>
-					<td style="width:30%"></td>
 					<td style="width:20%;text-align:right;">224,20</td>
 				</tr>								
 				<tr>
 					<td style="width:50%">Enfermera Circulante</td>
-					<td style="width:30%"></td>
 					<td style="width:20%;text-align:right;">56,63</td>
 				</tr>				
 				<tr>
 					<td style="width:50%">Instrumental Especial</td>
-					<td style="width:30%"></td>
 					<td style="width:20%;text-align:right;">2.000,00</td>
 				</tr>				
 				<tr>
 					<td style="width:50%">Equipo Endoscopio</td>
-					<td style="width:30%"></td>
 					<td style="width:20%;text-align:right;">2.500,00</td>
 				</tr>								
-				<tr>
-					<td style="width:50%">Material Especial</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">2.500,00</td>
-				</tr>								
-				<tr>
-					<td style="width:50%">Consulta Pre-Anestésica</td>
-					<td style="width:30%"></td>
-					<td style="width:20%;text-align:right;">308,00</td>
-				</tr>
 				<tr id="totalTr">
-					<td colspan="2">*** SUB-TOTAL ***</td>
+					<td>*** SUB-TOTAL ***</td>
 					<td style="width:20%;text-align:right;">13.528,83</td>
 				</tr>
 				<tr id="totalTr2">
-					<td colspan="2">*** TOTAL ***</td>
+					<td>*** TOTAL ***</td>
 					<td style="width:20%;text-align:right;">37.252,07</td>
 				</tr>
 				<tr id="totalTr">
-					<td colspan="2">*** DESCUENTO ***</td>
+					<td>*** DESCUENTO ***</td>
 					<td style="width:20%;text-align:right;">1.000,00</td>
 				</tr>
 				<tr id="totalTr2">
-					<td colspan="2">I.V.A.</td>
+					<td>I.V.A.</td>
 					<td style="width:20%;text-align:right;">0,00</td>
 				</tr>
 				<tr id="totalTr">
-					<td colspan="2">*** TOTAL GENERAL ***</td>
+					<td>*** TOTAL GENERAL ***</td>
 					<td style="width:20%;text-align:right;">36.252,07</td>
 				</tr>
 			</tbody>

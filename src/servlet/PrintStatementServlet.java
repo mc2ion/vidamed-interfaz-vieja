@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
 import domain.Admission;
+import domain.BussinessMicro;
 import domain.Cost;
 import domain.Protocol;
 import domain.User;
@@ -51,10 +52,11 @@ public class PrintStatementServlet extends HttpServlet {
 		User userE = (User)session.getAttribute("user");
 		if(userE != null){
 			Long admissionID = Long.parseLong(request.getParameter("id"));
+			System.out.println(admissionID);
 			Admission admission;
 			ArrayList<Protocol> protocols;
 			String estimation;
-			ArrayList<Cost> costs;
+			ArrayList<Protocol> costs;
 			
 			try {				
 				admission = (Admission)CommandExecutor.getInstance().executeDatabaseCommand(new command.GetAdmission(admissionID));
@@ -65,8 +67,12 @@ public class PrintStatementServlet extends HttpServlet {
 				protocols = (ArrayList<Protocol>)CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEstimationProtocols(estimation));
 				request.setAttribute("protocols", protocols);
 				
-				costs = (ArrayList<Cost>)CommandExecutor.getInstance().executeDatabaseCommand(new command.GetDetailedAdmissionCosts(admissionID));				
+				costs = (ArrayList<Protocol>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetDetailedAdmissionCosts(admissionID));				
 				request.setAttribute("costs", costs);
+				
+				ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetBussinessMicros());
+				request.setAttribute("bm", bm);
+			
 				
 				RequestDispatcher rd;				   
 				rd = getServletContext().getRequestDispatcher("/printStatement.jsp");			
