@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
+import domain.Admission;
+import domain.Estimation;
 import domain.User;
 
 
@@ -53,16 +56,34 @@ public class HospitalizePatientServlet extends HttpServlet {
 		User userE = (User)session.getAttribute("user");
 		if(userE != null){
 			try {
-				Long userID	 = Long.parseLong(request.getParameter("userID"));
-				//String gastos	= request.getParameter("gastos");
-				//Falta hacer los traslados de gastos
+				Long userID = Long.parseLong(request.getParameter("userID"));
+				String gastos = request.getParameter("gastos");
 				
-					int result	 = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.HospitalizePatient(userID));
-				if (result == 1)
-					session.setAttribute("info","El cliente fue hospitalizado exitosamente.");
-				else
-					session.setAttribute("info","Hubo un problema al hospitalizar al paciente. Por favor, intente nuevamente.");
-				response.sendRedirect("./ListEmergenciesServlet");
+				if(gastos.equalsIgnoreCase("T")){
+					int result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.HospitalizePatient(userID));
+					
+					if (result == 1)
+						session.setAttribute("info","El cliente fue hospitalizado exitosamente.");
+					else
+						session.setAttribute("info","Hubo un problema al hospitalizar al paciente. Por favor, intente nuevamente.");
+					
+					response.sendRedirect("./ListEmergenciesServlet");
+				} else if (gastos.equalsIgnoreCase("F")){
+					Admission a = (Admission) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetAdmission(userID));
+					CommandExecutor.getInstance().executeDatabaseCommand(new command.SetDischarge(userID, 1L));
+					@SuppressWarnings("unchecked")
+					ArrayList<Estimation> p = (ArrayList<Estimation>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPatientEstimations(Long.valueOf(a.getPatientID())));
+					System.out.println("patientID - "+a.getPatientID()+" - txtCedNumber - "+a.getIdentityCard()+" - txtName - "+a.getFirstName()+" - txtLastName - "+a.getLastName());
+					request.setAttribute("estimations", p);
+					request.setAttribute("patientID", a.getPatientID());
+					request.setAttribute("txtCedNumber", a.getIdentityCard());
+					request.setAttribute("txtName", a.getFirstName());
+					request.setAttribute("txtLastName", a.getLastName());
+					
+					RequestDispatcher rd;			
+					rd = getServletContext().getRequestDispatcher("/selectPatientEstimation.jsp");
+					rd.forward(request, response);
+				}
 			}
 			catch (Exception e) {
 				throw new ServletException(e);
