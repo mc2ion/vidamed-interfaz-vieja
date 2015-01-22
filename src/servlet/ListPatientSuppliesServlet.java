@@ -53,10 +53,12 @@ public class ListPatientSuppliesServlet extends HttpServlet {
 			try {
 				Long id = Long.parseLong(request.getParameter("id"));
 				String name = request.getParameter("name");
+				String sec = request.getParameter("sec");
 				ArrayList<PatientSupply> supplies = (ArrayList<PatientSupply>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPatientSuppliesByAdmission(id));
 				request.setAttribute("patName", name);
 				request.setAttribute("supplies", supplies);
 				request.setAttribute("adminId", String.valueOf(id));
+				request.setAttribute("sec", sec);
 				
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/patientSupplies.jsp");
 				rd.forward(request, response);

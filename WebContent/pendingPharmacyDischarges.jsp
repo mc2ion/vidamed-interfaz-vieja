@@ -111,7 +111,7 @@
 										<td><%= pd.getAdmissionDate() %></td>
 										<td><%= pd.getDischargeDate() %></td>
 										<td>
-											<a href="EditPharmacyEstimationServlet" style="color: transparent" >
+											<a href="ListPatientSuppliesServlet?id=<%= pd.getAdmissionID() %>&name=<%= pName %>&sec=d" style="color: transparent" >
 												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 											</a>
 											<a id="go" rel="leanModal" href="#dischargeUser" style="color: #f7941e; font-weight: bold;" 

@@ -17,6 +17,8 @@
 	if (text_result == null)
 		text_result = "";
 	session.removeAttribute("text");
+	
+	String sec = (String) request.getAttribute("sec");
 %>
 <!DOCTYPE HTML>
 <html>
@@ -88,8 +90,13 @@
 			
 			<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 	    	<ul>
+	    	<% if(sec != null && sec.equalsIgnoreCase("d")){%>
+            	<li class="menuitem"><a href="ListPharmacyDischargesServlet">Ver Altas Farmacia</a></li>
+            	<li class="menuitem"><a href="AddPatientSupplyServlet?id=<%=adminId%>&name=<%=patName%>&sec=<%=sec%>">Agregar Suministros</a></li>
+            <%} else { %>
             	<li class="menuitem"><a href="ListSupplyServlet">Ver Pacientes</a></li>
             	<li class="menuitem"><a href="AddPatientSupplyServlet?id=<%=adminId%>&name=<%=patName%>">Agregar Suministros</a></li>
+            <%} %>
             </ul>
 			<div class="menuitemSalir"><a href="LogoutServlet"><%= name %> (Salir)</a></div>	
         </div>        

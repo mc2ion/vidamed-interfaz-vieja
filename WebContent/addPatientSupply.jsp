@@ -13,7 +13,7 @@
 		
 	String adminId 	= (String) request.getAttribute("adminId");
 	String patName 	= (String) request.getAttribute("name");
-	
+	String sec = (String) request.getAttribute("sec");
 	
 %>
 <!DOCTYPE HTML>
@@ -66,6 +66,7 @@
 	        	<form action="AddPatientSupplyServlet" method="post" >
 				<input type="hidden" name="admissionId" value="<%= adminId %>"/>
 				<input type="hidden" name="name" value="<%= patName %>"/>
+				<input type="hidden" name="sec" value="<%= sec %>"/>
 				<fieldset>
 	        		<label>Área del suministro: </label>
 					<select name="supplyArea" id="supplyArea" class="target" required title="Debe seleccionar un valor en el campo 'Área del Suministro'">	

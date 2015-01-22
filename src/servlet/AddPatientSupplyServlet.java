@@ -51,6 +51,7 @@ public class AddPatientSupplyServlet extends HttpServlet {
 			RequestDispatcher rd;
 			try {
 				String id = request.getParameter("id");
+				String sec = request.getParameter("sec");
 				//String servId = request.getParameter("servId");
 				String name   = request.getParameter("name");
 				
@@ -62,6 +63,7 @@ public class AddPatientSupplyServlet extends HttpServlet {
 				ArrayList<SupplyArea> sArea = (ArrayList<SupplyArea>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetSupplyAreas());
 			
 				request.setAttribute("supplyArea", sArea);
+				request.setAttribute("sec", sec);
 				
 				rd = getServletContext().getRequestDispatcher("/addPatientSupply.jsp");			
 				rd.forward(request, response);
@@ -95,6 +97,7 @@ public class AddPatientSupplyServlet extends HttpServlet {
 				String name  = request.getParameter("name");
 				String supply  = request.getParameter("state");
 				String amount  = request.getParameter("amount");
+				String sec = request.getParameter("sec");
 				
 				Integer result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddPatientSupply(Long.valueOf(admin), Long.valueOf(supply), amount));
 				
@@ -103,7 +106,12 @@ public class AddPatientSupplyServlet extends HttpServlet {
 					text =	"Hubo un problema al agregar el suministro. Por favor, intente nuevamente.";
 				
 				session.setAttribute("text", text);
-				response.sendRedirect(request.getContextPath() + "/ListPatientSuppliesServlet?id=" + admin + "&name=" + name);
+				
+				if(sec != null && sec.equalsIgnoreCase("d")){
+					response.sendRedirect(request.getContextPath() + "/ListPatientSuppliesServlet?id=" + admin + "&name=" + name + "&sec=" + sec);
+				} else {					
+					response.sendRedirect(request.getContextPath() + "/ListPatientSuppliesServlet?id=" + admin + "&name=" + name);
+				}
 		
 			}catch(Exception e){
 				
