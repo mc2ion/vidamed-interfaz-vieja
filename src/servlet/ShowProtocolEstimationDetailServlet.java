@@ -64,14 +64,17 @@ public class ShowProtocolEstimationDetailServlet extends HttpServlet {
 				request.setAttribute("bm", bm);
 				
 				RequestDispatcher rd;
-				System.out.println(fnc.equalsIgnoreCase("emergency"));
 				if(fnc != null && fnc.equalsIgnoreCase("emergency")){
 					rd = getServletContext().getRequestDispatcher("/showProtocolEmergencyDetail.jsp");
 					rd.forward(request, response);
-				} if(fnc != null && fnc.equalsIgnoreCase("hospitalization")){
+				} else if(fnc != null && fnc.equalsIgnoreCase("hospitalization")){
 					rd = getServletContext().getRequestDispatcher("/showProtocolHospitalizationDetail.jsp");
 					rd.forward(request, response);
-				} else {
+				}else if(fnc != null && fnc.equalsIgnoreCase("med")){
+					rd = getServletContext().getRequestDispatcher("/showProtocolMedicalTDetail.jsp");
+					rd.forward(request, response);
+				}
+				else {
 					rd = getServletContext().getRequestDispatcher("/showProtocolEstimationDetail.jsp");	
 					rd.forward(request, response);
 				}

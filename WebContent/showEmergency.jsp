@@ -60,7 +60,8 @@
   				<div id="tabs-2">
   						<br>
 					   	<table id="sweetTable" style="margin-bottom: 10px;">
-						   	<thead>
+						   	<% if (protocols != null) { %>
+								<thead>
 						   		<tr style="background: rgb(136, 162, 190);">
 						   			<th>Nombre</th>
 						   			<th>Total</th>
@@ -68,8 +69,7 @@
 						   		</tr>
 						   	</thead>
 						   	<tbody>
-						   	<% if (protocols != null) {
-								for (int i=0; i< protocols.size(); i++){
+						   <%  for (int i=0; i< protocols.size(); i++){
 								Protocol p = protocols.get(i);
 								%>
 								<tr>
@@ -81,10 +81,9 @@
 										</a>
 									</td>
 						   		</tr>
-						   		<% }
-								}
-								%>
+						   		<% } %>
 						   	</tbody>
+						   	<% }%>
 					   	</table>
 					</div>
   				</div>

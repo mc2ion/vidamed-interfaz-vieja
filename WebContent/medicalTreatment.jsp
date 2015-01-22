@@ -73,11 +73,12 @@
 		$('.cliente').text(var2);
 		
 	};
-	
-	function setV(f){
+	function setV(f, func){
 		f.elements['userID'].value = idUser;
-		return true;
+		if (func == 'hosp') {if ($('#gastos').val() == '-'){ alert('Seleccion una acción para llevar a cabo la hospitalización'); $('#gastos').focus();	return false;}}
+		else return true;
 	}
+	
 	</script>
 </head>
 <body>
@@ -200,7 +201,7 @@
 			<div id="signup-ct">
 				<h3 id="see_id" class="sprited" > Hospitalizar</h3>
 				<br><br>
-				<form action="HospitalizePatientServlet" method="post"  onsubmit="return setV(this)">
+				<form action="HospitalizePatientServlet" method="post"  onsubmit="return setV(this, 'hosp')">
 				<input type="hidden" id="userID" class="good_input" name="userID"  value=""/>
 					<span>¿Qué acción desea realizar sobre los gastos del paciente <span class="cliente"></span>? </span> <br><br>
 					<div style="text-align: center">
