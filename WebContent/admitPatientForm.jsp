@@ -44,8 +44,25 @@
 				$("#info-title").text("Cédula de identidad de algún representante legal:");
 			  }else
 				$("#info-title").text("Cédula de identidad del paciente:");
+			 
+				
 				
 		});
+		
+		 
+			  $('#cedNumber').keypress(function (e) {
+					if (e.which == 13) {
+					 $('#submit').click();
+					 e.preventDefault();
+				   }
+				});
+			  
+			  $('#estimation').keypress(function (e) {
+					if (e.which == 13) {
+					 $('#submit').click();
+					 e.preventDefault();
+				   }
+				});
 		
 		
 			// AJAX

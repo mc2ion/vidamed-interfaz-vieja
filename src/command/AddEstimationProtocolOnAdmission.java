@@ -24,6 +24,7 @@ public class AddEstimationProtocolOnAdmission implements DatabaseCommand {
 			ps.executeUpdate();
 		}
 		catch (Exception e){
+			e.getStackTrace();
 			return 0L;
 		}
 		finally {

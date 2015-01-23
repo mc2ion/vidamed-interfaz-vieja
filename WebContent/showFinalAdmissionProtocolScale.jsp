@@ -8,6 +8,8 @@
 <%
 	String estimationID 	= (String) request.getAttribute("estimationID" );
 	String protocolID 		= (String) request.getAttribute("protocolID" );
+	String admissionID 		= (String) request.getAttribute("adminID" );
+	
 	
 	@SuppressWarnings("unchecked")
 	ArrayList<ProtocolScale> ps = (ArrayList<ProtocolScale>)request.getAttribute("ps");
@@ -80,7 +82,9 @@
 			            <form action="AddAdmissionProtocolServletFinal" method="get" style="display: inline-block; margin-right: 20px;">
 							<input type="hidden" name="estimationid" value="<%= estimationID %>"/>
 							<input type="hidden" name="protocolid"   value="<%= protocolID %>"/>
-							<input type="hidden" name="function" value="<%= function %>"/>
+							<input type="hidden" name="function" 	value="<%= function %>"/>
+							<input type="hidden" name="adminID" 	value="<%= admissionID %>"/>
+							
 							<input type="submit" class="button" value="Finalizar"/>
 						</form>
 			        </div>

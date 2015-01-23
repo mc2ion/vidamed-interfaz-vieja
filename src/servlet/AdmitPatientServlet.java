@@ -110,7 +110,7 @@ public class AdmitPatientServlet extends HttpServlet {
 					System.out.println("a " + bed + " " + estimationID + " " + reasonAdmission + " " + observations);
 					Long result = (Long) CommandExecutor.getInstance().executeDatabaseCommand(new command.AdmitPatient(estimationID, bed, observations, reasonAdmission));
 					String text_good = " La admisión se ha creado exitosamente.";
-					if (result == -1 ) {
+					if (result != null && result == -1 ) {
 						text_good += " Se ha presentado un error al crear la admisión. Por favor, intente nuevamente.";
 					}
 					session.setAttribute("info", text_good);

@@ -51,10 +51,11 @@ public class AddAdmissionProtocolServletFinal extends HttpServlet {
 		boolean perm1  = PermissionsList.hasPermission(request, PermissionsList.emergency);
 		boolean perm2  = PermissionsList.hasPermission(request, PermissionsList.hospitalization);
 		if(userE != null && (perm2 || perm1)){
+			String admissionId = request.getParameter("adminID");
 			String estimationid = request.getParameter("estimationid");
 			String protocolid   = request.getParameter("protocolid");
 			String function = request.getParameter("function");
-			System.out.println("ultimo function " + function + " " + protocolid + " " + estimationid);
+			System.out.println("ultimo function " + function + " " + protocolid + " " + estimationid + " " + admissionId);
 			//Obtener valores establecidos
 			try {
 				
@@ -62,11 +63,15 @@ public class AddAdmissionProtocolServletFinal extends HttpServlet {
 				if (function != null && function.equals("editEmergency")){
 					String text_good = "Cambios realizados exitosamente";
 					session.setAttribute("info",text_good);
-					response.sendRedirect(request.getContextPath() + "/EditEmergencyServlet?id=" + estimationid + "#tabs-2");
-				}else {
+					response.sendRedirect(request.getContextPath() + "/EditEmergencyServlet?id=" + admissionId + "#tabs-2");
+				}else if (function != null && function.equals("editHospitalization")){
 					String text_good = "Cambios realizados exitosamente";
 					session.setAttribute("info",text_good);
-					response.sendRedirect(request.getContextPath() + "/EditHospitalizationServlet?id=" + estimationid + "#tabs-2");
+					response.sendRedirect(request.getContextPath() + "/EditHospitalizationServlet?id=" + admissionId + "#tabs-2");
+				}else if  (function != null && function.equals("editMedicalT")){
+					String text_good = "Cambios realizados exitosamente";
+					session.setAttribute("info",text_good);
+					response.sendRedirect(request.getContextPath() + "/EditMedicalTreatmentServlet?id=" + admissionId + "#tabs-2");
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -94,6 +99,7 @@ public class AddAdmissionProtocolServletFinal extends HttpServlet {
 			String[] id = request.getParameterValues("ids");
 			String estimationid = request.getParameter("estimationid");
 			String protocolid   = request.getParameter("protocolid");
+			String admissionId = request.getParameter("adminID");
 			String honorario    = "";
 			
 			//Items base
@@ -157,6 +163,7 @@ public class AddAdmissionProtocolServletFinal extends HttpServlet {
 				request.setAttribute("estimationID", estimationid);
 				request.setAttribute("protocolID", protocolid);
 				request.setAttribute("function", function);
+				request.setAttribute("adminID", admissionId);
 				
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/showFinalAdmissionProtocolScale.jsp");			
 				rd.forward(request, response);

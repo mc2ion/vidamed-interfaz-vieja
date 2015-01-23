@@ -63,7 +63,7 @@ public class EditMedicalTreatmentServlet extends HttpServlet {
 				request.setAttribute("locations", lList);
 				
 				@SuppressWarnings("unchecked")
-				ArrayList<Protocol> protocols = (ArrayList<Protocol>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEstimationProtocols(String.valueOf(med.getId())));
+				ArrayList<Protocol> protocols = (ArrayList<Protocol>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEstimationProtocols(String.valueOf(med.getEstimationId())));
 				request.setAttribute("protocols", protocols);
 				
 				rd = getServletContext().getRequestDispatcher("/editMedicalTreatment.jsp");			

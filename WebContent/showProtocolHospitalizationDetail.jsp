@@ -49,7 +49,7 @@
         	</div>        
 			<jsp:include page="./menu.jsp" />
         	<div id="content" style="position:absolute;">	
-        		<h3 style="color:#006C92;">Detalle protocolo "<%= nameProtocol %>" en hospitalización n° <%= request.getParameter("estimationID") %>:</h3>
+        		<h3 style="color:#006C92;">Detalle protocolo "<%= nameProtocol %>" en hospitalización:</h3>
 				<%
 		       			for (int i = 0; i < bm.size(); i++){ 
 		       				BussinessMicro b = bm.get(i);

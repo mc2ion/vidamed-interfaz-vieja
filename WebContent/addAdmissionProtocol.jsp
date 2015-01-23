@@ -5,6 +5,9 @@
 <%@page import="domain.PaymentResponsible"%>
 <%
 	String estimationID 	= (String) request.getAttribute("spID" );
+	String adminID 			= (String) request.getAttribute("adminId" );
+	
+	
 	@SuppressWarnings("unchecked")
 	ArrayList<Protocol> pt  = (ArrayList<Protocol>) request.getAttribute("pt");
 	
@@ -134,7 +137,8 @@
 				<div>
 					<form action="AddAdmissionProtocolServlet" method="post">
 					<input type="hidden" name="estimationID" value="<%= estimationID %>"/>
-					<input type="hidden" name="function" value="<%= function %>"/>
+					<input type="hidden" name="adminID" 	value="<%= adminID %>"/>
+					<input type="hidden" name="function" 	value="<%= function %>"/>
 					<p> Seleccione el protocolo que desea agregar:</p><br/>
 					<div>
   						<fieldset>

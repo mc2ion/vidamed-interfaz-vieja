@@ -76,7 +76,7 @@ public class EditHospitalizationServlet extends HttpServlet {
 				System.out.println(lLis.size());
 				
 				@SuppressWarnings("unchecked")
-				ArrayList<Protocol> protocols = (ArrayList<Protocol>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEstimationProtocols(String.valueOf(hospitalization.getId())));
+				ArrayList<Protocol> protocols = (ArrayList<Protocol>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEstimationProtocols(String.valueOf(hospitalization.getEstimationId())));
 				request.setAttribute("protocols", protocols);
 				
 				rd = getServletContext().getRequestDispatcher("/editHospitalization.jsp");			

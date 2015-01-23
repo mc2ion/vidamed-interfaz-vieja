@@ -171,7 +171,7 @@
   					</div>
   					<div id="tabs-2">
   						<div style="text-align:right;">
-	  						<a href="AddAdmissionProtocolServlet?function=editEmergency&id=<%= emergency.getId()%>" style="color: #006c92; font-weight: bold;">
+	  						<a href="AddAdmissionProtocolServlet?function=editEmergency&id=<%= emergency.getEstimationId()%>&adminId=<%= emergency.getId() %>" style="color: #006c92; font-weight: bold;">
 								<img alt="logo" src="./images/add.png" height="12" width="12" />Agregar Protocolo
 							</a>						
   						</div>
@@ -194,7 +194,7 @@
 						   			<td><%= p.getName() %></td>
 						   			<td><%= p.getTotalWithPercentage()==null ? p.getTotal() : p.getTotalWithPercentage() %></td>
 						   			<td>
-										<a href="ShowProtocolEstimationDetailServlet?protocolID=<%= p.getProtocolID() %>&estimationID=<%= emergency.getId() %>&n=<%= p.getName() %>&fnc=emergency" style="color: transparent" >
+										<a href="ShowProtocolEstimationDetailServlet?protocolID=<%= p.getProtocolID() %>&estimationID=<%= emergency.getEstimationId() %>&n=<%= p.getName() %>&fnc=emergency" style="color: transparent" >
 													<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 										</a>
 									</td>

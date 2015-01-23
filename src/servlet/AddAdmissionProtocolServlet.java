@@ -58,6 +58,7 @@ public class AddAdmissionProtocolServlet extends HttpServlet {
 			RequestDispatcher rd;
 			String function = request.getParameter("function");
 			String spID 	= request.getParameter("id");
+			String adminId  = request.getParameter("adminId");
 			//System.out.println("create estimation servlet " + function);
 			try {
 				//Leer todos los protocolos
@@ -71,6 +72,8 @@ public class AddAdmissionProtocolServlet extends HttpServlet {
 				request.setAttribute("lp", lp);
 			
 				request.setAttribute("function", function);
+				request.setAttribute("adminId", adminId);
+				
 				rd = getServletContext().getRequestDispatcher("/addAdmissionProtocol.jsp");			
 				rd.forward(request, response);
 			} catch (Exception e) {
@@ -98,8 +101,9 @@ public class AddAdmissionProtocolServlet extends HttpServlet {
 				String protocolID   = request.getParameter("protocoloID");
 				String diagnosis    = request.getParameter("diagnosis");
 				String function		= request.getParameter("function");
+				String adminID  	= request.getParameter("adminID");
 				
-				System.out.println(estimationID + " " + protocolID + " "+ diagnosis + " " + function);
+				System.out.println(estimationID + " " + protocolID + " "+ diagnosis + " " + function + " " + adminID);
 				Long spID = (Long) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddEstimationProtocolOnAdmission(estimationID, protocolID, diagnosis));
 				System.out.println(spID);
 				if (spID != 0) {
@@ -118,6 +122,7 @@ public class AddAdmissionProtocolServlet extends HttpServlet {
 					
 					request.setAttribute("function", function);
 					request.setAttribute("protocolID", protocolID);
+					request.setAttribute("adminID", adminID);
 					rd = getServletContext().getRequestDispatcher("/addAdmissionProtocolStep2.jsp");
 					rd.forward(request, response);
 				}
