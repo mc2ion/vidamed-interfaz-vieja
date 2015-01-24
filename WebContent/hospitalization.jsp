@@ -177,7 +177,6 @@
 					<input type="hidden" id="function" class="good_input" name="function"  value="hospitalization"/>
 					Indique Razón: 
 					<select name="dischargeID">
-						<option value="-">Seleccionar</option>
 						<% for (int i=0; i< disc.size(); i++){ 
 							DischargeType dType = disc.get(i);
 						%>
