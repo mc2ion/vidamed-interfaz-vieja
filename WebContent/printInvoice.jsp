@@ -1,3 +1,43 @@
+<%@page import="domain.Cost"%>
+<%@page import="domain.Admission"%>
+<%@page import="domain.BussinessMicro"%>
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="domain.Protocol"%>
+<%@page import="domain.Estimation"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="domain.Estimation"%>
+<%@page import="java.util.Date"%>
+<%@page import="java.text.DateFormat"%>
+<%
+
+String est = (String) request.getAttribute("factId");
+Admission e = (Admission)request.getAttribute("admission");
+
+@SuppressWarnings("unchecked")
+ArrayList<Protocol> protocols = (ArrayList<Protocol>) request.getAttribute("protocols");
+
+@SuppressWarnings("unchecked")
+ArrayList<Protocol> costs = (ArrayList<Protocol>) request.getAttribute("costs");
+
+DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+DateFormat hourFormat = new SimpleDateFormat("hh:mm:ss a");
+Date date = new Date();
+String dateTxt = dateFormat.format(date);
+String hour    = hourFormat.format(date);
+
+String dateE = e.getAdmissionDate()		;
+String[] split = null;
+String de = "";
+if (dateE != ""){
+	split = dateE.split(" ");
+	de 	= split[0];
+}
+@SuppressWarnings("unchecked")
+ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute("bm");
+
+%>
+
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -9,12 +49,16 @@
 		function printPageContentB() {
 			div = document.getElementById('botonera');
 			div.style.display = "none";
+			div2 = document.getElementById('footList');
+			div2.style.display = "block";
 			window.print();
 		}
 		
 		function unPrintPageContentB() {
 			div = document.getElementById('botonera');
 			div.style.display = "block";
+			div2 = document.getElementById('footList');
+			div2.style.display = "none";
 		}
 		
 		</script>
@@ -139,141 +183,155 @@
 	<body id="especial">
 		<div class="wrapper">
 		<div id="printHeader" class="header">
-			<div style="width:50%;float:left;">FACTURACIÓN VIDAMED</div>
-			<div style="width:50%;float:left;text-align:right;">Fecha: 17/07/2013</div>       	
+			<div style="width:50%;float:left;">HOSPITALIZACIÓN VIDAMED</div>
+			<div style="width:50%;float:left;text-align:right;"><b>Fecha: </b> <%= dateTxt %></div>       	
         </div><br>
-		<div style="text-align:right;width:100%;font-size:11px;">Hora: 11:28:31 a.m.</div> <br>
-		<div id="title" style="font-size:14px; font-weight: bold;text-align:center;"> FACTURA # 201345032 </div>
+		<div style="text-align:right;width:100%;font-size:11px;"><b>Hora: </b><%= hour %></div> <br>
+		<div id="title" style="font-size:14px; font-weight: bold;text-align:center;"> FACTURA <%= Estimation.leftPadStringWithChar(est, 9, '0') %> </div>
 		<hr />
 		<div class="header">
-			<div style="width:50%;float:left;">Nombre del Paciente: Gipsy Altuve</div>
-			<div style="width:50%;float:left;text-align:right;">Cédula de Identidad: 13.463.499</div>       	
-        </div><br>
+		<% 
+			String name 	= e.getFirstName() + " " + e.getLastName();
+			String cedula 	= e.getIdentityCard();
+		%>
+			<div><b>Nombre del Paciente: </b> <%= name %></div><br/>
+			<div><b>Cédula de Identidad: </b> <%= cedula %></div>
+		</div><br>
 		<div class="header">
-			<div style="width:50%;float:left;">Asegurado Principal:</div>
-			<div style="width:50%;float:left;text-align:right;">Cédula de Asegurado:</div>       	
-        </div><br>
-		<div class="header">
-			Médico Tratante: Minaret Sandrea     	
+			<b>Médico Tratante: </b><%= e.getSpecialist().getFirstName() +  " " + e.getSpecialist().getLastName() %>    	
         </div>
 		<div class="header">
-			Responsable de Pago: Seguros Federal C.A.     	
+			<b>Responsable de Pago: </b><%= e.getResponsibleName() %>     	
         </div><br>
+        <div class="header">
+			Estado de cuenta desde el <%= de %> hasta <%= dateTxt %>     	
+        </div><br>
+        
         <table id="sweetTable">
 			<tbody>
 				<tr>
-					<th style="width:8%">Número</th>
-					<th style="width:15%">Diagnóstico</th>
-					<th style="width:77%">Protocolo</th>
+					<th style="width:10%">Número</th>
+					<th style="width:45%">Diagnóstico</th>
+					<th style="width:45%">Protocolo</th>
 				</tr>				
-				<tr>
-					<td>001</td>
-					<td>Rinopatía Obstructiva</td>
-					<td>
-					<table id="invisibleTable">
-			<tbody>
-				<tr>
-					<th colspan="2">Cirugía Funcional Endonasal</th>
-					<th style="width:20%;text-align:right;">Precio Bs.F.</th>
-				</tr>
-				<tr>
-					<td colspan="2">Hospitalización</td>
-					<td style="width:20%;text-align:right;">3.042,75</td>
-				</tr>
-				<tr>
-					<td colspan="2">Gastos en Quirófano</td>
-					<td style="width:20%;text-align:right;">17.720,34</td>
-				</tr>
-				<tr>
-					<td colspan="2">Servicios Médicos</td>
-					<td style="width:20%;text-align:right;">2.960,15</td>
-				</tr>
-				<tr>
-					<td colspan="2">Honorarios Profesionales</td>
-					<td style="width:20%;text-align:right;">13.528,83</td>
-				</tr>
-				<tr id="totalTr3">
-					<td colspan="2">*** TOTAL PROTOCOLO ***</td>
-					<td style="width:20%;text-align:right;">37.252,07</td>
-				</tr>
+				<% for (int i = 0 ; i < protocols.size(); i++){ 
+					Protocol p = protocols.get(i);
+				%>
+					<tr>
+						<td><%= p.getProtocolID() %></td>
+						<td><%= p.getDiagnosis() %></td>
+						<td><%= p.getName() %></td>
+				<% } %>
+				
 			</tbody>
-			</table>
-					</td>
-				</tr>					
-				<tr>
-					<td>002</td>
-					<td>Amigdalitis Crónica</td>
-					<td>
-					<table id="invisibleTable">
+		</table>
+		<br>
+		<table id="sweetTable">
 			<tbody>
-				<tr>
-					<th colspan="2">Amigdalectomía o Tonsilectomía</th>
-					<th style="width:20%;text-align:right;">Precio Bs.F.</th>
+			<% 
+			long micro = 1;
+			double subtotal = 0.00;
+			%>
+			<tr>
+				<th ><%= costs.get(0).getBussinessRuleMicroName() %></th>
+				<th style="width:20%;text-align:right;">Precio Bs.F.</th>
+			</tr>
+			<%
+			for (int j = 0; j < costs.size(); j++){
+				Protocol ct = costs.get(j);
+				if(ct.getEstimationCost() != null){
+					if(micro == ct.getBussinessRuleMicroID()){
+						double d = Estimation.format.parse(ct.getEstimationCost()).doubleValue();
+						subtotal = subtotal + d;
+						%>
+						<tr>
+							<td style="width:50%"><%= ct.getProtocolScaleName() %></td>
+							<td style="width:20%;text-align:right;"><%= ct.getEstimationCost() %></td>
+						</tr>		
+					<%
+					} else {
+						%>
+						<tr id="totalTr">
+							<td>*** SUB-TOTAL ***</td>
+							<td style="width:20%;text-align:right;"><%= Estimation.format.format(subtotal) %></td>
+						</tr>
+						<tr>
+							<th ><%= ct.getBussinessRuleMicroName() %></th>
+							<th style="width:20%;text-align:right;">Precio Bs.F.</th>
+						</tr>
+						<tr>
+							<td style="width:50%"><%= ct.getProtocolScaleName() %></td>
+							<td style="width:20%;text-align:right;"><%= ct.getEstimationCost() %></td>
+						</tr>
+					<%
+						subtotal = Estimation.format.parse(ct.getEstimationCost()).doubleValue();
+						micro = ct.getBussinessRuleMicroID();
+					}
+				}
+			}
+			%>
+				<tr id="totalTr">
+					<td>*** SUB-TOTAL ***</td>
+					<td style="width:20%;text-align:right;"><%= Estimation.format.format(subtotal) %></td>
 				</tr>
-				<tr>
-					<td colspan="2">Hospitalización</td>
-					<td style="width:20%;text-align:right;">3.042,75</td>
-				</tr>				
-				<tr>
-				<tr>
-					<td colspan="2">Gastos en Quirófano</td>
-					<td style="width:20%;text-align:right;">17.720,34</td>
-				</tr>
-				<tr>
-					<td colspan="2">Servicios Médicos</td>
-					<td style="width:20%;text-align:right;">2.960,15</td>
-				</tr>
-				<tr>
-					<td colspan="2">Honorarios Profesionales</td>
-					<td style="width:20%;text-align:right;">13.528,83</td>
-				</tr>
-				<tr id="totalTr3">
-					<td colspan="2">*** TOTAL PROTOCOLO ***</td>
-					<td style="width:20%;text-align:right;">37.252,07</td>
-				</tr>
-			</tbody>
-			</table></td>
-				</tr>
+				<%
+					double d = (e.getEstimation().getTotalWithDiscount()==null) ? 0 : Estimation.format.parse(e.getEstimation().getTotal()).doubleValue() - 
+							Estimation.format.parse(e.getEstimation().getTotalWithDiscount()).doubleValue();
+					double t = (d == 0) ? Estimation.format.parse(e.getTotal()).doubleValue() : Estimation.format.parse(e.getTotal()).doubleValue() + d;
+					double r = Estimation.format.parse(e.getTotal()).doubleValue() - Estimation.format.parse(e.getTotalPaid()).doubleValue();
+				%>
 				<tr id="totalTr2">
-					<td colspan="2">*** SUB-TOTAL ***</td>
-					<td style="width:20%;text-align:right;">74.504,14</td>
+					<td>*** TOTAL ***</td>
+					<td style="width:20%;text-align:right;"><%= Estimation.format.format(t) %></td>
 				</tr>
 				<tr id="totalTr">
-					<td colspan="2">I.V.A.</td>
+					<td>*** DESCUENTO ***</td>
+					<td style="width:20%;text-align:right;"><%= Estimation.format.format(d) %></td>
+				</tr>
+				<tr id="totalTr2">
+					<td>I.V.A.</td>
 					<td style="width:20%;text-align:right;">0,00</td>
 				</tr>
+				<tr id="totalTr">
+					<td>*** TOTAL GENERAL ***</td>
+					<td style="width:20%;text-align:right;"><%= e.getTotal() %></td>
+				</tr>
 				<tr id="totalTr2">
-					<td colspan="2">*** DESCUENTO ***</td>
-					<td style="width:20%;text-align:right;">10.000,00</td>
+					<td>*** TOTAL PAGADO ***</td>
+					<td style="width:20%;text-align:right;"><%= e.getTotalPaid() %></td>
 				</tr>
 				<tr id="totalTr">
-					<td colspan="2">*** TOTAL GENERAL ***</td>
-					<td style="width:20%;text-align:right;">64.504,14</td>
+					<td>*** RESTANTE ***</td>
+					<td style="width:20%;text-align:right;"><%= Estimation.format.format(r) %></td>
 				</tr>
 			</tbody>
-		</table>		
-		<br>		
-		<br>		
+			</table>				
 		<br>
 		<div style="text-align:center;font-weight:bold;font-size:11px;">CENTRO MÉDICO QUIRÚRGICO VIDAMED		
-		<br>Departamento Administrativo</div>		
-		<br>
+		<br>Departamento Administrativo</div>
 		<div style="text-align:left;font-size:10px;">Elaborado Por: Elizabeth Hernandez</div>
 		<div style="text-align:left;font-size:10px;">Modificado Por: Elizabeth Hernandez</div>
 		<br>	
 		<div id="botonera">
 				<form onsubmit="printPageContentB();">
-				<div id="botonP">
+				<div id="botonP" style="display:inline-block;">
 							<input type="submit"  class="button"  name="sbmtButton" value="Imprimir" style="margin-left:30%;" onclick="printPageContentB();unPrintPageContentB();return false" />
 				</div>	
-				</form>
-				<form>
-					<div id="botonV" style="position:relative; margin-left: 450px; top: -20px;">
+				<div id="botonV" style="display:inline-block;">
 							<input type="button" class="button" value="Regresar"  onClick="javascript:history.back();" style="margin-left:40%;" />		
-					</div>	
+				</div>	
 				</form>
 			</div>
 		<div class="push"></div>
-        </div>			
+        </div>
+        <div class="footer" id="footer">
+		<ul class="a" style="display:none;" id="footList">
+  			<li>PRESUPUESTO VÁLIDO POR TREINTA (30) DÍAS, A PARTIR DE LA FECHA DE ELABORACIÓN.</li>
+  			<li>EL MATERIAL MÉDICO QUIRÚRGICO, FÁRMACOS EN HABITACIÓN, GASES, ANESTÉSICOS Y MEDICAMENTOS SON MONTOS ESTIMADOS QUE PUEDEN VARIAR DE ACUERDO AL CONSUMO.</li>
+  			<li>LOS EXÁMENES PRE-OPERATORIOS Y LA PRE-ADMISIÓN DEBEN HACERSE ANTES DE LA FECHA DE INTERVENCIÓN.</li>
+  			<li>LOS PACIENTES QUE NO TENGAN PÓLIZA DE SEGUROS, PUEDEN CANCELAR EN EFECTIVO, TARJETAS DE CRÉDITO, DÉBITO O CHEQUE DE GERENCIA. EN CASO DE POSEER CHEQUE DE COMPAÑÍA, DEBE TRAERLO A LA INSTITUCIÓN OCHO (8) DÍAS ANTES DE LA INTERVENCIÓN PARA HACER LA RESPECTIVA VERIFICACIÓN.</li>
+  			<li>LOS PACIENTES QUE POSEEN PÓLIZA DE SEGUROS DEBEN CANCELAR AL MOMENTO DEL INGRESO LA DIFERENCIA QUE EXISTA ENTRE LA CARTA AVAL Y EL PRESUPUESTO.</li>
+		</ul>		
+		</div>			
 	</body>
 </html>

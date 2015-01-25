@@ -314,14 +314,12 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 		<br>	
 		<div id="botonera">
 				<form onsubmit="printPageContentB();">
-				<div id="botonP">
+				<div id="botonP" style="display:inline-block;">
 							<input type="submit"  class="button"  name="sbmtButton" value="Imprimir" style="margin-left:30%;" onclick="printPageContentB();unPrintPageContentB();return false" />
 				</div>	
-				</form>
-				<form>
-					<div id="botonV" style="position:relative; margin-left: 450px; top: -20px;">
+				<div id="botonV" style="display:inline-block;">
 							<input type="button" class="button" value="Regresar"  onClick="javascript:history.back();" style="margin-left:40%;" />		
-					</div>	
+				</div>	
 				</form>
 			</div>
 		<div class="push"></div>

@@ -70,7 +70,7 @@
 	};
 	
 	function setV(f){
-		f.elements['userId'].value = idUser;
+		f.elements['id'].value = idUser;
 		return true;
 	}
 	</script>
@@ -117,8 +117,7 @@
 										<td><%= b.getPaymentResposible().getName() %></td>
 										<td>Bs. <%= b.getTotal() %></td>
 										<td>
-											<a id="go" rel="leanModal" href="#printUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1001,'1001');" >
+											<a href="PrintInvoiceServlet?id=<%= b.getAdmissionID() %>&factId=<%= b.getBillID() %>" style="color: transparent" >
 												<img alt="logo" src="./images/print.png"  height="16" width="16" title="Imprimir"/>
 											</a>  
 											<br>
@@ -143,7 +142,7 @@
 				</div>
 				<!-- Hay que hacer ambas versiones para imprimir -->
 				<form action="PrintInvoiceServlet" method="post"  onsubmit="return setV(this)">
-					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+					<input type="hidden" id="userId" class="good_input" name="id"  value=""/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete2"  name="sbmtButton" value="Compacto"  />
 					</div>
