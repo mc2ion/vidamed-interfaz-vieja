@@ -88,14 +88,9 @@
 					</div>
   				</div>
 				<div id="botonera">
-					<form action="PrintEmergencyServlet">
-						<div id="botonP" style="display: inline; margin-right: 30px;">
-									<input type="submit"  class="button"  name="sbmtButton" value="Imprimir" />
-						</div>	
 						<div id="botonV" style="display: inline;">
 								<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
 						</div>	
-					</form>
 				</div><br>
 			</div>
 		</div>

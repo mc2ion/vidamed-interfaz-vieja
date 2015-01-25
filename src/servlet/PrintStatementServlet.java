@@ -14,7 +14,6 @@ import javax.servlet.http.HttpSession;
 import command.CommandExecutor;
 import domain.Admission;
 import domain.BussinessMicro;
-import domain.Cost;
 import domain.Protocol;
 import domain.User;
 

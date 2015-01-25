@@ -116,7 +116,7 @@
 										<td><%= ad.getAdmissionDate() %></td>
 										<td><%= ad.getDischargeDate() %></td>
 										<td>
-											<a href="EditAdmissionEstimationServlet" style="color: transparent" >
+											<a href="ShowAdmissionDischargesServlet?id=<%= ad.getAdmissionID() %>" style="color: transparent" >
 												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 											</a>
 											<a id="go" rel="leanModal" href="#dischargeUser" style="color: #f7941e; font-weight: bold;" 

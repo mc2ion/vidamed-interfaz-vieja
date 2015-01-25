@@ -18,15 +18,36 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-		<title>Ver Hospitalización</title>
+		<title>Ver Alta de Admisión</title>
 			<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css" />
 	  	<script src="./js/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
 		<script>
 			$(function() {
 				$( "#tabs" ).tabs();
 			});
 		</script>
+		<script type="text/javascript">
+	var idUser;
+			
+	$(function() {
+		$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x" });		
+	});
+	
+	function loadVars(var1, var2) {
+		idUser = var1;
+		$('.cliente').text(var2);
+		
+	};
+	
+	function setV(f){
+		f.elements['userId'].value = idUser;
+		return true;
+	}
+	
+	
+	</script>
 	</head>
 	<body>
 		<div id="container">
@@ -37,13 +58,13 @@
 			<div id="menu">
 				<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 				<ul>
-	            	<li class="menuitem"><a href="ListHospitalizationsServlet">Ver Hospitalizaciones</a></li>
+	            	<li class="menuitem"><a href="ListAdmissionDischargesServlet">Ver Altas de Admisión</a></li>
 	            </ul>
 				<div class="menuitemSalir"><a href="LogoutServlet"><%= name %> (Salir)</a></div>	
         	</div>        
 			<jsp:include page="./menu.jsp" />
         	<div id="content" style="position:absolute;">	
-	        	<h2>Ver Hospitalización:</h2>
+	        	<h2>Ver Alta de Admisión:</h2>
 				<br>
 				<div id="tabs">
 					<ul>
@@ -93,10 +114,35 @@
 					</div>
   				</div>
 				<div id="botonera">
+						<div id="botonP" style="display: inline; margin-right: 30px;">
+								<a id="go" rel="leanModal" href="#dischargeUser" class="button" style="color: #f7941e; font-weight: bold;" 
+												onclick="return loadVars(<%= hosp.getId() %>,'<%= hosp.getPatient().getFirstName() + " " + hosp.getPatient().getLastName() %>');" >
+								Dar de Alta
+								</a>
+						</div>	
 						<div id="botonV" style="display: inline;">
 								<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
-						</div>		
+						</div>	
 				</div>	
+			</div>
+		</div>
+		<div id="dischargeUser">
+			<div id="signup-ct">
+				<h3 id="see_id" class="sprited" > Alta de Admisión</h3>
+				<br><br>
+				<span>¿Está seguro que desea darle el alta de admisión a <span class="cliente"></span>? </span> <br><br>
+				<span style="color: red; font-size: small; font-style: italic;">
+					Recuerde que debe verificar los servicios de Rayos X, Laboratorio y Servicios Médicos del paciente antes de darle de alta.
+				</span> <br><br>
+				<div id="signup-header">
+					<a class="close_x" id="close_x"  href="#"></a>
+				</div>
+				<form action="SetAdmissionDischargeServlet" method="post"  onsubmit="return setV(this)">
+					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+					<div class="btn-fld">
+						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
+					</div>
+		 		</form>
 			</div>
 		</div>
 	</body>
