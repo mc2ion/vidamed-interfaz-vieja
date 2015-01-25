@@ -37,7 +37,7 @@
 			<div id="menu">
 				<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>
 				<ul>
-	            	<li class="menuitem"><a href="ListEmergenciesServlet">Ver Emergencias</a></li>
+	            	<li class="menuitem"><a href="ListMedicalTreatmentsServlet">Ver Tratamientos Médicos</a></li>
 	              </ul>	
 				<div class="menuitemSalir"><a href="LogoutServlet"><%= name %> (Salir)</a></div>	
         	</div>        
