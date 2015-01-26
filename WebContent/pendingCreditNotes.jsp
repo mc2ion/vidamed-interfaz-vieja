@@ -117,8 +117,7 @@
 										<td><%= rName %></td>
 										<td><%= cn.getTotal() %></td>
 										<td>
-											<a id="go" rel="leanModal" href="#printUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(<%= cn.getCreditNoteID() %>,'1001');" >
+											<a href="PrintInvoiceServlet?id=<%= cn.getAdmissionID() %>&factId=<%= cn.getCreditNoteID() %>&f=cn" style="color: transparent" >
 												<img alt="logo" src="./images/print.png"  height="16" width="16" title="Imprimir"/>
 											</a>  
 											<a id="go" rel="leanModal" href="#discount" style="color: #f7941e; font-weight: bold;" 

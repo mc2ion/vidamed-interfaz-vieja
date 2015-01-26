@@ -49,6 +49,7 @@ public class GetPendingCreditNotes implements DatabaseCommand {
 				u.setPaymentResposible(pr);
 				
 				u.setTotal(rs.getString(11));
+				u.setAdmissionID(rs.getLong(12));
 				admissions.add(u);
 			}
 		}

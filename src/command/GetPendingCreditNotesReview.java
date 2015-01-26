@@ -44,6 +44,7 @@ public class GetPendingCreditNotesReview implements DatabaseCommand {
 				u.setTotal(rs.getString(8));
 				u.setContactName(rs.getString(9));
 				u.setContactNumber(rs.getString(10));
+				u.setAdmissionID(rs.getLong(11));
 				
 				admissions.add(u);
 			}

@@ -60,9 +60,9 @@ public class ApplyDiscountServlet extends HttpServlet {
 				
 				int result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.ApplyDiscount(id, type, amount, justification));
 				if (result == 1)
-					session.setAttribute("info", "El descuento fue aceptado exitosamente!.");
+					session.setAttribute("info", "El descuento fue aplicado exitosamente!.");
 				else
-					session.setAttribute("info", "Hubo un error al aceptar el descuento. Por favor, intente nuevamente.");
+					session.setAttribute("info", "Hubo un error al aplicar el descuento. Por favor, intente nuevamente.");
 	
 				response.sendRedirect(request.getContextPath() + "/ListCreditNotesReviewServlet");
 				

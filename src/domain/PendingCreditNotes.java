@@ -9,6 +9,7 @@ public class PendingCreditNotes {
 	private Specialist specialist;
 	private PaymentResponsible paymentResponsible;
 	private String total;
+	private Long admissionID;
 	
 	public Long getCreditNoteID() {
 		return creditNoteID;
@@ -16,6 +17,14 @@ public class PendingCreditNotes {
 	
 	public void setCreditNoteID(Long creditNoteID) {
 		this.creditNoteID = creditNoteID;
+	}
+	
+	public Long getAdmissionID() {
+		return admissionID;
+	}
+	
+	public void setAdmissionID(Long admissionID) {
+		this.admissionID = admissionID;
 	}
 	
 	public Long getEstimationID() {

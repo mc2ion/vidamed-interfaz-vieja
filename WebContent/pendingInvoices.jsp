@@ -117,7 +117,7 @@
 										<td><%= b.getPaymentResposible().getName() %></td>
 										<td>Bs. <%= b.getTotal() %></td>
 										<td>
-											<a href="PrintInvoiceServlet?id=<%= b.getAdmissionID() %>&factId=<%= b.getBillID() %>" style="color: transparent" >
+											<a href="PrintInvoiceServlet?id=<%= b.getAdmissionID() %>&factId=<%= b.getBillID() %>&f=in" style="color: transparent" >
 												<img alt="logo" src="./images/print.png"  height="16" width="16" title="Imprimir"/>
 											</a>  
 											<br>

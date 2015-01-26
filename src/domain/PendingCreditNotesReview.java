@@ -11,6 +11,7 @@ public class PendingCreditNotesReview {
 	private String total;
 	private String contactName;
 	private String contactNumber;
+	private Long admissionID;
 	
 	public Long getCreditNoteID() {
 		return creditNoteID;
@@ -18,6 +19,14 @@ public class PendingCreditNotesReview {
 	
 	public void setCreditNoteID(Long creditNoteID) {
 		this.creditNoteID = creditNoteID;
+	}
+	
+	public Long getAdmissionID() {
+		return admissionID;
+	}
+	
+	public void setAdmissionID(Long admissionID) {
+		this.admissionID = admissionID;
 	}
 	
 	public Long getEstimationID() {

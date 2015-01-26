@@ -14,16 +14,17 @@ import javax.servlet.http.HttpSession;
 import command.CommandExecutor;
 import domain.Admission;
 import domain.BussinessMicro;
+import domain.PermissionsList;
 import domain.Protocol;
 import domain.User;
 
 
 
 /**
- * Servlet implementation class PrintInvoiceServlet
+ * Servlet implementation class ShowCreditNoteEstimationServlet
  */
-@WebServlet(description = "servlet to log in users", urlPatterns = { "/PrintInvoiceServlet" })
-public class PrintInvoiceServlet extends HttpServlet {
+@WebServlet(description = "servlet to log in users", urlPatterns = { "/ShowCreditNoteEstimationServlet" })
+public class ShowCreditNoteEstimationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	public void init() throws ServletException {
@@ -38,7 +39,7 @@ public class PrintInvoiceServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PrintInvoiceServlet() {
+    public ShowCreditNoteEstimationServlet() {
         super();
     }
 
@@ -49,16 +50,14 @@ public class PrintInvoiceServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
-		if(userE != null){
+		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.creditNotesReview);
+		if(userE != null && perm ){
 			Long admissionID = Long.parseLong(request.getParameter("id"));
-			System.out.println(admissionID);
 			Admission admission;
 			ArrayList<Protocol> protocols;
 			String estimation;
 			ArrayList<Protocol> costs;
 			String factId   = request.getParameter("factId");
-			String f 		= request.getParameter("f");
-			
 			try {				
 				admission = (Admission)CommandExecutor.getInstance().executeDatabaseCommand(new command.GetAdmission(admissionID));
 				request.setAttribute("admission", admission);
@@ -74,11 +73,9 @@ public class PrintInvoiceServlet extends HttpServlet {
 				ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetBussinessMicros());
 				request.setAttribute("bm", bm);
 				request.setAttribute("factId", factId);
-				request.setAttribute("f", f);
-				
 				
 				RequestDispatcher rd;				   
-				rd = getServletContext().getRequestDispatcher("/printInvoice.jsp");			
+				rd = getServletContext().getRequestDispatcher("/showCreditNoteEstimation.jsp");			
 				rd.forward(request, response);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
