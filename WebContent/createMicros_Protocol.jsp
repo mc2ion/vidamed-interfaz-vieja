@@ -118,7 +118,7 @@ String id = (String) request.getParameter("id");
 						</table>
 					<% } %>
 			    	<p style="width:100%; text-align:center; margin-top:20px;">
-			            <a href="./ListProtocolsServlet" class="button">Aceptar</a> ó
+			            <a href="./ListProtocolsServlet?s=1" class="button">Aceptar</a> ó
 			            <a href="./AddServiceProtocolServlet?id=<%= id %>"  class="button" style="margin-left: 5px;">Agregar Servicios Adicionales</a>
 			        </p>
 				</div>

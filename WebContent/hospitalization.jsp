@@ -172,7 +172,7 @@
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="DischargePatientServlet" method="post"  onsubmit="return setV(this)">
+				<form action="DischargePatientServlet" method="post"  onsubmit="return setV(this)" style="margin-left:25px;">
 					<input type="hidden" id="userID" class="good_input" name="userID"  value=""/>
 					<input type="hidden" id="function" class="good_input" name="function"  value="hospitalization"/>
 					Indique Razón: 
