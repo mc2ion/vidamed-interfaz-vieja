@@ -309,9 +309,6 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 		<br>
 		<div style="text-align:center;font-weight:bold;font-size:11px;">CENTRO MÉDICO QUIRÚRGICO VIDAMED		
 		<br>Departamento Administrativo</div>
-		<div style="text-align:left;font-size:10px;">Elaborado Por: Elizabeth Hernandez</div>
-		<div style="text-align:left;font-size:10px;">Modificado Por: Elizabeth Hernandez</div>
-		<br>	
 		<div id="botonera">
 				<form onsubmit="printPageContentB();">
 				<div id="botonP" style="display:inline-block;">

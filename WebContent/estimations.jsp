@@ -213,7 +213,7 @@
 						</select>
 						<input type="text" size='10' name="amount"/>
 					<br>
-					<div class="leftColum"><b>Justicación:</b></div><textarea style="width: 138px;" name="justify"></textarea><br>
+					<div class="leftColum"><b>Justicación:</b></div><textarea style="width: 148px;" name="justify"></textarea><br>
 					</div>
 					<div id="signup-header">
 					<a class="close_x" id="close_x_aux"  href="#"></a>
@@ -227,7 +227,7 @@
 		</div>
 		<div id="refreshEstimation">
 			<div id="signup-ct">
-				<h3 id="see_id" class="sprited" > Actualizar Presupuesto</h3>
+				<h3 id="see_id" class="sprited" style="margin-top:-48px;"> Actualizar Presupuesto</h3>
 				<br><br>
 				<span>¿Desea actualizar fecha y costos del presupuesto seleccionado? </span> <br><br>
 				<span class="help">Recuerde que una vez actualizado, si este presupuesto posee un descuento aprobado, será enviado nuevamente a verificación para que sea revisado y re-aprobado de acuerdo a los nuevos montos.</span> <br><br>

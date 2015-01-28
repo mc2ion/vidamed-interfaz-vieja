@@ -72,7 +72,6 @@ public class PrintStatementServlet extends HttpServlet {
 				ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetBussinessMicros());
 				request.setAttribute("bm", bm);
 			
-				
 				RequestDispatcher rd;				   
 				rd = getServletContext().getRequestDispatcher("/printStatement.jsp");			
 				rd.forward(request, response);

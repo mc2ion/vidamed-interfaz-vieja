@@ -8,10 +8,10 @@
 	String name = "";
 	if (user != null)
 		name = user.getFirstName() ;
-	String patientID = request.getParameter("patientID");
-	String txtCedNumber = request.getParameter("txtCedNumber");
-	String txtName = request.getParameter("txtName");
-	String txtLastName = request.getParameter("txtLastName");
+	String patientID 	= (String)request.getAttribute("patientID");
+	String txtCedNumber = (String)request.getAttribute("txtCedNumber");
+	String txtName 		= (String)request.getAttribute("txtName");
+	String txtLastName 	= (String)request.getAttribute("txtLastName");
 	
 	@SuppressWarnings("unchecked")
 	ArrayList<Estimation> est = (ArrayList<Estimation>) request.getAttribute("estimations");
@@ -132,7 +132,7 @@
 								</tbody>
 							</table>
 							<% }else{ %>
-							<p style="font-size:14px;">El paciente <%= txtName %> <%= txtLastName %>, <%= txtCedNumber %> no tiene presupuestos asociados.</p>
+							<p style="font-size:14px;">El paciente <%= txtName %> <%= txtLastName %>, <%= txtCedNumber %> no tiene presupuestos asociados.</p><br/>
 							<% } %>
 							<div id="botonV" style="width:100%; text-align:center; margin-top:10px;">
 								<input type="button" class="button" id="submit" value="Continuar" />
