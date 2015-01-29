@@ -155,7 +155,7 @@
 		<div id="discount">
 			<div id="signup-ct">
 				<h3 id="see_id" class="sprited" > Generada</h3><br><br>
-				<span>¿Está seguro que la prefactura n° <span class="pid"></span> del cliente <span class="cliente"></span> está generada (fue impresa)?</span> <br><br>
+				<span>¿Está seguro que la prefactura n° <span class="pid"></span> del paciente <span class="cliente"></span> está generada (fue impresa)?</span> <br><br>
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
