@@ -1,3 +1,4 @@
+<%@page import="domain.User"%>
 <%@page import="domain.Cost"%>
 <%@page import="domain.Admission"%>
 <%@page import="domain.BussinessMicro"%>
@@ -27,6 +28,11 @@ Date date = new Date();
 String dateTxt = dateFormat.format(date);
 String hour    = hourFormat.format(date);
 
+String name = "";
+User user = (User) session.getAttribute("user");
+if (user != null)	name = user.getFirstName() ;
+
+
 String dateE = e.getAdmissionDate()		;
 String[] split = null;
 String de = "";
@@ -37,171 +43,103 @@ if (dateE != ""){
 @SuppressWarnings("unchecked")
 ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute("bm");
 
-%>
+String result = (String) session.getAttribute("info");
+String text = "";
+if (result != null)
+	text = result;
+session.removeAttribute("info");
 
+%>
 <!DOCTYPE HTML>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-		<% if (f.equals("cn")){ %>
-		<title>Imprimir Prefactura</title>
-		<% } else { %>	
-		<title>Imprimir Factura</title>
-		<% } %>	
+		<title>Ver Prefactura por Revisar</title>
+		<link rel="stylesheet" href="./css/jquery-ui.css" />
+	  	<script src="./js/jquery-1.9.1.min.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
+		<script>
+			$(function() {
+				$( "#tabs" ).tabs();
+			});
+		</script>
 		<script type="text/javascript">
+		var idUser;
+				
+		$(function() {
+			$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x" });		
+		});
 		
-		function printPageContentB() {
-			div = document.getElementById('botonera');
-			div.style.display = "none";
-			div2 = document.getElementById('footList');
-			div2.style.display = "block";
-			window.print();
-		}
+		function loadVars(var1, var2) {
+			idUser = var1;
+			$('.cliente').text(var2);
+			
+		};
 		
-		function unPrintPageContentB() {
-			div = document.getElementById('botonera');
-			div.style.display = "block";
-			div2 = document.getElementById('footList');
-			div2.style.display = "none";
+		function setV(f){
+			f.elements['userId'].value = idUser;
+			return true;
 		}
+		</script>
+			<script type="text/javascript">
+		$(document).ready(function() {
+			
+			function getUrlVars() {
+			    var vars = {};
+			    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+			        vars[key] = value;
+			    });
+			    return vars;
+			}
+
+			var first = getUrlVars()["function"];
+			if (first != null){
+				first = first.replace(/\+/g, ' ');
+				if (first.indexOf("Admission") > 0){
+					$("#admission").attr('class', 'active');
+					$("#menuInside").hide();
+					$("#botonera").hide();
+					$("#botonera2").show();
+					
+				}
+				else if (first.indexOf("stimations") > 0){
+					$("#estimation").attr('class', 'active');
+				}
+			}
+		});
 		
 		</script>
-		<style type="text/css">
-		
-		html, body {
-			height: 100%;
-		}
-		
-		#especial{
-			background-image:url(null);
-			margin-left: 8%;
-			margin-right: 8%;
-			text-align: left;
-			font-family: Arial, Helvetica, sans-serif;
-			color: #061C37;
-			background: #fff;
-		}
-		input{
-			border: none;
-		}
-		
-		label, span {
-			font-weight: bold;
-		}
-		
-		.header {
-			width: 100%;
-			font-size: 10px;
-		}
-		
-		.header div {
-			display: inline;
-		}
-		
-		.date div {
-			text-align: right;
-			width: 50%;
-		}
-		
-		hr { 
-		  background-color: black; 
-		  height: 1px;
-		}
-		
-		#sweetTable, #invisibleTable {
-			width: 100%;
-			border-collapse: collapse;
-		}
-		
-		#sweetTable th, #totalTr2 td {
-			text-align: left;
-			padding-top: 5px;
-			padding-bottom: 4px;
-			background-color: #006c92;
-			color: #fff;
-			font-weight: bold;
-		}
-		
-		#invisibleTable th {
-			text-align: left;
-			padding-top: 5px;
-			padding-bottom: 4px;
-			background-color: white;
-			color: black;
-			font-weight: bold;
-		}
-		
-		#totalTr td {
-			background-color: #1EB1DD;	
-			font-weight: bold;
-		}	
-		
-		#totalTr3 td {
-			background-color:#A5E0F1;	
-			font-weight: bold;
-		}	
-		
-		#sweetTable td, #sweetTable th {
-			border: 1px solid #006c92;
-			padding: 1px 7px 1px 7px;
-			font-size: 10px;
-			vertical-align: top;
-		}
-		
-		#invisibleTable td, #invisibleTable th {
-			border: none;
-			padding: 1px 7px 1px 7px;
-			font-size: 10px;
-		}
-		*
-		{
-		  margin: 0 auto 0 auto;
-		 text-align:left;
-		 
-		 }
-		 ul.a {list-style-type:circle;
-		 font-size:6px;}
-		 
-		 .wrapper {
-			min-height: 100%;
-			height: auto !important;
-			height: 100%;
-			margin: 0 auto -4em;
-		}
-		.footer, .push {
-			height: 4em;
-		}
-		</style>
-	<script > 
-	<!-- 
-	
-	function inhabilitar(){ 
-	   	return true;
-	} 
-	
-	document.oncontextmenu=inhabilitar;
-	
-	// --> 
-	</script>
-</head>
-	<body id="especial">
-		<div class="wrapper">
-		<div id="printHeader" class="header">
-			<div style="width:50%;float:left;">HOSPITALIZACIÓN VIDAMED</div>
-			<div style="width:50%;float:left;text-align:right;"><b>Fecha: </b> <%= dateTxt %></div>       	
-        </div><br>
-		<div style="text-align:right;width:100%;font-size:11px;"><b>Hora: </b><%= hour %></div> <br>
-		<% String fact = "FACTURA"; if (f.equals("cn")) fact = "PREFACTURA"; %>
-		
-		<div id="title" style="font-size:14px; font-weight: bold;text-align:center;"> <%= fact %> <%= Estimation.leftPadStringWithChar(est, 9, '0') %> </div>
-		<hr />
-		<div class="header">
-		<% 
-			String name 	= e.getFirstName() + " " + e.getLastName();
-			String cedula 	= e.getIdentityCard();
-		%>
-			<div><b>Nombre del Paciente: </b> <%= name %></div><br/>
+	</head>
+	<body>
+		<div id="container">
+			<div id="header">
+	        	
+	        </div>         
+        	<jsp:include page="./upperMenu.jsp" />        
+			<div id="menu">
+				<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
+		    	<ul id="menuInside">
+	            	<li class="menuitem"><a href="ListCreditNotesReviewServlet">Ver Prefacturas por Revisar</a></li>
+	            </ul>
+				<div class="menuitemSalir"><a href="LogoutServlet"><%= name %> (Salir)</a></div>	
+        	</div>        
+			 <jsp:include page="./menu.jsp" />
+        	<div id="content" style="position:absolute;">	
+	        	<h2>Ver Prefactura por Revisar:</h2><br/>
+	        	<div class="info-text"><%= text %></div>
+				<div style="min-height:300px;">
+				<div class="wrapper">
+				<div id="title" style="font-size:14px; font-weight: bold;text-align:center;"> PREFACTURA <%= Estimation.leftPadStringWithChar(est, 9, '0') %> </div>
+				<hr/>
+				<br/>
+				<div class="header">
+				<% 
+					String nombre 	= e.getFirstName() + " " + e.getLastName();
+					String cedula 	= e.getIdentityCard();
+				%>
+			<div><b>Nombre del Paciente: </b> <%= nombre %></div>
 			<div><b>Cédula de Identidad: </b> <%= cedula %></div>
 		</div><br>
 		<div class="header">
@@ -315,29 +253,50 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 			</tbody>
 			</table>				
 		<br>
-		<div style="text-align:center;font-weight:bold;font-size:11px;">CENTRO MÉDICO QUIRÚRGICO VIDAMED		
-		<br>Departamento Administrativo</div>
-		<br>	
 		<div id="botonera">
-				<form onsubmit="printPageContentB();">
 				<div id="botonP" style="display:inline-block;">
-							<input type="submit"  class="button"  name="sbmtButton" value="Imprimir" style="margin-left:30%;" onclick="printPageContentB();unPrintPageContentB();return false" />
+							<a id="go" rel="leanModal" href="#discount" style="color: #f7941e; font-weight: bold;" onclick="return loadVars(<%= e.getAdmissionID() %>,'');" class="button">
+												Aplicar Descuento			
+							</a>
 				</div>	
 				<div id="botonV" style="display:inline-block;">
-							<input type="button" class="button" value="Regresar"  onClick="javascript:history.back();" style="margin-left:40%;" />		
-				</div>	
-				</form>
+				<form action="./ListCreditNotesReviewServlet">
+							<input type="submit" class="button" value="Regresar" style="margin-left:40%;" />		
+				</form></div>	
+				
 			</div>
 		<div class="push"></div>
         </div>
-        <div class="footer" id="footer">
-		<ul class="a" style="display:none;" id="footList">
-  			<li>PRESUPUESTO VÁLIDO POR TREINTA (30) DÍAS, A PARTIR DE LA FECHA DE ELABORACIÓN.</li>
-  			<li>EL MATERIAL MÉDICO QUIRÚRGICO, FÁRMACOS EN HABITACIÓN, GASES, ANESTÉSICOS Y MEDICAMENTOS SON MONTOS ESTIMADOS QUE PUEDEN VARIAR DE ACUERDO AL CONSUMO.</li>
-  			<li>LOS EXÁMENES PRE-OPERATORIOS Y LA PRE-ADMISIÓN DEBEN HACERSE ANTES DE LA FECHA DE INTERVENCIÓN.</li>
-  			<li>LOS PACIENTES QUE NO TENGAN PÓLIZA DE SEGUROS, PUEDEN CANCELAR EN EFECTIVO, TARJETAS DE CRÉDITO, DÉBITO O CHEQUE DE GERENCIA. EN CASO DE POSEER CHEQUE DE COMPAÑÍA, DEBE TRAERLO A LA INSTITUCIÓN OCHO (8) DÍAS ANTES DE LA INTERVENCIÓN PARA HACER LA RESPECTIVA VERIFICACIÓN.</li>
-  			<li>LOS PACIENTES QUE POSEEN PÓLIZA DE SEGUROS DEBEN CANCELAR AL MOMENTO DEL INGRESO LA DIFERENCIA QUE EXISTA ENTRE LA CARTA AVAL Y EL PRESUPUESTO.</li>
-		</ul>		
-		</div>			
+		</div>
+		</div>
+		</div>
+		<div id="discount">
+			<div id="signup-ct">
+				<h3 id="see_id" class="sprited" > Aplicar Descuento</h3><br><br>
+				Por favor, indique la siguiente información.
+				<form action="ApplyDiscountServlet" method="post"  onsubmit="return setV(this)">
+				<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+				<input type="hidden" class="good_input" name="function"  value="showCreditNoteReview"/>
+				<input type="hidden" class="good_input" name="fact"  value="<%= request.getParameter("factId")%>"/>
+				
+					<div class="text">
+						<div class="leftColum"><b>Descuento:</b></div>
+							<select name="type">
+								<option value="P">%</option>
+								<option value="M">Bs.</option>
+							</select>
+							<input type="text" pattern="^[0-9]+(\.[0-9]+)?$" name="amount" size='10' required title="Este campo es numerico y no puede ser dejado en blanco"/>
+						<br>
+						<div class="leftColum"><b>Justicación:</b></div><textarea name="justification" style="width: 148px;" required title="El campo 'Justificación' no puede ser dejado en blanco"></textarea><br>
+					</div>
+					<div id="signup-header">
+						<a class="close_x" id="close_x_aux"  href="#"></a>
+					</div>
+					<div class="btn-fld">
+						<input type="submit"  class="buttonPopUpAux"  name="sbmtButton" value="Aplicar"  />
+					</div>
+		 		</form>
+			</div>
+		</div>
 	</body>
 </html>

@@ -179,11 +179,11 @@
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="DischargePatientServlet" method="post"  onsubmit="return setV(this)">
+				<form action="DischargePatientServlet" method="post"  onsubmit="return setV(this)" style="margin-left:25px;">
 					<input type="hidden" id="userID" class="good_input" name="userID"  value=""/>
 					<input type="hidden" id="function" class="good_input" name="function"  value="emergency"/>
 					Indique Razón: 
-					<select name="dischargeID">
+					<select name="dischargeID" style="margin-top:5px;">
 						<% for (int i=0; i< disc.size(); i++){ 
 							DischargeType dType = disc.get(i);
 						%>

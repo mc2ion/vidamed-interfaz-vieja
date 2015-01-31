@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
+import domain.Admission;
+import domain.BussinessMicro;
+import domain.Protocol;
 import domain.User;
 
 
@@ -41,13 +45,45 @@ public class PrintInvoiceServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
 		if(userE != null){
-			RequestDispatcher rd;
-			rd = getServletContext().getRequestDispatcher("/printInvoice.jsp");			
-			rd.forward(request, response);
+			Long admissionID = Long.parseLong(request.getParameter("id"));
+			System.out.println(admissionID);
+			Admission admission;
+			ArrayList<Protocol> protocols;
+			String estimation;
+			ArrayList<Protocol> costs;
+			String factId   = request.getParameter("factId");
+			String f 		= request.getParameter("f");
+			
+			try {				
+				admission = (Admission)CommandExecutor.getInstance().executeDatabaseCommand(new command.GetAdmission(admissionID));
+				request.setAttribute("admission", admission);
+				
+				estimation = admission.getEstimationID().toString();
+				
+				protocols = (ArrayList<Protocol>)CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEstimationProtocols(estimation));
+				request.setAttribute("protocols", protocols);
+				
+				costs = (ArrayList<Protocol>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetDetailedAdmissionCosts(admissionID));				
+				request.setAttribute("costs", costs);
+				
+				ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetBussinessMicros());
+				request.setAttribute("bm", bm);
+				request.setAttribute("factId", factId);
+				request.setAttribute("f", f);
+				
+				
+				RequestDispatcher rd;				   
+				rd = getServletContext().getRequestDispatcher("/printInvoice.jsp");			
+				rd.forward(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} else {
 			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 			rd.forward(request, response);

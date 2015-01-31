@@ -115,10 +115,9 @@
 										<td><%= pName %></td>
 										<td><%= eName %></td>
 										<td><%= rName %></td>
-										<td><%= cn.getTotal() %></td>
+										<td><%= (cn.getTotalWithDiscount() != null) ? cn.getTotalWithDiscount() : cn.getTotal() %></td>
 										<td>
-											<a id="go" rel="leanModal" href="#printUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(<%= cn.getCreditNoteID() %>,'1001');" >
+											<a href="PrintInvoiceServlet?id=<%= cn.getAdmissionID() %>&factId=<%= cn.getCreditNoteID() %>&f=cn" style="color: transparent" >
 												<img alt="logo" src="./images/print.png"  height="16" width="16" title="Imprimir"/>
 											</a>  
 											<a id="go" rel="leanModal" href="#discount" style="color: #f7941e; font-weight: bold;" 
@@ -156,7 +155,7 @@
 		<div id="discount">
 			<div id="signup-ct">
 				<h3 id="see_id" class="sprited" > Generada</h3><br><br>
-				<span>¿Está seguro que la prefactura n° <span class="pid"></span> del cliente <span class="cliente"></span> está generada (fue impresa)?</span> <br><br>
+				<span>¿Está seguro que la prefactura n° <span class="pid"></span> del paciente <span class="cliente"></span> está generada (fue impresa)?</span> <br><br>
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>

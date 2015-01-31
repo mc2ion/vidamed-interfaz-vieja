@@ -15,6 +15,10 @@
 	String info = (String) session.getAttribute("info");
 	if (info != null ){
 		info_text = info;
+	}else{
+		if (request.getParameter("s") != null && request.getParameter("s").equals("1")){
+			info_text = "Acción realizada con éxito";
+		}
 	}
 	session.removeAttribute("info");
 
@@ -89,8 +93,7 @@
         </div>        
 		 <jsp:include page="./menu.jsp" />
 		<div id="content">  
-			<h2>Protocolos:</h2>
-			
+			<h2>Protocolos:</h2><br/><br/>
 			<div class="info-text"><%= info_text %></div>
 			<div id="dt_example">
 					<div id="container">

@@ -1687,7 +1687,7 @@ div.box {
 
 #see_id {
    text-align: center;
-   margin-top: -45px;
+   margin-top: -40px;
   
 
 }
@@ -1741,7 +1741,7 @@ a.form_button {
 	overflow: hidden; 
 	display: block;
 	position: absolute; 
-	top: 9px;
+	top: 17px;
 	right: 20px;
 	color: transparent;
    
@@ -2062,7 +2062,7 @@ input.search-input{
 .prev, .next { background-color:#0098b6; padding:5px 10px; color:#fff; text-decoration:none;}
 .prev:hover, .next:hover { background-color:#0098b6; text-decoration:none;}
 .prev { float:left;}
-.next { float:right;}
+.next { /* float:right; */}
 #steps { list-style:none; width:100%; overflow:hidden; margin:0px; padding:0px; /* margin-top: -11px; */ margin-left: 0px; margin-bottom: 12px; padding-bottom: 11px;}
 #steps li {font-size: 10px; float:left; padding:10px; color:#b0b1b3;border-radius: 10px;background: rgb(219, 210, 210);margin-right: 6px;box-shadow: 2px 2px silver;}
 #steps li span {font-size: 9px; display:block;}
@@ -2497,9 +2497,9 @@ input.search-input{
 
 
 .next{
-	position: absolute;
-	top: 440px;
-	left: 400px;
+	/* position: absolute; */
+	/* top: 440px; */
+	/* left: 117px; */
 	-moz-box-shadow:inset 0px 1px 0px 0px #fed897;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #fed897;
 	box-shadow:inset 0px 1px 0px 0px #fed897;

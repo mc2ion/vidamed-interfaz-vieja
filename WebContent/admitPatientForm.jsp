@@ -236,15 +236,15 @@
 					</fieldset>
 					<div class='patients'></div>
 					<div id="botonera" style="width:300px; margin-top: 50px;">
-						<div id="botonV" style="display: inline;">
-								<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
-						</div>
-						<div id="botonV" style="display: inline; margin-left: 20px;">
+						<div id="botonV" style="display: inline; ">
 							<a id="go" rel="leanModal" href="#deleteVitalSign" style="display: none;"></a> 
 							<a id="go2" rel="leanModal" href="#printUser" style="display: none;"></a> 
 							<input type="button" class="button" id="submit" value="Buscar" />
 							<input type="submit" id="submit-form" name="admitPatientForm" value="" style="display:none;" />
-						</div>							
+						</div>	
+						<div id="botonV" style="display: inline; margin-left: 20px;">
+								<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
+						</div>						
 					</div>	
 				</form>
 				

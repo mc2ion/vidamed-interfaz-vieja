@@ -57,14 +57,18 @@ public class ApplyDiscountServlet extends HttpServlet {
 				String 	type 			= request.getParameter("type");
 				String 	amount 			= request.getParameter("amount");
 				String 	justification 	= request.getParameter("justification");
+				String function 		= request.getParameter("function");
+				String factId			= request.getParameter("fact");
 				
 				int result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.ApplyDiscount(id, type, amount, justification));
 				if (result == 1)
-					session.setAttribute("info", "El descuento fue aceptado exitosamente!.");
+					session.setAttribute("info", "El descuento fue aplicado exitosamente!.");
 				else
-					session.setAttribute("info", "Hubo un error al aceptar el descuento. Por favor, intente nuevamente.");
-	
-				response.sendRedirect(request.getContextPath() + "/ListCreditNotesReviewServlet");
+					session.setAttribute("info", "Hubo un error al aplicar el descuento. Por favor, intente nuevamente.");
+				if (function != null && function.equals("showCreditNoteReview"))
+					response.sendRedirect(request.getContextPath() + "/ShowCreditNoteEstimationServlet?id="+id+"&factId="+factId);
+				else
+					response.sendRedirect(request.getContextPath() + "/ListCreditNotesReviewServlet");
 				
 			} 
 			catch (Exception e) {

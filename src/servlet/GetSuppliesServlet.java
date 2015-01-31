@@ -47,7 +47,7 @@ public class GetSuppliesServlet extends HttpServlet {
 	        try {
 	            Long category = Long.valueOf(request.getParameter("category"));
 	            @SuppressWarnings("unchecked")
-				ArrayList<Supply> supplies = (ArrayList<Supply>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetSupplies(category));
+				ArrayList<Supply> supplies = (ArrayList<Supply>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetSuppliesWithInventory(category));
 				String options = "";
 	            for (int i = 0; i < supplies.size(); i++){
 					options += "<option value="+ supplies.get(i).getSupplyID()+">" + supplies.get(i).getName() + "</option>";

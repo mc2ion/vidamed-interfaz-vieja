@@ -130,7 +130,7 @@ String id = (String) request.getParameter("id");
 						</table>
 					<% } %>
 			    	<p style="width:100%; text-align:center; margin-top:20px;">
-			            <a href="./ListProtocolsServlet" class="button" onclick="return continueFunction(<%= valoresFaltantes %>);">Aceptar</a> ó
+			            <a href="./ListProtocolsServlet?s=1" class="button" onclick="return continueFunction(<%= valoresFaltantes %>);">Aceptar</a> ó
 			            <a href="./AddServiceProtocolServlet?id=<%= id %>" class="button" style="margin-left: 5px;" onclick="return continueFunction(<%= valoresFaltantes %>);">Agregar Servicios Adicionales</a>
 			        </p>
 				</div>

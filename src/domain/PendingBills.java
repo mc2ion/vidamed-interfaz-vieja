@@ -5,6 +5,7 @@ public class PendingBills {
 	
 	private Long billID;
 	private Long estimationID;
+	private Long admissionID;
 	private Patient patient;
 	private Specialist specialist;
 	private PaymentResponsible paymentResponsible;
@@ -30,6 +31,14 @@ public class PendingBills {
 	
 	public void setEstimationID(Long estimationID) {
 		this.estimationID = estimationID;
+	}
+	
+	public Long getAdmissionID() {
+		return admissionID;
+	}
+	
+	public void setAdmissionID(Long admissionID) {
+		this.admissionID = admissionID;
 	}
 	
 	public Patient getPatient() {

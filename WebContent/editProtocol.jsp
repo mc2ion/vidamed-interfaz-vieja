@@ -104,8 +104,9 @@
 						<%}%>
 						</select> <br><br>
 			        </fieldset>
-			        <p>
+			        <p style="text-align: center;">
 			            <input id="sbmtButton" name="sbmtButton" type="button" class="button next" value="Continuar" />
+			            <input type="button" style="margin-left:20px;" class="button" value="Regresar" onClick="javascript:history.back();" />
 			        </p>
 			        </form>
 				</div>

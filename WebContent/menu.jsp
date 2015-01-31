@@ -85,8 +85,6 @@
 			         <li class='first'><a href='ListBillingsHServlet'><span>Honorarios Médicos</span></a></li>
 			         <% } if (perm2){ %>
 			         <li><a href='ListBillingsRPServlet'><span>Relación de Pago</span></a></li>
-			         <% } if (perm3){ %>
-			         <li><a href='ListBillingsNServlet'><span>Generar Nómina</span></a></li>
 			         <% } if (perm4){ %>
 			         <li class='last'><a href='ListBillingsPPServlet'><span>Pronto Pago</span></a></li>
 			         <% } %>

@@ -119,13 +119,13 @@
 										<td><%= p.getCreditNoteID() %></td>
 										<td><%= pName %></td>
 										<td><%= prName %></td>
-										<td>Bs. <%= p.getTotal() %></td>
+										<td>Bs. <%=(p.getTotalWithDiscount() != null) ? p.getTotalWithDiscount() : p.getTotal() %></td>
 										<td><%= cName %>/ <%= cNumber %></td>
 										<td>
-											<a href="EditCreditNoteEstimationServlet" style="color: transparent" >
+											<a href="ShowCreditNoteEstimationServlet?id=<%= p.getAdmissionID() %>&factId=<%= p.getCreditNoteID() %>" style="color: transparent" >
 												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 											</a>
-											<a id="go" rel="leanModal" href="#discount" style="color: #f7941e; font-weight: bold;" onclick="return loadVars(<%= p.getEstimationID() %>,'');" >
+											<a id="go" rel="leanModal" href="#discount" style="color: #f7941e; font-weight: bold;" onclick="return loadVars(<%= p.getAdmissionID() %>,'');" >
 												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Aplicar Descuento" />			
 											</a>
 											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
@@ -196,7 +196,7 @@
 							</select>
 							<input type="text" pattern="^[0-9]+(\.[0-9]+)?$" name="amount" size='10' required title="Este campo es numerico y no puede ser dejado en blanco"/>
 						<br>
-						<div class="leftColum"><b>Justicación:</b></div><textarea name="justification" style="width: 138px;" required title="El campo 'Justificación' no puede ser dejado en blanco"></textarea><br>
+						<div class="leftColum"><b>Justicación:</b></div><textarea name="justification" style="width: 148px;" required title="El campo 'Justificación' no puede ser dejado en blanco"></textarea><br>
 					</div>
 					<div id="signup-header">
 						<a class="close_x" id="close_x_aux"  href="#"></a>

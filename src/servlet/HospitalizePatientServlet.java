@@ -75,7 +75,7 @@ public class HospitalizePatientServlet extends HttpServlet {
 					ArrayList<Estimation> p = (ArrayList<Estimation>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPatientEstimations(Long.valueOf(a.getPatientID())));
 					System.out.println("patientID - "+a.getPatientID()+" - txtCedNumber - "+a.getIdentityCard()+" - txtName - "+a.getFirstName()+" - txtLastName - "+a.getLastName());
 					request.setAttribute("estimations", p);
-					request.setAttribute("patientID", a.getPatientID());
+					request.setAttribute("patientID", String.valueOf(a.getPatientID()));
 					request.setAttribute("txtCedNumber", a.getIdentityCard());
 					request.setAttribute("txtName", a.getFirstName());
 					request.setAttribute("txtLastName", a.getLastName());
