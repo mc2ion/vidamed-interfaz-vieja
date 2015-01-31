@@ -115,7 +115,7 @@
 										<td><%= pName %></td>
 										<td><%= eName %></td>
 										<td><%= rName %></td>
-										<td><%= cn.getTotal() %></td>
+										<td><%= (cn.getTotalWithDiscount() != null) ? cn.getTotalWithDiscount() : cn.getTotal() %></td>
 										<td>
 											<a href="PrintInvoiceServlet?id=<%= cn.getAdmissionID() %>&factId=<%= cn.getCreditNoteID() %>&f=cn" style="color: transparent" >
 												<img alt="logo" src="./images/print.png"  height="16" width="16" title="Imprimir"/>

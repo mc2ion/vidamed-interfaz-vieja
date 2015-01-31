@@ -217,7 +217,7 @@ session.removeAttribute("info");
 				</tr>
 				<%
 					double t = (e.getEstimation().getTotalWithDiscount()==null) ? Estimation.format.parse(e.getTotal()).doubleValue() : 
-						Estimation.format.parse(e.getTotal()).doubleValue() - Estimation.format.parse(e.getEstimation().getTotalWithDiscount()).doubleValue();
+						Estimation.format.parse(e.getEstimation().getTotal()).doubleValue() + (Estimation.format.parse(e.getTotal()).doubleValue() - Estimation.format.parse(e.getEstimation().getTotalWithDiscount()).doubleValue());
 					double d = ((e.getTotalWithDiscount()==null) ? 0 : Estimation.format.parse(e.getTotal()).doubleValue() - 
 							Estimation.format.parse(e.getTotalWithDiscount()).doubleValue()) + ((e.getEstimation().getTotalWithDiscount()==null) ? 0 : 
 							Estimation.format.parse(e.getEstimation().getTotal()).doubleValue() - Estimation.format.parse(e.getEstimation().getTotalWithDiscount()).doubleValue());
