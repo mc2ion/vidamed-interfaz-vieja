@@ -216,10 +216,13 @@ session.removeAttribute("info");
 					<td style="width:20%;text-align:right;"><%= Estimation.format.format(subtotal) %></td>
 				</tr>
 				<%
-					double d = (e.getTotalWithDiscount()==null) ? 0 : Estimation.format.parse(e.getTotal()).doubleValue() - 
-							Estimation.format.parse(e.getTotalWithDiscount()).doubleValue();
+					double t = (e.getEstimation().getTotalWithDiscount()==null) ? Estimation.format.parse(e.getTotal()).doubleValue() : 
+						Estimation.format.parse(e.getTotal()).doubleValue() - Estimation.format.parse(e.getEstimation().getTotalWithDiscount()).doubleValue();
+					double d = ((e.getTotalWithDiscount()==null) ? 0 : Estimation.format.parse(e.getTotal()).doubleValue() - 
+							Estimation.format.parse(e.getTotalWithDiscount()).doubleValue()) + ((e.getEstimation().getTotalWithDiscount()==null) ? 0 : 
+							Estimation.format.parse(e.getEstimation().getTotal()).doubleValue() - Estimation.format.parse(e.getEstimation().getTotalWithDiscount()).doubleValue());
 					/*double t = (d == 0) ? Estimation.format.parse(e.getTotal()).doubleValue() : Estimation.format.parse(e.getTotal()).doubleValue() + d;*/
-					double t = Estimation.format.parse(e.getTotal()).doubleValue();
+					/*double t = Estimation.format.parse(e.getTotal()).doubleValue();*/
 					double wd = (e.getTotalWithDiscount() == null) ? Estimation.format.parse(e.getTotal()).doubleValue() :Estimation.format.parse(e.getTotalWithDiscount()).doubleValue();
 					double r = wd - Estimation.format.parse(e.getTotalPaid()).doubleValue();
 				%>
