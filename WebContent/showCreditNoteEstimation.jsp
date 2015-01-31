@@ -257,8 +257,10 @@ session.removeAttribute("info");
 							</a>
 				</div>	
 				<div id="botonV" style="display:inline-block;">
-							<input type="button" class="button" value="Regresar"  onClick="javascript:history.back();" style="margin-left:40%;" />		
-				</div>	
+				<form action="./ListCreditNotesReviewServlet">
+							<input type="submit" class="button" value="Regresar" style="margin-left:40%;" />		
+				</form></div>	
+				
 			</div>
 		<div class="push"></div>
         </div>
