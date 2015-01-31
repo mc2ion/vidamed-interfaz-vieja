@@ -12,6 +12,8 @@ public class PendingCreditNotesReview {
 	private String contactName;
 	private String contactNumber;
 	private Long admissionID;
+	private String totalWithDiscout;
+	private String totalPaid;
 	
 	public Long getCreditNoteID() {
 		return creditNoteID;
@@ -85,4 +87,19 @@ public class PendingCreditNotesReview {
 		this.contactNumber = contactNumber;
 	}
 
+	public void setTotalWithDiscount(String totalWithDiscout) {
+		this.totalWithDiscout = totalWithDiscout;
+		
+	}
+	public String getTotalWithDiscount() {
+		return totalWithDiscout;
+	}
+
+	public void setTotalPaid(String totalPaid) {
+		this.totalPaid = totalPaid;
+		
+	}
+	public String getTotalPaid() {
+		return totalPaid;
+	}
 }

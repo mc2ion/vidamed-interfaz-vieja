@@ -1,8 +1,14 @@
 package domain;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 
 public class Admission {
 	
+	public static Locale spanish = new Locale("es","ES");
+	public static NumberFormat format = NumberFormat.getNumberInstance(spanish);
+
 	private Long admissionID;
 	private Long estimationID;
 	private Long patientID;
@@ -27,6 +33,7 @@ public class Admission {
 	private String totalPaid;
 	private Specialist spec;
 	private Estimation estimation;
+	private String totalWithDiscount;
 	
 	public Long getAdmissionID() {
 		return admissionID;
@@ -228,5 +235,18 @@ public class Admission {
 	public Estimation getEstimation() {
 		return estimation;
 	}
+	
+	public String getTotalWithDiscount() {
+		return totalWithDiscount;
+	}
+	
+	public void setTotalWithDiscount(String str, Double totalWithDiscount) {
+		if(str!=null){
+			this.totalWithDiscount = format.format(totalWithDiscount);
+		} else {
+			this.totalWithDiscount = null;
+		}
+	}
+
 		
 }

@@ -119,13 +119,13 @@
 										<td><%= p.getCreditNoteID() %></td>
 										<td><%= pName %></td>
 										<td><%= prName %></td>
-										<td>Bs. <%= p.getTotal() %></td>
+										<td>Bs. <%=(p.getTotalWithDiscount() != null) ? p.getTotalWithDiscount() : p.getTotal() %></td>
 										<td><%= cName %>/ <%= cNumber %></td>
 										<td>
 											<a href="ShowCreditNoteEstimationServlet?id=<%= p.getAdmissionID() %>&factId=<%= p.getCreditNoteID() %>" style="color: transparent" >
 												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 											</a>
-											<a id="go" rel="leanModal" href="#discount" style="color: #f7941e; font-weight: bold;" onclick="return loadVars(<%= p.getEstimationID() %>,'');" >
+											<a id="go" rel="leanModal" href="#discount" style="color: #f7941e; font-weight: bold;" onclick="return loadVars(<%= p.getAdmissionID() %>,'');" >
 												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Aplicar Descuento" />			
 											</a>
 											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 

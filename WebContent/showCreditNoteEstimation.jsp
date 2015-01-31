@@ -43,6 +43,12 @@ if (dateE != ""){
 @SuppressWarnings("unchecked")
 ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute("bm");
 
+String result = (String) session.getAttribute("info");
+String text = "";
+if (result != null)
+	text = result;
+session.removeAttribute("info");
+
 %>
 <!DOCTYPE HTML>
 <html>
@@ -121,7 +127,8 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
         	</div>        
 			 <jsp:include page="./menu.jsp" />
         	<div id="content" style="position:absolute;">	
-	        	<h2>Ver Prefactura por Revisar:</h2>
+	        	<h2>Ver Prefactura por Revisar:</h2><br/>
+	        	<div class="info-text"><%= text %></div>
 				<div style="min-height:300px;">
 				<div class="wrapper">
 				<div id="title" style="font-size:14px; font-weight: bold;text-align:center;"> PREFACTURA <%= Estimation.leftPadStringWithChar(est, 9, '0') %> </div>
@@ -209,10 +216,12 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 					<td style="width:20%;text-align:right;"><%= Estimation.format.format(subtotal) %></td>
 				</tr>
 				<%
-					double d = (e.getEstimation().getTotalWithDiscount()==null) ? 0 : Estimation.format.parse(e.getEstimation().getTotal()).doubleValue() - 
-							Estimation.format.parse(e.getEstimation().getTotalWithDiscount()).doubleValue();
-					double t = (d == 0) ? Estimation.format.parse(e.getTotal()).doubleValue() : Estimation.format.parse(e.getTotal()).doubleValue() + d;
-					double r = Estimation.format.parse(e.getTotal()).doubleValue() - Estimation.format.parse(e.getTotalPaid()).doubleValue();
+					double d = (e.getTotalWithDiscount()==null) ? 0 : Estimation.format.parse(e.getTotal()).doubleValue() - 
+							Estimation.format.parse(e.getTotalWithDiscount()).doubleValue();
+					/*double t = (d == 0) ? Estimation.format.parse(e.getTotal()).doubleValue() : Estimation.format.parse(e.getTotal()).doubleValue() + d;*/
+					double t = Estimation.format.parse(e.getTotal()).doubleValue();
+					double wd = (e.getTotalWithDiscount() == null) ? Estimation.format.parse(e.getTotal()).doubleValue() :Estimation.format.parse(e.getTotalWithDiscount()).doubleValue();
+					double r = wd - Estimation.format.parse(e.getTotalPaid()).doubleValue();
 				%>
 				<tr id="totalTr2">
 					<td>*** TOTAL ***</td>
@@ -228,7 +237,7 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 				</tr>
 				<tr id="totalTr">
 					<td>*** TOTAL GENERAL ***</td>
-					<td style="width:20%;text-align:right;"><%= e.getTotal() %></td>
+					<td style="width:20%;text-align:right;"><%= Estimation.format.format(wd)  %></td>
 				</tr>
 				<tr id="totalTr2">
 					<td>*** TOTAL PAGADO ***</td>
@@ -243,7 +252,7 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 		<br>
 		<div id="botonera">
 				<div id="botonP" style="display:inline-block;">
-							<a id="go" rel="leanModal" href="#discount" style="color: #f7941e; font-weight: bold;" onclick="return loadVars(<%= e.getEstimationID() %>,'');" class="button">
+							<a id="go" rel="leanModal" href="#discount" style="color: #f7941e; font-weight: bold;" onclick="return loadVars(<%= e.getAdmissionID() %>,'');" class="button">
 												Aplicar Descuento			
 							</a>
 				</div>	
@@ -262,6 +271,9 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 				Por favor, indique la siguiente información.
 				<form action="ApplyDiscountServlet" method="post"  onsubmit="return setV(this)">
 				<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+				<input type="hidden" class="good_input" name="function"  value="showCreditNoteReview"/>
+				<input type="hidden" class="good_input" name="fact"  value="<%= request.getParameter("factId")%>"/>
+				
 					<div class="text">
 						<div class="leftColum"><b>Descuento:</b></div>
 							<select name="type">

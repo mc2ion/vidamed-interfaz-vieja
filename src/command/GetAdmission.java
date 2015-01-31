@@ -80,6 +80,7 @@ public class GetAdmission implements DatabaseCommand {
 				est.setTotal(rs.getString(23), rs.getDouble(23));
 				est.setTotalWithDiscount(rs.getString(24), rs.getDouble(24));
 				u.setEstimation(est);
+				u.setTotalWithDiscount(rs.getString(25), rs.getDouble(25));
 			}
 		}
 		finally {
