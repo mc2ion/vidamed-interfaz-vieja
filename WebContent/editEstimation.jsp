@@ -69,6 +69,34 @@
 		    });
 		});
 		</script>
+		<script>
+			$(function() {    
+            	$('#sbmtButton').click(function(event) { 
+            		if($('#unitId').val() == '-') {
+            			alert("Debe seleccionar la Unidad del Especialista.");
+            			return;
+            		}
+            		if($('#state').val() == '-' || $('#state').val() == '') {
+            			alert("Debe seleccionar un Médico Tratante.");
+            			return;
+            		}
+            		$('#sbmtButton3').val('Guardar y Salir');
+            		$('#form1').submit();
+            	});
+            	$('#sbmtButton2').click(function(event) { 
+            		if($('#unitId').val() == '-') {
+            			alert("Debe seleccionar la Unidad del Especialista.");
+            			return;
+            		}
+            		if($('#state').val() == '-' || $('#state').val() == '') {
+            			alert("Debe seleccionar un Médico Tratante.");
+            			return;
+            		}
+            		$('#sbmtButton3').val('Editar Protocolos');
+            		$('#form1').submit();
+            	});
+			});
+        </script>
 	</head>
 	<body>
 		<div id="container">
@@ -89,10 +117,10 @@
 	        	<h2>Editar Presupuesto:</h2>
 				<br>
 				<div>
-					<form action="EditEstimationServlet" method="post">
+					<form id="form1" name="form1" action="EditEstimationServlet" method="post">
 					<input type="hidden" name="patientid" value="<%= est.getPatientId() %>" />
 					<input type="hidden" name="estimationid" value="<%= request.getParameter("id") %>" />
-					
+					<input type="hidden" id="sbmtButton3" name="sbmtButton" value="Guardar y Salir" />
 					<h3 style='border-bottom: 1px solid; padding-bottom:5px;'>Información Básica</h3>
 					<div>
   						<br>
@@ -154,10 +182,10 @@
 					</div>
 					<div id="botonera" style="margin-top: -20px; width:400px;">
 						<div id="botonP" style="display: inline; margin-right: 10px;">
-									<input type="submit"  class="button"  name="sbmtButton" value="Guardar y Salir" />
+									<input type="button"  class="button" id="sbmtButton" name="sbmtButton" value="Guardar y Salir" />
 						</div>
 						<div id="botonP" style="display: inline; margin-right: 10px;">
-									<input type="submit"  class="button"  name="sbmtButton" value="Editar Protocolos" />
+									<input type="button"  class="button" id="sbmtButton2" name="sbmtButton2" value="Editar Protocolos" />
 						</div>	
 						<div id="botonV" style="display: inline;">
 								<a href="./ListEstimationsServlet" class="button">Regresar</a>

@@ -67,6 +67,13 @@
 		
 			// AJAX
         $('#submit').click(function(event) {  
+        	if($('#cedNumber').val() == '') {
+        		if($('#estimation').val() == '') {
+        			alert("Debes colocar uno de los datos solicitados, Cédula o Número de Presupuesto.");
+        			return;
+        		}
+    		}
+    		
 			ShowProgressAnimation();
 			setTimeout( function(){ 
 				var txtCedIdNum	= $('#cedNumber').val();

@@ -112,6 +112,17 @@
 			});
 		});
 		</script>
+		<script>
+			$(function() {    
+            	$('#sbmtButton').click(function(event) { 
+            		if($('#protocoloID').val() == '-') {
+            			alert("Debe seleccionar un Protocolo.");
+            			return;
+            		}
+            		$('#form1').submit();
+            	});
+			});
+        </script>
 	</head>
 	<body>
 		<div id="container">
@@ -164,7 +175,7 @@
 				<% } %>
 				<div class="addp">
 				<div>
-					<form action="CreateEstimationProtocolServlet" method="get">
+					<form id="form1" name="form1" action="CreateEstimationProtocolServlet" method="get">
 					<input type="hidden" name="estimationID" value="<%= estimationID %>"/>
 					<input type="hidden" name="function" value="<%= function %>"/>
 								
@@ -173,7 +184,7 @@
 					<div>
   						<fieldset>
 						  	<label> Protocolo: </label> 
-							<select name="protocoloID">	
+							<select name="protocoloID" id="protocoloID">	
 								<option value="-"> Seleccionar </option>
 								<% for (int i = 0; i < pt.size(); i++){ 
 									boolean found = false; 
@@ -197,7 +208,7 @@
 					</div>
 					<div id="botonera">
 						<div id="botonP" style="display: inline; margin-right: 30px;">
-									<input type="submit"  class="button"  name="sbmtButton" value="Agregar" />
+							<input type="button" class="button" id="sbmtButton" name="sbmtButton" value="Agregar" />
 						</div>	
 					</div>
 				</form>

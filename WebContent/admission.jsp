@@ -181,8 +181,8 @@
 				<span>Seleccione el nuevo status</span> <br><br>
 				<form action="EditAdmissionStatusServlet" method="post" onsubmit="return setV(this)" id="gastos" style="text-align: center">
 					<input type="hidden" id="userID" class="good_input" name="userID"  value=""/>
-					<select name="status">
-					<option value="-">Seleccionar</option>
+					<select name="status" required>
+					<option value="">Seleccionar</option>
 					<% for (int i = 0; i < admissionStatus.size(); i++){
 						AdmissionStatus status = admissionStatus.get(i);
 						%>
@@ -193,7 +193,7 @@
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
 				<div class="btn-fld">
-					<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
+					<input type="submit"  class="buttonPopUpDelete" id="sbmtEdit" name="sbmtButton" value="Aceptar"  />
 				</div>
 		 		</form>
 			</div>

@@ -100,6 +100,26 @@
 		}
 			
 		</script>
+		<script>
+		$(function() {    
+    		$('#sbmtButton').click(function(event) {
+    			var error = 0;
+				$('#form1 select').each(function(index){  
+		        	var input = $(this);
+		        	if (input.val() == '-') {
+		        		if (error == 0) {
+		        			error = 1;
+			        		alert("Debes seleccionar todas las unidades de especialistas y los médicos tratantes para cada una de las areas.");
+			        		return;
+		        		};			        		
+		       		};
+		    	});
+				if (error == 0) {
+					$('#form1').submit();
+				};					
+    		});
+		});
+		</script>
 	</head>
 	<body>
 		<div id="container">
@@ -117,7 +137,7 @@
         	</div>           
 			<jsp:include page="./menu.jsp" />
         	<div id="content" style="position:absolute;">	
-				<form action="EditEstimationProtocolServlet" method="post">
+				<form id="form1" name="form1" action="EditEstimationProtocolServlet" method="post">
 				<input type="hidden" name="estimationid" value="<%= estimationID %>"/>
 				<input type="hidden" name="protocolid" value="<%= protocolID %>"/>
 				
@@ -159,20 +179,20 @@
 										<div class="spID" style="display:none"><%= specialistID%></div>
 										<p class="sum-div">
 											<label for="pname" class="w200">Médico Tratante:</label>
-											<select name="specialist<%= p.getProtocolScaleID() %>" class="state">
+											<select name="specialist<%= p.getProtocolScaleID() %>" id="state" class="state">
 												<option value="-">Seleccionar</option>
 											</select>
 										</p>  <br/> 
 										<% String cl = "" ; if (p.getProtocolScaleID() != 29) cl = "hidden"; %>
 										<label class="w200">Honorarios: Bs. </label>
-										<input class="<%= cl%> honorarios" type="text" name="hon<%=p.getProtocolScaleID() %>" value="<%= p.getTotal() %>" />
+										<input class="<%= cl%> honorarios" type="text" name="hon<%=p.getProtocolScaleID() %>" id="hon<%=p.getProtocolScaleID() %>" value="<%= p.getTotal() %>" />
 										<div style="display:none" class="perc"><%= p.getCost() %></div>
 									</td>
 									<td><input type="hidden" name="ids" value="<%= p.getProtocolScaleID() %>" /></td>
 									<% }else{ %>
 										<td class='lft'  style="vertical-align:top;"><%= p.getName()%></td>
 										<% if (p.getTotal() == null && p.getGeneratedCostTypeID() == 10) { %>
-											<td>Bs. <input type="text" name="variable<%=p.getProtocolScaleID() %>"/>
+											<td>Bs. <input type="text" name="variable<%=p.getProtocolScaleID() %>" id="variable<%=p.getProtocolScaleID() %>" />
 											<input type="hidden" name="variableids" value="<%= p.getProtocolScaleID() %>"/></td>									
 										<% } %>
 										<td><% if (p.getTotal() != null) { %> Bs. <%= p.getTotal()%><% } %></td>
@@ -186,7 +206,7 @@
 						</table>
 					<% } %>
 			    	<p style="width:100%; text-align:center; margin-top:20px;">
-			            <input type="submit" class="button" value="Editar Presupuesto"/>
+			            <input type="button" id="sbmtButton" name="sbmtButton" class="button" value="Editar Presupuesto"/>
 			        </p>
 			</form>
        	</div>

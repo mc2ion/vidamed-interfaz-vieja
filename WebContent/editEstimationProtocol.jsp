@@ -115,6 +115,17 @@
 			});
 		});
 		</script>
+		<script>
+			$(function() {    
+            	$('#sbmtButton').click(function(event) { 
+            		if($('#protocoloID').val() == '-') {
+            			alert("Debe seleccionar un Protocolo.");
+            			return;
+            		}
+            		$('#form1').submit();
+            	});
+			});
+        </script>
 	</head>
 	<body>
 		<div id="container">
@@ -186,7 +197,7 @@
 						<div style="clear:both"></div>
 					<% } %>
 					<div class="addp" style="display:<%= style%>;">
-					<form action="EditEstimationProtocolAddServlet" method="get">
+					<form id="form1" name="form1" action="EditEstimationProtocolAddServlet" method="get">
 					<input type="hidden" name="estimationID" value="<%= estimationID %>"/>
 					<h3 style='border-bottom: 1px solid; padding-bottom:5px;'>Agregar un nuevo protocolo</h3><br/>
 					<p> Seleccione el protocolo asociado al presupuesto:</p><br/>
@@ -216,7 +227,7 @@
 					</div>
 					<div id="botonera">
 						<div id="botonP" style="display: inline; margin-right: 30px;">
-									<input type="submit"  class="button"  name="sbmtButton" value="Agregar" />
+									<input type="button" class="button" id="sbmtButton" name="sbmtButton" value="Agregar" />
 						</div>	
 					</div>
 				</form>

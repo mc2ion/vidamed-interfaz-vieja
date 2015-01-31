@@ -105,6 +105,21 @@
 			//$("#tabs").tabs("select", window.location.hash);
 		});
 	</script>
+	<script>
+			$(function() {    
+            	$('#sbmtButton').click(function(event) { 
+            		if($('#bedLocationId').val() == '-') {
+            			alert("Debe seleccionar una Ubicación.");
+            			return;
+            		}
+            		if($('#bed').val() == '-') {
+            			alert("Debe seleccionar una cama.");
+            			return;
+            		}
+            		$('#form1').submit();
+            	});
+			});
+        </script>
 	</head>
 	<body>
 		<div id="container">
@@ -130,7 +145,7 @@
 					    <li><a href="#tabs-2">Protocolos</a></li>
 			  		</ul>
   					<div id="tabs-1">
-  						<form action='EditEmergencyServlet' method="post">
+  						<form id="form1" name="form1" action='EditEmergencyServlet' method="post">
   						<input type="hidden" name="admissionId" value="<%= emergency.getId() %>"/> 
 					   <fieldset>
 					    <br>
@@ -159,7 +174,7 @@
 							</fieldset>
 					    	<div id="botonera">
 								<div id="botonP" style="display: inline; margin-right: 30px;">
-											<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
+											<input type="button" class="button" id="sbmtButton" name="sbmtButton" value="Modificar" />
 								</div>	
 								<div id="botonV" style="display: inline;">
 										<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		

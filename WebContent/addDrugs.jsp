@@ -34,6 +34,24 @@
 				
 			<% } %>
 		</script>
+		<script>
+			$(function() {    
+            	$('#sbmtButton').click(function(event) { 
+            		var var1 = $('#countrows').val();
+            		for (i = 0; i < var1; i++) {
+            			if($('#supply' + (i+1)).val() == '-') {
+            				alert("Debe seleccionar un Nombre para cada una de las filas.");
+            				return;
+            			}
+            			if($('#amount' + (i+1)).val() == '') {
+            				alert("Debe colocar una cantidad para cada una de las filas. El campo cantidad debe ser numérico. Ejemplo 3.00");
+            				return;
+            			}
+            		}
+            		$('#form1').submit();
+            	});
+			});
+        </script>
 	</head>
 	<body>
 		<div id="container">
@@ -46,7 +64,7 @@
 		    	<div class="menuitemSalir"><a href="LogoutServlet"><%= name %> (Salir)</a></div>	
         	</div>        
 			 <jsp:include page="./menu.jsp" />
-			<form action="AddDrugsServlet" method="post">
+			<form id="form1" name="form1" action="AddDrugsServlet" method="post">
 			<input type="hidden" name="protocolID" value='<%= (String) request.getParameter("protocolID") %>' />
 			<input type="hidden" name="scaleID" value='<%= (String) request.getParameter("id") %>' />
 			<input type="hidden" name="count" id='countrows' value='0' />
@@ -70,7 +88,7 @@
 				</table><br>
 				 <div id="botonera" style="margin-top: -3px;">
 						<div id="botonP" style="display: inline; margin-right: 30px;">
-									<input type="submit"  class="button"  name="sbmtButton" value="Aceptar" />
+									<input type="button" class="button" id="sbmtButton" name="sbmtButton" value="Aceptar" />
 						</div>	
 						<div id="botonV" style="display: inline;">
 								<input type="button" class="button" value="Cancelar" onClick="javascript:history.back();" />		

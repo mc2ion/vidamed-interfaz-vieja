@@ -135,6 +135,29 @@
 			
 		}
 	</script>
+	<script>
+			$(function() {    
+            	$('#sbmtButton').click(function(event) { 
+            		if($('#unitId').val() == '-') {
+            			alert("Debe seleccionar la unidad del Especialista.");
+            			return;
+            		}
+            		if($('#state').val() == '-' || $('#state').val() == '') {
+            			alert("Debe seleccionar un Médico Tratante.");
+            			return;
+            		}
+            		if($('#bedLocationId').val() == '-') {
+            			alert("Debe seleccionar una Ubicación.");
+            			return;
+            		}
+            		if($('#bed').val() == '-') {
+            			alert("Debe seleccionar una Cama.");
+            			return;
+            		}
+            		$('#form1').submit();
+            	});
+			});
+        </script>
 	</head>
 	<body>
 		<div id="container">
@@ -160,7 +183,7 @@
 					    <li><a href="#tabs-2">Protocolos</a></li>
 					</ul>
   					<div id="tabs-1">
-  						<form action="EditHospitalizationServlet" method="post">
+  						<form id="form1" name="form1" action="EditHospitalizationServlet" method="post">
   						<input type="hidden" name="admissionId" value="<%= h.getId() %>"/> 
 					  
 							<fieldset>
@@ -207,7 +230,7 @@
 						</fieldset>
 						  <div id="botonera" style="margin-top: -3px;">
 								<div id="botonP" style="display: inline; margin-right: 30px;">
-											<input type="submit"  class="button"  name="sbmtButton" value="Modificar" />
+											<input type="button"  class="button" id="sbmtButton" name="sbmtButton" value="Modificar" />
 								</div>	
 								<div id="botonV" style="display: inline;">
 										<a href="./ListHospitalizationsServlet"  class="button" >Regresar</a>

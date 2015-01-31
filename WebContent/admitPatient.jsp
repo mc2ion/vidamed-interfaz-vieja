@@ -47,11 +47,6 @@
 				
 		$(function() {
 			$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x, .buttonPopUpClose " });	
-			
-			$("#subAdmit").click(function() {
-				$("#admitP").hide();
-				$("#message").show();
-			});
 		});
 		
 		function loadVars(var1, var2) {
@@ -101,6 +96,27 @@
 			
 		}
 	</script>
+	<script>
+			$(function() {    
+            	$('#subAdmit').click(function(event) { 
+            		if($('#reasonAdmission').val() == '0') {
+            			alert("Debe seleccionar el Motivo de la Admisión.");
+            			return;
+            		}
+            		if($('#bedLocationId').val() == '-') {
+            			alert("Debe seleccionar una Ubicación.");
+            			return;
+            		}
+            		if($('#bed').val() == '-') {
+            			alert("Debe seleccionar una Cama.");
+            			return;
+            		}
+            		$("#admitP").hide();
+    				$("#message").show();
+            		$('#form1').submit();
+            	});
+			});
+        </script>
 	</head>
 	<body>
 		<div id="container">
@@ -124,7 +140,7 @@
         		<div id="admitP">
 	        	<h2>Admitir Paciente:</h2>
 				<br>
-						 <form action="AdmitPatientServlet" method="post">
+						 <form id="form1" name="form1" action="AdmitPatientServlet" method="post">
 						 <input type="hidden" name="estimationId" value="<%= estimationId %>" />
 						 	<fieldset>
 							   <b>Cédula:</b> <span style="margin-left: 155px;"><%= pat.getIdentityCard() %></span><br/><br/>
@@ -168,7 +184,7 @@
 								<br><br>
 							</fieldset>
 							<div id="botonV" style="position:relative;">
-									<input type="submit"  class="button" id="subAdmit"  name="sbmtButton" value="Aceptar" style="margin-left:30%; margin-top: 5px;"/>
+									<input type="button"  class="button" id="subAdmit"  name="sbmtButton" value="Aceptar" style="margin-left:30%; margin-top: 5px;"/>
 									<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" style="margin-left:20px;" />		
 							</div>	
 				</form>

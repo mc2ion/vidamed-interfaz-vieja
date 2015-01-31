@@ -5,6 +5,7 @@
 <%@page import="domain.ProtocolScale"%>
 <%
 	User user = (User) session.getAttribute("user");
+	int valoresFaltantes = 0;
 	String name = "";
 	if (user != null)
 		name = user.getFirstName() ;
@@ -27,6 +28,15 @@ String id = (String) request.getParameter("id");
 	    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
 		<script type="text/javascript" src="./js/functions.js"></script>
+		<script type="text/javascript">
+    		function continueFunction (var1) {
+    			if (var1 > 0) {
+    				alert("Debe completar todos los valores faltantes del protocolo");
+    				return false;
+    			}
+    			return true;
+    		}
+		</script>
 	</head>
 	<body>
 		<div id="container">
@@ -59,6 +69,7 @@ String id = (String) request.getParameter("id");
 								<td class='lft'><%= p.getName()%></td>
 								<% if (p.getGeneratedCostTypeID() == 3){
 									if (p.getTotal() == null){
+										valoresFaltantes++;
 										%>
 											<td>---</td>
 											<td>
@@ -86,6 +97,7 @@ String id = (String) request.getParameter("id");
 									<td class='lft'><%= p.getName()%></td>
 									<% if (p.getGeneratedCostTypeID() == 3){
 									if (p.getTotal() == null){
+										valoresFaltantes++;
 								%>
 									<td>---</td>
 									<td>
@@ -118,8 +130,8 @@ String id = (String) request.getParameter("id");
 						</table>
 					<% } %>
 			    	<p style="width:100%; text-align:center; margin-top:20px;">
-			            <a href="./ListProtocolsServlet" class="button">Aceptar</a> ó
-			            <a href="./AddServiceProtocolServlet?id=<%= id %>"  class="button" style="margin-left: 5px;">Agregar Servicios Adicionales</a>
+			            <a href="./ListProtocolsServlet" class="button" onclick="return continueFunction(<%= valoresFaltantes %>);">Aceptar</a> ó
+			            <a href="./AddServiceProtocolServlet?id=<%= id %>" class="button" style="margin-left: 5px;" onclick="return continueFunction(<%= valoresFaltantes %>);">Agregar Servicios Adicionales</a>
 			        </p>
 				</div>
 			</div>

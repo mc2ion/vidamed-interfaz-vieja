@@ -211,9 +211,9 @@
 							<option value="P">%</option>
 							<option value="Monto">Bs.</option>
 						</select>
-						<input type="text" size='10' name="amount"/>
+						<input type="text" size='10' name="amount" required />
 					<br>
-					<div class="leftColum"><b>Justicación:</b></div><textarea style="width: 138px;" name="justify"></textarea><br>
+					<div class="leftColum"><b>Justicación:</b></div><textarea style="width: 138px;" name="justify" required></textarea><br>
 					</div>
 					<div id="signup-header">
 					<a class="close_x" id="close_x_aux"  href="#"></a>

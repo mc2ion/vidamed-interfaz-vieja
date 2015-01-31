@@ -95,6 +95,29 @@
 		    });
 		});
 		</script>
+		<script>
+			$(function() {    
+            	$('#sbmtButton').click(function(event) { 
+            		if($('#unitId').val() == '-') {
+            			alert("Debe seleccionar la Unidad del Especialista.");
+            			return;
+            		}
+            		if($('#state').val() == '-' || $('#state').val() == '') {
+            			alert("Debe seleccionar un Médico Tratante.");
+            			return;
+            		}
+            		if($('#clinicType').val() == '-') {
+            			alert("Debe seleccionar un Tipo de Clínica.");
+            			return;
+            		}
+            		if($('#paymentId').val() == '-') {
+            			alert("Debe seleccionar un Responsable de Pago.");
+            			return;
+            		}
+            		$('#form1').submit();
+            	});
+			});
+        </script>
 	</head>
 	<body>
 		<div id="container">
@@ -115,7 +138,7 @@
 	        	<h2>Crear Presupuesto:</h2>
 				<br>
 				<div>
-					<form action="CreateEstimationServlet" method="post">
+					<form id="form1" name="form1" action="CreateEstimationServlet" method="post">
 					<input type="hidden" name="patientid" value="<%= patientID %>"/>
 					<input type="hidden" name="function" value="<%= function %>"/>
 					<h3 style='border-bottom: 1px solid; padding-bottom:5px;'>Información Básica</h3>
@@ -149,7 +172,7 @@
 							<% } %>
 						</select><br/><br/>
 						<label>Responsable de Pago: </label>
-						<select name="paymentId">
+						<select name="paymentId" id="paymentId">
 						<option value="-">Seleccionar</option>
 						<% for (int i = 0; i < resp.size(); i++){
 							PaymentResponsible p = resp.get(i);
@@ -179,10 +202,10 @@
 					</div>
 					<div id="botonera" style="margin-top: -20px;">
 						<div id="botonP" style="display: inline; margin-right: 30px;">
-									<input type="submit"  class="button"  name="sbmtButton" value="Crear" />
+							<input type="button" class="button" id="sbmtButton" name="sbmtButton" value="Crear" />
 						</div>	
 						<div id="botonV" style="display: inline;">
-								<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
+							<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
 						</div>	
 					</div>
 				</form>

@@ -70,6 +70,10 @@
 		
 			// AJAX
 	        $('#submit').click(function(event) {  
+	        	if($('#txtCedIdNum').val() == '') {
+    				alert("Debe colocar la cedula del paciente");
+    				return;
+    			}
 	        	ShowProgressAnimation();
 				setTimeout( function(){ 
 					var txtCedIdNum	= $('#txtCedIdNum').val();

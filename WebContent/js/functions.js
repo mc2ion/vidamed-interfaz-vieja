@@ -22,7 +22,8 @@ function addRowForChild(tableId, colArray, idArray) {
 	//to insert the second column (for textbox to accept name)
 	var column2 = row_in_table.insertCell(0);
 	var element2 = document.createElement("select");
-	element2.setAttribute("name", "supply"+iaux); //to set name of the text box
+	element2.setAttribute("name", "supply"+iaux);
+	element2.setAttribute("id", "supply"+iaux);//to set name of the text box
 	element2.style.width="100%";
 	var option = document.createElement("option");
 	element2.options[0] = new Option("Seleccionar", "-");
@@ -37,6 +38,7 @@ function addRowForChild(tableId, colArray, idArray) {
 	var column3 = row_in_table.insertCell(1);
 	var element3 = document.createElement("input");
 	element3.setAttribute("name", "amount"+iaux);
+	element3.setAttribute("id", "amount"+iaux);
 	element3.setAttribute("size", "4");
 	column3.style.textAlign='center';
 	element3.type = "text";

@@ -36,6 +36,21 @@
 				}
 			});
 		</script>
+		<script>
+			$(function() {    
+            	$('#sbmtButton').click(function(event) { 
+            		if ($('#txtName').val() == '') {
+            			alert("Debe colocar el nombre del protocolo.");
+            			return;
+            		}
+            		if ($('#txtORHours').val() == '') {
+            			alert("Debe colocar la cantidad de horas en quirófano. Las Horas en Quirófano debe ser un valor numérico. Ejemplo: 3.5");
+            			return;
+            		}
+            		$('#form1').submit();
+            	});
+			});
+        </script>
 	</head>
 	<body>
 		<div id="container">
@@ -52,7 +67,7 @@
         	</div>        
 			<jsp:include page="./menu.jsp" />
         	<div id="content" style="position:absolute;">	
-		       	<form id="SignupForm" action="EditProtocolServlet" method="post">
+		       	<form id="form1" name="form1" action="EditProtocolServlet" method="post">
 		       	<input type="hidden" name="protocolID" value="<%= p.getProtocolID() %>" />
 				<input type="hidden" name="type" value="<%= request.getParameter("type") %>" />
 				
@@ -90,7 +105,7 @@
 						</select> <br><br>
 			        </fieldset>
 			        <p>
-			            <input id="SaveAccount" type="submit" class="button next" value="Continuar" />
+			            <input id="sbmtButton" name="sbmtButton" type="button" class="button next" value="Continuar" />
 			        </p>
 			        </form>
 				</div>
