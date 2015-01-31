@@ -278,10 +278,15 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 					<td style="width:20%;text-align:right;"><%= Estimation.format.format(subtotal) %></td>
 				</tr>
 				<%
-					double d = (e.getEstimation().getTotalWithDiscount()==null) ? 0 : Estimation.format.parse(e.getEstimation().getTotal()).doubleValue() - 
-							Estimation.format.parse(e.getEstimation().getTotalWithDiscount()).doubleValue();
-					double t = (d == 0) ? Estimation.format.parse(e.getTotal()).doubleValue() : Estimation.format.parse(e.getTotal()).doubleValue() + d;
-					double r = Estimation.format.parse(e.getTotal()).doubleValue() - Estimation.format.parse(e.getTotalPaid()).doubleValue();
+					double t = (e.getEstimation().getTotalWithDiscount()==null) ? Estimation.format.parse(e.getTotal()).doubleValue() : 
+						Estimation.format.parse(e.getEstimation().getTotal()).doubleValue() + (Estimation.format.parse(e.getTotal()).doubleValue() - Estimation.format.parse(e.getEstimation().getTotalWithDiscount()).doubleValue());
+					double d = ((e.getTotalWithDiscount()==null) ? 0 : Estimation.format.parse(e.getTotal()).doubleValue() - 
+							Estimation.format.parse(e.getTotalWithDiscount()).doubleValue()) + ((e.getEstimation().getTotalWithDiscount()==null) ? 0 : 
+							Estimation.format.parse(e.getEstimation().getTotal()).doubleValue() - Estimation.format.parse(e.getEstimation().getTotalWithDiscount()).doubleValue());
+					/*double t = (d == 0) ? Estimation.format.parse(e.getTotal()).doubleValue() : Estimation.format.parse(e.getTotal()).doubleValue() + d;*/
+					/*double t = Estimation.format.parse(e.getTotal()).doubleValue();*/
+					double wd = (e.getTotalWithDiscount() == null) ? Estimation.format.parse(e.getTotal()).doubleValue() :Estimation.format.parse(e.getTotalWithDiscount()).doubleValue();
+					double r = wd - Estimation.format.parse(e.getTotalPaid()).doubleValue();
 				%>
 				<tr id="totalTr2">
 					<td>*** TOTAL ***</td>
@@ -297,7 +302,7 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 				</tr>
 				<tr id="totalTr">
 					<td>*** TOTAL GENERAL ***</td>
-					<td style="width:20%;text-align:right;"><%= e.getTotal() %></td>
+					<td style="width:20%;text-align:right;"><%= Estimation.format.format(wd)  %></td>
 				</tr>
 				<tr id="totalTr2">
 					<td>*** TOTAL PAGADO ***</td>
