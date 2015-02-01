@@ -89,7 +89,7 @@ function deleteRowChild(tableId, colArray, idArray) {
 				input.setAttribute("value", id);
 				
 				//append to form element that you want .
-				document.getElementById("form").appendChild(input);
+				document.getElementById("form1").appendChild(input);
 			}
 			//deleted.push(id);
 			document.getElementById('countrows').value = count;
