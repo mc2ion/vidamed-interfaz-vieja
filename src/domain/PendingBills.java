@@ -14,7 +14,8 @@ public class PendingBills {
 	private String generationDate;
 	private int wasPaid;
 	private String paymentDate;
-	
+	private String totalWithDiscout;
+	private String totalPaid;
 	
 	
 	public Long getBillID() {
@@ -105,6 +106,20 @@ public class PendingBills {
 		this.paymentDate = paymentDate;
 	}
 	
-	
+	public void setTotalWithDiscount(String totalWithDiscout) {
+		this.totalWithDiscout = totalWithDiscout;
+		
+	}
+	public String getTotalWithDiscount() {
+		return totalWithDiscout;
+	}
+
+	public void setTotalPaid(String totalPaid) {
+		this.totalPaid = totalPaid;
+		
+	}
+	public String getTotalPaid() {
+		return totalPaid;
+	}
 
 }
