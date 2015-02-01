@@ -43,6 +43,10 @@
 		<script>
 		$(document).ready(function() {
 		$('#submit').click(function(event) {  
+			if($('input[name=estimationID]:checked').val() == null || $('input[name=estimationID]:checked').val() == '') {
+    			alert("Debe seleccionar un presupuesto.");
+    			return;
+    		}
 				numPres = $('input[name=estimationID]:checked').val();
 				
 					$.get('SearchPatientServlet', {patientType: "", txtCedId: "" , 

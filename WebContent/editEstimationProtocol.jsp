@@ -204,7 +204,7 @@
 					<div>
   						<fieldset>
 						  	<label> Protocolo: </label> 
-							<select name="protocoloID">	
+							<select id="protocoloID" name="protocoloID">	
 								<option value="-"> Seleccionar </option>
 								<% for (int i = 0; i < pt.size(); i++){ 
 										boolean found = false; 

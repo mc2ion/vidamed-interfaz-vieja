@@ -151,6 +151,10 @@
 		});
 		
 		function getValues() {
+			if($('input[type="radio"]:checked').val() == null || $('input[type="radio"]:checked').val() == '') {
+    			alert("Debe seleccionar un paciente.");
+    			return;
+    		}
 			id = $('input[type="radio"]:checked').val();
 			$.each(obj, function(i, v) {
 				if (v.patientID == id) {

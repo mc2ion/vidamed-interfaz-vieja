@@ -106,7 +106,7 @@
     			var error = 0;
 				$('#form1 select').each(function(index){  
 		        	var input = $(this);
-		        	if (input.val() == '-') {
+		        	if (input.val() == '-' || input.val() == '') {
 		        		if (error == 0) {
 		        			error = 1;
 			        		alert("Debes seleccionar todas las unidades de especialistas y los médicos tratantes para cada una de las areas.");
