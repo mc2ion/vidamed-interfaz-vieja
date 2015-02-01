@@ -73,7 +73,7 @@
 				
 		       		<div class="info-text"><%= msg %></div>
 		        	<fieldset id="field1">
-			            <legend>Informaci&oacute;n B&aacute;sica</legend>
+			            <h3>Informaci&oacute;n B&aacute;sica</h3><br/>
 			            <label for="name">Nombre:</label>
 						<input type="text" name="txtName" id="txtName" maxlength="50" size="5" value="<%= p.getName()%>"/> <br style="clear:both;">
 						<label for="name">Descripci&oacute;n:</label>

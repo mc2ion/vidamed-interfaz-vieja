@@ -68,7 +68,7 @@
 		       	<form id="form1" name="form1" action="CreateProtocolServlet" method="post">
 		       		<div class="info-text"><%= msg %></div>
 		        	<fieldset id="field1">
-			            <legend>Informaci&oacute;n B&aacute;sica</legend>
+			            <h3>Informaci&oacute;n B&aacute;sica</h3><br/>
 			            <label for="name">Nombre:</label>
 						<input type="text" name="txtName" id="txtName" maxlength="50" size="5"/> <br style="clear:both;">
 						<label for="name">Descripci&oacute;n:</label>
