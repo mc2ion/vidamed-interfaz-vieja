@@ -11,7 +11,7 @@
 <%@page import="java.util.Date"%>
 <%@page import="java.text.DateFormat"%>
 <%
-
+DecimalFormat df = new DecimalFormat("0.00");
 String est 	= (String) request.getAttribute("factId");
 String f 	= (String) request.getAttribute("f");
 Admission e = (Admission)request.getAttribute("admission");

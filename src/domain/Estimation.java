@@ -8,6 +8,11 @@ public class Estimation {
 	public static Locale spanish = new Locale("es","ES");
 	public static NumberFormat format = NumberFormat.getNumberInstance(spanish);
 	
+	static {
+		format.setMinimumFractionDigits(2);
+		format.setMaximumFractionDigits(2);
+	}
+	
 	private long id;
 	private long patientId;
 	private long specialistId;
