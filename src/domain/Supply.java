@@ -15,6 +15,9 @@ public class Supply {
 	private Long amount;
 	private Double unitPrice;
 	private Integer isRegulated;
+	private Double dose;
+	private Long doseUnitID;
+	private String doseUnitAbbrev;
 	
 	public Long getSupplyID() {
 		return supplyID;
@@ -119,6 +122,30 @@ public class Supply {
 	
 	public void setIsRegulated(Integer isRegulated) {
 		this.isRegulated = isRegulated;
+	}
+
+	public void setDose(Double dose) {
+		this.dose = dose;
+	}
+
+	public Double getDose() {
+		return dose;
+	}
+
+	public void setDoseUnitID(Long doseUnitID) {
+		this.doseUnitID = doseUnitID;
+	}
+
+	public Long getDoseUnitID() {
+		return doseUnitID;
+	}
+
+	public void setDoseUnitAbbrev(String doseUnitAbbrev) {
+		this.doseUnitAbbrev = doseUnitAbbrev;
+	}
+
+	public String getDoseUnitAbbrev() {
+		return doseUnitAbbrev;
 	}
 	
 }

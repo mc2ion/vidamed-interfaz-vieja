@@ -40,6 +40,10 @@ public class GetSupplies implements DatabaseCommand {
 				s.setAmount(rs.getLong(9));
 				s.setUnitPrice(rs.getDouble(10));
 				s.setIsRegulated(rs.getInt(11));
+				s.setSupplyFormName(rs.getString(12));
+				s.setDose(rs.getDouble(13));
+				s.setDoseUnitID(rs.getLong(14));
+				s.setDoseUnitAbbrev(rs.getString(15));
 				supplies.add(s);
 			}
 		}

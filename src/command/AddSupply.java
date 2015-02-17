@@ -17,8 +17,11 @@ public class AddSupply implements DatabaseCommand {
 	private Long amount;
 	private Double unitPrice;
 	private Integer isRegulated;
+	private Double dose;
+	private Long doseUnit;
 	
-	public AddSupply(Long supplyAreaID, String name, Integer type, String description, String activeComponent, String manufacturer, Long supplyFormID, Long amount, Double unitPrice, Integer isRegulated){
+	public AddSupply(Long supplyAreaID, String name, Integer type, String description, String activeComponent, String manufacturer, Long supplyFormID, Long amount, Double unitPrice, 
+			Integer isRegulated, Double dose, Long doseUnit){
 		this.supplyAreaID = supplyAreaID;
 		this.name = name;
 		this.type = type;
@@ -29,6 +32,8 @@ public class AddSupply implements DatabaseCommand {
 		this.amount = amount;
 		this.unitPrice = unitPrice;
 		this.isRegulated = isRegulated;
+		this.dose = dose;
+		this.doseUnit = doseUnit;
 	}
 	
 	@Override
@@ -41,7 +46,7 @@ public class AddSupply implements DatabaseCommand {
 		try {
 			ps = conn.prepareStatement("exec dbo.AddSupply " + supplyAreaID + ", '" + name + "', " + type + ", '" + 
 						description + "', '" + activeComponent + "', '" + manufacturer + "', " + supplyFormID + ", " + 
-						amount + ", " + unitPrice + ", " + isRegulated);
+						amount + ", " + unitPrice + ", " + isRegulated + ", " + dose + ", " + doseUnit);
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				supplyID = rs.getLong(1);
@@ -58,5 +63,4 @@ public class AddSupply implements DatabaseCommand {
 		
 		return supplyID;
 	}
-
 }

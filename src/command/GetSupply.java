@@ -39,6 +39,8 @@ public class GetSupply implements DatabaseCommand {
 				s.setAmount(rs.getLong(9));
 				s.setUnitPrice(rs.getDouble(10));
 				s.setIsRegulated(rs.getInt(11));
+				s.setDose(rs.getDouble(12));
+				s.setDoseUnitID(rs.getLong(13));
 			}
 		}
 		finally {

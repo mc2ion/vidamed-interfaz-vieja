@@ -39,6 +39,8 @@
 				null,
 				null,
 				null,
+				null,
+				null,
 				{ "bSearchable": false, "asSorting": false, "sWidth": "18%" }
 			],
 			"oLanguage": {
@@ -100,6 +102,8 @@
 									<tr>
 										<th>ID</th>
 										<th>Nombre</th>
+										<th>Presentaci&oacute;n</th>
+										<th>Dosis</th>
 										<th>Cantidad</th>
 										<th>Acciones</th>
 									</tr>
@@ -111,6 +115,8 @@
 											<tr class="gradeA">
 												<td><%= s.getSupplyID() %></td>
 												<td><%= s.getName() %></td>
+												<td><%= s.getSupplyFormName()!=null && !s.getSupplyFormName().equalsIgnoreCase("") ? s.getSupplyFormName() : "N/A" %></td>
+												<td><%= s.getDose()!=null && s.getDoseUnitAbbrev()!=null ? s.getDose() + " " + s.getDoseUnitAbbrev() : "N/A" %></td>
 												<td><%= s.getAmount() %></td>
 												<td>
 													<a href="EditSupplyServlet?supplyID=<%= s.getSupplyID() %>" style="color: transparent" >

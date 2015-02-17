@@ -7,10 +7,13 @@
 %>
 <%@ page import="domain.Supply" %>
 <%@ page import="domain.SupplyForm" %>
+<%@ page import="domain.DoseUnit" %>
 <%@ page import="java.util.ArrayList" %>
 <%
 @SuppressWarnings("unchecked")
 ArrayList<SupplyForm> supplyForms = (ArrayList<SupplyForm>)request.getAttribute("supplyForms");
+@SuppressWarnings("unchecked")
+ArrayList<DoseUnit> doseUnits = (ArrayList<DoseUnit>)request.getAttribute("doseUnits");
 Supply supply = (Supply) request.getAttribute("supply");
 %>
 <!DOCTYPE HTML>
@@ -120,6 +123,15 @@ Supply supply = (Supply) request.getAttribute("supply");
 						<div id="medicine" style="display:<%= supply.getType() == 1 ? "block" : "none" %>;">
 							<label for="name">Componente Activo:</label>
 							<input type="text" name="txtActiveComponent" id="txtActiveComponent" maxlength="50" size="5" value="<%= supply.getActiveComponent() %>"/> <br><br>
+							<label for="name">Dosis:</label>
+							<input type="number" name="txtDose" id="txtDose" maxlength="5" size="5" min="0" value="<%= supply.getDose() %>"/> 
+							<select id="txtDoseUnit" name="txtDoseUnit">
+								<% for (int i = 0; i<doseUnits.size(); i++) {
+										DoseUnit d = doseUnits.get(i);
+								%>
+										<option value="<%= d.getId() %>" <%= supply.getDoseUnitID() != null && supply.getDoseUnitID() == d.getId() ? "selected" : "" %>><%= d.getAbbreviation() %></option>
+								<% } %>
+							</select> <br><br>
 							<label for="name">Fabricante:</label>
 							<input type="text" name="txtManufacturer" id="txtManufacturer" maxlength="50" size="5" value="<%= supply.getManufacturer() %>"/> <br><br>
 							<label for="name">Presentación:</label>

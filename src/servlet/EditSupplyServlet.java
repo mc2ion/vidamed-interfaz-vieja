@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
+import domain.DoseUnit;
 import domain.PermissionsList;
 import domain.Supply;
 import domain.SupplyForm;
@@ -58,7 +59,9 @@ public class EditSupplyServlet extends HttpServlet {
 					Long supplyID = Long.parseLong(request.getParameter("supplyID"));
 					Supply supply = (Supply) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetSupply(supplyID));
 					ArrayList<SupplyForm> supplyForms = (ArrayList<SupplyForm>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetSupplyForms());
+					ArrayList<DoseUnit> doseUnits = (ArrayList<DoseUnit>)CommandExecutor.getInstance().executeDatabaseCommand(new command.GetDoseUnits());
 					request.setAttribute("supplyForms", supplyForms);
+					request.setAttribute("doseUnits", doseUnits);
 					request.setAttribute("supply", supply);
 					rd = getServletContext().getRequestDispatcher("/editSupply.jsp");			
 					rd.forward(request, response);
@@ -73,10 +76,14 @@ public class EditSupplyServlet extends HttpServlet {
 					String activeComponent = "";
 					String manufacturer = "";
 					Long formID = null;
+					Double dose = null;
+					Long doseUnit = null;
 					if (type == 1) {
 						activeComponent = request.getParameter("txtActiveComponent");
 						manufacturer = request.getParameter("txtManufacturer");
 						formID = Long.parseLong(request.getParameter("txtForm"));
+						dose = Double.parseDouble(request.getParameter("txtDose"));
+						doseUnit = Long.parseLong(request.getParameter("txtDoseUnit"));
 					}
 					String description = request.getParameter("txtDescription");
 					Long amount = Long.parseLong(request.getParameter("txtAmount"));
@@ -84,7 +91,7 @@ public class EditSupplyServlet extends HttpServlet {
 					String regulated = request.getParameter("isRegulated");
 					int isRegulated = regulated != null && regulated.equals("true") ? 1 : 0;
 					
-					int result = (Integer)CommandExecutor.getInstance().executeDatabaseCommand(new command.EditSupply(supplyID, name, type, description, activeComponent, manufacturer, formID, amount, unitPrice, isRegulated));
+					int result = (Integer)CommandExecutor.getInstance().executeDatabaseCommand(new command.EditSupply(supplyID, name, type, description, activeComponent, manufacturer, formID, amount, unitPrice, isRegulated, dose, doseUnit));
 					if (result == 1) {
 						session.setAttribute("info",text_good);
 					}

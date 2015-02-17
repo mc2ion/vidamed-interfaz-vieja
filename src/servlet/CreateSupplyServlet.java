@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
+import domain.DoseUnit;
 import domain.PermissionsList;
 import domain.SupplyForm;
 import domain.User;
@@ -55,8 +56,10 @@ public class CreateSupplyServlet extends HttpServlet {
 				RequestDispatcher rd;
 				if (action == null || action.trim().equals("")) {
 					ArrayList<SupplyForm> supplyForms = (ArrayList<SupplyForm>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetSupplyForms());
+					ArrayList<DoseUnit> doseUnits = (ArrayList<DoseUnit>)CommandExecutor.getInstance().executeDatabaseCommand(new command.GetDoseUnits());
 					Long supplyAreaID = Long.parseLong(request.getParameter("supplyAreaID"));
 					request.setAttribute("supplyForms", supplyForms);
+					request.setAttribute("doseUnits", doseUnits);
 					request.setAttribute("supplyAreaID", supplyAreaID);
 					rd = getServletContext().getRequestDispatcher("/createSupply.jsp");			
 					rd.forward(request, response);
@@ -70,10 +73,14 @@ public class CreateSupplyServlet extends HttpServlet {
 					String activeComponent = "";
 					String manufacturer = "";
 					Long formID = null;
+					Double dose = null;
+					Long doseUnit = null;
 					if (type == 1) {
 						activeComponent = request.getParameter("txtActiveComponent");
 						manufacturer = request.getParameter("txtManufacturer");
 						formID = Long.parseLong(request.getParameter("txtForm"));
+						dose = Double.parseDouble(request.getParameter("txtDose"));
+						doseUnit = Long.parseLong(request.getParameter("txtDoseUnit"));
 					}
 					String description = request.getParameter("txtDescription");				
 					Long amount = Long.parseLong(request.getParameter("txtAmount"));
@@ -81,7 +88,7 @@ public class CreateSupplyServlet extends HttpServlet {
 					String regulated = request.getParameter("isRegulated");
 					int isRegulated = regulated != null && regulated.equals("true") ? 1 : 0;
 					
-					Long supplyID = (Long)CommandExecutor.getInstance().executeDatabaseCommand(new command.AddSupply(supplyAreaID, name, type, description, activeComponent, manufacturer, formID, amount, unitPrice, isRegulated));
+					Long supplyID = (Long)CommandExecutor.getInstance().executeDatabaseCommand(new command.AddSupply(supplyAreaID, name, type, description, activeComponent, manufacturer, formID, amount, unitPrice, isRegulated, dose, doseUnit));
 					if (supplyID != null) {
 						session.setAttribute("info",text_good);
 					}

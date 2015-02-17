@@ -73,6 +73,15 @@ public class GetPendingMedicalFee implements DatabaseCommand {
 					e1.printStackTrace();
 				}
 				
+				dateStr = rs.getString(11);
+				try {
+					if(dateStr != null){
+						date = fromFormat.parse(dateStr);
+						u.setBillPaymentDate(toFormat.format(date));
+					}
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}				
 			}
 		}
 		finally {
