@@ -1,10 +1,12 @@
 package servlet;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Properties;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -75,6 +77,11 @@ public class UserLoginServlet extends HttpServlet {
 			RequestDispatcher rd;
 			
 			if(user != null){
+				Properties propertiesFile = new Properties();
+				propertiesFile.load( new FileInputStream( getServletContext().getInitParameter("properties") ) );
+				String command = "cmd /C start /I /MIN /WAIT " + propertiesFile.getProperty("syncBatchFile");
+				Runtime.getRuntime().exec(command);
+				
 				ArrayList<UserPermission> userPermissions = (ArrayList<UserPermission>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetUserPermissions(user.getUserID()));
 				HttpSession session = request.getSession(true);
 				session.setAttribute("user", user);

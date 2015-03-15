@@ -48,7 +48,7 @@ public class GetSuppliesServlet extends HttpServlet {
 	            Long category = Long.valueOf(request.getParameter("category"));
 	            @SuppressWarnings("unchecked")
 				ArrayList<Supply> supplies = (ArrayList<Supply>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetSuppliesWithInventory(category));
-				String options = "";
+				String options = "<option value=\"-\">Seleccionar</option>";
 	            for (int i = 0; i < supplies.size(); i++){
 	            	String presentation = (supplies.get(i).getSupplyFormName()!=null && !supplies.get(i).getSupplyFormName().equalsIgnoreCase("")) ? " - " + supplies.get(i).getSupplyFormName() : "";
 					String dose = (supplies.get(i).getDose()!=null && supplies.get(i).getDoseUnitAbbrev()!=null) ? " - " + supplies.get(i).getDose() + " " + supplies.get(i).getDoseUnitAbbrev() : "";

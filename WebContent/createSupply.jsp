@@ -54,10 +54,6 @@ Long supplyAreaID = (Long) request.getAttribute("supplyAreaID");
             			alert("El campo 'Componente Activo' no puede ser dejado en blanco");
             			return;
             		}
-            		else if ($('#txtType').val() == '1' && $('#txtManufacturer').val() == '') {
-            			alert("El campo 'Fabricante' no puede ser dejado en blanco");
-            			return;
-            		}
             		else if ($('#txtType').val() == '1' && $('#txtForm').val() == '0') {
             			alert("Debe seleccionar un valor para el campo 'Presentación'");
             			return;
@@ -68,14 +64,6 @@ Long supplyAreaID = (Long) request.getAttribute("supplyAreaID");
             		}
             		else if (!$('#txtAmount').val().match(patternNumber)) {
             			alert("El valor del campo 'Cantidad' debe ser numérico. No colocar puntos ni espacios en blanco.");
-            			return;
-            		}
-            		else if ($('#txtUnitPrice').val() == '') {
-            			alert("El campo 'Precio Unitario' no puede ser dejado en blanco");
-            			return;
-            		}
-            		else if (!$('#txtUnitPrice').val().match(patternDouble)) {
-            			alert("El campo 'Precio Unitario' debe ser numérico");
             			return;
             		}
             		else {
@@ -128,8 +116,6 @@ Long supplyAreaID = (Long) request.getAttribute("supplyAreaID");
 										<option value="<%= d.getId() %>"><%= d.getAbbreviation() %></option>
 								<% } %>
 							</select> <br><br>
-							<label for="name">Fabricante:</label>
-							<input type="text" name="txtManufacturer" id="txtManufacturer" maxlength="50" size="5"/> <br><br>
 						
 							<label for="name">Presentación:</label>
 							<select id="txtForm" name="txtForm">
@@ -143,8 +129,6 @@ Long supplyAreaID = (Long) request.getAttribute("supplyAreaID");
 						</div>
 						<label for="name">Cantidad:</label>
 						<input type="number" min="1" name="txtAmount" id="txtAmount" maxlength="3" size="3" /> <br><br>
-						<label for="name">Precio Unitario:</label>
-						<input type="number" min="1" name="txtUnitPrice" id="txtUnitPrice" maxlength="3" size="3" /> <br><br>
 						<label for="name"> </label>
 						<input type="checkbox" name="isRegulated" id="isRegulated" value="true"> Producto Regulado <br><br>
 					</fieldset>

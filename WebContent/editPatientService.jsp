@@ -1,7 +1,9 @@
 <%@page import="domain.PatientService"%>
 <%@page import="domain.Service"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="java.util.Properties"%>
 <%@page import="domain.User"%>
+<%@page import="java.io.FileInputStream"%>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
@@ -13,6 +15,20 @@
 	String servId 	= (String) request.getAttribute("servId");
 	String adminId 	= (String) request.getAttribute("adminId");
 	String patName 	= (String) request.getAttribute("name");
+	String album 	= "";
+	
+	if (servId.equals("1"))
+		album ="Banco";
+	else if (servId.equals("2"))
+		album ="Eco";
+	else if (servId.equals("3"))
+		album ="Lab";
+	else if (servId.equals("4"))
+		album ="Ray";
+	
+	Properties propertiesFile = new Properties();
+	propertiesFile.load( new FileInputStream( getServletContext().getInitParameter("properties") ) );
+	String dir = propertiesFile.getProperty("webDirectory" + album);
 %>
 <!DOCTYPE HTML>
 <html>
@@ -34,9 +50,7 @@
 				}
 				else{
 					$('.file-div').hide();
-				}
-				
-			  
+				}			  
 			});
 		});	
 		</script>
@@ -61,16 +75,34 @@
 				<input type="hidden" name="name" value="<%= patName %>"/>
 				<input type="hidden" name="spId" value="<%= pSupply.getServicePatientID() %>"/>
 				<input type="hidden" name="oldFile" value="<%= pSupply.getAssociatedFile() %>"/>
+				<input type="hidden" name="oldReport" value="<%= pSupply.getAssociatedReport() %>"/>
 				<fieldset>
 	        		<label>Servicio: </label>
 					<span><%= pSupply.getServiceName() %></span><br/><br/>
-					<label>Cargar archivo:</label>
+					<label>Archivo actual:</label>
 					<% if (pSupply.getAssociatedFile() == null || pSupply.getAssociatedFile().equals("null") ){ %>
 					<span>No hay archivo cargado.</span>
 					<% }else{ %>
-					<span><%= pSupply.getAssociatedFile()%></span>
+					<span><%= pSupply.getAssociatedFile()%>
+						<a href="<%= dir + pSupply.getAssociatedFile()%>" style="color: transparent" download>
+							<img alt="logo" src="./images/detail.png" height="16" width="16" title="Descargar Detalle">
+						</a>
+					</span>
 					<% } %>
-					<input type="file" name="file"/>
+					<br/><br/>
+					<label>Cargar archivo:</label><input type="file" name="file"/><br/><br/>
+					<label>Informe actual:</label>
+					<% if (pSupply.getAssociatedReport() == null || pSupply.getAssociatedReport().equals("null") ){ %>
+					<span>No hay informe cargado.</span>
+					<% }else{ %>
+					<span><%= pSupply.getAssociatedReport()%> 
+						<a href="<%= dir + pSupply.getAssociatedReport()%>" style="color: transparent" download>
+							<img alt="logo" src="./images/detail.png" height="16" width="16" title="Descargar Detalle">
+						</a>
+					</span>
+					<% } %>
+					<br/><br/>					
+					<label>Cargar informe:</label><input type="file" name="report"/>
 				</fieldset>
 				<br/>
 				 <div id="botonera" style="margin-top: -3px;">

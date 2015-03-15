@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FilenameUtils;
+
 import command.CommandExecutor;
 import domain.PatientService;
 import domain.PermissionsList;
@@ -20,18 +22,8 @@ import domain.User;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-
-
-
-
-
-
-
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Properties;
+
 /**
  * Servlet implementation class EditPatientServiceServlet
  */
@@ -86,7 +78,6 @@ public class EditPatientServiceServlet extends HttpServlet {
 				rd.forward(request, response);
 			
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} else {
@@ -121,36 +112,28 @@ public class EditPatientServiceServlet extends HttpServlet {
 				MultipartRequest multipart = new MultipartRequest(request, propertiesFile.getProperty("filesDirectory"), 4*1024*1024, new DefaultFileRenamePolicy());
 	
 				File file 				= multipart.getFile("file");
+				File report 			= multipart.getFile("report");
 				Long admisId 			= Long.valueOf(multipart.getParameter("admissionId"));
 				String name 		 	= multipart.getParameter("name");
 				Long servicePatientId 	= Long.valueOf(multipart.getParameter("spId"));
 				String oldFile 			= multipart.getParameter("oldFile");
+				String oldReport		= multipart.getParameter("oldReport");
 				String 	sId				= multipart.getParameter("servId");
 				String album			= "";
-				String fileName 		= null;
-				if (file != null){
-					fileName = file.getName();
-					
-					if (sId.equals("1"))
-						album ="Banco";
-					else if (sId.equals("2"))
-						album ="Eco";
-					else if (sId.equals("3"))
-						album ="Lab";
-					else if (sId.equals("4"))
-						album ="Ray";
 				
-					String dir = propertiesFile.getProperty("filesDirectory" + album) + propertiesFile.getProperty("fileSeparator");
-	
-					Date d = Calendar.getInstance().getTime(); // Current time
-					SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy"); // Set your date format
-					String currentData = sdf.format(d);
-					
-					fileName = currentData + "_" + admisId  + "_" + fileName.toLowerCase().replace(" ", "_");
-					
-					File destination = new File(dir + fileName);
-					file.renameTo(destination);
-					
+				if (sId.equals("1"))
+					album ="Banco";
+				else if (sId.equals("2"))
+					album ="Eco";
+				else if (sId.equals("3"))
+					album ="Lab";
+				else if (sId.equals("4"))
+					album ="Ray";
+				
+				String dir = propertiesFile.getProperty("filesDirectory" + album) + propertiesFile.getProperty("fileSeparator");
+				String fileName 		= oldFile;
+
+				if (file != null){					
 					//Eliminar archivo anterior
 					if (!oldFile.equals("null")){
 						File dFile = new File(dir + oldFile);
@@ -161,17 +144,45 @@ public class EditPatientServiceServlet extends HttpServlet {
 			    			System.out.println("Delete operation is failed.");
 			    		}
 					}
-				}	
-				Integer result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.EditPatientService(servicePatientId, fileName));
+					
+					fileName = file.getName();						
+					fileName = servicePatientId + "_file." + FilenameUtils.getExtension(fileName);					
+					File destination = new File(dir + fileName);
+					file.renameTo(destination);
+				}
+				
+				String reportName = oldReport;
+				
+				if(report != null){					
+					//Eliminar reporte anterior
+					if(!oldReport.equals("null")){
+						File dFile = new File(dir + oldReport);
+						
+						if(dFile.delete()){
+			    			System.out.println(dFile.getName() + " is deleted!");
+			    		}else{
+			    			System.out.println("Delete operation is failed.");
+			    		}
+					}
+					
+					reportName = report.getName();
+					reportName = servicePatientId + "_report." + FilenameUtils.getExtension(reportName);
+					File destination = new File(dir + reportName);
+					report.renameTo(destination);
+				}
+				
+				Long result = (Long) CommandExecutor.getInstance().executeDatabaseCommand(new command.EditPatientService(servicePatientId, fileName, reportName));
 				String text = "El servicio fue editado exitosamente";
-				if (result == 0)
+				if (result == -1)
 					text =	"Hubo un problema al editar al servicio. Por favor, intente nuevamente.";
+				
+				String command = "cmd /C start /I /MIN /WAIT " + propertiesFile.getProperty("syncBatchFile");
+				Runtime.getRuntime().exec(command);
 				
 				session.setAttribute("text", text);
 				System.out.println("/ListPatientServicesServlet?id=" + admisId + "&servId=" + sId + "&name=" + name);
 				response.sendRedirect(request.getContextPath() + "/ListPatientServicesServlet?id=" + admisId + "&servId=" + sId + "&name=" + name);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} else {

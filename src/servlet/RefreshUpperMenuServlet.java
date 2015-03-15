@@ -54,7 +54,7 @@ public class RefreshUpperMenuServlet extends HttpServlet {
 				int countPPD = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.CountPendingPharmacyDischarges());	
 				int countPED = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.CountPendingEstimationDiscounts());	
 				int countPPP = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.CountPendingPayments());	
-				
+				int countPA = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.CountPendingAccounts());				
 				
 				session.setAttribute("countPAD", countPAD);
 				session.setAttribute("countPCN", countPCN);
@@ -63,6 +63,7 @@ public class RefreshUpperMenuServlet extends HttpServlet {
 				session.setAttribute("countPPD", countPPD);
 				session.setAttribute("countPED", countPED);
 				session.setAttribute("countPPP", countPPP);
+				session.setAttribute("countPA", countPA);
 				
 				
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/upperMenuAux.jsp");

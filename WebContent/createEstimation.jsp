@@ -14,7 +14,9 @@
 	ArrayList<PaymentResponsible> resp = (ArrayList<PaymentResponsible>)request.getAttribute("responsibles");
 	
 	@SuppressWarnings("unchecked")
-	ArrayList<ClinicType> ct = (ArrayList<ClinicType>)request.getAttribute("clinic");
+	ArrayList<ClinicType> ct = (ArrayList<ClinicType>)request.getAttribute("clinic");	
+
+	Long cashPayment = (Long)request.getAttribute("cashPayment");
 	
 	String function = (String) request.getAttribute("function");
 	System.out.println(function);
@@ -92,6 +94,18 @@
 		        }else
 					 $("#div-3").hide();
 		               
+		    });
+			
+			$('#paymentId').change(function() {
+				val = $(this).val();
+				if(val == '<%= cashPayment %>'){
+					$('#aval').attr('checked', false);
+					$("#div-3").hide();
+					$('#titular').attr('checked', true);
+					$(".cashPayment").hide();
+				} else {
+					$(".cashPayment").show();
+				}             
 		    });
 		});
 		</script>
@@ -183,19 +197,21 @@
 							<option value="<%= p.getId()%>" > <%= info %></option>
 						<% } %>
 						</select><br><br>
-						<label> </label>
-						<label style="font-weight: normal; width: auto"><input type="checkbox" id="aval" name="aval" value="1" /> &iquest; El paciente tiene carta aval?</label><br><br>
-						<label> </label>
-						<label style="font-weight: normal; width: auto"><input type="checkbox" id="titular" name="titular" value="1" checked /> &iquest; Es el paciente el titular del seguro?</label><br><br>
-						<div id="div-3" style="display: none;">
-							<h2>Datos del titular:</h2><br><br>
-							<label> Cédula Titular: </label> 
-							<select name="cedIdTitular" id="cedula">
-								<option value="V-">V</option>
-								<option value="E-">E</option>
-							</select><input type="text" name="cedulaTitular" id="cedula" value="" style="width: 194px; margin-left: 3px;"><br><br>
-							<label> Nombre Titular: </label>
-							<input type="text" name="nameTitular" id="name" value="" style="width: 234px;"><br><br>
+						<div class="cashPayment">
+							<label> </label>
+							<label style="font-weight: normal; width: auto"><input type="checkbox" id="aval" name="aval" value="1" /> &iquest; El paciente tiene carta aval?</label><br><br>
+							<label> </label>
+							<label style="font-weight: normal; width: auto"><input type="checkbox" id="titular" name="titular" value="1" checked /> &iquest; Es el paciente el titular del seguro?</label><br><br>
+							<div id="div-3" style="display: none;">
+								<h2>Datos del titular:</h2><br><br>
+								<label> Cédula Titular: </label> 
+								<select name="cedIdTitular" id="cedula">
+									<option value="V-">V</option>
+									<option value="E-">E</option>
+								</select><input type="text" name="cedulaTitular" id="cedula" value="" style="width: 194px; margin-left: 3px;"><br><br>
+								<label> Nombre Titular: </label>
+								<input type="text" name="nameTitular" id="name" value="" style="width: 234px;"><br><br>
+							</div>						
 						</div>
 						</fieldset>
 					 	<br>

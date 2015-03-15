@@ -8,6 +8,7 @@ public class PatientService {
 	private String serviceName;
 	private String servicePrice;
 	private String associatedFile;
+	private String associatedReport;
 	
 	public Long getAdmissionID() {
 		return admissionID;
@@ -55,5 +56,13 @@ public class PatientService {
 
 	public void setAssociatedFile(String associatedFile) {
 		this.associatedFile = associatedFile;
+	}
+
+	public void setAssociatedReport(String associatedReport) {
+		this.associatedReport = associatedReport;
+	}
+
+	public String getAssociatedReport() {
+		return associatedReport;
 	}
 }

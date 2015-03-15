@@ -49,6 +49,14 @@
 					<span><%= pSupply.getSupplyName() %></span><br/><br/>
 					<label>Presentación: </label>
 					<span><%= (pSupply.getSupplyForm() != null) ? pSupply.getSupplyForm(): "-" %></span><br/><br/>
+					<label>Dosis: </label>
+					<span><%= (pSupply.getSupply().getDose() != null) ? pSupply.getSupply().getDose() + " " + pSupply.getSupply().getDoseUnitAbbrev(): "-" %></span><br/><br/>
+	        		<label>Fabricante: </label>
+					<span><%= pSupply.getSupplyInventory().getManufacturer() %></span><br/><br/>
+	        		<label>N&uacute;mero de Lote: </label>
+					<span><%= pSupply.getSupplyInventory().getLotNumber() %></span><br/><br/>
+	        		<label>Fecha de Vencimiento: </label>
+					<span><%= pSupply.getSupplyInventory().getExpirationDate() %></span><br/><br/>
 					<label>Cantidad: </label>
 					<input type="text" value="<%= pSupply.getAmount()%>" name="amount" style="width:60px;" required title="El campo 'Cantidad' debe ser numérico y no puede ser dejado en blanco" /><br/><br/>
 					

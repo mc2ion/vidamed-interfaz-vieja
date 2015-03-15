@@ -71,24 +71,21 @@ public class CreateSupplyServlet extends HttpServlet {
 					String name = request.getParameter("txtName");
 					int type = Integer.parseInt(request.getParameter("txtType"));
 					String activeComponent = "";
-					String manufacturer = "";
 					Long formID = null;
 					Double dose = null;
 					Long doseUnit = null;
 					if (type == 1) {
 						activeComponent = request.getParameter("txtActiveComponent");
-						manufacturer = request.getParameter("txtManufacturer");
 						formID = Long.parseLong(request.getParameter("txtForm"));
 						dose = Double.parseDouble(request.getParameter("txtDose"));
 						doseUnit = Long.parseLong(request.getParameter("txtDoseUnit"));
 					}
 					String description = request.getParameter("txtDescription");				
 					Long amount = Long.parseLong(request.getParameter("txtAmount"));
-					Double unitPrice = Double.parseDouble(request.getParameter("txtUnitPrice"));
 					String regulated = request.getParameter("isRegulated");
 					int isRegulated = regulated != null && regulated.equals("true") ? 1 : 0;
 					
-					Long supplyID = (Long)CommandExecutor.getInstance().executeDatabaseCommand(new command.AddSupply(supplyAreaID, name, type, description, activeComponent, manufacturer, formID, amount, unitPrice, isRegulated, dose, doseUnit));
+					Long supplyID = (Long)CommandExecutor.getInstance().executeDatabaseCommand(new command.AddSupply(supplyAreaID, name, type, description, activeComponent, formID, amount, isRegulated, dose, doseUnit));
 					if (supplyID != null) {
 						session.setAttribute("info",text_good);
 					}

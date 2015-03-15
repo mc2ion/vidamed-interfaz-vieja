@@ -3,10 +3,7 @@ package servlet;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.apache.commons.io.FilenameUtils;
 
 import command.CommandExecutor;
 import domain.PermissionsList;
@@ -90,7 +89,6 @@ public class AddPatientServiceServlet extends HttpServlet {
 				rd.forward(request, response);
 			
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}else {
@@ -118,20 +116,15 @@ public class AddPatientServiceServlet extends HttpServlet {
 			try{			
 				propertiesFile.load( new FileInputStream( getServletContext().getInitParameter("properties") ) );
 				MultipartRequest multipart = new MultipartRequest(request, propertiesFile.getProperty("filesDirectory"), 4*1024*1024, new DefaultFileRenamePolicy());
-	
 				File file = multipart.getFile("file");
+				File report = multipart.getFile("report");
 				Long servAddId 	= Long.valueOf(multipart.getParameter("service"));
 				Long admisId 	= Long.valueOf(multipart.getParameter("admissionId"));
-				 String name 	= multipart.getParameter("name");
-				
-				
+				String name 	= multipart.getParameter("name");				
 				String 	sId		= multipart.getParameter("servId");
 				String album	= "";
-				String fileName = null;
-				if (file != null){
-					fileName = file.getName();
-					
-					if (sId.equals("1"))
+				
+				if (sId.equals("1"))
 						album ="Banco";
 					else if (sId.equals("2"))
 						album ="Eco";
@@ -140,25 +133,42 @@ public class AddPatientServiceServlet extends HttpServlet {
 					else if (sId.equals("4"))
 						album ="Ray";
 				
-					String dir = propertiesFile.getProperty("filesDirectory" + album) + propertiesFile.getProperty("fileSeparator");
-	
-					Date d = Calendar.getInstance().getTime(); // Current time
-					SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy"); // Set your date format
-					String currentData = sdf.format(d);
-					
-					fileName = currentData + "_" + admisId  + "_" + fileName.toLowerCase().replace(" ", "_");
-					File destination = new File(dir + fileName);
-					file.renameTo(destination);
-				}	
-				Integer result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddPatientService(admisId, servAddId, fileName));
+				String dir = propertiesFile.getProperty("filesDirectory" + album) + propertiesFile.getProperty("fileSeparator");
+				String fileName = null;				
+				String reportName = null;
+				
+				Long result = (Long) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddPatientService(admisId, servAddId));
 				String text = "El servicio fue agregado exitosamente";
-				if (result == 0)
+
+				if (result == -1) {
 					text =	"Hubo un problema al agregar al servicio. Por favor, intente nuevamente.";
+				} else {
+					
+					if (file != null){					
+						fileName = file.getName();	
+						fileName = result + "_file." + FilenameUtils.getExtension(fileName);
+						File destination = new File(dir + fileName);
+						file.renameTo(destination);
+					}	
+					
+					if(report != null){
+						reportName = report.getName();
+						reportName = result + "_report." + FilenameUtils.getExtension(reportName);
+						File destination = new File(dir + reportName);
+						report.renameTo(destination);
+					}
+					
+					result = (Long) CommandExecutor.getInstance().executeDatabaseCommand(new command.EditPatientService(result, fileName, reportName));
+					if (result == -1)
+						text =	"Hubo un problema agregando las imágenes. Por favor, intente nuevamente.";
+					
+					String command = "cmd /C start /I /MIN /WAIT " + propertiesFile.getProperty("syncBatchFile");
+					Runtime.getRuntime().exec(command);
+				}				
 				
 				session.setAttribute("text", text);
 				response.sendRedirect(request.getContextPath() + "/ListPatientServicesServlet?id=" + admisId + "&servId=" + sId + "&name=" + name);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} else {

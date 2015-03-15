@@ -119,6 +119,9 @@
 												<td><%= s.getDose()!=null && s.getDoseUnitAbbrev()!=null ? s.getDose() + " " + s.getDoseUnitAbbrev() : "N/A" %></td>
 												<td><%= s.getAmount() %></td>
 												<td>
+													<a href="ListSupplyInventoriesServlet?supplyID=<%= s.getSupplyID() %>&supplyAreaID=<%= s.getSupplyAreaID() %>" style="color: transparent" >
+														<img alt="logo" src="./images/meds.png"  height="16" width="16" title="Ver Inventarios" />
+													</a>
 													<a href="EditSupplyServlet?supplyID=<%= s.getSupplyID() %>" style="color: transparent" >
 														<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
 													</a>

@@ -7,12 +7,12 @@ import java.sql.SQLException;
 public class AddPatientSupply implements DatabaseCommand {
 	
 	private Long admissionId;
-	private Long supplyId;
+	private Long supplyInventoryId;
 	private String amount;
 		
-	public AddPatientSupply(Long admissionId, Long supplyId, String amount){
+	public AddPatientSupply(Long admissionId, Long supplyInventoryId, String amount){
 		this.admissionId = admissionId;
-		this.supplyId 	 = supplyId;
+		this.supplyInventoryId 	 = supplyInventoryId;
 		this.amount 	 = amount;
 	}
 	
@@ -22,7 +22,7 @@ public class AddPatientSupply implements DatabaseCommand {
 		PreparedStatement ps = null;
 		
 		try {
-			ps = conn.prepareStatement("exec dbo.AddPatientSupply " + admissionId + ", " + supplyId + ", '" + amount + "'");
+			ps = conn.prepareStatement("exec dbo.AddPatientSupply " + admissionId + ", " + supplyInventoryId + ", '" + amount + "'");
 			ps.execute();
 		}
 		catch(Exception e){
