@@ -56,7 +56,9 @@ public class SearchPatientEstimationsServlet extends HttpServlet {
 			String patientid 	= request.getParameter("patientID");
 			String ced 			= request.getParameter("txtCedNumber");
 			String name 		= request.getParameter("txtName");
-			String lastname 	= request.getParameter("txtLastName");
+			String lastname 	= request.getParameter("txtLastName");	
+			String txtPatientType 	= request.getParameter("txtPatientType");
+			
 			
 					
 			
@@ -73,6 +75,7 @@ public class SearchPatientEstimationsServlet extends HttpServlet {
 				request.setAttribute("txtCedNumber", ced);
 				request.setAttribute("txtName", name);
 				request.setAttribute("txtLastName", lastname);
+				request.setAttribute("txtPatientType", txtPatientType);
 						
 				RequestDispatcher rd;			
 				rd = getServletContext().getRequestDispatcher("/selectPatientEstimation.jsp");

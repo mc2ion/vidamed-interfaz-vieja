@@ -144,6 +144,9 @@
 						 <input type="hidden" name="estimationId" value="<%= estimationId %>" />
 						 	<fieldset>
 							   <b>Cédula:</b> <span style="margin-left: 155px;"><%= pat.getIdentityCard() %></span><br/><br/>
+							   <% if (pat.getIsAdult() != null) { %>
+							   		<b>Tipo: </b> <span style="margin-left: 150px;"><%= (pat.getIsAdult().equals("0")) ? "Pediátrico" : "Adulto"  %></span><br><br/>
+							   <% } %>
 							   <b>Nombre: </b><span style="margin-left: 150px;"><%= pat.getFirstName() + " " + pat.getLastName() %></span><br><br/>
 							   <label> Motivo de la admisión:</label>
 							   <select name="reasonAdmission" id="reasonAdmission" >

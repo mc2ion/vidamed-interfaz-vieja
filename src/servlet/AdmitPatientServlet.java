@@ -67,10 +67,10 @@ public class AdmitPatientServlet extends HttpServlet {
 					String txtCedNumber 	= request.getParameter("txtCedNumber");
 					String txtName 			= request.getParameter("txtName");
 					String txtLastName 		= request.getParameter("txtLastName");
-					//String patientID 		= request.getParameter("patientID");
+					String txtPatientType 	= request.getParameter("txtPatientType");
 					String estimationID 	= request.getParameter("estimationId");
 						
-					System.out.println("a " + txtName + " " + txtLastName + " " + txtCedNumber);
+					System.out.println("a " + txtName + " " + txtLastName + " " + txtCedNumber + " " + txtPatientType);
 					
 					ArrayList<AdmissionReasons> ar = (ArrayList<AdmissionReasons>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetAdmissionReasons());
 					request.setAttribute("ar", ar);
@@ -93,6 +93,7 @@ public class AdmitPatientServlet extends HttpServlet {
 					pat.setFirstName(txtName);
 					pat.setLastName(txtLastName);
 					pat.setIdentityCard(txtCedNumber);
+					pat.setIsAdult(txtPatientType);
 					session.setAttribute("pat", pat);
 					
 					System.out.println(estimationID);

@@ -16,6 +16,7 @@ public class User {
 	private Double salary;
 	private String userName;
 	private String password;
+	private String isAdult;
 	
 	
 	public Long getUserID() {
@@ -24,6 +25,15 @@ public class User {
 	
 	public void setUserID(Long userID) {
 		this.userID = userID;
+	}
+	
+	
+	public String getIsAdult() {
+		return isAdult;
+	}
+	
+	public void setIsAdult(String isAdult) {
+		this.isAdult = isAdult;
 	}
 	
 	public String getIdentityCard() {

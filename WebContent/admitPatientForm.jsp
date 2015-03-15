@@ -114,6 +114,7 @@
 								$("#txtCedNumber").val(ced);
 								$("#txtName").val(name);
 								$("#txtLastName").val(lastname);
+								$("#txtPatientType").val(isAdult);
 								$("#estimationId").val(estimationID);
 								if (numPres == "") $("#form-create").attr('action', "SearchPatientEstimationsServlet");
 								//alert($("#submit-form").attr('action'));
@@ -214,6 +215,7 @@
 				     
 				<form action="AdmitPatientServlet" id="form-create" method="post" >
 					<input type="hidden" id="patientID" name="patientID" value="" />
+					<input type="hidden" id="txtPatientType" name="txtPatientType" value="" />
 					<input type="hidden" id="txtCedNumber" name="txtCedNumber" value=""/>
 					<input type="hidden" id="txtName" name="txtName" value=""/>
 					<input type="hidden" id="txtLastName" name="txtLastName" value=""/>

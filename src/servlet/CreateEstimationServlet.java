@@ -60,6 +60,8 @@ public class CreateEstimationServlet extends HttpServlet {
 			String function = request.getParameter("function");
 			System.out.println("create estimation servlet " + function);
 			String patientID 	= (String) request.getParameter("patientID");
+			String patientType 	= (String) request.getParameter("txtPatientType");
+			
 			String txtCedNumber = (String) request.getParameter("txtCedNumber");
 			String txtName 		= (String) request.getParameter("txtName");
 			String txtLastName 	= (String) request.getParameter("txtLastName");
@@ -69,6 +71,8 @@ public class CreateEstimationServlet extends HttpServlet {
 				request.setAttribute("patientID", patientID);
 				request.setAttribute("txtName", txtName);
 				request.setAttribute("txtLastName", txtLastName);
+				request.setAttribute("txtPatientType", patientType);
+				
 			}
 			//Obtener Unidades, y especialistas.
 			try {

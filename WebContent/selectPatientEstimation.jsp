@@ -8,10 +8,11 @@
 	String name = "";
 	if (user != null)
 		name = user.getFirstName() ;
-	String patientID 	= (String)request.getAttribute("patientID");
-	String txtCedNumber = (String)request.getAttribute("txtCedNumber");
-	String txtName 		= (String)request.getAttribute("txtName");
-	String txtLastName 	= (String)request.getAttribute("txtLastName");
+	String patientID 		= (String)request.getAttribute("patientID");
+	String txtCedNumber 	= (String)request.getAttribute("txtCedNumber");
+	String txtName 			= (String)request.getAttribute("txtName");
+	String txtLastName 		= (String)request.getAttribute("txtLastName");
+	String txtPatientType 	= (String)request.getAttribute("txtPatientType");
 	
 	@SuppressWarnings("unchecked")
 	ArrayList<Estimation> est = (ArrayList<Estimation>) request.getAttribute("estimations");
@@ -60,10 +61,12 @@
 								var ced 	  = obj[0].identityCard;
 								var name 	  = obj[0].firstName;
 								var lastname  = obj[0].lastName;
+								var patientType = '<%= txtPatientType %>';
 								
 								$("#patientID").val(patientId);
 								$("#txtCedNumber").val(ced);
 								$("#txtName").val(name);
+								$("#txtPatientType").val(patientType);
 								$("#txtLastName").val(lastname);
 								$("#estimationId").val(estimationID);
 								$("#submit-form").click();
@@ -95,6 +98,7 @@
 							<input type="hidden" name="txtCedNumber" value="<%= txtCedNumber %>" />
 							<input type="hidden" name="txtName"      value="<%= txtName %>" />
 							<input type="hidden" name="txtLastName"  value="<%= txtLastName %>" />
+							<input type="hidden" name="txtPatientType"  value="<%= txtPatientType %>" />
 							<input type="submit" value="Crear un nuevo presupuesto"/>
 				</form>
 				<div style="clear:both;"></div>
