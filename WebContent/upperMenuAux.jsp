@@ -12,7 +12,7 @@
 	Integer countPPD = (Integer) session.getAttribute("countPPD");
 	Integer countPED = (Integer) session.getAttribute("countPED");
 	Integer countPPP = (Integer) session.getAttribute("countPPP");
-	
+	Integer countPA = (Integer) session.getAttribute("countPA");
 %>
 <html>
 	<head>
@@ -70,6 +70,12 @@
 		     			<li><a href="ListPendingPaymentsServlet" target="_parent">Pagos Pendientes
 			     		<% if (countPPP != 0){ %>
 	                	<span class="badge green"><%= countPPP %></span>
+	                	<% } %>
+	                	</a></li>
+	                <% } if (PermissionsList.hasPermission(request, PermissionsList.pendingAccounts)){ %>
+		     			<li><a href="ListAccountsServlet" target="_parent">Cuentas Pendientes
+			     		<% if (countPA != 0){ %>
+	                	<span class="badge red"><%= countPA %></span>
 	                	<% } %>
 	                	</a></li>
 	                	<% } %>

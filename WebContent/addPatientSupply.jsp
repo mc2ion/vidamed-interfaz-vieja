@@ -21,7 +21,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-		<title>Agregar servicio</title>
+		<title>Agregar Suministro</title>
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css" />
 		<link href="./css/multi-select.css" media="screen" rel="stylesheet" type="text/css">
 	  	<script src="./js/jquery-1.9.1.min.js"></script>
@@ -39,11 +39,25 @@
 						url: "GetSuppliesServlet",
 						data: {category: index },
 						success: function(data){
-							$("#state").html(data)
+							$("#state").html(data);
 						}
 					});
 				}else{
 					$('.sum-div').hide();
+				}
+			});
+			
+			$( ".target2" ).change(function() {
+				index = $(this).val();
+				if (index != "-"){
+					$.ajax({
+						type: "GET",
+						url: "GetSupplyInventoriesServlet",
+						data: {category: index },
+						success: function(data){
+							$("#inventory").html(data);
+						}
+					});
 				}
 			});
 		});
@@ -62,7 +76,7 @@
 			 <jsp:include page="./menu.jsp" />
         	<div id="content" style="position:absolute;">	
 	        	<h2>Agregar Suministro:</h2> <br><br>
-	        	<p>Por favor, escoga el área del suministro y haga clic en "Siguiente".</p><br>
+	        	<p>Por favor, escoja el área del suministro y haga clic en "Siguiente".</p><br>
 	        	<form action="AddPatientSupplyServlet" method="post" >
 				<input type="hidden" name="admissionId" value="<%= adminId %>"/>
 				<input type="hidden" name="name" value="<%= patName %>"/>
@@ -79,7 +93,11 @@
 					<br/><br/>
 					<p style="display: none;" class="sum-div">
 						<label for="pname">Suministro:</label>
-						<select name="state" id="state" required title="Debe seleccionar un valor en el campo 'Suministro'">
+						<select name="state" id="state" class="target2" required title="Debe seleccionar un valor en el campo 'Suministro'">
+							<option value="">Seleccionar</option>
+						</select><br/><br/>
+						<label for="pname">Inventario:</label>
+						<select name="inventory" id="inventory" required title="Debe seleccionar un valor en el campo 'Inventario'">
 							<option value="">Seleccionar</option>
 						</select><br/><br/>
 						<label>Cantidad:</label>

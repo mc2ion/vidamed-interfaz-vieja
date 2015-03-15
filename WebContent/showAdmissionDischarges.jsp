@@ -1,5 +1,6 @@
 <%@page import="domain.Hospitalization"%>
 <%@page import="domain.Protocol"%>
+<%@page import="domain.PatientService"%>
 <%@page import="domain.User"%>
 <%@page import="java.util.ArrayList"%>
 <%
@@ -12,6 +13,15 @@
 	
 	@SuppressWarnings("unchecked")
 	ArrayList<Protocol> protocols = (ArrayList<Protocol>) request.getAttribute("protocols");
+	@SuppressWarnings("unchecked")
+	ArrayList<PatientService> xRayServices = (ArrayList<PatientService>) request.getAttribute("xRayServices");
+	@SuppressWarnings("unchecked")
+	ArrayList<PatientService> bloodBankServices = (ArrayList<PatientService>) request.getAttribute("bloodBankServices");
+	@SuppressWarnings("unchecked")
+	ArrayList<PatientService> ecosonographyServices = (ArrayList<PatientService>) request.getAttribute("ecosonographyServices");
+	@SuppressWarnings("unchecked")
+	ArrayList<PatientService> labServices = (ArrayList<PatientService>) request.getAttribute("labServices");
+	
 %>
 <!DOCTYPE HTML>
 <html>
@@ -70,6 +80,10 @@
 					<ul>
 					    <li><a href="#tabs-1">Paciente</a></li>
 					    <li><a href="#tabs-2">Protocolos</a></li>
+					    <li><a href="#tabs-3">Rayos X</a></li>
+					    <li><a href="#tabs-4">Banco de Sangre</a></li>
+					    <li><a href="#tabs-5">Ecosonografía</a></li>
+					    <li><a href="#tabs-6">Laboratorio</a></li>
 					</ul>
   					<div id="tabs-1">
   						<div class="leftColumS"><b> Cédula: </b></div><%= hosp.getPatient().getIdentityCard() %><br>
@@ -82,7 +96,7 @@
 					   <div class="leftColumS"><b> Responsable del Pago:</b></div><%= hosp.getResponsible().getName() %><br>
 					   
   					</div>
-  							<div id="tabs-2">
+  					<div id="tabs-2">
   						<br>
 					   	<table id="sweetTable" style="margin-bottom: 10px;">
 					   		<thead>
@@ -108,6 +122,122 @@
 						   		</tr>
 						   		<% }
 								}
+								%>
+						   	</tbody>
+					   	</table>
+					</div>
+					<div id="tabs-3">
+  						<br>
+					   	<table id="sweetTable" style="margin-bottom: 10px;">
+					   		<thead>
+						   		<tr style="background: rgb(136, 162, 190);">
+						   			<th>Servicio</th>
+						   			<th>Total</th>
+						   		</tr>
+						   	</thead>
+						   	<tbody>
+						   	<% if (xRayServices != null && xRayServices.size() != 0) {
+								for (int i=0; i< xRayServices.size(); i++){
+								PatientService ps = xRayServices.get(i);
+								%>
+								<tr>
+						   			<td><%= ps.getServiceName() %></td>
+						   			<td><%= ps.getServicePrice() %></td>
+						   		</tr>
+						   		<% }
+								} else {
+								%>
+								<tr>
+						   			<td colspan="2" style="text-align:center;">No hay datos disponibles en la tabla</td>
+						   		</tr>
+						   		<%}
+								%>
+						   	</tbody>
+					   	</table>
+					</div>
+					<div id="tabs-4">
+  						<br>
+					   	<table id="sweetTable" style="margin-bottom: 10px;">
+					   		<thead>
+						   		<tr style="background: rgb(136, 162, 190);">
+						   			<th>Servicio</th>
+						   			<th>Total</th>
+						   		</tr>
+						   	</thead>
+						   	<tbody>
+						   	<% if (bloodBankServices != null && bloodBankServices.size() != 0) {
+								for (int i=0; i< bloodBankServices.size(); i++){
+								PatientService ps = bloodBankServices.get(i);
+								%>
+								<tr>
+						   			<td><%= ps.getServiceName() %></td>
+						   			<td><%= ps.getServicePrice() %></td>
+						   		</tr>
+						   		<% }
+								} else {
+								%>
+								<tr>
+						   			<td colspan="2" style="text-align:center;">No hay datos disponibles en la tabla</td>
+						   		</tr>
+						   		<%}
+								%>
+						   	</tbody>
+					   	</table>
+					</div>
+					<div id="tabs-5">
+  						<br>
+					   	<table id="sweetTable" style="margin-bottom: 10px;">
+					   		<thead>
+						   		<tr style="background: rgb(136, 162, 190);">
+						   			<th>Servicio</th>
+						   			<th>Total</th>
+						   		</tr>
+						   	</thead>
+						   	<tbody>
+						   	<% if (ecosonographyServices != null && ecosonographyServices.size() != 0) {
+								for (int i=0; i< ecosonographyServices.size(); i++){
+								PatientService ps = ecosonographyServices.get(i);
+								%>
+								<tr>
+						   			<td><%= ps.getServiceName() %></td>
+						   			<td><%= ps.getServicePrice() %></td>
+						   		</tr>
+						   		<% }
+								} else {
+								%>
+								<tr>
+						   			<td colspan="2" style="text-align:center;">No hay datos disponibles en la tabla</td>
+						   		</tr>
+						   		<%}
+								%>
+						   	</tbody>
+					   	</table>
+					</div>
+					<div id="tabs-6">
+  						<br>
+					   	<table id="sweetTable" style="margin-bottom: 10px;">
+					   		<thead>
+						   		<tr style="background: rgb(136, 162, 190);">
+						   			<th>Servicio</th>
+						   			<th>Total</th>
+						   		</tr>
+						   	</thead>
+						   	<tbody>
+						   	<% if (labServices != null && labServices.size() != 0) {
+								for (int i=0; i< labServices.size(); i++){
+								PatientService ps = labServices.get(i);
+								%>
+								<tr>
+						   			<td><%= ps.getServiceName() %></td>
+						   			<td><%= ps.getServicePrice() %></td>
+						   		</tr>
+						   		<% }
+								} else {
+								%>
+								<tr>
+						   			<td colspan="2" style="text-align:center;">No hay datos disponibles en la tabla</td>
+						   		</tr>
+						   		<%}
 								%>
 						   	</tbody>
 					   	</table>

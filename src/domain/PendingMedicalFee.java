@@ -11,6 +11,7 @@ public class PendingMedicalFee {
 	private String amount;
 	private int feeWasPaid;
 	private String paymentDate;
+	private String billPaymentDate;
 	
 	public Long getMedicalFeeID() {
 		return medicalFeeId;
@@ -74,5 +75,13 @@ public class PendingMedicalFee {
 	
 	public String getPaymentDate() {
 		return paymentDate;
+	}
+
+	public void setBillPaymentDate(String billPaymentDate) {
+		this.billPaymentDate = billPaymentDate;
+	}
+
+	public String getBillPaymentDate() {
+		return billPaymentDate;
 	}
 }

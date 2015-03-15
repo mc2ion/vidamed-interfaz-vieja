@@ -95,11 +95,11 @@ public class AddPatientSupplyServlet extends HttpServlet {
 			try{
 				String admin = request.getParameter("admissionId");
 				String name  = request.getParameter("name");
-				String supply  = request.getParameter("state");
+				String supplyInventory = request.getParameter("inventory");
 				String amount  = request.getParameter("amount");
 				String sec = request.getParameter("sec");
 				
-				Integer result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddPatientSupply(Long.valueOf(admin), Long.valueOf(supply), amount));
+				Integer result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddPatientSupply(Long.valueOf(admin), Long.valueOf(supplyInventory), amount));
 				
 				String text = "El suministro fue agregado exitosamente";
 				if (result == 0)

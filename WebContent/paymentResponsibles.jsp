@@ -11,6 +11,7 @@
 <%
 	@SuppressWarnings("unchecked")
 	ArrayList<PaymentResponsible> responsibles = (ArrayList<PaymentResponsible>)request.getAttribute("responsibles");
+	Long cashPayment = (Long)request.getAttribute("cashPayment");
 %>
 <html>
 	<head>
@@ -97,7 +98,6 @@
 								</thead>
 								<tbody>			
 									<% 
-									System.out.println("size " + responsibles.size());
 									if (responsibles.size() != 0) { 
 										for (int i = 0; i<responsibles.size(); i++) { 
 											PaymentResponsible responsible = responsibles.get(i);
@@ -106,6 +106,9 @@
 										<td><%= responsible.getId() %></td>
 										<td><%= responsible.getName() %></td>
 										<td><%= responsible.getRuleName() %></td>
+										<% if (responsible.getId().equals(cashPayment)){ %>
+										<td></td>
+										<% } else { %>										
 										<td>
 											<a href="EditPaymentResponsibleServlet?rId=<%=responsible.getId() %>" style="color: transparent;" >
 												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
@@ -116,6 +119,7 @@
 											</a> 
 											<br>
 										</td>
+										<% } %>
 									</tr>
 									<% 		}
 										} %>

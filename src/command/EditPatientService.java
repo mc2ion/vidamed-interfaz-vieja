@@ -8,10 +8,12 @@ public class EditPatientService implements DatabaseCommand {
 	
 	private Long servicePatientId;
 	private String fileName;
+	private String reportName;
 		
-	public EditPatientService(Long servicePatientId, String fileName){
+	public EditPatientService(Long servicePatientId, String fileName, String reportName){
 		this.servicePatientId 	 = servicePatientId;
 		this.fileName 	 		 = fileName;
+		this.reportName			 = reportName;
 	}
 	
 	@Override
@@ -20,17 +22,17 @@ public class EditPatientService implements DatabaseCommand {
 		PreparedStatement ps = null;
 		
 		try {
-			ps = conn.prepareStatement("exec dbo.EditPatientService '" + fileName + "', " +  servicePatientId);
+			ps = conn.prepareStatement("exec dbo.EditPatientService '" + fileName + "', " +  servicePatientId + ", '"+ reportName + "'");
 			ps.execute();
 		}
 		catch(Exception e){
-			return 0;
+			return -1L;
 		}
 		finally {
 			ps.close();
 		}		
 		
-		return 1;
+		return this.servicePatientId;
 	}
 
 }

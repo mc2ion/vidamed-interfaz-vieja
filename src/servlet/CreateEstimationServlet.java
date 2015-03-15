@@ -1,9 +1,11 @@
 package servlet;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -86,6 +88,12 @@ public class CreateEstimationServlet extends HttpServlet {
 				@SuppressWarnings("unchecked")
 				ArrayList<ClinicType> clinic = (ArrayList<ClinicType>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetClinicTypes());
 				request.setAttribute("clinic", clinic);
+				
+				Properties propertiesFile = new Properties();
+				propertiesFile.load( new FileInputStream( getServletContext().getInitParameter("properties") ) );
+				Long cashPayment = Long.parseLong(propertiesFile.getProperty("cashPayment"));
+				request.setAttribute("cashPayment", cashPayment);
+				
 				if (function != "" && function.equals("admision")) request.setAttribute("function", "admisionCreate");
 				else request.setAttribute("function", "estimationCreate");
 				rd = getServletContext().getRequestDispatcher("/createEstimation.jsp");			

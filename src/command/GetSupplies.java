@@ -35,11 +35,13 @@ public class GetSupplies implements DatabaseCommand {
 				s.setType(rs.getInt(4));
 				s.setDescription(rs.getString(5));
 				s.setActiveComponent(rs.getString(6));
-				s.setManufacturer(rs.getString(7));
-				s.setSupplyFormID(rs.getLong(8));
-				s.setAmount(rs.getLong(9));
-				s.setUnitPrice(rs.getDouble(10));
-				s.setIsRegulated(rs.getInt(11));
+				s.setSupplyFormID(rs.getLong(7));
+				s.setAmount(rs.getLong(8));
+				s.setIsRegulated(rs.getInt(9));
+				s.setSupplyFormName(rs.getString(10));
+				s.setDose(rs.getDouble(11));
+				s.setDoseUnitID(rs.getLong(12));
+				s.setDoseUnitAbbrev(rs.getString(13));
 				supplies.add(s);
 			}
 		}

@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import domain.PatientSupply;
+import domain.Supply;
+import domain.SupplyInventory;
 
 public class GetPatientSupply implements DatabaseCommand {
 	
@@ -34,6 +36,19 @@ public class GetPatientSupply implements DatabaseCommand {
 				pSupply.setSupplyName(rs.getString(4));
 				pSupply.setSupplyForm(rs.getString(5));
 				pSupply.setAmount(rs.getString(6));
+				
+				SupplyInventory inventory = new SupplyInventory();
+				inventory.setSupplyInventoryID(rs.getLong(7));
+				inventory.setManufacturer(rs.getString(8));
+				inventory.setLotNumber(rs.getString(9));
+				inventory.setExpirationDate(rs.getString(10));
+				pSupply.setSupplyInventory(inventory);
+				
+				Supply supply = new Supply();
+				supply.setDose(rs.getDouble(11));
+				supply.setDoseUnitID(rs.getLong(12));
+				supply.setDoseUnitAbbrev(rs.getString(13));
+				pSupply.setSupply(supply);
 			}
 		}
 		finally {

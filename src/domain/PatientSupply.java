@@ -14,6 +14,8 @@ public class PatientSupply {
 	private String unitPrice;
 	private String total;
 	private String supplyDate;
+	private SupplyInventory supplyInventory;
+	
 	
 	public Long getAdmissionID() {
 		return admissionID;
@@ -109,5 +111,13 @@ public class PatientSupply {
 
 	public void setSupplyDate(String supplyDate) {
 		this.supplyDate = supplyDate;
+	}
+
+	public void setSupplyInventory(SupplyInventory supplyInventory) {
+		this.supplyInventory = supplyInventory;
+	}
+
+	public SupplyInventory getSupplyInventory() {
+		return supplyInventory;
 	}
 }

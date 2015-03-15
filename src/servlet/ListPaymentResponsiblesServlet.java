@@ -1,7 +1,9 @@
 package servlet;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Properties;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,7 +25,7 @@ import domain.User;
 @WebServlet(description = "servlet to generate reports", urlPatterns = { "/ListPaymentResponsiblesServlet" })
 public class ListPaymentResponsiblesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+		
 	public void init() throws ServletException {
 		super.init();
 		try {
@@ -53,10 +55,16 @@ public class ListPaymentResponsiblesServlet extends HttpServlet {
 			RequestDispatcher rd;
 			
 			ArrayList<PaymentResponsible> responsibles;
+			Properties propertiesFile = new Properties();
+			propertiesFile.load( new FileInputStream( getServletContext().getInitParameter("properties") ) );
+			Long cashPayment;
 			try {
 				responsibles = (ArrayList<PaymentResponsible>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPaymentResponsibles());
 				request.setAttribute("responsibles", responsibles);
 				
+				cashPayment = Long.parseLong(propertiesFile.getProperty("cashPayment"));
+				request.setAttribute("cashPayment", cashPayment);
+
 				rd = getServletContext().getRequestDispatcher("/paymentResponsibles.jsp");
 				rd.forward(request, response);
 			

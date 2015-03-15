@@ -34,7 +34,7 @@ public class GetPatientService implements DatabaseCommand {
 				pSupply.setServiceName(rs.getString(4));
 				pSupply.setServicePrice(rs.getString(5));
 				pSupply.setAssociatedFile(rs.getString(6));
-				
+				pSupply.setAssociatedReport(rs.getString(7));
 			}
 		}
 		finally {

@@ -73,7 +73,9 @@
 					</select><br/><br/>
 					<div class="file-div" style="display:none">
 						<label>Cargar archivo:</label>
-						<input type="file" name="file"/>
+						<input type="file" name="file"/><br/><br/>
+						<label>Cargar informe:</label>
+						<input type="file" name="report"/>
 					</div>
 				</fieldset>
 				<br/>

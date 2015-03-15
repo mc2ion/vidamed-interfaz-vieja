@@ -7,10 +7,13 @@
 %>
 <%@ page import="domain.Supply" %>
 <%@ page import="domain.SupplyForm" %>
+<%@ page import="domain.DoseUnit" %>
 <%@ page import="java.util.ArrayList" %>
 <%
 @SuppressWarnings("unchecked")
 ArrayList<SupplyForm> supplyForms = (ArrayList<SupplyForm>)request.getAttribute("supplyForms");
+@SuppressWarnings("unchecked")
+ArrayList<DoseUnit> doseUnits = (ArrayList<DoseUnit>)request.getAttribute("doseUnits");
 Supply supply = (Supply) request.getAttribute("supply");
 %>
 <!DOCTYPE HTML>
@@ -53,10 +56,6 @@ Supply supply = (Supply) request.getAttribute("supply");
             			alert("El campo 'Componente Activo' no puede ser dejado en blanco");
             			return;
             		}
-            		else if ($('#txtType').val() == '1' && $('#txtManufacturer').val() == '') {
-            			alert("El campo 'Fabricante' no puede ser dejado en blanco");
-            			return;
-            		}
             		else if ($('#txtType').val() == '1' && $('#txtForm').val() == '0') {
             			alert("Debe seleccionar un valor para el campo 'Presentación'");
             			return;
@@ -67,14 +66,6 @@ Supply supply = (Supply) request.getAttribute("supply");
             		}
             		else if (!$('#txtAmount').val().match(patternNumber)) {
             			alert("El valor del campo 'Cantidad' debe ser numérico. No colocar puntos ni espacios en blanco.");
-            			return;
-            		}
-            		else if ($('#txtUnitPrice').val() == '') {
-            			alert("El campo 'Precio Unitario' no puede ser dejado en blanco");
-            			return;
-            		}
-            		else if (!$('#txtUnitPrice').val().match(patternDouble)) {
-            			alert("El campo 'Precio Unitario' debe ser numérico");
             			return;
             		}
             		else {
@@ -120,8 +111,15 @@ Supply supply = (Supply) request.getAttribute("supply");
 						<div id="medicine" style="display:<%= supply.getType() == 1 ? "block" : "none" %>;">
 							<label for="name">Componente Activo:</label>
 							<input type="text" name="txtActiveComponent" id="txtActiveComponent" maxlength="50" size="5" value="<%= supply.getActiveComponent() %>"/> <br><br>
-							<label for="name">Fabricante:</label>
-							<input type="text" name="txtManufacturer" id="txtManufacturer" maxlength="50" size="5" value="<%= supply.getManufacturer() %>"/> <br><br>
+							<label for="name">Dosis:</label>
+							<input type="number" name="txtDose" id="txtDose" maxlength="5" size="5" min="0" value="<%= supply.getDose() %>"/> 
+							<select id="txtDoseUnit" name="txtDoseUnit">
+								<% for (int i = 0; i<doseUnits.size(); i++) {
+										DoseUnit d = doseUnits.get(i);
+								%>
+										<option value="<%= d.getId() %>" <%= supply.getDoseUnitID() != null && supply.getDoseUnitID() == d.getId() ? "selected" : "" %>><%= d.getAbbreviation() %></option>
+								<% } %>
+							</select> <br><br>
 							<label for="name">Presentación:</label>
 							<select id="txtForm" name="txtForm">
 								<option value="0" <%= supply.getSupplyFormID() == null ? "selected" : "" %>>Seleccionar</option>
@@ -134,8 +132,6 @@ Supply supply = (Supply) request.getAttribute("supply");
 						</div>
 						<label for="name">Cantidad:</label>
 						<input type="number" min="1" name="txtAmount" id="txtAmount" maxlength="3" size="3" value="<%= supply.getAmount() %>" /> <br><br>
-						<label for="name">Precio Unitario:</label>
-						<input type="number" min="1" name="txtUnitPrice" id="txtUnitPrice" maxlength="3" size="3" value="<%= supply.getUnitPrice() %>" /> <br><br>
 						<label for="name"> </label>
 						<input type="checkbox" name="isRegulated" id="isRegulated" value="true" <%= supply.getIsRegulated() == 1 ? "checked" : "" %>> Producto Regulado <br><br>
 					</fieldset>

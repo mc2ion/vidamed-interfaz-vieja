@@ -1,5 +1,6 @@
 <%@page import="domain.PendingMedicalFee"%>
 <%@page import="domain.User"%>
+<%@page import="domain.Estimation"%>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
@@ -42,15 +43,17 @@
 						statusH = "Pendiente";
 				%>
 			   	<b>Especialista:</b> <%= eName %><br><br>
-			    <b>N° de factura:</b> <%= pp.getBillID() %><br><br>
+			    <b>N° de factura:</b> <%= Estimation.leftPadStringWithChar(pp.getBillID().toString(), 9, '0') %><br><br>
+			    <b>Fecha de emisión de factura:</b> <%= pp.getBillDate() %><br><br>
 			    <b>Monto:</b> Bs. <%= pp.getAmount() %><br><br>
-			    <b>Estatus del pago del seguro:</b> <%= status %><br><br>
-			    <b>Fecha del pago de la factura:</b> <%= pp.getBillDate() %><br><br>
-			    <b>Estatus del pago del honorario:</b> <%= statusH %><br><br>
-			    <% if (pp.getFeeWasPaid() == 1){ %>
-			    	<b>Fecha del pago del honorario:</b> <%= pp.getPaymentDate() %><br><br>
+			    <b>Estatus de pago del seguro:</b> <%= status %><br><br>
+			    <% if (pp.getBillWasPaid() == 1){ %>
+			    	<b>Fecha de pago del seguro:</b> <%= pp.getBillPaymentDate() %><br><br>
 			    <% } %>
-			    <br><br>
+			    <b>Estatus de pago del honorario:</b> <%= statusH %><br><br>
+			    <% if (pp.getFeeWasPaid() == 1){ %>
+			    	<b>Fecha de pago del honorario:</b> <%= pp.getPaymentDate() %><br><br>
+			    <% } %>
 			    </p>
 				<div id="botonera" >
 					<form action="#">
