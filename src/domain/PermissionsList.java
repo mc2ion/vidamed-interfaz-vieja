@@ -43,6 +43,7 @@ public class PermissionsList implements Serializable {
     public static long pendingPayments     = 30;
     public static long medicalTAdmin       = 31;
     public static long medicalTPacient     = 32;
+    public static long patient			   = 33;
     
    	
 	/*public static long createEstimation  = 2;

@@ -11,6 +11,9 @@ public class Patient {
 	private long numEstimation;
 	private long estimationPaymentResponsibleId;
 	private String estimationResponsibleName;
+	private String address;
+	private String email;
+	private String birthday;
 	
 	public Long getPatientID() {
 		return patientID;
@@ -83,6 +86,30 @@ public class Patient {
 	
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getBirthday() {
+		return birthday;
 	}
 	
 }

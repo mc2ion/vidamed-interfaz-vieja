@@ -99,10 +99,11 @@
 			$('#paymentId').change(function() {
 				val = $(this).val();
 				if(val == '<%= cashPayment %>'){
-					$('#aval').attr('checked', false);
-					$("#div-3").hide();
-					$('#titular').attr('checked', true);
+					$('#aval').prop('checked', false);
+					$('#titular').prop('checked', true);
 					$(".cashPayment").hide();
+					$("#div-3").hide();
+					
 				} else {
 					$(".cashPayment").show();
 				}             

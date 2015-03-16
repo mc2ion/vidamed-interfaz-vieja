@@ -3,10 +3,16 @@
 <div id='cssmenu'>
 		<ul>
 			<%
-		   	boolean perm  = PermissionsList.hasPermission(request, PermissionsList.estimation);
+		   	boolean perm = PermissionsList.hasPermission(request, PermissionsList.patient);
+			if (perm){
+			%>
+			<li class='first'><a href='ListPatientsServlet'><span>Pacientes</span></a></li>
+			<%	
+			}		   	
+		   	perm  = PermissionsList.hasPermission(request, PermissionsList.estimation);
 		    if (perm){
 		   %>
-		   <li class='first'><a href='ListEstimationsServlet'><span>Presupuesto</span></a></li>
+		   <li><a href='ListEstimationsServlet'><span>Presupuesto</span></a></li>
 		   <% } %>
 		   <%
 		   	perm  = PermissionsList.hasPermission(request, PermissionsList.emergency);
