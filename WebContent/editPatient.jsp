@@ -198,6 +198,7 @@
 	        	<h2>Editar Paciente:</h2> <br/>
 				<br>
 				<form id="form1" name="form1" action="EditPatientServlet" method="post">
+				<input type="hidden" id="patientID" name="patientID" value="<%= patient.getPatientID() %>"/>
 				<div id="tabs">
 					<ul>
 					    <li><a href="#tabs-1">Datos Personales</a></li>
@@ -251,9 +252,8 @@
 									</select>
 						  	 		<input type="text" id="txtPhoneNumber<%= i %>" name="txtPhoneNumber<%= i %>" value="<%= spn.getPhoneNumber() %>" style="width: 135px;">
 						  	 		<% if (i == 0) { %>
-						  	 		<img alt="logo" src="./images/add.png"  id="addPhone" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Agregar otro telefono" />
-						  	 		<% }
-						  	 		   else { %>
+						  	 			<img alt="logo" src="./images/add.png"  id="addPhone" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Agregar otro telefono" <%= (phoneNumbers.size()<2)?"":"hidden" %> />
+						  	 		<%} else { %>
 						  	 		<img alt="logo" src="./images/close.png"  id="deletePhone<%= i %>" height="16" width="16" style="margin-left:10px; cursor: pointer;" title="Agregar otro telefono" />
 									<% } %>
 									<br /><br />

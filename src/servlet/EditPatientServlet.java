@@ -58,14 +58,13 @@ public class EditPatientServlet extends HttpServlet {
 				@SuppressWarnings("unchecked")
 				ArrayList<PatientPhoneNumber> phoneNumbers = (ArrayList<PatientPhoneNumber>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPatientPhoneNumbers(id));
 				Patient p = (Patient) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPatient(id));
-				
+				System.out.println("+++ phoneNumbers:"+phoneNumbers.size());
 				request.setAttribute("phoneNumbers", phoneNumbers);
 				request.setAttribute("patient", p);
 				
 				rd = getServletContext().getRequestDispatcher("/editPatient.jsp");			
 				rd.forward(request, response);
 			}catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -78,87 +77,86 @@ public class EditPatientServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	/*protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
-			if(userE != null){
-			String submit = request.getParameter("submit");
-			RequestDispatcher rd;
+		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.patient);	
+		
+		if(userE != null && perm ){
+			Long patientID = Long.parseLong(request.getParameter("patientID"));
 			try{
-				if (submit != null && submit.equals("find")){
-					String txtCedId 	= request.getParameter("txtCedId");
-					String txtCedIdNum 	= request.getParameter("txtCedIdNum");
-					String patientType  = request.getParameter("txtPatientType");
-					String function  	= request.getParameter("f");
-					
-					request.setAttribute("cedId", txtCedId);
-					request.setAttribute("cedNum", txtCedIdNum);
-					request.setAttribute("patientType", patientType);
-					request.setAttribute("function", function);
-					
-					rd = getServletContext().getRequestDispatcher("/createPatient.jsp");			
-					rd.forward(request, response);
-				}else{
-					String isAdultS = request.getParameter("isAdult");
-					int isAdult = 0;
-					if (isAdultS != null){
-						isAdult = Integer.valueOf(isAdultS);
-					}
-					String identityCard = request.getParameter("txtCedId") + request.getParameter("txtCedIdNum");
-					String firstName	 = request.getParameter("txtFirstName");
-					String lastName 	 = request.getParameter("txtLastName");
-					String birthday  	 = request.getParameter("txtDateIni");
-					String gender 		 = request.getParameter("txtGen");
-					String address 		 = request.getParameter("txtAddress");
-					String email 		 = request.getParameter("txtEmail");
-					String function	 	 = request.getParameter("function");
-					
-					Long userID = (Long) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddPatient(identityCard, isAdult, firstName, lastName, birthday, gender, address, email));
-					for (int i = 0; i < 2; i++) {
+				String text_good = "El paciente fue editado exitosamente.";
+				String text_bad = "Se ha presentado un error al editar el paciente. Por favor, intente nuevamente.";
+				String text_ident = "No se ha podido editar al paciente porque la cédula introducida ya está registrada.";
+				String isAdultS = request.getParameter("isAdult");
+				int isAdult = 0;
+				
+				if (isAdultS != null){
+					isAdult = Integer.valueOf(isAdultS);
+				}
+				
+				String identityCard = request.getParameter("txtCedId") + request.getParameter("txtCedIdNum");
+				String firstName	 = request.getParameter("txtFirstName");
+				String lastName 	 = request.getParameter("txtLastName");
+				String birthday  	 = request.getParameter("txtDateIni");
+				String gender 		 = request.getParameter("txtGen");
+				String address 		 = request.getParameter("txtAddress");
+				String email 		 = request.getParameter("txtEmail");	
+				boolean phoneNumberError = false;
+				int result = (Integer)CommandExecutor.getInstance().executeDatabaseCommand(new command.EditPatient(identityCard, isAdult, firstName, lastName, birthday, gender, address, email, patientID));
+				
+				if (result == -1)
+					session.setAttribute("info",text_ident);
+				else if (result != -2){
+					for (int i = 0; i<2; i++) {						
+						String phoneNumberID = request.getParameter("txtPhoneId" + i);
 						String type = request.getParameter("txtType" + i); 
 						String phoneNumber = request.getParameter("txtPhoneNumber" + i); 
-						if (phoneNumber != null && !phoneNumber.trim().equals("")) {
-							CommandExecutor.getInstance().executeDatabaseCommand(new command.AddPatientPhoneNumber(userID, type, phoneNumber));
+						
+						if (phoneNumberID == null || phoneNumberID.trim().equals("")) {
+							if (phoneNumber != null && !phoneNumber.trim().equals("")) {
+								Long pnID = (Long)CommandExecutor.getInstance().executeDatabaseCommand(new command.AddPatientPhoneNumber(patientID, type, phoneNumber));
+								if (pnID == null && !phoneNumberError) {
+									phoneNumberError = true;
+									text_good += " Se ha presentado un error al editar uno o más números telefónicos del paciente. Por favor, intente nuevamente.";
+								}
+							}
 						}
-					}
-					// Ir a la seccion de la cual venia el usuario y pasar la informacion del usuario
-					System.out.println(function);
-					if (function.equals("estimation")){
-						System.out.println("aqui");
-						request.setAttribute("txtCedNumber", identityCard);
-						request.setAttribute("txtName", firstName);
-						request.setAttribute("txtLastName", lastName);
-						request.setAttribute("patientID", String.valueOf(userID));
-						request.setAttribute("function", function);
-						RequestDispatcher rd2 = getServletContext().getRequestDispatcher("/CreateEstimationServlet");
-						rd2.forward(request,response);
-					}else if(function.equals("admision")){
-						// Crear presupuesto para el paciente recien creado.
-						request.setAttribute("txtCedNumber", identityCard);
-						request.setAttribute("txtName", firstName);
-						request.setAttribute("txtLastName", lastName);
-						request.setAttribute("patientID", String.valueOf(userID));
-						request.setAttribute("function", function);
-						
-						
-						User pat = new User();
-						pat.setFirstName(firstName);
-						pat.setLastName(lastName);
-						pat.setIdentityCard(identityCard);
-						session.setAttribute("userInfo", pat);
-						//llamando a doget para que llame al servlet por el get!
-						doGet(request, response);
-						//rd = getServletContext().getRequestDispatcher("/CreateEstimationServlet");			
-						//rd.forward(request, response);
-					}
+						else {
+							if (phoneNumber != null && !phoneNumber.trim().equals("")) {
+								Long pnID = (Long)CommandExecutor.getInstance().executeDatabaseCommand(new command.EditPatientPhoneNumber(Long.parseLong(phoneNumberID), type, phoneNumber));
+								if (pnID == null && !phoneNumberError) {
+									phoneNumberError = true;
+									text_good += " Se ha presentado un error al editar uno o más números telefónicos del paciente. Por favor, intente nuevamente.";
+								}
+							}
+							else {
+								int resp = (Integer)CommandExecutor.getInstance().executeDatabaseCommand(new command.RemovePatientPhoneNumber(Long.parseLong(phoneNumberID)));
+								if (resp == 0 && !phoneNumberError) {
+									phoneNumberError = true;
+									text_good += " Se ha presentado un error al editar uno o más números telefónicos del especialista. Por favor, intente nuevamente.";
+								}
+							}
+						}
+					}					
+					session.setAttribute("info",text_good);
+				} else {
+					session.setAttribute("info",text_bad);
 				}
-			}catch(Exception e ){
-				System.out.print(e.getMessage());
+				
+				response.sendRedirect(request.getContextPath() + "/ListPatientsServlet");
+			}catch (Exception e) {
+				throw new ServletException(e);
 			}
 		} else {
-			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); 
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
-			rd.forward(request, response);
+			if (userE == null){
+				request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+				rd.forward(request, response);
+			}else{
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/sectionDenied.jsp");
+				rd.forward(request, response);
+			}
 		}	
-	}*/
+	}
 }
