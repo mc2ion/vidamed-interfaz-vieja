@@ -7,29 +7,33 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 import domain.PaymentResponsible;
 import domain.PendingAccounts;
 
-public class GetPendingAccounts implements DatabaseCommand {
+public class GetPendingAccount implements DatabaseCommand {
 	
-	public GetPendingAccounts(){}
+	
+	private Long id;
+	
+	public GetPendingAccount(Long id){
+		this.id = id;
+	}
 	
 	@Override
 	public Object executeDatabaseOperation(Connection conn) throws SQLException {
 		
-		ArrayList<PendingAccounts> pList = new ArrayList<PendingAccounts>();;
+		//PendingAccounts pAccount = new PendingAccounts();
+		PendingAccounts u = new PendingAccounts();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
 		try {
-			ps = conn.prepareStatement("exec dbo.GetPendingAccounts");
+			ps = conn.prepareStatement("exec dbo.GetPendingAccount " + id);
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				PendingAccounts u = new PendingAccounts();
 				u.setBillID(rs.getLong(1));
 				u.setEstimationID(rs.getLong(2));
 				
@@ -54,8 +58,8 @@ public class GetPendingAccounts implements DatabaseCommand {
 				} catch (ParseException e1) {
 					e1.printStackTrace();
 				}
-				
-				pList.add(u);
+				u.setTotalWithDiscount(rs.getString(7), rs.getDouble(7));
+				u.setTotalPaid(rs.getString(8), rs.getDouble(8));
 			}
 		}
 		finally {
@@ -63,7 +67,7 @@ public class GetPendingAccounts implements DatabaseCommand {
 			ps.close();
 		}		
 		
-		return pList;
+		return u;
 	}
 
 }

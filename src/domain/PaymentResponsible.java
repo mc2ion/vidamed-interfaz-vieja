@@ -20,6 +20,7 @@ public class PaymentResponsible {
 	private String policyHolderIdentityCard;
 	private double total;
 	
+	
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -123,6 +124,7 @@ public class PaymentResponsible {
 	public double getTotal(){
 		return total;
 	}
+	
 	
 	public void setContactName(String contactName){
 		this.contactName = contactName;

@@ -2011,6 +2011,8 @@ input.search-input{
 	border-radius: 10px;
 }
 
+.cuentasP{display:none; margin-bottom:15px;}
+
 #printCashBoxText{
 	color: #006c92;
 	font-weight: bold;

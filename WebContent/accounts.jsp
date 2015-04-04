@@ -30,7 +30,6 @@
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		<script type="text/javascript" src="./js/jquery.dataTables.js"></script>
 		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
-		<link rel="stylesheet" href="/resources/demos/style.css" />
 		<script>
 			$(function() {
 				$( "#tabs" ).tabs();
@@ -131,8 +130,9 @@
 					
 			  		<!--</ul>
   					<div id="tabs-1">-->
-  						
-  						<table class="display" id="example2">
+  						<form id='formFact' method="post" action="PayPendingAccountsServlet">
+  						<div id="printCashBox" class='cuentasP'><input type="submit" id="printCashBoxText" value="Cuentas Cobradas"></div>
+						<table class="display" id="example2">
 								<thead>
 									<tr>
 										<th>Seleccionar</th>
@@ -148,7 +148,7 @@
 										PendingAccounts p = pList.get(i);
 									%>	
 									<tr class="gradeA">
-										<td><input type="checkbox" name="selFact" value="1"></td>
+										<td><input type="checkbox" name="selFact" class='selF' value="<%= p.getBillID() %>"></td>
 										
 										<td><%= p.getBillID() %></td>
 										<td><%= p.getGenerationDate() %></td>
@@ -159,7 +159,7 @@
 											onclick="return loadVars(<%= p.getBillID() %>, '<%= p.getPaymentResposible().getName() %>');" >
 											<img alt="logo" src="./images/check.png" height="16" width="16" title="Cobrada"/>
 											</a>
-											<a href="ShowCashServlet" style="color: transparent" >
+											<a href="ShowCashServlet?billID=<%= p.getBillID() %> " style="color: transparent" >
 												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 											</a>
 											<br>
@@ -168,80 +168,8 @@
 									<% } %>
 								</tbody>
 							</table>
-  					<!--</div>
-  					 <div id="tabs-2">
-  						
-  						<table  class="display" id="example">
-								<thead>
-									<tr>
-										<th>No. de Factura</th>
-										<th>Cliente</th>
-										<th>Cédula o Rif</th>
-										<th>Monto</th>
-										<th>Acciones</th>
-									</tr>
-								</thead>
-								<tbody>			
-									<tr class="gradeA">
-										<td>168710</td>
-										<td>Centro Médico Quirúrgico</td>
-										<td>J-71623768-8</td>
-										<td>Bs. 1500</td>
-										<td>
-											<a id="go" rel="leanModal" href="#closeCashW" style="color: #f7941e; font-weight: bold;" >
-												<img alt="logo" src="./images/close.png"  height="16" width="16" title="Ver Detalle" />
-											</a>
-											<a href="ShowCashServlet" style="color: transparent" >
-												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
-											</a>
-											<a id="go" rel="leanModal" href="#deteleCash" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1001,'Ana Rojas');" >
-												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-											</a> 
-											<br>
-										</td>
-									</tr>
-									<tr class="gradeA">
-										<td>26673986</td>
-										<td>Ana Rojas</td>
-										<td>V-193646278</td>
-										<td>Bs. 4500</td>
-										<td>
-											<a id="go" rel="leanModal" href="#openCashW" style="color: #f7941e; font-weight: bold;" >
-												<img alt="logo" src="./images/open.png"  height="16" width="16" title="Ver Detalle" />
-											</a>
-											<a href="#" style="color: transparent" >
-												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
-											</a>
-											<a id="go" rel="leanModal" href="#deteleCash" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(1001,'Ana Rojas');" >
-												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-											</a> 
-											<br>
-										</td>
-									</tr>
-									
-								</tbody>
-							</table>
-  					</div> 
-  				</div> -->
-			</div>
-		</div>
-		<div id="refreshUser">
-			<div id="signup-ct">
-				<h3 id="see_id" class="sprited" > Actualizar Presupuesto</h3>
-				<br><br>
-				<span>¿Desea actualizar fecha y costos del presupuesto seleccionado? </span> <br><br>
-				<div id="signup-header">
-					<a class="close_x" id="close_x"  href="#"></a>
-				</div>
-				<form action="ListEstimationsServlet" method="post"  onsubmit="return setV(this)">
-					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
-					<div class="btn-fld">
-						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
-					</div>
-		 		</form>
-			</div>
+							</form>
+  			</div>
 		</div>
 		<div id="closeAccount">
 			<div id="signup-ct">
@@ -259,5 +187,19 @@
 		 		</form>
 			</div>
 		</div>
+	<script>
+	$('.selF').change(function () {
+		var checkedAtLeastOne = false;
+		$('input[type="checkbox"]').each(function() {
+			if ($(this).is(":checked")) {
+				checkedAtLeastOne = true;
+			}
+			
+		});
+		if (checkedAtLeastOne == true) {$('.cuentasP').show();}
+		else {$('.cuentasP').hide();}
+	});
+	
+	</script>
 	</body>
 </html>

@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
+import domain.PendingAccounts;
+import domain.PermissionsList;
 import domain.User;
 
 
@@ -44,13 +46,27 @@ public class ShowCashServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
-		if(userE != null){
-			RequestDispatcher rd;
-			rd = getServletContext().getRequestDispatcher("/showCash.jsp");			
-			rd.forward(request, response);
+		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.pendingPayments);
+		String  id 	  = request.getParameter("billID");
+		if(userE != null && perm ){
+			try {
+				PendingAccounts cb = (PendingAccounts) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPendingAccount(Long.valueOf(id)));
+				request.setAttribute("pendingAccount", cb);
+				RequestDispatcher rd;
+				rd = getServletContext().getRequestDispatcher("/showPendingAccount.jsp");			
+				rd.forward(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 		} else {
-			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
-			rd.forward(request, response);
+			if (userE == null){
+				request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+				rd.forward(request, response);
+			}else{
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/sectionDenied.jsp");
+				rd.forward(request, response);
+			}
 		}	
 	}
 
