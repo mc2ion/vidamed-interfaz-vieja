@@ -35,6 +35,7 @@ public class GetProtocol implements DatabaseCommand {
 				u.setOrHours(rs.getString(6));
 				u.setRoomDays(rs.getString(7));
 				u.setAnesthesiaID(rs.getString(8));
+				u.setUnitID(rs.getString(9));
 			}
 		}
 		finally {

@@ -15,7 +15,7 @@ public class GetBussinessMicros implements DatabaseCommand {
 	@Override
 	public Object executeDatabaseOperation(Connection conn) throws SQLException {
 		
-		ArrayList<BussinessMicro> bussinessList = new ArrayList<BussinessMicro>();;
+		ArrayList<BussinessMicro> bussinessList = new ArrayList<BussinessMicro>();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import command.CommandExecutor;
 import domain.AnesthesiaType;
 import domain.PermissionsList;
+import domain.Unit;
 import domain.User;
 
 
@@ -57,8 +58,11 @@ public class CreateProtocolServlet extends HttpServlet {
 				//Obtener anesthesia type
 				@SuppressWarnings("unchecked")
 				ArrayList<AnesthesiaType> a = (ArrayList<AnesthesiaType>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetAnesthesiaTypes());
+				@SuppressWarnings("unchecked")
+				ArrayList<Unit> u = (ArrayList<Unit>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetUnits());
 				
 				request.setAttribute("anesthesiaTypes", a);
+				request.setAttribute("units", u);
 
 				rd = getServletContext().getRequestDispatcher("/createProtocol.jsp");			
 				rd.forward(request, response);
@@ -78,8 +82,8 @@ public class CreateProtocolServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		String[] inputs = {"txtName", "txtDescription", "txtSimilar", "typeOfProtocol", "gender", "txtORHours", "txtDays", "anesthesia"};
-		String[] params = new String[8];
+		String[] inputs = {"txtName", "txtDescription", "txtSimilar", "typeOfProtocol", "gender", "txtORHours", "txtDays", "anesthesia", "unit"};
+		String[] params = new String[9];
 		
 		for(int i=0; i< inputs.length; i++ ){
 			params[i] = (String) request.getParameter(inputs[i]);
@@ -88,7 +92,7 @@ public class CreateProtocolServlet extends HttpServlet {
 		Long protocolID;
 		try {
 			protocolID = (Long)CommandExecutor.getInstance().executeDatabaseCommand(new command.AddProtocol(params[0], params[1], params[3],
-					params[4], params[5], params[6], params[7]));
+					params[4], params[5], params[6], params[7], params[8]));
 			String text_good = "";
 			System.out.println(protocolID);
 			if (protocolID == null) {

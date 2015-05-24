@@ -14,10 +14,11 @@ public class EditProtocol implements DatabaseCommand {
 	private String roomdays;
 	private String anesthesiatypeid;
 	private String protocolId;
+	private String unitid;
 	
 			
 	public EditProtocol(String name, String description, String type, String gender, String orhours, 
-			String roomdays, String anesthesiatypeid, String protocolID) {
+			String roomdays, String anesthesiatypeid, String protocolID, String unitid) {
 		this.name 		 		= name;
 		this.description 		= description;
 		this.type 		 		= type;
@@ -27,7 +28,7 @@ public class EditProtocol implements DatabaseCommand {
 		else	this.roomdays = "0";
 		this.anesthesiatypeid 	= anesthesiatypeid;
 		this.protocolId 		= protocolID;
-		
+		this.unitid				= unitid;
 	}
 	
 	@Override
@@ -39,7 +40,7 @@ public class EditProtocol implements DatabaseCommand {
 		try {
 			ps = conn.prepareStatement("exec dbo.EditProtocol '" + name + "', '" + description + "', '" + 
 						type + "', '" + gender + "', '" + orhours + "', '" + roomdays + "', '" + 
-						anesthesiatypeid + "', '" + protocolId + "'");
+						anesthesiatypeid + "', '" + unitid + "', '" + protocolId + "'");
 			ps.execute();
 		}
 		finally {

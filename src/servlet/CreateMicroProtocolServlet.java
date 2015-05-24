@@ -82,7 +82,7 @@ public class CreateMicroProtocolServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		String[] inputs = {"txtName", "txtDescription", "txtSimilar", "typeOfProtocol", "gender", "txtORHours", "txtDays", "anesthesia"};
+		String[] inputs = {"txtName", "txtDescription", "txtSimilar", "typeOfProtocol", "gender", "txtORHours", "txtDays", "anesthesia", "unit"};
 		String[] params = new String[8];
 		
 		for(int i=0; i< inputs.length; i++ ){
@@ -92,7 +92,7 @@ public class CreateMicroProtocolServlet extends HttpServlet {
 		Long protocolID;
 		try {
 			protocolID = (Long)CommandExecutor.getInstance().executeDatabaseCommand(new command.AddProtocol(params[0], params[1], params[3],
-					params[4], params[5], params[6], params[7]));
+					params[4], params[5], params[6], params[7], params[8]));
 			String text_good = "";
 			if (protocolID == null) {
 				text_good += " Se ha presentado un error al asociar uno o más números telefónicos al usuario. Por favor, intente nuevamente.";

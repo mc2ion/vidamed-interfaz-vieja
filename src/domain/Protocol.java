@@ -20,6 +20,7 @@ public class Protocol {
 	private String estCost;
 	private String protocolScaleName;
 	private Long generatedCostTypeID;
+	private String unitID;
 	
 	public Long getProtocolID() {
 		return protocolID;
@@ -183,5 +184,13 @@ public class Protocol {
 	
 	public Long getGeneratedCostTypeID() {
 		return generatedCostTypeID;
+	}
+
+	public void setUnitID(String unitID) {
+		this.unitID = unitID;
+	}
+
+	public String getUnitID() {
+		return unitID;
 	}
 }

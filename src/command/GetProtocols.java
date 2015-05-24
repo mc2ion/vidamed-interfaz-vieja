@@ -28,6 +28,7 @@ public class GetProtocols implements DatabaseCommand {
 				u.setProtocolID(rs.getLong(1));
 				u.setName(rs.getString(2));
 				u.setDescription(rs.getString(3));
+				u.setUnitID(rs.getString(4));
 				p.add(u);
 			}
 		}

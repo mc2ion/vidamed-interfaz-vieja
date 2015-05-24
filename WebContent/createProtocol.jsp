@@ -1,10 +1,13 @@
 <%@page import="domain.User"%>
 <%@page import="domain.AnesthesiaType"%>
+<%@page import="domain.Unit"%>
 <%@page import="java.util.ArrayList"%>
 
 <%
 	@SuppressWarnings("unchecked")
 	ArrayList<AnesthesiaType> anesthesia = (ArrayList<AnesthesiaType>) request.getAttribute("anesthesiaTypes");
+	@SuppressWarnings("unchecked")
+	ArrayList<Unit> units = (ArrayList<Unit>) request.getAttribute("units");
 	User user = (User) session.getAttribute("user");
 	String name = "";
 	if (user != null)
@@ -86,6 +89,14 @@
 							<option value="G">General</option>
 							<option value="F">Femenino</option>
 							<option value="M">Masculino</option>
+						</select> <br style="clear:both;">
+						<label> Unidad:</label>
+						<select name="unit" id="unit">
+						<%
+						for(Unit u : units){
+						%>
+							<option value="<%= u.getUnitID() %>"><%= u.getName() %></option>
+						<%}%>
 						</select> <br style="clear:both;">
 						<label> Hora de Quir&oacute;fano:</label>
 						<input type="number" name="txtORHours" id="txtORHours" step="0.5" min="1" /> <br style="clear:both;">

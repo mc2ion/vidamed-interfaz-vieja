@@ -14,9 +14,10 @@ public class AddProtocol implements DatabaseCommand {
 	private String orhours;
 	private String roomdays;
 	private String anesthesiatypeid;
+	private String unitid;
 			
 	public AddProtocol(String name, String description, String type, String gender, String orhours, 
-			String roomdays, String anesthesiatypeid) {
+			String roomdays, String anesthesiatypeid, String unitid) {
 		this.name 		 		= name;
 		this.description 		= description;
 		this.type 		 		= type;
@@ -25,6 +26,7 @@ public class AddProtocol implements DatabaseCommand {
 		if (roomdays != null) 		this.roomdays	 	 	= roomdays;
 		else	this.roomdays = "0";
 		this.anesthesiatypeid 	= anesthesiatypeid;
+		this.unitid				= unitid;
 	}
 	
 	@Override
@@ -36,7 +38,7 @@ public class AddProtocol implements DatabaseCommand {
 		try {
 			ps = conn.prepareStatement("exec dbo.AddProtocol '" + name + "', '" + description + "', '" + 
 						type + "', '" + gender + "', '" + orhours + "', '" + roomdays + "', '" + 
-						anesthesiatypeid + "'");
+						anesthesiatypeid + "', '" + unitid + "'");
 			rs = ps.executeQuery();
 			if (rs.next()) {
 				protocolID = rs.getLong(1);

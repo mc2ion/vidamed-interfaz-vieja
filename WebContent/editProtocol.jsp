@@ -1,11 +1,13 @@
 <%@page import="domain.Protocol"%>
 <%@page import="domain.User"%>
 <%@page import="domain.AnesthesiaType"%>
+<%@page import="domain.Unit"%>
 <%@page import="java.util.ArrayList"%>
 
 <%
 	@SuppressWarnings("unchecked")
 	ArrayList<AnesthesiaType> anesthesia = (ArrayList<AnesthesiaType>) request.getAttribute("anesthesiaTypes");
+	ArrayList<Unit> units = (ArrayList<Unit>) request.getAttribute("units");
 	User user = (User) session.getAttribute("user");
 	String name = "";
 	if (user != null)
@@ -88,6 +90,14 @@
 							<option value="G" <%=  (p.getGender().equals("G")) ? "selected": "" %>>General</option>
 							<option value="F" <%=  (p.getGender().equals("F")) ? "selected": "" %>>Femenino</option>
 							<option value="M" <%=  (p.getGender().equals("M")) ? "selected": "" %>>Masculino</option>
+						</select> <br style="clear:both;">
+						<label> Unidad:</label>
+						<select name="unit" id="unit">
+						<%
+						for(Unit u : units){
+						%>
+							<option value="<%= u.getUnitID() %>" <%=  (p.getUnitID().equals(u.getUnitID())) ? "selected": "" %>><%= u.getName() %></option>
+						<%}%>
 						</select> <br style="clear:both;">
 						<label> Hora de Quir&oacute;fano:</label>
 						<input type="number" name="txtORHours" id="txtORHours" step="0.5" min="1" value="<%= p.getOrHours() %>" /> <br style="clear:both;"><br>
