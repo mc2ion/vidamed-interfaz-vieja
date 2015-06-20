@@ -7,9 +7,13 @@ import java.sql.SQLException;
 public class PayMedicalFee implements DatabaseCommand {
 	
 	private Long medicalFeeId;
+	private String documentNumber;
+	private String bank;
 	
-	public PayMedicalFee(Long medicalFeeId){
+	public PayMedicalFee(Long medicalFeeId, String documentNumber, String bank){
 		this.medicalFeeId = medicalFeeId;
+		this.documentNumber = documentNumber;
+		this.bank = bank;
 	}
 	
 	@Override
@@ -18,7 +22,7 @@ public class PayMedicalFee implements DatabaseCommand {
 		PreparedStatement ps = null;
 		
 		try {
-			ps = conn.prepareStatement("exec dbo.PayMedicalFee " + medicalFeeId);
+			ps = conn.prepareStatement("exec dbo.PayMedicalFee " + medicalFeeId + ", '" + documentNumber + "', '" + bank + "'");
 			ps.execute();
 		}
 		catch(Exception e){

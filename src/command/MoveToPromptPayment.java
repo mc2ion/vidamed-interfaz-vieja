@@ -7,12 +7,12 @@ import java.sql.SQLException;
 public class MoveToPromptPayment implements DatabaseCommand {
 	
 	private Long medicalFeeId;
-	private Long variableId;
+	private Double commission;
 	
 	
-	public MoveToPromptPayment(Long medicalFeeId, Long variableId){
+	public MoveToPromptPayment(Long medicalFeeId, Double commission){
 		this.medicalFeeId = medicalFeeId;
-		this.variableId   = variableId;
+		this.commission   = commission;
 	}
 	
 	@Override
@@ -21,7 +21,7 @@ public class MoveToPromptPayment implements DatabaseCommand {
 		PreparedStatement ps = null;
 		
 		try {
-			ps = conn.prepareStatement("exec dbo.MoveToPromptPayment " + variableId + "," + medicalFeeId) ;
+			ps = conn.prepareStatement("exec dbo.MoveToPromptPayment " + commission + "," + medicalFeeId) ;
 			ps.execute();
 		}
 		catch(Exception e){

@@ -51,6 +51,11 @@ Long supplyID = (Long) request.getAttribute("supplyID");
 				index2 = $( "#txtBoxes" ).val();
 				$( "#txtAmount" ).text(index*index2);
 			});
+			
+			$("#txtPurchasePrice").keyup(function(){
+				index = $(this).val();
+				$("#txtSalePrice").val(index*1.30);
+			});
 		});
 		</script>
 	</head>
@@ -88,7 +93,7 @@ Long supplyID = (Long) request.getAttribute("supplyID");
 						<label for="name">Precio de Compra:</label>
 						<input type="number" name="txtPurchasePrice" id="txtPurchasePrice" step="0.01" required/> <br><br>
 						<label for="name">Precio de Venta:</label>
-						<input type="number" name="txtSalePrice" id="txtSalePrice" step="0.01" required/> <br><br>
+						<input type="number" name="txtSalePrice" id="txtSalePrice" step="0.01" required readonly/> <br><br>
 						<label for="name">Proveedor:</label>
 						<select id="txtProvider" name="txtProvider">
 							<% for (int i = 0; i<supplyProviders.size(); i++) {

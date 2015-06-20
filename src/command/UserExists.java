@@ -38,8 +38,8 @@ public class UserExists implements DatabaseCommand {
 			}
 		}
 		finally {
-			rs.close();
-			ps.close();
+			if (rs != null) rs.close();
+			if (rs != null) ps.close();
 		}		
 		
 		return u;

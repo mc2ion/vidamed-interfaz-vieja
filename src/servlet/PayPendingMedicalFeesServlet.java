@@ -13,13 +13,11 @@ import javax.servlet.http.HttpSession;
 import command.CommandExecutor;
 import domain.User;
 
-
-
 /**
- * Servlet implementation class MoveToPromptPaymentServlet
+ * Servlet implementation class PayPendingMedicalFeeServlet
  */
-@WebServlet(description = "servlet to remove admission", urlPatterns = { "/MoveToPromptPaymentServlet" })
-public class MoveToPromptPaymentServlet extends HttpServlet {
+@WebServlet(description = "servlet to pay pending medical fees", urlPatterns = { "/PayPendingMedicalFeesServlet" })
+public class PayPendingMedicalFeesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	public void init() throws ServletException {
@@ -30,21 +28,21 @@ public class MoveToPromptPaymentServlet extends HttpServlet {
 			throw new ServletException(e);
 		}
 	}
-       
-    /**
+	
+	/**
      * @see HttpServlet#HttpServlet()
      */
-    public MoveToPromptPaymentServlet() {
+    public PayPendingMedicalFeesServlet() {
         super();
     }
-
-	/**
+    
+    /**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
-
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -53,17 +51,25 @@ public class MoveToPromptPaymentServlet extends HttpServlet {
 		User userE = (User)session.getAttribute("user");
 		if(userE != null){
 			try {
-				Long userID	 	 = Long.parseLong(request.getParameter("userId"));
-				//Long variableID	 = Long.parseLong(request.getParameter("variableId"));
-				Double commission = Double.parseDouble(request.getParameter("commission"));
-				
-				int result	 = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.MoveToPromptPayment(userID, commission));
-				if (result == 1)
-					session.setAttribute("text", "La factura fue movida a pronto pago exitosamente.");
+				int error = 0;
+				String function = request.getParameter("function");
+				String[] values = request.getParameterValues("selFact");
+				String documentNumber = request.getParameter("documentnumber");
+				String bank = request.getParameter("bank");
+				for (int i = 0; i < values.length; i++){
+					Long userID	 = Long.parseLong(values[i]);
+					int result	 = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.PayMedicalFee(userID, documentNumber, bank));
+					if (result != 1)  error = 1;
+					
+				}
+				if (error == 0)	
+					session.setAttribute("info", "Se registraron los pagos exitosamente.");
 				else
-					session.setAttribute("text","Hubo un problema al mover la factura a pronto pago. Por favor, intente más tarde");
-				
-				response.sendRedirect("./ListBillingsHServlet");
+					session.setAttribute("info","Hubo un problema el registrar uno de los pagos. Por favor, intente más tarde");
+				if (function != null && function.equals("pendingPayments"))
+					response.sendRedirect("./ListPendingPaymentsServlet");
+				else
+					response.sendRedirect("./ListBillingsHServlet");
 			}
 			catch (Exception e) {
 				throw new ServletException(e);

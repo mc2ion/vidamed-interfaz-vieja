@@ -201,6 +201,8 @@
 				</div>
 				<form action="PayPendingMedicalFeeServlet" method="post" onsubmit="return setV(this)" >
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+					<label>N&uacute;mero de Documento: </label><input type="text" name="documentnumber" id="documentnumber" size="10"><br>
+					<label>Banco: </label><input type="text" name="bank" id="bank" size="25">
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
 					</div>
@@ -216,9 +218,16 @@
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="MoveToPromptPaymentServlet" method="post" onsubmit="return setV(this)" >
+				<form action="MoveToPromptPaymentServlet" method="post" onsubmit="return setV(this)" style="text-align:center;">
 				    <input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
 					<input type="hidden" id="variableId" class="good_input" name="variableId"  value="1"/>
+					<span>Porcentaje negociado: 
+						<select name="commission" id="commission">
+							<%for(int i = 1; i<=15; i++){ %>
+							<option value="<%= (i+0.00)/100 %>"><%= i%>%</option>
+							<%}%>
+						</select>
+					</span>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
 					</div>

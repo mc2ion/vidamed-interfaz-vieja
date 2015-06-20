@@ -53,6 +53,8 @@ public class ListPendingPaymentsServlet extends HttpServlet {
 				
 				ArrayList<PendingMedicalFee> medicalFee = (ArrayList<PendingMedicalFee>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPendingPayments());
 				request.setAttribute("medicalFee", medicalFee);
+				Double total = (Double) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPendingPaymentsTotal());
+				request.setAttribute("total", total);
 				RequestDispatcher rd;			
 				rd = getServletContext().getRequestDispatcher("/pendingPayments.jsp");
 				rd.forward(request, response);

@@ -55,9 +55,11 @@ public class PayPendingAccountsServlet extends HttpServlet {
 			try {
 				int error = 0;
 				String[] values = request.getParameterValues("selFact");
+				String documentNumber = request.getParameter("documentnumber");
+				String bank = request.getParameter("bank");
 				for (int i = 0; i < values.length; i++){
 					Long userID	 = Long.parseLong(values[i]);
-					int result	 = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.PayPendingAccount(userID));
+					int result	 = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.PayPendingAccount(userID, documentNumber, bank));
 					if (result != 1)  error = 1;
 					
 				}

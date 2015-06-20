@@ -73,9 +73,9 @@
 		</script>
 		<script>
 			$(function() {    
-            	$('#sbmtButton').click(function(event) { 
+            	$('#sbmtButton').click(function(event) {
             		var patternDouble = new RegExp('^[0-9]+(\.[0-9]+)?$');
-            		var rifNumber = new RegExp('^(v|V|e|E|j|J)?\\d+$');
+            		var rifNumber = new RegExp('^(v|V|e|E|j|J|g|G)?\\d+$');
             		var patternPhoneNumber = new RegExp('^\\d{10}\\d*$');
             		if ($('#txtName').val() == '') {
             			alert("El campo 'Nombre' no puede ser dejado en blanco");
@@ -129,8 +129,8 @@
                 			}
             			<% } %>
             		}
-            		else if($('#txtRifNum').val() != '' && !$('#txtRifNum').val().match(rifNumber)) {
-           				alert("El campo 'RIF' sólo debe contener números, sin letras, ni puntos, ni espacios en blanco");
+            		else if($('#txtRif').val() != '' && !$('#txtRif').val().match(rifNumber)) {
+           				alert("El campo 'RIF' debe comenzar por una letra y sólo contener números, sin puntos, ni espacios en blanco");
            				return;
            			}
             		else if($('#txtPhoneNumber').val() != '' && !$('#txtPhoneNumber').val().match(patternPhoneNumber)) {

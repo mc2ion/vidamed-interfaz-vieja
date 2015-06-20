@@ -52,6 +52,8 @@ public class ListAccountsServlet extends HttpServlet {
 				@SuppressWarnings("unchecked")
 				ArrayList<PendingAccounts> p = (ArrayList<PendingAccounts>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPendingAccounts());
 				request.setAttribute("pAccounts", p);
+				Double total = (Double) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPendingAccountsTotal());
+				request.setAttribute("total", total);
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/accounts.jsp");
 				rd.forward(request, response);
 			} 

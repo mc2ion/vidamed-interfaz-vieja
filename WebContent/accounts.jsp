@@ -1,6 +1,7 @@
 <%@page import="domain.PendingAccounts"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="domain.User"%>
+<%@page import="domain.Estimation"%>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
@@ -9,6 +10,7 @@
 	
 	@SuppressWarnings("unchecked")
 	ArrayList<PendingAccounts> pList = (ArrayList<PendingAccounts>)request.getAttribute("pAccounts");
+	Double total = (Double) request.getAttribute("total");
 	
 	
 	String info_text = "";
@@ -131,7 +133,10 @@
 			  		<!--</ul>
   					<div id="tabs-1">-->
   						<form id='formFact' method="post" action="PayPendingAccountsServlet">
-  						<div id="printCashBox" class='cuentasP'><input type="submit" id="printCashBoxText" value="Cuentas Cobradas"></div>
+  						<div id="printCashBox" class='cuentasP'>
+							<label>N&uacute;mero de Documento: </label><input type="text" name="documentnumber" id="documentnumber" size="10">
+							<label>Banco: </label><input type="text" name="bank" id="bank" size="25">
+							<input type="submit" id="printCashBoxText" value="Cuentas Cobradas"></div>
 						<table class="display" id="example2">
 								<thead>
 									<tr>
@@ -139,7 +144,7 @@
 										<th>No. de Factura</th>
 										<th>Fecha Emisión</th>
 										<th>Seguro</th>
-										<th>Monto</th>
+										<th>Monto Pendiente</th>
 										<th>Acciones</th>
 									</tr>
 								</thead>
@@ -148,8 +153,7 @@
 										PendingAccounts p = pList.get(i);
 									%>	
 									<tr class="gradeA">
-										<td><input type="checkbox" name="selFact" class='selF' value="<%= p.getBillID() %>"></td>
-										
+										<td><input type="checkbox" name="selFact" class='selF' value="<%= p.getBillID() %>"></td>										
 										<td><%= p.getBillID() %></td>
 										<td><%= p.getGenerationDate() %></td>
 										<td><%= p.getPaymentResposible().getName() %></td>
@@ -169,6 +173,8 @@
 								</tbody>
 							</table>
 							</form>
+							<br><br>
+							<div class="total"><h3>Total Cuentas Pendientes: Bs. <%= Estimation.format.format(total) %></h3></div>
   			</div>
 		</div>
 		<div id="closeAccount">
@@ -181,6 +187,8 @@
 				</div>
 				<form action="PayPendingAccountServlet" method="post" onsubmit="return setV(this)" >
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+					<label>N&uacute;mero de Documento: </label><input type="text" name="documentnumber" id="documentnumber" size="10"><br>
+					<label>Banco: </label><input type="text" name="bank" id="bank" size="25">
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
 					</div>

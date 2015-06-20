@@ -40,6 +40,14 @@ SupplyInventory supplyInventory = (SupplyInventory)request.getAttribute("supplyI
 				});
 			} );
 		</script>
+		<script>
+		$( document ).ready(function() {
+			$("#txtPurchasePrice").keyup(function(){
+				index = $(this).val();
+				$("#txtSalePrice").val(index*1.30);
+			});
+		});
+		</script>
 	</head>
 	<body>
 		<div id="container">
@@ -81,7 +89,7 @@ SupplyInventory supplyInventory = (SupplyInventory)request.getAttribute("supplyI
 						<label for="name">Precio de Compra:</label>
 						<input type="number" name="txtPurchasePrice" id="txtPurchasePrice" value="<%= supplyInventory.getPurchasePrice() %>" required/> <br><br>
 						<label for="name">Precio de Venta:</label>
-						<input type="number" name="txtSalePrice" id="txtSalePrice" value="<%= supplyInventory.getSalePrice() %>" required/> <br><br>
+						<input type="number" name="txtSalePrice" id="txtSalePrice" value="<%= supplyInventory.getSalePrice() %>" required readonly/> <br><br>
 						<label for="name">Proveedor:</label>
 						<select id="txtProvider" name="txtProvider">
 							<% for (int i = 0; i<supplyProviders.size(); i++) {

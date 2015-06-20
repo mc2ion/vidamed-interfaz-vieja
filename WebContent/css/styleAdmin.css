@@ -2766,3 +2766,13 @@ span.help {
 div#signup-ct {
 	text-align: center;
 }
+
+.total {
+	border: 2px solid #0098b6;
+	border-radius: 5px;
+  	padding: 10px;
+}
+  	
+.total h3 {
+	text-align: right;
+}

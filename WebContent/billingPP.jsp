@@ -180,6 +180,8 @@
 				</div>
 				<form action="PayPendingPromptPaymentServlet" method="post" onsubmit="return setV(this)" >
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+					<label>N&uacute;mero de Documento: </label><input type="text" name="documentnumber" id="documentnumber" size="10"><br>
+					<label>Banco: </label><input type="text" name="bank" id="bank" size="25">
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
 					</div>

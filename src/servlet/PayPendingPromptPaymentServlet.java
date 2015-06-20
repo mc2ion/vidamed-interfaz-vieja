@@ -54,7 +54,9 @@ public class PayPendingPromptPaymentServlet extends HttpServlet {
 		if(userE != null){
 			try {
 				Long userID	 = Long.parseLong(request.getParameter("userId"));
-				int result	 = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.PayMedicalFee(userID));
+				String documentNumber = request.getParameter("documentnumber");
+				String bank = request.getParameter("bank");
+				int result	 = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.PayMedicalFee(userID, documentNumber, bank));
 				if (result == 1)
 					session.setAttribute("text", "Se registró el pago exitosamente.");
 				else
