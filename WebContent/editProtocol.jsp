@@ -27,7 +27,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-		<title>Crear Protocolo</title>
+		<title>Editar Protocolo</title>
 		<script src="./js/jquery-1.9.1.min.js"></script>
 	    <script>
 			$(document).on('change','#typeOfProtocol',function(){
@@ -96,7 +96,7 @@
 						<%
 						for(Unit u : units){
 						%>
-							<option value="<%= u.getUnitID() %>" <%=  (p.getUnitID().equals(u.getUnitID())) ? "selected": "" %>><%= u.getName() %></option>
+							<option value="<%= u.getUnitID() %>" <%=  (p.getUnitID().equals(u.getUnitID().toString())) ? "selected": "" %>><%= u.getName() %></option>
 						<%}%>
 						</select> <br style="clear:both;">
 						<label> Hora de Quir&oacute;fano:</label>

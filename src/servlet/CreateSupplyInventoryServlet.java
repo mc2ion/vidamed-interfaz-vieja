@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import command.CommandExecutor;
 
 import domain.PermissionsList;
+import domain.Supply;
 import domain.SupplyProvider;
 import domain.User;
 
@@ -58,6 +59,8 @@ public class CreateSupplyInventoryServlet extends HttpServlet {
 				ArrayList<SupplyProvider> supplyProviders = (ArrayList<SupplyProvider>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetSupplyProviders());
 				request.setAttribute("supplyProviders", supplyProviders);
 				request.setAttribute("supplyID", supplyID);
+				Supply supply = (Supply)CommandExecutor.getInstance().executeDatabaseCommand(new command.GetSupply(supplyID));
+				request.setAttribute("supply", supply);
 				request.setAttribute("supplyAreaID", supplyAreaID);
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/createSupplyInventory.jsp");
 				rd.forward(request, response);

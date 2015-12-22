@@ -195,6 +195,7 @@ color:#67A0F5;
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@top-color', endColorstr='@bottom-color', GradientType=0);
 	/* border-bottom: 2px solid rgb(0, 7, 19); */
 	min-width: 1200px;
+	position: relative;
 }
 
 #leftmenu
@@ -476,7 +477,7 @@ color:#67A0F5;
 
 .menuitemSalir{
 	position: absolute;
-	right: 155px;
+	right: 10px;
 	color: #ffffff;
 	/* background: rgb(15, 85, 173); */
 	border-radius: 10px;
@@ -504,7 +505,7 @@ color:#67A0F5;
 
 .ayudaitemHome a {
 	position: absolute;
-	right: 105px;
+	left: 170px;
 	color: #ffffff !important;
 	/* border-radius: 10px; */
 	margin-top: 11px;
@@ -1587,7 +1588,7 @@ div.box {
 
 #deleteUser, #deleteUnit, #deleteSpecialist, #deleteSupplyArea, #deleteSupply, #deleteProduct, #deleteRequest, #refreshUser, #dischargeUser, 
 #hospitalizeUser, #deleteService, #deleteProtocol, #deleteEvaluation, #deleteVitalSign, #deleteCash, #printUser, #closeAccount, #closeAccount2, 
-#discount, #generateInvoice, #editStatus, #payment {
+#discount, #generateInvoice, #editStatus, #payment, #deliverBill {
 	position: absolute;
 	text-align: center;
 	width: 295px;
@@ -2775,4 +2776,7 @@ div#signup-ct {
   	
 .total h3 {
 	text-align: right;
+}
+body.iframe {
+    overflow: hidden;
 }

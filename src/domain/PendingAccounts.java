@@ -10,6 +10,8 @@ public class PendingAccounts {
 	private String totalWithDiscount;
 	private String totalPaid;	
 	private String generationDate;
+	private int wasDelivered;
+	private String deliveryDate;
 	
 	
 	public void setTotalWithDiscount(String totalWithDiscount, Double amount) {
@@ -78,6 +80,22 @@ public class PendingAccounts {
 	
 	public void setGenerationDate(String generationDate) {
 		this.generationDate = generationDate;
+	}
+
+	public void setDeliveryDate(String deliveryDate) {
+		this.deliveryDate = deliveryDate;
+	}
+
+	public String getDeliveryDate() {
+		return deliveryDate;
+	}
+
+	public void setWasDelivered(int wasDelivered) {
+		this.wasDelivered = wasDelivered;
+	}
+
+	public int getWasDelivered() {
+		return wasDelivered;
 	}
 
 }

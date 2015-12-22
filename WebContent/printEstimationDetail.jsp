@@ -221,9 +221,10 @@ ArrayList<Protocol> pList = (ArrayList<Protocol>) request.getAttribute("plist");
 							
 						for (int j = 0 ; j < lList.size(); j ++){ 
 						Protocol pt = lList.get(j);
-						if (pList.get(i).getProtocolID() == pt.getProtocolID()){
-							
-							if (pt.getBussinessRuleMicroID() != id){
+
+						if (pList.get(i).getProtocolID().equals(pt.getProtocolID())){
+
+							if (!(pt.getBussinessRuleMicroID().equals(id))){
 								id = pt.getBussinessRuleMicroID();
 							%>
 								<tr>

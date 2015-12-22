@@ -2,6 +2,9 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="domain.User"%>
 <%@page import="domain.Estimation"%>
+<%@page import="java.text.SimpleDateFormat" %>
+<%@page import="java.util.Date" %>
+<%@page import="java.util.concurrent.TimeUnit" %>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
@@ -31,10 +34,13 @@
 	  	<script src="./js/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		<script type="text/javascript" src="./js/jquery.dataTables.js"></script>
-		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
+		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>		
+		<!--JS Datapicker-->
+		<script type="text/javascript" src="./js/jquery.ui.datepicker-es.js"></script>
 		<script>
 			$(function() {
 				$( "#tabs" ).tabs();
+			    $( "#date" ).datepicker().datepicker("setDate", new Date());
 			});
 		</script>
 		<script type="text/javascript">
@@ -93,6 +99,8 @@
 				null,
 				null,
 				null,
+				null,
+				null,
 				{ "bSearchable": false, "asSorting": false, "sWidth": "18%" }
 			],
 			"oLanguage": {
@@ -145,12 +153,22 @@
 										<th>Fecha Emisión</th>
 										<th>Seguro</th>
 										<th>Monto Pendiente</th>
+										<th>Fecha Entrega</th>
+										<th>Días Vencida</th>
 										<th>Acciones</th>
 									</tr>
 								</thead>
 								<tbody>		
 									<% for (int i = 0; i < pList.size(); i++ ){ 
 										PendingAccounts p = pList.get(i);
+										Long days = null;
+										if(p.getDeliveryDate()!=null){
+											SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+											Date deliveryDate = format.parse(p.getDeliveryDate());
+											Date today = new Date();
+											long difference = today.getTime() - deliveryDate.getTime();
+											days = TimeUnit.DAYS.convert(difference, TimeUnit.MILLISECONDS);
+										}
 									%>	
 									<tr class="gradeA">
 										<td><input type="checkbox" name="selFact" class='selF' value="<%= p.getBillID() %>"></td>										
@@ -158,7 +176,15 @@
 										<td><%= p.getGenerationDate() %></td>
 										<td><%= p.getPaymentResposible().getName() %></td>
 										<td>Bs. <%= p.getTotal() %></td>
+										<td><%= (p.getDeliveryDate()==null)?"-":p.getDeliveryDate() %></td>
+										<td><%= (days==null)?"N/A":days %></td>
 										<td>
+										<% if(p.getWasDelivered()==0){ %>
+											<a id="go" rel="leanModal" href="#deliverBill" style="color: #f7941e; font-weight: bold;" 
+											onclick="return loadVars(<%= p.getBillID() %>, '<%= p.getPaymentResposible().getName() %>');" >
+											<img alt="logo" src="./images/send.png" height="16" width="16" title="Entregada"/>
+											</a>
+										<% } %>
 											<a id="go" rel="leanModal" href="#closeAccount" style="color: #f7941e; font-weight: bold;" 
 											onclick="return loadVars(<%= p.getBillID() %>, '<%= p.getPaymentResposible().getName() %>');" >
 											<img alt="logo" src="./images/check.png" height="16" width="16" title="Cobrada"/>
@@ -176,6 +202,23 @@
 							<br><br>
 							<div class="total"><h3>Total Cuentas Pendientes: Bs. <%= Estimation.format.format(total) %></h3></div>
   			</div>
+		</div>
+		<div id="deliverBill">
+			<div id="signup-ct">
+				<h3 id="see_id" class="sprited" >Factura Enviada</h3>
+				<br><br>
+				<span>¿Está seguro que la factura #<span class="fId"></span> fue enviada a <b><span class="name"></span></b>? </span> <br><br>
+				<div id="signup-header">
+					<a class="close_x" id="close_x"  href="#"></a>
+				</div>
+				<form action="DeliverBillServlet" method="post" onsubmit="return setV(this)" >
+					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+					<label>Fecha de Envío: </label><input type="text" name="date" id="date"/>
+					<div class="btn-fld">
+						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
+					</div>
+		 		</form>
+			</div>
 		</div>
 		<div id="closeAccount">
 			<div id="signup-ct">

@@ -220,7 +220,7 @@ ArrayList<Protocol> pList = (ArrayList<Protocol>) request.getAttribute("plist");
 							<th style="width:20%;text-align:right;">Precio Bs.F.</th>
 						</tr>
 						<% for (int j = 0; j < lList.size(); j++){
-							if (p.getProtocolID() == lList.get(j).getProtocolID()){
+							if (p.getProtocolID().equals(lList.get(j).getProtocolID())){
 							%>
 						<tr>
 							<td colspan="2"><%= lList.get(j).getBussinessRuleMicroName() %></td>

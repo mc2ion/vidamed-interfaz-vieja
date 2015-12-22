@@ -23,7 +23,7 @@
 		<script type="text/javascript" src="./js/jquery.dataTables.js"></script>
 		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
 	</head>
-	<body>
+	<body class="iframe">
 		<div id="container">
 			<div id="header">
 	        	<img alt="logo" src="./images/logo.png"/>

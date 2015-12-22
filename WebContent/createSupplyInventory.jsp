@@ -1,10 +1,12 @@
 <%@ page import="domain.SupplyProvider" %>
+<%@ page import="domain.Supply" %>
 <%@ page import="java.util.ArrayList" %>
 <%
 @SuppressWarnings("unchecked")
 ArrayList<SupplyProvider> supplyProviders = (ArrayList<SupplyProvider>)request.getAttribute("supplyProviders");
 Long supplyAreaID = (Long) request.getAttribute("supplyAreaID");
 Long supplyID = (Long) request.getAttribute("supplyID");
+Supply supply = (Supply) request.getAttribute("supply");
 %>
 <%@page import="domain.User"%>
 <%
@@ -52,9 +54,10 @@ Long supplyID = (Long) request.getAttribute("supplyID");
 				$( "#txtAmount" ).text(index*index2);
 			});
 			
-			$("#txtPurchasePrice").keyup(function(){
+			$("#txtBoxPrice").keyup(function(){
 				index = $(this).val();
-				$("#txtSalePrice").val(index*1.30);
+				$("#txtPurchasePrice").val(index/$("#txtAmountPerBox").val());
+				$("#txtSalePrice").val($("#txtPurchasePrice").val()*1.30);
 			});
 		});
 		</script>
@@ -84,14 +87,20 @@ Long supplyID = (Long) request.getAttribute("supplyID");
 					<fieldset>
 						<label for="name">Fabricante:</label>
 						<input type="text" name="txtManufacturer" id="txtManufacturer" maxlength="50" size="5" required/> <br><br>
-						<label for="name">N&uacute;mero de Cajas:</label>
+						<label for="name">N&uacute;mero de Cajas/Frascos/Ampollas:</label>
 						<input type="number" name="txtBoxes" id="txtBoxes" min="1" step="1" required/> <br><br>
-						<label for="name">N&uacute;mero de Dosis por Caja:</label>
+						<label for="name">N&uacute;mero de Dosis por Caja/Frasco/Ampolla:</label>
+						<% if(supply.getSupplyFormID()==1){ %>
+						<input type="number" name="txtAmountPerBox" id="txtAmountPerBox" min="1" step="1" value="1" required readonly/> <br><br>
+						<% } else { %>
 						<input type="number" name="txtAmountPerBox" id="txtAmountPerBox" min="1" step="1" required/> <br><br>
+						<% } %>
 						<label for="name">Cantidad:</label>
 						<label id="txtAmount"></label><br><br>
+						<label for="name">Precio de Caja:</label>
+						<input type="number" name="txtBoxPrice" id="txtBoxPrice" step="0.01" required/> <br><br>
 						<label for="name">Precio de Compra:</label>
-						<input type="number" name="txtPurchasePrice" id="txtPurchasePrice" step="0.01" required/> <br><br>
+						<input type="number" name="txtPurchasePrice" id="txtPurchasePrice" step="0.01" required readonly/> <br><br>
 						<label for="name">Precio de Venta:</label>
 						<input type="number" name="txtSalePrice" id="txtSalePrice" step="0.01" required readonly/> <br><br>
 						<label for="name">Proveedor:</label>

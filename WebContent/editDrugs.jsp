@@ -2,6 +2,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="domain.ProtocolSupplies"%>
 <%@page import="domain.Supply"%>
+<%@page import="org.apache.commons.lang.StringEscapeUtils"%>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
@@ -33,7 +34,7 @@
 			var ies      = new Array();
 			var iaux 	 = count;
 			<% for (int k=0; k < sp.size(); k++) { %>
-				colArray[<%= k %>] = "<%= sp.get(k).getName() %>"; 
+				colArray[<%= k %>] = "<%= StringEscapeUtils.escapeHtml(sp.get(k).getName()) %>"; 
 				idArray[<%= k %>] = "<%= sp.get(k).getSupplyID() %>"; 
 			<% } %>
 		</script>

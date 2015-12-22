@@ -24,13 +24,13 @@
 		<script type="text/javascript" src="./js/functions.js"></script>
 		<script>
 			var colArray = new Array()    ;
-			var idArray  = new Array()    
+			var idArray  = new Array()    ;
 			var ies  	 = new Array()    ;
 			var count 	 = 0;
 			var iaux 	 = 0;
 			<% for (int k=0; k < sp.size(); k++) { %>
-				colArray[<%= k %>] = "<%= sp.get(k).getName() %>"; 
-				idArray[<%= k %>] = "<%= sp.get(k).getSupplyID() %>"; 
+				colArray[<%= k %>] = '<%= sp.get(k).getName() %>'; 
+				idArray[<%= k %>] = '<%= sp.get(k).getSupplyID() %>'; 
 				
 			<% } %>
 		</script>

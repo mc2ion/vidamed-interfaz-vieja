@@ -55,6 +55,21 @@ public class GetPendingAccounts implements DatabaseCommand {
 					e1.printStackTrace();
 				}
 				
+				u.setWasDelivered(rs.getInt(9));
+				
+				dateStr = rs.getString(10);
+				fromFormat = new SimpleDateFormat("yyyy-MM-dd");
+				toFormat = new SimpleDateFormat("dd/MM/yyyy");
+				
+				if(dateStr !=  null){
+					try {
+						date = fromFormat.parse(dateStr);
+						u.setDeliveryDate(toFormat.format(date));
+					} catch (ParseException e2) {
+						e2.printStackTrace();
+					}
+				}
+				
 				pList.add(u);
 			}
 		}
