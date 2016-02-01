@@ -77,9 +77,7 @@ public class ShowProtocolEstimationDetailServlet extends HttpServlet {
 				else {
 					rd = getServletContext().getRequestDispatcher("/showProtocolEstimationDetail.jsp");	
 					rd.forward(request, response);
-				}
-				rd.forward(request, response);
-				
+				}				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

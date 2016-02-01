@@ -11,6 +11,7 @@ public class ProtocolScale {
 	private String cost;
 	private String total;
 	private Long isSelected;
+	private String bussinessRuleMicroName;
 	
 	
 	public Long getProtocolScaleID() {
@@ -91,6 +92,14 @@ public class ProtocolScale {
 	
 	public void setIsSelected(Long isSelected) {
 		this.isSelected = isSelected;
+	}
+
+	public void setBussinessRuleMicroName(String bussinessRuleMicroName) {
+		this.bussinessRuleMicroName = bussinessRuleMicroName;
+	}
+
+	public String getBussinessRuleMicroName() {
+		return bussinessRuleMicroName;
 	}
 	
 	

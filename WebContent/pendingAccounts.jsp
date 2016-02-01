@@ -12,7 +12,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-		<title>Cuentas pendientes</title>
+		<title>Cuentas por Cobrar</title>
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css" />
 	  	<script src="./js/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
@@ -107,7 +107,7 @@
         	</div>        
 			<jsp:include page="./menu.jsp" />
         	<div id="content" style="position:absolute;">	
-	        	<h2>Cuentas pendientes:</h2>
+	        	<h2>Cuentas por Cobrar:</h2>
 				<br>
 				<div id="tabs">
 					<ul>

@@ -67,13 +67,13 @@
 			     		<% } %>
 			     		</a></li>
 			     	<% } if (PermissionsList.hasPermission(request, PermissionsList.pendingPayments)){ %>
-		     			<li><a href="ListPendingPaymentsServlet" target="_parent">Pagos Pendientes
+		     			<li><a href="ListPendingPaymentsServlet" target="_parent">Honorarios por Pagar
 			     		<% if (countPPP != 0){ %>
 	                	<span class="badge green"><%= countPPP %></span>
 	                	<% } %>
 	                	</a></li>
 	                <% } if (PermissionsList.hasPermission(request, PermissionsList.pendingAccounts)){ %>
-		     			<li><a href="ListAccountsServlet" target="_parent">Cuentas Pendientes
+		     			<li><a href="ListAccountsServlet" target="_parent">Cuentas por Cobrar
 			     		<% if (countPA != 0){ %>
 	                	<span class="badge red"><%= countPA %></span>
 	                	<% } %>

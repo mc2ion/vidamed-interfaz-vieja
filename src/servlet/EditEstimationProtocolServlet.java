@@ -100,25 +100,27 @@ public class EditEstimationProtocolServlet extends HttpServlet {
 			String protocolid   = request.getParameter("protocolid");
 			String honorario    = "";
 			
-			for (int i = 0 ; i < id.length; i++){
-				if (id[i] != null){
-					String specialistid  = request.getParameter("specialist" + id[i]);
-					String unitid  		 = request.getParameter("unitId" + id[i]);
-					String scaleId	   = id[i];
-					try {
-						if (id[i] != null && id[i].equals("29")){
-							honorario = request.getParameter("hon" + id[i]);
-							CommandExecutor.getInstance().executeDatabaseCommand(new command.EditEstimationProtocolScale(estimationid, protocolid, scaleId, honorario));
+			if(id!=null){
+				for (int i = 0 ; i < id.length; i++){
+					if (id[i] != null){
+						String specialistid  = request.getParameter("specialist" + id[i]);
+						String unitid  		 = request.getParameter("unitId" + id[i]);
+						String scaleId	   = id[i];
+						try {
+							if (id[i] != null && id[i].equals("29")){
+								honorario = request.getParameter("hon" + id[i]);
+								CommandExecutor.getInstance().executeDatabaseCommand(new command.EditEstimationProtocolScale(estimationid, protocolid, scaleId, honorario));
+							}
+							//Agrego el especialista
+							System.out.println("agrego " + specialistid + " b "  + scaleId + " c " + protocolid  + " d " + estimationid  + " e "+ honorario);
+							CommandExecutor.getInstance().executeDatabaseCommand(new command.EditEstimationProtocolSpecialist(specialistid, unitid, estimationid, protocolid, scaleId));
+							
+						} catch (Exception e) {
+							e.printStackTrace();
 						}
-						//Agrego el especialista
-						System.out.println("agrego " + specialistid + " b "  + scaleId + " c " + protocolid  + " d " + estimationid  + " e "+ honorario);
-						CommandExecutor.getInstance().executeDatabaseCommand(new command.EditEstimationProtocolSpecialist(specialistid, unitid, estimationid, protocolid, scaleId));
-						
-					} catch (Exception e) {
-						e.printStackTrace();
 					}
 				}
-			}
+			}			
 			
 			//Items costo variables
 			String[] variable = request.getParameterValues("variableids");

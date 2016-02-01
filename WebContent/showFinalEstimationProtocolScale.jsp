@@ -52,43 +52,46 @@
 				<div class="menuitemSalir"><a href="LogoutServlet"><%= name %> (Salir)</a></div>	
         	</div>           
 			<jsp:include page="./menu.jsp" />
-        	<div id="content" style="position:absolute;">	
-					<%
-		       			for (int i = 0; i < bm.size(); i++){ 
-		       				BussinessMicro b = bm.get(i);
-		       		%>
-		       		    <br/><h3 class='nts'><%= b.getName() %></h3><br/>
-						<table class="table-simple">
-						<%
-							for (int j = 0; j < ps.size(); j++){ 
-								ProtocolScale p = ps.get(j);
-								if (p.getBussinessRuleMicroID() == b.getId()){
-							%>
-								<tr id="tr<%=j%>" >
-									<td class='lft'  style="vertical-align:top;"><%= p.getName()%></td>
-									<td><% if (p.getTotal() != null) { %> Bs. <%= p.getTotal()%><% } %></td>
-								</tr>
-								<%
-								}
-							}
-						%>
-						
-						</table>
-					<% } %>
-			    	<div style="width:100%; text-align:center; margin-top:20px;">
-			            <form action="CreateFinalEstimationProtocolServlet" method="post" style="display: inline-block; margin-right: 20px;">
-							<input type="hidden" name="estimationid" value="<%= estimationID %>"/>
-							<input type="hidden" name="function" value="<%= function %>"/>
-							<input type="submit" class="button" value="Finalizar"/>
-						</form>
-						<form action="CreateFinalEstimationProtocolServlet" method="get" style="display: inline-block;">
-							<input type="hidden" class="button" name="estimationid" value="<%= estimationID %>"/>
-							<input type="hidden" name="function" value="<%= function %>"/>
-							<input type="submit" class="button" value="Agregar otro protocolo"/>
-						</form>
-			        </div>
-			
-       	</div>
+        	<div id="content" style="position:absolute;">
+			<%
+				String micro = ps.get(0).getBussinessRuleMicroName();
+				System.out.println("++++ micro:"+micro);
+			%>
+				<br/><h3 class='nts'><%= micro %></h3><br/>
+				<table class="table-simple">
+			<%
+				for(int k = 0; k < ps.size(); k++){
+					ProtocolScale p = ps.get(k);
+					if(!micro.equalsIgnoreCase(p.getBussinessRuleMicroName())){
+       					micro = p.getBussinessRuleMicroName();
+			%>
+				</table>
+      				<br/><h3 class='nts'><%= micro %></h3><br/>
+				<table class="table-simple">
+			<%
+					}
+			%>
+					<tr>
+						<td class='lft'  style="vertical-align:top;"><%= p.getName()%></td>
+						<td><% if (p.getTotal() != null) { %> Bs. <%= p.getTotal()%><% } %></td>
+					</tr>
+			<%
+				}
+			%>
+				</table>	
+		    	<div style="width:100%; text-align:center; margin-top:20px;">
+		            <form action="CreateFinalEstimationProtocolServlet" method="post" style="display: inline-block; margin-right: 20px;">
+						<input type="hidden" name="estimationid" value="<%= estimationID %>"/>
+						<input type="hidden" name="function" value="<%= function %>"/>
+						<input type="submit" class="button" value="Finalizar"/>
+					</form>
+					<form action="CreateFinalEstimationProtocolServlet" method="get" style="display: inline-block;">
+						<input type="hidden" class="button" name="estimationid" value="<%= estimationID %>"/>
+						<input type="hidden" name="function" value="<%= function %>"/>
+						<input type="submit" class="button" value="Agregar otro protocolo"/>
+					</form>
+		        </div>			
+       		</div>
 		</div>
 	</body>
 	<style>

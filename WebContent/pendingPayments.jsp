@@ -22,7 +22,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-		<title>Pagos Pendientes</title>
+		<title>Honorarios por Pagar</title>
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css" />
 	  	<script src="./js/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
@@ -129,7 +129,7 @@
         	</div>        
 			 <jsp:include page="./menu.jsp" />
         	<div id="content" style="position:absolute;">	
-	        	<h2>Pagos Pendientes:</h2><br>
+	        	<h2>Honorarios por Pagar:</h2><br>
 				<div class="info-text"><%= text_result %></div>
   						<form id='formFact' method="post" action="PayPendingMedicalFeesServlet">
   						<input type="hidden" id="function" class="good_input" name="function"  value="pendingPayments"/>
@@ -178,7 +178,7 @@
 						</div>
 						</form>
 						<br><br>
-							<div class="total"><h3>Total Pagos Pendientes: Bs. <%= Estimation.format.format(total) %></h3></div>
+							<div class="total"><h3>Total Honorarios por Pagar: Bs. <%= Estimation.format.format(total) %></h3></div>
 				</div>
 				
 		</div>

@@ -38,6 +38,7 @@ public class GetProtocolScale implements DatabaseCommand {
 				u.setCost(rs.getString(7), rs.getDouble(7));
 				u.setTotal(rs.getString(8), rs.getDouble(8));
 				u.setIsSelected(rs.getLong(9));
+				u.setBussinessRuleMicroName(rs.getString(10));
 				p.add(u);
 			}
 		}

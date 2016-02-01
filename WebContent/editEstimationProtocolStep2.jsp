@@ -139,86 +139,89 @@
         	<div id="content" style="position:absolute;">	
 				<form id="form1" name="form1" action="EditEstimationProtocolServlet" method="post">
 				<input type="hidden" name="estimationid" value="<%= estimationID %>"/>
-				<input type="hidden" name="protocolid" value="<%= protocolID %>"/>
-				
-        			<%
-		       			for (int i = 0; i < bm.size(); i++){ 
-		       				BussinessMicro b = bm.get(i);
-		       		%>
-		       		    <br/><h3 class='nts'><%= b.getName() %></h3><br/>
-						<table class="table-simple">
-						<%
-							for (int j = 0; j < ps.size(); j++){ 
-								ProtocolScale p = ps.get(j);
-								if (p.getBussinessRuleMicroID() == b.getId()){
+				<input type="hidden" name="protocolid" value="<%= protocolID %>"/>					
+				<%
+					String micro = ps.get(0).getBussinessRuleMicroName();
+					System.out.println("++++ micro:"+micro);
+				%>
+				<br/><h3 class='nts'><%= micro %></h3><br/>
+				<table class="table-simple">
+				<%
+					for(int k = 0; k < ps.size(); k++){
+						ProtocolScale p = ps.get(k);
+						if(!micro.equalsIgnoreCase(p.getBussinessRuleMicroName())){
+	       					micro = p.getBussinessRuleMicroName();
+				%>
+				</table>
+	      		<br/><h3 class='nts'><%= micro %></h3><br/>
+				<table class="table-simple">
+				<%
+						}
+				%>
+					<tr>
+							<% if (p.getGeneratedCostTypeID() == 9) { 
 							%>
-								<tr id="tr<%=j%>" >
-									<% if (p.getGeneratedCostTypeID() == 9) { 
-									%>
-									<td class='lft'  style="vertical-align:top;"><%= p.getName()%></td>
-									<td class='mem'>
-										<% 
-										Long unitID 		= 0L;
-										Long specialistID 	= 0L;
-										for (int l = 0; l < spec.size(); l++){ 
-											EstimationSpecialist e = spec.get(l);
-											if (e.getProtocolScaleID() == p.getProtocolScaleID()){
-												unitID = e.getUnitID();
-												specialistID = e.getSpecialistID();
-											}
-										}
-										%>
-										<label class="w200">Unidad del Especialista: </label>
-										<select name="unitId<%= p.getProtocolScaleID() %>" id="unitId" class="target">	
-											<option value="-"> Seleccionar </option>
-											<% for (int h = 0; h < sArea.size(); h++){ 
-											%>
-												<option value="<%= sArea.get(h).getUnitID() %>" <%= (sArea.get(h).getUnitID() == unitID) ? "selected" : "" %>><%= sArea.get(h).getName() %></option>
-											<% } %>
-										</select><br/><br/>
-										<div class="spID" style="display:none"><%= specialistID%></div>
-										<p class="sum-div">
-											<label for="pname" class="w200">Médico Tratante:</label>
-											<select name="specialist<%= p.getProtocolScaleID() %>" id="state" class="state">
-												<option value="-">Seleccionar</option>
-											</select>
-										</p>  <br/> 
-										<% String cl = "" ; if (p.getProtocolScaleID() != 29) cl = "hidden"; %>
-										<label class="w200">Honorarios: Bs. </label>
-										<input class="<%= cl%> honorarios" type="text" name="hon<%=p.getProtocolScaleID() %>" id="hon<%=p.getProtocolScaleID() %>" value="<%= p.getTotal() %>" />
-										<div style="display:none" class="perc"><%= p.getCost() %></div>
-									</td>
-									<td><input type="hidden" name="ids" value="<%= p.getProtocolScaleID() %>" /></td>
-									<% }else{ %>
-										<td class='lft'  style="vertical-align:top;"><%= p.getName()%></td>
-										<% if (p.getTotal() == null && p.getGeneratedCostTypeID() == 10) { %>
-											<td>Bs. <input type="text" name="variable<%=p.getProtocolScaleID() %>" id="variable<%=p.getProtocolScaleID() %>" />
-											<input type="hidden" name="variableids" value="<%= p.getProtocolScaleID() %>"/></td>									
-										<% } %>
-										<td><% if (p.getTotal() != null) { %> Bs. <%= p.getTotal()%><% } %></td>
-									<% } %>
-								</tr>
-								<%
+						<td class='lft'  style="vertical-align:top;"><%= p.getName()%></td>
+						<td class='mem'>
+								<% 
+								Long unitID 		= 0L;
+								Long specialistID 	= 0L;
+								for (int l = 0; l < spec.size(); l++){ 
+									EstimationSpecialist e = spec.get(l);
+									if (e.getProtocolScaleID() == p.getProtocolScaleID()){
+										unitID = e.getUnitID();
+										specialistID = e.getSpecialistID();
+									}
 								}
-							}
-						%>
-						
-						</table>
-					<% } %>
-			    	<p style="width:100%; text-align:center; margin-top:20px;">
-			            <input type="button" id="sbmtButton" name="sbmtButton" class="button" value="Editar Presupuesto"/>
-			        </p>
+								%>
+							<label class="w200">Unidad del Especialista: </label>
+							<select name="unitId<%= p.getProtocolScaleID() %>" id="unitId" class="target">	
+								<option value="-"> Seleccionar </option>
+									<% for (int h = 0; h < sArea.size(); h++){ 
+									%>
+								<option value="<%= sArea.get(h).getUnitID() %>" <%= (sArea.get(h).getUnitID() == unitID) ? "selected" : "" %>><%= sArea.get(h).getName() %></option>
+									<% } %>
+							</select><br/><br/>
+							<div class="spID" style="display:none"><%= specialistID%></div>
+							<p class="sum-div">
+								<label for="pname" class="w200">Médico Tratante:</label>
+								<select name="specialist<%= p.getProtocolScaleID() %>" id="state" class="state">
+									<option value="-">Seleccionar</option>
+								</select>
+							</p>  <br/> 
+								<% String cl = "" ; if (p.getProtocolScaleID() != 29) cl = "hidden"; %>
+							<label class="w200">Honorarios: Bs. </label>
+							<input class="<%= cl%> honorarios" type="text" name="hon<%=p.getProtocolScaleID() %>" id="hon<%=p.getProtocolScaleID() %>" value="<%= p.getTotal() %>" />
+							<div style="display:none" class="perc"><%= p.getCost() %></div>
+						</td>
+						<td><input type="hidden" name="ids" value="<%= p.getProtocolScaleID() %>" /></td>
+							<% }else{ %>
+						<td class='lft'  style="vertical-align:top;"><%= p.getName()%></td>
+								<% if (p.getTotal() == null && p.getGeneratedCostTypeID() == 10) { %>
+						<td>Bs. <input type="text" name="variable<%=p.getProtocolScaleID() %>" id="variable<%=p.getProtocolScaleID() %>" />
+						<input type="hidden" name="variableids" value="<%= p.getProtocolScaleID() %>"/></td>									
+								<% } %>
+						<td><% if (p.getTotal() != null) { %> Bs. <%= p.getTotal()%><% } %></td>
+							<% } %>
+					</tr>
+			<%
+				}
+			%>
+				</table>
+		    	<p style="width:100%; text-align:center; margin-top:20px;">
+		            <input type="button" id="sbmtButton" name="sbmtButton" class="button" value="Editar Presupuesto"/>
+		        </p>
 			</form>
        	</div>
-		</div>
-	</body>
-	<style>
-		.w200{width:145px; display:inline-block;}
-		.table-simple td {
-			padding: 7px 0px;
-			border-bottom: 1px dotted rgb(231, 231, 231);
-		}
-		td.lft{width:340px;}
-		.target, .state{width:220px !important;}
-	</style>
+	</div>
+</body>
+<style>
+	.w200{width:145px; display:inline-block;}
+	.table-simple td {
+		padding: 7px 0px;
+		border-bottom: 1px dotted rgb(231, 231, 231);
+	}
+	td.lft{width:340px;}
+	.target, .state{width:220px !important;}
+</style>
 </html>

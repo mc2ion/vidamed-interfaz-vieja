@@ -37,7 +37,7 @@
 		   <li><a href='help_spec.jsp' target="main"><span>Especialistas</span></a></li>
 		   <li><a href='help_paymentR.jsp' target="main"><span>Responsables de Pago</span></a></li>
 		   <li><a href='help_cashBox.jsp' target="main"><span>Cajas</span></a></li>
-		   <li><a href='help_account.jsp' target="main"><span>Cuentas Pendientes</span></a></li>
+		   <li><a href='help_account.jsp' target="main"><span>Cuentas por Cobrar</span></a></li>
 		   <li><a href='help_bloodB.jsp' target="main"><span>Banco de Sangre</span></a></li>
 		   <li><a href='help_eco.jsp' target="main"><span>Ecosonograf&iacute;a</span></a></li>
 		   <li><a href='help_lab.jsp' target="main"><span>Laboratorio</span></a></li>
@@ -47,7 +47,7 @@
 		   <li><a href='help_pending_invoices.jsp' target="main"><span>Facturas por Generar</span></a></li>
 		   <li><a href='help_pending_requests.jsp' target="main"><span>Descuentos</span></a></li>
 		   <li><a href='help_discharge_pharmacy.jsp' target="main"><span>Altas Farmacia</span></a></li>
-		   <li><a href='help_pending_payments.jsp' target="main"><span>Pagos Pendientes</span></a></li>
+		   <li><a href='help_pending_payments.jsp' target="main"><span>Honorarios por Pagar</span></a></li>
 		</ul>
 		</div>
 		<iframe class="help"  name="main" id="main"  src="./helpIni.jsp" style="width:700px; height:600px;"></iframe>

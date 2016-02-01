@@ -52,83 +52,101 @@ String id = (String) request.getParameter("id");
 				<div class="menuitemSalir"><a href="LogoutServlet"><%= name %> (Salir)</a></div>	
         	</div>        
 			<jsp:include page="./menu.jsp" />
-        	<div id="content" style="position:absolute;">	
-		       		<%
-		       			for (int i = 0; i < bm.size(); i++){ 
-		       				BussinessMicro b = bm.get(i);
-		       		%>
-		       		    <br/><h3 class='nts'><%= b.getName() %></h3><br/>
-						<table class="table-simple">
-						<%
-							for (int j = 0; j < ps.size(); j++){ 
-								ProtocolScale p = ps.get(j);
-								if (p.getBussinessRuleMicroID() == b.getId()){
-									if (p.getIsMandatory() == 1){
-							%>
-								<tr id="tr<%=j%>">
-								<td class='lft'><%= p.getName()%></td>
-								<% if (p.getGeneratedCostTypeID() == 3){
-									if (p.getTotal() == null){
-										valoresFaltantes++;
-										%>
-											<td>---</td>
-											<td>
-												<a class='button-gray' href='./AddDrugsServlet?id=<%= p.getProtocolScaleID()%>&protocolID=<%= id%>'>Agregar Suministros</a>
-											</td>
-										<%}else{ %>
-											<td>Bs. <%= p.getTotal() %></td>
-											<td> <a class='button-gray' href='./EditDrugsServlet?id=<%= p.getProtocolScaleID()%>&protocolID=<%= id%>'>Editar Suministros</a></td>
-										<% }
-								}else if (p.getTotal() == null) {%>
-									<td>
-										<span style='font-size:11px;'>(<%= p.getGeneratedCostTypeName()%>). Este costo se calculará al crear un presupuesto.</span>
-									</td><td></td>
-								<%}
-								else {
-								%>
-									<td><% if (p.getTotal() != null) { %> Bs. <%= p.getTotal()%><%}%></td><td></td>
-								<%	
+        	<div id="content" style="position:absolute;">
+        		<%
+        			String micro = ps.get(0).getBussinessRuleMicroName();
+        			System.out.println("++micro:"+micro);
+        			if((ps.get(0).getIsMandatory()==1) || (ps.get(0).getIsMandatory()==0 && ps.get(0).getIsSelected()==1)){
+				%>
+				<br/><h3 class='nts'><%= micro %></h3><br/>
+				<table class="table-simple">
+				<%        	
+        			}
+        			for(int k = 0; k < ps.size(); k++){
+        				ProtocolScale p = ps.get(k);
+        				if(!micro.equalsIgnoreCase(p.getBussinessRuleMicroName()) && ((p.getIsMandatory()==1) || (p.getIsMandatory()==0 && p.getIsSelected()==1))){
+        					micro = p.getBussinessRuleMicroName();
+        		%>
+        		</table>
+        		<br/><h3 class='nts'><%= micro %></h3><br/>
+				<table class="table-simple">
+        		<%
+        				}
+        				if (p.getIsMandatory() == 1){
+        		%>
+					<tr id="tr<%=k%>">
+						<td class='lft'><%= p.getName()%></td>
+				<% 
+							if (p.getGeneratedCostTypeID() == 3){
+								if (p.getTotal() == null){
+									valoresFaltantes++;
+				%>
+						<td>---</td>
+						<td>
+							<a class='button-gray' href='./AddDrugsServlet?id=<%= p.getProtocolScaleID()%>&protocolID=<%= id%>'>Agregar Suministros</a>
+						</td>
+				<%
+								}else{ 
+				%>
+						<td>Bs. <%= p.getTotal() %></td>
+						<td> <a class='button-gray' href='./EditDrugsServlet?id=<%= p.getProtocolScaleID()%>&protocolID=<%= id%>'>Editar Suministros</a></td>
+				<% 
 								}
-								%>
-								</tr>
-						<% 
-								   }else if (p.getIsMandatory() == 0 && p.getIsSelected() == 1){%>
-								   <tr>
-									<td class='lft'><%= p.getName()%></td>
-									<% if (p.getGeneratedCostTypeID() == 3){
-									if (p.getTotal() == null){
-										valoresFaltantes++;
-								%>
-									<td>---</td>
-									<td>
-										<a class='button-gray' href='./AddDrugsServlet?id=<%= p.getProtocolScaleID()%>&protocolID=<%= id%>'>Agregar Suministros</a>
-									</td>
-								<%}else{ %>
-									<td>Bs. <%= p.getTotal() %></td>
-									<td> 
-										<a class='button-gray' href='./EditDrugsServlet?id=<%= p.getProtocolScaleID()%>&protocolID=<%= id%>'>Editar Suministros</a>
-									</td>
-								
-								<% }
-								}else if (p.getTotal() == null) {%>
-									<td>
-										<span style='font-size:11px;'><%= p.getGeneratedCostTypeName()%>. Este costo se calculará al crear un presupuesto.</span>
-									</td>
-									<td></td>
-								<%} else{
-								%>
-									<td><% if (p.getTotal() != null) { %> Bs. <%= p.getTotal()%><%}%></td><td></td>
-								<%	
-								}
-								%>
-								   </tr>
-								 <% }  
-								}
+							}else if (p.getTotal() == null) {%>
+						<td>
+							<span style='font-size:11px;'>(<%= p.getGeneratedCostTypeName()%>). Este costo se calculará al crear un presupuesto.</span>
+						</td>
+						<td></td>
+				<%
+							} else {
+				%>
+						<td><% if (p.getTotal() != null) { %> Bs. <%= p.getTotal()%><%}%></td><td></td>
+				<%	
 							}
-						%>
-						
-						</table>
-					<% } %>
+				%>
+					</tr>
+				<% 
+						}else if (p.getIsMandatory() == 0 && p.getIsSelected() == 1){
+				%>
+					<tr>
+						<td class='lft'><%= p.getName()%></td>
+				<% 
+							if (p.getGeneratedCostTypeID() == 3){
+								if (p.getTotal() == null){
+									valoresFaltantes++;
+				%>
+						<td>---</td>
+						<td>
+							<a class='button-gray' href='./AddDrugsServlet?id=<%= p.getProtocolScaleID()%>&protocolID=<%= id%>'>Agregar Suministros</a>
+						</td>
+				<%
+								}else{ 
+				%>
+						<td>Bs. <%= p.getTotal() %></td>
+						<td> 
+							<a class='button-gray' href='./EditDrugsServlet?id=<%= p.getProtocolScaleID()%>&protocolID=<%= id%>'>Editar Suministros</a>
+						</td>
+				<% 
+								}
+							}else if (p.getTotal() == null) {
+				%>
+						<td>
+							<span style='font-size:11px;'><%= p.getGeneratedCostTypeName()%>. Este costo se calculará al crear un presupuesto.</span>
+						</td>
+						<td></td>
+				<%
+							} else{
+				%>
+						<td><% if (p.getTotal() != null) { %> Bs. <%= p.getTotal()%><%}%></td><td></td>
+				<%	
+							}
+				%>
+					</tr>
+				<% 
+        				}
+        			}
+        		%>	
+        		</table>
 			    	<p style="width:100%; text-align:center; margin-top:20px;">
 			            <a href="./ListProtocolsServlet?s=1" class="button" onclick="return continueFunction(<%= valoresFaltantes %>);">Aceptar</a> ó
 			            <a href="./AddServiceProtocolServlet?id=<%= id %>" class="button" style="margin-left: 5px;" onclick="return continueFunction(<%= valoresFaltantes %>);">Agregar Servicios Adicionales</a>

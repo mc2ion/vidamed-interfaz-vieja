@@ -50,30 +50,38 @@
 			<jsp:include page="./menu.jsp" />
         	<div id="content" style="position:absolute;">	
         		<h3 style="color:#006C92;">Detalle protocolo "<%= nameProtocol %>" en emergencia:</h3>
-				<%
-		       			for (int i = 0; i < bm.size(); i++){ 
-		       				BussinessMicro b = bm.get(i);
-		       	%>
-				    <br/><br/><h3 style="margin-bottom:7px;"><%= b.getName() %></h3>
-					<div>
-				    <table class="table-simple">
-				    	<%
-							for (int j = 0; j < ps.size(); j++){ 
-								ProtocolScale p = ps.get(j);
-								if (p.getBussinessRuleMicroID() == b.getId()){
-						%>
-						<% if (p.getTotal() != null) { %>
-						<tr id="tr<%=j%>" >
+        	<%
+				String micro = ps.get(0).getBussinessRuleMicroName();
+				System.out.println("++++ micro:"+micro);
+			%>
+				<br/><br/><h3 style="margin-bottom:7px;"><%= micro %></h3>
+				<div>
+					<table class="table-simple">
+			<%
+				for(int k = 0; k < ps.size(); k++){
+					ProtocolScale p = ps.get(k);
+					System.out.println("++++ protocolscale:"+p.getName());
+					if(!micro.equalsIgnoreCase(p.getBussinessRuleMicroName())){
+       					micro = p.getBussinessRuleMicroName();
+			%>
+					</table>
+				</div>
+      			<br/><br/><h3 style="margin-bottom:7px;"><%= micro %></h3>
+      			<div>
+					<table class="table-simple">
+			<%
+					}
+					if (p.getTotal() != null) { %>
+						<tr>
 				    			<td class='lft'  style="vertical-align:top;"><%= p.getName()%></td>
 								<td> Bs. <%= p.getTotal()%></td>
 						</tr>
-						<% } %>
-						<% }
-						}
-						%>
-				    </table>
-					</div>
-				  <% } %>
+			<% 
+					} 
+				}
+			%>
+					</table>
+				</div>
 				<div id="botonera2"  style="width: 120px;">
 					<input type="button"  class="button"  name="sbmtButton" value="Regresar" onclick="history.go(-1);" />
 				</div><br>

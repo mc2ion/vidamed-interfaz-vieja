@@ -122,7 +122,7 @@
 		      perm  = PermissionsList.hasPermission(request, PermissionsList.pendingAccounts);
 		      if (perm){
 		      %>
-		   <li><a href='ListAccountsServlet'><span>Cuentas Pendientes</span></a></li>
+		   <li><a href='ListAccountsServlet'><span>Cuentas por Cobrar</span></a></li>
 		   <%  }
 		      perm  = PermissionsList.hasPermission(request, PermissionsList.bloodBank);
 		      if (perm){
