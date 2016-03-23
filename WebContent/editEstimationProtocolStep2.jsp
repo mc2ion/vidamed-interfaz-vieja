@@ -5,6 +5,8 @@
 <%@page import="domain.ClinicType"%>
 <%@page import="domain.Unit"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="java.util.Locale"%>
+<%@page import="java.text.NumberFormat"%>
 <%@page import="domain.PaymentResponsible"%>
 <%
 	String estimationID 	= (String) request.getParameter("estimationID" );
@@ -36,7 +38,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 		<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-		<title>Crear Presupuesto</title>
+		<title>Editar Presupuesto</title>
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css" />
 	  	<script src="./js/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
@@ -189,9 +191,14 @@
 									<option value="-">Seleccionar</option>
 								</select>
 							</p>  <br/> 
-								<% String cl = "" ; if (p.getProtocolScaleID() != 29) cl = "hidden"; %>
+								<% 
+								String cl = "honorarios" ; 
+								NumberFormat nf = NumberFormat.getInstance(Locale.FRANCE);
+								Number n = nf.parse(p.getCost());
+								Double perc = n.doubleValue();
+								if (perc == 0.00) cl = "fijos"; else if(perc != 1.00) cl = "hidden honorarios"; %>
 							<label class="w200">Honorarios: Bs. </label>
-							<input class="<%= cl%> honorarios" type="text" name="hon<%=p.getProtocolScaleID() %>" id="hon<%=p.getProtocolScaleID() %>" value="<%= p.getTotal() %>" />
+							<input class="<%= cl%>" type="text" name="hon<%=p.getProtocolScaleID() %>" id="hon<%=p.getProtocolScaleID() %>" value="<%= p.getTotal() %>" />
 							<div style="display:none" class="perc"><%= p.getCost() %></div>
 						</td>
 						<td><input type="hidden" name="ids" value="<%= p.getProtocolScaleID() %>" /></td>

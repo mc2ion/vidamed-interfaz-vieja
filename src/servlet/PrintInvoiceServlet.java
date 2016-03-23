@@ -50,7 +50,7 @@ public class PrintInvoiceServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
 		if(userE != null){
-			Long admissionID = Long.parseLong(request.getParameter("id"));
+			Long admissionID = Long.parseLong(request.getParameter("admId"));
 			System.out.println(admissionID);
 			Admission admission;
 			ArrayList<Protocol> protocols;

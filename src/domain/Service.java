@@ -6,6 +6,9 @@ public class Service {
 	private Long serviceTypeID;
 	private String name;
 	private String price;
+	private String serviceTypeName;
+	private Long amout;
+	private String unitPrice;
 	
 	public Long getServiceID() {
 		return serviceID;
@@ -37,6 +40,30 @@ public class Service {
 
 	public String getPrice() {
 		return price;
+	}
+
+	public void setServiceTypeName(String serviceTypeName) {
+		this.serviceTypeName = serviceTypeName;
+	}
+
+	public String getServiceTypeName() {
+		return serviceTypeName;
+	}
+
+	public void setAmout(Long amout) {
+		this.amout = amout;
+	}
+
+	public Long getAmout() {
+		return amout;
+	}
+
+	public void setUnitPrice(String unitPrice) {
+		this.unitPrice = unitPrice;
+	}
+
+	public String getUnitPrice() {
+		return unitPrice;
 	}
 	
 }

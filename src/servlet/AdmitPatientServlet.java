@@ -113,6 +113,8 @@ public class AdmitPatientServlet extends HttpServlet {
 					String text_good = " La admisión se ha creado exitosamente.";
 					if (result != null && result == -1 ) {
 						text_good += " Se ha presentado un error al crear la admisión. Por favor, intente nuevamente.";
+					} else {
+						result = (Long) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddPatientEstimationSupplyList(result));
 					}
 					session.setAttribute("info", text_good);
 					response.sendRedirect(request.getContextPath() + "/ListAdmissionsServlet");

@@ -170,14 +170,17 @@ session.removeAttribute("info");
 		<table id="sweetTable">
 			<tbody>
 			<% 
-			long micro = 1;
+			long micro = 0;
 			double subtotal = 0.00;
+			if(costs.get(0).getEstimationCost() != null){
+				micro = costs.get(0).getBussinessRuleMicroID();
 			%>
 			<tr>
 				<th ><%= costs.get(0).getBussinessRuleMicroName() %></th>
 				<th style="width:20%;text-align:right;">Precio Bs.F.</th>
 			</tr>
 			<%
+			}
 			for (int j = 0; j < costs.size(); j++){
 				Protocol ct = costs.get(j);
 				if(ct.getEstimationCost() != null){
@@ -191,11 +194,13 @@ session.removeAttribute("info");
 						</tr>		
 					<%
 					} else {
+						if(micro != 0){
 						%>
 						<tr id="totalTr">
 							<td>*** SUB-TOTAL ***</td>
 							<td style="width:20%;text-align:right;"><%= Estimation.format.format(subtotal) %></td>
 						</tr>
+						<%}%>
 						<tr>
 							<th ><%= ct.getBussinessRuleMicroName() %></th>
 							<th style="width:20%;text-align:right;">Precio Bs.F.</th>
@@ -287,7 +292,7 @@ session.removeAttribute("info");
 							</select>
 							<input type="text" pattern="^[0-9]+(\.[0-9]+)?$" name="amount" size='10' required title="Este campo es numerico y no puede ser dejado en blanco"/>
 						<br>
-						<div class="leftColum"><b>Justicación:</b></div><textarea name="justification" style="width: 148px;" required title="El campo 'Justificación' no puede ser dejado en blanco"></textarea><br>
+						<div class="leftColum"><b>Justificación:</b></div><textarea name="justification" style="width: 148px;" required title="El campo 'Justificación' no puede ser dejado en blanco"></textarea><br>
 					</div>
 					<div id="signup-header">
 						<a class="close_x" id="close_x_aux"  href="#"></a>

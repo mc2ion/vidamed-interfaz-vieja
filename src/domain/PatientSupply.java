@@ -15,7 +15,10 @@ public class PatientSupply {
 	private String total;
 	private String supplyDate;
 	private SupplyInventory supplyInventory;
-	
+	private Long protocolScaleID;
+	private String protocolScaleName;
+	private Long bussinessRuleMicroID;	
+	private String bussinessRuleMicroName;
 	
 	public Long getAdmissionID() {
 		return admissionID;
@@ -119,5 +122,37 @@ public class PatientSupply {
 
 	public SupplyInventory getSupplyInventory() {
 		return supplyInventory;
+	}
+
+	public void setProtocolScaleID(Long protocolScaleID) {
+		this.protocolScaleID = protocolScaleID;
+	}
+
+	public Long getProtocolScaleID() {
+		return protocolScaleID;
+	}
+
+	public void setProtocolScaleName(String protocolScaleName) {
+		this.protocolScaleName = protocolScaleName;
+	}
+
+	public String getProtocolScaleName() {
+		return protocolScaleName;
+	}
+
+	public void setBussinessRuleMicroID(Long bussinessRuleMicroID) {
+		this.bussinessRuleMicroID = bussinessRuleMicroID;
+	}
+
+	public Long getBussinessRuleMicroID() {
+		return bussinessRuleMicroID;
+	}
+
+	public void setBussinessRuleMicroName(String bussinessRuleMicroName) {
+		this.bussinessRuleMicroName = bussinessRuleMicroName;
+	}
+
+	public String getBussinessRuleMicroName() {
+		return bussinessRuleMicroName;
 	}
 }

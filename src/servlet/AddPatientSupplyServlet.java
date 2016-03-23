@@ -13,7 +13,10 @@ import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
 import domain.PermissionsList;
+import domain.ProtocolScale;
+import domain.Supply;
 import domain.SupplyArea;
+import domain.SupplyInventory;
 import domain.User;
 
 /**
@@ -59,10 +62,40 @@ public class AddPatientSupplyServlet extends HttpServlet {
 				request.setAttribute("adminId", id);
 				request.setAttribute("name", name);
 				
-				@SuppressWarnings("unchecked")
-				ArrayList<SupplyArea> sArea = (ArrayList<SupplyArea>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetSupplyAreas());
-			
-				request.setAttribute("supplyArea", sArea);
+				if(sec != null && sec.equalsIgnoreCase("add")){
+					Long scaleId = Long.valueOf(request.getParameter("scaleId"));
+					Long amount = Long.valueOf(request.getParameter("amount"));
+					Long supplyId = Long.valueOf(request.getParameter("spId"));
+					Supply supply = (Supply) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetSupply(supplyId));
+					@SuppressWarnings("unchecked")
+					ArrayList<SupplyInventory> supplyInventories = (ArrayList<SupplyInventory>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetSupplyInventories(supplyId));
+				
+					request.setAttribute("scaleId", scaleId);
+					request.setAttribute("supply", supply);
+					request.setAttribute("amount", amount);
+					request.setAttribute("supplyInventories", supplyInventories);
+				}else if(sec != null && sec.equalsIgnoreCase("replace")){
+					Long scaleId = Long.valueOf(request.getParameter("scaleId"));
+					Long amount = Long.valueOf(request.getParameter("amount"));
+					Long supplyId = Long.valueOf(request.getParameter("spId"));
+					Supply supply = (Supply) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetSupply(supplyId));
+					@SuppressWarnings("unchecked")
+					ArrayList<SupplyArea> sArea = (ArrayList<SupplyArea>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetSupplyAreas());
+				
+					request.setAttribute("scaleId", scaleId);
+					request.setAttribute("supply", supply);
+					request.setAttribute("amount", amount);
+					request.setAttribute("supplyArea", sArea);
+				}else{
+					@SuppressWarnings("unchecked")
+					ArrayList<SupplyArea> sArea = (ArrayList<SupplyArea>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetSupplyAreas());
+					@SuppressWarnings("unchecked")
+					ArrayList<ProtocolScale> pScale = (ArrayList<ProtocolScale>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetSupplyProtocolScales());
+				
+					request.setAttribute("supplyArea", sArea);
+					request.setAttribute("protocolScale", pScale);
+				}
+								
 				request.setAttribute("sec", sec);
 				
 				rd = getServletContext().getRequestDispatcher("/addPatientSupply.jsp");			
@@ -98,8 +131,21 @@ public class AddPatientSupplyServlet extends HttpServlet {
 				String supplyInventory = request.getParameter("inventory");
 				String amount  = request.getParameter("amount");
 				String sec = request.getParameter("sec");
+				Long scaleId = Long.valueOf(request.getParameter("scaleId"));
+				Integer result = 0;
 				
-				Integer result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddPatientSupply(Long.valueOf(admin), Long.valueOf(supplyInventory), amount));
+				if(sec!=null && sec.equalsIgnoreCase("add")){
+					Long supplyId = Long.valueOf(request.getParameter("supplyId"));
+					CommandExecutor.getInstance().executeDatabaseCommand(new command.ApplyPatientEstimationSupply(Long.valueOf(admin), scaleId, supplyId, Long.valueOf(amount)));
+					result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddPatientSupply(Long.valueOf(admin), Long.valueOf(supplyInventory), amount, scaleId));
+				}else if(sec!=null && sec.equalsIgnoreCase("replace")){
+					Long supplyId = Long.valueOf(request.getParameter("supplyId"));
+					String amountReplaced = request.getParameter("amountReplaced");
+					CommandExecutor.getInstance().executeDatabaseCommand(new command.ApplyPatientEstimationSupply(Long.valueOf(admin), scaleId, supplyId, Long.valueOf(amount)));
+					result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddPatientSupply(Long.valueOf(admin), Long.valueOf(supplyInventory), amountReplaced, scaleId));
+				}else{
+					result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddPatientSupply(Long.valueOf(admin), Long.valueOf(supplyInventory), amount, scaleId));				
+				}
 				
 				String text = "El suministro fue agregado exitosamente";
 				if (result == 0)
@@ -109,13 +155,14 @@ public class AddPatientSupplyServlet extends HttpServlet {
 				
 				if(sec != null && sec.equalsIgnoreCase("d")){
 					response.sendRedirect(request.getContextPath() + "/ListPatientSuppliesServlet?id=" + admin + "&name=" + name + "&sec=" + sec);
-				} else {					
+				}else if(sec != null && (sec.equalsIgnoreCase("add") || sec.equalsIgnoreCase("replace"))){
+					response.sendRedirect(request.getContextPath() + "/ListPatientEstimationSuppliesServlet?id=" + admin + "&name=" + name);
+				}else {					
 					response.sendRedirect(request.getContextPath() + "/ListPatientSuppliesServlet?id=" + admin + "&name=" + name);
 				}
 		
 			}catch(Exception e){
-				
-				
+				e.printStackTrace();				
 			}
 		}else {
 			if (userE == null){

@@ -31,11 +31,12 @@
 	<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
 	<script type="text/javascript" charset="utf-8">
 	$(document).ready(function() {
-		$('#example').dataTable( {
+		$('.display').dataTable( {
 			"iDisplayLength": 7,
 			"bLengthChange": false,
-			"sScrollY": "250px",
 			"bPaginate": false,
+			"bFilter": false,
+			"bInfo": false,
 			"aoColumns": [
 				null,
 				null,
@@ -107,6 +108,14 @@
 			<div id="dt_example">
 					<div id="container">
 						<div id="demo">
+						<% 
+							if(supplies.size()>0){
+								String title = supplies.get(0).getBussinessRuleMicroName() + " - " + supplies.get(0).getProtocolScaleName();
+								Long microID = supplies.get(0).getBussinessRuleMicroID();
+								Long scaleID = supplies.get(0).getProtocolScaleID();
+						%>
+							<h3><%= title %></h3>
+							<br>
 							<table class="display" id="example">
 								<thead>
 									<tr>
@@ -121,7 +130,28 @@
 									<%
 										for (int i=0; i< supplies.size(); i++){
 										PatientSupply s = supplies.get(i);
+										
+										if(microID != s.getBussinessRuleMicroID() || scaleID != s.getProtocolScaleID()){
+											title = s.getBussinessRuleMicroName() + " - " + s.getProtocolScaleName();
+											microID = s.getBussinessRuleMicroID();
+											scaleID = s.getProtocolScaleID();
 									%>	
+								</tbody>
+							</table>
+							<br>
+							<h3><%= title %></h3>
+							<br>
+							<table class="display" id="example">
+								<thead>
+									<tr>
+										<th>Id</th>
+										<th>Suministro</th>
+										<th>Cantidad</th>
+										<th>Total</th>
+										<th>Acciones</th>
+									</tr>
+								</thead>
+								<tbody>
 									<tr class="gradeA">
 										<td><%= s.getPatientSupplyID() %></td>
 										<td><%= s.getSupplyName() %></td>
@@ -138,9 +168,48 @@
 											<br>
 										</td>
 									</tr>
-									<% } %>
+								<%
+									} else {
+								%>
+									<tr class="gradeA">
+										<td><%= s.getPatientSupplyID() %></td>
+										<td><%= s.getSupplyName() %></td>
+										<td><%= s.getAmount() %></td>
+										<td><%= s.getTotal() %></td>
+										<td>
+											<a href="EditPatientSupplyServlet?id=<%=adminId%>&name=<%=patName%>&spId=<%= s.getPatientSupplyID() %>" style="color: transparent" >
+												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
+											</a>
+											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
+												onclick="return loadVars(<%= s.getPatientSupplyID() %>,'<%= s.getSupplyName() %>',<%= adminId %>, '<%= patName %>');" >
+												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
+											</a> 
+											<br>
+										</td>
+									</tr>
+									<% }
+										}%>
 								</tbody>
 							</table>
+						<%
+							} else {
+						%>
+							<table class="display" id="example">
+								<thead>
+									<tr>
+										<th>Id</th>
+										<th>Suministro</th>
+										<th>Cantidad</th>
+										<th>Total</th>
+										<th>Acciones</th>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
+						<%
+							}
+						%>
 						</div>
 					</div>
 				</div>

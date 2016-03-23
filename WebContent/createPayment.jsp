@@ -60,41 +60,74 @@
 		function displayPaymentFields(combo) {
 			sel = combo.options[combo.selectedIndex].value;
 			bank = document.getElementById('bank');
+			bankTo = document.getElementById('bankTo');
+			bankLabel = document.getElementById('bankLabel');
+			bankFromLabel = document.getElementById('bankFromLabel');
+			transference = document.getElementById('transference');
 			check = document.getElementById('check');
 			sellPoint = document.getElementById('sellPoint');
 			insurance = document.getElementById('insurance');
 			pass = document.getElementById('aval');
 			if(sel == 2 || sel == 0){
 				bank.style.display = "none";
+				bankTo.style.display = "none";
+				bankLabel.style.display = "none";
+				bankFromLabel.style.display = "none";
 				check.style.display = "none";
 				sellPoint.style.display = "none";
 				insurance.style.display = "none";
 				pass.style.display = "none";
+				transference.style.display = "none";
 			} else if(sel == 4 || sel == 5){
 				bank.style.display = "block";
+				bankTo.style.display = "none";
+				bankLabel.style.display = "block";
+				bankFromLabel.style.display = "none";
 				check.style.display = "none";
 				sellPoint.style.display = "block";
 				insurance.style.display = "none";
 				pass.style.display = "none";
+				transference.style.display = "none";
 			} else if(sel == 1){
 				bank.style.display = "block";
+				bankTo.style.display = "none";
+				bankLabel.style.display = "block";
+				bankFromLabel.style.display = "none";
 				check.style.display = "block";
 				sellPoint.style.display = "none";
 				insurance.style.display = "none";
 				pass.style.display = "none";
+				transference.style.display = "none";
 			} else if(sel == 3){
 				bank.style.display = "none";
+				bankTo.style.display = "none";
+				bankLabel.style.display = "none";
+				bankFromLabel.style.display = "none";
 				check.style.display = "none";
 				sellPoint.style.display = "none";
 				insurance.style.display = "block";
 				pass.style.display = "none";
-			}
-			else if(sel == 6){
+				transference.style.display = "none";
+			} else if(sel == 6){
 				bank.style.display = "none";
+				bankTo.style.display = "none";
+				bankLabel.style.display = "none";
+				bankFromLabel.style.display = "none";
 				check.style.display = "none";
 				sellPoint.style.display = "none";
 				insurance.style.display = "none";
 				pass.style.display = "block";
+				transference.style.display = "none";
+			} else if(sel == 7){
+				bank.style.display = "block";
+				bankTo.style.display = "block";
+				bankLabel.style.display = "none";
+				bankFromLabel.style.display = "block";
+				check.style.display = "none";
+				sellPoint.style.display = "none";
+				insurance.style.display = "none";
+				pass.style.display = "none";
+				transference.style.display = "block";
 			}
 		}
 		</script>
@@ -197,6 +230,23 @@
                 			return;
             			}
             			else if (!$('#amount').val().match(patternDouble)) {
+            				alert("El campo 'Monto' debe ser un valor numérico. Ejemplo: 1234.56");
+                			return;
+            			}
+            		} else if ($('#paymentMethod').val() == '7') {
+            			if ($('#bankId').val() == '0') {
+            				alert("Debe seleccionar un valor para el campo 'Banco Emisor'");
+                			return;
+            			} else if ($('#bankToId').val() == '0') {
+            				alert("Debe seleccionar un valor para el campo 'Banco Receptor'");
+                			return;
+            			} else if ($('#transferenceId').val() == '') {
+            				alert("El campo 'N° de Referencia' no puede ser dejado en blanco");
+                			return;
+            			} else if ($('#amount').val() == '') {
+            				alert("El campo 'Monto' no puede ser dejado en blanco");
+                			return;
+            			} else if (!$('#amount').val().match(patternDouble)) {
             				alert("El campo 'Monto' debe ser un valor numérico. Ejemplo: 1234.56");
                 			return;
             			}
@@ -311,7 +361,8 @@
 									<input type="text" name="pass" id="pass" style="width: 135px;"><br><br>
 								</div>
 								<div id="bank" style="display:none;">
-									<label for="name">Banco:</label>
+									<label for="name" id="bankLabel">Banco:</label>
+									<label for="name" style="display:none;" id="bankFromLabel">Banco Emisor:</label>
 									<select name="bank" id="bankId">
 										<option value="0">Seleccionar</option>
 										<% for (int i=0; i< b.size(); i++){ 
@@ -320,6 +371,21 @@
 										<option value="<%= be.getId() %>"><%= be.getName() %></option>
 										<% } %>
 									</select> <br><br>
+								</div>
+								<div id="bankTo" style="display:none;">
+									<label for="name">Banco Receptor:</label>
+									<select name="bankTo" id="bankToId">
+										<option value="0">Seleccionar</option>
+										<% for (int i=0; i< b.size(); i++){ 
+											Bank be = b.get(i); 
+										%>
+										<option value="<%= be.getId() %>"><%= be.getName() %></option>
+										<% } %>
+									</select> <br><br>
+								</div>
+								<div id="transference" style="display:none;">
+									<label for="name">N° de Referencia:</label>
+									<input type="text" name="transference" id="transferenceId" style="width: 135px;"> <br><br>
 								</div>
 								<div id="check" style="display:none;">
 									<label for="name">N° de Cheque:</label>

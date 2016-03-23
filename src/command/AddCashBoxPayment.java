@@ -16,11 +16,12 @@ public class AddCashBoxPayment implements DatabaseCommand {
 	private String number;
 	private Long paymentresponsibleid;
 	private Long salepointid;
+	private Long banktoid;
 	
 	
 	
 	public AddCashBoxPayment(Long typeid, Long methodid, String amount, Long cashboxid, Long userid, Long admissionid,
-							Long bankid, String number, Long paymentresponsibleid, Long  salepointid ){
+							Long bankid, String number, Long paymentresponsibleid, Long  salepointid, Long banktoid){
 		this.typeid 			= typeid;
 		this.methodid 			= methodid;
 		this.amount 			= "'" + amount + "'";
@@ -31,6 +32,7 @@ public class AddCashBoxPayment implements DatabaseCommand {
 		if (!number.equals("")) this.number = number; else number=null;
 		if (paymentresponsibleid != 0) this.paymentresponsibleid = paymentresponsibleid; else this.paymentresponsibleid = null;
 		if (salepointid != 0) this.salepointid = salepointid; else this.salepointid = null;
+		if (banktoid != 0) this.banktoid = banktoid; else this.banktoid = null;
 	}
 	
 	@Override
@@ -41,11 +43,11 @@ public class AddCashBoxPayment implements DatabaseCommand {
 		try {
 			ps = conn.prepareStatement("exec dbo.AddCashBoxPayment " + typeid + ", " + methodid + ", " + amount + ", " +
 										cashboxid + "," + userid + "," + admissionid + "," + bankid + "," + number + "," +
-										paymentresponsibleid + "," + salepointid);
+										paymentresponsibleid + "," + salepointid + "," + banktoid);
 			
 			System.out.println("exec dbo.AddCashBoxPayment " + typeid + ", " + methodid + ", " + amount + ", " +
 					cashboxid + "," + userid + "," + admissionid + "," + bankid + "," + number + "," +
-					paymentresponsibleid + "," + salepointid);
+					paymentresponsibleid + "," + salepointid + "," + banktoid);
 			ps.execute();
 		}
 		catch(Exception e){

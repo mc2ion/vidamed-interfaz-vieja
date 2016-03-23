@@ -34,6 +34,8 @@ public class Admission {
 	private Specialist spec;
 	private Estimation estimation;
 	private String totalWithDiscount;
+	private String responsibleAddress;
+	private String responsibleRIF;
 	
 	public Long getAdmissionID() {
 		return admissionID;
@@ -246,6 +248,22 @@ public class Admission {
 		} else {
 			this.totalWithDiscount = null;
 		}
+	}
+
+	public void setResponsibleAddress(String responsibleAddress) {
+		this.responsibleAddress = responsibleAddress;
+	}
+
+	public String getResponsibleAddress() {
+		return responsibleAddress;
+	}
+
+	public void setResponsibleRIF(String responsibleRIF) {
+		this.responsibleRIF = responsibleRIF;
+	}
+
+	public String getResponsibleRIF() {
+		return responsibleRIF;
 	}
 
 		

@@ -126,7 +126,8 @@ public class CreatePaymentServlet extends HttpServlet {
 			String insurance 		= request.getParameter("insurance");
 			String amount 			= request.getParameter("amount");
 			String cashBoxId		= request.getParameter("cashBoxID");
-			
+			String bankTo			= request.getParameter("bankTo");
+			String transference		= request.getParameter("transference");
 			
 			String number = "";
 			
@@ -136,10 +137,11 @@ public class CreatePaymentServlet extends HttpServlet {
 				number = pass;
 			else if (paymentType.equals("4") || paymentType.equals("5"))
 				number = aprob;
-			
+			else if (paymentType.equals("7"))
+				number = transference;
 			try {
 				int result =  (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new AddCashBoxPayment(Long.valueOf(paymentType), Long.valueOf(paymentMethod), amount, Long.valueOf(cashBoxId),
-								Long.valueOf(userE.getUserID()), Long.valueOf(adId), Long.valueOf(bank), number, Long.valueOf(insurance), Long.valueOf(salesPoint)));
+								Long.valueOf(userE.getUserID()), Long.valueOf(adId), Long.valueOf(bank), number, Long.valueOf(insurance), Long.valueOf(salesPoint), Long.valueOf(bankTo)));
 				
 				String msg =  "Su pago fue registrado exitosamente.";
 				if (result != 1)

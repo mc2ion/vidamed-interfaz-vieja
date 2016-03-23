@@ -79,8 +79,23 @@ public class GetAdmission implements DatabaseCommand {
 				Estimation est = new Estimation();
 				est.setTotal(rs.getString(23), rs.getDouble(23));
 				est.setTotalWithDiscount(rs.getString(24), rs.getDouble(24));
+				est.setPolicyHolderIdentityCard(rs.getString(27));
+				est.setPolicyHolderName(rs.getString(28));
 				u.setEstimation(est);
 				u.setTotalWithDiscount(rs.getString(25), rs.getDouble(25));
+				
+				dateStr = rs.getString(26);
+				try {
+					if (dateStr != null){
+						date = fromFormat.parse(dateStr);
+						u.setDischargeDate(toFormat.format(date));
+					}
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+				
+				u.setResponsibleAddress(rs.getString(29));
+				u.setResponsibleRIF(rs.getString(30));
 			}
 		}
 		finally {

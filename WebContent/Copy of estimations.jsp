@@ -213,7 +213,7 @@
 						</select>
 						<input type="text" size='10' name="amount"/>
 					<br>
-					<div class="leftColum"><b>Justicación:</b></div><textarea style="width: 138px;" name="justify"></textarea><br>
+					<div class="leftColum"><b>Justificación:</b></div><textarea style="width: 138px;" name="justify"></textarea><br>
 					</div>
 					<div id="signup-header">
 					<a class="close_x" id="close_x_aux"  href="#"></a>

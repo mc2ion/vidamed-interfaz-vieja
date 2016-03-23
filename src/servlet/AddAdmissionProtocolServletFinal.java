@@ -118,10 +118,10 @@ public class AddAdmissionProtocolServletFinal extends HttpServlet {
 					
 					String scaleId	   = id[i];
 					try {
-						if (id[i] != null && id[i].equals("29")){
+						//if (id[i] != null && id[i].equals("29")){
 							honorario = request.getParameter("hon" + id[i]);
 							CommandExecutor.getInstance().executeDatabaseCommand(new command.AddEstimationProtocolScale(estimationid, protocolid, scaleId, honorario));
-						}
+						//}
 						//Agrego el especialista
 						System.out.println("agrego en admission " + specialistid + " b "  + scaleId + " c " + protocolid  + " d " + estimationid  + " e "+ honorario);
 						CommandExecutor.getInstance().executeDatabaseCommand(new command.AddEstimationSpecilist(estimationid, protocolid, scaleId, specialistid, unitid));

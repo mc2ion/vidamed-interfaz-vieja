@@ -27,7 +27,8 @@ Date date = new Date();
 String dateTxt = dateFormat.format(date);
 String hour    = hourFormat.format(date);
 
-String dateE = e.getAdmissionDate()		;
+String dateE = e.getAdmissionDate();
+String dateS = e.getDischargeDate();
 String[] split = null;
 String de = "";
 if (dateE != ""){
@@ -200,15 +201,32 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 		<% 
 			String name 	= e.getFirstName() + " " + e.getLastName();
 			String cedula 	= e.getIdentityCard();
+			String policyIdentity = e.getEstimation().getPolicyHolderIdentityCard();
+			String policyName = e.getEstimation().getPolicyHolderName();
 		%>
 			<div><b>Nombre del Paciente: </b> <%= name %></div><br/>
-			<div><b>Cédula de Identidad: </b> <%= cedula %></div>
+			<div><b>Cédula de Identidad: </b> <%= cedula %></div><br/>
+		<% if(policyName != null) {%>
+			<div><b>Asegurado Principal: </b> <%= policyName %></div><br/>
+		<% } 
+		   if(policyIdentity != null) {
+		%>
+			<div><b>Cédula de Asegurado: </b> <%= policyIdentity %></div><br/>
+		<% } %>
+			<div><b>Fecha Entrada: </b> <%= dateE %></div><br/>
+			<div><b>Fecha Salida: </b> <%= dateS %></div>
 		</div><br>
 		<div class="header">
 			<b>Médico Tratante: </b><%= e.getSpecialist().getFirstName() +  " " + e.getSpecialist().getLastName() %>    	
-        </div>
+        </div><br>
 		<div class="header">
 			<b>Responsable de Pago: </b><%= e.getResponsibleName() %>     	
+        </div>
+        <div class="header">
+			<b>Direcci&oacute;n: </b><%= e.getResponsibleAddress() %>     	
+        </div>
+        <div class="header">
+			<b>RIF: </b><%= e.getResponsibleRIF() %>     	
         </div><br>
         <table id="sweetTable">
 			<tbody>
@@ -224,22 +242,25 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 						<td><%= p.getProtocolID() %></td>
 						<td><%= p.getDiagnosis() %></td>
 						<td><%= p.getName() %></td>
-				<% } %>
-				
+					</tr>
+				<% } %>				
 			</tbody>
 		</table>
 		<br>
 		<table id="sweetTable">
 			<tbody>
 			<% 
-			long micro = 1;
+			long micro = 0;
 			double subtotal = 0.00;
+			if(costs.get(0).getEstimationCost()!=null){
+				micro = costs.get(0).getBussinessRuleMicroID();
 			%>
 			<tr>
 				<th ><%= costs.get(0).getBussinessRuleMicroName() %></th>
 				<th style="width:20%;text-align:right;">Precio Bs.F.</th>
 			</tr>
 			<%
+			}
 			for (int j = 0; j < costs.size(); j++){
 				Protocol ct = costs.get(j);
 				if(ct.getEstimationCost() != null){
@@ -253,11 +274,13 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 						</tr>		
 					<%
 					} else {
+						if(micro != 0){
 						%>
 						<tr id="totalTr">
 							<td>*** SUB-TOTAL ***</td>
 							<td style="width:20%;text-align:right;"><%= Estimation.format.format(subtotal) %></td>
 						</tr>
+						<%}%>
 						<tr>
 							<th ><%= ct.getBussinessRuleMicroName() %></th>
 							<th style="width:20%;text-align:right;">Precio Bs.F.</th>

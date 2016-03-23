@@ -38,6 +38,10 @@ public class GetPatientSuppliesByAdmission implements DatabaseCommand {
 				pSupply.setAmount(rs.getString(6));
 				pSupply.setUnitPrice(rs.getString(7));
 				pSupply.setTotal(rs.getString(8));
+				pSupply.setProtocolScaleID(rs.getLong(9));
+				pSupply.setProtocolScaleName(rs.getString(10));
+				pSupply.setBussinessRuleMicroID(rs.getLong(11));
+				pSupply.setBussinessRuleMicroName(rs.getString(12));
 				supplies.add(pSupply);
 			}
 		}

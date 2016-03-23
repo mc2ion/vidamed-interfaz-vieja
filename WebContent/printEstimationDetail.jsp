@@ -137,6 +137,14 @@ ArrayList<Protocol> pList = (ArrayList<Protocol>) request.getAttribute("plist");
 			padding: 1px 7px 1px 7px;
 			font-size: 10px;
 		}
+		#invisibleTable th {
+			border: 1px solid #006c92;
+		    vertical-align: top;
+		    text-align: left;
+		    background-color: #006c92;
+		    color: #fff;
+		    font-weight: bold;
+		}
 		*
 		{
 		  margin: 0 auto 0 auto;
@@ -218,21 +226,33 @@ ArrayList<Protocol> pList = (ArrayList<Protocol>) request.getAttribute("plist");
 						<tbody>
 					<% 
 						Long id = 0L;
+						Double subtotal = 0.00;
 							
 						for (int j = 0 ; j < lList.size(); j ++){ 
 						Protocol pt = lList.get(j);
 
 						if (pList.get(i).getProtocolID().equals(pt.getProtocolID())){
 
-							if (!(pt.getBussinessRuleMicroID().equals(id))){
-								id = pt.getBussinessRuleMicroID();
+							if ((pt.getBussinessRuleMicroID()==id)){
+								double d = Estimation.format.parse(pt.getEstimationCost()).doubleValue();
+								subtotal = subtotal + d;
+							} else {
+								if(id != 0L){
 							%>
+								<tr id="totalTr" style="border: 1px solid #1EB1DD;">
+									<td>*** SUB-TOTAL ***</td>
+									<td style="width:20%;text-align:right;"><%= Estimation.format.format(subtotal) %></td>
+								</tr>
+								<%}%>
 								<tr>
 									<th><%= pt.getBussinessRuleMicroName()%></th>
 									<th style="width:20%;text-align:right;">Precio Bs.F.</th>
-								</tr>	
-								
-							<% } %>
+								</tr>									
+							<% 
+								subtotal = Estimation.format.parse(pt.getEstimationCost()).doubleValue();
+								id = pt.getBussinessRuleMicroID();
+							} 
+							%>
 							<tr>
 							<td style="width:50%"><%= pt.getProtocolScaleName() %></td>
 							<td style="width:20%;text-align:right;"><%= pt.getEstimationCost()%></td>
@@ -241,6 +261,10 @@ ArrayList<Protocol> pList = (ArrayList<Protocol>) request.getAttribute("plist");
 						}
 					}
 					%>
+				<tr id="totalTr" style="border: 1px solid #1EB1DD;">
+					<td>*** SUB-TOTAL ***</td>
+					<td style="width:20%;text-align:right;"><%= Estimation.format.format(subtotal) %></td>
+				</tr>
 			</tbody>
 			</table>
 					</td>

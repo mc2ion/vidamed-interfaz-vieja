@@ -9,11 +9,13 @@ public class AddPatientSupply implements DatabaseCommand {
 	private Long admissionId;
 	private Long supplyInventoryId;
 	private String amount;
+	private Long protocolScaleId;
 		
-	public AddPatientSupply(Long admissionId, Long supplyInventoryId, String amount){
+	public AddPatientSupply(Long admissionId, Long supplyInventoryId, String amount, Long protocolScaleId){
 		this.admissionId = admissionId;
 		this.supplyInventoryId 	 = supplyInventoryId;
 		this.amount 	 = amount;
+		this.protocolScaleId = protocolScaleId;
 	}
 	
 	@Override
@@ -22,7 +24,7 @@ public class AddPatientSupply implements DatabaseCommand {
 		PreparedStatement ps = null;
 		
 		try {
-			ps = conn.prepareStatement("exec dbo.AddPatientSupply " + admissionId + ", " + supplyInventoryId + ", '" + amount + "'");
+			ps = conn.prepareStatement("exec dbo.AddPatientSupply " + admissionId + ", " + supplyInventoryId + ", '" + amount + "', " + protocolScaleId);
 			ps.execute();
 		}
 		catch(Exception e){
