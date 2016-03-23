@@ -161,6 +161,7 @@
 						<option value="PrintInvoiceCompactServlet">Compacto</option>
 						<option value="PrintInvoiceServlet">Detallado</option>
 						<option value="PrintInvoiceServicesServlet">Servicios Auxiliares</option>
+						<option value="PrintInvoiceSuppliesServlet">Material M&eacute;dico y F&aacute;rmacos</option>
 					</select><br><br>
 					<input type="submit"  class="buttonPopUpDelete2"  name="sbmtButton" value="Aceptar" style="position: static;"  />
 		 		</form>
