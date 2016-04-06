@@ -135,6 +135,7 @@ public class GetBillReport implements DatabaseCommand {
 				} catch (ParseException e1) {
 					e1.printStackTrace();
 				}
+				s.setAdmissionID(rs.getLong(10));
 				
 				p.add(s);
 			}

@@ -38,6 +38,7 @@
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css" />
 	<script src="./js/jquery-1.9.1.min.js"></script>
 	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
 	<script type="text/javascript" src="./js/jquery.ui.datepicker-es.js"></script>
 		<script type="text/javascript">
 		$(function() {
@@ -99,6 +100,32 @@
 		    });
 		  });
 		</script>
+	<script type="text/javascript">
+	var idUser;
+			
+	$(function() {
+		$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x" });		
+	});
+	
+	function loadVars(var1, var2) {
+		console.log('pase por aca');
+		idUser = var1;
+		$('.cliente').text(var2);
+		$('#admId').attr('value', var1);
+		$('#factId').attr('value', var2);			
+	};
+	
+	function setV(f){
+		//f.elements['userId'].value = idUser;
+		return true;
+	};
+	
+	function formatSelected(f){
+		var opt = $('#formats').val();
+		$('#printForm').attr('action', opt);
+		return true;
+	};
+	</script>
 	<style>
 		fieldset input[type="text"]{ width: 75%;}
 	</style>
@@ -190,6 +217,7 @@
 											<th>Fecha Generación</th>
 											<th>¿Fue Pagada?</th>
 											<th>Fecha Pago</th>
+											<th></th>
 										</tr>
 									</thead>
 									<tbody>		
@@ -205,6 +233,12 @@
 											<td><%= (u.getGenerationDate() != null)? u.getGenerationDate() : "-" %></td>
 											<td><%= (u.getWasPaid() == 1)? "Si" : "No" %></td>
 											<td><%= (u.getPaymentDate() != null)? u.getPaymentDate() : "-" %></td>
+											<td>
+												<a id="go" rel="leanModal" href="#printUser" style="color: #f7941e; font-weight: bold;" 
+												onclick="return loadVars('<%= u.getAdmissionID() %>','<%= u.getBillID() %>');" >
+												<img alt="logo" src="./images/print.png"  height="16" width="16" title="Imprimir"/>
+											</a> 
+											</td>
 										</tr>
 									<% 		}
 										}else{									
@@ -219,6 +253,29 @@
 				</div>
 				<div class="spacer"></div>
        	</div>
+		</div>
+		<div id="printUser">
+			<div id="signup-ct">
+				<h3 id="see_id" class="sprited" >Imprimir Factura</h3>
+				<br><br>
+				<span>Seleccione en qué formato desea imprimir la factura n° <span class="cliente"></span>:</span> <br><br>
+				<div id="signup-header">
+					<a class="close_x" id="close_x"  href="#"></a>
+				</div>
+				<!-- Hay que hacer ambas versiones para imprimir -->
+				<form action="PrintInvoiceCompactServlet" method="post"  onsubmit="return setV(this)" id="printForm" style="text-align: center;">
+					<input type="hidden" id="admId" class="good_input" name="admId"  value=""/>
+					<input type="hidden" id="factId" class="good_input" name="factId"  value=""/>
+					<input type="hidden" id="f" class="good_input" name="f"  value="in"/>
+					<select onchange="return formatSelected(this)" id="formats">
+						<option value="PrintInvoiceCompactServlet">Compacto</option>
+						<option value="PrintInvoiceServlet">Detallado</option>
+						<option value="PrintInvoiceServicesServlet">Servicios Auxiliares</option>
+						<option value="PrintInvoiceSuppliesServlet">Material M&eacute;dico y F&aacute;rmacos</option>
+					</select><br><br>
+					<input type="submit"  class="buttonPopUpDelete2"  name="sbmtButton" value="Aceptar" style="position: static;"  />
+		 		</form>
+			</div>
 		</div>
 	</body>
 </html>
