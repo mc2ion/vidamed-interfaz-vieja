@@ -110,11 +110,16 @@ public class AdmitPatientServlet extends HttpServlet {
 					String estimationID 	= request.getParameter("estimationId");
 					System.out.println("a " + bed + " " + estimationID + " " + reasonAdmission + " " + observations);
 					Long result = (Long) CommandExecutor.getInstance().executeDatabaseCommand(new command.AdmitPatient(estimationID, bed, observations, reasonAdmission));
+					System.out.println("result " + result);
 					String text_good = " La admisión se ha creado exitosamente.";
 					if (result != null && result == -1 ) {
 						text_good += " Se ha presentado un error al crear la admisión. Por favor, intente nuevamente.";
 					} else {
-						result = (Long) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddPatientEstimationSupplyList(result));
+						Integer listResult = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddPatientEstimationSupplyList(result));
+						System.out.println("listResult " + listResult);
+						if(listResult == 0){
+							text_good += " Se ha presentado un error al cargar los fármacos presupuestados. Por favor, contacte al administrador.";
+						}
 					}
 					session.setAttribute("info", text_good);
 					response.sendRedirect(request.getContextPath() + "/ListAdmissionsServlet");

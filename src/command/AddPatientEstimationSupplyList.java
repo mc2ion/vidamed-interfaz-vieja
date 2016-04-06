@@ -18,10 +18,11 @@ public class AddPatientEstimationSupplyList implements DatabaseCommand {
 		PreparedStatement ps = null;
 		
 		try {
-			ps = conn.prepareStatement("exec dbo.AddPatientEstimationSupplyList " + admissionId + "'");
+			ps = conn.prepareStatement("exec dbo.AddPatientEstimationSupplyList " + admissionId);
 			ps.execute();
 		}
 		catch(Exception e){
+			e.printStackTrace();
 			return 0;
 		}
 		finally {

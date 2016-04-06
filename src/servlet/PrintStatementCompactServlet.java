@@ -20,10 +20,10 @@ import domain.User;
 
 
 /**
- * Servlet implementation class PrintStatementServlet
+ * Servlet implementation class PrintStatementCompactServlet
  */
-@WebServlet(description = "servlet to log in users", urlPatterns = { "/PrintStatementServlet" })
-public class PrintStatementServlet extends HttpServlet {
+@WebServlet(description = "servlet to log in users", urlPatterns = { "/PrintStatementCompactServlet" })
+public class PrintStatementCompactServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	public void init() throws ServletException {
@@ -38,7 +38,7 @@ public class PrintStatementServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PrintStatementServlet() {
+    public PrintStatementCompactServlet() {
         super();
     }
 
@@ -66,14 +66,15 @@ public class PrintStatementServlet extends HttpServlet {
 				protocols = (ArrayList<Protocol>)CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEstimationProtocols(estimation));
 				request.setAttribute("protocols", protocols);
 				
-				costs = (ArrayList<Protocol>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetDetailedAdmissionCosts(admissionID));				
+				costs = (ArrayList<Protocol>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetCompactAdmissionCosts(admissionID));				
 				request.setAttribute("costs", costs);
 				
 				ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetBussinessMicros());
 				request.setAttribute("bm", bm);
-			
+				
+				
 				RequestDispatcher rd;				   
-				rd = getServletContext().getRequestDispatcher("/printStatement.jsp");			
+				rd = getServletContext().getRequestDispatcher("/printStatementCompact.jsp");			
 				rd.forward(request, response);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

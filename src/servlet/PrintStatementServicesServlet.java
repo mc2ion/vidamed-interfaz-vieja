@@ -15,15 +15,16 @@ import command.CommandExecutor;
 import domain.Admission;
 import domain.BussinessMicro;
 import domain.Protocol;
+import domain.Service;
 import domain.User;
 
 
 
 /**
- * Servlet implementation class PrintStatementServlet
+ * Servlet implementation class PrintStatementServicesServlet
  */
-@WebServlet(description = "servlet to log in users", urlPatterns = { "/PrintStatementServlet" })
-public class PrintStatementServlet extends HttpServlet {
+@WebServlet(description = "servlet to log in users", urlPatterns = { "/PrintStatementServicesServlet" })
+public class PrintStatementServicesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	public void init() throws ServletException {
@@ -38,7 +39,7 @@ public class PrintStatementServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PrintStatementServlet() {
+    public PrintStatementServicesServlet() {
         super();
     }
 
@@ -55,7 +56,7 @@ public class PrintStatementServlet extends HttpServlet {
 			Admission admission;
 			ArrayList<Protocol> protocols;
 			String estimation;
-			ArrayList<Protocol> costs;
+			ArrayList<Service> costs;
 			
 			try {				
 				admission = (Admission)CommandExecutor.getInstance().executeDatabaseCommand(new command.GetAdmission(admissionID));
@@ -66,14 +67,14 @@ public class PrintStatementServlet extends HttpServlet {
 				protocols = (ArrayList<Protocol>)CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEstimationProtocols(estimation));
 				request.setAttribute("protocols", protocols);
 				
-				costs = (ArrayList<Protocol>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetDetailedAdmissionCosts(admissionID));				
+				costs = (ArrayList<Service>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetServicesAdmissionCosts(admissionID));				
 				request.setAttribute("costs", costs);
 				
 				ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetBussinessMicros());
-				request.setAttribute("bm", bm);
-			
+				request.setAttribute("bm", bm);				
+				
 				RequestDispatcher rd;				   
-				rd = getServletContext().getRequestDispatcher("/printStatement.jsp");			
+				rd = getServletContext().getRequestDispatcher("/printStatementServices.jsp");			
 				rd.forward(request, response);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

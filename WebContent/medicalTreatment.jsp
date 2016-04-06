@@ -77,7 +77,13 @@
 		f.elements['userID'].value = idUser;
 		if (func == 'hosp') {if ($('#gastos').val() == '-'){ alert('Seleccion una acción para llevar a cabo la hospitalización'); $('#gastos').focus();	return false;}}
 		else return true;
-	}
+	};
+	
+	function formatSelected(f){
+		var opt = $('#formats').val();
+		$('#printForm').attr('action', opt);
+		return true;
+	};
 	
 	</script>
 </head>
@@ -139,8 +145,9 @@
 											<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
 												onclick="return loadVars(<%= m.getId() %>,'<%= patName %>');" >
 												<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
-											</a> 
-											<a href="PrintStatementServlet?id=<%= m.getId() %>" style="color: transparent" >
+											</a>
+											<a id="go" rel="leanModal" href="#printUser" style="color: #f7941e; font-weight: bold;" 
+												onclick="return loadVars('<%= m.getId() %>','<%=patName %>');" >
 												<img alt="logo" src="./images/movements.png"  height="16" width="16" title="Corte de Cuenta" />
 											</a>
 											<br>
@@ -194,6 +201,28 @@
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
 					</div>
+		 		</form>
+			</div>
+		</div>
+		<div id="printUser">
+			<div id="signup-ct">
+				<h3 id="see_id" class="sprited" >Imprimir Corte de Cuenta</h3>
+				<br><br>
+				<span>Seleccione en qué formato desea imprimir la hospitalización #<span class="idf"></span>  de <span class="cliente"></span>:</span> <br><br>
+				<div id="signup-header">
+					<a class="close_x" id="close_x"  href="#"></a>
+				</div>
+				<!-- Hay que hacer ambas versiones para imprimir -->
+				<form action="PrintStatementCompactServlet" method="post"  onsubmit="return setV(this)" id="printForm" style="text-align: center;">
+					<input type="hidden" id="userID" class="good_input" name="userID"  value=""/>
+					<input type="hidden" id="function" class="good_input" name="function"  value="hospitalization"/>
+					<select onchange="return formatSelected(this)" id="formats">
+						<option value="PrintStatementCompactServlet">Compacto</option>
+						<option value="PrintStatementServlet">Detallado</option>
+						<option value="PrintStatementServicesServlet">Servicios Auxiliares</option>
+						<option value="PrintStatementSuppliesServlet">Material M&eacute;dico y F&aacute;rmacos</option>
+					</select><br><br>
+					<input type="submit"  class="buttonPopUpDelete2"  name="sbmtButton" value="Aceptar" style="position: static;"  />
 		 		</form>
 			</div>
 		</div>
