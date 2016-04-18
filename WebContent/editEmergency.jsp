@@ -10,6 +10,8 @@
 		name = user.getFirstName() ;
 	Emergency emergency = (Emergency) request.getAttribute("emergency");
 	
+	String action = (String) request.getAttribute("action");
+	
 	@SuppressWarnings("unchecked")
 	ArrayList<BedLocation> locations = (ArrayList<BedLocation>) request.getAttribute("locations");
 	
@@ -22,7 +24,6 @@
 		info_text = info;
 	}
 	session.removeAttribute("info");
-	
 %>
 <!DOCTYPE HTML>
 <html>
@@ -55,6 +56,7 @@
 		<script type="text/javascript">
 		$(document).ready(function() {
 			var isNew = 1;
+			
 			$( ".target" ).change(function() {
 			
 				index = $(this).val();
@@ -101,9 +103,34 @@
 	<script>
 		$(function() {
 			$( "#tabs" ).tabs();
-			$('#tabs').tabs( "option", "active", window.location.hash );
-			//$("#tabs").tabs("select", window.location.hash);
+			var ac = '<%= action %>';
+			
+			if(ac == 'ep'){
+				$('#tabs').tabs( "option", "active", 1 );
+			} else {
+				$('#tabs').tabs( "option", "active", window.location.hash );
+			}
 		});
+	</script>
+	
+	<script type="text/javascript">
+	var eId;
+	var pId;
+	var aId;
+	
+	function loadVarsEdit(var1, var2, var3, var4) {
+		eId = var1;
+		pId = var2;	
+		aId = var4;
+		$('#diagnosis').val(var3);
+	};
+	
+	function setVEdit(f){
+		f.elements['eId'].value = eId;
+		f.elements['pId'].value = pId;
+		f.elements['aId'].value = aId;
+		return true;
+	}
 	</script>
 	<script>
 			$(function() {    
@@ -197,6 +224,7 @@
 			   				<thead>
 						   		<tr style="background: rgb(136, 162, 190);">
 						   			<th>Nombre</th>
+						   			<th>Diagn&oacute;stico</th>
 						   			<th>Total</th>
 						   			<th>Acción</th>
 						   		</tr>
@@ -207,10 +235,15 @@
 								%>
 								<tr>
 						   			<td><%= p.getName() %></td>
+						   			<td><%= p.getDiagnosis() %></td>
 						   			<td><%= p.getTotalWithPercentage()==null ? p.getTotal() : p.getTotalWithPercentage() %></td>
 						   			<td>
 										<a href="ShowProtocolEstimationDetailServlet?protocolID=<%= p.getProtocolID() %>&estimationID=<%= emergency.getEstimationId() %>&n=<%= p.getName() %>&fnc=emergency" style="color: transparent" >
 													<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
+										</a>
+										<a id="go" rel="leanModal" href="#deleteUser" style="color: #f7941e; font-weight: bold;" 
+											onclick="return loadVarsEdit('<%= emergency.getEstimationId() %>','<%= p.getProtocolID() %>', '<%= p.getDiagnosis() %>', '<%= emergency.getId() %>');" >
+											<img alt="logo" src="./images/edit.png" height="16" width="16" title="Editar Diagnóstico"/>
 										</a>
 									</td>
 						   		</tr>
@@ -220,6 +253,25 @@
 					   	</table>
 					</div>
   				</div>
+			</div>
+		</div>
+		<div id="deleteUser">
+			<div id="signup-ct">
+				<h3 id="see_id" class="sprited" > Editar Diagn&oacute;stico</h3>
+				<br><br>
+				<div id="signup-header">
+					<a class="close_x" id="close_x"  href="#"></a>
+				</div>
+				<form action="EditDiagnosisServlet" method="post"  onsubmit="return setVEdit(this)">
+					<input type="hidden" id="eId" class="good_input" name="eId"  value=""/>
+					<input type="hidden" id="pId" class="good_input" name="pId"  value=""/>
+					<input type="hidden" id="aId" class="good_input" name="aId"  value=""/>
+					<label>Diágnostico:</label>
+					<textarea name="diagnosis" id="diagnosis" style="width:285px; height:70px;"></textarea>
+					<div class="btn-fld">
+						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Editar"  />
+					</div>
+		 		</form>
 			</div>
 		</div>
 		<div id="deleteProtocol">

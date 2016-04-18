@@ -53,6 +53,7 @@ public class EditEmergencyServlet extends HttpServlet {
 		if(userE != null && perm ){
 			try {
 				Long id = Long.valueOf(request.getParameter("id"));
+				String ac = request.getParameter("ac");
 				RequestDispatcher rd;
 				Emergency emergency = (Emergency) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEmergency(id));
 				request.setAttribute("emergency", emergency);
@@ -66,6 +67,7 @@ public class EditEmergencyServlet extends HttpServlet {
 				ArrayList<Protocol> protocols = (ArrayList<Protocol>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEstimationProtocols(String.valueOf(emergency.getEstimationId())));
 				request.setAttribute("protocols", protocols);
 				
+				request.setAttribute("action", ac);
 				
 				rd = getServletContext().getRequestDispatcher("/editEmergency.jsp");			
 				rd.forward(request, response);
