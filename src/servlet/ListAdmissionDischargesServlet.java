@@ -1,7 +1,9 @@
 package servlet;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Properties;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -53,6 +55,11 @@ public class ListAdmissionDischargesServlet extends HttpServlet {
 				@SuppressWarnings("unchecked")
 				ArrayList<PendingAdmissionDischarges> admissions = (ArrayList<PendingAdmissionDischarges>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPendingAdmissionDischarges());
 				request.setAttribute("admissions", admissions);
+				
+				Properties propertiesFile = new Properties();
+				propertiesFile.load( new FileInputStream( getServletContext().getInitParameter("properties")));
+				Long cashPayment = Long.parseLong(propertiesFile.getProperty("cashPayment"));
+				request.setAttribute("cashPayment", cashPayment);
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/pendingAdmissionDischarges.jsp");
 				rd.forward(request, response);
 			} 

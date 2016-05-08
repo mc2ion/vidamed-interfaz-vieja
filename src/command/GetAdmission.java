@@ -96,6 +96,9 @@ public class GetAdmission implements DatabaseCommand {
 				
 				u.setResponsibleAddress(rs.getString(29));
 				u.setResponsibleRIF(rs.getString(30));
+				u.setKeyNumber(rs.getString(31));
+				u.setCoverageAmount(rs.getDouble(32));
+				u.setGuaranteeLetter(rs.getString(33));
 			}
 		}
 		finally {

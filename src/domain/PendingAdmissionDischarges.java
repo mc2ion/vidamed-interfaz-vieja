@@ -9,6 +9,7 @@ public class PendingAdmissionDischarges {
 	private Specialist specialist;
 	private String admissionDate;
 	private String dischargeDate;
+	private Long paymentResponsibleID;
 	
 	public Long getAdmissionID() {
 		return admissionID;
@@ -56,6 +57,14 @@ public class PendingAdmissionDischarges {
 	
 	public void setDischargeDate(String dischargeDate) {
 		this.dischargeDate = dischargeDate;
+	}
+
+	public void setPaymentResponsibleID(Long paymentResponsibleID) {
+		this.paymentResponsibleID = paymentResponsibleID;
+	}
+
+	public Long getPaymentResponsibleID() {
+		return paymentResponsibleID;
 	}
 
 }

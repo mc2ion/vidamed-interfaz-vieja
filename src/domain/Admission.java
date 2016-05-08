@@ -36,6 +36,9 @@ public class Admission {
 	private String totalWithDiscount;
 	private String responsibleAddress;
 	private String responsibleRIF;
+	private String keyNumber;
+	private Double coverageAmount;
+	private String guaranteeLetter;
 	
 	public Long getAdmissionID() {
 		return admissionID;
@@ -264,6 +267,30 @@ public class Admission {
 
 	public String getResponsibleRIF() {
 		return responsibleRIF;
+	}
+
+	public void setKeyNumber(String keyNumber) {
+		this.keyNumber = keyNumber;
+	}
+
+	public String getKeyNumber() {
+		return keyNumber;
+	}
+
+	public void setCoverageAmount(Double coverageAmount) {
+		this.coverageAmount = coverageAmount;
+	}
+
+	public Double getCoverageAmount() {
+		return coverageAmount;
+	}
+
+	public void setGuaranteeLetter(String guaranteeLetter) {
+		this.guaranteeLetter = guaranteeLetter;
+	}
+
+	public String getGuaranteeLetter() {
+		return guaranteeLetter;
 	}
 
 		

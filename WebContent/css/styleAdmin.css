@@ -1601,6 +1601,46 @@ div.box {
 	font: 14px Arial, Helvetica, sans-serif;
 	display: none;
 }
+
+.short-alert {
+	position: absolute;
+	text-align: center;
+	width: 295px;
+	height: 220px;
+	line-height: 1.5em;
+	background: url('../images/dialogo.png') left top no-repeat;
+	padding: 60px 15px 10px 15px;
+	top: 180px;
+	left: 600px;
+	font: 14px Arial, Helvetica, sans-serif;
+	display: none;
+}
+
+.large-alert {
+	position: absolute;
+	text-align: center;
+	width: 295px;
+	height: 220px;
+	line-height: 1.5em;
+	background: url('../images/dialogo4.png') left top no-repeat;
+	padding: 60px 15px 10px 15px;
+	top: 180px;
+	left: 600px;
+	font: 14px Arial, Helvetica, sans-serif;
+	display: none;
+}
+
+.large-alert #signup-ct #see_id {
+	margin-top: -50px;
+}
+
+.large-alert input.buttonPopUpDelete {
+	top: 245px;
+}
+
+.large-alert a#close_x {
+	top: 8px;
+}
 	
 #closeCashW, #openCashW {
 	position: absolute;
@@ -1689,8 +1729,6 @@ div.box {
 #see_id {
    text-align: center;
    margin-top: -40px;
-  
-
 }
 
  #see_id_aux {

@@ -69,6 +69,7 @@ public class GetPendingAdmissionDischarges implements DatabaseCommand {
 					e1.printStackTrace();
 				}
 				
+				u.setPaymentResponsibleID(rs.getLong(11));
 				
 				admissions.add(u);
 			}

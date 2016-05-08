@@ -54,7 +54,26 @@ public class SetAdmissionDischargeServlet extends HttpServlet {
 		if(userE != null){
 			try {
 				Long admissionID = Long.parseLong(request.getParameter("userId"));
-				Integer result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.SetAdmissionDischarge(admissionID));
+				String keyNumber = null;
+				
+				if(request.getParameter("keyNumber") != null && !request.getParameter("keyNumber").equalsIgnoreCase("")){
+					keyNumber = request.getParameter("keyNumber");
+				}
+				
+				Double coverageAmount = null;
+				
+				if(request.getParameter("coverageAmount") != null && !request.getParameter("coverageAmount").equalsIgnoreCase("")){
+					coverageAmount = Double.parseDouble(request.getParameter("coverageAmount"));
+				}
+				
+				String guaranteeLetter = null;
+				
+				if(request.getParameter("guaranteeLetter") != null && !request.getParameter("guaranteeLetter").equalsIgnoreCase("")){
+					guaranteeLetter = request.getParameter("guaranteeLetter");
+				}
+				
+				System.out.println("keyNumber:"+keyNumber+", coverageAmount:"+coverageAmount+", guaranteeLetter:"+guaranteeLetter);
+				Integer result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.SetAdmissionDischarge(admissionID, keyNumber, coverageAmount, guaranteeLetter));
 				String text = "Se ha dado dado de alta exitosamente.";
 				if (result == 0)
 					text = "Hubo un error al dar de alta. Por favor, intente nuevamente.";

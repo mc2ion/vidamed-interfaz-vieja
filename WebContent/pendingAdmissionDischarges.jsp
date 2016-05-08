@@ -11,6 +11,8 @@
 	@SuppressWarnings("unchecked")
 	ArrayList<PendingAdmissionDischarges> admiList = (ArrayList<PendingAdmissionDischarges>)request.getAttribute("admissions");
 	
+	Long cashPayment = (Long)request.getAttribute("cashPayment");
+	
 	String result = (String) session.getAttribute("info");
 	String text = "";
 	if (result != null)
@@ -60,10 +62,18 @@
 		$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x" });		
 	});
 	
-	function loadVars(var1, var2) {
+	function loadVars(var1, var2, var3) {
 		idUser = var1;
 		$('.cliente').text(var2);
-		
+		if(var3 != <%= cashPayment %>){
+			$('#seguro').css('display', 'block');
+			$('#discharge').removeClass('short-alert');
+			$('#discharge').addClass('large-alert');
+		} else {
+			$('#seguro').css('display', 'none');
+			$('#discharge').removeClass('large-alert');
+			$('#discharge').addClass('short-alert');
+		}
 	};
 	
 	function setV(f){
@@ -119,8 +129,8 @@
 											<a href="ShowAdmissionDischargesServlet?id=<%= ad.getAdmissionID() %>" style="color: transparent" >
 												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 											</a>
-											<a id="go" rel="leanModal" href="#dischargeUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(<%= ad.getAdmissionID() %>,'<%= pName %>');" >
+											<a id="go" rel="leanModal" href="#discharge" style="color: #f7941e; font-weight: bold;" 
+												onclick="return loadVars(<%= ad.getAdmissionID() %>,'<%= pName %>','<%= ad.getPaymentResponsibleID() %>');" >
 												<img alt="logo" src="./images/check.png"  height="16" width="16" title="Dar de Alta" />
 											</a>
 											<br>
@@ -135,7 +145,7 @@
 				<div class="spacer"></div>
         	</div>
        	</div>
-		<div id="dischargeUser">
+		<div id="discharge" class="short-alert">
 			<div id="signup-ct">
 				<h3 id="see_id" class="sprited" > Alta de Admisión</h3>
 				<br><br>
@@ -148,6 +158,11 @@
 				</div>
 				<form action="SetAdmissionDischargeServlet" method="post"  onsubmit="return setV(this)">
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+					<div id="seguro">
+						<div>N° Clave: <input type="text" id="keyNumber" name="keyNumber" /></div>
+						<div>Monto Cobertura: <input type="number" id="coverageAmount" name="coverageAmount" /></div>
+						<div>N° Carta Aval: <input type="text" id="guaranteeLetter" name="guaranteeLetter" /></div>
+					</div>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
 					</div>

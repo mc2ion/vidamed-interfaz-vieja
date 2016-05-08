@@ -228,6 +228,29 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
         <div class="header">
 			<b>RIF: </b><%= e.getResponsibleRIF() %>     	
         </div><br>
+        <%
+        if(e.getKeyNumber()!=null && !e.getKeyNumber().equalsIgnoreCase("")){
+        %>
+        <div class="header">
+			<b>N° Clave: </b><%= e.getKeyNumber() %>     	
+        </div>
+        <%
+        }
+        if(e.getCoverageAmount()!=null && !e.getCoverageAmount().equals(0.0)){
+        %>
+        <div class="header">
+			<b>Monto de la Cobertura: </b><%= e.getCoverageAmount() %>     	
+        </div>
+        <%
+        }
+        if(e.getGuaranteeLetter()!=null && !e.getGuaranteeLetter().equalsIgnoreCase("")){
+        %>        
+		<div class="header">
+			<b>N° Carta Aval: </b><%= e.getGuaranteeLetter() %>     	
+        </div><br>
+        <%
+        }
+        %>
         <table id="sweetTable">
 			<tbody>
 				<tr>
