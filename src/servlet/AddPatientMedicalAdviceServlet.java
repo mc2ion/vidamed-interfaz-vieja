@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
+import domain.MedicalAdviceType;
 import domain.PermissionsList;
 import domain.Unit;
 import domain.User;
@@ -57,8 +58,12 @@ public class AddPatientMedicalAdviceServlet extends HttpServlet {
 				
 				@SuppressWarnings("unchecked")
 				ArrayList<Unit> units = (ArrayList<Unit>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetUnits());
+				
+				@SuppressWarnings("unchecked")
+				ArrayList<MedicalAdviceType> types = (ArrayList<MedicalAdviceType>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetMedicalAdviceTypes());
 			
 				request.setAttribute("units", units);
+				request.setAttribute("types", types);
 				
 				rd = getServletContext().getRequestDispatcher("/addPatientAdvice.jsp");			
 				rd.forward(request, response);
@@ -90,15 +95,16 @@ public class AddPatientMedicalAdviceServlet extends HttpServlet {
 			try{
 				String admin 		= request.getParameter("admissionId");
 				String name 		= request.getParameter("name");
+				String typeId		= request.getParameter("typeId");
 				String unitId		= request.getParameter("unitId");
 				String specialist   = request.getParameter("state");
 				String amount 		= request.getParameter("amount");
 				
-				Integer result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddPatientMedicalAdvice(Long.valueOf(admin), Long.valueOf(unitId), Long.valueOf(specialist), amount));
+				Integer result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddPatientMedicalAdvice(Long.valueOf(admin), Long.valueOf(unitId), Long.valueOf(specialist), amount, Integer.valueOf(typeId)));
 				
-				String text = "La consulta fue agregada exitosamente";
+				String text = "El servicio fue agregado exitosamente";
 				if (result == 0)
-					text =	"Hubo un problema al agregar la consulta. Por favor, intente nuevamente.";
+					text =	"Hubo un problema al agregar el servicio. Por favor, intente nuevamente.";
 				
 				session.setAttribute("text", text);
 				response.sendRedirect(request.getContextPath() + "/ListPatientMedicalAdvicesByAdmissionServlet?id=" + admin + "&name=" + name);

@@ -5,6 +5,8 @@ public class PatientMedicalAdvice {
 	private Long admissionID;
 	private Long estimationID;
 	private Long patientMedicalAdviceID;
+	private Integer medicalAdviceTypeID;
+	private String medicalAdviceTypeName;
 	private Long unitID;
 	private String unitName;
 	private Specialist specialist;
@@ -37,6 +39,22 @@ public class PatientMedicalAdvice {
 		this.patientMedicalAdviceID = patientMedicalAdviceID;
 	}
 	
+	public void setMedicalAdviceTypeID(Integer medicalAdviceTypeID) {
+		this.medicalAdviceTypeID = medicalAdviceTypeID;
+	}
+
+	public Integer getMedicalAdviceTypeID() {
+		return medicalAdviceTypeID;
+	}
+
+	public void setMedicalAdviceTypeName(String medicalAdviceTypeName) {
+		this.medicalAdviceTypeName = medicalAdviceTypeName;
+	}
+
+	public String getMedicalAdviceTypeName() {
+		return medicalAdviceTypeName;
+	}
+
 	public Long getUnitID() {
 		return unitID;
 	}

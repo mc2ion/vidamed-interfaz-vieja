@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
+import domain.MedicalAdviceType;
 import domain.PatientMedicalAdvice;
 import domain.PermissionsList;
 import domain.Specialist;
@@ -61,8 +62,12 @@ public class EditPatientMedicalAdviceServlet extends HttpServlet {
 			
 				@SuppressWarnings("unchecked")
 				ArrayList<Unit> units = (ArrayList<Unit>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetUnits());
+				
+				@SuppressWarnings("unchecked")
+				ArrayList<MedicalAdviceType> types = (ArrayList<MedicalAdviceType>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetMedicalAdviceTypes());
 			
 				request.setAttribute("units", units);
+				request.setAttribute("types", types);
 				request.setAttribute("pm", pm);
 				
 				//Get spacialist by unitId
@@ -98,15 +103,16 @@ public class EditPatientMedicalAdviceServlet extends HttpServlet {
 				String name  = request.getParameter("name");
 				String pmId  = request.getParameter("pmId");
 				
+				String typeId		= request.getParameter("typeId");
 				String unitId		= request.getParameter("unitId");
 				String specialist   = request.getParameter("state");
 				String amount 		= request.getParameter("amount");
 				
-				Integer result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.EditPatientMedicalAdvice(Long.valueOf(unitId), Long.valueOf(specialist), amount, Long.valueOf(pmId)));
+				Integer result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.EditPatientMedicalAdvice(Long.valueOf(unitId), Long.valueOf(specialist), amount, Long.valueOf(pmId), Integer.valueOf(typeId)));
 				
-				String text = "La consulta fue editada exitosamente";
+				String text = "El servicio fue editado exitosamente";
 				if (result == 0)
-					text =	"Hubo un problema al editar la consulta. Por favor, intente nuevamente.";
+					text =	"Hubo un problema al editar el servicio. Por favor, intente nuevamente.";
 				
 				session.setAttribute("text", text);
 				response.sendRedirect(request.getContextPath() + "/ListPatientMedicalAdvicesByAdmissionServlet?id=" + admin + "&name=" + name);

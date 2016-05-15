@@ -77,7 +77,7 @@
         </div>        
 		 <jsp:include page="./menu.jsp" />
 		<div id="content">  
-			<h2>Interconsultas</h2>
+			<h2>Servicios M&eacute;dicos</h2>
 			<div id="dt_example">
 					<div id="container">
 						<div id="demo">
@@ -101,7 +101,7 @@
 										<td><%= admi.getReasonName() %></td>
 										<td>
 											<a href="ListPatientMedicalAdvicesByAdmissionServlet?id=<%= admi.getAdmissionID() %>&name=<%= patName %>" style="color: transparent" >
-												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Consulta" />
+												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Servicios" />
 											</a>
 										</td>
 									</tr>

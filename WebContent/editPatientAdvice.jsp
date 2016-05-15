@@ -1,6 +1,7 @@
 <%@page import="domain.Specialist"%>
 <%@page import="domain.PatientMedicalAdvice"%>
 <%@page import="domain.Unit"%>
+<%@page import="domain.MedicalAdviceType"%>
 <%@page import="sun.management.counter.Units"%>
 <%@page import="domain.SupplyArea"%>
 <%@page import="java.util.ArrayList"%>
@@ -14,6 +15,8 @@
 
 	@SuppressWarnings("unchecked")
 	ArrayList<Unit> sArea 	= (ArrayList<Unit>)request.getAttribute("units");
+	@SuppressWarnings("unchecked")
+	ArrayList<MedicalAdviceType> types 	= (ArrayList<MedicalAdviceType>)request.getAttribute("types");
 	PatientMedicalAdvice pm = (PatientMedicalAdvice) request.getAttribute("pm"); 
 	@SuppressWarnings("unchecked")
 	ArrayList<Specialist> specialists 	= (ArrayList<Specialist>)request.getAttribute("specialists");
@@ -69,7 +72,7 @@
         	</div>        
 			 <jsp:include page="./menu.jsp" />
         	<div id="content" style="position:absolute;">	
-	        	<h2>Agregar Consulta:</h2> <br><br>
+	        	<h2>Editar Servicio:</h2> <br><br>
 	        	<p>Por favor, escoga la unidad correspondiente y el médico correspondiente.</p><br>
 	        	<form action="EditPatientMedicalAdviceServlet" method="post" >
 				<input type="hidden" name="admissionId" value="<%= adminId %>"/>
@@ -77,6 +80,18 @@
 				<input type="hidden" name="pmId" value="<%= pm.getPatientMedicalAdviceID() %>"/>
 				
 				<fieldset>
+					<label>Tipo de Servicio: </label>
+					<select name="typeId" id="typeId" required title="Debe seleccionar un valor en el campo 'Tipo de Servicio'">
+						<option value=""> Seleccionar </option>
+						<% for (int i = 0; i < types.size(); i++){ 
+							String selected = "";
+							if (types.get(i).getMedicalAdviceTypeID() == pm.getMedicalAdviceTypeID() )
+								selected = "selected";
+						%>
+							<option value="<%= types.get(i).getMedicalAdviceTypeID() %>" <%= selected %>><%= types.get(i).getName() %></option>
+						<% } %>
+					</select>
+					<br/><br/>
 	        		<label>Unidad: </label>
 					<select name="unitId" id="unitId" class="target" required title="Debe seleccionar un valor para el campo 'Unidad'">	
 						<option value=""> Seleccionar </option>

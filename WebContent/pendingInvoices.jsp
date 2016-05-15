@@ -147,8 +147,8 @@
 		<div id="printUser">
 			<div id="signup-ct">
 				<h3 id="see_id" class="sprited" >Imprimir Factura</h3>
-				<br><br>
-				<span>Seleccione en qué formato desea imprimir la factura n° <span class="cliente"></span>:</span> <br><br>
+				<br>
+				<span>Seleccione en qué formato desea imprimir la factura n° <span class="cliente"></span>:</span> <br>
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
@@ -163,6 +163,10 @@
 						<option value="PrintInvoiceServicesServlet">Servicios Auxiliares</option>
 						<option value="PrintInvoiceSuppliesServlet">Material M&eacute;dico y F&aacute;rmacos</option>
 					</select><br><br>
+					<div>
+						N° de Correlativo: <input type="number" name="correlativeNumber" id="correlativeNumber" />
+					</div>
+					<br>
 					<input type="submit"  class="buttonPopUpDelete2"  name="sbmtButton" value="Aceptar" style="position: static;"  />
 		 		</form>
 			</div>

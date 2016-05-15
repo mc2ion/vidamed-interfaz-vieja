@@ -59,8 +59,15 @@ public class PrintInvoiceSuppliesServlet extends HttpServlet {
 			ArrayList<Service> costs;
 			String factId   = request.getParameter("factId");
 			String f 		= request.getParameter("f");
+			Long correlativeNumber = null;
+			if(request.getParameter("correlativeNumber")!=null && !request.getParameter("correlativeNumber").equalsIgnoreCase("")){
+				correlativeNumber = Long.parseLong(request.getParameter("correlativeNumber"));
+			}
 			
-			try {				
+			try {					
+				if(correlativeNumber !=null){
+					CommandExecutor.getInstance().executeDatabaseCommand(new command.SetCorrelativeNumber(Long.parseLong(factId), correlativeNumber));
+				}		
 				admission = (Admission)CommandExecutor.getInstance().executeDatabaseCommand(new command.GetAdmission(admissionID));
 				request.setAttribute("admission", admission);
 				

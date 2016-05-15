@@ -10,12 +10,14 @@ public class EditPatientMedicalAdvice implements DatabaseCommand {
 	private Long unitId;
 	private Long specialistId;
 	private String amount;
+	private Integer typeId;
 		
-	public EditPatientMedicalAdvice(Long unitId, Long specialistId, String amount, Long patientMedicalId){
+	public EditPatientMedicalAdvice(Long unitId, Long specialistId, String amount, Long patientMedicalId, Integer typeId){
 		this.patientMedicalId 	= patientMedicalId;
 		this.unitId 	 		= unitId;
 		this.specialistId 		= specialistId;
 		this.amount 	 		= amount;
+		this.typeId				= typeId;
 	}
 	
 	@Override
@@ -24,7 +26,7 @@ public class EditPatientMedicalAdvice implements DatabaseCommand {
 		PreparedStatement ps = null;
 		
 		try {
-			ps = conn.prepareStatement("exec dbo.EditPatientMedicalAdvice " + unitId + ", " + specialistId + ", '" + amount + "', " + patientMedicalId + "");
+			ps = conn.prepareStatement("exec dbo.EditPatientMedicalAdvice " + unitId + ", " + specialistId + ", '" + amount + "', " + patientMedicalId + ", " + typeId);
 			ps.execute();
 		}
 		catch(Exception e){

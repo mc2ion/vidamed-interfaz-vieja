@@ -46,6 +46,10 @@ public class GetPatientMedicalAdvicesByAdmission implements DatabaseCommand {
 				
 				u.setMedicalFeed(rs.getDouble(8));;
 				u.setMedicalAdviceDate(rs.getString(9));
+				
+				u.setMedicalAdviceTypeID(rs.getInt(10));
+				u.setMedicalAdviceTypeName(rs.getString(11));
+				
 				list.add(u);
 			}
 		}

@@ -59,9 +59,9 @@ public class RemovePatientMedicalAdviceServlet extends HttpServlet {
 				String name   =	request.getParameter("name");
 				
 				Integer result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.RemovePatientMedicalAdvice(supPatId));
-				String text = "La consulta fue eliminada exitosamente";
+				String text = "El servicio fue eliminado exitosamente";
 				if (result == 0)
-					text =	"Hubo un problema al eliminar la consulta. Por favor, intente nuevamente.";
+					text =	"Hubo un problema al eliminar el servicio. Por favor, intente nuevamente.";
 				
 				session.setAttribute("text", text);
 				response.sendRedirect(request.getContextPath() + "/ListPatientMedicalAdvicesByAdmissionServlet?id=" + id + "&name=" + name);

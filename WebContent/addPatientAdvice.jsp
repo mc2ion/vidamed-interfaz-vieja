@@ -1,4 +1,5 @@
 <%@page import="domain.Unit"%>
+<%@page import="domain.MedicalAdviceType"%>
 <%@page import="sun.management.counter.Units"%>
 <%@page import="domain.SupplyArea"%>
 <%@page import="java.util.ArrayList"%>
@@ -12,6 +13,9 @@
 
 	@SuppressWarnings("unchecked")
 	ArrayList<Unit> sArea = (ArrayList<Unit>)request.getAttribute("units");
+	
+	@SuppressWarnings("unchecked")
+	ArrayList<MedicalAdviceType> types = (ArrayList<MedicalAdviceType>)request.getAttribute("types");
 		
 	String adminId 	= (String) request.getAttribute("adminId");
 	String patName 	= (String) request.getAttribute("name");
@@ -63,12 +67,21 @@
         	</div>        
 			 <jsp:include page="./menu.jsp" />
         	<div id="content" style="position:absolute;">	
-	        	<h2>Agregar Consulta:</h2> <br><br>
-	        	<p>Por favor, escoga la unidad correspondiente y el médico correspondiente.</p><br>
+	        	<h2>Agregar Servicio:</h2> <br><br>
+	        	<p>Por favor, escoja el servicio, la unidad y el médico correspondiente.</p><br>
 	        	<form action="AddPatientMedicalAdviceServlet" method="post" >
 				<input type="hidden" name="admissionId" value="<%= adminId %>"/>
 				<input type="hidden" name="name" value="<%= patName %>"/>
 				<fieldset>
+					<label>Tipo de Servicio: </label>
+					<select name="typeId" id="typeId" required title="Debe seleccionar un valor en el campo 'Tipo de Servicio'">
+						<option value=""> Seleccionar </option>
+						<% for (int i = 0; i < types.size(); i++){ 
+						%>
+							<option value="<%= types.get(i).getMedicalAdviceTypeID() %>"><%= types.get(i).getName() %></option>
+						<% } %>
+					</select>
+					<br/><br/>
 	        		<label>Unidad: </label>
 					<select name="unitId" id="unitId" class="target" required title="Debe seleccionar un valor en el campo 'Unidad'">	
 						<option value=""> Seleccionar </option>

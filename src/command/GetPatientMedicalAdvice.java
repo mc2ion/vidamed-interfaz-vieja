@@ -36,6 +36,7 @@ public class GetPatientMedicalAdvice implements DatabaseCommand {
 				e.setId(rs.getLong(4));
 				pm.setSpecialist(e);
 				pm.setMedicalFeed(rs.getDouble(5));
+				pm.setMedicalAdviceTypeID(rs.getInt(6));
 			}
 		}
 		finally {

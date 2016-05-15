@@ -142,7 +142,7 @@
 		      perm  = PermissionsList.hasPermission(request, PermissionsList.interc);
 		      if (perm){
 		      %>
-		   <li ><a href='ListInterServlet'><span>Interconsultas</span></a></li>
+		   <li ><a href='ListInterServlet'><span>Servicios M&eacute;dicos</span></a></li>
 		   <%  } 
 		      perm  = PermissionsList.hasPermission(request, PermissionsList.reports);
 		      if (perm){

@@ -23,7 +23,7 @@
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-	<title>Consultas Paciente</title>
+	<title>Servicios Paciente</title>
 	<script type="text/javascript" src="./js/jquery.js"></script>
 	<script type="text/javascript" src="./js/jquery.dataTables.js"></script>
 	<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
@@ -35,6 +35,7 @@
 			"sScrollY": "250px",
 			"bPaginate": false,
 			"aoColumns": [
+				null,
 				null,
 				null,
 				null,
@@ -88,13 +89,13 @@
 			<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 	    	<ul>
             	<li class="menuitem"><a href="ListInterServlet">Ver Pacientes</a></li>
-            	<li class="menuitem"><a href="AddPatientMedicalAdviceServlet?id=<%=adminId%>&name=<%=patName%>">Agregar Consulta</a></li>
+            	<li class="menuitem"><a href="AddPatientMedicalAdviceServlet?id=<%=adminId%>&name=<%=patName%>">Agregar Servicio</a></li>
             </ul>
 			<div class="menuitemSalir"><a href="LogoutServlet"><%= name %> (Salir)</a></div>	
         </div>        
 		<jsp:include page="./menu.jsp" />
 		<div id="content">  
-			<h2>Consultas <%=patName%>:</h2><br/>
+			<h2>Servicios <%=patName%>:</h2><br/>
 			<div class="info-text"><%=text_result%></div>
 			<div id="dt_example">
 					<div id="container">
@@ -103,6 +104,7 @@
 								<thead>
 									<tr>
 										<th>Id</th>
+										<th>Servicio</th>
 										<th>Unidad</th>
 										<th>Especialista</th>
 										<th>Honorario</th>
@@ -117,6 +119,7 @@
 											%>	
 									<tr class="gradeA">
 										<td><%= s.getPatientMedicalAdviceID() %></td>
+										<td><%= s.getMedicalAdviceTypeName() %>
 										<td><%= s.getUnitName() %></td>
 										<td><%= spName %></td>
 										<td><%= s.getMedicalFeed() %></td>
@@ -142,9 +145,9 @@
        	</div>
 		<div id="deleteUser">
 			<div id="signup-ct">
-				<h3 id="see_id" class="sprited" > Eliminar Consulta</h3>
+				<h3 id="see_id" class="sprited" > Eliminar Servicio</h3>
 				<br><br>
-				<span>¿Está seguro que desea eliminar la consulta #<span class="cliente"></span>? </span> <br><br>
+				<span>¿Está seguro que desea eliminar el servicio #<span class="cliente"></span>? </span> <br><br>
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
