@@ -14,7 +14,8 @@
 	String servId 	= (String) request.getAttribute("servId");
 	String adminId 	= (String) request.getAttribute("adminId");
 	String patName 	= (String) request.getAttribute("name");
-	
+	String sec		= (String) request.getAttribute("sec");
+	Long scaleId	= (Long) request.getAttribute("scaleId");
 %>
 <!DOCTYPE HTML>
 <html>
@@ -57,11 +58,37 @@
 			 <jsp:include page="./menu.jsp" />
         	<div id="content" style="position:absolute;">	
 	        	<h2>Agregar Servicio:</h2> <br><br>
+        	<%
+        	if(sec!=null && sec.equalsIgnoreCase("add")){
+        		Service s = (Service)request.getAttribute("service");
+        	%>
+        		<form action="AddPatientServiceServlet" method="post" enctype="multipart/form-data" >
+				<input type="hidden" name="admissionId" value="<%= adminId %>"/>
+				<input type="hidden" name="servId" value="<%= servId %>"/>
+				<input type="hidden" name="name" value="<%= patName %>"/>
+				<input type="hidden" name="sec" value="<%= sec %>"/>
+				<input type="hidden" name="scaleId" value="<%= scaleId %>"/>
+				<input type="hidden" name="service" value="<%= s.getServiceID() %>"/>
+				<fieldset>
+					<label>Servicio: </label><span><%= s.getName() %></span><br/><br/>
+					<div class="file-div">
+						<label>Cargar archivo:</label>
+						<input type="file" name="file"/><br/><br/>
+						<label>Cargar informe:</label>
+						<input type="file" name="report"/>
+					</div>
+				</fieldset>
+				<br/>
+        	<%
+        	} else {
+        	%>
 	        	<p>Escoja el servicio que desee agregar</p><br>
 	        	<form action="AddPatientServiceServlet" method="post" enctype="multipart/form-data" >
 				<input type="hidden" name="admissionId" value="<%= adminId %>"/>
 				<input type="hidden" name="servId" value="<%= servId %>"/>
 				<input type="hidden" name="name" value="<%= patName %>"/>
+				<input type="hidden" name="sec" value="<%= sec %>"/>
+				<input type="hidden" name="scaleId" value="<%= scaleId %>"/>
 				<fieldset>
 	        		<label>Servicio: </label>
 					<select name="service" class="target" required title="Debe seleccionar un valor para el campo 'Servicio'">	
@@ -79,6 +106,9 @@
 					</div>
 				</fieldset>
 				<br/>
+			<%
+        	}
+			%>
 				 <div id="botonera" style="margin-top: -3px;">
 					<div id="botonP">
 							<input type="submit"  class="button"  name="sbmtButton" value="Aceptar" />

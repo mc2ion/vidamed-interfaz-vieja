@@ -1,32 +1,45 @@
-<%@page import="domain.Admission"%>
-<%@ page import="domain.User" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="java.util.HashMap" %>
+<%@page import="domain.PatientEstimationService"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="domain.User"%>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
 	if (user != null)
 		name = user.getFirstName() ;
-	@SuppressWarnings("unchecked")
-	ArrayList<Admission> admiList = (ArrayList<Admission>)request.getAttribute("admissions");
 	
+	@SuppressWarnings("unchecked")
+	ArrayList<PatientEstimationService> services = (ArrayList<PatientEstimationService>) request.getAttribute("services");
+	
+	String patName = (String) request.getAttribute("patName");
+	String adminId 	= (String) request.getAttribute("adminId");
+	String servId = (String) request.getAttribute("servId");
+	String function = (String) request.getAttribute("function");
+	String scaleId = (String) request.getAttribute("scaleId");
+	
+	String text_result = (String) session.getAttribute("text");
+	if (text_result == null)
+		text_result = "";
+	session.removeAttribute("text");
+	
+	String sec = (String) request.getAttribute("sec");
 %>
 <!DOCTYPE HTML>
 <html>
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-	<title>Rayos X</title>
+	<title>Servicios Presupuestados</title>
 	<script type="text/javascript" src="./js/jquery.js"></script>
 	<script type="text/javascript" src="./js/jquery.dataTables.js"></script>
 	<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
 	<script type="text/javascript" charset="utf-8">
 	$(document).ready(function() {
-		$('#example').dataTable( {
+		$('.display').dataTable( {
 			"iDisplayLength": 7,
 			"bLengthChange": false,
-			"sScrollY": "250px",
 			"bPaginate": false,
+			"bFilter": false,
+			"bInfo": false,
 			"aoColumns": [
 				null,
 				null,
@@ -48,19 +61,24 @@
 	</script>
 	<script type="text/javascript">
 	var idUser;
-			
+	var v3, v4;
+	
 	$(function() {
 		$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x" });		
 	});
 	
-	function loadVars(var1, var2) {
+	function loadVars(var1, var2, var3, var4) {
 		idUser = var1;
+		$('.ids').text(var1);
 		$('.cliente').text(var2);
-		
+		v3 = var3;
+		v4 = var4;
 	};
 	
 	function setV(f){
 		f.elements['userId'].value = idUser;
+		f.elements['id'].value = v3;
+		f.elements['name'].value = v4;
 		return true;
 	}
 	</script>
@@ -69,19 +87,20 @@
 	<div id="container">
 		<div id="header">
         	
-        </div>  
+        </div>         
       	<jsp:include page="./upperMenu.jsp" />        
 		<div id="menu">
 			
 			<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
-			<!-- <ul>
-            	<li class="menuitem"><a href="CreateXRayReportFormServlet">Cargar Informe</a></li>
-            </ul> -->
-	    	<div class="menuitemSalir"><a href="LogoutServlet"><%= name %> (Salir)</a></div>	
+	    	<ul>
+            	<li class="menuitem"><a href="<%=function%>">Ver Pacientes</a></li>
+            </ul>
+			<div class="menuitemSalir"><a href="LogoutServlet"><%= name %> (Salir)</a></div>	
         </div>        
 		<jsp:include page="./menu.jsp" />
 		<div id="content">  
-			<h2>Rayos X:</h2>
+			<h2>Servicios Presupuestados:</h2><br/>
+			<div class="info-text"><%=text_result%></div>
 			<div id="dt_example">
 					<div id="container">
 						<div id="demo">
@@ -89,53 +108,36 @@
 								<thead>
 									<tr>
 										<th>ID</th>
-										<th>Paciente</th>
-										<th>Estado</th>
+										<th>Servicio</th>
+										<th>Cantidad</th>
 										<th>Acciones</th>
 									</tr>
-								<tbody>			
-									<% for (int i = 0; i < admiList.size(); i++){ 
-										Admission admi = admiList.get(i);
-										String patName = admi.getFirstName() + " " + admi.getLastName();
-									%>
+								</thead>
+								<tbody>	
+						<%
+								for (int i=0; i< services.size(); i++){
+									PatientEstimationService s = services.get(i);
+						%>
 									<tr class="gradeA">
-										<td><%= admi.getAdmissionID() %></td>
-										<td><%= patName %></td>
-										<td><%= admi.getReasonName() %></td>
-										<td>											
-											<a href="ListPatientEstimationServicesServlet?id=<%= admi.getAdmissionID() %>&servId=4&name=<%= patName %>" style="color: transparent" >
-												<img alt="logo" src="./images/meds.png"  height="16" width="16" title="Ver Servicios Presupuestados" />
+										<td><%= s.getServiceID() %></td>
+										<td><%= s.getServiceName() %></td>
+										<td><%= s.getAmount() %></td>
+										<td>
+											<a href="AddPatientServiceServlet?id=<%=adminId%>&name=<%=patName%>&servId=<%=servId%>&spId=<%= s.getServiceID() %>&scaleId=<%= scaleId %>&sec=add&spName=<%= s.getServiceName() %>" style="color: transparent" >
+												<img alt="logo" src="./images/add.png"  height="16" width="16" title="Agregar" />
 											</a>
-											<a href="ListPatientServicesServlet?id=<%= admi.getAdmissionID() %>&servId=4&name=<%= patName %>" style="color: transparent" >
-												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Agregar Servicio" />
-											</a>
-											<br>
 										</td>
 									</tr>
-									<% } %>
+						<%
+								}
+						%>
 								</tbody>
 							</table>
 						</div>
 					</div>
 				</div>
 				<div class="spacer"></div>
-       	</div>
-		</div>
-		<div id="deleteUser">
-			<div id="signup-ct">
-				<h3 id="see_id" class="sprited" > Eliminar Informe</h3>
-				<br><br>
-				<span>¿Está seguro que desea eliminar el informe del paciente <span class="cliente"></span>? </span> <br><br>
-				<div id="signup-header">
-					<a class="close_x" id="close_x"  href="#"></a>
-				</div>
-				<form action="ListXRayReportsServlet" method="post"  onsubmit="return setV(this)">
-					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
-					<div class="btn-fld">
-						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
-					</div>
-		 		</form>
-			</div>
-		</div>
+        	</div>
+       	</div>		
 	</body>
 </html>

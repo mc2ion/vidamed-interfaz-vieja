@@ -8,7 +8,7 @@
 		name = user.getFirstName() ;
 	
 	@SuppressWarnings("unchecked")
-	ArrayList<PatientService> supplies = (ArrayList<PatientService>) request.getAttribute("supplies");
+	ArrayList<PatientService> supplies = (ArrayList<PatientService>) request.getAttribute("services");
 	
 	String patName = (String) request.getAttribute("patName");
 	
@@ -16,6 +16,7 @@
 	
 	String servId 	= (String) request.getAttribute("servId");
 	String adminId 	= (String) request.getAttribute("adminId");
+	String scaleId = (String) request.getAttribute("scaleId");
 	
 	String text_result = (String) session.getAttribute("text");
 	if (text_result == null)
@@ -27,7 +28,7 @@
 	<head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<link rel="stylesheet" type="text/css" href="./css/styleAdmin.css" />
-	<title>Suministros Paciente</title>
+	<title>Servicios Paciente</title>
 	<script type="text/javascript" src="./js/jquery.js"></script>
 	<script type="text/javascript" src="./js/jquery.dataTables.js"></script>
 	<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
@@ -94,13 +95,13 @@
 			<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 	    	<ul>
             	<li class="menuitem"><a href="<%=function%>">Ver Pacientes</a></li>
-            	<li class="menuitem"><a href="AddPatientServiceServlet?id=<%=adminId%>&servId=<%=servId%>&name=<%=patName%>">Agregar Servicio</a></li>
+            	<li class="menuitem"><a href="AddPatientServiceServlet?id=<%=adminId%>&servId=<%=servId%>&name=<%=patName%>&scaleId=<%= scaleId %>">Agregar Servicio</a></li>
             </ul>
 			<div class="menuitemSalir"><a href="LogoutServlet"><%= name %> (Salir)</a></div>	
         </div>        
 		<jsp:include page="./menu.jsp" />
 		<div id="content">  
-			<h2>Suministros <%=patName%>:</h2><br/>
+			<h2>Servicios <%=patName%>:</h2><br/>
 			<div class="info-text"><%=text_result%></div>
 			<div id="dt_example">
 					<div id="container">

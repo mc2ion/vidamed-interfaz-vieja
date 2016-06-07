@@ -14,16 +14,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
-import domain.PatientService;
+import domain.PatientEstimationService;
 import domain.PermissionsList;
 import domain.User;
 
 
 /**
- * Servlet implementation class ListPatientServicesServlet
+ * Servlet implementation class ListPatientEstimationServicesServlet
  */
-@WebServlet(description = "servlet to generate reports", urlPatterns = { "/ListPatientServicesServlet" })
-public class ListPatientServicesServlet extends HttpServlet {
+@WebServlet(description = "servlet to generate reports", urlPatterns = { "/ListPatientEstimationServicesServlet" })
+public class ListPatientEstimationServicesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	public void init() throws ServletException {
@@ -38,7 +38,7 @@ public class ListPatientServicesServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ListPatientServicesServlet() {
+    public ListPatientEstimationServicesServlet() {
         super();
     }
 
@@ -74,17 +74,18 @@ public class ListPatientServicesServlet extends HttpServlet {
 					function = "ListXRayReportsServlet";
 					scaleId = propertiesFile.getProperty("xRay");
 				}
-				
 				String name = request.getParameter("name");
-				ArrayList<PatientService> services = (ArrayList<PatientService>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPatientServicesByAdmission(id, servId));
+				String sec = request.getParameter("sec");
+				ArrayList<PatientEstimationService> services = (ArrayList<PatientEstimationService>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPatientEstimationServicesByAdmission(id, servId));
 				request.setAttribute("patName", name);
-				request.setAttribute("function", function);
 				request.setAttribute("services", services);
-				request.setAttribute("servId", String.valueOf(servId));
 				request.setAttribute("adminId", String.valueOf(id));
+				request.setAttribute("function", function);
+				request.setAttribute("servId", String.valueOf(servId));
 				request.setAttribute("scaleId", scaleId);
+				request.setAttribute("sec", sec);
 				
-				RequestDispatcher rd = getServletContext().getRequestDispatcher("/patientServices.jsp");
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/patientEstimationServices.jsp");
 				rd.forward(request, response);
 			} 
 			catch (Exception e) {

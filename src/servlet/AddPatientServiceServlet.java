@@ -73,17 +73,32 @@ public class AddPatientServiceServlet extends HttpServlet {
 		
 			try {
 				String id = request.getParameter("id");
+				String sec = request.getParameter("sec");
 				String servId = request.getParameter("servId");
 				String name   = request.getParameter("name");
+				Long scaleId = Long.valueOf(request.getParameter("scaleId"));
 				
 				request.setAttribute("servId", servId);
 				request.setAttribute("adminId", id);
 				request.setAttribute("name", name);
+				request.setAttribute("sec", sec);
+				request.setAttribute("scaleId", scaleId);
 				
-				@SuppressWarnings("unchecked")
-				ArrayList<Service> services = (ArrayList<Service>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetServicesByType(Long.valueOf(servId)));
-			
-				request.setAttribute("services", services);
+				if(sec != null && sec.equalsIgnoreCase("add")){
+					Long serviceId = Long.valueOf(request.getParameter("spId"));
+					String serviceName = request.getParameter("spName");
+					Service service = new Service();
+					
+					service.setServiceID(serviceId);
+					service.setName(serviceName);
+					
+					request.setAttribute("service", service);
+				} else {
+					@SuppressWarnings("unchecked")
+					ArrayList<Service> services = (ArrayList<Service>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetServicesByType(Long.valueOf(servId)));
+				
+					request.setAttribute("services", services);
+				}
 				
 				rd = getServletContext().getRequestDispatcher("/addPatientService.jsp");			
 				rd.forward(request, response);
@@ -123,7 +138,9 @@ public class AddPatientServiceServlet extends HttpServlet {
 				String name 	= multipart.getParameter("name");				
 				String 	sId		= multipart.getParameter("servId");
 				String album	= "";
-				
+				Long scaleId	= Long.valueOf(multipart.getParameter("scaleId"));
+				String sec = multipart.getParameter("sec");
+
 				if (sId.equals("1"))
 						album ="Banco";
 					else if (sId.equals("2"))
@@ -136,8 +153,12 @@ public class AddPatientServiceServlet extends HttpServlet {
 				String dir = propertiesFile.getProperty("filesDirectory" + album) + propertiesFile.getProperty("fileSeparator");
 				String fileName = null;				
 				String reportName = null;
+
+				if(sec!=null && sec.equalsIgnoreCase("add")){
+					CommandExecutor.getInstance().executeDatabaseCommand(new command.ApplyPatientEstimationService(admisId, scaleId, servAddId));
+				}
 				
-				Long result = (Long) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddPatientService(admisId, servAddId));
+				Long result = (Long) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddPatientService(admisId, servAddId, scaleId));
 				String text = "El servicio fue agregado exitosamente";
 
 				if (result == -1) {
@@ -167,7 +188,11 @@ public class AddPatientServiceServlet extends HttpServlet {
 				}				
 				
 				session.setAttribute("text", text);
-				response.sendRedirect(request.getContextPath() + "/ListPatientServicesServlet?id=" + admisId + "&servId=" + sId + "&name=" + name);
+				if(sec != null && (sec.equalsIgnoreCase("add"))) {
+					response.sendRedirect(request.getContextPath() + "/ListPatientEstimationServicesServlet?id=" + admisId + "&servId=" + sId + "&name=" + name);
+				}else{
+					response.sendRedirect(request.getContextPath() + "/ListPatientServicesServlet?id=" + admisId + "&servId=" + sId + "&name=" + name);
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

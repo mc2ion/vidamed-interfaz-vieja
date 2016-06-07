@@ -92,7 +92,22 @@ String id = (String) request.getParameter("id");
 						<td> <a class='button-gray' href='./EditDrugsServlet?id=<%= p.getProtocolScaleID()%>&protocolID=<%= id%>'>Editar Suministros</a></td>
 				<% 
 								}
-							}else if (p.getTotal() == null) {%>
+							} else if (p.getGeneratedCostTypeID() == 12){
+								if(p.getTotal() == null){
+									valoresFaltantes++;
+				%>
+						<td>---</td>
+						<td>
+							<a class='button-gray' href='./AddServicesServlet?id=<%= p.getProtocolScaleID()%>&protocolID=<%= id%>&serviceTypeID=<%= p.getCost().substring(0, 1) %>'>Agregar Servicios</a>
+						</td>
+				<%
+								}else{
+				%>
+						<td>Bs. <%= p.getTotal() %></td>
+						<td> <a class='button-gray' href='./EditServicesServlet?id=<%= p.getProtocolScaleID()%>&protocolID=<%= id%>&serviceTypeID=<%= p.getCost().substring(0, 1) %>'>Editar Servicios</a></td>
+				<%
+								}
+							} else if (p.getTotal() == null) {%>
 						<td>
 							<span style='font-size:11px;'>(<%= p.getGeneratedCostTypeName()%>). Este costo se calculará al crear un presupuesto.</span>
 						</td>
@@ -128,7 +143,24 @@ String id = (String) request.getParameter("id");
 						</td>
 				<% 
 								}
-							}else if (p.getTotal() == null) {
+							} else if (p.getGeneratedCostTypeID() == 12){
+								if (p.getTotal() == null){
+									valoresFaltantes++;
+				%>
+						<td>---</td>
+						<td>
+							<a class='button-gray' href='./AddServicesServlet?id=<%= p.getProtocolScaleID()%>&protocolID=<%= id%>&serviceTypeID=<%= p.getCost().substring(0, 1) %>'>Agregar Servicios</a>
+						</td>
+				<%
+								}else{
+				%>
+						<td>Bs. <%= p.getTotal() %></td>
+						<td> 
+							<a class='button-gray' href='./EditServicesServlet?id=<%= p.getProtocolScaleID()%>&protocolID=<%= id%>&serviceTypeID=<%= p.getCost().substring(0, 1) %>'>Editar Servicios</a>
+						</td>
+				<%
+								}
+							} else if (p.getTotal() == null) {
 				%>
 						<td>
 							<span style='font-size:11px;'><%= p.getGeneratedCostTypeName()%>. Este costo se calculará al crear un presupuesto.</span>

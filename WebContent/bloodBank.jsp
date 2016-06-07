@@ -100,7 +100,10 @@
 										<td><%= admi.getAdmissionID() %></td>
 										<td><%= patName %></td>
 										<td><%= admi.getReasonName() %></td>
-										<td>
+										<td>											
+											<a href="ListPatientEstimationServicesServlet?id=<%= admi.getAdmissionID() %>&servId=1&name=<%= patName %>" style="color: transparent" >
+												<img alt="logo" src="./images/meds.png"  height="16" width="16" title="Ver Servicios Presupuestados" />
+											</a>
 											<a href="ListPatientServicesServlet?id=<%= admi.getAdmissionID() %>&servId=1&name=<%= patName %>" style="color: transparent" >
 												<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Agregar Suministro" />
 											</a>

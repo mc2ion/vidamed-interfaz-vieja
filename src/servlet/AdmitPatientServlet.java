@@ -119,6 +119,12 @@ public class AdmitPatientServlet extends HttpServlet {
 						System.out.println("listResult " + listResult);
 						if(listResult == 0){
 							text_good += " Se ha presentado un error al cargar los fármacos presupuestados. Por favor, contacte al administrador.";
+						} else {
+							listResult = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddPatientEstimationServiceList(result));
+							System.out.println("listResult " + listResult);
+							if(listResult == 0){
+								text_good += " Se ha presentado un error al cargar los servicios presupuestados. Por favor, contacte al administrador.";
+							}
 						}
 					}
 					session.setAttribute("info", text_good);
