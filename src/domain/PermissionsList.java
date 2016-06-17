@@ -44,6 +44,7 @@ public class PermissionsList implements Serializable {
     public static long medicalTAdmin       = 31;
     public static long medicalTPacient     = 32;
     public static long patient			   = 33;
+    public static long additionalServices  = 34;
     
    	
 	/*public static long createEstimation  = 2;

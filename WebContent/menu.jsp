@@ -144,6 +144,11 @@
 		      %>
 		   <li ><a href='ListInterServlet'><span>Servicios M&eacute;dicos</span></a></li>
 		   <%  } 
+		      perm  = PermissionsList.hasPermission(request, PermissionsList.additionalServices);
+		      if (perm){
+		   %>
+		   <li><a href='ListAdditionalServicesServlet'><span>Servicios Adicionales</span></a></li>
+		   <% }
 		      perm  = PermissionsList.hasPermission(request, PermissionsList.reports);
 		      if (perm){
 		      %>

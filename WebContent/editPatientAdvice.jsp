@@ -73,7 +73,7 @@
 			 <jsp:include page="./menu.jsp" />
         	<div id="content" style="position:absolute;">	
 	        	<h2>Editar Servicio:</h2> <br><br>
-	        	<p>Por favor, escoga la unidad correspondiente y el médico correspondiente.</p><br>
+	        	<p>Por favor, escoja la unidad correspondiente y el médico correspondiente.</p><br>
 	        	<form action="EditPatientMedicalAdviceServlet" method="post" >
 				<input type="hidden" name="admissionId" value="<%= adminId %>"/>
 				<input type="hidden" name="name" value="<%= patName %>"/>
