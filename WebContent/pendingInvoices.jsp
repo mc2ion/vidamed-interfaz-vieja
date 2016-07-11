@@ -64,14 +64,24 @@
 	});
 	
 	function loadVars(var1, var2) {
-		idUser = var1;
+		//idUser = var1;
 		$('.cliente').text(var2);
 		$('#admId').attr('value', var1);
 		$('#factId').attr('value', var2);			
 	};
 	
-	function setV(f){
-		//f.elements['userId'].value = idUser;
+	function setV2(f){
+		return true;
+	};
+	
+	function loadVars2(var1, var2) {
+		idUser = var1;
+		$('.cliente').text(var2);	
+		$('.pid').text(var1);		
+	};
+	
+	function setV2(f){
+		f.elements['userId'].value = idUser;
 		return true;
 	};
 	
@@ -129,7 +139,7 @@
 												<img alt="logo" src="./images/print.png"  height="16" width="16" title="Imprimir"/>
 											</a>    
 											<a id="go" rel="leanModal" href="#discount" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(<%= b.getBillID() %>, '<%= pName  %>');" >
+												onclick="return loadVars2('<%= b.getBillID() %>', '<%= pName  %>');" >
 												<img alt="logo" src="./images/check.png"  height="16" width="16" title="Generada"/>
 											</a>  
 											<br>
@@ -178,7 +188,7 @@
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="GenerateBillServlet" method="post"  onsubmit="return setV(this)">
+				<form action="GenerateBillServlet" method="post"  onsubmit="return setV2(this)">
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
 					<input type="hidden" id="id" class="good_input" name="id"  value="<%= user.getUserID() %>"/>
 					<div class="btn-fld">

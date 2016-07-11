@@ -12,8 +12,8 @@ public class Hospitalization {
 	private String admissionDate;
 	private Unit unit;
 	private PaymentResponsible paymentResponsible;
-	
-	
+	private Double orHours;
+	private Integer roomDays;	
 	
 	public void setId(long id) {
 		this.id = id;
@@ -93,6 +93,22 @@ public class Hospitalization {
 	
 	public PaymentResponsible getResponsible(){
 		return paymentResponsible;
+	}
+
+	public void setOrHours(Double orHours) {
+		this.orHours = orHours;
+	}
+
+	public Double getOrHours() {
+		return orHours;
+	}
+
+	public void setRoomDays(Integer roomDays) {
+		this.roomDays = roomDays;
+	}
+
+	public Integer getRoomDays() {
+		return roomDays;
 	}
 	
 	

@@ -222,11 +222,14 @@
 							<select name="bed" id="bed">
 								<option value="-">Seleccionar</option>
 							</select><br/><br/>
-						</p>  
+						</p> 
 						<p style="display: none; color: red;" id="error-bed">
 							Disculpe, la cama que escogió ya fue seleccionada por otro usuario. Por favor, elija una cama diferente.
 						</p> 						
-
+						<label> Hora de Quir&oacute;fano:</label>
+						<input type="number" name="txtORHours" id="txtORHours" step="0.5" min="1" value="<%= (h.getOrHours()!= null) ? h.getOrHours() : "" %>" /><br/><br/>
+						<label> D&iacute;as de Habitaci&oacute;n:</label>
+						<input type="number" name="txtDays" id="txtDays" step="1" min="1" value="<%= (h.getRoomDays() != null) ? h.getRoomDays() : "" %>" /><br/><br/>
 						</fieldset>
 						  <div id="botonera" style="margin-top: -3px;">
 								<div id="botonP" style="display: inline; margin-right: 30px;">

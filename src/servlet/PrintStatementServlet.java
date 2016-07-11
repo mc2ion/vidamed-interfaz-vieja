@@ -57,7 +57,10 @@ public class PrintStatementServlet extends HttpServlet {
 			String estimation;
 			ArrayList<Protocol> costs;
 			
-			try {				
+			try {						
+				costs = (ArrayList<Protocol>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetDetailedAdmissionCosts(admissionID));				
+				request.setAttribute("costs", costs);	
+				
 				admission = (Admission)CommandExecutor.getInstance().executeDatabaseCommand(new command.GetAdmission(admissionID));
 				request.setAttribute("admission", admission);
 				
@@ -65,9 +68,6 @@ public class PrintStatementServlet extends HttpServlet {
 				
 				protocols = (ArrayList<Protocol>)CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEstimationProtocols(estimation));
 				request.setAttribute("protocols", protocols);
-				
-				costs = (ArrayList<Protocol>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetDetailedAdmissionCosts(admissionID));				
-				request.setAttribute("costs", costs);
 				
 				ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetBussinessMicros());
 				request.setAttribute("bm", bm);

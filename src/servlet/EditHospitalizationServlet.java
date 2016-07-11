@@ -110,9 +110,12 @@ public class EditHospitalizationServlet extends HttpServlet {
 				Long admissionId 	 = Long.valueOf(request.getParameter("admissionId"));
 				Long specId 	 	 = Long.valueOf(request.getParameter("specialist"));
 				Long unitId 	 	 = Long.valueOf(request.getParameter("unitId"));
+				Double orHours		 = Double.valueOf(request.getParameter("txtORHours"));
+				Integer roomDays	 = Integer.valueOf(request.getParameter("txtDays"));
 				
 				Integer result  = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.EditLocation(admissionId, bedId));
 				result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.EditEstimationSpecialist(admissionId, specId, unitId));
+				result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.EditAdmissionVariables(admissionId, orHours, roomDays));
 				
 				String text = "La hospitalización fue actualizada exitosamente.";
 				if (result == 0)

@@ -107,23 +107,25 @@ public class EditEstimationProtocolAddServlet extends HttpServlet {
 				e1.printStackTrace();
 			}
 			
-			for (int i = 0 ; i < id.length; i++){
-				if (id[i] != null){
-					String specialistid  = request.getParameter("specialist" + id[i]);
-					String unitid  = request.getParameter("unitId" + id[i]);
-					
-					String scaleId	   = id[i];
-					try {
-						//if (id[i] != null && id[i].equals("29")){
-							honorario = request.getParameter("hon" + id[i]);
-							CommandExecutor.getInstance().executeDatabaseCommand(new command.AddEstimationProtocolScale(estimationid, protocolid, scaleId, honorario));
-						//}
-						//Agrego el especialista
-						System.out.println("agrego " + specialistid + " b "  + scaleId + " c " + protocolid  + " d " + estimationid  + " e "+ honorario);
-						CommandExecutor.getInstance().executeDatabaseCommand(new command.AddEstimationSpecilist(estimationid, protocolid, scaleId, specialistid, unitid));
+			if(id != null && id.length != 0){
+				for (int i = 0 ; i < id.length; i++){
+					if (id[i] != null){
+						String specialistid  = request.getParameter("specialist" + id[i]);
+						String unitid  = request.getParameter("unitId" + id[i]);
 						
-					} catch (Exception e) {
-						e.printStackTrace();
+						String scaleId	   = id[i];
+						try {
+							//if (id[i] != null && id[i].equals("29")){
+								honorario = request.getParameter("hon" + id[i]);
+								CommandExecutor.getInstance().executeDatabaseCommand(new command.AddEstimationProtocolScale(estimationid, protocolid, scaleId, honorario));
+							//}
+							//Agrego el especialista
+							System.out.println("agrego " + specialistid + " b "  + scaleId + " c " + protocolid  + " d " + estimationid  + " e "+ honorario);
+							CommandExecutor.getInstance().executeDatabaseCommand(new command.AddEstimationSpecilist(estimationid, protocolid, scaleId, specialistid, unitid));
+							
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
 					}
 				}
 			}

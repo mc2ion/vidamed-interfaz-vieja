@@ -320,7 +320,7 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 				<td style="width:20%;text-align:right;"><%= Estimation.format.format(subtotal) %></td>
 			</tr>
 			<tr id="totalTr2">
-				<td colspan="3" style="text-align:right;">*** TOTAL SERVICIOS AUXILIARES ***</td>
+				<td colspan="3" style="text-align:right;">*** TOTAL F&Aacute;RMACOS Y MATERIALES ***</td>
 				<td style="width:20%;text-align:right;"><%= Estimation.format.format(total) %></td>
 			</tr>
 			</tbody>

@@ -92,6 +92,9 @@ public class GetHospitalization implements DatabaseCommand {
 				r.setId(rs.getLong(18));
 				r.setName(rs.getString(19));
 				u.setResponsible(r);
+				
+				u.setOrHours(rs.getDouble(20));
+				u.setRoomDays(rs.getInt(21));
 			}
 		}
 		finally {
