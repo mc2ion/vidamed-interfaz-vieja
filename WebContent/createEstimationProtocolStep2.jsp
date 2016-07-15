@@ -146,8 +146,7 @@
 							}
 					%>						
 						<tr id="tr<%=i%>" >
-							<% if (p.getGeneratedCostTypeID() == 9) { 
-							%>
+							<% if (p.getGeneratedCostTypeID() == 9) { %>
 							<td class='lft'  style="vertical-align:top;"><%= p.getName()%></td>
 							<td class='mem'>
 								<label class="w200">Unidad del Especialista: </label>
@@ -175,6 +174,15 @@
 								<div style="display:none" class="perc"><%= p.getCost() %></div>
 							</td>
 							<td><input type="hidden" name="ids" value="<%= p.getProtocolScaleID() %>" /></td>
+							<% }else if(p.getGeneratedCostTypeID()==13){ %>
+							<td class='lft'  style="vertical-align:top;"><%= p.getName()%></td>
+							<td>
+								<label class="w200">Precio Unitario: Bs. </label>
+								<input type="number" name="pu<%=p.getProtocolScaleID() %>" id="pu<%=p.getProtocolScaleID() %>" /><br/><br/>
+								<label class="w200">Cantidad: </label>
+								<input type="number" name="cant<%=p.getProtocolScaleID() %>" id="cant<%=p.getProtocolScaleID() %>" min="1" step="1" />
+							</td>
+							<td><input type="hidden" name="asids" value="<%= p.getProtocolScaleID() %>" /></td>
 							<% }else{ %>
 								<td class='lft'  style="vertical-align:top;"><%= p.getName()%></td>
 								<% if (p.getTotal() == null && p.getGeneratedCostTypeID() == 10) { %>
