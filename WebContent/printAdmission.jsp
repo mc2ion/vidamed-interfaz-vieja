@@ -80,8 +80,7 @@ String dateTxt = dateFormat.format(date);
 </head>
 	<body id="especial">
 		<div id="printHeader" class="header">
-			<div style="width:50%;float:left;">HOSPITALIZACIÓN VIDAMED</div>
-			<div style="width:50%;float:left;text-align:right;"><b>Fecha:</b><%= dateTxt %>
+			<div style="width:100%;float:left;text-align:right;"><b>Fecha:</b><%= dateTxt %>
 		</div>       	
         </div>  
 		<br><br><br>

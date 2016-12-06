@@ -7,6 +7,7 @@
 <%
 	@SuppressWarnings("unchecked")
 	ArrayList<AnesthesiaType> anesthesia = (ArrayList<AnesthesiaType>) request.getAttribute("anesthesiaTypes");
+	@SuppressWarnings("unchecked")
 	ArrayList<Unit> units = (ArrayList<Unit>) request.getAttribute("units");
 	User user = (User) session.getAttribute("user");
 	String name = "";
@@ -77,7 +78,7 @@
 		        	<fieldset id="field1">
 			            <h3>Informaci&oacute;n B&aacute;sica</h3><br/>
 			            <label for="name">Nombre:</label>
-						<input type="text" name="txtName" id="txtName" maxlength="50" size="5" value="<%= p.getName()%>"/> <br style="clear:both;">
+						<input type="text" name="txtName" id="txtName" maxlength="70" size="5" value="<%= p.getName()%>"/> <br style="clear:both;">
 						<label for="name">Descripci&oacute;n:</label>
 						<textarea name="txtDescription" id="txtDescription" rows="3" cols="50"><%= p.getDescription()%></textarea> <br style="clear:both;"><br/>
 						<label for="name">Tipo de Protocolo:</label>

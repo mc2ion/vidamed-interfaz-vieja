@@ -147,8 +147,20 @@
 						<div><%= est.getClinicName() %></div><br>
 						<input type="text" style="display:none" name="clinicType" value="<%= est.getClinicTypeID() %>" />
 						<label>Responsable de Pago: </label>
-						<div><%= est.getPaymentResponsibleName() %></div>
-						<input type="text" style="display:none" name="paymentId" value="<%= est.getPaymentResponsibleId() %>" />
+						<select name="paymentId" id="paymentId">
+						<option value="-">Seleccionar</option>
+						<% for (int i = 0; i < resp.size(); i++){
+							PaymentResponsible p = resp.get(i);
+							String info = p.getName();
+							if (p.getId() == est.getPaymentResponsibleId()){
+						%>
+							<option value="<%= p.getId()%>" selected> <%= info %></option>
+						<%  } else { %>
+							<option value="<%= p.getId()%>"> <%= info %></option>
+						<%  } 
+						  }
+						%>
+						</select><br><br>
 						<br><br>
 						<label> </label>
 						<label style="font-weight: normal; width: auto"><input type="checkbox" id="aval" name="aval" value="1" <%= (est.getHasGuaranteeLetter() == 1) ? "checked": "" %> /> &iquest; El paciente tiene carta aval?</label><br><br>

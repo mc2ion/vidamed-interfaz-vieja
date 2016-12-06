@@ -1,6 +1,7 @@
 <%@ page import="domain.CashBox" %>
 <%@ page import="domain.User"%>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="domain.PermissionsList"%>
 <% 
 	User user = (User) session.getAttribute("user");
 	String name = "";
@@ -15,7 +16,7 @@
 		info_text = info;
 	}
 	session.removeAttribute("info");
-	
+	boolean perm = PermissionsList.hasPermission(request, PermissionsList.cashBoxes);
 %>
 <!DOCTYPE HTML>
 <html>
@@ -84,14 +85,18 @@
 		<div id="menu">
 			<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>	
 			<ul>
+			<% if(perm){ %>
             	<li class="menuitem"><a href="CreateCashBoxServlet">Crear Caja</a></li>
+            <% } %>
             </ul>
             <div class="menuitemSalir"><a href="LogoutServlet"><%= name %> (Salir)</a></div>	
         </div>        
 			 <jsp:include page="./menu.jsp" />
 		<div id="content">  
 			<h2>Cajas:</h2>
+			<% if(perm){ %>
 			<div id="printCashBox"><a href="SearchCashBoxFormServlet" id="printCashBoxText" >Imprimir cierre de cajas</a></div><br/>
+            <% } %>
 			<div class="info-text"><%= info_text %></div>
 			<div id="dt_example">
 					<div id="container">
@@ -135,7 +140,7 @@
 													<a href="ShowCashBoxServlet?cashBoxID=<%= cb.getCashBoxID() %>" style="color: transparent;" >
 														<img alt="logo" src="./images/detail.png"  height="16" width="16" title="Ver Detalle" />
 													</a>
-													<% 	if (cb.getCashBoxID() != 1) { %>
+													<% 	if (cb.getCashBoxID() != 1 && perm) { %>
 															<a href="EditCashBoxServlet?cashBoxID=<%= cb.getCashBoxID() %>" style="color: transparent;" >
 																<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar Caja" />
 															</a>

@@ -189,8 +189,7 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 	<body id="especial">
 		<div class="wrapper">
 		<div id="printHeader" class="header">
-			<div style="width:50%;float:left;">HOSPITALIZACIÓN VIDAMED</div>
-			<div style="width:50%;float:left;text-align:right;"><b>Fecha: </b> <%= dateTxt %></div>       	
+			<div style="width:100%;text-align:right;float:left;"><b>Fecha: </b> <%= dateTxt %></div>       	
         </div><br>
 		<div style="text-align:right;width:100%;font-size:11px;"><b>Hora: </b><%= hour %></div> <br>
 		<% String fact = "FACTURA"; if (f.equals("cn")) fact = "PREFACTURA"; %>

@@ -64,6 +64,9 @@ public class CreateEstimationProtocolServlet extends HttpServlet {
 				ArrayList<ProtocolScale> p = (ArrayList<ProtocolScale>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEstimationProtocolScale(estimationID, protocolID));
 				request.setAttribute("p",p);
 				
+				Integer hasMainSpecialist = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.HasMainSpecialist(protocolID));
+				request.setAttribute("hms", hasMainSpecialist);
+				
 				@SuppressWarnings("unchecked")
 				ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetBussinessMicros());
 				request.setAttribute("bm", bm);
@@ -150,6 +153,19 @@ public class CreateEstimationProtocolServlet extends HttpServlet {
 					}
 				}
 			}
+			}
+			
+			//Items costo variables x cantidad
+			String[] varxcant = request.getParameterValues("asids");
+			if(varxcant != null){
+				for(int i = 0; i < varxcant.length; i++){
+					if(varxcant[i] != null){
+						Long scaleId = Long.valueOf(varxcant[i]);
+						Integer amount = Integer.valueOf(request.getParameter("cant" + varxcant[i]));
+						Double unitPrice = Double.valueOf(request.getParameter("pu" + varxcant[i]));
+						System.out.println("+++ ProtocolScaleID:'"+scaleId+"', UnitPrice:'"+unitPrice+"', Amount:'"+amount+"'");
+					}
+				}
 			}
 			
 			//Obtener valores establecidos

@@ -51,7 +51,9 @@ public class EditSupplyServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
 		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.pharmacyAdmin);
-		if(userE != null && perm ){
+		boolean perm1  = PermissionsList.hasPermission(request, PermissionsList.pharmacyAdminRestricted);
+		
+		if(userE != null && (perm || perm1)){
 			try {
 				String action = request.getParameter("txtName");
 				RequestDispatcher rd;

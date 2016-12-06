@@ -230,6 +230,10 @@
 				</div>
 				<form action="PayPendingAccountServlet" method="post" onsubmit="return setV(this)" >
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+					<input type="hidden" id="admissionId" class="good_input" name="admissionId" value=""/>
+					<input type="hidden" id="paymentResponsibleId" class="good_input" name="paymentResponsibleId" value=""/>
+					<input type="hidden" id="hasMultiple" class="good_input" name="hasMultiple" value=""/>
+					<input type="hidden" id="mainResponsible" class="good_input" name="mainResponsible" value=""/>
 					<label>N&uacute;mero de Documento: </label><input type="text" name="documentnumber" id="documentnumber" size="10"><br>
 					<label>Banco: </label><input type="text" name="bank" id="bank" size="25">
 					<div class="btn-fld">

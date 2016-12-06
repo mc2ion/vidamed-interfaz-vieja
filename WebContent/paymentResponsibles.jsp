@@ -32,6 +32,7 @@
 				null,
 				null,
 				null,
+				null,
 				{ "bSearchable": false, "asSorting": false, "sWidth": "18%" }
 			],
 			"oLanguage": {
@@ -93,6 +94,7 @@
 										<th>ID</th>
 										<th>Responsable de Pago</th>
 										<th>Regla de Negocio</th>
+										<th>Modelo de Negocio</th>
 										<th>Acciones</th>
 									</tr>
 								</thead>
@@ -106,6 +108,7 @@
 										<td><%= responsible.getId() %></td>
 										<td><%= responsible.getName() %></td>
 										<td><%= responsible.getRuleName() %></td>
+										<td><%= responsible.getBussinessModelName() %></td>
 										<% if (responsible.getId().equals(cashPayment)){ %>
 										<td></td>
 										<% } else { %>										

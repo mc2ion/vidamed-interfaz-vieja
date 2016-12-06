@@ -64,6 +64,9 @@ public class EditEstimationProtocolAddServlet extends HttpServlet {
 				ArrayList<ProtocolScale> p = (ArrayList<ProtocolScale>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEstimationProtocolScale(estimationID, protocolID));
 				request.setAttribute("p",p);
 				
+				Integer hasMainSpecialist = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.HasMainSpecialist(protocolID));
+				request.setAttribute("hms", hasMainSpecialist);
+				
 				@SuppressWarnings("unchecked")
 				ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetBussinessMicros());
 				request.setAttribute("bm", bm);

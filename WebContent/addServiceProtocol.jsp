@@ -3,6 +3,8 @@
 <%@page import="domain.Supply"%>
 <%@page import="domain.ProtocolScale"%>
 <%@page import="domain.BussinessMicro"%>
+<%@page import="java.util.Properties"%>
+<%@page import="java.io.FileInputStream"%>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
@@ -18,7 +20,12 @@
 	@SuppressWarnings("unchecked")
 	ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute("bm");
 		
-	String id = (String) request.getParameter("id");			
+	String id = (String) request.getParameter("id");	
+	
+	Properties propertiesFile = new Properties();
+	propertiesFile.load( new FileInputStream( getServletContext().getInitParameter("properties") ) );
+	Long psaId = Long.parseLong(propertiesFile.getProperty("anesthetist"));
+	System.out.println("+++ psaId:"+psaId);
 %>
 <!DOCTYPE HTML>
 <html>
@@ -98,10 +105,17 @@
 					ProtocolScale p = ps.get(j);
 					if (p.getBussinessRuleMicroID() == b.getId()){
 						if (p.getIsMandatory() == 0 ){
+							System.out.println(p.getProtocolScaleID() + " - " + (p.getProtocolScaleID() == psaId));
+							if(p.getProtocolScaleID().compareTo(psaId)==0){
 				%>
-				
+						<option value="<%= p.getProtocolScaleID() %>" <%= (p.getIsSelected() == 1)? "selected" : ""%>><%= p.getName().toUpperCase()+" (COSTO DIRECTO)"%></option>
+				<%
+							} else {
+				%>
 						<option value="<%= p.getProtocolScaleID() %>" <%= (p.getIsSelected() == 1)? "selected" : ""%>><%= p.getName().toUpperCase()%></option>
-				<%  	}
+				<%  	
+							}
+						}
 					}
 					
 				}

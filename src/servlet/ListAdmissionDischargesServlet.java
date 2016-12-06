@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
+import domain.PaymentResponsible;
 import domain.PendingAdmissionDischarges;
 import domain.PermissionsList;
 import domain.User;
@@ -55,6 +56,10 @@ public class ListAdmissionDischargesServlet extends HttpServlet {
 				@SuppressWarnings("unchecked")
 				ArrayList<PendingAdmissionDischarges> admissions = (ArrayList<PendingAdmissionDischarges>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPendingAdmissionDischarges());
 				request.setAttribute("admissions", admissions);
+				
+				@SuppressWarnings("unchecked")
+				ArrayList<PaymentResponsible> responsibles = (ArrayList<PaymentResponsible>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPaymentResponsibles());
+				request.setAttribute("responsibles", responsibles);
 				
 				Properties propertiesFile = new Properties();
 				propertiesFile.load( new FileInputStream( getServletContext().getInitParameter("properties")));

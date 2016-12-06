@@ -47,8 +47,9 @@ public class ShowCashBoxServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
 		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.cashBoxes);
+		boolean perm1 = PermissionsList.hasPermission(request, PermissionsList.admissionCashBoxes);
 		String  id 	  = request.getParameter("cashBoxID");
-		if(userE != null && perm ){
+		if(userE != null && (perm || perm1)){
 			try {
 				CashBox cb = (CashBox) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetCashBox(Long.valueOf(id)));
 				request.setAttribute("cashBox", cb);

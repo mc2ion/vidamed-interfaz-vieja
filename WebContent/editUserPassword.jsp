@@ -39,27 +39,28 @@
 		<script>
 			$(function() {    
             	$('#sbmtButton').click(function(event) { 
-            		if ($('#txtOldPassword').val() == '') {
+            		/*if ($('#txtOldPassword').val() == '') {
             			alert("Debe colocar su contraseña actual.");
             		}
-            		else if ($('#txtPassword').val() == '') {
+            		else*/ if ($('#txtPassword').val() == '') {
             			alert("Debe colocar su nueva contraseña.");
             		}
             		else if ($('#txtPasswordRpt').val() == '') {
             			alert("Debe reescribir su nueva contraseña.");
             		}
             		else {
-            			var tPassword=$('#txtOldPassword').val();
-                    	var tUserID=$('#userID').val(); 
+            			//var tPassword=$('#txtOldPassword').val();
+                    	//var tUserID=$('#userID').val(); 
                     	if ($('#txtPassword').val() == $('#txtPasswordRpt').val()) {
-                    		$.get('verifyPassword.jsp',{userID:tUserID, password:tPassword}, function(responseText) { 
+                    		/*$.get('verifyPassword.jsp',{userID:tUserID, password:tPassword}, function(responseText) { 
                     			if(responseText.trim() == 'valid') {
                            			$('#form1').submit();
                         		}
                         		else {
                            			alert("La contraseña actual que introdujo no es válida.");
                         		}
-                    		});
+                    		});*/
+                    		$('#form1').submit();
                     	}
                     	else {
                     		alert("Las contraseñas no coinciden");
@@ -91,9 +92,9 @@
 					<input type="hidden" id="userID" name="userID" value="<%= userID %>" />
 					<fieldset>
 						<br><br>
-						<label for="name">Contraseña anterior:</label>
+						<!-- <label for="name">Contraseña anterior:</label>
 						<input type="password" name="txtOldPassword" id="txtOldPassword" maxlength="50" title="Debe colocar su contraseña actual." required /><br><br>
-						<label for="name">Contraseña nueva:</label>
+						 --><label for="name">Contraseña nueva:</label>
 						<input type="password" name="txtPassword" id="txtPassword" maxlength="50" title="Debe colocar su nueva contraseña." required /><br><br>
 						<label for="name">Repita contraseña:</label>
 						<input type="password" name="txtPasswordRpt" id="txtPasswordRpt" maxlength="50" title="Debe reescribir su nueva contraseña." required /><br><br>

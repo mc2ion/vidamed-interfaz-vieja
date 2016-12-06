@@ -49,8 +49,9 @@ public class ListSupplyInventoriesServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
 		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.pharmacyAdmin);
+		boolean perm1  = PermissionsList.hasPermission(request, PermissionsList.pharmacyAdminRestricted);
 		
-		if(userE != null && perm ){
+		if(userE != null && (perm || perm1)){
 			try {
 				Long supplyAreaID = Long.parseLong(request.getParameter("supplyAreaID"));
 				Long supplyID = Long.parseLong(request.getParameter("supplyID"));

@@ -19,6 +19,8 @@ public class PaymentResponsible {
 	private String policyHolderName;
 	private String policyHolderIdentityCard;
 	private double total;
+	private Long bussinessModelId;
+	private String bussinessModelName;
 	
 	
 	public void setId(Long id) {
@@ -140,6 +142,22 @@ public class PaymentResponsible {
 
 	public void setRif(String rif) {
 		this.rif = rif;
+	}
+
+	public void setBussinessModelId(Long bussinessModelId) {
+		this.bussinessModelId = bussinessModelId;
+	}
+
+	public Long getBussinessModelId() {
+		return bussinessModelId;
+	}
+
+	public void setBussinessModelName(String bussinessModelName) {
+		this.bussinessModelName = bussinessModelName;
+	}
+
+	public String getBussinessModelName() {
+		return bussinessModelName;
 	}
 	
 }

@@ -49,9 +49,20 @@ public class ListCashBoxesServlet extends HttpServlet {
 		User userE = (User)session.getAttribute("user");
 		
 		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.cashBoxes);
-		if(userE != null && perm ){
+		boolean perm1 = PermissionsList.hasPermission(request, PermissionsList.admissionCashBoxes);
+		
+		if(userE != null && (perm || perm1)){
 			try {
-				ArrayList<CashBox> cashBoxes = (ArrayList<CashBox>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetCashBoxes());
+				ArrayList<CashBox> cashBoxes;
+				
+				if(perm && perm1){
+					cashBoxes = (ArrayList<CashBox>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetAllCashBoxes());
+				}else if(perm){
+					cashBoxes = (ArrayList<CashBox>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetCashBoxes());
+				}else{
+					cashBoxes = (ArrayList<CashBox>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetAdmissionCashBoxes());
+				}
+				
 				request.setAttribute("cashBoxes", cashBoxes);
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/cashBoxes.jsp");			
 				rd.forward(request, response);

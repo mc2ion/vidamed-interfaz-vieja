@@ -1,11 +1,14 @@
 <%@page import="domain.CashBox"%>
 <%@page import="domain.User"%>
+<%@ page import="domain.PermissionsList"%>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
 	if (user != null)
 		name = user.getFirstName() ;
 	CashBox cb = (CashBox) request.getAttribute("cashBox");
+	
+	boolean perm = PermissionsList.hasPermission(request, PermissionsList.cashBoxes);
 %>
 <!DOCTYPE HTML>
 <html>
@@ -37,7 +40,9 @@
 				<div class="menuitemHome" ><a href="UserLoginServlet">Home</a></div>
 				<ul>
 					<li class="menuitem"><a href="ListCashBoxesServlet">Ver Cajas</a></li>
+				<%if(perm){ %>
             		<li class="menuitem"><a href="CreateCashBoxServlet">Crear Caja</a></li>
+            	<%}%>
             	</ul>	
 		    	<div class="menuitemSalir"><a href="LogoutServlet"><%= name %> (Salir)</a></div>	
         	</div>        

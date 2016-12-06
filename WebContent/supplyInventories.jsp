@@ -7,6 +7,7 @@
 %>
 <%@ page import="domain.SupplyInventory" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="domain.PermissionsList"%>
 <%
 	@SuppressWarnings("unchecked")
 	ArrayList<SupplyInventory> supplyInventories = (ArrayList<SupplyInventory>)request.getAttribute("supplyInventories");
@@ -19,6 +20,7 @@
 		info_text = info;
 	}
 	session.removeAttribute("info");
+	boolean perm = PermissionsList.hasPermission(request, PermissionsList.pharmacyAdminRestricted);
 %>
 <!DOCTYPE HTML>
 <html>
@@ -121,6 +123,7 @@
 												<td><%= s.getExpirationDate() %></td>
 												<td><%= s.getAmount() %></td>
 												<td>
+												<% if(!perm){ %>
 													<a href="EditSupplyInventoryServlet?supplyInventoryID=<%= s.getSupplyInventoryID() %>&supplyID=<%= s.getSupplyID() %>&supplyAreaID=<%= supplyAreaID %>" style="color: transparent" >
 														<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
 													</a>
@@ -128,6 +131,7 @@
 														onclick="return loadVars(<%= s.getSupplyInventoryID() %>,'<%= s.getSupplyInventoryID() %>');" >
 														<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
 													</a> 
+												<% } %>
 													<br>
 												</td>
 											</tr>

@@ -1,4 +1,5 @@
 <%@page import="domain.Protocol"%>
+<%@page import="domain.Unit"%>
 <%@page import="domain.BedLocation"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="domain.User"%>
@@ -14,6 +15,9 @@
 	
 	@SuppressWarnings("unchecked")
 	ArrayList<BedLocation> locations = (ArrayList<BedLocation>) request.getAttribute("locations");
+	
+	@SuppressWarnings("unchecked")
+	ArrayList<Unit> sArea = (ArrayList<Unit>)request.getAttribute("units");
 	
 	@SuppressWarnings("unchecked")
 	ArrayList<Protocol> protocols = (ArrayList<Protocol>) request.getAttribute("protocols");
@@ -56,6 +60,7 @@
 		<script type="text/javascript">
 		$(document).ready(function() {
 			var isNew = 1;
+			var isNew2 = 1;
 			
 			$( ".target" ).change(function() {
 			
@@ -78,10 +83,29 @@
 					$('#beds').hide();
 				}
 			});	
-			$(".target").change();			
-		});
+			
+			$(".target").change();		
 
-		
+			$( ".target2" ).change(function() {
+				index = $(this).val();
+				if (index != "-"){
+					eid = '<%= emergency.getSpecialist().getId() %>';
+					uid = '<%= emergency.getUnit().getUnitID() %>';
+					$('.sum-div').show();
+					$.ajax({
+						type: "GET",
+						url: "GetSpecialistServlet",
+						data: {unit: index },
+						success: function(data){
+							$("#state").html(data);
+							if (isNew2 == 1 || index == uid) {$("#state").val(eid); isNew2 = 0;}
+						}
+					});
+				}
+			});
+
+			$(".target2").change();	
+		});
 		
 		function occupiedBed(){
 			bedId = $("#bed").val();
@@ -135,6 +159,14 @@
 	<script>
 			$(function() {    
             	$('#sbmtButton').click(function(event) { 
+            		if($('#unitId').val() == '-') {
+            			alert("Debe seleccionar la unidad del Especialista.");
+            			return;
+            		}
+            		if($('#state').val() == '-' || $('#state').val() == '') {
+            			alert("Debe seleccionar un Médico Tratante.");
+            			return;
+            		}
             		if($('#bedLocationId').val() == '-') {
             			alert("Debe seleccionar una Ubicación.");
             			return;
@@ -179,6 +211,20 @@
 					    <label>Cédula:</label><%= emergency.getPatient().getIdentityCard() %><br><br>
 					   	<label>Nombre:</label><%= emergency.getPatient().getFirstName() + " " + emergency.getPatient().getLastName() %><br><br>
 					    <label>Fecha de Ingreso:</label><%= emergency.getAdmissionDate() %><br><br>
+					    <label>Unidad del Especialista: </label>
+						<select name="unitId" id="unitId" class="target2">	
+							<option value="-"> Seleccionar </option>
+							<% for (int i = 0; i < sArea.size(); i++){ 
+							%>
+								<option value="<%= sArea.get(i).getUnitID() %>" <%= (emergency.getUnit().getUnitID() == sArea.get(i).getUnitID() ) ? "selected" : "" %>><%= sArea.get(i).getName() %></option>
+							<% } %>
+						</select><br/><br/>
+						<p class="sum-div">
+							<label for="pname">Médico Tratante:</label>
+							<select name="specialist" id="state">
+								<option value="-">Seleccionar</option>
+							</select><br/><br/>
+						</p>   
 					   	<label>Ubicación:  </label> 
 								<select id="bedLocationId" name="bedLocationId" class="target">
 									<option value="-" >Seleccionar</option>

@@ -111,6 +111,11 @@ public class EditEstimationServlet extends HttpServlet {
 				}
 				try {
 					Integer result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.EditEstimation(params.get("patientid"), params.get("unitId"), params.get("specialist"), params.get("paymentId"), params.get("aval"), params.get("titular"), pid,  name,  params.get("clinicType"), params.get("estimationid"), String.valueOf(userE.getUserID())));
+					
+					if(result == 1){
+						result = (Integer)CommandExecutor.getInstance().executeDatabaseCommand(new command.UpdateEstimationProtocolScale(params.get("estimationid")));
+					}
+					
 					//Leer todos los protocolos
 					@SuppressWarnings("unchecked")
 					ArrayList<Protocol> pt = (ArrayList<Protocol>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetProtocols());

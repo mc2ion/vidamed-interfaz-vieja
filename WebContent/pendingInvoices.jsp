@@ -63,11 +63,15 @@
 		$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x" });		
 	});
 	
-	function loadVars(var1, var2) {
+	function loadVars(var1, var2, var3) {
 		//idUser = var1;
 		$('.cliente').text(var2);
 		$('#admId').attr('value', var1);
-		$('#factId').attr('value', var2);			
+		$('#factId').attr('value', var2);	
+		
+		if(var3 == 0){
+			$("#formats option[value=PrintInvoiceReportsServlet]").hide();
+		}
 	};
 	
 	function setV2(f){
@@ -87,6 +91,11 @@
 	
 	function formatSelected(f){
 		var opt = $('#formats').val();
+		if(opt=='PrintInvoiceCompactServlet'){
+			$('#correlativeNumberField').css('display','block');
+		}else{
+			$('#correlativeNumberField').css('display','none');
+		}
 		$('#printForm').attr('action', opt);
 		return true;
 	};
@@ -135,7 +144,7 @@
 										<td>Bs. <%= (b.getTotalWithDiscount() == null) ? b.getTotal() : b.getTotalWithDiscount() %></td>
 										<td>
 											<a id="go" rel="leanModal" href="#printUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars('<%= b.getAdmissionID() %>','<%= b.getBillID() %>');" >
+												onclick="return loadVars('<%= b.getAdmissionID() %>','<%= b.getBillID() %>','<%= b.getHasMultiplePaymentResponsibles() %>');" >
 												<img alt="logo" src="./images/print.png"  height="16" width="16" title="Imprimir"/>
 											</a>    
 											<a id="go" rel="leanModal" href="#discount" style="color: #f7941e; font-weight: bold;" 
@@ -172,8 +181,9 @@
 						<option value="PrintInvoiceServlet">Detallado</option>
 						<option value="PrintInvoiceServicesServlet">Servicios Auxiliares</option>
 						<option value="PrintInvoiceSuppliesServlet">Material M&eacute;dico y F&aacute;rmacos</option>
+						<option value="PrintInvoiceReportsServlet">Reportes</option>
 					</select><br><br>
-					<div>
+					<div id="correlativeNumberField">
 						N° de Correlativo: <input type="number" name="correlativeNumber" id="correlativeNumber" />
 					</div>
 					<br>

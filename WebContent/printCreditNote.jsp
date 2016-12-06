@@ -139,8 +139,7 @@
 	<body id="especial">
 		<div class="wrapper">
 		<div id="printHeader" class="header">
-			<div style="width:50%;float:left;">FACTURACIÓN VIDAMED</div>
-			<div style="width:50%;float:left;text-align:right;">Fecha: 17/07/2013</div>       	
+			<div style="width:100%;float:left;text-align:right;">Fecha: 17/07/2013</div>       	
         </div><br>
 		<div style="text-align:right;width:100%;font-size:11px;">Hora: 11:28:31 a.m.</div> <br>
 		<div id="title" style="font-size:14px; font-weight: bold;text-align:center;"> PREFACTURA # 201345032 </div>

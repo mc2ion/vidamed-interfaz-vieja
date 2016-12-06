@@ -65,12 +65,13 @@
 		   <%  } 
 		  	perm1  = PermissionsList.hasPermission(request, PermissionsList.pharmacyAdmin );
 		   	perm2  = PermissionsList.hasPermission(request, PermissionsList.pharmacyPatients );
-			if (perm1 || perm2){
+		   	boolean perm3  = PermissionsList.hasPermission(request, PermissionsList.pharmacyAdminRestricted);
+			if (perm1 || perm2 || perm3){
 		   %>
 		  	 <li class='has-sub'>
 				<a href='#'><span>Farmacia</span></a>
 			      <ul>
-			      	 <% if (perm1){ %>
+			      	 <% if (perm1 || perm3){ %>
 			         <li class='first'><a href='ListSupplyAreasServlet'><span>Administrar</span></a></li>
 			         <% } if (perm2){ %>
 			         <li class='last'><a href='ListSupplyServlet'><span>Ver Pacientes</span></a></li>
@@ -80,7 +81,7 @@
 		   <% } 
 		   	perm1  = PermissionsList.hasPermission(request, PermissionsList.billsH );
 		   	perm2  = PermissionsList.hasPermission(request, PermissionsList.billsRP );
-		   	boolean perm3  = PermissionsList.hasPermission(request, PermissionsList.billsGN );
+		   	perm3  = PermissionsList.hasPermission(request, PermissionsList.billsGN );
 		   	boolean perm4  = PermissionsList.hasPermission(request, PermissionsList.billsPP );
 		   	if (perm1 || perm2 || perm3 || perm4 ){
 		   %>
@@ -115,7 +116,8 @@
 		   <%
 			  }
 			  perm  = PermissionsList.hasPermission(request, PermissionsList.cashBoxes);
-		      if (perm){
+			  perm1 = PermissionsList.hasPermission(request, PermissionsList.admissionCashBoxes);
+		      if (perm || perm1){
 		   %>
 		   <li><a href='ListCashBoxesServlet'><span>Cajas</span></a></li>
 		   <%  }

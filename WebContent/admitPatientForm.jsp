@@ -81,7 +81,7 @@
 				var txtCedId	= $("#cedId option:selected").val();
 				var isAdult     = $("#isAdult option:selected").val();
 				var numPres		= $('#estimation').val();
-					$.get('SearchPatientServlet', {patientType: patientType, txtCedId: txtCedId , 
+					$.get('SearchUnadmittedPatientServlet', {patientType: patientType, txtCedId: txtCedId , 
 												txtCedIdNum: txtCedIdNum, estimation: numPres}, function(responseText) {
 						$('#progress').dialog('close');
 						//Cliente no encontrado

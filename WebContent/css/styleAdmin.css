@@ -1605,7 +1605,7 @@ div.box {
 .short-alert {
 	position: absolute;
 	text-align: center;
-	width: 295px;
+	width: 812px;
 	height: 220px;
 	line-height: 1.5em;
 	background: url('../images/dialogo.png') left top no-repeat;
@@ -1616,13 +1616,17 @@ div.box {
 	display: none;
 }
 
+#prname {
+	font-weight: bold;
+}
+
 .large-alert {
 	position: absolute;
 	text-align: center;
-	width: 295px;
-	height: 220px;
+	width: 812px;
+	height: auto;
 	line-height: 1.5em;
-	background: url('../images/dialogo4.png') left top no-repeat;
+	background-color: white;
 	padding: 60px 15px 10px 15px;
 	top: 180px;
 	left: 600px;
@@ -1630,12 +1634,29 @@ div.box {
 	display: none;
 }
 
+.large-alert .remove img {
+	width: 16px;
+	height: 16px;
+}
+
+.large-alert .hide {
+	display: none;
+}
+
+.large-alert .show {
+	display: block;
+}
+
+.large-alert input[type="checkbox"] {
+	margin-right: 5px;
+}
+
 .large-alert #signup-ct #see_id {
 	margin-top: -50px;
 }
 
 .large-alert input.buttonPopUpDelete {
-	top: 245px;
+	position: inherit;
 }
 
 .large-alert a#close_x {

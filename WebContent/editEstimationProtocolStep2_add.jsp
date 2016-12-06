@@ -19,6 +19,8 @@
 	
 	@SuppressWarnings("unchecked")
 	ArrayList<Unit> sArea = (ArrayList<Unit>)request.getAttribute("units");
+	
+	Integer hms = (Integer) request.getAttribute("hms");
 %>
 <%@page import="domain.User"%>
 <%
@@ -139,10 +141,10 @@
 											NumberFormat nf = NumberFormat.getInstance(Locale.FRANCE);
 											Number n = nf.parse(p.getCost());
 											Double perc = n.doubleValue();
-											if (perc == 0.00) cl = "fijos"; else if(perc != 1.00) cl = "hidden honorarios"; %>
+											if (perc == 0.00 || hms==0) cl = "fijos"; else if(perc != 1.00) cl = "hidden honorarios"; %>
 										<label class="w200">Honorarios: Bs. </label>
 										<input class="<%= cl%>" type="text" name="hon<%=p.getProtocolScaleID() %>" />
-										<div style="display:none" class="perc"><%= p.getCost() %></div>
+										<div style="display:none" class="perc"><%= (hms==0) ? "0.00" : p.getCost() %></div>
 									</td>
 									<td><input type="hidden" name="ids" value="<%= p.getProtocolScaleID() %>" /></td>
 									<% }else{ %>

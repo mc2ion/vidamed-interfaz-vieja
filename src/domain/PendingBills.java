@@ -16,6 +16,7 @@ public class PendingBills {
 	private String paymentDate;
 	private String totalWithDiscout;
 	private String totalPaid;
+	private int hasMultiplePaymentResponsibles;
 	
 	
 	public Long getBillID() {
@@ -120,6 +121,15 @@ public class PendingBills {
 	}
 	public String getTotalPaid() {
 		return totalPaid;
+	}
+
+	public void setHasMultiplePaymentResponsibles(
+			int hasMultiplePaymentResponsibles) {
+		this.hasMultiplePaymentResponsibles = hasMultiplePaymentResponsibles;
+	}
+
+	public int getHasMultiplePaymentResponsibles() {
+		return hasMultiplePaymentResponsibles;
 	}
 
 }

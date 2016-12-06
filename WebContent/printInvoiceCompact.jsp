@@ -75,7 +75,6 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 		}
 		
 		#especial{
-			background-image:url(null);
 			margin-left: 8%;
 			margin-right: 8%;
 			text-align: left;
@@ -165,13 +164,12 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 		 font-size:6px;}
 		 
 		 .wrapper {
-			min-height: 100%;
-			height: auto !important;
-			height: 100%;
-			margin: 0 auto -4em;
+			min-height: calc(100% - 6em);
+			margin: 0 auto -10em;
+			padding-top: 6em;
 		}
 		.footer, .push {
-			height: 4em;
+			height: 10em;
 		}
 		</style>
 	<script > 
@@ -189,8 +187,7 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 	<body id="especial">
 		<div class="wrapper">
 		<div id="printHeader" class="header">
-			<div style="width:50%;float:left;">HOSPITALIZACIÓN VIDAMED</div>
-			<div style="width:50%;float:left;text-align:right;"><b>Fecha: </b> <%= dateTxt %></div>       	
+			<div style="width:100%;text-align:right;float:left;"><b>Fecha: </b> <%= dateTxt %></div>       	
         </div><br>
 		<div style="text-align:right;width:100%;font-size:11px;"><b>Hora: </b><%= hour %></div> <br>
 		<% String fact = "FACTURA"; if (f.equals("cn")) fact = "PREFACTURA"; %>

@@ -39,6 +39,9 @@ public class Admission {
 	private String keyNumber;
 	private Double coverageAmount;
 	private String guaranteeLetter;
+	private Long billID;
+	private String responsiblePayment;
+	private String patientPayment;
 	
 	public Long getAdmissionID() {
 		return admissionID;
@@ -293,5 +296,35 @@ public class Admission {
 		return guaranteeLetter;
 	}
 
-		
+	public void setBillID(Long billID) {
+		this.billID = billID;
+	}
+
+	public Long getBillID() {
+		return billID;
+	}
+
+	public String getResponsiblePayment() {
+		return responsiblePayment;
+	}
+	
+	public void setResponsiblePayment(String str, Double responsiblePayment) {
+		if(str!=null){
+			this.responsiblePayment = Estimation.format.format(responsiblePayment);
+		} else {
+			this.responsiblePayment = null;
+		}
+	}
+	
+	public String getPatientPayment() {
+		return patientPayment;
+	}
+	
+	public void setPatientPayment(String str, Double patientPayment) {
+		if(str!=null){
+			this.patientPayment = Estimation.format.format(patientPayment);
+		} else {
+			this.patientPayment = null;
+		}
+	}
 }

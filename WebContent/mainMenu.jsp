@@ -20,7 +20,7 @@
       	<jsp:include page="./upperMenu.jsp" />        
 		<div id="menu">
 			
-			<div class="menuitemHome"><a href="#">Home</a></div>	
+			<div class="menuitemHome"><a href="/">Home</a></div>	
 			<div class="menuitemSalir"><a href="LogoutServlet"><%= name %> (Salir)</a></div>	
         </div>   	
        <jsp:include page="./menu.jsp" />    

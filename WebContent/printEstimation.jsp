@@ -122,8 +122,7 @@
 	<body id="especial">
 		<div class="wrapper">
 		<div id="printHeader" class="header">
-			<div style="width:50%;float:left;">HOSPITALIZACIÓN VIDAMED</div>
-			<div style="width:50%;float:left;text-align:right;">Fecha: 17/07/2013</div>       	
+			<div style="float:left;width:100%;text-align:right;">Fecha: 17/07/2013</div>       	
         </div><br>
 		<div style="text-align:right;width:100%;font-size:11px;">Hora: 11:28:31 a.m.</div> <br>
 		<div id="title" style="font-size:14px; font-weight: bold;text-align:center;"> PRESUPUESTO # 201345032 </div>

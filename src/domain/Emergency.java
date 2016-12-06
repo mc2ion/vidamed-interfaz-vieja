@@ -11,8 +11,13 @@ public class Emergency {
 	private long dischargeTypeId;
 	private Patient patient;
 	private Bed bed;
+	private Specialist specialist;
 	private LocationType location;
 	private String admissionDate;
+	private Unit unit;
+	private PaymentResponsible paymentResponsible;
+	private Double orHours;
+	private Integer roomDays;
 	
 	
 	public void setId(long id) {
@@ -103,4 +108,43 @@ public class Emergency {
 		return admissionDate;
 	}
 	
+	public void setSpecialist(Specialist specialist){
+		this.specialist = specialist;
+	}
+	
+	public Specialist getSpecialist(){
+		return specialist;
+	}
+	
+	public void setUnit(Unit unit){
+		this.unit = unit;
+	}
+	
+	public Unit getUnit(){
+		return unit;
+	}
+	
+	public void setResponsible(PaymentResponsible paymentResponsible){
+		this.paymentResponsible = paymentResponsible;
+	}
+	
+	public PaymentResponsible getResponsible(){
+		return paymentResponsible;
+	}
+
+	public void setOrHours(Double orHours) {
+		this.orHours = orHours;
+	}
+
+	public Double getOrHours() {
+		return orHours;
+	}
+
+	public void setRoomDays(Integer roomDays) {
+		this.roomDays = roomDays;
+	}
+
+	public Integer getRoomDays() {
+		return roomDays;
+	}
 }

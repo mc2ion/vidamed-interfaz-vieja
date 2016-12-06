@@ -13,6 +13,9 @@ import domain.Bed;
 import domain.Emergency;
 import domain.LocationType;
 import domain.Patient;
+import domain.PaymentResponsible;
+import domain.Specialist;
+import domain.Unit;
 
 public class GetEmergency implements DatabaseCommand {
 	
@@ -75,6 +78,24 @@ public class GetEmergency implements DatabaseCommand {
 				
 				//u.setAdmissionDate(rs.getString(12));
 				
+				Specialist e = new Specialist();
+				e.setId(rs.getLong(13));
+				e.setFirstName(rs.getString(14));
+				e.setLastName(rs.getString(15));
+				u.setSpecialist(e);
+				
+				Unit un = new Unit();
+				un.setUnitID(rs.getLong(16));
+				un.setName(rs.getString(17));
+				u.setUnit(un);
+				
+				PaymentResponsible r = new PaymentResponsible();
+				r.setId(rs.getLong(18));
+				r.setName(rs.getString(19));
+				u.setResponsible(r);
+				
+				u.setOrHours(rs.getDouble(20));
+				u.setRoomDays(rs.getInt(21));
 			}
 		}
 		finally {

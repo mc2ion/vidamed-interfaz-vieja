@@ -70,6 +70,11 @@ public class GetPendingAccounts implements DatabaseCommand {
 					}
 				}
 				
+				u.setHasMultiplePaymentResponsibles(rs.getInt(11));
+				u.setMainPaymentResponsible(rs.getInt(12));
+				u.setAdmissionID(rs.getLong(13));
+				u.setPaymentResponsibleID(rs.getLong(14));
+				
 				pList.add(u);
 			}
 		}

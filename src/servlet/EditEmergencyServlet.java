@@ -16,6 +16,7 @@ import domain.BedLocation;
 import domain.Emergency;
 import domain.PermissionsList;
 import domain.Protocol;
+import domain.Unit;
 import domain.User;
 
 
@@ -64,6 +65,10 @@ public class EditEmergencyServlet extends HttpServlet {
 				request.setAttribute("locations", lList);
 				
 				@SuppressWarnings("unchecked")
+				ArrayList<Unit> lLis = (ArrayList<Unit>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetUnits());
+				request.setAttribute("units", lLis);
+				
+				@SuppressWarnings("unchecked")
 				ArrayList<Protocol> protocols = (ArrayList<Protocol>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEstimationProtocols(String.valueOf(emergency.getEstimationId())));
 				request.setAttribute("protocols", protocols);
 				
@@ -97,11 +102,15 @@ public class EditEmergencyServlet extends HttpServlet {
 			try {
 				Long bedId 	 	 = Long.valueOf(request.getParameter("bed"));
 				Long admissionId = Long.valueOf(request.getParameter("admissionId"));
+				Long specId 	 	 = Long.valueOf(request.getParameter("specialist"));
+				Long unitId 	 	 = Long.valueOf(request.getParameter("unitId"));
 				
 				Integer result  = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.EditLocation(admissionId, bedId));
-				String text = "La ubicación del paciente fue actualizada exitosamente.";
+				result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.EditEstimationSpecialist(admissionId, specId, unitId));
+				
+				String text = "La emergencia fue actualizada exitosamente.";
 				if (result == 0)
-					text =	"Hubo un problema al actualizar la ubicación del paciente. Por favor, intente nuevamente.";
+					text =	"Hubo un problema al actualizar la emergencia. Por favor, intente nuevamente.";
 				
 				session.setAttribute("info", text);
 				response.sendRedirect(request.getContextPath() + "/ListEmergenciesServlet");

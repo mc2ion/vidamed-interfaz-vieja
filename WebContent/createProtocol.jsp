@@ -73,7 +73,7 @@
 		        	<fieldset id="field1">
 			            <h3>Informaci&oacute;n B&aacute;sica</h3><br/>
 			            <label for="name">Nombre:</label>
-						<input type="text" name="txtName" id="txtName" maxlength="50" size="5"/> <br style="clear:both;">
+						<input type="text" name="txtName" id="txtName" maxlength="70" size="5"/> <br style="clear:both;">
 						<label for="name">Descripci&oacute;n:</label>
 						<textarea name="txtDescription" id="txtDescription" rows="3" cols="50"></textarea> <br style="clear:both;"><br/>
 						<label for="name">Parecido A:</label>

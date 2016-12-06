@@ -61,6 +61,9 @@ public class EditEstimationProtocolServlet extends HttpServlet {
 				request.setAttribute("p", est);
 				RequestDispatcher rd;
 				
+				Integer hasMainSpecialist = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.HasMainSpecialist(protocolID));
+				request.setAttribute("hms", hasMainSpecialist);
+				
 				@SuppressWarnings("unchecked")
 				ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetBussinessMicros());
 				request.setAttribute("bm", bm);

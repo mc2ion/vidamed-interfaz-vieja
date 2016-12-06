@@ -54,7 +54,8 @@ public class CreatePaymentServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
 		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.cashBoxes);
-		if(userE != null && perm ){
+		boolean perm1 = PermissionsList.hasPermission(request, PermissionsList.admissionCashBoxes);
+		if(userE != null && (perm || perm1)){
 			
 			String search   = request.getParameter("search");
 			if (search != null){
@@ -113,7 +114,8 @@ public class CreatePaymentServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
 		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.cashBoxes);
-		if(userE != null && perm ){
+		boolean perm1 = PermissionsList.hasPermission(request, PermissionsList.admissionCashBoxes);
+		if(userE != null && (perm || perm1)){
 			
 			String adId 			= request.getParameter("adId");
 			String paymentType	 	= request.getParameter("paymentType");

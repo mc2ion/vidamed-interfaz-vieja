@@ -1,4 +1,5 @@
 <%@page import="domain.User"%>
+<%@ page import="domain.PermissionsList"%>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
@@ -18,6 +19,7 @@
 		info_text = info;
 	}
 	session.removeAttribute("info");
+	boolean perm = PermissionsList.hasPermission(request, PermissionsList.pharmacyAdminRestricted);
 %>
 <!DOCTYPE HTML>
 <html>
@@ -125,10 +127,12 @@
 													<a href="EditSupplyServlet?supplyID=<%= s.getSupplyID() %>" style="color: transparent" >
 														<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />
 													</a>
+													<% if(!perm){ %>
 													<a id="go" rel="leanModal" href="#deleteSupply" style="color: #f7941e; font-weight: bold;" 
 														onclick="return loadVars(<%= s.getSupplyID() %>,'<%= s.getName() %>');" >
 														<img alt="logo" src="./images/delete.png" height="16" width="16" title="Eliminar"/>
 													</a> 
+													<% } %>
 													<br>
 												</td>
 											</tr>

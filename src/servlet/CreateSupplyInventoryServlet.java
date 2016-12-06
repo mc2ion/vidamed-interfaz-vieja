@@ -51,8 +51,9 @@ public class CreateSupplyInventoryServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
 		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.pharmacyAdmin);
+		boolean perm1  = PermissionsList.hasPermission(request, PermissionsList.pharmacyAdminRestricted);
 		
-		if(userE != null && perm ){
+		if(userE != null && (perm || perm1)){
 			try {
 				Long supplyAreaID = Long.parseLong(request.getParameter("supplyAreaID"));
 				Long supplyID = Long.parseLong(request.getParameter("supplyID"));
@@ -86,8 +87,9 @@ public class CreateSupplyInventoryServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
 		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.pharmacyAdmin);
+		boolean perm1  = PermissionsList.hasPermission(request, PermissionsList.pharmacyAdminRestricted);
 		
-		if(userE != null && perm ){
+		if(userE != null && (perm || perm1)){
 			try {
 				String text_good = "El inventario fue creado exitosamente.";
 				String text_bad = "Se ha presentado un error al crear el inventario. Por favor, intente nuevamente.";
