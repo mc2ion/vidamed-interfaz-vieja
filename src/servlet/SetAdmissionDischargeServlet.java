@@ -54,46 +54,13 @@ public class SetAdmissionDischargeServlet extends HttpServlet {
 		if(userE != null){
 			try {
 				Long admissionID = Long.parseLong(request.getParameter("userId"));
-				String keyNumber = null;
 				
-				if(request.getParameter("keyNumber") != null && !request.getParameter("keyNumber").equalsIgnoreCase("")){
-					keyNumber = request.getParameter("keyNumber");
-				}
-				
-				Double coverageAmount = null;
-				
-				if(request.getParameter("coverageAmount") != null && !request.getParameter("coverageAmount").equalsIgnoreCase("")){
-					coverageAmount = Double.parseDouble(request.getParameter("coverageAmount"));
-				}
-				
-				String guaranteeLetter = null;
-				
-				if(request.getParameter("guaranteeLetter") != null && !request.getParameter("guaranteeLetter").equalsIgnoreCase("")){
-					guaranteeLetter = request.getParameter("guaranteeLetter");
-				}
-				
-				Integer hasMultiple = 0;
-				
-				if(request.getParameter("imrp") != null){
-					hasMultiple = 1;
-					String[] paymentResponsibles = request.getParameterValues("paymentId");
-					String[] keyNumbers = request.getParameterValues("additionalKeyNumber");
-					String[] coverageAmounts = request.getParameterValues("additionalCoverageAmount");
-					String[] guaranteeLetters = request.getParameterValues("additionalGuaranteeLetter");
-					
-					for(int i = 0; i < paymentResponsibles.length; i++){
-						Long apr = (paymentResponsibles[i].equals(""))?null:Long.parseLong(paymentResponsibles[i]);
-						String akn = (keyNumbers[i].equals(""))?null:keyNumbers[i];
-						Double aca = (coverageAmounts[i].equals(""))?null:Double.parseDouble(coverageAmounts[i]);
-						String agl = (guaranteeLetters[i].equals(""))?null:guaranteeLetters[i];
-						System.out.println("paymentResponsible:"+apr+", keyNumber:"+akn+", coverageAmount:"+aca+", guaranteeLetter:"+agl);
-						CommandExecutor.getInstance().executeDatabaseCommand(new command.AddAdmissionPaymentResponsible(admissionID, apr, akn, aca, agl));
-					}
-				}
+				Integer result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.UpdateAdmissionTotal(admissionID));
 								
-				System.out.println("keyNumber:"+keyNumber+", coverageAmount:"+coverageAmount+", guaranteeLetter:"+guaranteeLetter+", hasMultiple:"+hasMultiple);
-				Integer result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.SetAdmissionDischarge(admissionID, keyNumber, coverageAmount, guaranteeLetter, hasMultiple));
+				result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.SetAdmissionDischarge(admissionID));
+				
 				String text = "Se ha dado dado de alta exitosamente.";
+				
 				if (result == 0)
 					text = "Hubo un error al dar de alta. Por favor, intente nuevamente.";
 				session.setAttribute("info",text);

@@ -175,7 +175,7 @@
 			  		
 			  		<fieldset>
 					<label for="name">Nombre:</label>
-					<input type="text" name="txtName" id="txtName" maxlength="50" size="5" value="<%= responsible.getName() %>"/> <br><br>
+					<input type="text" name="txtName" id="txtName" maxlength="100" size="5" value="<%= responsible.getName() %>"/> <br><br>
 					<label for="name">Nombre de Contacto:</label>
 					<input type="text" name="txtNameContact" id="txtNameContact" maxlength="50" size="5" value="<%= responsible.getContactName() %>" /> <br><br>
 					<label for="name">RIF:</label>

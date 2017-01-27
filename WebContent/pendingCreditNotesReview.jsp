@@ -1,6 +1,7 @@
 <%@page import="domain.PendingCreditNotesReview"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="domain.User"%>
+<%@page import="domain.PaymentResponsible"%>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
@@ -10,6 +11,19 @@
 
 	@SuppressWarnings("unchecked")
 	ArrayList<PendingCreditNotesReview> cnList = (ArrayList<PendingCreditNotesReview>)request.getAttribute("creditNotes");
+	
+	Long cashPayment = (Long)request.getAttribute("cashPayment");
+	
+	@SuppressWarnings("unchecked")
+	ArrayList<PaymentResponsible> resp = (ArrayList<PaymentResponsible>)request.getAttribute("responsibles");
+	
+	String responsibles = "<select name=\"paymentId\" id=\"paymentId\"><option value=\"\">Seleccionar</option>";
+	for (int i = 0; i < resp.size(); i++){
+		PaymentResponsible p = resp.get(i);
+		String info = p.getName();
+		responsibles = responsibles + "<option value=\""+p.getId()+"\">"+info+"</option>";
+	}
+	responsibles += "</select>";
 	
 	String result = (String) session.getAttribute("info");
 	String text = "";
@@ -27,6 +41,32 @@
 	<script type="text/javascript" src="./js/jquery.dataTables.js"></script>
 	<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
 	<script type="text/javascript" charset="utf-8">
+	$(function() {
+		$(document).on("click", ".add", function(event){
+			var rowCount = $('#mrp table >tbody >tr').length;
+			var hide = '';
+			
+			$('.add').addClass("hide");
+			$('.remove').removeClass("hide");			
+			rowCount++;
+			
+			if(rowCount == 3){
+				hide = 'hide';
+			}
+			
+			$('#mrp table tbody').append('<tr><td><%= responsibles %></td><td><input type="text" id="additionalKeyNumber" name="additionalKeyNumber" /></td><td><input type="number" id="additionalCoverageAmount" name="additionalCoverageAmount" step="0.01" required /></td><td><input type="text" id="additionalGuaranteeLetter" name="additionalGuaranteeLetter" /></td><td><a class="add ' + hide + '"><img src="./images/add.png" /></a><a class="remove"><img src="./images/delete.png" /></a></td></tr>');
+		});
+		
+		$(document).on("click", ".remove", function(event){
+			this.closest("tr").remove();
+			$("#mrp table tbody tr").last().find(".add").removeClass("hide");
+			
+	      	if($("#mrp table tbody tr").length==1){
+				$("#mrp table tbody tr").last().find(".remove").addClass("hide");
+			}
+		});
+	});
+	
 	$(document).ready(function() {
 		$('#example').dataTable( {
 			"iDisplayLength": 7,
@@ -52,6 +92,16 @@
 	            "sSearch": "Buscar:"
         	}
 		} );
+		
+		$('#imrp').on("change", function(){
+			if(this.checked){
+				$('#mrp').removeClass("hide");
+				$('#mrp').addClass("show");
+			} else {
+				$('#mrp').addClass("hide");
+				$('#mrp').removeClass("show");
+			}
+		});
 	} );
 	</script>
 	<script type="text/javascript">
@@ -61,17 +111,29 @@
 		$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x" });		
 	});
 	
-	function loadVars(var1, var2) {
+	function loadVars(var1, var2, var3, var4, var5) {
 		idUser = var1;
+		idAdmi = var5;
 		$('.cliente').text(var2);
-		
+		if(var3 != <%= cashPayment %>){
+			$('#seguro').css('display', 'block');
+			$('#generateInvoice').removeClass('short-alert');
+			$('#generateInvoice').addClass('large-alert');
+			$('#prname').text(var4);
+		} else {
+			$('#seguro').css('display', 'none');
+			$('#generateInvoice').removeClass('large-alert');
+			$('#generateInvoice').addClass('short-alert');
+			$('#mrp').remove();
+		}
 	};
 	
 	function setV(f){
 		f.elements['userId'].value = idUser;
+		f.elements['admiId'].value = idAdmi;
+		
 		return true;
 	}
-	
 	
 	</script>
 </head>
@@ -133,7 +195,7 @@
 												<img alt="logo" src="./images/refresh.png"  height="16" width="16" title="Reenviar Prefactura" />
 											</a>
 											<a id="go" rel="leanModal" href="#generateInvoice" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars(<%= p.getCreditNoteID() %>,'<%= pName %>');" >
+												onclick="return loadVars(<%= p.getCreditNoteID() %>,'<%= pName %>','<%= p.getPaymentResposible().getId() %>','<%= p.getPaymentResposible().getName() %>','<%= p.getAdmissionID() %>');" >
 												<img alt="logo" src="./images/check.png" height="16" width="16" title="Generar Factura"/>
 											</a> 
 											<br>
@@ -164,7 +226,7 @@
 		 		</form>
 			</div>
 		</div>
-		<div id="generateInvoice">
+		<div id="generateInvoice" class="short-alert">
 			<div id="signup-ct">
 				<h3 id="see_id" class="sprited" > Generar Factura</h3>
 				<br><br>
@@ -175,7 +237,53 @@
 				<form action="CreateBillServlet" method="post"  onsubmit="return setV(this)">
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
 					<input type="hidden" id="userReviewId" class="good_input" name="userReviewId"  value="<%= user.getUserID() %>"/>
-					
+					<input type="hidden" id="admiId" class="good_input" name="admiId"  value=""/>
+					<div id="seguro">
+						<div>Responsable de Pago: <span id="prname"></span></div>
+						<br>
+						<div>N° Clave: <input type="text" id="keyNumber" name="keyNumber" /></div>
+						<br>
+						<div>Monto Cobertura: <input type="number" id="coverageAmount" name="coverageAmount" step="0.01" /></div>
+						<br>
+						<div>N° Carta Aval: <input type="text" id="guaranteeLetter" name="guaranteeLetter" /></div>
+						<br>
+						<div><input type="checkbox" id="imrp" name="imrp" value="1">Multiples Responsables de Pago</div>
+						<br>
+						<div id="mrp" class="hide">
+							<table>
+								<thead>
+									<tr>
+										<th>Responsable de Pago</th>
+										<th>N° Clave</th>
+										<th>Monto Cobertura</th>
+										<th>N° Carta Aval</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<%= responsibles %>
+										</td>
+										<td>
+											<input type="text" id="additionalKeyNumber" name="additionalKeyNumber" />
+										</td>
+										<td>
+											<input type="number" id="additionalCoverageAmount" name="additionalCoverageAmount" step="0.01" />
+										</td>
+										<td>
+											<input type="text" id="additionalGuaranteeLetter" name="additionalGuaranteeLetter" />
+										</td>
+										<td>
+											<a class="add"><img src="./images/add.png" /></a>
+											<a class="remove hide"><img src="./images/delete.png" /></a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<br>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
 					</div>

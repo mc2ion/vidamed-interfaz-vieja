@@ -148,6 +148,7 @@
 									<option value="12" >Facturas</option>
 									<option value="13" selected>Admisión</option>
 									<option value="14" >Honorarios Médicos</option>
+									<option value="15" >Libro de Ventas</option>
 								</select>
 								<input type="submit" value="Buscar"/>
 						</form><br/><br/>

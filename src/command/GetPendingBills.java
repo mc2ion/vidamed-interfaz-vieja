@@ -53,6 +53,7 @@ public class GetPendingBills implements DatabaseCommand {
 				u.setTotalWithDiscount(rs.getString(13));
 				u.setTotalPaid(rs.getString(14));
 				u.setHasMultiplePaymentResponsibles(rs.getInt(15));
+				u.setCreditNoteID(rs.getLong(16));
 				admissions.add(u);
 			}
 		}

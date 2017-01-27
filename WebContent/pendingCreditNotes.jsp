@@ -42,6 +42,8 @@
 				null,
 				null,
 				null,
+				null,
+				null,
 				{ "bSearchable": false, "asSorting": false, "sWidth": "18%" }
 			],
 			"oLanguage": {
@@ -107,6 +109,8 @@
 										<th>Médico Tratante</th>
 										<th>Responsable Pago</th>
 										<th>Total</th>
+										<th>Fecha Ingreso</th>
+										<th>Tipo Caso</th>
 										<th>Acciones</th>
 									</tr>
 								</thead>
@@ -123,6 +127,8 @@
 										<td><%= eName %></td>
 										<td><%= rName %></td>
 										<td><%= (cn.getTotalWithDiscount() != null) ? cn.getTotalWithDiscount() : cn.getTotal() %></td>
+										<td><%= cn.getAdmissionDate() %></td>
+										<td><%= cn.getReasonName() %></td>
 										<td>
 											<a id="go" rel="leanModal" href="#printUser" style="color: #f7941e; font-weight: bold;" 
 												onclick="return loadVars('<%= cn.getAdmissionID() %>','<%= cn.getCreditNoteID() %>');" >

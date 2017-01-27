@@ -1,7 +1,9 @@
 package servlet;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Properties;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
+import domain.PaymentResponsible;
 import domain.PendingCreditNotes;
 import domain.PermissionsList;
 import domain.User;
@@ -53,6 +56,16 @@ public class ListCreditNotesReviewServlet extends HttpServlet {
 				@SuppressWarnings("unchecked")
 				ArrayList<PendingCreditNotes> creditNotes = (ArrayList<PendingCreditNotes>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPendingCreditNotesReview());
 				request.setAttribute("creditNotes", creditNotes);
+				
+				@SuppressWarnings("unchecked")
+				ArrayList<PaymentResponsible> responsibles = (ArrayList<PaymentResponsible>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPaymentResponsibles());
+				request.setAttribute("responsibles", responsibles);
+				
+				Properties propertiesFile = new Properties();
+				propertiesFile.load( new FileInputStream( getServletContext().getInitParameter("properties")));
+				Long cashPayment = Long.parseLong(propertiesFile.getProperty("cashPayment"));
+				request.setAttribute("cashPayment", cashPayment);
+				
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/pendingCreditNotesReview.jsp");
 				rd.forward(request, response);
 			} 

@@ -8,13 +8,15 @@
 		name = user.getFirstName() ;
 	
 	@SuppressWarnings("unchecked")
-	ArrayList<PendingBills> bills = (ArrayList<PendingBills>) request.getAttribute("bills");;
+	ArrayList<PendingBills> bills = (ArrayList<PendingBills>) request.getAttribute("bills");
 	
 	String result = (String) session.getAttribute("info");
 	String text = "";
 	if (result != null)
 		text = result;
 	session.removeAttribute("info");
+	
+	Long cashPayment = (Long)request.getAttribute("cashPayment");
 %>
 <!DOCTYPE HTML>
 <html>
@@ -63,14 +65,18 @@
 		$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x" });		
 	});
 	
-	function loadVars(var1, var2, var3) {
+	function loadVars(var1, var2, var3, var4) {
 		//idUser = var1;
-		$('.cliente').text(var2);
+		$('.cliente').text(var4);
 		$('#admId').attr('value', var1);
-		$('#factId').attr('value', var2);	
+		$('#factId').attr('value', var2);
+		$('#prefactId').attr('value', var4);
+		console.log("test:", var3, <%= cashPayment %>, var3 == <%= cashPayment %>);
 		
-		if(var3 == 0){
+		if(var3 == <%= cashPayment %>){
 			$("#formats option[value=PrintInvoiceReportsServlet]").hide();
+		} else {
+			$("#formats option[value=PrintInvoiceReportsServlet]").show();
 		}
 	};
 	
@@ -78,10 +84,10 @@
 		return true;
 	};
 	
-	function loadVars2(var1, var2) {
+	function loadVars2(var1, var2, var3) {
 		idUser = var1;
 		$('.cliente').text(var2);	
-		$('.pid').text(var1);		
+		$('.pid').text(var3);		
 	};
 	
 	function setV2(f){
@@ -137,18 +143,18 @@
 										
 									%>
 									<tr class="gradeA">
-										<td><%= b.getBillID() %></td>
+										<td><%= b.getCreditNoteID() %></td>
 										<td><%= pName %></td>
 										<td><%= eName %></td>
 										<td><%= b.getPaymentResposible().getName() %></td>
 										<td>Bs. <%= (b.getTotalWithDiscount() == null) ? b.getTotal() : b.getTotalWithDiscount() %></td>
 										<td>
 											<a id="go" rel="leanModal" href="#printUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars('<%= b.getAdmissionID() %>','<%= b.getBillID() %>','<%= b.getHasMultiplePaymentResponsibles() %>');" >
+												onclick="return loadVars('<%= b.getAdmissionID() %>','<%= b.getBillID() %>','<%= b.getPaymentResposible().getId() %>','<%= b.getCreditNoteID() %>');" >
 												<img alt="logo" src="./images/print.png"  height="16" width="16" title="Imprimir"/>
 											</a>    
 											<a id="go" rel="leanModal" href="#discount" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars2('<%= b.getBillID() %>', '<%= pName  %>');" >
+												onclick="return loadVars2('<%= b.getBillID() %>', '<%= pName  %>','<%= b.getCreditNoteID() %>');" >
 												<img alt="logo" src="./images/check.png"  height="16" width="16" title="Generada"/>
 											</a>  
 											<br>
@@ -175,6 +181,7 @@
 				<form action="PrintInvoiceCompactServlet" method="post"  onsubmit="return setV(this)" id="printForm" style="text-align: center;">
 					<input type="hidden" id="admId" class="good_input" name="admId"  value=""/>
 					<input type="hidden" id="factId" class="good_input" name="factId"  value=""/>
+					<input type="hidden" id="prefactId" class="good_input" name="prefactId"  value=""/>
 					<input type="hidden" id="f" class="good_input" name="f"  value="in"/>
 					<select onchange="return formatSelected(this)" id="formats">
 						<option value="PrintInvoiceCompactServlet">Compacto</option>

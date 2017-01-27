@@ -56,16 +56,12 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 		function printPageContentB() {
 			div = document.getElementById('botonera');
 			div.style.display = "none";
-			div2 = document.getElementById('footList');
-			div2.style.display = "block";
 			window.print();
 		}
 		
 		function unPrintPageContentB() {
 			div = document.getElementById('botonera');
 			div.style.display = "block";
-			div2 = document.getElementById('footList');
-			div2.style.display = "none";
 		}
 		
 		</script>
@@ -339,15 +335,6 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 				</form>
 			</div>
 		<div class="push"></div>
-        </div>
-        <div class="footer" id="footer">
-		<ul class="a" style="display:none;" id="footList">
-  			<li>PRESUPUESTO VÁLIDO POR QUINCE (15) DÍAS, A PARTIR DE LA FECHA DE ELABORACIÓN.</li>
-  			<li>EL MATERIAL MÉDICO QUIRÚRGICO, FÁRMACOS EN HABITACIÓN, GASES, ANESTÉSICOS Y MEDICAMENTOS SON MONTOS ESTIMADOS QUE PUEDEN VARIAR DE ACUERDO AL CONSUMO.</li>
-  			<li>LOS EXÁMENES PRE-OPERATORIOS Y LA PRE-ADMISIÓN DEBEN HACERSE ANTES DE LA FECHA DE INTERVENCIÓN.</li>
-  			<li>LOS PACIENTES QUE NO TENGAN PÓLIZA DE SEGUROS, PUEDEN CANCELAR EN EFECTIVO, TARJETAS DE CRÉDITO, DÉBITO O CHEQUE DE GERENCIA. EN CASO DE POSEER CHEQUE DE COMPAÑÍA, DEBE TRAERLO A LA INSTITUCIÓN OCHO (8) DÍAS ANTES DE LA INTERVENCIÓN PARA HACER LA RESPECTIVA VERIFICACIÓN.</li>
-  			<li>LOS PACIENTES QUE POSEEN PÓLIZA DE SEGUROS DEBEN CANCELAR AL MOMENTO DEL INGRESO LA DIFERENCIA QUE EXISTA ENTRE LA CARTA AVAL Y EL PRESUPUESTO.</li>
-		</ul>		
-		</div>			
+        </div>		
 	</body>
 </html>

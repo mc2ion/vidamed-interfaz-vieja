@@ -402,7 +402,7 @@
 										<% for (int i=0; i< sp.size(); i++){ 
 											CashBoxSalePoint spe = sp.get(i); 
 										%>
-										<option value="<%= spe.getCashBoxID() %>"><%= spe.getName() %></option>
+										<option value="<%= spe.getSalePointID() %>"><%= spe.getName() %></option>
 										<% } %>
 									</select> <br><br>
 									<label for="name">N° de Aprobación:</label>

@@ -1,7 +1,9 @@
 package servlet;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Properties;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -52,6 +54,12 @@ public class ListInvoicesServlet extends HttpServlet {
 				@SuppressWarnings("unchecked")
 				ArrayList<PendingBills> bills = (ArrayList<PendingBills>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPendingBills());
 				request.setAttribute("bills", bills);
+				
+				Properties propertiesFile = new Properties();
+				propertiesFile.load( new FileInputStream( getServletContext().getInitParameter("properties") ) );
+				Long cashPayment = Long.parseLong(propertiesFile.getProperty("cashPayment"));
+				request.setAttribute("cashPayment", cashPayment);
+				
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/pendingInvoices.jsp");
 				rd.forward(request, response);
 			} 

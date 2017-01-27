@@ -17,6 +17,7 @@ public class PendingBills {
 	private String totalWithDiscout;
 	private String totalPaid;
 	private int hasMultiplePaymentResponsibles;
+	private Long creditNoteID;
 	
 	
 	public Long getBillID() {
@@ -130,6 +131,14 @@ public class PendingBills {
 
 	public int getHasMultiplePaymentResponsibles() {
 		return hasMultiplePaymentResponsibles;
+	}
+
+	public void setCreditNoteID(Long creditNoteID) {
+		this.creditNoteID = creditNoteID;
+	}
+
+	public Long getCreditNoteID() {
+		return creditNoteID;
 	}
 
 }

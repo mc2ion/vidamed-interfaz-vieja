@@ -224,11 +224,11 @@ ArrayList<Protocol> pList = (ArrayList<Protocol>) request.getAttribute("plist");
 						<tr>
 							<td colspan="2"><%= lList.get(j).getBussinessRuleMicroName() %></td>
 							<% 
-							  /*double amount = Double.parseDouble(lList.get(j).getEstimationCost());
+							  /*double amount = Double.parseDouble(lList.get(j).getCost());
 							  DecimalFormat formatter = new DecimalFormat("#,###.##");
 							  String number = formatter.format(amount) ;*/
 							%> 
-							<td style="width:20%;text-align:right;"><%= lList.get(j).getEstimationCost() %></td>
+							<td style="width:20%;text-align:right;"><%= lList.get(j).getCost() %></td>
 						</tr>
 						<% } 
 						} %>

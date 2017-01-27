@@ -233,7 +233,7 @@ ArrayList<Protocol> pList = (ArrayList<Protocol>) request.getAttribute("plist");
 						if (pList.get(i).getProtocolID().equals(pt.getProtocolID())){
 
 							if ((pt.getBussinessRuleMicroID()==id)){
-								double d = Estimation.format.parse(pt.getEstimationCost()).doubleValue();
+								double d = Estimation.format.parse(pt.getCost()).doubleValue();
 								subtotal = subtotal + d;
 							} else {
 								if(id != 0L){
@@ -248,13 +248,13 @@ ArrayList<Protocol> pList = (ArrayList<Protocol>) request.getAttribute("plist");
 									<th style="width:20%;text-align:right;">Precio Bs.F.</th>
 								</tr>									
 							<% 
-								subtotal = Estimation.format.parse(pt.getEstimationCost()).doubleValue();
+								subtotal = Estimation.format.parse(pt.getCost()).doubleValue();
 								id = pt.getBussinessRuleMicroID();
 							} 
 							%>
 							<tr>
 							<td style="width:50%"><%= pt.getProtocolScaleName() %></td>
-							<td style="width:20%;text-align:right;"><%= pt.getEstimationCost()%></td>
+							<td style="width:20%;text-align:right;"><%= pt.getCost()%></td>
 							</tr>
 					<% 
 						}

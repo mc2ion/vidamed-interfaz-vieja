@@ -168,7 +168,7 @@
 				<form id="form1" name="form1" action="CreatePaymentResponsibleServlet" method="post" novalidate>
 	  				<fieldset>
 					<label for="name">Nombre:</label>
-					<input type="text" name="txtName" id="txtName" maxlength="50" size="5" /> <br><br>
+					<input type="text" name="txtName" id="txtName" maxlength="100" size="5" /> <br><br>
 					<label for="name">Nombre de Contacto:</label>
 					<input type="text" name="txtNameContact" id="txtNameContact" maxlength="50" size="5" /> <br><br>
 					<label for="name">RIF:</label>

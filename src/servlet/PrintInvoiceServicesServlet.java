@@ -58,6 +58,7 @@ public class PrintInvoiceServicesServlet extends HttpServlet {
 			String estimation;
 			ArrayList<Service> costs;
 			String factId   = request.getParameter("factId");
+			String prefactId   = request.getParameter("prefactId");
 			String f 		= request.getParameter("f");
 			Long correlativeNumber = null;
 			if(request.getParameter("correlativeNumber")!=null && !request.getParameter("correlativeNumber").equalsIgnoreCase("")){
@@ -81,6 +82,11 @@ public class PrintInvoiceServicesServlet extends HttpServlet {
 				
 				ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetBussinessMicros());
 				request.setAttribute("bm", bm);
+				
+				if(prefactId != null){
+					factId = prefactId;
+				}
+				
 				request.setAttribute("factId", factId);
 				request.setAttribute("f", f);
 				

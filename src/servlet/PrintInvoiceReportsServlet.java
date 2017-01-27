@@ -43,6 +43,7 @@ public class PrintInvoiceReportsServlet extends HttpServlet {
 			System.out.println(admissionID);
 			Admission admission;
 			String factId   = request.getParameter("factId");
+			String prefactId   = request.getParameter("prefactId");
 			String f 		= request.getParameter("f");
 			
 			try {
@@ -50,7 +51,11 @@ public class PrintInvoiceReportsServlet extends HttpServlet {
 				request.setAttribute("admission", admission);
 				
 				ArrayList<AdmissionPaymentResponsible> responsibles = (ArrayList<AdmissionPaymentResponsible>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetAdmissionPaymentResponsibles(admissionID));
-				request.setAttribute("responsibles", responsibles);				
+				request.setAttribute("responsibles", responsibles);		
+				
+				if(prefactId != null){
+					factId = prefactId;
+				}
 				
 				request.setAttribute("factId", factId);
 				request.setAttribute("f", f);	

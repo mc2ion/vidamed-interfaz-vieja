@@ -1,5 +1,5 @@
 <%@page import="sun.font.EAttribute"%>
-<%@page import="domain.PendingBills"%>
+<%@page import="domain.Sale"%>
 <%@page import="domain.Admission"%>
 <%@ page import="domain.User" %>
 <%@ page import="java.util.ArrayList" %>
@@ -16,17 +16,10 @@
 		modSelect = Integer.valueOf(modId);
 	
 	@SuppressWarnings("unchecked")
-	ArrayList<PendingBills> mfList = (ArrayList<PendingBills>)request.getAttribute("pp");
-	
-	String billid 					= (String) request.getAttribute("billid");
-	String estimationid 			= (String)request.getAttribute("estimationid");
-	String paymentresponsiblename 	= (String)request.getAttribute("paymentresponsiblename");
-	String wasgenerated 			= (String)request.getAttribute("wasgenerated");
-	String generationfrom 			= (String)request.getAttribute("generationfrom");
-	String generationto 			= (String)request.getAttribute("generationto");
-	String waspaid 					= (String)request.getAttribute("waspaid");
-	String paymentfrom 				= (String) request.getAttribute("paymentfrom");
-	String paymentto				= (String)request.getAttribute("paymentto");
+	ArrayList<Sale> mfList = (ArrayList<Sale>)request.getAttribute("pp");
+
+	String dischargefrom 			= (String)request.getAttribute("dischargefrom");
+	String dischargeto 			= (String)request.getAttribute("dischargeto");
 %>
 <!DOCTYPE HTML>
 <html>
@@ -42,34 +35,6 @@
 	<script type="text/javascript" src="./js/jquery.ui.datepicker-es.js"></script>
 		<script type="text/javascript">
 		$(function() {
-		    $( "#txtDateIni" ).datepicker({
-		      changeMonth: true,
-		      numberOfMonths: 1,
-		      onClose: function( selectedDate ) {
-		        $( "#txtDateEnd" ).datepicker( "option", "minDate", selectedDate );
-		      },
-			    showOn: "button",
-				buttonImage: "images/calendar.png",
-				buttonImageOnly: true,
-				buttonText: "Seleccione una fecha",
-				dateFormat:'dd/mm/yy',
-				changeMonth: true,
-			    changeYear: true
-		    });
-		    $( "#txtDateEnd" ).datepicker({
-		      changeMonth: true,
-		      numberOfMonths: 1,
-		      onClose: function( selectedDate ) {
-		        $( "#txtDateIni" ).datepicker( "option", "maxDate", selectedDate );
-		      },
-		      showOn: "button",
-				buttonImage: "images/calendar.png",
-				buttonImageOnly: true,
-				buttonText: "Seleccione una fecha",
-				dateFormat:'dd/mm/yy',
-				changeMonth: true,
-			    changeYear: true
-		    });
 			$( "#txtDateIniR" ).datepicker({
 		      changeMonth: true,
 		      numberOfMonths: 1,
@@ -143,7 +108,7 @@
         </div>        
 		 <jsp:include page="./menu.jsp" />
 		<div id="content" style="min-height: 600px;">  
-			<h2>Reportes Facturas</h2>
+			<h2>Reporte Libro de Ventas</h2>
 			<div id="dt_example">
 					<div id="container">
 						<form action="ListReportsServlet" method="post">
@@ -161,46 +126,21 @@
 									<option value="9" >Laboratorio</option>
 									<option value="10" >Interconsultas</option>
 									<option value="11" >Descuentos</option>
-									<option value="12" selected>Facturas</option>
+									<option value="12" >Facturas</option>
 									<option value="13" >Admisión</option>
 									<option value="14" >Honorarios Médicos</option>
-									<option value="15" >Libro de Ventas</option>
+									<option value="15" selected>Libro de Ventas</option>
 								</select>
 								<input type="submit" value="Buscar"/>
 						</form><br/><br/>
-						<form action="ListBillReportServlet" style="margin-top: -10px;" method="post" >
+						<form action="SalesBookReportServlet" style="margin-top: -10px;" method="post" >
 						Si lo desea, puede filtrar la búsqueda por cualquiera de los siguientes parámetros:
   						<div>
 							<fieldset style="text-align: left; margin-left:0px;">
 							<table style="width:100%;">
 								<tr>
-									<td><b># Factura:</b></td><td><input  type="text" name="billId" maxlength="50" size="20" value="<%= (billid != null) ? billid : "" %>" /></td>
-									<td><b># Estimación:</b></td><td><input  type="text" name="estimationId" maxlength="50" size="20" value="<%= (estimationid != null) ? estimationid : "" %>" /></td>
-									<td><b>Responsable de Pago:</b></td><td><input  type="text" name="paymentresponsiblename" maxlength="50" size="20" value="<%= (paymentresponsiblename != null) ? paymentresponsiblename : "" %>" /></td>
-								</tr>
-								<tr>
-									<td><b>¿Fue generada?:</b></td>
-									<td>
-									<select name="wasGenerated">
-										<option value="-">Ambos</option>
-										<option value="1" <%= ( "1".equals(wasgenerated)) ? "selected" : "" %>>Si</option>
-										<option value="0" <%= ( "0".equals(wasgenerated)) ? "selected" : "" %>>No</option>
-									</select>
-									</td>
-									<td><b>Generada Desde:</b></td><td><input  type="text" name="generationfrom" id="txtDateIniR" maxlength="50" size="20" value="<%= (generationfrom != null) ? generationfrom : "" %>" /></td>
-									<td><b>Generada Hasta:</b></td><td><input  type="text" name="generationto" id="txtDateEndR" maxlength="50" size="20" value="<%= (generationto != null) ? generationto : "" %>" /></td>
-								</tr>
-								<tr>
-									<td><b>¿Fue pagada?:</b></td>
-									<td>
-									<select name="wasPaid">
-										<option value="-">Ambos</option>
-										<option value="1" <%= ( "1".equals(waspaid)) ? "selected" : "" %>>Si</option>
-										<option value="0" <%= ( "0".equals(waspaid)) ? "selected" : "" %>>No</option>
-									</select>
-									</td>
-									<td><b>Pagada Desde:</b></td><td><input  type="text" name="paymentfrom" id="txtDateIni" maxlength="50" size="20" value="<%= (paymentfrom != null) ? paymentfrom : "" %>" /></td>
-									<td><b>Pagada Hasta:</b></td><td><input  type="text" name="paymentto" id="txtDateEnd" maxlength="50" size="20" value="<%= (paymentto != null) ? paymentto : "" %>" /></td>
+									<td><b>Egreso Desde:</b></td><td><input  type="text" name="dischargefrom" id="txtDateIniR" maxlength="50" size="20" value="<%= (dischargefrom != null) ? dischargefrom : "" %>" /></td>
+									<td><b>Egreso Hasta:</b></td><td><input  type="text" name="dischargeto" id="txtDateEndR" maxlength="50" size="20" value="<%= (dischargeto != null) ? dischargeto : "" %>" /></td>
 								</tr>
 							</table>	
 							<input type="submit" class="buttonGreen lessPadding"   style="float: right; margin-right:40px; margin-top: 5px;" value="Buscar">
@@ -211,35 +151,26 @@
 								<table id="sweetTable" >
 									<thead>
 										<tr>
-											<th>Id</th>
-											<th>Responsable de Pago</th>
-											<th>Monto</th>
-											<th>¿Fue generada?</th>
-											<th>Fecha Generación</th>
-											<th>¿Fue Pagada?</th>
-											<th>Fecha Pago</th>
-											<th></th>
+											<th>N° Factura</th>
+											<th>N° Correlativo</th>
+											<th>Paciente</th>
+											<th>N° C&eacute;dula</th>
+											<th>Total Ventas</th>
+											<th>Fecha Egreso</th>
 										</tr>
 									</thead>
 									<tbody>		
 									<% 	if (mfList != null && mfList.size() > 0 ){
 											for (int i = 0; i < mfList.size(); i++){ 
-											PendingBills u = mfList.get(i); 
+											Sale u = mfList.get(i); 
 									%>
 										<tr>
 											<td><%= u.getBillID() %></td>
-											<td><%= u.getPaymentResposible().getName() %></td>
+											<td><%= u.getCorrelativeNumber() %></td>
+											<td><%= u.getFirstName() + ' ' + u.getLastName() %></td>
+											<td><%= u.getIdentityCard() %></td>
 											<td><%= u.getTotal() %></td>
-											<td><%= (u.getWasGenerated() == 1)? "Si" : "No" %></td>
-											<td><%= (u.getGenerationDate() != null)? u.getGenerationDate() : "-" %></td>
-											<td><%= (u.getWasPaid() == 1)? "Si" : "No" %></td>
-											<td><%= (u.getPaymentDate() != null)? u.getPaymentDate() : "-" %></td>
-											<td>
-												<a id="go" rel="leanModal" href="#printUser" style="color: #f7941e; font-weight: bold;" 
-												onclick="return loadVars('<%= u.getAdmissionID() %>','<%= u.getBillID() %>');" >
-												<img alt="logo" src="./images/print.png"  height="16" width="16" title="Imprimir"/>
-											</a> 
-											</td>
+											<td><%= u.getDischargeDate() %></td>
 										</tr>
 									<% 		}
 										}else{									

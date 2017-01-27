@@ -12,6 +12,8 @@ public class PendingCreditNotes {
 	private Long admissionID;
 	private String totalWithDiscout;
 	private String totalPaid;
+	private String admissionDate;
+	private String reasonName;
 	
 	
 	public Long getCreditNoteID() {
@@ -84,6 +86,22 @@ public class PendingCreditNotes {
 	}
 	public String getTotalPaid() {
 		return totalPaid;
+	}
+
+	public void setAdmissionDate(String admissionDate) {
+		this.admissionDate = admissionDate;
+	}
+
+	public String getAdmissionDate() {
+		return admissionDate;
+	}
+
+	public void setReasonName(String reasonName) {
+		this.reasonName = reasonName;
+	}
+
+	public String getReasonName() {
+		return reasonName;
 	}
 
 }
