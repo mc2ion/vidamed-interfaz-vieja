@@ -27,6 +27,15 @@
 	String waspaid 					= (String)request.getAttribute("waspaid");
 	String paymentfrom 				= (String) request.getAttribute("paymentfrom");
 	String paymentto				= (String)request.getAttribute("paymentto");
+	String patientname				= (String)request.getAttribute("patientname");
+	String identityCard 			= (String)request.getAttribute("identitycard");
+	String str = "", num = "";
+	if (identityCard != null && identityCard != ""){
+		str = identityCard.substring(0,2);
+		num = identityCard.substring(2);
+	}
+	String specialistname			= (String)request.getAttribute("specialistname");
+	String admissiondate			= (String)request.getAttribute("admissiondate");
 %>
 <!DOCTYPE HTML>
 <html>
@@ -89,6 +98,20 @@
 		      numberOfMonths: 1,
 		      onClose: function( selectedDate ) {
 		        $( "#txtDateIniR" ).datepicker( "option", "maxDate", selectedDate );
+		      },
+		      showOn: "button",
+				buttonImage: "images/calendar.png",
+				buttonImageOnly: true,
+				buttonText: "Seleccione una fecha",
+				dateFormat:'dd/mm/yy',
+				changeMonth: true,
+			    changeYear: true
+		    });
+			$( "#txtAdminDate" ).datepicker({
+		      changeMonth: true,
+		      numberOfMonths: 1,
+		      onClose: function( selectedDate ) {
+		        $( "#txtAdminDate" ).datepicker( "option", "maxDate", selectedDate );
 		      },
 		      showOn: "button",
 				buttonImage: "images/calendar.png",
@@ -165,6 +188,7 @@
 									<option value="13" >Admisión</option>
 									<option value="14" >Honorarios Médicos</option>
 									<option value="15" >Libro de Ventas</option>
+									<option value="16" >Facturación detallada</option>
 								</select>
 								<input type="submit" value="Buscar"/>
 						</form><br/><br/>
@@ -201,6 +225,23 @@
 									</td>
 									<td><b>Pagada Desde:</b></td><td><input  type="text" name="paymentfrom" id="txtDateIni" maxlength="50" size="20" value="<%= (paymentfrom != null) ? paymentfrom : "" %>" /></td>
 									<td><b>Pagada Hasta:</b></td><td><input  type="text" name="paymentto" id="txtDateEnd" maxlength="50" size="20" value="<%= (paymentto != null) ? paymentto : "" %>" /></td>
+								</tr>
+								<tr>
+									<td><b>Paciente:</b></td><td><input  type="text" name="patientname" maxlength="100" size="20" value="<%= (patientname != null) ? patientname : "" %>" /></td>
+									<td><b>C&eacute;dula de Identidad:</b></td>
+									<td>
+										<select name="txtCedId" id="txtCedId">
+											<option value="V-" <%= (str.equals("V-"))?"selected":"" %>>V</option>
+											<option value="E-" <%= (str.equals("E-"))?"selected":"" %>>E</option>
+										</select>
+										<input type="text" name="txtCedIdNum" id="txtCedIdNum" maxlength="50" size="18" value="<%= num %>"/>
+									</td>
+									<td><b>Especialista M&eacute;dico:</b></td><td><input  type="text" name="specialistname" maxlength="100" size="20" value="<%= (specialistname != null) ? specialistname : "" %>" /></td>
+								</tr>
+								<tr>
+									<td><b>Fecha de Ingreso:</b></td><td><input type="text" name="admissiondate" id="txtAdminDate" maxlength="50" size="20" value="<%= (admissiondate != null) ? admissiondate : "" %>" /></td>
+									<td><b></b></td><td></td>
+									<td><b></b></td><td></td>
 								</tr>
 							</table>	
 							<input type="submit" class="buttonGreen lessPadding"   style="float: right; margin-right:40px; margin-top: 5px;" value="Buscar">

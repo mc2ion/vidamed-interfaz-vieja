@@ -59,6 +59,7 @@
 									<option value="13" <%= (modSelect == 13 ? "selected" : "") %>>Admisión</option>
 									<option value="14" <%= (modSelect == 14 ? "selected" : "") %>>Honorarios Médicos</option>
 									<option value="15" <%= (modSelect == 15 ? "selected" : "") %>>Libro de Ventas</option>
+									<option value="16" <%= (modSelect == 16 ? "selected" : "") %>>Facturación Detallada</option>
 								</select>
 								<input type="submit" value="Buscar"/>
 							</form>

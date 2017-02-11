@@ -1,4 +1,3 @@
-
 package servlet;
 
 import java.io.IOException;
@@ -13,16 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
-import domain.PendingBills;
+import domain.Sale;
 import domain.PermissionsList;
 import domain.User;
 
 
 /**
- * Servlet implementation class ListBillReportServlet
+ * Servlet implementation class DetailedInvoicingReportServlet
  */
-@WebServlet(description = "servlet to generate reports", urlPatterns = { "/ListBillReportServlet" })
-public class ListBillReportServlet extends HttpServlet {
+@WebServlet(description = "servlet to detailed invoicing reports", urlPatterns = { "/DetailedInvoicingReportServlet" })
+public class DetailedInvoicingReportServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	public void init() throws ServletException {
@@ -37,7 +36,7 @@ public class ListBillReportServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ListBillReportServlet() {
+    public DetailedInvoicingReportServlet() {
         super();
     }
 
@@ -51,10 +50,10 @@ public class ListBillReportServlet extends HttpServlet {
 		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.reports);
 		if(userE != null && perm ){
 			try {
-				ArrayList<PendingBills> pp = (ArrayList<PendingBills>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetBillReport());
+				ArrayList<Sale> pp = (ArrayList<Sale>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetDetailedInvoicingReport());
 				request.setAttribute("pp", pp);
 				
-				RequestDispatcher rd = getServletContext().getRequestDispatcher("/reports_bills.jsp");
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/reports_detailedinvoicing.jsp");
 				rd.forward(request, response);
 			} 
 			catch (Exception e) {
@@ -81,58 +80,22 @@ public class ListBillReportServlet extends HttpServlet {
 		
 		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.reports);
 		
-		if(userE != null && perm ){
-			String billId		  	 		= request.getParameter("billId");
-			String estimationId 	 		= request.getParameter("estimationId");
-			String paymentresponsiblename   = request.getParameter("paymentresponsiblename");
-			String g 	  	  		 		= request.getParameter("wasGenerated");
-			String wasGenerated = null;
-			if (!g.equals("-"))
-				wasGenerated = g;
-			
-			String p 	  	  = request.getParameter("wasPaid");
-			String waspaid = null;
-			if (!p.equals("-"))
-				waspaid = p;
-			
+		if(userE != null && perm ){			
 			String generationfrom 	= request.getParameter("generationfrom");
 			String generationto	 	= request.getParameter("generationto");
-			String paymentfrom 		= request.getParameter("paymentfrom");
-			String paymentto	  	= request.getParameter("paymentto");
-			String patientname		= request.getParameter("patientname");
-			String num				= request.getParameter("txtCedIdNum");
-			String identityCard 	= "";
-			if (num != null && num != "")
-				identityCard = request.getParameter("txtCedId") + num;
-			String specialistname	= request.getParameter("specialistname");
-			String admissiondate	= request.getParameter("admissiondate");
-			
-			
 			try {
 				
 				@SuppressWarnings("unchecked")
-				ArrayList<PendingBills> pp = (ArrayList<PendingBills>) CommandExecutor.getInstance().executeDatabaseCommand(
-											new command.GetBillReport(billId, estimationId, paymentresponsiblename, wasGenerated, generationfrom, 
-												generationto, waspaid, paymentfrom, paymentto, patientname, identityCard, specialistname, admissiondate));
+				ArrayList<Sale> pp = (ArrayList<Sale>) CommandExecutor.getInstance().executeDatabaseCommand(
+											new command.GetDetailedInvoicingReport(generationfrom, generationto));
 				
 				request.setAttribute("pp", pp);
 				
-				request.setAttribute("billid", billId);
-				request.setAttribute("estimationid", estimationId);
-				request.setAttribute("paymentresponsiblename", paymentresponsiblename);
-				request.setAttribute("wasgenerated", wasGenerated);
-				request.setAttribute("waspaid", waspaid);
 				request.setAttribute("generationfrom", generationfrom);
 				request.setAttribute("generationto", generationto);
-				request.setAttribute("paymentfrom", paymentfrom);
-				request.setAttribute("paymentto", paymentto);
-				request.setAttribute("patientname", patientname);
-				request.setAttribute("identitycard", identityCard);
-				request.setAttribute("specialistname", specialistname);
-				request.setAttribute("admissiondate", admissiondate);
 				
 				
-				RequestDispatcher rd = getServletContext().getRequestDispatcher("/reports_bills.jsp");
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/reports_detailedinvoicing.jsp");
 				rd.forward(request, response);
 			} 
 			catch (Exception e) {

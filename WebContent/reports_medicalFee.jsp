@@ -176,6 +176,7 @@
 									<option value="13" >Admisión</option>
 									<option value="14"  selected>Honorarios Médicos</option>
 									<option value="15" >Libro de Ventas</option>
+									<option value="16" >Facturación detallada</option>
 								</select>
 								<input type="submit" value="Buscar"/>
 						</form><br/><br/>

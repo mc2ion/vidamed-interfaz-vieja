@@ -24,12 +24,17 @@ public class GetBillReport implements DatabaseCommand {
 	private String waspaid 					= null; 
 	private String paymentfrom			 	= null; 
 	private String paymentto			  	= null;
+	private String patientname				= null;
+	private String identitycard				= null;
+	private String specialistname			= null;
+	private String admissiondate			= null;
 	
 	
 	public GetBillReport(){}
 	
 	public GetBillReport(String billid, String estimationId, String paymentresponsiblename, String wasgenerated, String generationfrom, String generationto, 
-								String waspaid, String paymentfrom, String paymentto) throws ParseException{
+								String waspaid, String paymentfrom, String paymentto, String patientname, String identitycard, String specialistname, 
+								String admissiondate) throws ParseException{
 		if (billid != null && billid != "")
 			this.billid	    = billid;
 		if (estimationId != null && estimationId != "")
@@ -78,7 +83,15 @@ public class GetBillReport implements DatabaseCommand {
 			Date date = fromFormat.parse(paymentto);
 			this.paymentto   		= "'" + toFormat.format(date) + "'";
 		}
-		
+		if (patientname != null && patientname != "")
+			this.patientname  	= "'" + patientname + "'";
+		if (identitycard != null && identitycard != "")
+			this.identitycard  	= "'" + identitycard + "'";
+		if (specialistname != null && specialistname != "")
+			this.specialistname  	= "'" + specialistname + "'";
+		if (admissiondate != null && admissiondate != ""){
+			this.admissiondate   	= "'" + admissiondate + "'";
+		}
 		
 	}
 	
@@ -90,7 +103,8 @@ public class GetBillReport implements DatabaseCommand {
 		ResultSet rs = null;
 		try {
 			ps = conn.prepareStatement("exec dbo.GetBillReport " + billid + "," + estimationid + "," + paymentresponsiblename + ","  + wasgenerated +   "," +
-					generationfrom + ","  + generationto + ","  + waspaid + "," + paymentfrom + "," + paymentto);
+					generationfrom + ","  + generationto + ","  + waspaid + "," + paymentfrom + "," + paymentto + "," + patientname + "," + identitycard + "," +
+					specialistname + "," + admissiondate);
 			rs = ps.executeQuery();
 		
 			while (rs.next()) {
