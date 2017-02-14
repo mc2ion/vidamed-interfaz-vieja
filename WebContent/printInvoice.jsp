@@ -20,9 +20,10 @@ ArrayList<Protocol> protocols = (ArrayList<Protocol>) request.getAttribute("prot
 @SuppressWarnings("unchecked")
 ArrayList<Protocol> costs = (ArrayList<Protocol>) request.getAttribute("costs");
 
+DateFormat datehourFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
 DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 DateFormat hourFormat = new SimpleDateFormat("hh:mm:ss a");
-Date date = new Date();
+Date date = datehourFormat.parse(e.getDischargeDate());
 String dateTxt = dateFormat.format(date);
 String hour    = hourFormat.format(date);
 

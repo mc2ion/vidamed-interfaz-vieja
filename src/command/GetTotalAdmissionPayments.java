@@ -35,6 +35,7 @@ public class GetTotalAdmissionPayments implements DatabaseCommand {
 				u.setBillID(rs.getLong(6));
 				u.setResponsiblePayment(rs.getString(7), rs.getDouble(7));
 				u.setPatientPayment(rs.getString(8), rs.getDouble(8));
+				u.setDischargeDate(rs.getString(9));
 			}
 		}
 		finally {

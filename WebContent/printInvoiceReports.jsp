@@ -7,10 +7,11 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="domain.AdmissionPaymentResponsible"%>
 <%
-DateFormat dateFormat = new SimpleDateFormat("'Caracas,' dd 'de' MMMMM 'de' yyyy", new Locale("ES"));
-Date date = new Date();
-String dateTxt = dateFormat.format(date);
 Admission admission = (Admission)request.getAttribute("admission");
+DateFormat datehourFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+DateFormat dateFormat = new SimpleDateFormat("'Caracas,' dd 'de' MMMMM 'de' yyyy", new Locale("ES"));
+Date date = datehourFormat.parse(admission.getDischargeDate());
+String dateTxt = dateFormat.format(date);
 String patient = admission.getFirstName()+" "+admission.getLastName();
 String identityCard = admission.getIdentityCard();
 String billID = (String)request.getAttribute("factId");
