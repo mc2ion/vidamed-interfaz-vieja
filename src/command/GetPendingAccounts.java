@@ -20,7 +20,7 @@ public class GetPendingAccounts implements DatabaseCommand {
 	@Override
 	public Object executeDatabaseOperation(Connection conn) throws SQLException {
 		
-		ArrayList<PendingAccounts> pList = new ArrayList<PendingAccounts>();;
+		ArrayList<PendingAccounts> pList = new ArrayList<PendingAccounts>();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
@@ -70,10 +70,9 @@ public class GetPendingAccounts implements DatabaseCommand {
 					}
 				}
 				
-				/*u.setHasMultiplePaymentResponsibles(rs.getInt(11));
+				u.setHasMultiplePaymentResponsibles(rs.getInt(11));
 				u.setMainPaymentResponsible(rs.getInt(12));
 				u.setAdmissionID(rs.getLong(13));
-				u.setPaymentResponsibleID(rs.getLong(14));*/
 				
 				pList.add(u);
 			}

@@ -56,7 +56,11 @@ public class PayPendingAccountServlet extends HttpServlet {
 				Long userID	 = Long.parseLong(request.getParameter("userId"));
 				String documentNumber = request.getParameter("documentnumber");
 				String bank = request.getParameter("bank");
-				int result	 = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.PayPendingAccount(userID, documentNumber, bank));
+				Long admissionID = Long.parseLong(request.getParameter("admissionId"));
+				Long paymentResponsibleID = Long.parseLong(request.getParameter("paymentResponsibleId"));
+				Integer hasMultiple = Integer.parseInt(request.getParameter("hasMultiple"));
+				Integer mainResponsible = Integer.parseInt(request.getParameter("mainResponsible"));
+				int result	 = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.PayPendingAccount(userID, documentNumber, bank, hasMultiple, mainResponsible, admissionID, paymentResponsibleID));
 				if (result == 1)
 					session.setAttribute("text", "Se registró el cobro exitosamente.");
 				else

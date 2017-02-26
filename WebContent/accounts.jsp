@@ -56,6 +56,16 @@
 			$('.name').text(var2);
 		};
 		
+		function loadVars(var1, var2, var3, var4, var5, var6) {
+			idUser = var1;
+			$('.fId').text(var1);
+			$('.name').text(var2);
+			$('#admissionId').val(var3);
+			$('#paymentResponsibleId').val(var4);
+			$('#hasMultiple').val(var5);
+			$('#mainResponsible').val(var6);
+		};
+		
 		function setV(f){
 			f.elements['userId'].value = idUser;
 			return true;
@@ -169,9 +179,11 @@
 											long difference = today.getTime() - deliveryDate.getTime();
 											days = TimeUnit.DAYS.convert(difference, TimeUnit.MILLISECONDS);
 										}
+										
+										String data = p.getBillID().toString()+'_'+p.getHasMultiplePaymentResponsibles()+'_'+p.getMainPaymentResponsible()+'_'+p.getAdmissionID()+'_'+p.getPaymentResposible().getId();
 									%>	
 									<tr class="gradeA">
-										<td><input type="checkbox" name="selFact" class='selF' value="<%= p.getBillID() %>"></td>										
+										<td><input type="checkbox" name="selFact" class='selF' value="<%= data %>"></td>										
 										<td><%= p.getBillID() %></td>
 										<td><%= p.getGenerationDate() %></td>
 										<td><%= p.getPaymentResposible().getName() %></td>
@@ -186,7 +198,7 @@
 											</a>
 										<% } %>
 											<a id="go" rel="leanModal" href="#closeAccount" style="color: #f7941e; font-weight: bold;" 
-											onclick="return loadVars(<%= p.getBillID() %>, '<%= p.getPaymentResposible().getName() %>');" >
+											onclick="return loadVars(<%= p.getBillID() %>, '<%= p.getPaymentResposible().getName() %>', <%= p.getAdmissionID() %>, <%= p.getPaymentResposible().getId() %>, <%= p.getHasMultiplePaymentResponsibles() %>,<%= p.getMainPaymentResponsible() %>);" >
 											<img alt="logo" src="./images/check.png" height="16" width="16" title="Cobrada"/>
 											</a>
 											<a href="ShowCashServlet?billID=<%= p.getBillID() %> " style="color: transparent" >

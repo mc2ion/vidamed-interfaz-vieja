@@ -59,7 +59,7 @@ public class AddAdmissionProtocolServletFinal extends HttpServlet {
 			//Obtener valores establecidos
 			try {
 				
-				CommandExecutor.getInstance().executeDatabaseCommand(new command.GenerateEstimationProtocolRates(estimationid, protocolid));
+				CommandExecutor.getInstance().executeDatabaseCommand(new command.GenerateEstimationProtocolRates(estimationid, protocolid, admissionId));
 				if (function != null && function.equals("editEmergency")){
 					String text_good = "Cambios realizados exitosamente";
 					session.setAttribute("info",text_good);
