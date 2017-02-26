@@ -55,9 +55,9 @@ public class SetAdmissionDischargeServlet extends HttpServlet {
 			try {
 				Long admissionID = Long.parseLong(request.getParameter("userId"));
 				
-				Integer result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.UpdateAdmissionTotal(admissionID));
+				//Integer result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.UpdateAdmissionTotal(admissionID));
 								
-				result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.SetAdmissionDischarge(admissionID));
+				Integer result = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.SetAdmissionDischarge(admissionID));
 				
 				String text = "Se ha dado dado de alta exitosamente.";
 				

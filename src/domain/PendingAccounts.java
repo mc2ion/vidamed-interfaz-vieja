@@ -15,7 +15,6 @@ public class PendingAccounts {
 	private int hasMultiplePaymentResponsibles;
 	private int mainPaymentResponsible;
 	private Long admissionID;
-	private Long paymentResponsibleID;
 	
 	public void setTotalWithDiscount(String totalWithDiscount, Double amount) {
 		if(totalWithDiscount != null){
@@ -125,13 +124,4 @@ public class PendingAccounts {
 	public Long getAdmissionID() {
 		return admissionID;
 	}
-
-	public void setPaymentResponsibleID(Long paymentResponsibleID) {
-		this.paymentResponsibleID = paymentResponsibleID;
-	}
-
-	public Long getPaymentResponsibleID() {
-		return paymentResponsibleID;
-	}
-
 }
