@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
+import domain.PaymentResponsibleCollection;
+import domain.PaymentResponsibleCollectionHeader;
 import domain.User;
 
 
@@ -57,6 +60,7 @@ public class PayPendingAccountsServlet extends HttpServlet {
 				String[] values = request.getParameterValues("selFact");
 				String documentNumber = request.getParameter("documentnumber");
 				String bank = request.getParameter("bank");
+				
 				for (int i = 0; i < values.length; i++){
 					System.out.println(values[i]);
 					String[] val = values[i].split("_");
@@ -70,11 +74,25 @@ public class PayPendingAccountsServlet extends HttpServlet {
 					
 					if (result != 1)  error = 1;
 				}
-				if (error == 0)	
+				if (error == 0){
 					session.setAttribute("info", "Se registraron los cobros exitosamente.");
-				else
+					PaymentResponsibleCollectionHeader header = (PaymentResponsibleCollectionHeader) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPaymentResponsibleCollectionHeaderReport(bank, documentNumber));
+					@SuppressWarnings("unchecked")
+					ArrayList<PaymentResponsibleCollection> payments = (ArrayList<PaymentResponsibleCollection>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPaymentResponsibleCollectionReport(bank, documentNumber));
+					@SuppressWarnings("unchecked")
+					ArrayList<PaymentResponsibleCollection> subtotals = (ArrayList<PaymentResponsibleCollection>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPaymentResponsibleCollectionSubtotalReport(bank, documentNumber));
+					
+					request.setAttribute("header", header);
+					request.setAttribute("payments", payments);
+					request.setAttribute("subtotals", subtotals);
+					
+					RequestDispatcher rd;			
+					rd = getServletContext().getRequestDispatcher("/paymentResponsibleCollectionReport.jsp");
+					rd.forward(request, response);
+				} else {
 					session.setAttribute("info","Hubo un problema el registrar uno de los cobros. Por favor, intente más tarde");
-				response.sendRedirect("./ListAccountsServlet");
+					response.sendRedirect("./ListAccountsServlet");
+				}
 			}
 			catch (Exception e) {
 				throw new ServletException(e);
