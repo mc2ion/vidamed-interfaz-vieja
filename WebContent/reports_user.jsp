@@ -111,6 +111,7 @@
 									<option value="14" >Honorarios Médicos</option>
 									<option value="15" >Libro de Ventas</option>
 									<option value="16" >Facturación detallada</option>
+									<option value="17" >An&aacute;lisis Vencimiento</option>
 								</select>
 								<input type="submit" value="Buscar"/>
 						</form><br/><br/>

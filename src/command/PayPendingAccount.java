@@ -13,9 +13,10 @@ public class PayPendingAccount implements DatabaseCommand {
 	private Integer mainResponsible;
 	private Long admissionId;
 	private Long paymentResponsibleId;
+	private Double islr;
 	
 	public PayPendingAccount(Long billId, String documentNumber, String bank, Integer hasMultiple, Integer mainResponsible, Long admissionId, 
-			Long paymentResponsibleId){
+			Long paymentResponsibleId, Double islr){
 		this.billId = billId;
 		this.documentNumber = documentNumber;
 		this.bank = bank;
@@ -23,6 +24,7 @@ public class PayPendingAccount implements DatabaseCommand {
 		this.mainResponsible = mainResponsible;
 		this.admissionId = admissionId;
 		this.paymentResponsibleId = paymentResponsibleId;
+		this.islr = islr;
 	}
 	
 	@Override
@@ -32,7 +34,7 @@ public class PayPendingAccount implements DatabaseCommand {
 		
 		try {
 			ps = conn.prepareStatement("exec dbo.PayAccount " + billId + ", '" + documentNumber + "', '" + bank + "', " + hasMultiple + ", " + 
-					mainResponsible + ", " + admissionId + ", " + paymentResponsibleId);
+					mainResponsible + ", " + admissionId + ", " + paymentResponsibleId + ", " + islr);
 			ps.execute();
 		}
 		catch(Exception e){

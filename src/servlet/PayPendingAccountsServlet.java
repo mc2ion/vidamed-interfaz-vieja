@@ -60,6 +60,7 @@ public class PayPendingAccountsServlet extends HttpServlet {
 				String[] values = request.getParameterValues("selFact");
 				String documentNumber = request.getParameter("documentnumber");
 				String bank = request.getParameter("bank");
+				Double islr = Double.parseDouble(request.getParameter("islr"));
 				
 				for (int i = 0; i < values.length; i++){
 					System.out.println(values[i]);
@@ -70,17 +71,17 @@ public class PayPendingAccountsServlet extends HttpServlet {
 					Long admissionID = Long.parseLong(val[3]);
 					Long paymentResponsibleID = Long.parseLong(val[4]);
 					int result	 = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.PayPendingAccount(userID, documentNumber, bank, 
-							hasMultiple, mainResponsible, admissionID, paymentResponsibleID));
+							hasMultiple, mainResponsible, admissionID, paymentResponsibleID, islr));
 					
 					if (result != 1)  error = 1;
 				}
 				if (error == 0){
 					session.setAttribute("info", "Se registraron los cobros exitosamente.");
-					PaymentResponsibleCollectionHeader header = (PaymentResponsibleCollectionHeader) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPaymentResponsibleCollectionHeaderReport(bank, documentNumber));
+					PaymentResponsibleCollectionHeader header = (PaymentResponsibleCollectionHeader) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPaymentResponsibleCollectionHeaderReport(bank, documentNumber, islr));
 					@SuppressWarnings("unchecked")
-					ArrayList<PaymentResponsibleCollection> payments = (ArrayList<PaymentResponsibleCollection>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPaymentResponsibleCollectionReport(bank, documentNumber));
+					ArrayList<PaymentResponsibleCollection> payments = (ArrayList<PaymentResponsibleCollection>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPaymentResponsibleCollectionReport(bank, documentNumber, islr));
 					@SuppressWarnings("unchecked")
-					ArrayList<PaymentResponsibleCollection> subtotals = (ArrayList<PaymentResponsibleCollection>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPaymentResponsibleCollectionSubtotalReport(bank, documentNumber));
+					ArrayList<PaymentResponsibleCollection> subtotals = (ArrayList<PaymentResponsibleCollection>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPaymentResponsibleCollectionSubtotalReport(bank, documentNumber, islr));
 					
 					request.setAttribute("header", header);
 					request.setAttribute("payments", payments);

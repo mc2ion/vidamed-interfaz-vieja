@@ -12,10 +12,12 @@ public class GetPaymentResponsibleCollectionReport implements DatabaseCommand {
 	
 	private String bank;
 	private String documentNumber;
+	private Double islr;
 	
-	public GetPaymentResponsibleCollectionReport(String bank, String documentNumber){
+	public GetPaymentResponsibleCollectionReport(String bank, String documentNumber, Double islr){
 		this.bank = bank;
 		this.documentNumber = documentNumber;
+		this.islr = islr;
 	}
 
 	@Override
@@ -25,7 +27,7 @@ public class GetPaymentResponsibleCollectionReport implements DatabaseCommand {
 		ResultSet rs = null;
 		
 		try {
-			ps = conn.prepareStatement("exec dbo.GetPaymentResponsibleCollectionReport '" + bank + "', '" + documentNumber + "'");
+			ps = conn.prepareStatement("exec dbo.GetPaymentResponsibleCollectionReport '" + bank + "', '" + documentNumber + "', " + islr);
 			rs = ps.executeQuery();
 
 			while(rs.next()) {

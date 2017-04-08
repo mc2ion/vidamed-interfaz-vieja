@@ -12,10 +12,12 @@ public class GetPaymentResponsibleCollectionHeaderReport implements
 	
 	private String bank;
 	private String documentNumber;
+	private Double islr;
 	
-	public GetPaymentResponsibleCollectionHeaderReport(String bank, String documentNumber){
+	public GetPaymentResponsibleCollectionHeaderReport(String bank, String documentNumber, Double islr){
 		this.bank = bank;
 		this.documentNumber = documentNumber;
+		this.islr = islr;
 	}
 
 	@Override
@@ -28,7 +30,7 @@ public class GetPaymentResponsibleCollectionHeaderReport implements
 		ResultSet rs = null;
 		
 		try {
-			ps = conn.prepareStatement("exec dbo.GetPaymentResponsibleCollectionHeaderReport '" + bank + "', '" + documentNumber + "'");
+			ps = conn.prepareStatement("exec dbo.GetPaymentResponsibleCollectionHeaderReport '" + bank + "', '" + documentNumber + "', " + islr);
 			rs = ps.executeQuery();
 
 			if (rs.next()) {

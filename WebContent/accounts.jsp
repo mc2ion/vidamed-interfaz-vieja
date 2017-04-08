@@ -154,6 +154,7 @@
   						<div id="printCashBox" class='cuentasP'>
 							<label>N&uacute;mero de Documento: </label><input type="text" name="documentnumber" id="documentnumber" size="10">
 							<label>Banco: </label><input type="text" name="bank" id="bank" size="25">
+							<label>% ISLR: </label><input type="number" name="islr" id="islr" step="0.01" min="0" max="100" required>
 							<input type="submit" id="printCashBoxText" value="Cuentas Cobradas"></div>
 						<table class="display" id="example2">
 								<thead>
@@ -247,7 +248,8 @@
 					<input type="hidden" id="hasMultiple" class="good_input" name="hasMultiple" value=""/>
 					<input type="hidden" id="mainResponsible" class="good_input" name="mainResponsible" value=""/>
 					<label>N&uacute;mero de Documento: </label><input type="text" name="documentnumber" id="documentnumber" size="10"><br>
-					<label>Banco: </label><input type="text" name="bank" id="bank" size="25">
+					<label>Banco: </label><input type="text" name="bank" id="bank" size="25"><br>
+					<label>% ISLR: </label><input type="number" name="islr" id="islr" step="0.01" min="0" max="100" required>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
 					</div>

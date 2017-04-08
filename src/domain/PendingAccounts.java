@@ -15,6 +15,12 @@ public class PendingAccounts {
 	private int hasMultiplePaymentResponsibles;
 	private int mainPaymentResponsible;
 	private Long admissionID;
+	private String patientName;
+	private String patientIdentityCard;
+	private String policyHolderIdentityCard;
+	private String guaranteeLetter;
+	private String totalBill;
+	private String dischargeDate;
 	
 	public void setTotalWithDiscount(String totalWithDiscount, Double amount) {
 		if(totalWithDiscount != null){
@@ -123,5 +129,63 @@ public class PendingAccounts {
 
 	public Long getAdmissionID() {
 		return admissionID;
+	}
+
+	public void setPatientName(String patientName) {
+		this.patientName = patientName;
+	}
+
+	public String getPatientName() {
+		return patientName;
+	}
+
+	public void setPatientIdentityCard(String patientIdentityCard) {
+		this.patientIdentityCard = patientIdentityCard;
+	}
+
+	public String getPatientIdentityCard() {
+		return patientIdentityCard;
+	}
+
+	public void setPolicyHolderIdentityCard(String policyHolderIdentityCard) {
+		this.policyHolderIdentityCard = policyHolderIdentityCard;
+	}
+
+	public String getPolicyHolderIdentityCard() {
+		
+		if(policyHolderIdentityCard == null){
+			return patientIdentityCard;
+		} else {
+			return policyHolderIdentityCard;
+		}
+	}
+
+	public void setGuaranteeLetter(String guaranteeLetter) {
+		this.guaranteeLetter = guaranteeLetter;
+	}
+
+	public String getGuaranteeLetter() {
+		
+		if(guaranteeLetter == null){
+			return "";
+		} else {
+			return guaranteeLetter;
+		}
+	}
+
+	public void setTotalBill(String totalBill) {
+		this.totalBill = totalBill;
+	}
+
+	public String getTotalBill() {
+		return totalBill;
+	}
+
+	public void setDischargeDate(String dischargeDate) {
+		this.dischargeDate = dischargeDate;
+	}
+
+	public String getDischargeDate() {
+		return dischargeDate;
 	}
 }

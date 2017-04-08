@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
+import domain.PaymentResponsibleCollection;
+import domain.PaymentResponsibleCollectionHeader;
 import domain.User;
 
 
@@ -60,13 +63,28 @@ public class PayPendingAccountServlet extends HttpServlet {
 				Long paymentResponsibleID = Long.parseLong(request.getParameter("paymentResponsibleId"));
 				Integer hasMultiple = Integer.parseInt(request.getParameter("hasMultiple"));
 				Integer mainResponsible = Integer.parseInt(request.getParameter("mainResponsible"));
-				int result	 = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.PayPendingAccount(userID, documentNumber, bank, hasMultiple, mainResponsible, admissionID, paymentResponsibleID));
-				if (result == 1)
+				Double islr = Double.parseDouble(request.getParameter("islr"));
+				System.out.println("+++ islr:"+islr);
+				int result	 = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.PayPendingAccount(userID, documentNumber, bank, hasMultiple, mainResponsible, admissionID, paymentResponsibleID, islr));
+				if (result == 1) {
 					session.setAttribute("text", "Se registró el cobro exitosamente.");
-				else
-					session.setAttribute("text","Hubo un problema el registrar el cobro. Por favor, intente más tarde");
-				
-				response.sendRedirect("./ListAccountsServlet");
+					PaymentResponsibleCollectionHeader header = (PaymentResponsibleCollectionHeader) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPaymentResponsibleCollectionHeaderReport(bank, documentNumber, islr));
+					@SuppressWarnings("unchecked")
+					ArrayList<PaymentResponsibleCollection> payments = (ArrayList<PaymentResponsibleCollection>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPaymentResponsibleCollectionReport(bank, documentNumber, islr));
+					@SuppressWarnings("unchecked")
+					ArrayList<PaymentResponsibleCollection> subtotals = (ArrayList<PaymentResponsibleCollection>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPaymentResponsibleCollectionSubtotalReport(bank, documentNumber, islr));
+					
+					request.setAttribute("header", header);
+					request.setAttribute("payments", payments);
+					request.setAttribute("subtotals", subtotals);
+					
+					RequestDispatcher rd;			
+					rd = getServletContext().getRequestDispatcher("/paymentResponsibleCollectionReport.jsp");
+					rd.forward(request, response);
+				} else {
+					session.setAttribute("text","Hubo un problema el registrar el cobro. Por favor, intente más tarde");				
+					response.sendRedirect("./ListAccountsServlet");
+				}
 			}
 			catch (Exception e) {
 				throw new ServletException(e);

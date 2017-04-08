@@ -117,6 +117,9 @@ public class ListReportsServlet extends HttpServlet {
 		}	
 		else if (modId.equals("16")){
 			response.sendRedirect(request.getContextPath() + "/DetailedInvoicingReportServlet");
+		}	
+		else if (modId.equals("17")){
+			response.sendRedirect(request.getContextPath() + "/PendingAccountsReportServlet");
 		}
 		else{
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/reports.jsp");

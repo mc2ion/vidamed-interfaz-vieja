@@ -13,10 +13,12 @@ public class GetPaymentResponsibleCollectionSubtotalReport implements
 
 	private String bank;
 	private String documentNumber;
+	private Double islr;
 	
-	public GetPaymentResponsibleCollectionSubtotalReport(String bank, String documentNumber){
+	public GetPaymentResponsibleCollectionSubtotalReport(String bank, String documentNumber, Double islr){
 		this.bank = bank;
 		this.documentNumber = documentNumber;
+		this.islr = islr;
 	}
 
 	@Override
@@ -26,7 +28,7 @@ public class GetPaymentResponsibleCollectionSubtotalReport implements
 		ResultSet rs = null;
 		
 		try {
-			ps = conn.prepareStatement("exec dbo.GetPaymentResponsibleCollectionSubtotalReport '" + bank + "', '" + documentNumber + "'");
+			ps = conn.prepareStatement("exec dbo.GetPaymentResponsibleCollectionSubtotalReport '" + bank + "', '" + documentNumber + "', " + islr);
 			rs = ps.executeQuery();
 
 			while(rs.next()) {
