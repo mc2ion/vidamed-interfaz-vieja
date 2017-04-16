@@ -251,7 +251,7 @@
 					<label>Banco: </label><input type="text" name="bank" id="bank" size="25"><br>
 					<label>% ISLR: </label><input type="number" name="islr" id="islr" step="0.01" min="0" max="100" required>
 					<div class="btn-fld">
-						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
+						<input type="submit" style="left: 220px;" class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
 					</div>
 		 		</form>
 			</div>
