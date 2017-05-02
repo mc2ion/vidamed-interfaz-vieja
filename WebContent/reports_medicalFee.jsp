@@ -178,6 +178,7 @@
 									<option value="15" >Libro de Ventas</option>
 									<option value="16" >Facturación detallada</option>
 									<option value="17" >An&aacute;lisis Vencimiento</option>
+									<option value="18" >Relaci&oacute;n de Facturaci&oacute;n</option>
 								</select>
 								<input type="submit" value="Buscar"/>
 						</form><br/><br/>
@@ -263,6 +264,9 @@
 											<th>¿Pronto Pago?</th>
 											<th>¿Honorario Pagado?</th>
 											<th>Monto</th>
+											<th>Nro Factura</th>
+											<th>Paciente</th>
+											<th>Fecha Alta</th>
 										</tr>
 									</thead>
 									<tbody>	
@@ -284,6 +288,9 @@
 											<td><%= (us.getIsPromptPayment()  == 0)? "No": "Si" %></td>
 											<td><%= (us.getWasPaid() != 0)? "Si": "No" %></td>
 											<td><%= (us.getPromptAmount()  != null)? us.getPromptAmount(): "-" %></td>
+											<td><%= us.getBill().getBillID() %></td>
+											<td><%= us.getPatientName() %></td>
+											<td><%= us.getDischargeDate() %></td>
 										</tr>
 									<% 		}
 										}else{									

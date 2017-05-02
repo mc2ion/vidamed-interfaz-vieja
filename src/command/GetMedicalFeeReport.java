@@ -171,6 +171,18 @@ public class GetMedicalFeeReport implements DatabaseCommand {
 					e1.printStackTrace();
 				}
 				
+				s.setPatientName(rs.getString(18));
+				
+				dateStr = rs.getString(19);
+				try {
+					if(dateStr != null){
+						date = fromFormat.parse(dateStr);
+						s.setDischargeDate(toFormat.format(date));
+					}
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+				
 				p.add(s);
 			}
 		}catch(Exception e){

@@ -61,6 +61,7 @@
 									<option value="15" <%= (modSelect == 15 ? "selected" : "") %>>Libro de Ventas</option>
 									<option value="16" <%= (modSelect == 16 ? "selected" : "") %>>Facturación Detallada</option>
 									<option value="17" <%= (modSelect == 17 ? "selected" : "") %>>An&aacute;lisis Vencimiento</option>
+									<option value="18" <%= (modSelect == 18 ? "selected" : "") %>>Relaci&oacute;n de Facturaci&oacute;n</option>
 								</select>
 								<input type="submit" value="Buscar"/>
 							</form>

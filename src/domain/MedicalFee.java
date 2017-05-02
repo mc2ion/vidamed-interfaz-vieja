@@ -11,6 +11,8 @@ public class MedicalFee {
 	private String promptAmount;
 	private PendingBills bill;
 	private int wasPaid;
+	private String patientName;
+	private String dischargeDate;
 	
 	public Long getMedicalFeeID() {
 		return medicalFeeId;
@@ -74,6 +76,22 @@ public class MedicalFee {
 	
 	public void setWasPaid(int wasPaid) {
 		this.wasPaid = wasPaid;
+	}
+
+	public void setPatientName(String patientName) {
+		this.patientName = patientName;
+	}
+
+	public String getPatientName() {
+		return patientName;
+	}
+
+	public void setDischargeDate(String dischargeDate) {
+		this.dischargeDate = dischargeDate;
+	}
+
+	public String getDischargeDate() {
+		return dischargeDate;
 	}
 	
 	

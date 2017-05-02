@@ -226,7 +226,7 @@
 				</div>
 				<form action="DeliverBillServlet" method="post" onsubmit="return setV(this)" >
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
-					<label>Fecha de Envío: </label><input type="text" name="date" id="date"/>
+					<label>Fecha de Envío: </label><input type="text" name="date" id="date" required/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
 					</div>

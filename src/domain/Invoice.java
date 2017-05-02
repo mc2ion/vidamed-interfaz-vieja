@@ -12,6 +12,14 @@ public class Invoice {
 	private String professionalFees;
 	private String total;
 	private String discount;
+	private Long paymentResponsibleID;
+	private String paymentResponsibleName;
+	private Long reasonID;
+	private String reasonName;
+	private Long admissionID;
+	private String coverageAmount;
+	private String coverageTotalPaid;
+	private Integer billsAmount;
 	
 	public void setBillID(Long billID) {
 		this.billID = billID;
@@ -91,6 +99,70 @@ public class Invoice {
 
 	public String getDiscount() {
 		return discount;
+	}
+
+	public void setPaymentResponsibleID(Long paymentResponsibleID) {
+		this.paymentResponsibleID = paymentResponsibleID;
+	}
+
+	public Long getPaymentResponsibleID() {
+		return paymentResponsibleID;
+	}
+
+	public void setPaymentResponsibleName(String paymentResponsibleName) {
+		this.paymentResponsibleName = paymentResponsibleName;
+	}
+
+	public String getPaymentResponsibleName() {
+		return paymentResponsibleName;
+	}
+
+	public void setReasonID(Long reasonID) {
+		this.reasonID = reasonID;
+	}
+
+	public Long getReasonID() {
+		return reasonID;
+	}
+
+	public void setReasonName(String reasonName) {
+		this.reasonName = reasonName;
+	}
+
+	public String getReasonName() {
+		return reasonName;
+	}
+
+	public void setAdmissionID(Long admissionID) {
+		this.admissionID = admissionID;
+	}
+
+	public Long getAdmissionID() {
+		return admissionID;
+	}
+
+	public void setCoverageAmount(String coverageAmount) {
+		this.coverageAmount = coverageAmount;
+	}
+
+	public String getCoverageAmount() {
+		return coverageAmount;
+	}
+
+	public void setCoverageTotalPaid(String coverageTotalPaid) {
+		this.coverageTotalPaid = coverageTotalPaid;
+	}
+
+	public String getCoverageTotalPaid() {
+		return coverageTotalPaid;
+	}
+
+	public void setBillsAmount(Integer billsAmount) {
+		this.billsAmount = billsAmount;
+	}
+
+	public Integer getBillsAmount() {
+		return billsAmount;
 	}
 
 }
