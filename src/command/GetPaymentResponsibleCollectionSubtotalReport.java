@@ -38,6 +38,7 @@ public class GetPaymentResponsibleCollectionSubtotalReport implements
 				p.setPromptPaymentAmount(rs.getString(3));
 				p.setRefund(rs.getString(4));
 				p.setReasonID(rs.getInt(5));
+				p.setOtherRetention(rs.getString(6));
 				prc.add(p);
 			}
 		}

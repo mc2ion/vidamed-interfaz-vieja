@@ -225,7 +225,7 @@ ArrayList<PaymentResponsibleCollection> subtotals = (ArrayList<PaymentResponsibl
 					<td><%= s.getCoverageAmount() %></td>
 					<td><%= s.getCoverageAmount() %></td>
 					<td><%= s.getRetention() %></td>
-					<td>0.00</td>
+					<td><%= s.getOtherRetention() %></td>
 					<td><%= s.getPromptPaymentAmount() %></td>
 					<td><%= s.getRefund() %></td>
 				</tr>
@@ -247,7 +247,7 @@ ArrayList<PaymentResponsibleCollection> subtotals = (ArrayList<PaymentResponsibl
 						<td><%= p.getCoverageAmount() %></td>
 						<td><%= p.getCoverageAmount() %></td>
 						<td><%= p.getRetention() %></td>
-						<td>0.00</td>
+						<td><%= p.getOtherRetention() %></td>
 						<td><%= p.getPromptPaymentAmount() %></td>
 						<td><%= p.getRefund() %></td>
 					</tr>
@@ -261,7 +261,7 @@ ArrayList<PaymentResponsibleCollection> subtotals = (ArrayList<PaymentResponsibl
 						<td><%= s.getCoverageAmount() %></td>
 						<td><%= s.getCoverageAmount() %></td>
 						<td><%= s.getRetention() %></td>
-						<td>0.00</td>
+						<td><%= s.getOtherRetention() %></td>
 						<td><%= s.getPromptPaymentAmount() %></td>
 						<td><%= s.getRefund() %></td>
 					</tr>			

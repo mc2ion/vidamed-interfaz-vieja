@@ -39,6 +39,7 @@ public class GetPaymentResponsibleCollectionReport implements DatabaseCommand {
 				p.setReasonName(rs.getString(5));
 				p.setPromptPaymentAmount(rs.getString(6));
 				p.setRefund(rs.getString(7));
+				p.setOtherRetention(rs.getString(8));
 				prc.add(p);
 			}
 		}
