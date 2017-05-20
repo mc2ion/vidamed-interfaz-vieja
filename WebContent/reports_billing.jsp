@@ -186,7 +186,7 @@ String months[] = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio
 										<tr>
 											<td colspan="2" style="font-weight:bold;">TOTAL POR <%= rname %></td>
 											<td><%= subtotals.get(st).getTotal() %></td>
-											<td><%= subtotals.get(st).getCoverageAmount() %></td>
+											<td><%= (subtotals.get(st).getCoverageAmount() == null)? 0.00 : subtotals.get(st).getCoverageAmount() %></td>
 											<td><%= subtotals.get(st).getClinicTotal() %></td>
 											<td><%= subtotals.get(st).getProfessionalFees() %></td>
 											<td><%= subtotals.get(st).getCoverageTotalPaid() %></td>
@@ -195,7 +195,7 @@ String months[] = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio
 										<tr>
 											<td colspan="2" style="font-weight:bold;">TOTAL <%= prname %></td>
 											<td><%= totals.get(t).getTotal() %></td>
-											<td><%= totals.get(t).getCoverageAmount() %></td>
+											<td><%= (totals.get(t).getCoverageAmount() == null)? 0.00 : totals.get(t).getCoverageAmount() %></td>
 											<td><%= totals.get(t).getClinicTotal() %></td>
 											<td><%= totals.get(t).getProfessionalFees() %></td>
 											<td><%= totals.get(t).getCoverageTotalPaid() %></td>
@@ -219,7 +219,7 @@ String months[] = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio
 										<tr>
 											<td colspan="2" style="font-weight:bold;">TOTAL POR <%= rname %></td>
 											<td><%= subtotals.get(st).getTotal() %></td>
-											<td><%= subtotals.get(st).getCoverageAmount() %></td>
+											<td><%= (subtotals.get(st).getCoverageAmount() == null)? 0.00 : subtotals.get(st).getCoverageAmount() %></td>
 											<td><%= subtotals.get(st).getClinicTotal() %></td>
 											<td><%= subtotals.get(st).getProfessionalFees() %></td>
 											<td><%= subtotals.get(st).getCoverageTotalPaid() %></td>
@@ -255,7 +255,7 @@ String months[] = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio
 										<tr>
 											<td colspan="2" style="font-weight:bold;">TOTAL POR <%= rname %></td>
 											<td><%= subtotals.get(st).getTotal() %></td>
-											<td><%= subtotals.get(st).getCoverageAmount() %></td>
+											<td><%= (subtotals.get(st).getCoverageAmount() == null)? 0.00 : subtotals.get(st).getCoverageAmount() %></td>
 											<td><%= subtotals.get(st).getClinicTotal() %></td>
 											<td><%= subtotals.get(st).getProfessionalFees() %></td>
 											<td><%= subtotals.get(st).getCoverageTotalPaid() %></td>
@@ -264,7 +264,7 @@ String months[] = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio
 										<tr>
 											<td colspan="2" style="font-weight:bold;">TOTAL <%= prname %></td>
 											<td><%= totals.get(t).getTotal() %></td>
-											<td><%= totals.get(t).getCoverageAmount() %></td>
+											<td><%= (totals.get(t).getCoverageAmount() == null)? 0.00 : totals.get(t).getCoverageAmount() %></td>
 											<td><%= totals.get(t).getClinicTotal() %></td>
 											<td><%= totals.get(t).getProfessionalFees() %></td>
 											<td><%= totals.get(t).getCoverageTotalPaid() %></td>
@@ -273,7 +273,7 @@ String months[] = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio
 										<tr>
 											<td colspan="2" style="font-weight:bold;">TOTAL GENERAL</td>
 											<td><%= total.get(0).getTotal() %></td>
-											<td><%= total.get(0).getCoverageAmount() %></td>
+											<td><%= (total.get(0).getCoverageAmount() == null)? 0.00 : total.get(0).getCoverageAmount() %></td>
 											<td><%= total.get(0).getClinicTotal() %></td>
 											<td><%= total.get(0).getProfessionalFees() %></td>
 											<td><%= total.get(0).getCoverageTotalPaid() %></td>

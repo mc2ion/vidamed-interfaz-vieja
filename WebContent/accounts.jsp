@@ -154,7 +154,9 @@
   						<div id="printCashBox" class='cuentasP'>
 							<label>N&uacute;mero de Documento: </label><input type="text" name="documentnumber" id="documentnumber" size="10">
 							<label>Banco: </label><input type="text" name="bank" id="bank" size="25">
-							<label>% ISLR: </label><input type="number" name="islr" id="islr" step="0.01" min="0" max="100" required>
+							<label>% ISLR: </label><input type="number" name="islr" id="islr" step="0.01" min="0" max="100" required><br>
+							<label>Otras Retenciones: </label><input type="number" name="otherRetentions" id="otherRetentions" step="0.01" min="0" required>
+							<label>Prontopago: </label><input type="number" name="promptPayment" id="promptPayment" step="0.01" min="0" required>
 							<input type="submit" id="printCashBoxText" value="Cuentas Cobradas"></div>
 						<table class="display" id="example2">
 								<thead>
@@ -233,15 +235,15 @@
 		 		</form>
 			</div>
 		</div>
-		<div id="closeAccount">
+		<div id="closeAccount" style="width: 370px; height: 290px; background: white; padding: 40px 0 10px;">
 			<div id="signup-ct">
-				<h3 id="see_id" class="sprited" >Pago Cobrado</h3>
+				<h3 id="see_id" class="sprited" style="background: #63b8ee; line-height: 63px;">Pago Cobrado</h3>
 				<br><br>
 				<span>¿Está seguro que el pago #<span class="fId"></span> del seguro <b><span class="name"></span></b> fue cobrado? </span> <br><br>
 				<div id="signup-header">
 					<a class="close_x" id="close_x"  href="#"></a>
 				</div>
-				<form action="PayPendingAccountServlet" method="post" onsubmit="return setV(this)" >
+				<form action="PayPendingAccountServlet" method="post" onsubmit="return setV(this)" style="padding: 0 20px;">
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
 					<input type="hidden" id="admissionId" class="good_input" name="admissionId" value=""/>
 					<input type="hidden" id="paymentResponsibleId" class="good_input" name="paymentResponsibleId" value=""/>
@@ -249,9 +251,11 @@
 					<input type="hidden" id="mainResponsible" class="good_input" name="mainResponsible" value=""/>
 					<label>N&uacute;mero de Documento: </label><input type="text" name="documentnumber" id="documentnumber" size="10"><br>
 					<label>Banco: </label><input type="text" name="bank" id="bank" size="25"><br>
-					<label>% ISLR: </label><input type="number" name="islr" id="islr" step="0.01" min="0" max="100" required>
+					<label>% ISLR: </label><input type="number" name="islr" id="islr" step="0.01" min="0" max="100" required><br>
+					<label>Otras Retenciones: </label><input type="number" name="otherRetentions" id="otherRetentions" step="0.01" min="0" required><br>
+					<label>Prontopago: </label><input type="number" name="promptPayment" id="promptPayment" step="0.01" min="0" required>
 					<div class="btn-fld">
-						<input type="submit" style="left: 220px;" class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
+						<input type="submit" class="buttonPopUpDelete5"  name="sbmtButton" value="Aceptar"  />
 					</div>
 		 		</form>
 			</div>

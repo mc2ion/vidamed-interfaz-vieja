@@ -61,6 +61,8 @@ public class PayPendingAccountsServlet extends HttpServlet {
 				String documentNumber = request.getParameter("documentnumber");
 				String bank = request.getParameter("bank");
 				Double islr = Double.parseDouble(request.getParameter("islr"));
+				Double otherRetentions = Double.parseDouble(request.getParameter("otherRetentions"));
+				Double promptPayment = Double.parseDouble(request.getParameter("promptPayment"));
 				
 				for (int i = 0; i < values.length; i++){
 					System.out.println(values[i]);
@@ -71,7 +73,7 @@ public class PayPendingAccountsServlet extends HttpServlet {
 					Long admissionID = Long.parseLong(val[3]);
 					Long paymentResponsibleID = Long.parseLong(val[4]);
 					int result	 = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.PayPendingAccount(userID, documentNumber, bank, 
-							hasMultiple, mainResponsible, admissionID, paymentResponsibleID, islr));
+							hasMultiple, mainResponsible, admissionID, paymentResponsibleID, islr, otherRetentions, promptPayment));
 					
 					if (result != 1)  error = 1;
 				}
