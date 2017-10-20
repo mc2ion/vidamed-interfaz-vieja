@@ -183,6 +183,10 @@ public class GetMedicalFeeReport implements DatabaseCommand {
 					e1.printStackTrace();
 				}
 				
+				s.setPaymentResponsibleName(rs.getString(20));
+				s.setReasonName(rs.getString(21));
+				s.setFinalAmount(rs.getString(22));
+				
 				p.add(s);
 			}
 		}catch(Exception e){

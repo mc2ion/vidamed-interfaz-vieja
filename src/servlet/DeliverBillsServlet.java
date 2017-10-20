@@ -1,8 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,10 +16,10 @@ import domain.User;
 
 
 /**
- * Servlet implementation class PayPendingPromptPaymentServlet
+ * Servlet implementation class DeliverBillsServlet
  */
-@WebServlet(description = "servlet to remove admission", urlPatterns = { "/PayPendingPromptPaymentServlet" })
-public class PayPendingPromptPaymentServlet extends HttpServlet {
+@WebServlet(description = "servlet to deliver bills", urlPatterns = { "/DeliverBillsServlet" })
+public class DeliverBillsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	public void init() throws ServletException {
@@ -36,7 +34,7 @@ public class PayPendingPromptPaymentServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PayPendingPromptPaymentServlet() {
+    public DeliverBillsServlet() {
         super();
     }
 
@@ -55,22 +53,29 @@ public class PayPendingPromptPaymentServlet extends HttpServlet {
 		User userE = (User)session.getAttribute("user");
 		if(userE != null){
 			try {
-				Long userID	 = Long.parseLong(request.getParameter("userId"));
-				//String documentNumber = request.getParameter("documentnumber");
-				//String bank = request.getParameter("bank");
-				Date today = new Date();
-				SimpleDateFormat format = new SimpleDateFormat("yyyyMMddhhmmssS");
-				String receiptNumber = format.format(today);
+				int error = 0;
+				String[] values = request.getParameterValues("sendFact");
+				String date = request.getParameter("date");
 				
-				System.out.println("+++ receiptNumber:" + receiptNumber);
+				for (int i = 0; i < values.length; i++){
+					System.out.println(values[i]);
+					String[] val = values[i].split("_");
+					Long userID	 = Long.parseLong(val[0]);
+					Integer hasMultiple = Integer.parseInt(val[1]);
+					Integer mainResponsible = Integer.parseInt(val[2]);
+					Long admissionID = Long.parseLong(val[3]);
+					Long paymentResponsibleID = Long.parseLong(val[4]);
+					int result	 = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.SendBill(userID, date, hasMultiple, mainResponsible, admissionID, paymentResponsibleID));
+					
+					if (result != 1)  error = 1;
+				}
+				if (error == 0){
+					session.setAttribute("info", "Se registraron los envíos exitosamente.");
+				} else {
+					session.setAttribute("info","Hubo un problema el registrar uno de los envíos. Por favor, intente más tarde");
+				}
 				
-				int result	 = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.PayMedicalFee(userID, receiptNumber));
-				if (result == 1)
-					session.setAttribute("text", "Se registró el pago exitosamente.");
-				else
-					session.setAttribute("text","Hubo un problema el registrar el pago. Por favor, intente más tarde");
-				
-				response.sendRedirect("./ListBillingsPPServlet");
+				response.sendRedirect("./ListAccountsServlet");
 			}
 			catch (Exception e) {
 				throw new ServletException(e);

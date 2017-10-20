@@ -60,10 +60,10 @@
 			idUser = var1;
 			$('.fId').text(var1);
 			$('.name').text(var2);
-			$('#admissionId').val(var3);
-			$('#paymentResponsibleId').val(var4);
-			$('#hasMultiple').val(var5);
-			$('#mainResponsible').val(var6);
+			$('.admissionId').val(var3);
+			$('.paymentResponsibleId').val(var4);
+			$('.hasMultiple').val(var5);
+			$('.mainResponsible').val(var6);
 		};
 		
 		function setV(f){
@@ -104,7 +104,8 @@
 			"sScrollY": "250px",
 			"bPaginate": false,
 			"aoColumns": [
-				{"asSorting": false},
+				{"bSearchable": false, "asSorting": false},
+				{"bSearchable": false, "asSorting": false},
 				null,
 				null,
 				null,
@@ -151,17 +152,21 @@
 			  		<!--</ul>
   					<div id="tabs-1">-->
   						<form id='formFact' method="post" action="PayPendingAccountsServlet">
-  						<div id="printCashBox" class='cuentasP'>
-							<label>N&uacute;mero de Documento: </label><input type="text" name="documentnumber" id="documentnumber" size="10">
-							<label>Banco: </label><input type="text" name="bank" id="bank" size="25">
-							<label>% ISLR: </label><input type="number" name="islr" id="islr" step="0.01" min="0" max="100" required><br>
-							<label>Otras Retenciones: </label><input type="number" name="otherRetentions" id="otherRetentions" step="0.01" min="0" required>
-							<label>Prontopago: </label><input type="number" name="promptPayment" id="promptPayment" step="0.01" min="0" required>
-							<input type="submit" id="printCashBoxText" value="Cuentas Cobradas"></div>
-						<table class="display" id="example2">
+	  						<div id="printCashBox" class='cuentasP'>
+								<label>N&uacute;mero de Documento: </label><input type="text" name="documentnumber" id="documentnumber" size="10">
+								<label>Banco: </label><input type="text" name="bank" id="bank" size="25">
+								<label>% ISLR: </label><input type="number" name="islr" id="islr" step="0.01" min="0" max="100" required><br>
+								<label>Otras Retenciones: </label><input type="number" name="otherRetentions" id="otherRetentions" step="0.01" min="0" required>
+								<label>Prontopago: </label><input type="number" name="promptPayment" id="promptPayment" step="0.01" min="0" required>
+								<input type="submit" id="printCashBoxText" value="Cuentas Cobradas"></div>
+							<div class='cuentasE'>
+								<label>Fecha de Envío: </label><input type="text" name="date" id="date" required>
+								<input type="submit" value="Cuentas Entregadas"></div>
+							<table class="display" id="example2">
 								<thead>
 									<tr>
-										<th>Seleccionar</th>
+										<th>Entregadas</th>
+										<th>Cobradas</th>
 										<th>No. de Factura</th>
 										<th>Fecha Emisión</th>
 										<th>Seguro</th>
@@ -186,6 +191,7 @@
 										String data = p.getBillID().toString()+'_'+p.getHasMultiplePaymentResponsibles()+'_'+p.getMainPaymentResponsible()+'_'+p.getAdmissionID()+'_'+p.getPaymentResposible().getId();
 									%>	
 									<tr class="gradeA">
+										<td><input type="checkbox" name="sendFact" class='sendF' value="<%= data %>"></td>	
 										<td><input type="checkbox" name="selFact" class='selF' value="<%= data %>"></td>										
 										<td><%= p.getBillID() %></td>
 										<td><%= p.getGenerationDate() %></td>
@@ -196,7 +202,7 @@
 										<td>
 										<% if(p.getWasDelivered()==0){ %>
 											<a id="go" rel="leanModal" href="#deliverBill" style="color: #f7941e; font-weight: bold;" 
-											onclick="return loadVars(<%= p.getBillID() %>, '<%= p.getPaymentResposible().getName() %>');" >
+											onclick="return loadVars(<%= p.getBillID() %>, '<%= p.getPaymentResposible().getName() %>', <%= p.getAdmissionID() %>, <%= p.getPaymentResposible().getId() %>, <%= p.getHasMultiplePaymentResponsibles() %>, <%= p.getMainPaymentResponsible() %>);" >
 											<img alt="logo" src="./images/send.png" height="16" width="16" title="Entregada"/>
 											</a>
 										<% } %>
@@ -228,6 +234,10 @@
 				</div>
 				<form action="DeliverBillServlet" method="post" onsubmit="return setV(this)" >
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+					<input type="hidden" id="admissionId" class="good_input admissionId" name="admissionId" value=""/>
+					<input type="hidden" id="paymentResponsibleId" class="good_input paymentResponsibleId" name="paymentResponsibleId" value=""/>
+					<input type="hidden" id="hasMultiple" class="good_input hasMultiple" name="hasMultiple" value=""/>
+					<input type="hidden" id="mainResponsible" class="good_input mainResponsible" name="mainResponsible" value=""/>
 					<label>Fecha de Envío: </label><input type="text" name="date" id="date" required/>
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
@@ -245,10 +255,10 @@
 				</div>
 				<form action="PayPendingAccountServlet" method="post" onsubmit="return setV(this)" style="padding: 0 20px;">
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
-					<input type="hidden" id="admissionId" class="good_input" name="admissionId" value=""/>
-					<input type="hidden" id="paymentResponsibleId" class="good_input" name="paymentResponsibleId" value=""/>
-					<input type="hidden" id="hasMultiple" class="good_input" name="hasMultiple" value=""/>
-					<input type="hidden" id="mainResponsible" class="good_input" name="mainResponsible" value=""/>
+					<input type="hidden" id="admissionId" class="good_input admissionId" name="admissionId" value=""/>
+					<input type="hidden" id="paymentResponsibleId" class="good_input paymentResponsibleId" name="paymentResponsibleId" value=""/>
+					<input type="hidden" id="hasMultiple" class="good_input hasMultiple" name="hasMultiple" value=""/>
+					<input type="hidden" id="mainResponsible" class="good_input mainResponsible" name="mainResponsible" value=""/>
 					<label>N&uacute;mero de Documento: </label><input type="text" name="documentnumber" id="documentnumber" size="10"><br>
 					<label>Banco: </label><input type="text" name="bank" id="bank" size="25"><br>
 					<label>% ISLR: </label><input type="number" name="islr" id="islr" step="0.01" min="0" max="100" required><br>
@@ -269,8 +279,38 @@
 			}
 			
 		});
-		if (checkedAtLeastOne == true) {$('.cuentasP').show();}
-		else {$('.cuentasP').hide();}
+		if (checkedAtLeastOne == true) {
+			$('.cuentasP #islr').prop('required',true);
+			$('.cuentasP #otherRetentions').prop('required',true);
+			$('.cuentasP #promptPayment').prop('required',true);
+			$('.cuentasP').show();
+			$('#formFact').prop('action', 'PayPendingAccountsServlet');
+			$('.cuentasE').hide(); 
+			$('.sendF').prop('checked', false);
+		} else {
+			$('.cuentasP').hide();
+		}
+	});
+	
+	$('.sendF').change(function () {
+		var checkedAtLeastOne = false;
+		$('input[type="checkbox"]').each(function() {
+			if ($(this).is(":checked")) {
+				checkedAtLeastOne = true;
+			}
+			
+		});
+		if (checkedAtLeastOne == true) {
+			$('.cuentasE').show();
+			$('#formFact').prop('action', 'DeliverBillsServlet');
+			$('.cuentasP').hide();
+			$('.cuentasP #islr').prop('required',false);
+			$('.cuentasP #otherRetentions').prop('required',false);
+			$('.cuentasP #promptPayment').prop('required',false);
+			$('.selF').prop('checked', false);
+		} else {
+			$('.cuentasE').hide();
+		}
 	});
 	
 	</script>

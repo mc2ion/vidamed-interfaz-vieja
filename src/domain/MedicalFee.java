@@ -13,6 +13,13 @@ public class MedicalFee {
 	private int wasPaid;
 	private String patientName;
 	private String dischargeDate;
+	private String paymentResponsibleName;
+	private String reasonName;
+	private String finalAmount;
+	private String retentionRate;
+	private String retentionAmount;
+	private String islr;
+	private String total;
 	
 	public Long getMedicalFeeID() {
 		return medicalFeeId;
@@ -93,6 +100,60 @@ public class MedicalFee {
 	public String getDischargeDate() {
 		return dischargeDate;
 	}
-	
-	
+
+	public void setPaymentResponsibleName(String paymentResponsibleName) {
+		this.paymentResponsibleName = paymentResponsibleName;
+	}
+
+	public String getPaymentResponsibleName() {
+		return paymentResponsibleName;
+	}
+
+	public void setReasonName(String reasonName) {
+		this.reasonName = reasonName;
+	}
+
+	public String getReasonName() {
+		return reasonName;
+	}
+
+	public void setFinalAmount(String finalAmount) {
+		this.finalAmount = finalAmount;
+	}
+
+	public String getFinalAmount() {
+		return finalAmount;
+	}
+
+	public void setRetentionRate(String retentionRate) {
+		this.retentionRate = retentionRate;
+	}
+
+	public String getRetentionRate() {
+		return retentionRate;
+	}
+
+	public void setRetentionAmount(String retentionAmount) {
+		this.retentionAmount = retentionAmount;
+	}
+
+	public String getRetentionAmount() {
+		return retentionAmount;
+	}
+
+	public void setIslr(String islr) {
+		this.islr = islr;
+	}
+
+	public String getIslr() {
+		return islr;
+	}
+
+	public void setTotal(String total) {
+		this.total = total;
+	}
+
+	public String getTotal() {
+		return total;
+	}
 }

@@ -54,10 +54,14 @@ private static final long serialVersionUID = 1L;
 		if(userE != null){
 			try {
 				Long userID	 = Long.parseLong(request.getParameter("userId"));
+				Integer hasMultiple = Integer.parseInt(request.getParameter("hasMultiple"));
+				Integer mainResponsible = Integer.parseInt(request.getParameter("mainResponsible"));
+				Long admissionID = Long.parseLong(request.getParameter("admissionId"));
+				Long paymentResponsibleID = Long.parseLong(request.getParameter("paymentResponsibleId"));
 				String date = request.getParameter("date");
-				int result	 = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.SendBill(userID, date));
+				int result	 = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.SendBill(userID, date, hasMultiple, mainResponsible, admissionID, paymentResponsibleID));
 				if (result == 1)
-					session.setAttribute("text", "Se regisstró el envío exitosamente.");
+					session.setAttribute("text", "Se registró el envío exitosamente.");
 				else
 					session.setAttribute("text","Hubo un problema el registrar el envío. Por favor, intente más tarde");
 				

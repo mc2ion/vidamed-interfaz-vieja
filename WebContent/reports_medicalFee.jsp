@@ -158,7 +158,7 @@
 			<div id="dt_example">
 					<div id="container">
 						<form action="ListReportsServlet" method="post">
-								<h3 style="display:inline;">Escoga el módulo del cual quiere obtener un reporte:</h3>
+								<h3 style="display:inline;">Escoja el módulo del cual quiere obtener un reporte:</h3>
 								<select name="modId">
 								   <option value="0">Seleccionar</option>
 									<option value="1" >Usuarios</option>
@@ -255,18 +255,13 @@
 											<th>Cédula</th>
 											<th>Rif</th>
 											<th>Nombre</th>
-											<th>Sexo</th>
-											<th>Honorario</th>
-											<th>¿Fue Generada?</th>
 											<th>Fecha Generación</th>
-											<th>¿Fact. Pagada?</th>
-											<th>Fecha Pago</th>
-											<th>¿Pronto Pago?</th>
-											<th>¿Honorario Pagado?</th>
-											<th>Monto</th>
 											<th>Nro Factura</th>
 											<th>Paciente</th>
-											<th>Fecha Alta</th>
+											<th>Responsable de Pago</th>
+											<th>Servicio</th>
+											<th>Honorario Registrado</th>
+											<th>Honorario A Cancelar</th>
 										</tr>
 									</thead>
 									<tbody>	
@@ -279,18 +274,13 @@
 											<td><%= us.getSpecialist().getIdentityCard() %></td>
 											<td><%= (us.getSpecialist().getRif() != null)? us.getSpecialist().getRif() : "-"%></td>
 											<td><%= us.getSpecialist().getFirstName() + " " + us.getSpecialist().getLastName()  %></td>
-											<td><%= us.getSpecialist().getSex() %></td>
-											<td><%= us.getAmount() %></td>
-											<td><%= (us.getBill().getWasGenerated() == 0)? "No": "Si" %></td>
 											<td><%= (us.getBill().getGenerationDate() != null)? us.getBill().getGenerationDate(): "-" %></td>
-											<td><%= (us.getBill().getWasPaid() == 0)? "No": "Si" %></td>
-											<td><%= (us.getBill().getPaymentDate() != null)? us.getBill().getPaymentDate(): "-" %></td>
-											<td><%= (us.getIsPromptPayment()  == 0)? "No": "Si" %></td>
-											<td><%= (us.getWasPaid() != 0)? "Si": "No" %></td>
-											<td><%= (us.getPromptAmount()  != null)? us.getPromptAmount(): "-" %></td>
 											<td><%= us.getBill().getBillID() %></td>
 											<td><%= us.getPatientName() %></td>
-											<td><%= us.getDischargeDate() %></td>
+											<td><%= us.getPaymentResponsibleName() %></td>
+											<td><%= us.getReasonName() %></td>
+											<td><%= us.getAmount() %></td>
+											<td><%= us.getFinalAmount() %></td>
 										</tr>
 									<% 		}
 										}else{									

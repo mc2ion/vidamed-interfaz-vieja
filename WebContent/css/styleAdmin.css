@@ -2109,7 +2109,8 @@ input.search-input{
 	
 }
 
-#printCashBox{
+#printCashBox, 
+.cuentasE {
 	margin-top: -30px;
 	float: right;
 	background: lightGrey;
@@ -2117,9 +2118,14 @@ input.search-input{
 	border-radius: 10px;
 }
 
-.cuentasP{display:none; margin-bottom:15px;}
+.cuentasP,
+.cuentasE {
+	display:none; 
+	margin-bottom:15px;
+}
 
-#printCashBoxText{
+#printCashBoxText,
+.cuentasE input[type="submit"] {
 	color: #006c92;
 	font-weight: bold;
 }

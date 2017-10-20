@@ -71,12 +71,12 @@
 				"sScrollY": "200px",
 				"bPaginate": false,
 				"aoColumns": [
-					{"asSorting": false},
+					{ "bSearchable": false, "bSortable": false },
 					null,
 					null,
 					null,
 					null,
-					{ "bSearchable": false, "asSorting": false, "sWidth": "18%" }
+					{ "bSearchable": false, "bSortable": false, "sWidth": "18%" }
 				],
 				"oLanguage": {
 		            "sLengthMenu": " ",
@@ -89,6 +89,10 @@
 		            "sSearch": "Buscar:"
 	        	}
 			} );
+			
+			$('#selAll').on('click', function() {
+				$('.selF').prop('checked', $(this).is(':checked'));
+			});
 	} );
 		
 	</script>
@@ -134,14 +138,14 @@
   						<form id='formFact' method="post" action="PayPendingMedicalFeesServlet">
   						<input type="hidden" id="function" class="good_input" name="function"  value="pendingPayments"/>
   						<div id="printCashBox" class='cuentasP'>
-							<label>N&uacute;mero de Documento: </label><input type="text" name="documentnumber" id="documentnumber" size="10">
-							<label>Banco: </label><input type="text" name="bank" id="bank" size="25">
+							<!-- <label>N&uacute;mero de Documento: </label><input type="text" name="documentnumber" id="documentnumber" size="10">
+							<label>Banco: </label><input type="text" name="bank" id="bank" size="25"> -->
 							<input type="submit" id="printCashBoxText" value="Pagos Cancelados"></div>
 					<div id="demo">
 						<table class="display" id="example">
 							<thead>
 								<tr>
-									<th>Seleccionar</th>
+									<th style="text-align:right;"><input type="checkbox" name="selAll" id="selAll" class='selF'></th>
 									<th>Pago del Seguro</th>
 									<th>Doctor</th>
 									<th>Monto</th>
@@ -209,8 +213,8 @@
 				<form action="PayPendingMedicalFeeServlet" method="post" onsubmit="return setV(this)" >
 					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
 					<input type="hidden" id="function" class="good_input" name="function"  value="pendingPayments"/>
-					<label>N&uacute;mero de Documento: </label><input type="text" name="documentnumber" id="documentnumber" size="10"><br>
-					<label>Banco: </label><input type="text" name="bank" id="bank" size="25">
+					<!-- <label>N&uacute;mero de Documento: </label><input type="text" name="documentnumber" id="documentnumber" size="10"><br>
+					<label>Banco: </label><input type="text" name="bank" id="bank" size="25"> -->
 					<div class="btn-fld">
 						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
 					</div>

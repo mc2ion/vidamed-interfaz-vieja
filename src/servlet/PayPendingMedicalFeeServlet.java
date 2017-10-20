@@ -1,6 +1,9 @@
 package servlet;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
+import domain.MedicalFee;
 import domain.User;
 
 
@@ -55,17 +59,39 @@ public class PayPendingMedicalFeeServlet extends HttpServlet {
 			try {
 				Long userID	 	= Long.parseLong(request.getParameter("userId"));
 				String function = request.getParameter("function");
-				String documentNumber = request.getParameter("documentnumber");
-				String bank = request.getParameter("bank");
-				int result	 = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.PayMedicalFee(userID, documentNumber, bank));
-				if (result == 1)
+				//String documentNumber = request.getParameter("documentnumber");
+				//String bank = request.getParameter("bank");
+				Date today = new Date();
+				SimpleDateFormat format = new SimpleDateFormat("yyyyMMddhhmmssS");
+				String receiptNumber = format.format(today);
+				
+				System.out.println("+++ receiptNumber:" + receiptNumber);
+				
+				int result	 = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.PayMedicalFee(userID, receiptNumber));
+				if (result == 1) {
 					session.setAttribute("text", "Se registró el pago exitosamente.");
-				else
+					
+					@SuppressWarnings("unchecked")
+					ArrayList<MedicalFee> mf = (ArrayList<MedicalFee>) CommandExecutor.getInstance().executeDatabaseCommand(
+							new command.GetMedicalFeeReceipt(receiptNumber));
+					@SuppressWarnings("unchecked")
+					ArrayList<MedicalFee> totals = (ArrayList<MedicalFee>) CommandExecutor.getInstance().executeDatabaseCommand(
+							new command.GetMedicalFeeReceiptTotal(receiptNumber));
+					
+					request.setAttribute("mf", mf);
+					request.setAttribute("totals", totals);
+					
+					RequestDispatcher rd;			
+					rd = getServletContext().getRequestDispatcher("/medicalFeeReceipt.jsp");
+					rd.forward(request, response);
+				} else {
 					session.setAttribute("text","Hubo un problema el registrar el pago. Por favor, intente más tarde");
-				if (function != null && function.equals("pendingPayments"))
-					response.sendRedirect("./ListPendingPaymentsServlet");
-				else
-					response.sendRedirect("./ListBillingsHServlet");
+					
+					if (function != null && function.equals("pendingPayments"))
+						response.sendRedirect("./ListPendingPaymentsServlet");
+					else
+						response.sendRedirect("./ListBillingsHServlet");
+				}
 			}
 			catch (Exception e) {
 				throw new ServletException(e);
