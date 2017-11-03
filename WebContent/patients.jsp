@@ -11,6 +11,13 @@
 <%
 	@SuppressWarnings("unchecked")
 	ArrayList<Patient> patients = (ArrayList<Patient>)request.getAttribute("patients");
+	String patientname				= (String)request.getAttribute("patientname");
+	String identityCard 			= (String)request.getAttribute("identitycard");
+	String str = "", num = "";
+	if (identityCard != null && identityCard != ""){
+		str = identityCard.substring(0,2);
+		num = identityCard.substring(2);
+	}
 %>
 <html>
 	<head>
@@ -84,6 +91,28 @@
 			<h2>Pacientes:</h2>
 			<div id="dt_example">
 					<div id="container">
+						<form action="ListPatientsServlet" style="margin-top: -10px;" method="post" >
+						Si lo desea, puede filtrar la búsqueda por cualquiera de los siguientes parámetros:
+  						<div>
+							<fieldset style="text-align: left; margin-left:0px;">
+							<table style="width:100%;">
+								<tr>
+									<td><b>Paciente:</b></td><td><input  type="text" name="patientname" maxlength="100" size="20" value="<%= (patientname != null) ? patientname : "" %>" /></td>
+									<td><b>C&eacute;dula de Identidad:</b></td>
+									<td>
+										<select name="txtCedId" id="txtCedId">
+											<option value="V-" <%= (str.equals("V-"))?"selected":"" %>>V</option>
+											<option value="E-" <%= (str.equals("E-"))?"selected":"" %>>E</option>
+										</select>
+										<input type="text" name="txtCedIdNum" id="txtCedIdNum" maxlength="50" size="18" value="<%= num %>"/>
+									</td>
+									<td><b></b></td><td></td>
+								</tr>
+							</table>	
+							<input type="submit" class="buttonGreen lessPadding"   style="float: right; margin-right:40px; margin-top: 5px;" value="Buscar">
+							</fieldset>
+  						</div>	
+  						</form>
 						<div id="demo">
 							<table class="display" id="example">
 								<thead>

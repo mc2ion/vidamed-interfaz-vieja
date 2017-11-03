@@ -36,6 +36,7 @@
 	}
 	String specialistname			= (String)request.getAttribute("specialistname");
 	String admissiondate			= (String)request.getAttribute("admissiondate");
+	String wasdelivered 					= (String)request.getAttribute("wasdelivered");
 %>
 <!DOCTYPE HTML>
 <html>
@@ -242,7 +243,14 @@
 								</tr>
 								<tr>
 									<td><b>Fecha de Ingreso:</b></td><td><input type="text" name="admissiondate" id="txtAdminDate" maxlength="50" size="20" value="<%= (admissiondate != null) ? admissiondate : "" %>" /></td>
-									<td><b></b></td><td></td>
+									<td><b>¿Fue entregada?:</b></td>
+									<td>
+									<select name="wasDelivered">
+										<option value="-">Ambos</option>
+										<option value="1" <%= ( "1".equals(wasdelivered)) ? "selected" : "" %>>Si</option>
+										<option value="0" <%= ( "0".equals(wasdelivered)) ? "selected" : "" %>>No</option>
+									</select>
+									</td>
 									<td><b></b></td><td></td>
 								</tr>
 							</table>	
@@ -261,6 +269,8 @@
 											<th>Fecha Generación</th>
 											<th>¿Fue Pagada?</th>
 											<th>Fecha Pago</th>
+											<th>¿Fue entregada?</th>
+											<th>Fecha Entrega</th>
 											<th></th>
 										</tr>
 									</thead>
@@ -277,6 +287,8 @@
 											<td><%= (u.getGenerationDate() != null)? u.getGenerationDate() : "-" %></td>
 											<td><%= (u.getWasPaid() == 1)? "Si" : "No" %></td>
 											<td><%= (u.getPaymentDate() != null)? u.getPaymentDate() : "-" %></td>
+											<td><%= (u.getWasDelivered() == 1)? "Si" : "No" %></td>
+											<td><%= (u.getDeliveryDate() != null)? u.getDeliveryDate() : "-" %></td>
 											<td>
 												<a id="go" rel="leanModal" href="#printUser" style="color: #f7941e; font-weight: bold;" 
 												onclick="return loadVars('<%= u.getAdmissionID() %>','<%= u.getBillID() %>');" >

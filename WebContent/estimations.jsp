@@ -10,6 +10,14 @@
 	@SuppressWarnings("unchecked")
 	ArrayList<Estimation> est = (ArrayList<Estimation>) request.getAttribute("est");
 	
+	String estimationid 			= (String)request.getAttribute("estimationid");
+	String identityCard 			= (String)request.getAttribute("identitycard");
+	String str = "", num = "";
+	if (identityCard != null && identityCard != ""){
+		str = identityCard.substring(0,2);
+		num = identityCard.substring(2);
+	}
+	
 	String info_text = "";
 
 	String info = (String) session.getAttribute("info");
@@ -99,6 +107,28 @@
 			
 			<div id="dt_example">
 					<div id="container">
+						<form action="ListEstimationsServlet" style="margin-top: -10px;" method="post" >
+						Si lo desea, puede filtrar la búsqueda por cualquiera de los siguientes parámetros:
+  						<div>
+							<fieldset style="text-align: left; margin-left:0px;">
+							<table style="width:100%;">
+								<tr>
+									<td><b># Estimación:</b></td><td><input  type="text" name="estimationId" maxlength="50" size="20" value="<%= (estimationid != null) ? estimationid : "" %>" /></td>
+									<td><b>C&eacute;dula de Identidad:</b></td>
+									<td>
+										<select name="txtCedId" id="txtCedId">
+											<option value="V-" <%= (str.equals("V-"))?"selected":"" %>>V</option>
+											<option value="E-" <%= (str.equals("E-"))?"selected":"" %>>E</option>
+										</select>
+										<input type="text" name="txtCedIdNum" id="txtCedIdNum" maxlength="50" size="18" value="<%= num %>"/>
+									</td>
+									<td><b></b></td><td></td>
+								</tr>
+							</table>	
+							<input type="submit" class="buttonGreen lessPadding"   style="float: right; margin-right:40px; margin-top: 5px;" value="Buscar">
+							</fieldset>
+  						</div>	
+  						</form>
 						<div id="demo">
 							<table class="display" id="example">
 								<thead>

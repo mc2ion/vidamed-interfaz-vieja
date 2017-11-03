@@ -146,7 +146,10 @@ Long paymentresponsibleid = (Long)request.getAttribute("paymentresponsibleid");
 											<th>Monto Abonado</th>
 											<th>Monto Pendiente Seguro</th>
 											<th>Fecha Recepci&oacute;n</th>
-											<th>D&iacute;as Vencidos</th>
+											<th>0 - 30</th>
+											<th>30 - 60</th>
+											<th>60 - 90</th>
+											<th>M&aacute;s de 90</th>
 										</tr>
 									</thead>
 									<tbody>		
@@ -171,12 +174,15 @@ Long paymentresponsibleid = (Long)request.getAttribute("paymentresponsibleid");
 											<td>0.00</td>
 											<td><%= (u.getTotal()==null)?"":u.getTotal()  %></td>
 											<td><%= u.getDeliveryDate() %></td>
-											<td><%= days %></td>
+											<td><%= (days <= 30)?"x":"" %></td>
+											<td><%= (days > 30 && days <= 60)?"x":"" %></td>
+											<td><%= (days > 60 && days <= 90)?"x":"" %></td>
+											<td><%= (days > 90)?"x":"" %></td>
 										</tr>
 									<% 		}
 										}else{									
 									%>
-										<tr><td colspan="12" style="text-align: center;">No hay datos disponibles</td></tr>
+										<tr><td colspan="15" style="text-align: center;">No hay datos disponibles</td></tr>
 									
 									<% } %>	
 									</tbody>

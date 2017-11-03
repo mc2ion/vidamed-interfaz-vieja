@@ -9,8 +9,18 @@ import java.util.ArrayList;
 import domain.Patient;
 
 public class GetPatients implements DatabaseCommand {
+	
+	private String patientname				= null;
+	private String identitycard				= null;
 
 	public GetPatients(){}
+	
+	public GetPatients(String patientname, String identitycard){
+		if (patientname != null && patientname != "")
+			this.patientname  	= "'" + patientname + "'";
+		if (identitycard != null && identitycard != "")
+			this.identitycard  	= "'" + identitycard + "'";
+	}
 	
 	@Override
 	public Object executeDatabaseOperation(Connection conn) throws SQLException {
@@ -19,7 +29,7 @@ public class GetPatients implements DatabaseCommand {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			ps = conn.prepareStatement("exec dbo.GetPatients");
+			ps = conn.prepareStatement("exec dbo.GetPatients " + patientname + "," + identitycard);
 			rs = ps.executeQuery();
 
 			while(rs.next()) {

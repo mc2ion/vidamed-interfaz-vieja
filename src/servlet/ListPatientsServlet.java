@@ -14,7 +14,6 @@ import javax.servlet.http.HttpSession;
 import command.CommandExecutor;
 
 import domain.Patient;
-import domain.PaymentResponsible;
 import domain.PermissionsList;
 import domain.User;
 
@@ -45,7 +44,6 @@ public class ListPatientsServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
@@ -54,16 +52,16 @@ public class ListPatientsServlet extends HttpServlet {
 		if(userE != null && perm ){
 			RequestDispatcher rd;
 			
-			ArrayList<Patient> patients;
+			//ArrayList<Patient> patients;
 			try {
-				patients = (ArrayList<Patient>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPatients());
-				request.setAttribute("patients", patients);
+				//patients = (ArrayList<Patient>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPatients());
+				request.setAttribute("patients",  new ArrayList<Patient>());
 
 				rd = getServletContext().getRequestDispatcher("/patients.jsp");
 				rd.forward(request, response);
 			
 			} catch (Exception e) {
-				request.setAttribute("patients", new ArrayList<PaymentResponsible>());
+				request.setAttribute("patients", new ArrayList<Patient>());
 				rd = getServletContext().getRequestDispatcher("/patients.jsp");
 				rd.forward(request, response);
 			}
@@ -82,6 +80,43 @@ public class ListPatientsServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		HttpSession session = request.getSession();
+		User userE = (User)session.getAttribute("user");
+		
+		
+		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.patient);
+		
+		if(userE != null && perm ){
+			String patientname		= request.getParameter("patientname");
+			String num				= request.getParameter("txtCedIdNum");
+			String identityCard 	= "";
+			if (num != null && num != "")
+				identityCard = request.getParameter("txtCedId") + num;
+			
+			try {
+				
+				@SuppressWarnings("unchecked")
+				ArrayList<Patient> pp = (ArrayList<Patient>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetPatients(patientname, identityCard));
+				
+				request.setAttribute("patients", pp);
+				
+				request.setAttribute("patientname", patientname);
+				request.setAttribute("identitycard", identityCard);				
+				
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/patients.jsp");
+				rd.forward(request, response);
+			} 
+			catch (Exception e) {
+				throw new ServletException(e);
+			}
+		} else {
+			if (userE == null){
+				request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+				rd.forward(request, response);
+			}else{
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/sectionDenied.jsp");
+				rd.forward(request, response);
+			}
+		}	
 	}
 }

@@ -18,6 +18,8 @@ public class PendingBills {
 	private String totalPaid;
 	private int hasMultiplePaymentResponsibles;
 	private Long creditNoteID;
+	private int wasDelivered;
+	private String deliveryDate;
 	
 	
 	public Long getBillID() {
@@ -139,6 +141,22 @@ public class PendingBills {
 
 	public Long getCreditNoteID() {
 		return creditNoteID;
+	}
+
+	public void setWasDelivered(int wasDelivered) {
+		this.wasDelivered = wasDelivered;
+	}
+
+	public int getWasDelivered() {
+		return wasDelivered;
+	}
+
+	public void setDeliveryDate(String deliveryDate) {
+		this.deliveryDate = deliveryDate;
+	}
+
+	public String getDeliveryDate() {
+		return deliveryDate;
 	}
 
 }

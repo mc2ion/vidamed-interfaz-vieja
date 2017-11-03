@@ -10,7 +10,17 @@ import domain.Estimation;
 
 public class GetEstimations implements DatabaseCommand {
 	
+	private String estimationid 			= null;
+	private String identitycard				= null;
+	
 	public GetEstimations(){}
+	
+	public GetEstimations(String estimationId, String identitycard) {
+		if (estimationId != null && estimationId != "")
+			this.estimationid	    = estimationId;
+		if (identitycard != null && identitycard != "")
+			this.identitycard  	= "'" + identitycard + "'";
+	}
 	
 	@Override
 	public Object executeDatabaseOperation(Connection conn) throws SQLException {
@@ -20,7 +30,7 @@ public class GetEstimations implements DatabaseCommand {
 		ResultSet rs = null;
 		
 		try {
-			ps = conn.prepareStatement("exec dbo.GetEstimations");
+			ps = conn.prepareStatement("exec dbo.GetEstimations " + estimationid + "," + identitycard);
 			rs = ps.executeQuery();
 
 			while (rs.next()) {

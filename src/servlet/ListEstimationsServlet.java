@@ -50,9 +50,8 @@ public class ListEstimationsServlet extends HttpServlet {
 		if(userE != null && perm){
 			
 			try {
-				@SuppressWarnings("unchecked")
-				ArrayList<Estimation> est = (ArrayList<Estimation>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEstimations());
-				request.setAttribute("est",est);
+				//ArrayList<Estimation> est = (ArrayList<Estimation>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEstimations());
+				request.setAttribute("est", new ArrayList<Estimation>());
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/estimations.jsp");
 				rd.forward(request, response);
 			} catch (Exception e) {
@@ -75,6 +74,43 @@ public class ListEstimationsServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		HttpSession session = request.getSession();
+		User userE = (User)session.getAttribute("user");
+		
+		
+		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.estimation);
+		
+		if(userE != null && perm ){
+			String estimationId 	 		= request.getParameter("estimationId");
+			String num				= request.getParameter("txtCedIdNum");
+			String identityCard 	= "";
+			if (num != null && num != "")
+				identityCard = request.getParameter("txtCedId") + num;
+			
+			try {
+				
+				@SuppressWarnings("unchecked")
+				ArrayList<Estimation> est = (ArrayList<Estimation>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEstimations(estimationId, identityCard));
+				
+				request.setAttribute("est", est);
+				
+				request.setAttribute("estimationid", estimationId);
+				request.setAttribute("identitycard", identityCard);				
+				
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/estimations.jsp");
+				rd.forward(request, response);
+			} 
+			catch (Exception e) {
+				throw new ServletException(e);
+			}
+		} else {
+			if (userE == null){
+				request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+				rd.forward(request, response);
+			}else{
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/sectionDenied.jsp");
+				rd.forward(request, response);
+			}
+		}
 	}
 }

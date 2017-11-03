@@ -21,6 +21,7 @@ public class PendingAccounts {
 	private String guaranteeLetter;
 	private String totalBill;
 	private String dischargeDate;
+	private String coverageAmount;
 	
 	public void setTotalWithDiscount(String totalWithDiscount, Double amount) {
 		if(totalWithDiscount != null){
@@ -187,5 +188,17 @@ public class PendingAccounts {
 
 	public String getDischargeDate() {
 		return dischargeDate;
+	}
+
+	public void setCoverageAmount(String coverageAmount, Double amount) {
+		if(coverageAmount != null){
+			this.coverageAmount = Estimation.format.format(amount);
+		} else {			
+			this.coverageAmount = null;
+		}
+	}
+
+	public String getCoverageAmount() {
+		return coverageAmount;
 	}
 }

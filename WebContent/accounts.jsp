@@ -112,6 +112,7 @@
 				null,
 				null,
 				null,
+				null,
 				{ "bSearchable": false, "asSorting": false, "sWidth": "18%" }
 			],
 			"oLanguage": {
@@ -170,6 +171,7 @@
 										<th>No. de Factura</th>
 										<th>Fecha Emisión</th>
 										<th>Seguro</th>
+										<th>Cobertura</th>
 										<th>Monto Pendiente</th>
 										<th>Fecha Entrega</th>
 										<th>Días Vencida</th>
@@ -191,11 +193,16 @@
 										String data = p.getBillID().toString()+'_'+p.getHasMultiplePaymentResponsibles()+'_'+p.getMainPaymentResponsible()+'_'+p.getAdmissionID()+'_'+p.getPaymentResposible().getId();
 									%>	
 									<tr class="gradeA">
-										<td><input type="checkbox" name="sendFact" class='sendF' value="<%= data %>"></td>	
+										<td>
+										<% if(p.getWasDelivered()==0){ %>
+											<input type="checkbox" name="sendFact" class='sendF' value="<%= data %>">
+										<% } %>
+										</td>	
 										<td><input type="checkbox" name="selFact" class='selF' value="<%= data %>"></td>										
 										<td><%= p.getBillID() %></td>
 										<td><%= p.getGenerationDate() %></td>
 										<td><%= p.getPaymentResposible().getName() %></td>
+										<td><%= (p.getCoverageAmount()==null)?"-":"Bs. " + p.getCoverageAmount() %></td>
 										<td>Bs. <%= p.getTotal() %></td>
 										<td><%= (p.getDeliveryDate()==null)?"-":p.getDeliveryDate() %></td>
 										<td><%= (days==null)?"N/A":days %></td>
@@ -287,6 +294,7 @@
 			$('#formFact').prop('action', 'PayPendingAccountsServlet');
 			$('.cuentasE').hide(); 
 			$('.sendF').prop('checked', false);
+			$('.cuentasE #date').prop('requiered', false);
 		} else {
 			$('.cuentasP').hide();
 		}
@@ -301,6 +309,7 @@
 			
 		});
 		if (checkedAtLeastOne == true) {
+			$('.cuentasE #date').prop('requiered', true);
 			$('.cuentasE').show();
 			$('#formFact').prop('action', 'DeliverBillsServlet');
 			$('.cuentasP').hide();

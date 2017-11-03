@@ -106,14 +106,17 @@ public class ListBillReportServlet extends HttpServlet {
 				identityCard = request.getParameter("txtCedId") + num;
 			String specialistname	= request.getParameter("specialistname");
 			String admissiondate	= request.getParameter("admissiondate");
-			
+			String d 	  	  = request.getParameter("wasDelivered");
+			String wasdelivered = null;
+			if (!d.equals("-"))
+				wasdelivered = d;
 			
 			try {
 				
 				@SuppressWarnings("unchecked")
 				ArrayList<PendingBills> pp = (ArrayList<PendingBills>) CommandExecutor.getInstance().executeDatabaseCommand(
 											new command.GetBillReport(billId, estimationId, paymentresponsiblename, wasGenerated, generationfrom, 
-												generationto, waspaid, paymentfrom, paymentto, patientname, identityCard, specialistname, admissiondate));
+												generationto, waspaid, paymentfrom, paymentto, patientname, identityCard, specialistname, admissiondate, wasdelivered));
 				
 				request.setAttribute("pp", pp);
 				
@@ -130,6 +133,7 @@ public class ListBillReportServlet extends HttpServlet {
 				request.setAttribute("identitycard", identityCard);
 				request.setAttribute("specialistname", specialistname);
 				request.setAttribute("admissiondate", admissiondate);
+				request.setAttribute("wasdelivered", wasdelivered);
 				
 				
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/reports_bills.jsp");

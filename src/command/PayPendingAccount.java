@@ -42,6 +42,7 @@ public class PayPendingAccount implements DatabaseCommand {
 			ps.execute();
 		}
 		catch(Exception e){
+			e.printStackTrace();
 			return 0;
 		}
 		finally {

@@ -120,11 +120,13 @@
 			$('#generateInvoice').removeClass('short-alert');
 			$('#generateInvoice').addClass('large-alert');
 			$('#prname').text(var4);
+			$("#coverageAmount").prop('required',true);
 		} else {
 			$('#seguro').css('display', 'none');
 			$('#generateInvoice').removeClass('large-alert');
 			$('#generateInvoice').addClass('short-alert');
 			$('#mrp').remove();
+			$("#coverageAmount").prop('required',false);
 		}
 	};
 	

@@ -28,13 +28,14 @@ public class GetBillReport implements DatabaseCommand {
 	private String identitycard				= null;
 	private String specialistname			= null;
 	private String admissiondate			= null;
+	private String wasdelivered				= null;
 	
 	
 	public GetBillReport(){}
 	
 	public GetBillReport(String billid, String estimationId, String paymentresponsiblename, String wasgenerated, String generationfrom, String generationto, 
 								String waspaid, String paymentfrom, String paymentto, String patientname, String identitycard, String specialistname, 
-								String admissiondate) throws ParseException{
+								String admissiondate, String wasdelivered) throws ParseException{
 		if (billid != null && billid != "")
 			this.billid	    = billid;
 		if (estimationId != null && estimationId != "")
@@ -92,7 +93,8 @@ public class GetBillReport implements DatabaseCommand {
 		if (admissiondate != null && admissiondate != ""){
 			this.admissiondate   	= "'" + admissiondate + "'";
 		}
-		
+		if (wasdelivered != null && wasdelivered != "")
+			this.wasdelivered	    = wasdelivered;
 	}
 	
 	@Override
@@ -104,7 +106,7 @@ public class GetBillReport implements DatabaseCommand {
 		try {
 			ps = conn.prepareStatement("exec dbo.GetBillReport " + billid + "," + estimationid + "," + paymentresponsiblename + ","  + wasgenerated +   "," +
 					generationfrom + ","  + generationto + ","  + waspaid + "," + paymentfrom + "," + paymentto + "," + patientname + "," + identitycard + "," +
-					specialistname + "," + admissiondate);
+					specialistname + "," + admissiondate + "," + wasdelivered);
 			rs = ps.executeQuery();
 		
 			while (rs.next()) {
@@ -125,6 +127,10 @@ public class GetBillReport implements DatabaseCommand {
 				fromFormat.setLenient(false);
 				DateFormat toFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 				toFormat.setLenient(false);
+				DateFormat fromFormatShort = new SimpleDateFormat("yyyy-MM-dd");
+				fromFormatShort.setLenient(false);
+				DateFormat toFormatShort = new SimpleDateFormat("dd/MM/yyyy");
+				toFormatShort.setLenient(false);
 				
 				String dateStr = rs.getString(7);
 				Date date;
@@ -150,6 +156,17 @@ public class GetBillReport implements DatabaseCommand {
 					e1.printStackTrace();
 				}
 				s.setAdmissionID(rs.getLong(10));
+				s.setWasDelivered(rs.getInt(11));
+				
+				dateStr = rs.getString(12);
+				try {
+					if (dateStr != null){
+						date = fromFormatShort.parse(dateStr);
+						s.setDeliveryDate(toFormatShort.format(date));
+					}
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
 				
 				p.add(s);
 			}
