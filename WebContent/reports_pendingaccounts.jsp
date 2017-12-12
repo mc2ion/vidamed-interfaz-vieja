@@ -98,6 +98,7 @@ Long paymentresponsibleid = (Long)request.getAttribute("paymentresponsibleid");
 									<option value="16" >Facturación detallada</option>
 									<option value="17" selected>An&aacute;lisis Vencimiento</option>
 									<option value="18" >Relaci&oacute;n de Facturaci&oacute;n</option>
+									<option value="19" >An&aacute;lisis Vencimiento Resumido</option>
 								</select>
 								<input type="submit" value="Buscar"/>
 						</form><br/><br/>
@@ -171,8 +172,8 @@ Long paymentresponsibleid = (Long)request.getAttribute("paymentresponsibleid");
 											<td><%= u.getGuaranteeLetter() %></td>
 											<td><%= u.getTotalBill() %></td>
 											<td><%= (u.getTotal()==null)?"":u.getTotal() %></td>
-											<td>0.00</td>
-											<td><%= (u.getTotal()==null)?"":u.getTotal()  %></td>
+											<td><%= (u.getTotalPaid()==null)?"":u.getTotalPaid() %></td>
+											<td><%= (u.getTotalPending()==null)?"":u.getTotalPending()  %></td>
 											<td><%= u.getDeliveryDate() %></td>
 											<td><%= (days <= 30)?"x":"" %></td>
 											<td><%= (days > 30 && days <= 60)?"x":"" %></td>

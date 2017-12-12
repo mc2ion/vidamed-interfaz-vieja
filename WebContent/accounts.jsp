@@ -213,6 +213,10 @@
 											<img alt="logo" src="./images/send.png" height="16" width="16" title="Entregada"/>
 											</a>
 										<% } %>
+											<a id="go" rel="leanModal" href="#payAccount" style="color: #f7941e; font-weight: bold;" 
+											onclick="return loadVars(<%= p.getBillID() %>, '<%= p.getPaymentResposible().getName() %>', <%= p.getAdmissionID() %>, <%= p.getPaymentResposible().getId() %>, <%= p.getHasMultiplePaymentResponsibles() %>,<%= p.getMainPaymentResponsible() %>);" >
+											<img alt="logo" src="./images/movements.png" height="16" width="16" title="Abonar"/>
+											</a>
 											<a id="go" rel="leanModal" href="#closeAccount" style="color: #f7941e; font-weight: bold;" 
 											onclick="return loadVars(<%= p.getBillID() %>, '<%= p.getPaymentResposible().getName() %>', <%= p.getAdmissionID() %>, <%= p.getPaymentResposible().getId() %>, <%= p.getHasMultiplePaymentResponsibles() %>,<%= p.getMainPaymentResponsible() %>);" >
 											<img alt="logo" src="./images/check.png" height="16" width="16" title="Cobrada"/>
@@ -266,6 +270,32 @@
 					<input type="hidden" id="paymentResponsibleId" class="good_input paymentResponsibleId" name="paymentResponsibleId" value=""/>
 					<input type="hidden" id="hasMultiple" class="good_input hasMultiple" name="hasMultiple" value=""/>
 					<input type="hidden" id="mainResponsible" class="good_input mainResponsible" name="mainResponsible" value=""/>
+					<label>N&uacute;mero de Documento: </label><input type="text" name="documentnumber" id="documentnumber" size="10"><br>
+					<label>Banco: </label><input type="text" name="bank" id="bank" size="25"><br>
+					<label>% ISLR: </label><input type="number" name="islr" id="islr" step="0.01" min="0" max="100" required><br>
+					<label>Otras Retenciones: </label><input type="number" name="otherRetentions" id="otherRetentions" step="0.01" min="0" required><br>
+					<label>Prontopago: </label><input type="number" name="promptPayment" id="promptPayment" step="0.01" min="0" required>
+					<div class="btn-fld">
+						<input type="submit" class="buttonPopUpDelete5"  name="sbmtButton" value="Aceptar"  />
+					</div>
+		 		</form>
+			</div>
+		</div>
+		<div id="payAccount" style="width: 370px; height: 290px; background: white; padding: 40px 0 10px;">
+			<div id="signup-ct">
+				<h3 id="see_id" class="sprited" style="background: #63b8ee; line-height: 63px;">Abonar a Cuenta</h3>
+				<br><br>
+				<span>¿Está seguro que desea realizar un abono al pago #<span class="fId"></span> del seguro <b><span class="name"></span></b>? </span> <br><br>
+				<div id="signup-header">
+					<a class="close_x" id="close_x"  href="#"></a>
+				</div>
+				<form action="PayPendingAccountServlet" method="post" onsubmit="return setV(this)" style="padding: 0 20px;">
+					<input type="hidden" id="userId" class="good_input" name="userId"  value=""/>
+					<input type="hidden" id="admissionId" class="good_input admissionId" name="admissionId" value=""/>
+					<input type="hidden" id="paymentResponsibleId" class="good_input paymentResponsibleId" name="paymentResponsibleId" value=""/>
+					<input type="hidden" id="hasMultiple" class="good_input hasMultiple" name="hasMultiple" value=""/>
+					<input type="hidden" id="mainResponsible" class="good_input mainResponsible" name="mainResponsible" value=""/>
+					<label>Monto: </label><input type="number" name="amount" id="amount" step="0.01" min="0" required><br>
 					<label>N&uacute;mero de Documento: </label><input type="text" name="documentnumber" id="documentnumber" size="10"><br>
 					<label>Banco: </label><input type="text" name="bank" id="bank" size="25"><br>
 					<label>% ISLR: </label><input type="number" name="islr" id="islr" step="0.01" min="0" max="100" required><br>

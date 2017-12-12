@@ -1,8 +1,7 @@
-<%@page import="domain.UserReport"%>
-<%@page import="domain.Admission"%>
-<%@ page import="domain.User" %>
-<%@ page import="domain.UserUnit" %>
-<%@ page import="java.util.ArrayList" %>
+<%@page import="java.util.ArrayList"%>
+<%@page import="domain.PaymentResponsible"%>
+<%@page import="domain.PendingAccounts"%>
+<%@page import="domain.User"%>
 <%@ page import="java.util.HashMap" %>
 <%
 	User user = (User) session.getAttribute("user");
@@ -10,23 +9,12 @@
 	if (user != null)
 		name = user.getFirstName() ;
 	
-	int modSelect = 0;
-	String modId = (String) request.getAttribute("modId");
-	if (modId != null && !modId.equals(""))
-		modSelect = Integer.valueOf(modId);
-	
-	@SuppressWarnings("unchecked")
-	ArrayList<UserReport> mfList = (ArrayList<UserReport>)request.getAttribute("pp");
-	
-	@SuppressWarnings("unchecked")
-	ArrayList<UserUnit> a = (ArrayList<UserUnit>)request.getAttribute("a");
+	ArrayList<PendingAccounts> pp = (ArrayList<PendingAccounts>)request.getAttribute("pp");
+	HashMap<String, Integer> header = (HashMap<String, Integer>) request.getAttribute("header");
+	ArrayList<String> ht = (ArrayList<String>)request.getAttribute("ht");
 	
 	String dateIni = (String) request.getAttribute("dateIni");
 	String dateEnd = (String)request.getAttribute("dateEnd");
-	String nameF = (String)request.getAttribute("name");
-	String identityCard = (String)request.getAttribute("identityCard");
-	String unitId = (String)request.getAttribute("unitId");
-	String gender = (String)request.getAttribute("gender");
 %>
 <!DOCTYPE HTML>
 <html>
@@ -88,7 +76,7 @@
         </div>        
 		 <jsp:include page="./menu.jsp" />
 		<div id="content">  
-			<h2>Reporte Usuarios</h2>
+			<h2>Reporte An&aacute;lisis Vencimiento Resumido</h2>
 			<div id="dt_example">
 					<div id="container">
 						<form action="ListReportsServlet" method="post">
@@ -113,43 +101,19 @@
 									<option value="16" >Facturación detallada</option>
 									<option value="17" >An&aacute;lisis Vencimiento</option>
 									<option value="18" >Relaci&oacute;n de Facturaci&oacute;n</option>
-									<option value="19" >An&aacute;lisis Vencimiento Resumido</option>
+									<option value="19" selected>An&aacute;lisis Vencimiento Resumido</option>
 								</select>
 								<input type="submit" value="Buscar"/>
 						</form><br/><br/>
-						<form action="ListUserReportsServlet" style="margin-top: -10px;" method="post" >
+						<form action="PendingAccountsSummaryReportServlet" style="margin-top: -10px;" method="post" >
 						Si lo desea, puede filtrar la búsqueda por cualquiera de los siguientes parámetros:
   						<div>
 							<fieldset style="text-align: left; margin-left:0px;">
 							<table style="width:100%;">
 								<tr>
-									<td><b>Desde:</b></td><td><input  type="text" name="txtDateIni" id="txtDateIni" maxlength="50" size="20" value="<%= (dateIni != null) ? dateIni : "" %>" /></td>
-									<td><b>Hasta:</b></td><td> <input  type="text" name="txtDateEnd" id="txtDateEnd" maxlength="50" size="20" value="<%= (dateEnd != null) ? dateEnd : "" %>"/></td>
-									<td><b>Nombre Usuario:</b></td><td><input type="text" name="userName" size="20" value="<%= (nameF != null) ? nameF : "" %>"></td>
-								</tr>
-								<tr>
-									<td><b>Cédula:</b></td><td>  <input type="text" name="identityCard" size="20" value="<%= (identityCard != null) ? identityCard : "" %>"></td>
-									<td><b>Sexo:</b></td>
-									<td> 
-									<select name="gender">
-										<option value="-">Ambos</option>
-										<option value="F" <%= (gender != null && gender.equals("F")) ? "selected" : "" %> >F</option>
-										<option value="M" <%= (gender != null && gender.equals("M")) ? "selected" : "" %>>M</option>
-									</select>
-									</td>
-									<td><b>Unidad:</b></td>
-									
-									<td>  
-									<select name="unitId" style="width: 135px;">
-										<option value="-">Todos</option>
-										<%
-											for (int  i = 0; i < a.size(); i++){
-												UserUnit u = a.get(i);
-										%>
-										<option value="<%= u.getUserUnitID() %>" <%= (String.valueOf(u.getUserUnitID()).equals(unitId)) ? "selected" : "" %> ><%= u.getName() %></option>
-										<% } %>
-									</select>
-									</td>
+									<td><b>Desde:</b></td><td><input  type="text" name="txtDateIni" id="txtDateIni" maxlength="50" size="20" value="<%= (dateIni != null) ? dateIni : "" %>" required /></td>
+									<td><b>Hasta:</b></td><td> <input  type="text" name="txtDateEnd" id="txtDateEnd" maxlength="50" size="20" value="<%= (dateEnd != null) ? dateEnd : "" %>" required /></td>
+									<td><b></b></td><td></td>
 								</tr>
 							</table>	
 							<input type="submit" class="buttonGreen lessPadding"   style="float: right; margin-right:40px; margin-top: 5px;" value="Buscar">
@@ -160,38 +124,99 @@
 								<table id="sweetTable" >
 									<thead>
 										<tr>
-											<th>Fecha Ingreso</th>
-											<th>Nombre Usuario</th>
-											<th>Cédula</th>
-											<th>Sexo</th>
-											<th>Id Unidad</th>
-											<th>Unidad</th>
-											<th>Salario</th>
+										<% if(ht != null && ht.size() > 0) {											
+											for (String col : ht) {%>
+										        <th><%= col %></th>
+										    <%}
+										} else {
+										%>
+											<th>Responsable de pago</th>
+										<%
+										} %>
 										</tr>
 									</thead>
 									<tbody>	
-									<% 	if (mfList != null && mfList.size() > 0 ){
-											for (int i = 0; i < mfList.size(); i++){ 
-											UserReport u = mfList.get(i); 
-									%>
-										<tr>
-											<td><%= u.getStartDate() %></td>
-											<td><%= u.getUserName() %></td>
-											<td><%= u.getIdentityCard() %></td>
-											<td><%= u.getGender() %></td>
-											<td><%= u.getUserUnitID() %></td>
-											<td><%= (u.getUnitName() != null) ? u.getUnitName(): "-" %></td>
-											<td><%= (u.getSalary() != null) ? u.getSalary(): "-" %></td>
+									<% 	if (pp != null && pp.size() > 0 ){
+											Long id = 0L;
+											Integer aux = 1;
+											
+											for (int i = 0; i < pp.size(); i++){ 
+												PendingAccounts u = pp.get(i);
+												PaymentResponsible pr = u.getPaymentResposible();
+												System.out.println("+++++ id: '"+id+"', pr.getId(): '"+pr.getId()+"', match?: "+ (id == pr.getId()));
+												if(!id.equals(pr.getId())) {
+													if(aux != 1){
+														for(int j = aux; j < header.keySet().size(); j++) {
+															%>
+											<td></td>
+															<%
+														}
+														
+														aux = 1;
+														%>
 										</tr>
-									<% 		}
+														<%
+													}
+													%>
+										<tr>
+											<td><%= pr.getName() %></td>
+													<%
+													Integer index = header.get(u.getDeliveryDate());
+													
+													for(int k = aux; k <= index; k++) {
+														if(k == index) {
+															%>
+											<td><%= (u.getTotal()==null)?"":u.getTotal() %></td>
+															<%
+														} else {
+															%>
+											<td></td>
+															<%
+														}
+													}
+													
+													aux = index + 1;
+													id = pr.getId();
+												} else {
+													Integer index = header.get(u.getDeliveryDate());
+													
+													for(int l = aux; l <= index; l++) {
+														if(l == index) {
+															%>
+											<td><%= (u.getTotal()==null)?"":u.getTotal() %></td>
+															<%
+														} else {
+															%>
+											<td></td>
+															<%
+														}
+													}
+													
+													aux = index + 1;
+													id = pr.getId();
+												}
+											}
+											
+											if(aux != 1){
+												for(int i = aux; i < header.keySet().size(); i++) {
+													%>
+									<td></td>
+													<%
+												}
+												
+												aux = 1;
+												%>
+								</tr>
+												<%
+											}
 										}else{									
 									%>
-										<tr><td colspan="7" style="text-align: center;">No hay datos disponibles</td></tr>
+										<tr><td colspan="<%= (header != null && header.keySet().size() > 0)?header.keySet().size():1 %>" style="text-align: center;">No hay datos disponibles</td></tr>
 									
 									<% } %>	
 									</tbody>
 								</table>
-							</div>
+						</div>
 					</div>
 				</div>
 				<div class="spacer"></div>

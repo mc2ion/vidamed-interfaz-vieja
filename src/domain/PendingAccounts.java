@@ -22,6 +22,7 @@ public class PendingAccounts {
 	private String totalBill;
 	private String dischargeDate;
 	private String coverageAmount;
+	private String totalPending;
 	
 	public void setTotalWithDiscount(String totalWithDiscount, Double amount) {
 		if(totalWithDiscount != null){
@@ -200,5 +201,17 @@ public class PendingAccounts {
 
 	public String getCoverageAmount() {
 		return coverageAmount;
+	}
+
+	public void setTotalPending(String totalPending, Double amount) {
+		if(totalPending != null){
+			this.totalPending = Estimation.format.format(amount);
+		} else {			
+			this.totalPending = null;
+		}
+	}
+
+	public String getTotalPending() {
+		return totalPending;
 	}
 }

@@ -16,6 +16,7 @@ public class PayPendingAccount implements DatabaseCommand {
 	private Double islr;
 	private Double otherRetentions;
 	private Double promptPayment;
+	private Double amount;
 	
 	public PayPendingAccount(Long billId, String documentNumber, String bank, Integer hasMultiple, Integer mainResponsible, Long admissionId, 
 			Long paymentResponsibleId, Double islr, Double otherRetentions, Double promptPayment){
@@ -29,6 +30,22 @@ public class PayPendingAccount implements DatabaseCommand {
 		this.islr = islr;
 		this.otherRetentions = otherRetentions;
 		this.promptPayment = promptPayment;
+		this.amount = null;
+	}
+	
+	public PayPendingAccount(Long billId, String documentNumber, String bank, Integer hasMultiple, Integer mainResponsible, Long admissionId, 
+			Long paymentResponsibleId, Double islr, Double otherRetentions, Double promptPayment, Double amount){
+		this.billId = billId;
+		this.documentNumber = documentNumber;
+		this.bank = bank;
+		this.hasMultiple = hasMultiple;
+		this.mainResponsible = mainResponsible;
+		this.admissionId = admissionId;
+		this.paymentResponsibleId = paymentResponsibleId;
+		this.islr = islr;
+		this.otherRetentions = otherRetentions;
+		this.promptPayment = promptPayment;
+		this.amount = amount;
 	}
 	
 	@Override
@@ -38,7 +55,8 @@ public class PayPendingAccount implements DatabaseCommand {
 		
 		try {
 			ps = conn.prepareStatement("exec dbo.PayAccount " + billId + ", '" + documentNumber + "', '" + bank + "', " + hasMultiple + ", " + 
-					mainResponsible + ", " + admissionId + ", " + paymentResponsibleId + ", " + islr + ", " + otherRetentions + ", " + promptPayment);
+					mainResponsible + ", " + admissionId + ", " + paymentResponsibleId + ", " + islr + ", " + otherRetentions + ", " + promptPayment +
+					", " + amount);
 			ps.execute();
 		}
 		catch(Exception e){

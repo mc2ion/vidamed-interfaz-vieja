@@ -10,6 +10,7 @@ public class PaymentResponsibleCollection {
 	private String promptPaymentAmount;
 	private String refund;
 	private String otherRetention;
+	private String totalPaid;
 	
 	public void setBillID(String billID) {
 		this.billID = billID;
@@ -81,5 +82,13 @@ public class PaymentResponsibleCollection {
 
 	public String getOtherRetention() {
 		return otherRetention;
+	}
+
+	public void setTotalPaid(String totalPaid) {
+		this.totalPaid = totalPaid;
+	}
+
+	public String getTotalPaid() {
+		return totalPaid;
 	}
 }

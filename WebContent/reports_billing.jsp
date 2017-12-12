@@ -102,6 +102,7 @@ String months[] = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio
 									<option value="16" >Facturación detallada</option>
 									<option value="17" >An&aacute;lisis Vencimiento</option>
 									<option value="18" selected>Relaci&oacute;n de Facturaci&oacute;n</option>
+									<option value="19" >An&aacute;lisis Vencimiento Resumido</option>
 								</select>
 								<input type="submit" value="Buscar"/>
 						</form><br/><br/>

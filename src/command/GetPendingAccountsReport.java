@@ -92,6 +92,9 @@ public class GetPendingAccountsReport implements DatabaseCommand {
 					}
 				}
 				
+				u.setTotalPaid(rs.getString(18), rs.getDouble(18));
+				u.setTotalPending(rs.getString(19), rs.getDouble(19));
+				
 				pList.add(u);
 			}
 		}
