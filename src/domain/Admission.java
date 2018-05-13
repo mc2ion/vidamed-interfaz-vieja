@@ -31,6 +31,7 @@ public class Admission {
 	private int wasPaid;
 	private String total;
 	private String totalPaid;
+	private String tempTotalPaid;
 	private Specialist spec;
 	private Estimation estimation;
 	private String totalWithDiscount;
@@ -220,11 +221,17 @@ public class Admission {
 		return totalPaid;
 	}
 	
+	public String getTempTotalPaid() {
+		return tempTotalPaid;
+	}
+	
 	public void setTotalPaid(String str, Double totalPaid) {
 		if(str!=null){
 			this.totalPaid = Estimation.format.format(totalPaid);
+			this.tempTotalPaid = Estimation.format.format(totalPaid/1000);
 		} else {
 			this.totalPaid = null;
+			this.tempTotalPaid = null;
 		}
 	}
 	

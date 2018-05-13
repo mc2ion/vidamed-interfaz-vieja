@@ -122,7 +122,7 @@
 										<td><%= s.getMedicalAdviceTypeName() %>
 										<td><%= s.getUnitName() %></td>
 										<td><%= spName %></td>
-										<td><%= s.getMedicalFeed() %></td>
+										<td><%= String.format("%.2f", s.getMedicalFeed()) %></td>
 										<td>
 											<a href="EditPatientMedicalAdviceServlet?id=<%=adminId%>&name=<%=patName%>&pmId=<%= s.getPatientMedicalAdviceID() %>" style="color: transparent" >
 												<img alt="logo" src="./images/edit.png"  height="16" width="16" title="Editar" />

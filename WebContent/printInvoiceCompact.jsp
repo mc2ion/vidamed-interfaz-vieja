@@ -232,7 +232,7 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
         if(e.getCoverageAmount()!=null && !e.getCoverageAmount().equals(0.0)){
         %>
         <div class="header">
-			<b>Monto de la Cobertura: </b><%= e.getCoverageAmount() %>     	
+			<b>Monto de la Cobertura: </b><%= String.format("%.2f", e.getCoverageAmount()) %>     	
         </div>
         <%
         }
@@ -273,6 +273,7 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 				<tr>
 					<td style="width:50%"><%= ct.getBussinessRuleMicroName() %></td>
 					<td style="width:20%;text-align:right;"><%= ct.getEstimationCost() %></td>
+					<td style="width:20%;text-align:right;"><%= ct.getTempEstimationCost() %></td>
 				</tr>		
 			<%
 				}
@@ -292,30 +293,37 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 				<tr id="totalTr">
 					<td>*** SUB-TOTAL ***</td>
 					<td style="width:20%;text-align:right;"><%= Estimation.format.format(t) %></td>
+					<td style="width:20%;text-align:right;"><%= Estimation.format.format(t/1000) %></td>
 				</tr>
 				<tr id="totalTr2">
 					<td>*** TOTAL ***</td>
 					<td style="width:20%;text-align:right;"><%= Estimation.format.format(t) %></td>
+					<td style="width:20%;text-align:right;"><%= Estimation.format.format(t/1000) %></td>
 				</tr>
 				<tr id="totalTr">
 					<td>*** DESCUENTO ***</td>
 					<td style="width:20%;text-align:right;"><%= Estimation.format.format(d) %></td>
+					<td style="width:20%;text-align:right;"><%= Estimation.format.format(d/1000) %></td>
 				</tr>
 				<tr id="totalTr2">
 					<td>I.V.A.</td>
+					<td style="width:20%;text-align:right;">0,00</td>
 					<td style="width:20%;text-align:right;">0,00</td>
 				</tr>
 				<tr id="totalTr">
 					<td>*** TOTAL GENERAL ***</td>
 					<td style="width:20%;text-align:right;"><%= Estimation.format.format(wd)  %></td>
+					<td style="width:20%;text-align:right;"><%= Estimation.format.format(wd/1000)  %></td>
 				</tr>
 				<tr id="totalTr2">
 					<td>*** TOTAL PAGADO ***</td>
 					<td style="width:20%;text-align:right;"><%= e.getTotalPaid() %></td>
+					<td style="width:20%;text-align:right;"><%= e.getTempTotalPaid() %></td>
 				</tr>
 				<tr id="totalTr">
 					<td>*** RESTANTE ***</td>
 					<td style="width:20%;text-align:right;"><%= Estimation.format.format(r) %></td>
+					<td style="width:20%;text-align:right;"><%= Estimation.format.format(r/1000) %></td>
 				</tr>
 			</tbody>
 			</table>				

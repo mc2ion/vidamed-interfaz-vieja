@@ -167,7 +167,7 @@ ArrayList<AdmissionPaymentResponsible> responsibles = (ArrayList<AdmissionPaymen
 		<br>
 		<div class="col-6">
 			<div class="bold"><%= billID %></div>
-			<div>COBERTURA: <span class="bold"><%= responsible.getCoverageAmount() %></span></div>
+			<div>COBERTURA: <span class="bold"><%= responsible.getCoverageAmount()%></span></div>
 		</div>
 		<br>
 		<div class="col-6">
