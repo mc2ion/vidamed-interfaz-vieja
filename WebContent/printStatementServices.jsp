@@ -251,7 +251,7 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 				<th><%= ct.getServiceTypeName() %></th>
 				<th style="width:20%;text-align:right;">Cantidad</th>
 				<th style="width:20%;text-align:right;">Precio Uni.</th>
-				<th style="width:20%;text-align:right;">Precio Bs.F.</th>
+				<th style="width:20%;text-align:right;">Precio Bs.S.</th>
 			</tr>
 			<% 
 					total = total + subtotal;

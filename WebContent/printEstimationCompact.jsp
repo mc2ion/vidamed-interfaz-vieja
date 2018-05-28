@@ -216,7 +216,7 @@ ArrayList<Protocol> pList = (ArrayList<Protocol>) request.getAttribute("plist");
 						<tbody>
 						<tr>
 							<th colspan="2"><%= p.getName() %></th>
-							<th style="width:20%;text-align:right;">Precio Bs.F.</th>
+							<th style="width:20%;text-align:right;">Precio Bs.S.</th>
 						</tr>
 						<% for (int j = 0; j < lList.size(); j++){
 							if (p.getProtocolID().equals(lList.get(j).getProtocolID())){

@@ -177,7 +177,7 @@ session.removeAttribute("info");
 			%>
 			<tr>
 				<th ><%= costs.get(0).getBussinessRuleMicroName() %></th>
-				<th style="width:20%;text-align:right;">Precio Bs.F.</th>
+				<th style="width:20%;text-align:right;">Precio Bs.S.</th>
 			</tr>
 			<%
 			}
@@ -203,7 +203,7 @@ session.removeAttribute("info");
 						<%}%>
 						<tr>
 							<th ><%= ct.getBussinessRuleMicroName() %></th>
-							<th style="width:20%;text-align:right;">Precio Bs.F.</th>
+							<th style="width:20%;text-align:right;">Precio Bs.S.</th>
 						</tr>
 						<tr>
 							<td style="width:50%"><%= ct.getProtocolScaleName() %></td>

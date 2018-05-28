@@ -165,7 +165,7 @@
 			<tbody>
 				<tr>
 					<th colspan="2">Hospitalización</th>
-					<th style="width:20%;text-align:right;">Precio Bs.F.</th>
+					<th style="width:20%;text-align:right;">Precio Bs.S.</th>
 				</tr>				
 				<tr>
 					<td style="width:50%">Habitación</td>
@@ -208,7 +208,7 @@
 				</tr>
 				<tr>
 					<th colspan="2">Gastos en Quirófano</th>
-					<th style="width:20%;text-align:right;">Precio Bs.F.</th>
+					<th style="width:20%;text-align:right;">Precio Bs.S.</th>
 				</tr>				
 				<tr>
 					<td style="width:50%">Quirófano</td>
@@ -241,7 +241,7 @@
 				</tr>
 				<tr>
 					<th colspan="2">Servicios Médicos</th>
-					<th style="width:20%;text-align:right;">Precio Bs.F.</th>
+					<th style="width:20%;text-align:right;">Precio Bs.S.</th>
 				</tr>				
 				<tr>
 					<td style="width:50%">Banco de Sangre (Tipiaje)</td>
@@ -274,7 +274,7 @@
 				</tr>
 				<tr>
 					<th colspan="2">Honorarios Profesionales</th>
-					<th style="width:20%;text-align:right;">Precio Bs.F.</th>
+					<th style="width:20%;text-align:right;">Precio Bs.S.</th>
 				</tr>				
 				<tr>
 					<td style="width:50%">Cirujano Principal</td>

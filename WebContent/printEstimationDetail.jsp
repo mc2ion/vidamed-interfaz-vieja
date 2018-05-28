@@ -245,7 +245,7 @@ ArrayList<Protocol> pList = (ArrayList<Protocol>) request.getAttribute("plist");
 								<%}%>
 								<tr>
 									<th><%= pt.getBussinessRuleMicroName()%></th>
-									<th style="width:20%;text-align:right;">Precio Bs.F.</th>
+									<th style="width:20%;text-align:right;">Precio Bs.S.</th>
 								</tr>									
 							<% 
 								subtotal = Estimation.format.parse(pt.getCost()).doubleValue();

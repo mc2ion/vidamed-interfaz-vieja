@@ -173,7 +173,7 @@
 			<tbody>
 				<tr>
 					<th colspan="2">Cirugía Funcional Endonasal</th>
-					<th style="width:20%;text-align:right;">Precio Bs.F.</th>
+					<th style="width:20%;text-align:right;">Precio Bs.S.</th>
 				</tr>
 				<tr>
 					<td colspan="2">Hospitalización</td>
@@ -207,7 +207,7 @@
 			<tbody>
 				<tr>
 					<th colspan="2">Amigdalectomía o Tonsilectomía</th>
-					<th style="width:20%;text-align:right;">Precio Bs.F.</th>
+					<th style="width:20%;text-align:right;">Precio Bs.S.</th>
 				</tr>
 				<tr>
 					<td colspan="2">Hospitalización</td>
