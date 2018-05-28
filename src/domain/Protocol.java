@@ -21,9 +21,6 @@ public class Protocol {
 	private String protocolScaleName;
 	private Long generatedCostTypeID;
 	private String unitID;
-	private String tempCost;
-	private String tempTotalP;
-	private String tempEstCost;
 	
 	public Long getProtocolID() {
 		return protocolID;
@@ -60,10 +57,8 @@ public class Protocol {
 	public void setCost(String str, Double cost) {
 		if(str!=null){
 			this.cost = Estimation.format.format(cost);
-			this.tempCost = Estimation.format.format(cost/1000);
 		} else {
 			this.cost = null;
-			this.tempCost = null;
 		}
 	}
 
@@ -71,26 +66,16 @@ public class Protocol {
 		return cost;
 	}
 	
-	public String getTempCost() {
-		return tempCost;
-	}
-	
 	public void setEstimationCost(String str, Double estCost) {
 		if(str!=null){
 			this.estCost = Estimation.format.format(estCost);
-			this.tempEstCost = Estimation.format.format(estCost/1000);
 		} else {
 			this.estCost = null;
-			this.tempEstCost = null;
 		}
 	}
 
 	public String getEstimationCost() {
 		return estCost;
-	}
-
-	public String getTempEstimationCost() {
-		return tempEstCost;
 	}
 	
 	
@@ -168,19 +153,13 @@ public class Protocol {
 	public void setTotalWithPercentage(String str, Double totalP) {
 		if(str!=null){	
 			this.totalP = Estimation.format.format(totalP);
-			this.tempTotalP = Estimation.format.format(totalP/1000);
 		} else {
 			this.totalP = null;
-			this.tempTotalP = null;
 		}
 	}
 	
 	public String getTotalWithPercentage() {
 		return totalP;
-	}
-	
-	public String getTempTotalWithPercentage() {
-		return tempTotalP;
 	}
 	
 	public void setProtocolScaleID(long protocolScaleID) {

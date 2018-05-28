@@ -38,8 +38,6 @@ public class Estimation {
 	private String totalWithDiscount;
 	private String clinicName;
 	private String paymentResponsibleName;
-	private String tempTotal;
-	private String tempTotalWithDiscount;
 	
 	public void setIsPolicyHolder(int isPolicyHolder) {
 		this.isPolicyHolder = isPolicyHolder;
@@ -191,7 +189,6 @@ public class Estimation {
 	public void setTotal(String str, Double total) {
 		if(str!=null){
 			this.total = format.format(total);
-			this.tempTotal = format.format(total/1000);
 		} else {
 			this.total = null;
 		}
@@ -199,10 +196,6 @@ public class Estimation {
 
 	public String getTotal() {
 		return total;
-	}
-	
-	public String getTempTotal() {
-		return tempTotal;
 	}
 	
 	public void setEditionDate(String editionDate) {
@@ -232,19 +225,13 @@ public class Estimation {
 	public void setTotalWithDiscount(String str, Double totalWithDiscount) {
 		if(str!=null){
 			this.totalWithDiscount = format.format(totalWithDiscount);
-			this.tempTotalWithDiscount = format.format(totalWithDiscount/1000);
 		} else {
 			this.totalWithDiscount = null;
-			this.tempTotalWithDiscount = null;
 		}
 	}
 
 	public String getTotalWithDiscount() {
 		return totalWithDiscount;
-	}
-
-	public String getTempTotalWithDiscount() {
-		return tempTotalWithDiscount;
 	}
 
 	public void setClinicName(String clinicName) {

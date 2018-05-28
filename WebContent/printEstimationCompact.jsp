@@ -217,7 +217,6 @@ ArrayList<Protocol> pList = (ArrayList<Protocol>) request.getAttribute("plist");
 						<tr>
 							<th colspan="2"><%= p.getName() %></th>
 							<th style="width:20%;text-align:right;">Precio Bs.F.</th>
-							<th style="width:20%;text-align:right;">Precio Bs.S.</th>
 						</tr>
 						<% for (int j = 0; j < lList.size(); j++){
 							if (p.getProtocolID().equals(lList.get(j).getProtocolID())){
@@ -229,8 +228,7 @@ ArrayList<Protocol> pList = (ArrayList<Protocol>) request.getAttribute("plist");
 							  DecimalFormat formatter = new DecimalFormat("#,###.##");
 							  String number = formatter.format(amount) ;*/
 							%> 
-							<td style="width:20%;text-align:right;"><%= lList.get(j).getCost() %></td> 
-							<td style="width:20%;text-align:right;"><%= lList.get(j).getTempCost() %></td>
+							<td style="width:20%;text-align:right;"><%= lList.get(j).getCost() %></td>
 						</tr>
 						<% } 
 						} %>
@@ -241,8 +239,7 @@ ArrayList<Protocol> pList = (ArrayList<Protocol>) request.getAttribute("plist");
 							  DecimalFormat formatter = new DecimalFormat("#,###.##");
 							  String number = formatter.format(amount) ;*/
 							%> 
-							<td style="width:20%;text-align:right;"><%=  pList.get(i).getTotalWithPercentage() %></td> 
-							<td style="width:20%;text-align:right;"><%=  pList.get(i).getTempTotalWithPercentage() %></td>
+							<td style="width:20%;text-align:right;"><%=  pList.get(i).getTotalWithPercentage() %></td>
 						</tr>
 				</tbody>
 			</table>
@@ -256,25 +253,11 @@ ArrayList<Protocol> pList = (ArrayList<Protocol>) request.getAttribute("plist");
 						  DecimalFormat formatter = new DecimalFormat("#,###.##");
 						  String number = formatter.format(amount) ;*/
 					%> 
-					<td>
-						<table id="invisibleTable">
-							<tr>
-								<td style="width:77%;text-align:right;"><%= e.getTotal() %></td> 
-								<td style="width:22%;text-align:right;"><%= e.getTempTotal() %></td>
-							</tr>
-						</table>
-					</td>
+					<td style="width:20%;text-align:right;"><%= e.getTotal() %></td>
 				</tr>
 				<tr id="totalTr">
 					<td colspan="2">I.V.A.</td>
-					<td>
-						<table id="invisibleTable">
-							<tr>
-								<td style="width:77%;text-align:right;">0,00</td>
-								<td style="width:22%;text-align:right;">0,00</td>
-							</tr>
-						</table>
-					</td>
+					<td style="width:20%;text-align:right;">0,00</td>
 				</tr>
 				<% 
 					String total = e.getTotal();	
@@ -282,32 +265,17 @@ ArrayList<Protocol> pList = (ArrayList<Protocol>) request.getAttribute("plist");
 						double a = Estimation.format.parse(e.getTotal()).doubleValue();
 						double b = Estimation.format.parse(e.getTotalWithDiscount()).doubleValue();
 						double disc  = a - b;
-						double tempDisc = disc/1000;
 						String discF = Estimation.format.format(disc);
 						total = e.getTotalWithDiscount() ;
 				%>
 				<tr id="totalTr2">
 					<td colspan="2">*** DESCUENTO ***</td>
-					<td>
-						<table id="invisibleTable">
-							<tr>
-								<td style="width:77%;text-align:right;"><%= discF %></td>
-								<td style="width:22%;text-align:right;"><%= Estimation.format.format(tempDisc) %></td>
-							</tr>
-						</table>
-					</td>
+					<td style="width:20%;text-align:right;"><%= discF %></td>
 				</tr>
 				<% } %>
 				<tr id="totalTr">
 					<td colspan="2">*** TOTAL GENERAL ***</td>
-					<td>
-						<table id="invisibleTable">
-							<tr>
-								<td style="width:77%;text-align:right;"><%= total %></td>
-								<td style="width:22%;text-align:right;"><%= e.getTempTotal() %></td>
-							</tr>
-						</table>
-					</td>
+					<td style="width:20%;text-align:right;"><%= total %></td>
 				</tr>
 			</tbody>
 		</table>		
