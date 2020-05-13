@@ -96,7 +96,7 @@
 		    	<div class="menuitemSalir"><a href="LogoutServlet"><%= name %> (Salir)</a></div>	
         	</div>        
 			<jsp:include page="./menu.jsp" />
-        	<div id="content" style="position:absolute;">
+        	<div id="content" style="position: absolute; left: 0; top: 75px;">
         		<div id="admitP">
 	        	<h2>Pre-Admitir Paciente:</h2>
 				<br>

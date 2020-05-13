@@ -64,6 +64,12 @@ public class GetDetailedInvoicingReport implements DatabaseCommand {
 				i.setProfessionalFees(rs.getString(8));
 				i.setTotal(rs.getString(9));
 				i.setDiscount(rs.getString(10));
+				i.setPaymentResponsibleName(rs.getString(11));
+				i.setNutrition(rs.getString(12));
+				i.setTomographies(rs.getString(13));
+				i.setBloodBank(rs.getString(14));
+				i.setPatientIdentityCard(rs.getString(15));
+				i.setPatientName(rs.getString(16), rs.getString(17));
 				
 				invoices.add(i);
 			}

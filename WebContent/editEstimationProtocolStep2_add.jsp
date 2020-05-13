@@ -101,7 +101,7 @@
 				<div class="menuitemSalir"><a href="LogoutServlet"><%= name %> (Salir)</a></div>	
         	</div>           
 			<jsp:include page="./menu.jsp" />
-        	<div id="content" style="position:absolute;">	
+        	<div id="content" style="position: absolute; left: 0; top: 75px;">	
 				<form action="EditEstimationProtocolAddServlet" method="post">
 				<input type="hidden" name="estimationid" value="<%= estimationID %>"/>
 				<input type="hidden" name="protocolid" value="<%= protocolID %>"/>

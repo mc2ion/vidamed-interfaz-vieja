@@ -81,7 +81,7 @@
 			<input type="hidden" name="count" id='countrows' value='<%= sps.size()%>' />
 			<input type="hidden" name="actives" id='activeies' value='' />
 			
-			<div id="content" style="position:absolute;">	
+			<div id="content" style="position: absolute; left: 0; top: 75px;">	
 	        	<h2>Editar Servicios</h2> <br><br>
 	        	<p>Para comenzar a agregar servicios, haga clic en "Agregar Nuevo". Al escoger todos los deseados, haga clic en "Aceptar".</p><br>
 	        	

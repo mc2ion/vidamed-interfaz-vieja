@@ -136,7 +136,7 @@
 			 <!-- OJO TODA ADMISION DEBE TENER PRESUPUESTO.. TENER ESO EN CUENTA
 			 	COMO RESTRICCION PARA CREAR LA ADMISION
 			  -->
-        	<div id="content" style="position:absolute;">
+        	<div id="content" style="position: absolute; left: 0; top: 75px;">
         		<div id="admitP">
 	        	<h2>Admitir Paciente:</h2>
 				<br>

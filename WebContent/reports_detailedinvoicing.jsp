@@ -156,6 +156,9 @@
 									<thead>
 										<tr>
 											<th>N° Factura</th>
+											<th>C&eacute;dula Paciente</th>
+											<th>Nombre Paciente</th>
+											<th>Responsable de Pago</th>
 											<th>Monto Cl&iacute;nica</th>
 											<th>Monto Descuento</th>
 											<th>Monto F&aacute;rmacos</th>
@@ -164,6 +167,9 @@
 											<th>Monto Rayos X</th>
 											<th>Monto Eco</th>
 											<th>Honorarios M&eacute;dicos</th>
+											<th>Comida</th>
+											<th>Tomograf&iacute;a</th>
+											<th>Banco de Sangre</th>
 											<th>Total Factura</th>
 										</tr>
 									</thead>
@@ -174,6 +180,9 @@
 									%>
 										<tr>
 											<td><%= u.getBillID() %></td>
+											<td><%= u.getPatientIdentityCard() %></td>
+											<td><%= u.getPatientName() %></td>
+											<td><%= u.getPaymentResponsibleName() %></td>
 											<td><%= u.getClinicTotal() %></td>
 											<td><%= u.getDiscount() %></td>
 											<td><%= u.getDrugs() %></td>
@@ -182,12 +191,15 @@
 											<td><%= u.getxRays() %></td>
 											<td><%= u.getEcos() %></td>
 											<td><%= u.getProfessionalFees() %></td>
+											<td><%= u.getNutrition() %></td>
+											<td><%= u.getTomographies() %></td>
+											<td><%= u.getBloodBank() %></td>
 											<td><%= u.getTotal() %></td>
 										</tr>
 									<% 		}
 										}else{									
 									%>
-										<tr><td colspan="10" style="text-align: center;">No hay datos disponibles</td></tr>
+										<tr><td colspan="16" style="text-align: center;">No hay datos disponibles</td></tr>
 									
 									<% } %>	
 									</tbody>

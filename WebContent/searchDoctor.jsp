@@ -63,7 +63,7 @@
 		    	<div class="menuitemSalir"><a href="LogoutServlet"><%= name %> (Salir)</a></div>	
         	</div>        
 			 <jsp:include page="./menu.jsp" />
-        	<div id="content" style="position:absolute;">	
+        	<div id="content" style="position: absolute; left: 0; top: 75px;">	
 	        	<h2>Seleccionar Especialista:</h2><br>
 				<div style="color:red">IMPORTANTE: Al hacer click en "Aceptar" cambiará definitivamente el especialista del paciente.</div><br/><br/>
 				<p>Por favor, escoga la unidad correspondiente y el médico correspondiente.</p><br>

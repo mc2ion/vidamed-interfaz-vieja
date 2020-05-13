@@ -20,6 +20,11 @@ public class Invoice {
 	private String coverageAmount;
 	private String coverageTotalPaid;
 	private Integer billsAmount;
+	private String nutrition;
+	private String tomographies;
+	private String bloodBank;
+	private String patientIdentityCard;
+	private String patientName;
 	
 	public void setBillID(Long billID) {
 		this.billID = billID;
@@ -163,6 +168,46 @@ public class Invoice {
 
 	public Integer getBillsAmount() {
 		return billsAmount;
+	}
+
+	public String getNutrition() {
+		return nutrition;
+	}
+
+	public void setNutrition(String nutrition) {
+		this.nutrition = nutrition;
+	}
+
+	public String getTomographies() {
+		return tomographies;
+	}
+
+	public void setTomographies(String tomographies) {
+		this.tomographies = tomographies;
+	}
+
+	public String getBloodBank() {
+		return bloodBank;
+	}
+
+	public void setBloodBank(String bloodBank) {
+		this.bloodBank = bloodBank;
+	}
+
+	public String getPatientIdentityCard() {
+		return patientIdentityCard;
+	}
+
+	public void setPatientIdentityCard(String patientIdentityCard) {
+		this.patientIdentityCard = patientIdentityCard;
+	}
+
+	public String getPatientName() {
+		return patientName;
+	}
+
+	public void setPatientName(String patientFirstName, String patientLastName) {
+		this.patientName = patientFirstName + ' ' + patientLastName;
 	}
 
 }

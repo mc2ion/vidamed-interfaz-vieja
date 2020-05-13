@@ -48,7 +48,7 @@
 				<div class="menuitemSalir"><a href="LogoutServlet"><%= name %> (Salir)</a></div>	
         	</div>        
 			<jsp:include page="./menu.jsp" />
-        	<div id="content" style="position:absolute;">	
+        	<div id="content" style="position: absolute; left: 0; top: 75px;">	
         		<h3 style="color:#006C92;">Detalle protocolo "<%= nameProtocol %>" en hospitalización:</h3>
 				<%
 		       			for (int i = 0; i < bm.size(); i++){ 

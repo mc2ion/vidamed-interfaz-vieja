@@ -31,7 +31,7 @@
 		    	<div class="menuitemSalir"><a href="LogoutServlet"><%= name %> (Salir)</a></div>	
         	</div>        
 			 <jsp:include page="./menu.jsp" />
-        	<div id="content" style="position:absolute;">	
+        	<div id="content" style="position: absolute; left: 0; top: 75px;">	
 	        	<h2>Material Médico Quirúrgico en Habitación</h2> <br><br>
 	        	<p>Para comenzar a agregar materiales, haga clic en "Agregar Nuevo". Al escoger todos los deseados, haga clic en "Aceptar".</p><br>
 	        	

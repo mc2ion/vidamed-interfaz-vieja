@@ -139,7 +139,7 @@
 		    	<div class="menuitemSalir"><a href="LogoutServlet"><%= name %> (Salir)</a></div>	
         	</div>        
 			 <jsp:include page="./menu.jsp" />
-        	<div id="content" style="position:absolute;">	
+        	<div id="content" style="position: absolute; left: 0; top: 75px;">	
 	        	<h2>Facturación:</h2><br>
 	        	<div id="tabs">
 					<ul>

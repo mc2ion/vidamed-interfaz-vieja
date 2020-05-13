@@ -2863,6 +2863,7 @@ iframe{
 	height: 75px;
 	border: none;
 	min-width: 1195px;
+	left: 0;
 }
 
 .hidden{background:transparent; border: none;}

@@ -234,7 +234,7 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
         if(e.getCoverageAmount()!=null && !e.getCoverageAmount().equals(0.0)){
         %>
         <div class="header">
-			<b>Monto de la Cobertura: </b><%= e.getCoverageAmount() %>     	
+			<b>Monto de la Cobertura: </b><%= Estimation.format.format(e.getCoverageAmount()) %>     	
         </div>
         <%
         }

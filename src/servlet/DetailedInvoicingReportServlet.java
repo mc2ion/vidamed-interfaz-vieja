@@ -12,8 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import command.CommandExecutor;
-import domain.Sale;
+import domain.Invoice;
 import domain.PermissionsList;
+import domain.Sale;
 import domain.User;
 
 
@@ -50,7 +51,7 @@ public class DetailedInvoicingReportServlet extends HttpServlet {
 		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.reports);
 		if(userE != null && perm ){
 			try {
-				ArrayList<Sale> pp = (ArrayList<Sale>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetDetailedInvoicingReport());
+				ArrayList<Invoice> pp = (ArrayList<Invoice>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetDetailedInvoicingReport());
 				request.setAttribute("pp", pp);
 				
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/reports_detailedinvoicing.jsp");
@@ -86,9 +87,7 @@ public class DetailedInvoicingReportServlet extends HttpServlet {
 			try {
 				
 				@SuppressWarnings("unchecked")
-				ArrayList<Sale> pp = (ArrayList<Sale>) CommandExecutor.getInstance().executeDatabaseCommand(
-											new command.GetDetailedInvoicingReport(generationfrom, generationto));
-				
+				ArrayList<Invoice> pp = (ArrayList<Invoice>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetDetailedInvoicingReport(generationfrom, generationto));
 				request.setAttribute("pp", pp);
 				
 				request.setAttribute("generationfrom", generationfrom);

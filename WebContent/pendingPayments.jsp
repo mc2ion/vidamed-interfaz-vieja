@@ -132,7 +132,7 @@
 		    	<div class="menuitemSalir"><a href="LogoutServlet"><%= name %> (Salir)</a></div>	
         	</div>        
 			 <jsp:include page="./menu.jsp" />
-        	<div id="content" style="position:absolute;">	
+        	<div id="content" style="position: absolute; left: 0; top: 75px;">	
 	        	<h2>Honorarios por Pagar:</h2><br>
 				<div class="info-text"><%= text_result %></div>
   						<form id='formFact' method="post" action="PayPendingMedicalFeesServlet">
