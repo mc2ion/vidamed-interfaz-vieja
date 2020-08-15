@@ -3,13 +3,17 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.text.DecimalFormat" %>
 <%@ page import="java.text.NumberFormat" %>
+<%@ page import="java.util.Locale" %>
 <%
 @SuppressWarnings("unchecked")
 ArrayList<SupplyProvider> supplyProviders = (ArrayList<SupplyProvider>)request.getAttribute("supplyProviders");
 Long supplyAreaID = (Long) request.getAttribute("supplyAreaID");
 Long supplyID = (Long) request.getAttribute("supplyID");
 SupplyInventory supplyInventory = (SupplyInventory)request.getAttribute("supplyInventory");
-NumberFormat formatter = new DecimalFormat("##.###");
+Locale locale  = new Locale("en", "US");
+String pattern = "##.##";
+DecimalFormat formatter = (DecimalFormat)NumberFormat.getNumberInstance(locale);
+formatter.applyPattern(pattern);
 %>
 <%@page import="domain.User"%>
 <%
@@ -90,9 +94,9 @@ NumberFormat formatter = new DecimalFormat("##.###");
 						<label for="name">Cantidad Disponible:</label>
 						<label id="txtAmount"><%= supplyInventory.getAmount() %></label><br><br>
 						<label for="name">Precio de Compra:</label>
-						<input type="number" name="txtPurchasePrice" id="txtPurchasePrice" value="<%= formatter.format(supplyInventory.getPurchasePrice()) %>" required/> <br><br>
+						<input type="number" name="txtPurchasePrice" id="txtPurchasePrice" step="0.01" value="<%= formatter.format(supplyInventory.getPurchasePrice()) %>" required/> <br><br>
 						<label for="name">Precio de Venta:</label>
-						<input type="number" name="txtSalePrice" id="txtSalePrice" value="<%= formatter.format(supplyInventory.getSalePrice()) %>" required readonly/> <br><br>
+						<input type="number" name="txtSalePrice" id="txtSalePrice" step="0.01" value="<%= formatter.format(supplyInventory.getSalePrice()) %>" required readonly/> <br><br>
 						<label for="name">Proveedor:</label>
 						<select id="txtProvider" name="txtProvider">
 							<% for (int i = 0; i<supplyProviders.size(); i++) {
