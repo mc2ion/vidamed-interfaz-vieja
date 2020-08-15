@@ -51,7 +51,7 @@ formatter.applyPattern(pattern);
 		$( document ).ready(function() {
 			$("#txtPurchasePrice").keyup(function(){
 				index = $(this).val();
-				$("#txtSalePrice").val(index*1.30);
+				$("#txtSalePrice").val(index*1.60);
 			});
 		});
 		</script>

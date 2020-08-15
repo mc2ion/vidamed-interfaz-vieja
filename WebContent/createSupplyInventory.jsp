@@ -57,7 +57,7 @@ Supply supply = (Supply) request.getAttribute("supply");
 			$("#txtBoxPrice").keyup(function(){
 				index = $(this).val();
 				$("#txtPurchasePrice").val(index/$("#txtAmountPerBox").val());
-				$("#txtSalePrice").val($("#txtPurchasePrice").val()*1.30);
+				$("#txtSalePrice").val($("#txtPurchasePrice").val()*1.60);
 			});
 		});
 		</script>
