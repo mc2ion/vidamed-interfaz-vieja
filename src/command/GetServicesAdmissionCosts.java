@@ -34,6 +34,7 @@ public class GetServicesAdmissionCosts implements DatabaseCommand {
 				s.setAmout(rs.getLong(5));
 				s.setUnitPrice(rs.getString(6));
 				s.setPrice(rs.getString(7));
+				s.setPriceDollar(rs.getString(8));
 				
 				costs.add(s);
 			}

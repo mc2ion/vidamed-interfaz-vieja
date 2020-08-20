@@ -99,6 +99,9 @@ public class GetAdmission implements DatabaseCommand {
 				u.setKeyNumber(rs.getString(31));
 				u.setCoverageAmount(rs.getDouble(32));
 				u.setGuaranteeLetter(rs.getString(33));
+				u.setTotalDollar(rs.getString(34), rs.getDouble(34));
+				u.setTotalPaidDollar(rs.getString(35), rs.getDouble(35));
+				u.setTotalWithDiscountDollar(rs.getString(36), rs.getDouble(36));
 			}
 		}
 		finally {

@@ -34,6 +34,7 @@ public class GetSuppliesAdmissionCosts implements DatabaseCommand {
 				s.setAmount(rs.getString(5));
 				s.setUnitPrice(rs.getString(6));
 				s.setTotal(rs.getString(7));
+				s.setTotalDollar(rs.getString(8));
 				
 				costs.add(s);
 			}

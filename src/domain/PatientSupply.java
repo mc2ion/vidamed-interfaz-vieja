@@ -19,6 +19,7 @@ public class PatientSupply {
 	private String protocolScaleName;
 	private Long bussinessRuleMicroID;	
 	private String bussinessRuleMicroName;
+	private String totalDollar;
 	
 	public Long getAdmissionID() {
 		return admissionID;
@@ -154,5 +155,13 @@ public class PatientSupply {
 
 	public String getBussinessRuleMicroName() {
 		return bussinessRuleMicroName;
+	}
+
+	public String getTotalDollar() {
+		return totalDollar;
+	}
+
+	public void setTotalDollar(String totalDollar) {
+		this.totalDollar = totalDollar;
 	}
 }

@@ -9,6 +9,7 @@ public class Service {
 	private String serviceTypeName;
 	private Long amout;
 	private String unitPrice;
+	private String priceDollar;
 	
 	public Long getServiceID() {
 		return serviceID;
@@ -64,6 +65,14 @@ public class Service {
 
 	public String getUnitPrice() {
 		return unitPrice;
+	}
+
+	public String getPriceDollar() {
+		return priceDollar;
+	}
+
+	public void setPriceDollar(String priceDollar) {
+		this.priceDollar = priceDollar;
 	}
 	
 }

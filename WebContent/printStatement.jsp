@@ -285,6 +285,7 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 							Estimation.format.parse(e.getEstimation().getTotalWithDiscount()).doubleValue();
 					double t = (d == 0) ? Estimation.format.parse(e.getTotal()).doubleValue() : Estimation.format.parse(e.getTotal()).doubleValue() + d;
 					double r = Estimation.format.parse(e.getTotal()).doubleValue() - Estimation.format.parse(e.getTotalPaid()).doubleValue();
+					double rd = Estimation.format.parse(e.getTotalDollar()).doubleValue() - Estimation.format.parse(e.getTotalPaidDollar()).doubleValue();
 				%>
 				<tr id="totalTr2">
 					<td>*** TOTAL ***</td>
@@ -302,13 +303,25 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 					<td>*** TOTAL GENERAL ***</td>
 					<td style="width:20%;text-align:right;"><%= e.getTotal() %></td>
 				</tr>
+				<tr id="totalTr">
+					<td style="background-color: #A5E0F1;">*** TOTAL GENERAL EN D&Oacute;LARES ***</td>
+					<td style="width:20%;text-align:right;background-color: #A5E0F1;"><%= e.getTotalDollar() %></td>
+				</tr>
 				<tr id="totalTr2">
 					<td>*** TOTAL PAGADO ***</td>
 					<td style="width:20%;text-align:right;"><%= e.getTotalPaid() %></td>
 				</tr>
 				<tr id="totalTr">
+					<td style="background-color: #A5E0F1;">*** TOTAL PAGADO EN D&Oacute;LARES ***</td>
+					<td style="width:20%;text-align:right;background-color: #A5E0F1;"><%= e.getTotalPaidDollar() %></td>
+				</tr>
+				<tr id="totalTr">
 					<td>*** RESTANTE ***</td>
 					<td style="width:20%;text-align:right;"><%= Estimation.format.format(r) %></td>
+				</tr>
+				<tr id="totalTr">
+					<td style="background-color: #A5E0F1;">*** RESTANTE EN D&Oacute;LARES ***</td>
+					<td style="width:20%;text-align:right;background-color: #A5E0F1;"><%= Estimation.format.format(rd) %></td>
 				</tr>
 			</tbody>
 			</table>				

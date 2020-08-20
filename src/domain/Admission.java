@@ -42,6 +42,9 @@ public class Admission {
 	private Long billID;
 	private String responsiblePayment;
 	private String patientPayment;
+	private String totalDollar;
+	private String totalPaidDollar;
+	private String totalWithDiscountDollar;
 	
 	public Long getAdmissionID() {
 		return admissionID;
@@ -325,6 +328,42 @@ public class Admission {
 			this.patientPayment = Estimation.format.format(patientPayment);
 		} else {
 			this.patientPayment = null;
+		}
+	}
+
+	public String getTotalDollar() {
+		return totalDollar;
+	}
+
+	public void setTotalDollar(String str, Double totalDollar) {
+		if(str!=null){
+			this.totalDollar = Estimation.format.format(totalDollar);
+		} else {
+			this.totalDollar = null;
+		}
+	}
+
+	public String getTotalPaidDollar() {
+		return totalPaidDollar;
+	}
+
+	public void setTotalPaidDollar(String str, Double totalPaidDollar) {
+		if(str!=null){
+			this.totalPaidDollar = Estimation.format.format(totalPaidDollar);
+		} else {
+			this.totalPaidDollar = null;
+		}
+	}
+
+	public String getTotalWithDiscountDollar() {
+		return totalWithDiscountDollar;
+	}
+
+	public void setTotalWithDiscountDollar(String str, Double totalWithDiscountDollar) {
+		if(str!=null){
+			this.totalWithDiscountDollar = format.format(totalWithDiscountDollar);
+		} else {
+			this.totalWithDiscountDollar = null;
 		}
 	}
 }
