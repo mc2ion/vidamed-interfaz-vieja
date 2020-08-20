@@ -261,12 +261,14 @@ ArrayList<Protocol> pList = (ArrayList<Protocol>) request.getAttribute("plist");
 				</tr>
 				<% 
 					String total = e.getTotal();	
+					String totalDollar = e.getTotalDollar();
 					if (e.getTotalWithDiscount() != null) { 
 						double a = Estimation.format.parse(e.getTotal()).doubleValue();
 						double b = Estimation.format.parse(e.getTotalWithDiscount()).doubleValue();
 						double disc  = a - b;
 						String discF = Estimation.format.format(disc);
 						total = e.getTotalWithDiscount() ;
+						totalDollar = e.getTotalWithDiscountDollar();
 				%>
 				<tr id="totalTr2">
 					<td colspan="2">*** DESCUENTO ***</td>
@@ -276,6 +278,10 @@ ArrayList<Protocol> pList = (ArrayList<Protocol>) request.getAttribute("plist");
 				<tr id="totalTr">
 					<td colspan="2">*** TOTAL GENERAL ***</td>
 					<td style="width:20%;text-align:right;"><%= total %></td>
+				</tr>
+				<tr id="totalTr">
+					<td colspan="2" style="background-color: #A5E0F1;">*** TOTAL GENERAL EN D&Oacute;LARES ***</td>
+					<td style="width:20%;text-align:right;background-color: #A5E0F1;"><%= totalDollar %></td>
 				</tr>
 			</tbody>
 		</table>		

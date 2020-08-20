@@ -38,6 +38,8 @@ public class Estimation {
 	private String totalWithDiscount;
 	private String clinicName;
 	private String paymentResponsibleName;
+	private String totalDollar;
+	private String totalWithDiscountDollar;
 	
 	public void setIsPolicyHolder(int isPolicyHolder) {
 		this.isPolicyHolder = isPolicyHolder;
@@ -263,5 +265,29 @@ public class Estimation {
 	    }
 
 	    return sb.toString();
+	}
+
+	public String getTotalDollar() {
+		return totalDollar;
+	}
+
+	public void setTotalDollar(String str, Double totalDollar) {
+		if(str!=null){
+			this.totalDollar = format.format(totalDollar);
+		} else {
+			this.totalDollar = null;
+		}
+	}
+
+	public String getTotalWithDiscountDollar() {
+		return totalWithDiscountDollar;
+	}
+
+	public void setTotalWithDiscountDollar(String str, Double totalWithDiscountDollar) {
+		if(str!=null){
+			this.totalWithDiscountDollar = format.format(totalWithDiscountDollar);
+		} else {
+			this.totalWithDiscountDollar = null;
+		}
 	}
 }
