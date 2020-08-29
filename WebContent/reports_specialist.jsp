@@ -60,7 +60,7 @@
 			<div id="dt_example">
 					<div id="container">
 						<form action="ListReportsServlet" method="post">
-								<h3 style="display:inline;">Escoga el módulo del cual quiere obtener un reporte:</h3>
+								<h3 style="display:inline;">Escoja el módulo del cual quiere obtener un reporte:</h3>
 								<select name="modId">
 								    <option value="0">Seleccionar</option>
 									<option value="1" >Usuarios</option>
@@ -82,6 +82,7 @@
 									<option value="17" >An&aacute;lisis Vencimiento</option>
 									<option value="18" >Relaci&oacute;n de Facturaci&oacute;n</option>
 									<option value="19" >An&aacute;lisis Vencimiento Resumido</option>
+									<option value="20" >Registros de Pacientes</option>
 								</select>
 								<input type="submit" value="Buscar"/>
 						</form><br/><br/>

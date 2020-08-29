@@ -41,7 +41,7 @@
 					<div id="container">
 						<div id="demo">
 							<form action="ListReportsServlet" method="post">
-								<h3 style="display:inline;">Escoga el módulo del cual quiere obtener un reporte:</h3>
+								<h3 style="display:inline;">Escoja el módulo del cual quiere obtener un reporte:</h3>
 								<select name="modId">
 								    <option value="0">Seleccionar</option>
 									<option value="1" <%= (modSelect == 1 ? "selected" : "") %>>Usuarios</option>
@@ -63,6 +63,7 @@
 									<option value="17" <%= (modSelect == 17 ? "selected" : "") %>>An&aacute;lisis Vencimiento</option>
 									<option value="18" <%= (modSelect == 18 ? "selected" : "") %>>Relaci&oacute;n de Facturaci&oacute;n</option>
 									<option value="19" <%= (modSelect == 19 ? "selected" : "") %>>An&aacute;lisis Vencimiento Resumido</option>
+									<option value="20" <%= (modSelect == 20 ? "selected" : "") %>>Registros de Pacientes</option>
 								</select>
 								<input type="submit" value="Buscar"/>
 							</form>

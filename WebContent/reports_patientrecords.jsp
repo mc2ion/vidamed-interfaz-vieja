@@ -1,5 +1,5 @@
 <%@page import="sun.font.EAttribute"%>
-<%@page import="domain.Invoice"%>
+<%@page import="domain.PatientRecord"%>
 <%@page import="domain.Admission"%>
 <%@ page import="domain.User" %>
 <%@ page import="java.util.ArrayList" %>
@@ -16,10 +16,10 @@
 		modSelect = Integer.valueOf(modId);
 	
 	@SuppressWarnings("unchecked")
-	ArrayList<Invoice> mfList = (ArrayList<Invoice>)request.getAttribute("pp");
+	ArrayList<PatientRecord> mfList = (ArrayList<PatientRecord>)request.getAttribute("pp");
 
-	String generationfrom 			= (String)request.getAttribute("generationfrom");
-	String generationto 			= (String)request.getAttribute("generationto");
+	String from 			= (String)request.getAttribute("from");
+	String to 			= (String)request.getAttribute("to");
 %>
 <!DOCTYPE HTML>
 <html>
@@ -35,7 +35,7 @@
 	<script type="text/javascript" src="./js/jquery.ui.datepicker-es.js"></script>
 		<script type="text/javascript">
 		$(function() {
-			$( "#txtDateIniR" ).datepicker({
+			$( "#from" ).datepicker({
 		      changeMonth: true,
 		      numberOfMonths: 1,
 		      onClose: function( selectedDate ) {
@@ -49,7 +49,7 @@
 				changeMonth: true,
 			    changeYear: true
 		    });
-			$( "#txtDateEndR" ).datepicker({
+			$( "#to" ).datepicker({
 		      changeMonth: true,
 		      numberOfMonths: 1,
 		      onClose: function( selectedDate ) {
@@ -108,7 +108,7 @@
         </div>        
 		 <jsp:include page="./menu.jsp" />
 		<div id="content" style="min-height: 600px;">  
-			<h2>Reporte Facturaci&oacute;n Detallada</h2>
+			<h2>Reporte Registros de Pacientes</h2>
 			<div id="dt_example">
 					<div id="container">
 						<form action="ListReportsServlet" method="post">
@@ -130,22 +130,22 @@
 									<option value="13" >Admisión</option>
 									<option value="14" >Honorarios Médicos</option>
 									<option value="15" >Libro de Ventas</option>
-									<option value="16" selected>Facturación detallada</option>
+									<option value="16" >Facturación detallada</option>
 									<option value="17" >An&aacute;lisis Vencimiento</option>
 									<option value="18" >Relaci&oacute;n de Facturaci&oacute;n</option>
 									<option value="19" >An&aacute;lisis Vencimiento Resumido</option>
-									<option value="20" >Registros de Pacientes</option>
+									<option value="20" selected>Registros de Pacientes</option>
 								</select>
 								<input type="submit" value="Buscar"/>
 						</form><br/><br/>
-						<form action="DetailedInvoicingReportServlet" style="margin-top: -10px;" method="post" >
+						<form action="PatientRecordsReportServlet" style="margin-top: -10px;" method="post" >
 						Si lo desea, puede filtrar la búsqueda por los siguientes parámetros:
   						<div>
 							<fieldset style="text-align: left; margin-left:0px;">
 							<table style="width:100%;">
 								<tr>
-									<td><b>Egreso Desde:</b></td><td><input  type="text" name="generationfrom" id="txtDateIniR" maxlength="50" size="20" value="<%= (generationfrom != null) ? generationfrom : "" %>" /></td>
-									<td><b>Egreso Hasta:</b></td><td><input  type="text" name="generationto" id="txtDateEndR" maxlength="50" size="20" value="<%= (generationto != null) ? generationto : "" %>" /></td>
+									<td><b>Ingreso Desde:</b></td><td><input  type="text" name="from" id="from" maxlength="50" size="20" value="<%= (from != null) ? from : "" %>" required /></td>
+									<td><b>Ingreso Hasta:</b></td><td><input  type="text" name="to" id="to" maxlength="50" size="20" value="<%= (to != null) ? to : "" %>" required /></td>
 								</tr>
 							</table>	
 							<input type="submit" class="buttonGreen lessPadding"   style="float: right; margin-right:40px; margin-top: 5px;" value="Buscar">
@@ -156,51 +156,49 @@
 								<table id="sweetTable" >
 									<thead>
 										<tr>
-											<th>N° Factura</th>
-											<th>C&eacute;dula Paciente</th>
-											<th>Nombre Paciente</th>
-											<th>Responsable de Pago</th>
-											<th>Monto Cl&iacute;nica</th>
-											<th>Monto Descuento</th>
-											<th>Monto F&aacute;rmacos</th>
-											<th>Monto Mat M&eacute;dico</th>
-											<th>Monto Laboratorio</th>
-											<th>Monto Rayos X</th>
-											<th>Monto Eco</th>
-											<th>Honorarios M&eacute;dicos</th>
-											<th>Comida</th>
-											<th>Tomograf&iacute;a</th>
-											<th>Banco de Sangre</th>
-											<th>Total Factura</th>
+											<th># Admisi&oacute;n</th>
+											<th>Fecha de Ingreso</th>
+											<th>Nombre y Apellido</th>
+											<th>C&eacute;dula</th>
+											<th>Edad</th>
+											<th>Sexo</th>
+											<th>Diagn&oacute;stico</th>
+											<th>Tratamiento</th>
+											<th>Tipo</th>
+											<th>M&eacute;dico Tratante</th>
+											<th>Ayudante 1</th>
+											<th>Ayudante 2</th>
+											<th>Anestesi&oacute;logo</th>
+											<th>Días de Hosp</th>
+											<th>Fecha de Egreso</th>
 										</tr>
 									</thead>
 									<tbody>		
 									<% 	if (mfList != null && mfList.size() > 0 ){
 											for (int i = 0; i < mfList.size(); i++){ 
-											Invoice u = mfList.get(i); 
+											PatientRecord u = mfList.get(i); 
 									%>
 										<tr>
-											<td><%= u.getBillID() %></td>
-											<td><%= u.getPatientIdentityCard() %></td>
+											<td><%= u.getAdmissionID() %></td>
+											<td><%= u.getAdmissionDate() %></td>
 											<td><%= u.getPatientName() %></td>
-											<td><%= u.getPaymentResponsibleName() %></td>
-											<td><%= u.getClinicTotal() %></td>
-											<td><%= u.getDiscount() %></td>
-											<td><%= u.getDrugs() %></td>
-											<td><%= u.getMaterials() %></td>
-											<td><%= u.getLabs() %></td>
-											<td><%= u.getxRays() %></td>
-											<td><%= u.getEcos() %></td>
-											<td><%= u.getProfessionalFees() %></td>
-											<td><%= u.getNutrition() %></td>
-											<td><%= u.getTomographies() %></td>
-											<td><%= u.getBloodBank() %></td>
-											<td><%= u.getTotal() %></td>
+											<td><%= u.getIdentityCard() %></td>
+											<td><%= u.getAge() %></td>
+											<td><%= u.getGender() %></td>
+											<td><%= u.getDiagnosis() %></td>
+											<td><%= u.getProtocolName() %></td>
+											<td><%= u.getType() %></td>
+											<td><%= u.getAttendingSpecialist() %></td>
+											<td><%= (u.getHelper1() != null) ? u.getHelper1() : "" %></td>
+											<td><%= (u.getHelper2() != null) ? u.getHelper2() : "" %></td>
+											<td><%= (u.getAnesthesiologist() != null) ? u.getAnesthesiologist() : "" %></td>
+											<td><%= u.getRoomDays() %></td>
+											<td><%= (u.getDischargeDate() != null) ? u.getDischargeDate() : "" %></td>
 										</tr>
 									<% 		}
 										}else{									
 									%>
-										<tr><td colspan="16" style="text-align: center;">No hay datos disponibles</td></tr>
+										<tr><td colspan="15" style="text-align: center;">No hay datos disponibles</td></tr>
 									
 									<% } %>	
 									</tbody>
