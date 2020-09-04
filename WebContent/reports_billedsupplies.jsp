@@ -1,5 +1,5 @@
-<%@page import="domain.PatientServiceReport"%>
-<%@page import="domain.UserReport"%>
+<%@page import="sun.font.EAttribute"%>
+<%@page import="domain.BilledSupply"%>
 <%@page import="domain.Admission"%>
 <%@ page import="domain.User" %>
 <%@ page import="java.util.ArrayList" %>
@@ -16,16 +16,10 @@
 		modSelect = Integer.valueOf(modId);
 	
 	@SuppressWarnings("unchecked")
-	ArrayList<PatientServiceReport> mfList = (ArrayList<PatientServiceReport>)request.getAttribute("pp");
-	
-	String dateIni = (String) request.getAttribute("dateIni");
-	String dateEnd = (String)request.getAttribute("dateEnd");
-	String adminId = (String)request.getAttribute("adminId");
-	String serviceId = (String)request.getAttribute("serviceId");
-	String estimationId = (String)request.getAttribute("estimationId");
-	String identityCard = (String)request.getAttribute("identityCard");
-	String typeA = (String)request.getAttribute("type");
-	String gender = (String)request.getAttribute("gender"); 
+	ArrayList<BilledSupply> mfList = (ArrayList<BilledSupply>)request.getAttribute("pp");
+
+	String from 			= (String)request.getAttribute("from");
+	String to 			= (String)request.getAttribute("to");
 %>
 <!DOCTYPE HTML>
 <html>
@@ -37,14 +31,15 @@
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/ui-lightness/jquery-ui.css" />
 	<script src="./js/jquery-1.9.1.min.js"></script>
 	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
 	<script type="text/javascript" src="./js/jquery.ui.datepicker-es.js"></script>
 		<script type="text/javascript">
 		$(function() {
-		    $( "#txtDateIni" ).datepicker({
+			$( "#from" ).datepicker({
 		      changeMonth: true,
 		      numberOfMonths: 1,
 		      onClose: function( selectedDate ) {
-		        $( "#txtDateEnd" ).datepicker( "option", "minDate", selectedDate );
+		        $( "#txtDateEndR" ).datepicker( "option", "minDate", selectedDate );
 		      },
 			    showOn: "button",
 				buttonImage: "images/calendar.png",
@@ -54,11 +49,11 @@
 				changeMonth: true,
 			    changeYear: true
 		    });
-		    $( "#txtDateEnd" ).datepicker({
+			$( "#to" ).datepicker({
 		      changeMonth: true,
 		      numberOfMonths: 1,
 		      onClose: function( selectedDate ) {
-		        $( "#txtDateIni" ).datepicker( "option", "maxDate", selectedDate );
+		        $( "#txtDateIniR" ).datepicker( "option", "maxDate", selectedDate );
 		      },
 		      showOn: "button",
 				buttonImage: "images/calendar.png",
@@ -70,9 +65,35 @@
 		    });
 		  });
 		</script>
-		<style>
-			fieldset input[type="text"]{ width: 75%;}
-		</style>
+	<script type="text/javascript">
+	var idUser;
+			
+	$(function() {
+		$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x" });		
+	});
+	
+	function loadVars(var1, var2) {
+		console.log('pase por aca');
+		idUser = var1;
+		$('.cliente').text(var2);
+		$('#admId').attr('value', var1);
+		$('#factId').attr('value', var2);			
+	};
+	
+	function setV(f){
+		//f.elements['userId'].value = idUser;
+		return true;
+	};
+	
+	function formatSelected(f){
+		var opt = $('#formats').val();
+		$('#printForm').attr('action', opt);
+		return true;
+	};
+	</script>
+	<style>
+		fieldset input[type="text"]{ width: 75%;}
+	</style>
 	</head>
 <body>
 	<div id="container">
@@ -86,14 +107,14 @@
 			<div class="menuitemSalir"><a href="LogoutServlet"><%= name %> (Salir)</a></div>	
         </div>        
 		 <jsp:include page="./menu.jsp" />
-		<div id="content" style="min-height: 590px;">  
-			<h2>Reportes Laboratorio</h2>
-			<div id="dt_example" >
+		<div id="content" style="min-height: 600px;">  
+			<h2>Reporte Insumos Facturados</h2>
+			<div id="dt_example">
 					<div id="container">
 						<form action="ListReportsServlet" method="post">
 								<h3 style="display:inline;">Escoja el módulo del cual quiere obtener un reporte:</h3>
 								<select name="modId">
-								    <option value="0">Seleccionar</option>
+								     <option value="0">Seleccionar</option>
 									<option value="1" >Usuarios</option>
 									<option value="2" >Especialistas</option>
 									<option value="3" >Responsables de Pago</option>
@@ -102,7 +123,7 @@
 									<option value="6" >Banco de Sangre</option>
 									<option value="7" >Ecosonografía</option>
 									<option value="8" >Rayos X</option>
-									<option value="9" selected >Laboratorio</option>
+									<option value="9" >Laboratorio</option>
 									<option value="10" >Interconsultas</option>
 									<option value="11" >Descuentos</option>
 									<option value="12" >Facturas</option>
@@ -114,41 +135,18 @@
 									<option value="18" >Relaci&oacute;n de Facturaci&oacute;n</option>
 									<option value="19" >An&aacute;lisis Vencimiento Resumido</option>
 									<option value="20" >Registros de Pacientes</option>
-									<option value="21" >Insumos Facturados</option>
+									<option value="21" selected>Insumos Facturados</option>
 								</select>
 								<input type="submit" value="Buscar"/>
 						</form><br/><br/>
-						<form action="ListLabReportsServlet" style="margin-top: -10px;" method="post" >
-						Si lo desea, puede filtrar la búsqueda por cualquiera de los siguientes parámetros:
+						<form action="BilledSuppliesReportServlet" style="margin-top: -10px;" method="post" >
+						Si lo desea, puede filtrar la búsqueda por los siguientes parámetros:
   						<div>
 							<fieldset style="text-align: left; margin-left:0px;">
 							<table style="width:100%;">
 								<tr>
-									<td><b>Desde:</b></td><td><input  type="text" name="txtDateIni" id="txtDateIni" maxlength="50" size="20" value="<%= (dateIni != null) ? dateIni : "" %>" /></td>
-									<td><b>Hasta:</b></td><td> <input  type="text" name="txtDateEnd" id="txtDateEnd" maxlength="50" size="20" value="<%= (dateEnd != null) ? dateEnd : "" %>"/></td>
-									<td><b>Id Admisión:</b></td><td><input  type="text" name="admin" maxlength="50" size="20" value="<%= (adminId != null) ? adminId : "" %>" /></td>
-								</tr>
-								<tr>
-									<td><b>Id Servicio:</b></td><td> <input  type="text" name="service" maxlength="50" size="20" value="<%= (serviceId != null) ? serviceId : "" %>"/></td>
-									<td><b>Id Presupuesto:</b></td><td> <input  type="text" name="estimation" maxlength="50" size="20" value="<%= (estimationId != null) ? estimationId : "" %>"/></td>
-									<td><b>Cédula Paciente:</b></td><td>  <input type="text" name="identityCard" size="20" value="<%= (identityCard != null) ? identityCard : "" %>"></td>
-								</tr>
-								<tr>
-									<td><b>Tipo Paciente:</b></td><td>
-									<select name="type">
-										<option value="-">Ambos</option>
-										<option value="1" <%= (typeA != null && typeA.equals("1")) ? "selected" : "" %> >Adulto</option>
-										<option value="0" <%= (typeA != null && typeA.equals("0")) ? "selected" : "" %>>Infante</option>
-									</select>
-									</td>
-									<td><b>Sexo:</b></td>
-									<td> 
-									<select name="gender">
-										<option value="-">Ambos</option>
-										<option value="F" <%= (gender != null && gender.equals("F")) ? "selected" : "" %> >F</option>
-										<option value="M" <%= (gender != null && gender.equals("M")) ? "selected" : "" %>>M</option>
-									</select>
-									</td>
+									<td><b>Fecha Emisi&oacute;n Desde:</b></td><td><input  type="text" name="from" id="from" maxlength="50" size="20" value="<%= (from != null) ? from : "" %>" required /></td>
+									<td><b>Fecha Emisi&oacute;n Hasta:</b></td><td><input  type="text" name="to" id="to" maxlength="50" size="20" value="<%= (to != null) ? to : "" %>" required /></td>
 								</tr>
 							</table>	
 							<input type="submit" class="buttonGreen lessPadding"   style="float: right; margin-right:40px; margin-top: 5px;" value="Buscar">
@@ -159,47 +157,61 @@
 								<table id="sweetTable" >
 									<thead>
 										<tr>
-											<th>Fecha Servicio</th>
-											<th>Id Admin.</th>
-											<th>Id Presup.</th>
-											<th>Tipo de Servicio</th>
-											<th>Servicio</th>
-											<th>Precio</th>
-											<th>Paciente</th>
-											<th>Cédula</th>
-											<th>Sexo</th>
-											<th>Tipo Paciente</th>
+											<th>Fecha Emisi&oacute;n</th>
+											<th>No. de Factura</th>
+											<th># C&eacute;dula</th>
+											<th>Nombre Paciente</th>
+											<th>Insumo</th>
+											<th>Inventario</th>
+											<th>Cantidad</th>
+											<th>Precio Uni.</th>
+											<th>Total</th>
+											<th>&Iacute;tem</th>
+											<th>Fecha Carga Insumo</th>
 										</tr>
 									</thead>
-									<tbody>	
+									<tbody>		
 									<% 	if (mfList != null && mfList.size() > 0 ){
 											for (int i = 0; i < mfList.size(); i++){ 
-											PatientServiceReport u = mfList.get(i); 
+												BilledSupply u = mfList.get(i); 
+												
+												if(u.getCreditNoteID() == 0) {
+									%>
+										<tr id="totalTr">
+											<td colspan="8" style="text-align:right;"><%= u.getSupplyName() %></td>
+											<td colspan="3"><%= u.getPrice() %></td>
+										</tr>
+									<%		
+												} else {
 									%>
 										<tr>
-											<td><%= u.getServiceDate() %></td>
-											<td><%= u.getAdmissionID() %></td>
-											<td><%= u.getEstimationID() %></td>
-											<td><%= u.getServiceTypeName() %></td>
-											<td><%= u.getServiceName() %></td>
+											<td><%= u.getGenerationDate() %></td>
+											<td><%= u.getCreditNoteID() %></td>
+											<td><%= u.getIdentityCard() %></td>
+											<td><%= u.getPatientName() %></td>
+											<td><%= u.getSupplyName() %></td>
+											<td><%= u.getSupplyInventoryID() %></td>
+											<td><%= u.getAmount() %></td>
+											<td><%= u.getUnitPrice() %></td>
 											<td><%= u.getPrice() %></td>
-											<td><%= u.getPatient().getFirstName() + " " +   u.getPatient().getLastName()  %></td>
-											<td><%= u.getPatient().getIdentityCard() %></td>
-											<td><%= u.getPatient().getGender() %> </td>
-											<td><%= (u.getPatient().getIsAdult() == 1)? "Adulto": "Infante" %> </td>
+											<td><%= u.getSupplyAreaName() %></td>
+											<td><%= u.getSupplyDate() %></td>
 										</tr>
-									<% 		}
+									<% 		
+												}
+											}
 										}else{									
 									%>
-										<tr><td colspan="10" style="text-align: center;">No hay datos disponibles</td></tr>
+										<tr><td colspan="11" style="text-align: center;">No hay datos disponibles</td></tr>
+									
 									<% } %>	
 									</tbody>
 								</table>
-							</div><br/><br/><br/>
+							</div>
 					</div>
 				</div>
 				<div class="spacer"></div>
-       	</div>
+       		</div>
 		</div>
 	</body>
 </html>

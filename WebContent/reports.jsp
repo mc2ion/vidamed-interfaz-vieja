@@ -64,6 +64,7 @@
 									<option value="18" <%= (modSelect == 18 ? "selected" : "") %>>Relaci&oacute;n de Facturaci&oacute;n</option>
 									<option value="19" <%= (modSelect == 19 ? "selected" : "") %>>An&aacute;lisis Vencimiento Resumido</option>
 									<option value="20" <%= (modSelect == 20 ? "selected" : "") %>>Registros de Pacientes</option>
+									<option value="21" <%= (modSelect == 21 ? "selected" : "") %>>Insumos Facturados</option>
 								</select>
 								<input type="submit" value="Buscar"/>
 							</form>

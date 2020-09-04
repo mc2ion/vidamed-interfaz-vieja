@@ -10,16 +10,16 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import domain.PatientRecord;
+import domain.BilledSupply;
 
-public class GetPatientRecordsReport implements DatabaseCommand {
+public class GetBilledSuppliesReport implements DatabaseCommand {
 
 	private String from = null;	
 	private String to = null;
 	
-	public GetPatientRecordsReport(){}
+	public GetBilledSuppliesReport(){}
 	
-	public GetPatientRecordsReport(String from, String to) throws ParseException{
+	public GetBilledSuppliesReport(String from, String to) throws ParseException{
 		
 		if (from != null && from != ""){
 			DateFormat fromFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -44,31 +44,27 @@ public class GetPatientRecordsReport implements DatabaseCommand {
 
 	@Override
 	public Object executeDatabaseOperation(Connection conn) throws SQLException {
-		ArrayList<PatientRecord> pList = new ArrayList<PatientRecord>();
+		ArrayList<BilledSupply> pList = new ArrayList<BilledSupply>();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		try {
-			ps = conn.prepareStatement("exec GetPatientRecordsReport " + this.from + "," + this.to);
+			ps = conn.prepareStatement("exec GetBilledSuppliesReport " + this.from + "," + this.to);
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				PatientRecord u = new PatientRecord();		
+				BilledSupply u = new BilledSupply();		
 				
-				u.setAdmissionID(rs.getLong(1));
-				u.setAdmissionDate(rs.getString(2));
-				u.setPatientName(rs.getString(3));
-				u.setIdentityCard(rs.getString(4));
-				u.setAge(rs.getString(5));
-				u.setGender(rs.getString(6));
-				u.setDiagnosis(rs.getString(7));
-				u.setProtocolName(rs.getString(8));
-				u.setType(rs.getString(9));
-				u.setAttendingSpecialist(rs.getString(10));
-				u.setHelper1(rs.getString(11));
-				u.setHelper2(rs.getString(12));
-				u.setAnesthesiologist(rs.getString(13));
-				u.setRoomDays(rs.getString(14));
-				u.setDischargeDate(rs.getString(15));
+				u.setGenerationDate(rs.getString(1));
+				u.setCreditNoteID(rs.getLong(2));
+				u.setIdentityCard(rs.getString(3));
+				u.setPatientName(rs.getString(4));
+				u.setSupplyName(rs.getString(5));
+				u.setSupplyInventoryID(rs.getLong(6));
+				u.setAmount(rs.getString(7));
+				u.setUnitPrice(rs.getString(8));
+				u.setPrice(rs.getString(9));
+				u.setSupplyAreaName(rs.getString(10));
+				u.setSupplyDate(rs.getString(11));
 				
 				pList.add(u);
 			}
