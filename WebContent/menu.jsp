@@ -154,7 +154,12 @@
 		      perm  = PermissionsList.hasPermission(request, PermissionsList.reports);
 		      if (perm){
 		      %>
-		   <li class='last'><a href='ListReportsServlet'><span>Reportes</span></a></li>
+		   <li><a href='ListReportsServlet'><span>Reportes</span></a></li>
+		   <% }
+		      perm  = PermissionsList.hasPermission(request, PermissionsList.exchangeRate);
+		      if (perm){
+		      %>
+		   <li class='last'><a href='AddExchangeRateServlet'><span>Tasa de Cambio</span></a></li>
 		   <%  } %>
 		</ul>
 </div>   
