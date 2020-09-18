@@ -6,13 +6,24 @@
 	if (user != null)
 		name = user.getFirstName() ;
 	
+	String info_text = "";
+	String info = (String) session.getAttribute("info");
+	if (info != null ){
+		info_text = info;
+	}
+	session.removeAttribute("info");
+	
 	ExchangeRate er = (ExchangeRate) request.getAttribute("er");
 	String subtitle = "Editar tasa:";
 	String button = "Modificar";
+	String modalTitle = "Editar Tasa";
+	String question = "¿Estás seguro que deseas editar el valor de la tasa de cambio?";
 	
 	if(er.getExchangeRateID() == null) {
 		subtitle = "Agregar tasa:";
 		button = "Agregar";
+		modalTitle = "Agregar Tasa";
+		question = "¿Estás seguro que deseas agregar una tasa de cambio al sistema?";
 	}
 %>
 <!DOCTYPE HTML>
@@ -25,7 +36,31 @@
 	  	<script src="./js/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 		<script type="text/javascript" src="./js/jquery.leanModal.min.js"></script>
-		<link rel="stylesheet" href="/resources/demos/style.css" />		
+		<script type="text/javascript">
+		var value;
+				
+		$(function() {
+			$('a[rel*=leanModal]').leanModal({ top : 200, closeButton: ".close_x" });		
+		});
+		
+		function loadVars() {
+			var $myForm = $('#addER');
+
+			if(! $myForm[0].checkValidity()) {
+			  // If the form is invalid, submit it. The form won't actually submit;
+			  // this will just cause the browser to display the native HTML5 error messages.
+				$('<input type="submit">').hide().appendTo($myForm).click().remove();
+			} else {
+				value = $("#txtValue").val();
+				$('#trigger').click();	
+			}
+		};
+		
+		function setV(f){
+			f.elements['value'].value = value;
+			return true;
+		}
+		</script>
 	</head>
 	<body>
 		<div id="container">
@@ -40,7 +75,10 @@
 			 <jsp:include page="./menu.jsp" />
         	<div id="content" style="position: absolute; left: 0; top: 75px;">	
 	        	<h2>Tasa de Cambio</h2>
-				<br><br>
+				<br>
+				<div class="info-text"><%= info_text %></div>
+				<br>
+				<br>
 				<div style="
 				    background: rgba(0, 153, 255, 0.2);
 				    height: 150px;
@@ -63,39 +101,57 @@
 				    font-size: 1.125em;
 				    font-weight: bold;
 				    margin-right: 0;
-				    ">Vigente desde 12/09/2020 08:13 AM</div>
+				    ">Vigente desde <%= er.getCreatedDate() %></div>
 				    <div>
 				    	<div style="
 						    font-size: 3em;
 						    color: rgba(67, 70, 70, 0.75);
 						    text-align: center;
 						    font-weight: bold;
-						">370.032,61</div>
+						"><%= er.getValue() %></div>
 						<div style="
 						    color: rgba(67, 70, 70, 0.75);
 						    font-size: 1.125em;
 						    font-weight: bold;
-						">Actualizado por Sql Master</div>
+						">Actualizado por <%= er.getCreatedUserName() %></div>
 				    </div>
 			    <% } %>
 		    	</div>
 				<br><br>
 				<h3><%= subtitle %></h3>
 				<br><br>
-				<form action="AddExchangeRateServlet">
-				<fieldset>
-					<label for="name">Monto en bolívares:</label>
-					<input type="number" name="txtValue" id="txtValue" maxlength="50" size="5" title="Debe colocar el monto de la tasa de cambio." required /> <br><br>
-				</fieldset>
-				<div id="botonera">
-						<div id="botonP" style="display: inline; margin-right: 30px;">
-									<input type="submit"  class="button"  name="sbmtButton" value="<%= button %>" />
-						</div>	
-						<div id="botonV" style="display: inline;">
-								<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
-						</div>	
-				</div><br>
+				<form id="addER">
+					<fieldset>
+						<label for="name">Monto en bolívares:</label>
+						<input type="number" name="txtValue" id="txtValue" maxlength="50" size="5" title="Debe colocar el monto de la tasa de cambio." step="0.01" required /> <br><br>
+					</fieldset>
+					<div id="botonera">	
+							<a id="trigger" rel="leanModal" href="#deleteUnit" style="visibility: hidden;"></a> 	
+							<a id="botonP" class="button" style="display: inline; margin-right: 30px;"
+								onclick="return loadVars();">
+								<%= button %>
+							</a> 
+							<div id="botonV" style="display: inline;">
+									<input type="button" class="button" value="Regresar" onClick="javascript:history.back();" />		
+							</div>	
+					</div><br>
 				</form>
+			</div>
+		</div>
+		<div id="deleteUnit">
+			<div id="signup-ct">
+				<h3 id="see_id" class="sprited" ><%= modalTitle %></h3>
+				<br><br>
+				<span><%= question %></span> <br><br>
+				<div id="signup-header">
+					<a class="close_x" id="close_x"  href="#"></a>
+				</div>
+				<form action="AddExchangeRateServlet" method="post"  onsubmit="return setV(this)">
+					<input type="hidden" id="value" class="good_input" name="value"  value=""/>
+					<div class="btn-fld">
+						<input type="submit"  class="buttonPopUpDelete"  name="sbmtButton" value="Aceptar"  />
+					</div>
+		 		</form>
 			</div>
 		</div>
 	</body>

@@ -76,43 +76,28 @@ public class AddExchangeRateServlet extends HttpServlet {
 		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.exchangeRate);
 		
 		if(userE != null && perm){
-			/*try {
+			try {
 				RequestDispatcher rd;
-				String estimationID = request.getParameter("estimationID");
-				String protocolID   = request.getParameter("protocoloID");
-				String diagnosis    = request.getParameter("diagnosis");
-				String function		= request.getParameter("function");
-				String adminID  	= request.getParameter("adminID");
+				Double value = Double.parseDouble(request.getParameter("value"));
+				Long userID = userE.getUserID();
+				String text_good = "La tasa de cambio fue agregada exitosamente.";
+				String text_bad = "Se ha presentado un error al agregar la tasa de cambio. Por favor, intente nuevamente.";
 				
-				System.out.println(estimationID + " " + protocolID + " "+ diagnosis + " " + function + " " + adminID);
-				Long spID = (Long) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddEstimationProtocolOnAdmission(estimationID, protocolID, diagnosis));
-				System.out.println(spID);
-				if (spID != 0) {
-					//Obtener los items del presupuesto
-					@SuppressWarnings("unchecked")
-					ArrayList<ProtocolScale> p = (ArrayList<ProtocolScale>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetEstimationProtocolScale(estimationID, protocolID));
-					request.setAttribute("p",p);
-					
-					Integer hasMainSpecialist = (Integer) CommandExecutor.getInstance().executeDatabaseCommand(new command.HasMainSpecialist(protocolID));
-					request.setAttribute("hms", hasMainSpecialist);
-					
-					@SuppressWarnings("unchecked")
-					ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetBussinessMicros());
-					request.setAttribute("bm", bm);
-					
-					@SuppressWarnings("unchecked")
-					ArrayList<Unit> lList = (ArrayList<Unit>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetUnits());
-					request.setAttribute("units", lList);
-					
-					request.setAttribute("function", function);
-					request.setAttribute("protocolID", protocolID);
-					request.setAttribute("adminID", adminID);
-					rd = getServletContext().getRequestDispatcher("/addAdmissionProtocolStep2.jsp");
-					rd.forward(request, response);
+				ExchangeRate er = (ExchangeRate) CommandExecutor.getInstance().executeDatabaseCommand(new command.AddExchangeRate(userID, value));
+				request.setAttribute("er", er);
+				
+				if(er.getExchangeRateID() != null){
+					session.setAttribute("info",text_good);
 				}
+				else {
+					session.setAttribute("info",text_bad);
+				}
+				
+				rd = getServletContext().getRequestDispatcher("/addExchangeRate.jsp");		
+				rd.forward(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
-			}*/
+			}
 		} else {
 			request.setAttribute("time_out", "Su sesión ha expirado. Ingrese nuevamente"); 
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
