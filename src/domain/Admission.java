@@ -45,6 +45,7 @@ public class Admission {
 	private String totalDollar;
 	private String totalPaidDollar;
 	private String totalWithDiscountDollar;
+	private Long exchangeRateID;
 	
 	public Long getAdmissionID() {
 		return admissionID;
@@ -365,5 +366,13 @@ public class Admission {
 		} else {
 			this.totalWithDiscountDollar = null;
 		}
+	}
+
+	public Long getExchangeRateID() {
+		return exchangeRateID;
+	}
+
+	public void setExchangeRateID(Long exchangeRateID) {
+		this.exchangeRateID = exchangeRateID;
 	}
 }

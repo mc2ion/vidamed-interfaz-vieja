@@ -273,12 +273,19 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 			long serviceType = 0L;
 			double subtotal = 0.00;
 			double total = 0.00;
+			double subtotalDollar = 0.00;
+			double totalDollar = 0.00;
 
 			for (int j = 0; j < costs.size(); j++){
 				Service ct = costs.get(j);
 				if(ct.getServiceTypeID() == serviceType){
 					double d = Double.valueOf(ct.getPrice());
 					subtotal = subtotal + d;
+
+					if(e.getExchangeRateID() != 0) {
+						double dd = Double.valueOf(ct.getPriceDollar());
+						subtotalDollar = subtotalDollar + dd;
+					}
 				} else {
 					if(serviceType != 0L){
 			%>
@@ -299,6 +306,11 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 					total = total + subtotal;
 					subtotal = Double.valueOf(ct.getPrice());
 					serviceType = ct.getServiceTypeID();
+					
+					if(e.getExchangeRateID() != 0) {
+						totalDollar = totalDollar + subtotalDollar;
+						subtotalDollar = Double.valueOf(ct.getPriceDollar());
+					}
 				} 
 			%>
 			<tr>
@@ -310,6 +322,10 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 			<%
 			}
 			total = total + subtotal;
+			
+			if(e.getExchangeRateID() != 0) {
+				totalDollar = totalDollar + subtotalDollar;
+			}
 			%>
 			<tr id="totalTr" style="border: 1px solid #1EB1DD;">
 				<td colspan="3" style="text-align:right;">*** SUB-TOTAL ***</td>
@@ -319,6 +335,12 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 				<td colspan="3" style="text-align:right;">*** TOTAL SERVICIOS AUXILIARES ***</td>
 				<td style="width:20%;text-align:right;"><%= Estimation.format.format(total) %></td>
 			</tr>
+			<% if (e.getExchangeRateID() != 0) { %>
+			<tr id="totalTr">
+				<td colspan="3" style="text-align:right;background-color: #A5E0F1;">*** TOTAL SERVICIOS AUXILIARES EN D&Oacute;LARES ***</td>
+				<td style="width:20%;text-align:right;background-color: #A5E0F1;"><%= Estimation.format.format(totalDollar) %></td>
+			</tr>
+			<% } %>
 			</tbody>
 			</table>				
 		<br>

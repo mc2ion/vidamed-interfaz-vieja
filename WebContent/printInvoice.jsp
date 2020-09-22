@@ -328,6 +328,8 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 					/*double t = Estimation.format.parse(e.getTotal()).doubleValue();*/
 					double wd = (e.getTotalWithDiscount() == null) ? Estimation.format.parse(e.getTotal()).doubleValue() :Estimation.format.parse(e.getTotalWithDiscount()).doubleValue();
 					double r = wd - Estimation.format.parse(e.getTotalPaid()).doubleValue();
+					double rd = e.getTotalDollar() != null && e.getTotalPaidDollar() != null ? 
+							Estimation.format.parse(e.getTotalDollar()).doubleValue() - Estimation.format.parse(e.getTotalPaidDollar()).doubleValue() : 0.00;
 				%>
 				<tr id="totalTr2">
 					<td>*** TOTAL ***</td>
@@ -345,14 +347,32 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 					<td>*** TOTAL GENERAL ***</td>
 					<td style="width:20%;text-align:right;"><%= Estimation.format.format(wd)  %></td>
 				</tr>
+				<% if(e.getTotalDollar() != null) { %>
+				<tr id="totalTr">
+					<td style="background-color: #A5E0F1;">*** TOTAL GENERAL EN D&Oacute;LARES ***</td>
+					<td style="width:20%;text-align:right;background-color: #A5E0F1;"><%= e.getTotalDollar() %></td>
+				</tr>
+				<% } %>
 				<tr id="totalTr2">
 					<td>*** TOTAL PAGADO ***</td>
 					<td style="width:20%;text-align:right;"><%= e.getTotalPaid() %></td>
 				</tr>
+				<% if(e.getTotalPaidDollar() != null) { %>
+				<tr id="totalTr">
+					<td style="background-color: #A5E0F1;">*** TOTAL PAGADO EN D&Oacute;LARES ***</td>
+					<td style="width:20%;text-align:right;background-color: #A5E0F1;"><%= e.getTotalPaidDollar() %></td>
+				</tr>
+				<% } %>
 				<tr id="totalTr">
 					<td>*** RESTANTE ***</td>
 					<td style="width:20%;text-align:right;"><%= Estimation.format.format(r) %></td>
 				</tr>
+				<% if(e.getTotalDollar() != null && e.getTotalPaidDollar() != null) { %>
+				<tr id="totalTr">
+					<td style="background-color: #A5E0F1;">*** RESTANTE EN D&Oacute;LARES ***</td>
+					<td style="width:20%;text-align:right;background-color: #A5E0F1;"><%= Estimation.format.format(rd) %></td>
+				</tr>
+				<% } %>
 			</tbody>
 			</table>				
 		<br>
