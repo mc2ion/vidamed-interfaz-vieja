@@ -55,12 +55,16 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 		function printPageContentB() {
 			div = document.getElementById('botonera');
 			div.style.display = "none";
+			div2 = document.getElementById('footList');
+			div2.style.display = "block";
 			window.print();
 		}
 		
 		function unPrintPageContentB() {
 			div = document.getElementById('botonera');
 			div.style.display = "block";
+			div2 = document.getElementById('footList');
+			div2.style.display = "none";
 		}
 		
 		</script>
@@ -354,6 +358,13 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 				</form>
 			</div>
 		<div class="push"></div>
-        </div>			
+        </div>		
+        <div class="footer" id="footer">
+			<ul class="a" style="display:none;" id="footList">
+			<% if (e.getExchangeRateID() != 0) { %>
+	  			<li>COLETILLA TASA DE CAMBIO: <%= e.getExchangeRate() %></li>
+			<% } %>
+			</ul>		
+		</div>		
 	</body>
 </html>
