@@ -13,6 +13,8 @@ public class ProtocolScale {
 	private Long isSelected;
 	private String bussinessRuleMicroName;
 	
+	private Long unitID;
+	private Long specialistID;
 	
 	public Long getProtocolScaleID() {
 		return protocolScaleID;
@@ -103,4 +105,19 @@ public class ProtocolScale {
 	}
 	
 	
+	public Long getUnitID() {
+		return unitID;
+	}
+
+	public void setUnitID(Long unitID) {
+		this.unitID = unitID;
+	}
+
+	public Long getSpecialistID() {
+		return specialistID;
+	}
+
+	public void setSpecialistID(Long specialistID) {
+		this.specialistID = specialistID;
+	}
 }

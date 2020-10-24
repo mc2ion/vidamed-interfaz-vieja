@@ -46,20 +46,28 @@ public class GetSpecialistServlet extends HttpServlet {
 	        PrintWriter out = response.getWriter();
 	        try {
 	            Long unit = Long.valueOf(request.getParameter("unit"));
+	            Long specialist = request.getParameter("specialist") != null ? Long.valueOf(request.getParameter("specialist")) : null;
+	            String element = request.getParameter("element") != null ? String.valueOf(request.getParameter("element")) : null;
 	            @SuppressWarnings("unchecked")
 				ArrayList<Specialist> specialists = (ArrayList<Specialist>) CommandExecutor.getInstance().executeDatabaseCommand(new command.GetSpecialistsByUnit(unit));
 	            String options = "";
-	            if (specialists.size() > 0){
-					options = "<option value=\"\">Seleccionar</option>";
+	            if (specialists.size() > 0) {
+					options = "<option value=''>Seleccionar</option>";
 					for (int i = 0; i < specialists.size(); i++){
 		            	String name = specialists.get(i).getFirstName() + " "+specialists.get(i).getLastName() ;
-						options += "<option value="+ specialists.get(i).getId()+">" + name + "</option>";
+		            	String selected = specialist != null && specialists.get(i).getId().equals(specialist)?" selected":"";
+						options += "<option value="+ specialists.get(i).getId() + selected + ">" + name + "</option>";
 					}
-				}else
+				} else
 					options = "<option value=\"\">No hay especialistas </div>";
 				
-	            out.print(options);
+	            if (element != null) {
+		            out.print("{ \"options\": \"" + options + "\", \"element\": \"" + element + "\"}");
+	            } else {
+	                out.print(options);
+	            }
 	        }  catch (Exception ex) {
+	        	out.print(ex);
 	            out.print("Error getting product name..." + ex.toString());
 	        }
 	        finally {
