@@ -46,9 +46,12 @@ public class PatientSuppliesReportServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
 		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.reports);
+		boolean perm1 = PermissionsList.hasPermission(request, PermissionsList.pharmacyReport);
 		
-		if(userE != null && perm ){
-			try {				
+		if(userE != null && (perm || perm1)){
+			try {		
+				Long section = request.getParameter("sec") != null ? Long.parseLong(request.getParameter("sec")) : null;
+				request.setAttribute("sec", section);
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/reports_patientsupplies.jsp");
 				rd.forward(request, response);
 			} 
@@ -73,10 +76,10 @@ public class PatientSuppliesReportServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		User userE = (User)session.getAttribute("user");
 		
-		
 		boolean perm  = PermissionsList.hasPermission(request, PermissionsList.reports);
+		boolean perm1 = PermissionsList.hasPermission(request, PermissionsList.pharmacyReport);
 		
-		if(userE != null && perm ){	
+		if(userE != null && (perm || perm1)){	
 			String from 	= request.getParameter("from");
 			String to	 	= request.getParameter("to");
 			try {
@@ -87,6 +90,9 @@ public class PatientSuppliesReportServlet extends HttpServlet {
 				
 				request.setAttribute("from", from);
 				request.setAttribute("to", to);
+
+				Long section = request.getParameter("sec").equals("null") ? null : Long.parseLong(request.getParameter("sec"));
+				request.setAttribute("sec", section);
 								
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/reports_patientsupplies.jsp");
 				rd.forward(request, response);

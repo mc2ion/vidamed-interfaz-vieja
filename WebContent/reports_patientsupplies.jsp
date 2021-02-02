@@ -4,6 +4,7 @@
 <%@ page import="domain.User" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.HashMap" %>
+<%@ page import="domain.PermissionsList"%>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
@@ -20,6 +21,9 @@
 
 	String from 			= (String)request.getAttribute("from");
 	String to 			= (String)request.getAttribute("to");
+	
+	boolean perm = PermissionsList.hasPermission(request, PermissionsList.reports);
+	Long section = (Long)request.getAttribute("sec");
 %>
 <!DOCTYPE HTML>
 <html>
@@ -111,6 +115,7 @@
 			<h2>Reporte Insumos Facturados</h2>
 			<div id="dt_example">
 					<div id="container">
+					<% if ((section == null || section != PermissionsList.pharmacyReport) && perm) { %>
 						<form action="ListReportsServlet" method="post">
 								<h3 style="display:inline;">Escoja el módulo del cual quiere obtener un reporte:</h3>
 								<select name="modId">
@@ -139,8 +144,10 @@
 									<option value="22" selected>Insumos Pacientes</option>
 								</select>
 								<input type="submit" value="Buscar"/>
-						</form><br/><br/>
+						</form><br/>
+					<% } %><br/>
 						<form action="PatientSuppliesReportServlet" style="margin-top: -10px;" method="post" >
+			  			<input type="hidden" id="sec" name="sec" value="<%= section %>" /> 
 						Si lo desea, puede filtrar la búsqueda por los siguientes parámetros:
   						<div>
 							<fieldset style="text-align: left; margin-left:0px;">
