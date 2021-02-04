@@ -9,6 +9,11 @@ ArrayList<MedicalFee> totals = (ArrayList<MedicalFee>)request.getAttribute("tota
 SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 Date date = new Date();
 String dateTxt = dateFormat.format(date);
+String function = (String)request.getAttribute("function");
+String backUrl = "./ListBillingsHServlet";
+
+if (function != null && function.equals("pendingPayments"))
+	backUrl = "./ListPendingPaymentsServlet";
 %>
 
 <!DOCTYPE HTML>
@@ -238,7 +243,7 @@ String dateTxt = dateFormat.format(date);
 						<input type="submit"  class="button"  name="sbmtButton" value="Imprimir" style="margin-left:30%;" onclick="printPageContentB();unPrintPageContentB();return false" />
 			</div>	
 			<div id="botonV" style="display:inline-block;">
-						<input type="button" class="button" value="Regresar"  onClick="javascript:history.back();" style="margin-left:40%;" />		
+						<a class="button" href="<%= backUrl %>" style="margin-left:40%;">Regresar</a>		
 			</div>	
 			</form>
 		</div>

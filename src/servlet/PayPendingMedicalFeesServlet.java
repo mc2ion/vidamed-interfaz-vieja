@@ -84,6 +84,7 @@ public class PayPendingMedicalFeesServlet extends HttpServlet {
 					
 					request.setAttribute("mf", mf);
 					request.setAttribute("totals", totals);
+					request.setAttribute("function", function);
 					
 					RequestDispatcher rd;			
 					rd = getServletContext().getRequestDispatcher("/medicalFeeReceipt.jsp");
