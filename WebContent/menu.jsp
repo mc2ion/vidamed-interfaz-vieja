@@ -67,7 +67,7 @@
 		   	perm2  = PermissionsList.hasPermission(request, PermissionsList.pharmacyPatients );
 		   	boolean perm3  = PermissionsList.hasPermission(request, PermissionsList.pharmacyAdminRestricted);
 		   	boolean perm4 = PermissionsList.hasPermission(request, PermissionsList.pharmacyReport);
-			if (perm1 || perm2 || perm3){
+			if (perm1 || perm2 || perm3 || perm4){
 		   %>
 		  	 <li class='has-sub'>
 				<a href='#'><span>Farmacia</span></a>
