@@ -157,8 +157,6 @@
 								<% for (int i = 0; i < mfList.size(); i++){
 									PendingMedicalFee pm = mfList.get(i);
 									String eName = pm.getSpecialist().getFirstName() + " " + pm.getSpecialist().getLastName();
-									System.out.println(pm.getMedicalFeeID());
-									
 								%>
 								<tr class="gradeA">
 									<td><input type="checkbox" name="selFact" class='selF' value="<%= pm.getMedicalFeeID() %>"></td>

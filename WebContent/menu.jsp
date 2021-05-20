@@ -66,15 +66,22 @@
 		  	perm1  = PermissionsList.hasPermission(request, PermissionsList.pharmacyAdmin );
 		   	perm2  = PermissionsList.hasPermission(request, PermissionsList.pharmacyPatients );
 		   	boolean perm3  = PermissionsList.hasPermission(request, PermissionsList.pharmacyAdminRestricted);
-			if (perm1 || perm2 || perm3){
+		   	boolean perm4 = PermissionsList.hasPermission(request, PermissionsList.pharmacyReport);
+			if (perm1 || perm2 || perm3 || perm4){
 		   %>
 		  	 <li class='has-sub'>
 				<a href='#'><span>Farmacia</span></a>
 			      <ul>
-			      	 <% if (perm1 || perm3){ %>
+			      	 <% if (perm1 || perm3) { %>
 			         <li class='first'><a href='ListSupplyAreasServlet'><span>Administrar</span></a></li>
-			         <% } if (perm2){ %>
+			         <% } if (perm2) { 
+			         		if (perm4) { %>
+			         <li><a href='ListSupplyServlet'><span>Ver Pacientes</span></a></li>
+			         	<% } else { %>
 			         <li class='last'><a href='ListSupplyServlet'><span>Ver Pacientes</span></a></li>
+			         	<% } 
+			         } if (perm4) { %>
+			         <li class='last'><a href='PatientSuppliesReportServlet?sec=<%= PermissionsList.pharmacyReport %>'><span>Reporte</span></a></li>
 			         <% } %>
 			      </ul>
 		   </li>
@@ -82,7 +89,7 @@
 		   	perm1  = PermissionsList.hasPermission(request, PermissionsList.billsH );
 		   	perm2  = PermissionsList.hasPermission(request, PermissionsList.billsRP );
 		   	perm3  = PermissionsList.hasPermission(request, PermissionsList.billsGN );
-		   	boolean perm4  = PermissionsList.hasPermission(request, PermissionsList.billsPP );
+		   	perm4  = PermissionsList.hasPermission(request, PermissionsList.billsPP );
 		   	if (perm1 || perm2 || perm3 || perm4 ){
 		   %>
 			   <li class='has-sub'>

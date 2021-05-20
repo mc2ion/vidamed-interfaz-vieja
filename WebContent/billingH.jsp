@@ -69,6 +69,7 @@
 				"sScrollY": "200px",
 				"bPaginate": false,
 				"aoColumns": [
+					{ "bSearchable": false, "bSortable": false },
 					null,
 					null,
 					null,
@@ -86,6 +87,10 @@
 		            "sSearch": "Buscar:"
 	        	}
 			} );
+			
+			$('#selAll').on('click', function() {
+				$('.selF').prop('checked', $(this).is(':checked'));
+			});
 	} );
 		
 	</script>
@@ -128,10 +133,18 @@
         	<div id="content" style="position: absolute; left: 0; top: 75px;">	
 	        	<h2>Honorarios Médicos:</h2><br>
 				<div class="info-text"><%= text_result %></div>
+ 				<form id='formFact' method="post" action="PayPendingMedicalFeesServlet">
+  					<input type="hidden" id="function" class="good_input" name="function"  value="billingsH"/>
+					<div id="printCashBox" class='cuentasP'>
+						<!-- <label>N&uacute;mero de Documento: </label><input type="text" name="documentnumber" id="documentnumber" size="10">
+						<label>Banco: </label><input type="text" name="bank" id="bank" size="25"> -->
+						<input type="submit" id="printCashBoxText" value="Pagos Cancelados">
+					</div>
 					<div id="demo">
 						<table class="display" id="example">
 							<thead>
 								<tr>
+									<th style="text-align:right;"><input type="checkbox" name="selAll" id="selAll" class='selF'></th>
 									<th>Pago del Seguro</th>
 									<th>Doctor</th>
 									<th>Monto</th>
@@ -143,14 +156,13 @@
 								<% for (int i = 0; i < mfList.size(); i++){
 									PendingMedicalFee pm = mfList.get(i);
 									String status = "Pendiente";
-									System.out.println("status " + pm.getBillWasPaid());
 									if (pm.getBillWasPaid() == 1)
 										status = "<span style=\"color: rgb(241, 224, 180);font-weight: bold;font-style: italic;\">Cobrado</span>";
 									String eName = pm.getSpecialist().getFirstName() + " " + pm.getSpecialist().getLastName();
-									System.out.println(pm.getMedicalFeeID());
 									
 								%>
 								<tr class="gradeA">
+									<td><input type="checkbox" name="selFact" class='selF' value="<%= pm.getMedicalFeeID() %>"></td>
 									<td><%= status %></td>
 									<td><%= eName %></td>
 									<td>Bs. <%= pm.getAmount() %></td>
@@ -173,7 +185,8 @@
 								</tbody>
 							</table>
 						</div>
-				</div>
+				</form>				
+			</div>
 		</div>
 		<div id="deleteUser">
 			<div id="signup-ct">
@@ -234,5 +247,19 @@
 		 		</form>
 			</div>
 		</div>
+		<script>
+		$('.selF').change(function () {
+			var checkedAtLeastOne = false;
+			$('input[type="checkbox"]').each(function() {
+				if ($(this).is(":checked")) {
+					checkedAtLeastOne = true;
+				}
+				
+			});
+			if (checkedAtLeastOne == true) {$('.cuentasP').show();}
+			else {$('.cuentasP').hide();}
+		});
+		
+		</script>
 	</body>
 </html>

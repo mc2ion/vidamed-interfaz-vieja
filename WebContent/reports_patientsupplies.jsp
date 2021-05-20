@@ -1,9 +1,10 @@
 <%@page import="sun.font.EAttribute"%>
-<%@page import="domain.PatientRecord"%>
+<%@page import="domain.BilledSupply"%>
 <%@page import="domain.Admission"%>
 <%@ page import="domain.User" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.HashMap" %>
+<%@ page import="domain.PermissionsList"%>
 <%
 	User user = (User) session.getAttribute("user");
 	String name = "";
@@ -16,10 +17,13 @@
 		modSelect = Integer.valueOf(modId);
 	
 	@SuppressWarnings("unchecked")
-	ArrayList<PatientRecord> mfList = (ArrayList<PatientRecord>)request.getAttribute("pp");
+	ArrayList<BilledSupply> mfList = (ArrayList<BilledSupply>)request.getAttribute("pp");
 
 	String from 			= (String)request.getAttribute("from");
 	String to 			= (String)request.getAttribute("to");
+	
+	boolean perm = PermissionsList.hasPermission(request, PermissionsList.reports);
+	Long section = (Long)request.getAttribute("sec");
 %>
 <!DOCTYPE HTML>
 <html>
@@ -108,9 +112,10 @@
         </div>        
 		 <jsp:include page="./menu.jsp" />
 		<div id="content" style="min-height: 600px;">  
-			<h2>Reporte Registros de Pacientes</h2>
+			<h2>Reporte Insumos Facturados</h2>
 			<div id="dt_example">
 					<div id="container">
+					<% if ((section == null || section != PermissionsList.pharmacyReport) && perm) { %>
 						<form action="ListReportsServlet" method="post">
 								<h3 style="display:inline;">Escoja el módulo del cual quiere obtener un reporte:</h3>
 								<select name="modId">
@@ -134,20 +139,22 @@
 									<option value="17" >An&aacute;lisis Vencimiento</option>
 									<option value="18" >Relaci&oacute;n de Facturaci&oacute;n</option>
 									<option value="19" >An&aacute;lisis Vencimiento Resumido</option>
-									<option value="20" selected>Registros de Pacientes</option>
+									<option value="20" >Registros de Pacientes</option>
 									<option value="21" >Insumos Facturados</option>
-									<option value="22" >Insumos Pacientes</option>
+									<option value="22" selected>Insumos Pacientes</option>
 								</select>
 								<input type="submit" value="Buscar"/>
-						</form><br/><br/>
-						<form action="PatientRecordsReportServlet" style="margin-top: -10px;" method="post" >
+						</form><br/>
+					<% } %><br/>
+						<form action="PatientSuppliesReportServlet" style="margin-top: -10px;" method="post" >
+			  			<input type="hidden" id="sec" name="sec" value="<%= section %>" /> 
 						Si lo desea, puede filtrar la búsqueda por los siguientes parámetros:
   						<div>
 							<fieldset style="text-align: left; margin-left:0px;">
 							<table style="width:100%;">
 								<tr>
-									<td><b>Ingreso Desde:</b></td><td><input  type="text" name="from" id="from" maxlength="50" size="20" value="<%= (from != null) ? from : "" %>" required /></td>
-									<td><b>Ingreso Hasta:</b></td><td><input  type="text" name="to" id="to" maxlength="50" size="20" value="<%= (to != null) ? to : "" %>" required /></td>
+									<td><b>Fecha Carga Desde:</b></td><td><input  type="text" name="from" id="from" maxlength="50" size="20" value="<%= (from != null) ? from : "" %>" required /></td>
+									<td><b>Fecha Carga Hasta:</b></td><td><input  type="text" name="to" id="to" maxlength="50" size="20" value="<%= (to != null) ? to : "" %>" required /></td>
 								</tr>
 							</table>	
 							<input type="submit" class="buttonGreen lessPadding"   style="float: right; margin-right:40px; margin-top: 5px;" value="Buscar">
@@ -158,49 +165,50 @@
 								<table id="sweetTable" >
 									<thead>
 										<tr>
-											<th># Admisi&oacute;n</th>
-											<th>Fecha de Ingreso</th>
-											<th>Nombre y Apellido</th>
-											<th>C&eacute;dula</th>
-											<th>Edad</th>
-											<th>Sexo</th>
-											<th>Diagn&oacute;stico</th>
-											<th>Tratamiento</th>
-											<th>Tipo</th>
-											<th>M&eacute;dico Tratante</th>
-											<th>Ayudante 1</th>
-											<th>Ayudante 2</th>
-											<th>Anestesi&oacute;logo</th>
-											<th>Días de Hosp</th>
-											<th>Fecha de Egreso</th>
+											<th>No. de Admisi&oacute;n</th>
+											<th>Fecha Carga Insumo</th>
+											<th># C&eacute;dula</th>
+											<th>Nombre Paciente</th>
+											<th>&Iacute;tem</th>
+											<th>Inventario</th>
+											<th>Insumo</th>
+											<th>Cantidad</th>
+											<th>Precio Uni.</th>
+											<th>Total</th>
 										</tr>
 									</thead>
 									<tbody>		
 									<% 	if (mfList != null && mfList.size() > 0 ){
 											for (int i = 0; i < mfList.size(); i++){ 
-											PatientRecord u = mfList.get(i); 
+												BilledSupply u = mfList.get(i); 
+												
+												if(u.getAdmissionID() == 0) {
+									%>
+										<tr id="totalTr">
+											<td colspan="7" style="text-align:right;"><%= u.getSupplyName() %></td>
+											<td colspan="3"><%= u.getPrice() %></td>
+										</tr>
+									<%		
+												} else {
 									%>
 										<tr>
 											<td><%= u.getAdmissionID() %></td>
-											<td><%= u.getAdmissionDate() %></td>
-											<td><%= u.getPatientName() %></td>
+											<td><%= u.getSupplyDate() %></td>
 											<td><%= u.getIdentityCard() %></td>
-											<td><%= u.getAge() %></td>
-											<td><%= u.getGender() %></td>
-											<td><%= u.getDiagnosis() %></td>
-											<td><%= u.getProtocolName() %></td>
-											<td><%= u.getType() %></td>
-											<td><%= u.getAttendingSpecialist() %></td>
-											<td><%= (u.getHelper1() != null) ? u.getHelper1() : "" %></td>
-											<td><%= (u.getHelper2() != null) ? u.getHelper2() : "" %></td>
-											<td><%= (u.getAnesthesiologist() != null) ? u.getAnesthesiologist() : "" %></td>
-											<td><%= u.getRoomDays() %></td>
-											<td><%= (u.getDischargeDate() != null) ? u.getDischargeDate() : "" %></td>
+											<td><%= u.getPatientName() %></td>
+											<td><%= u.getSupplyAreaName() %></td>
+											<td><%= u.getSupplyInventoryID() %></td>
+											<td><%= u.getSupplyName() %></td>
+											<td><%= u.getAmount() %></td>
+											<td><%= u.getUnitPrice() %></td>
+											<td><%= u.getPrice() %></td>
 										</tr>
-									<% 		}
+									<% 		
+												}
+											}
 										}else{									
 									%>
-										<tr><td colspan="15" style="text-align: center;">No hay datos disponibles</td></tr>
+										<tr><td colspan="10" style="text-align: center;">No hay datos disponibles</td></tr>
 									
 									<% } %>	
 									</tbody>

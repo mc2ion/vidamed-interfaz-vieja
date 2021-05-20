@@ -13,6 +13,7 @@ public class BilledSupply {
 	private String price;
 	private String supplyAreaName;
 	private String supplyDate;
+	private Long admissionID;
 
 	public String getGenerationDate() {
 		return generationDate;
@@ -100,5 +101,13 @@ public class BilledSupply {
 
 	public void setSupplyDate(String supplyDate) {
 		this.supplyDate = supplyDate;
+	}
+
+	public Long getAdmissionID() {
+		return admissionID;
+	}
+
+	public void setAdmissionID(Long admissionID) {
+		this.admissionID = admissionID;
 	}
 }

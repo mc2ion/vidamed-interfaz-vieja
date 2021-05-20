@@ -127,6 +127,7 @@
 									<option value="19" >An&aacute;lisis Vencimiento Resumido</option>
 									<option value="20" >Registros de Pacientes</option>
 									<option value="21" >Insumos Facturados</option>
+									<option value="22" >Insumos Pacientes</option>
 								</select>
 								<input type="submit" value="Buscar"/>
 						</form><br/><br/>
