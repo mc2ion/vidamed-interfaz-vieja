@@ -40,6 +40,7 @@ public class Estimation {
 	private String paymentResponsibleName;
 	private String totalDollar;
 	private String totalWithDiscountDollar;
+	private String exchangeRate;
 	
 	public void setIsPolicyHolder(int isPolicyHolder) {
 		this.isPolicyHolder = isPolicyHolder;
@@ -288,6 +289,18 @@ public class Estimation {
 			this.totalWithDiscountDollar = format.format(totalWithDiscountDollar);
 		} else {
 			this.totalWithDiscountDollar = null;
+		}
+	}
+
+	public String getExchangeRate() {
+		return exchangeRate;
+	}
+
+	public void setExchangeRate(String str, Double exchangeRate) {
+		if(str!=null){
+			this.exchangeRate = format.format(exchangeRate);
+		} else {
+			this.exchangeRate = null;
 		}
 	}
 }

@@ -57,12 +57,16 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 		function printPageContentB() {
 			div = document.getElementById('botonera');
 			div.style.display = "none";
+			div2 = document.getElementById('footList');
+			div2.style.display = "block";
 			window.print();
 		}
 		
 		function unPrintPageContentB() {
 			div = document.getElementById('botonera');
 			div.style.display = "block";
+			div2 = document.getElementById('footList');
+			div2.style.display = "none";
 		}
 		
 		</script>
@@ -273,12 +277,19 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 			long protocolScale = 0L;
 			double subtotal = 0.00;
 			double total = 0.00;
+			double subtotalDollar = 0.00;
+			double totalDollar = 0.00;
 
 			for (int j = 0; j < costs.size(); j++){
 				PatientSupply ct = costs.get(j);
 				if(ct.getProtocolScaleID() == protocolScale){
 					double d = Double.valueOf(ct.getTotal());
 					subtotal = subtotal + d;
+					
+					if(e.getExchangeRateID() != 0) {
+						double dd = Double.valueOf(ct.getTotalDollar());
+						subtotalDollar = subtotalDollar + dd;
+					}
 				} else {
 					if(protocolScale != 0L){
 			%>
@@ -299,6 +310,11 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 					total = total + subtotal;
 					subtotal = Double.valueOf(ct.getTotal());
 					protocolScale = ct.getProtocolScaleID();
+					
+					if(e.getExchangeRateID() != 0) {
+						totalDollar = totalDollar + subtotalDollar;
+						subtotalDollar = Double.valueOf(ct.getTotalDollar());
+					}
 				} 
 			%>
 			<tr>
@@ -310,6 +326,10 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 			<%
 			}
 			total = total + subtotal;
+			
+			if(e.getExchangeRateID() != 0) {
+				totalDollar = totalDollar + subtotalDollar;
+			}
 			%>
 			<tr id="totalTr" style="border: 1px solid #1EB1DD;">
 				<td colspan="3" style="text-align:right;">*** SUB-TOTAL ***</td>
@@ -319,6 +339,12 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 				<td colspan="3" style="text-align:right;">*** TOTAL F&Aacute;RMACOS Y MATERIALES ***</td>
 				<td style="width:20%;text-align:right;"><%= Estimation.format.format(total) %></td>
 			</tr>
+			<% if (e.getExchangeRateID() != 0) { %>
+			<tr id="totalTr">
+				<td colspan="3" style="text-align:right;background-color: #A5E0F1;">*** TOTAL SERVICIOS AUXILIARES EN D&Oacute;LARES ***</td>
+				<td style="width:20%;text-align:right;background-color: #A5E0F1;"><%= Estimation.format.format(totalDollar) %></td>
+			</tr>
+			<% } %>
 			</tbody>
 			</table>				
 		<br>
@@ -336,6 +362,13 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
 				</form>
 			</div>
 		<div class="push"></div>
-        </div>		
+        </div>	
+        <div class="footer" id="footer">
+			<ul class="a" style="display:none;" id="footList">
+			<% if (e.getExchangeRateID() != 0) { %>
+	  			<li>COLETILLA TASA DE CAMBIO: <%= e.getExchangeRate() %></li>
+			<% } %>
+			</ul>		
+		</div>	
 	</body>
 </html>

@@ -45,6 +45,8 @@ public class Admission {
 	private String totalDollar;
 	private String totalPaidDollar;
 	private String totalWithDiscountDollar;
+	private Long exchangeRateID;
+	private String exchangeRate;
 	
 	public Long getAdmissionID() {
 		return admissionID;
@@ -364,6 +366,26 @@ public class Admission {
 			this.totalWithDiscountDollar = format.format(totalWithDiscountDollar);
 		} else {
 			this.totalWithDiscountDollar = null;
+		}
+	}
+
+	public Long getExchangeRateID() {
+		return exchangeRateID;
+	}
+
+	public void setExchangeRateID(Long exchangeRateID) {
+		this.exchangeRateID = exchangeRateID;
+	}
+
+	public String getExchangeRate() {
+		return exchangeRate;
+	}
+
+	public void setExchangeRate(String str, Double exchangeRate) {
+		if(str!=null){
+			this.exchangeRate = format.format(exchangeRate);
+		} else {
+			this.exchangeRate = null;
 		}
 	}
 }

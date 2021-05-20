@@ -47,6 +47,7 @@ public class PermissionsList implements Serializable {
     public static long additionalServices  = 34;
     public static long admissionCashBoxes  = 35;
     public static long pharmacyAdminRestricted = 36;
+    public static long exchangeRate = 37;	
     public static long pharmacyReport = 38;
     
    	
