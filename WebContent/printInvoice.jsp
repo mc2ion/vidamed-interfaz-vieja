@@ -398,7 +398,7 @@ ArrayList<BussinessMicro> bm = (ArrayList<BussinessMicro>) request.getAttribute(
         <div class="footer" id="footer">
 			<ul class="a" style="display:none;" id="footList">
 			<% if (e.getExchangeRateID() != 0) { %>
-	  			<li>COLETILLA TASA DE CAMBIO: <%= e.getExchangeRate() %></li>
+	  			<li>TIPO DE CAMBIO APLICABLE SEGÚN BANCO CENTRAL DE VENEZUELA (BS./ USD) <%= e.getExchangeRate() %>, FECHA VALOR <%= e.getExchangeRateDate() %></li>
 			<% } %>
 			</ul>		
 		</div>				

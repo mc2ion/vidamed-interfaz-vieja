@@ -41,6 +41,7 @@ public class Estimation {
 	private String totalDollar;
 	private String totalWithDiscountDollar;
 	private String exchangeRate;
+	private String exchangeRateDate;
 	
 	public void setIsPolicyHolder(int isPolicyHolder) {
 		this.isPolicyHolder = isPolicyHolder;
@@ -302,5 +303,13 @@ public class Estimation {
 		} else {
 			this.exchangeRate = null;
 		}
+	}
+
+	public String getExchangeRateDate() {
+		return exchangeRateDate;
+	}
+
+	public void setExchangeRateDate(String exchangeRateDate) {
+		this.exchangeRateDate = exchangeRateDate;
 	}
 }

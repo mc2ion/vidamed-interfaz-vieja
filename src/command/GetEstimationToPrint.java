@@ -47,6 +47,7 @@ public class GetEstimationToPrint implements DatabaseCommand {
 				u.setTotalDollar(rs.getString(20), rs.getDouble(20));
 				u.setTotalWithDiscountDollar(rs.getString(21), rs.getDouble(21));
 				u.setExchangeRate(rs.getString(22), rs.getDouble(22));
+				u.setExchangeRateDate(rs.getString(23));
 			}
 		}
 		finally {

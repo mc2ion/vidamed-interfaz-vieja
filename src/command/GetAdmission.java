@@ -104,6 +104,7 @@ public class GetAdmission implements DatabaseCommand {
 				u.setTotalWithDiscountDollar(rs.getString(36), rs.getDouble(36));
 				u.setExchangeRateID(rs.getLong(37));
 				u.setExchangeRate(rs.getString(38), rs.getDouble(38));
+				u.setExchangeRateDate(rs.getString(39));
 				
 			}
 		}

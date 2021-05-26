@@ -47,6 +47,7 @@ public class Admission {
 	private String totalWithDiscountDollar;
 	private Long exchangeRateID;
 	private String exchangeRate;
+	private String exchangeRateDate;
 	
 	public Long getAdmissionID() {
 		return admissionID;
@@ -387,5 +388,13 @@ public class Admission {
 		} else {
 			this.exchangeRate = null;
 		}
+	}
+
+	public String getExchangeRateDate() {
+		return exchangeRateDate;
+	}
+
+	public void setExchangeRateDate(String exchangeRateDate) {
+		this.exchangeRateDate = exchangeRateDate;
 	}
 }
